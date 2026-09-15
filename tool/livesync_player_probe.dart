@@ -26,6 +26,7 @@ class _ProbeState extends State<_Probe> {
   final player = Player();
   String status = 'Preparing local fixture';
   bool busy = true;
+  bool videoReady = false;
   String phase = 'starting';
 
   Future<void> _checkpoint(String value) async {
@@ -83,6 +84,11 @@ class _ProbeState extends State<_Probe> {
       await _checkpoint('configuring-fonts');
       await player.setProperty('volume', '5');
       await player.configureSubtitleFonts();
+      // The standalone harness must initialize the native HWND before Video
+      // sends its first rect. A rect sent to an absent HWND is a successful
+      // no-op upstream, leaving the video at the native 100x100 default.
+      if (mounted) setState(() => videoReady = true);
+      await WidgetsBinding.instance.endOfFrame;
       final tracksReady = player.streams.tracks
           .firstWhere((tracks) => tracks.subtitle.any(isFixtureTrack))
           .timeout(const Duration(seconds: 20));
@@ -208,7 +214,9 @@ class _ProbeState extends State<_Probe> {
     appBar: AppBar(title: const Text('Plezy + LiveSync — native renderer feasibility')),
     body: Column(
       children: [
-        Expanded(child: Video(player: player)),
+        Expanded(
+          child: videoReady ? Video(player: player) : const Center(child: CircularProgressIndicator()),
+        ),
         ColoredBox(
           color: const Color(0xff182438),
           child: Padding(
