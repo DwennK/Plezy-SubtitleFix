@@ -25,3 +25,34 @@ value for each absolute media sample index. It tests decoder sample/PTS mapping,
 channel layout, seeks, speed, pause and disable using the actual libmpv binary.
 It contains no dialogue and does not test Whisper or SRT synchronization.
 The fixture generator is part of this GPL-licensed fork.
+
+## Sintel audio/SRT corpus preparation
+
+Copyright (c) Blender Foundation | durian.blender.org. Audio and subtitles are
+CC BY 3.0, as stated in the [audio notice](https://media.xiph.org/sintel/README.txt)
+and [subtitle notice](https://media.xiph.org/sintel/subtitles/README.txt).
+Logos/trademarks are excluded from that license. Keep these attribution notices
+with every derived fixture and identify any trimming, time warp or other edit.
+
+`corpus-sources.json` pins the stereo master, English SRT and both notices by
+size/SHA-256. The audio hash also matches the distributor's published checksum.
+The 68 MiB audio stays outside Git and can be obtained with:
+
+```sh
+python3 scripts/livesync/prepare_corpus.py --output build/livesync/corpus-source
+```
+
+Partitions are fixed **before matcher calibration**: 100–175 s for calibration,
+200–650 s for validation (different dialogues), and 650–888 s without SRT cues.
+The helper only fetches/checks bytes; it does not transcribe those partitions.
+Do not tune thresholds against the held-out results. Future corpus revisions
+must preserve a genuinely unused validation set if these partitions are used
+for implementation debugging.
+
+The source is real film audio, stereo 48 kHz, 888 seconds, with 26 authored cues.
+Those cue boundaries are **not manually annotated speech-onset ground truth**.
+Before claiming absolute temporal precision, independently annotate acoustic
+anchors and record uncertainty. Known synthetic timeline transformations will
+provide relative mapping expectations, separately from cue authoring lead/lag.
+This prepared source does not yet validate automatic alignment or any transformed
+scenario. It supplements, rather than upgrades, the JFK feasibility evidence.

@@ -1,0 +1,51 @@
+{
+  "schemaVersion": 1,
+  "status": "prepared-not-evaluated",
+  "sources": [
+    {
+      "id": "sintel-stereo-en",
+      "title": "Sintel (2010)",
+      "attribution": "Copyright (c) Blender Foundation | durian.blender.org",
+      "license": "CC-BY-3.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by/3.0/",
+      "sourcePage": "https://media.xiph.org/sintel/",
+      "audioDurationSeconds": 888,
+      "audioSampleRate": 48000,
+      "audioChannels": 2,
+      "independentAcousticAnchorsAnnotated": false,
+      "timingReference": "Authored SRT cue timings; not precise speech-onset ground truth",
+      "files": [
+        {
+          "name": "sintel-master-st.flac",
+          "url": "https://media.xiph.org/sintel/sintel-master-st.flac",
+          "bytes": 71533398,
+          "sha256": "49b279400b6fcad23f6a8862ae65a2a22f21f249cd7576b09991880da221412b",
+          "checksumSource": "https://media.xiph.org/sintel/SHA256SUMS.txt"
+        },
+        {
+          "name": "sintel_en.srt",
+          "url": "https://media.xiph.org/sintel/subtitles/sintel_en.srt",
+          "bytes": 1514,
+          "sha256": "4ed7e1f1bc5ff69fe33606960e4c048ba6766237bf33b132fef76e1a92cb64b2"
+        },
+        {
+          "name": "sintel-audio-license.txt",
+          "url": "https://media.xiph.org/sintel/README.txt",
+          "bytes": 379,
+          "sha256": "a929d7a3c4f5056c33187c009165522cb6b036e33103052974fa042545622dcb"
+        },
+        {
+          "name": "sintel-subtitle-license.txt",
+          "url": "https://media.xiph.org/sintel/subtitles/README.txt",
+          "bytes": 390,
+          "sha256": "c709d4d7ae435f88bc00a65233e73a0010721c67ebb68d9a012b0a498964162b"
+        }
+      ],
+      "partitions": [
+        {"role": "calibration", "startSeconds": 100, "endSeconds": 175, "srtCueCount": 12},
+        {"role": "held-out-validation", "startSeconds": 200, "endSeconds": 650, "srtCueCount": 14},
+        {"role": "held-out-without-srt-cues", "startSeconds": 650, "endSeconds": 888, "srtCueCount": 0}
+      ]
+    }
+  ]
+}

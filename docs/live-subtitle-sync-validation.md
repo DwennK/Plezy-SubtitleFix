@@ -502,3 +502,17 @@ dans le plan, avec la machine Windows physique encore à identifier.
   à obtenir ; aucune sélection automatique ou distribution AVX2 n'est encore faite.
 - Le CPU portable demeure le défaut. Une sélection sûre avant chargement de la
   bibliothèque optimisée sera requise pour les machines plus anciennes.
+
+### Préparation d'un corpus distinct du smoke test
+
+- Master audio stéréo de **Sintel**, 888 s à 48 kHz, et SRT anglais original
+  récupérés depuis Xiph ; taille et SHA-256 vérifiés, hash audio conforme au
+  fichier de checksums publié. Les deux notices confirment CC BY 3.0 avec
+  attribution à Blender Foundation ; elles sont également épinglées.
+- Les sources restent hors Git. `prepare_corpus.py` vérifie les octets, préserve
+  un fichier existant différent et conserve les notices. Téléchargement réel
+  d'une notice, réutilisation et préservation d'un fichier étranger vérifiés.
+- Séparation fixée avant calibration : 100–175 s pour calibrer, 200–650 s pour
+  valider, 650–888 s sans cue SRT. Aucune inférence n'a encore été faite sur ces
+  partitions. Les timings authored du SRT ne sont pas des ancres acoustiques
+  indépendantes ; celles-ci et les variantes temporelles restent à préparer.
