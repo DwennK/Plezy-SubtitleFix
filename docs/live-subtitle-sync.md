@@ -74,5 +74,7 @@ pas implicites dans un build de test.
 
 ## État
 
-Plan enregistré avant implémentation. Phase A en cours. Aucun fonctionnement
-LiveSync livré ou validé à ce stade. Voir le journal de validation et le manifeste.
+Plan enregistré avant implémentation. Phase A préparée, phase B en cours :
+inférence CPU Windows/macOS et prélèvement PCM natif macOS avec PTS démontrés.
+Le build Windows du mpv patché est en cours. Aucun fonctionnement LiveSync de bout
+en bout livré à ce stade. Voir le journal de validation et le manifeste.

@@ -39,11 +39,59 @@ jobs:
       - name: Build with upstream dependency install trees
         working-directory: build/livesync/mpv-source
         run: make build use-prebuilt libs=libmpv platform=macos
+      - name: Verify native PCM contents and timestamps
+        run: |
+          python3 scripts/livesync/link_macos_probe.py --build build/livesync/mpv-source/dist/libmpv/macos/scratch/arm64 --output build/livesync/libmpv-probe.dylib
+          python3 scripts/livesync/probe_pcm.py --library build/livesync/libmpv-probe.dylib --output build/livesync/evidence/pcm
+          cp docs/live-subtitle-sync-versions.json build/livesync/evidence/versions.json
+          git rev-parse HEAD > build/livesync/evidence/fork-sha.txt
+      - name: Preserve PCM proof
+        if: always()
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7
+        with:
+          name: livesync-pcm-macos-${{ github.sha }}
+          path: build/livesync/evidence/
+          if-no-files-found: error
+          retention-days: 14
       - name: Preserve native binaries
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7
         with:
           name: livesync-mpv-macos-${{ github.sha }}
           path: build/livesync/mpv-source/dist/release/
+          if-no-files-found: error
+          retention-days: 14
+
+  windows-probe:
+    needs: windows
+    runs-on: windows-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          persist-credentials: false
+      - name: Download this run's compiled DLL
+        uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8
+        with:
+          name: livesync-mpv-windows-x64-${{ github.sha }}
+          path: build/livesync/archive
+      - name: Extract the native dependency
+        shell: pwsh
+        run: |
+          $archives = @(Get-ChildItem build/livesync/archive -Filter *.zip)
+          if ($archives.Count -ne 1) { throw 'Expected exactly one native archive' }
+          Expand-Archive $archives[0].FullName build/livesync/mpv
+      - name: Verify real Windows PCM contents and timestamps
+        shell: bash
+        run: |
+          python3 scripts/livesync/probe_pcm.py --library build/livesync/mpv/libmpv-2.dll --output build/livesync/evidence/pcm
+          cp docs/live-subtitle-sync-versions.json build/livesync/evidence/versions.json
+          git rev-parse HEAD > build/livesync/evidence/fork-sha.txt
+      - name: Preserve PCM proof
+        if: always()
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7
+        with:
+          name: livesync-pcm-windows-x64-${{ github.sha }}
+          path: build/livesync/evidence/
           if-no-files-found: error
           retention-days: 14
 

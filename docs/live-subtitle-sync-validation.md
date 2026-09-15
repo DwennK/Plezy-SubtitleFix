@@ -22,11 +22,11 @@ restent explicitement non réalisées, y compris sur Windows et dans l'UI native
 
 | Niveau | État | Limite |
 |---|---|---|
-| Contrôles upstream de référence | En préparation | SDK à installer |
-| PCM natif macOS avec PTS | À réaliser | API effective à établir |
+| Contrôles upstream de référence | Analyse OK, suite 7 245 succès / 1 échec | Échec passe isolément, détails ci-dessous |
+| PCM natif macOS avec PTS | Prouvé sur WAV réel, sortie nulle | Audio audible et app à vérifier |
 | PCM natif Windows avec PTS | À réaliser | CI et matériel interactif à identifier |
 | Lecture et correction visible réversible | À réaliser | App de test isolée nécessaire |
-| Inférence réelle base.en / quantifiée | À réaliser | Modèles et backends à évaluer |
+| Inférence réelle base.en / quantifiée | CPU Windows/macOS, Metal local OK | Un seul extrait, pas de calibration temporelle |
 | Domaine et transcripts injectés | À réaliser | Ne prouvent pas la capture native |
 | Précision et faux verrouillages | À réaliser | Corpus de validation distinct de calibration |
 | Performances et budgets | À définir avant validation finale | Référence Windows non identifiée |
@@ -53,3 +53,71 @@ interrompu, GPU défaillant et passthrough. Provenance redistribuable obligatoir
 `scripts/run_tests.sh`, `scripts/codegen.sh --check`,
 `scripts/ci_checks.sh`, `git diff --check`, builds natifs selon workflows upstream.
 Conserver les résultats réels, les échecs de référence et les limites séparément.
+
+## Journal — premiers résultats réels
+
+### Environnement et contrôles upstream
+
+Flutter 3.47.1 / Dart 3.13.1 installé dans le cache dédié. `flutter pub get
+--enforce-lockfile --no-example` réussi. Le workflow upstream impose aussi cette
+commande dans `packages/wakelock_plus` : après cette préparation, `flutter analyze
+--no-pub` passe sans diagnostic. Les 49 diagnostics du premier essai étaient dus
+à cette préparation incomplète, et ne sont pas des régressions LiveSync.
+
+Suite complète : 7 245 réussites, 6 skips, 1 échec (`playback_open_failure_test`,
+aucun `loadfile` observé dans le délai d'attente). Le même test relancé seul passe.
+Cela ne permet pas de déclarer la suite entièrement verte ; sa sensibilité à la
+charge reste à examiner. Aucun fichier Dart de l'application n'avait été modifié.
+
+### Inférence réelle
+
+whisper.cpp v1.9.4 compilé avec Metal sur Apple M4 / 16 Gio. Modèles vérifiés contre
+les SHA-256 LFS de la révision Hugging Face figée. Un seul extrait JFK de 11 s :
+
+| Modèle/backend local | Temps total CLI, chargement inclus |
+|---|---:|
+| base.en / Metal | 2 088 ms |
+| base.en-q5_1 / Metal | 2 422 ms |
+| base.en / CPU | 2 701 ms |
+
+Mesures exploratoires, un essai par configuration, avec d'autres builds/tests en
+cours. Ni benchmark stable, ni mesure d'impact sur la lecture, ni erreur temporelle
+SRT. La quantification n'est pas sélectionnée comme meilleure sur cette base.
+
+CI réelle Windows x64 et macOS arm64 : les deux modèles passent en CPU.
+[Run 35015023385](https://github.com/DwennK/Plezy-SubtitleFix/actions/runs/35015023385),
+SHA `b68ec07e89a5e04b2f0163fa61edf5d59d07fa0b`. Les artefacts contiennent sorties
+JSON, logs, versions et SHA. Vérification locale des quatre sorties téléchargées :
+erreur de mots nulle sur cet extrait familier ; aucune précision temporelle déduite.
+
+### Capture native macOS
+
+mpv 0.41.0 + série Apple Plezy figée + patch LiveSync compilé pour arm64 et x86_64.
+Le moteur Flutter reste inchangé. Le driver réutilise les install trees officiels
+de FFmpeg et autres dépendances ; il a effectivement sélectionné Meson 1.12.0 via
+son PATH interne, malgré le venv 1.4.2 préparé. Le manifeste distingue ces outils.
+
+Sur arm64, `probe_pcm.py` charge les mêmes objets compilés dans un dylib de test.
+Il décode réellement un WAV stéréo 48 kHz généré (317/691 Hz), avec la sortie audio
+nulle cadencée de mpv. Les échantillons et PTS correspondent à la formule connue à
+une unité d'amplitude 16 bits près. 43 blocs vérifiés : lecture, seek vers 7 s,
+retour vers 2 s, vitesse 1.5. Les epochs progressent 0 → 1 → 2. Pause et retrait
+du prélèvement passent. Les PTS sont vérifiés sur la grille 1/48 000 s.
+
+Cette preuve ne valide pas l'audio audible, le rendu natif Plezy, le passthrough,
+les flux réseau, les changements de pistes ni le fonctionnement Windows.
+Les blocs peuvent précéder le point cible d'un seek exact ou anticiper la position
+affichée : le consommateur devra sélectionner uniquement la fenêtre effectivement
+entendue et rejeter les générations obsolètes.
+
+### Travaux encore ouverts
+
+Construction Windows du mpv patché en cours via le driver upstream et sa chaîne
+LLVM/MinGW figée ; son bootstrap à froid peut durer plusieurs heures.
+[Run 35015208320](https://github.com/DwennK/Plezy-SubtitleFix/actions/runs/35015208320).
+Pas encore de preuve PCM Windows, de fonction dans l'UI, de matching SRT, de cache,
+de modèle géré par l'UI ni d'automatisation quotidienne d'intégration upstream.
+
+La branche par défaut du fork est `feature/live-subtitle-sync`, pour héberger les
+workflows propres au fork ; `main` reste le miroir officiel inchangé. Aucune
+release publique, aucun changement dans l'application Plezy installée.

@@ -54,6 +54,7 @@ jobs:
           for model in base.en base.en-q5_1; do
             "$exe" -ng -m "build/livesync/models/ggml-$model.bin" -f build/livesync/source/samples/jfk.wav -ojf -of "build/livesync/evidence/$model-cpu" > "build/livesync/evidence/$model-cpu.txt" 2>&1
           done
+          python3 scripts/livesync/check_inference.py --fixture build/livesync/source/samples/jfk.wav --evidence build/livesync/evidence
           cp docs/live-subtitle-sync-versions.json build/livesync/evidence/versions.json
           git rev-parse HEAD > build/livesync/evidence/fork-sha.txt
           cmake --version > build/livesync/evidence/cmake-version.txt

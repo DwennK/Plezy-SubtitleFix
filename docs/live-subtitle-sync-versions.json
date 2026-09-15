@@ -467,6 +467,22 @@
           "apple"
         ]
       }
+    },
+    "localAppleBuild": {
+      "architectures": [
+        "arm64",
+        "x86_64"
+      ],
+      "artifactSha256": "d76af1b3703d3ca8e4ac57761903018a8ec18ccb2058274656362ecb418b4a32",
+      "builtAt": "2026-09-15T19:52:08.150607+00:00",
+      "runtimeTested": [
+        "arm64: synthetic PCM with null output"
+      ],
+      "untested": [
+        "x86_64 runtime",
+        "audible output",
+        "Plezy UI"
+      ]
     }
   },
   "lockSha256": {
@@ -499,11 +515,12 @@
   "validatedPlatforms": [],
   "localTools": {
     "cmake": "3.31.6",
-    "meson": "1.4.2",
+    "meson": "1.4.2 (prepared venv; not selected by Apple driver)",
     "ninja": "1.13.0",
     "xcode": "27.0 (27A266a)",
     "dart": "3.13.1",
     "cpu": "Apple M4",
-    "memoryBytes": 17179869184
+    "memoryBytes": 17179869184,
+    "appleBuildDriverMeson": "1.12.0 (driver resolved /opt/homebrew/bin/meson)"
   }
 }

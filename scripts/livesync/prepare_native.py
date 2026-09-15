@@ -64,10 +64,12 @@ def download_model(model, destination):
 
 def prepare_mpv(manifest, destination):
     native = manifest["native"]
+    patch = ROOT / "native/live_subtitle_sync/patches/0001-bounded-timestamped-pcm-tap.patch"
+    if digest(patch) != native["liveSyncPatchSha256"]:
+        raise ValueError("LiveSync patch differs from the reviewed manifest")
     dest = checkout("https://github.com/" + native["repo"], native["commit"], destination)
     name = "0900-livesync-pcm-tap.patch"
-    shutil.copyfile(ROOT / "native/live_subtitle_sync/patches/0001-bounded-timestamped-pcm-tap.patch",
-                    dest / "patches/mpv/pool" / name)
+    shutil.copyfile(patch, dest / "patches/mpv/pool" / name)
     for platform in ("apple", "windows"):
         series = dest / "patches/mpv" / ("series." + platform)
         content = series.read_text()
