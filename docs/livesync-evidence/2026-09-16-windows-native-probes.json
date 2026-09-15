@@ -1,0 +1,290 @@
+{
+  "ciRun": 35031113958,
+  "forkSha": "4ac6dd6de627dbf8eeb9e71ed0e20af4955e9bc2",
+  "provenance": {
+    "nativeRevision": "c7348c98438b74b3d3f64244a7f48f7e366dbf1a",
+    "liveSyncPatchSha256": "6a2e0e12b3e61c6f846127c90e75361a20cbfef9c822d56a0ecac55b6803a977",
+    "windowsCompatibilityPatchSha256": "ff63249eb0118550f3d37923a05dca9992c1f2bae66baee303992d7dcb1c5ca3",
+    "buildRepository": "DwennK/Plezy-SubtitleFix",
+    "buildRun": 35031113958,
+    "buildSourceSha": "4ac6dd6de627dbf8eeb9e71ed0e20af4955e9bc2",
+    "buildUrl": "https://github.com/DwennK/Plezy-SubtitleFix/actions/runs/35031113958",
+    "artifactId": 10421094562,
+    "artifactDigest": "sha256:cf754197c1652d6016e3e8fa1ef26f1dabea5a1a1f85bbb6bfab4656cd21752d",
+    "architecture": "x86_64",
+    "archiveSha256": "a2aff7c906a4f8e9cc2981092984e648a1edef4c1a00d5c590671dc6a9357b33",
+    "dllSha256": "834c26a327cfd829eca194e4a109f862cf0ed79346cab6f206bac667dba8b873"
+  },
+  "pcm": {
+    "kind": "real-native-decode-null-output",
+    "audiblePlaybackValidated": false,
+    "initial": {
+      "epochs": [
+        0
+      ],
+      "frames": [
+        {
+          "pts": 0.512,
+          "samples": 4096,
+          "maximumSampleError": 0
+        },
+        {
+          "pts": 0.5973333333333334,
+          "samples": 4096,
+          "maximumSampleError": 0
+        },
+        {
+          "pts": 0.6826666666666668,
+          "samples": 4096,
+          "maximumSampleError": 0
+        },
+        {
+          "pts": 0.7680000000000001,
+          "samples": 4096,
+          "maximumSampleError": 0
+        },
+        {
+          "pts": 0.8533333333333335,
+          "samples": 4096,
+          "maximumSampleError": 0
+        },
+        {
+          "pts": 0.9386666666666669,
+          "samples": 4096,
+          "maximumSampleError": 0
+        },
+        {
+          "pts": 1.0240000000000002,
+          "samples": 4096,
+          "maximumSampleError": 0
+        }
+      ]
+    },
+    "forwardSeek": {
+      "epochs": [
+        1
+      ],
+      "frames": [
+        {
+          "pts": 6.997333333333333,
+          "samples": 4096,
+          "maximumSampleError": 0
+        },
+        {
+          "pts": 7.082666666666666,
+          "samples": 4096,
+          "maximumSampleError": 0
+        },
+        {
+          "pts": 7.168,
+          "samples": 4096,
+          "maximumSampleError": 0
+        },
+        {
+          "pts": 7.253333333333334,
+          "samples": 4096,
+          "maximumSampleError": 0
+        },
+        {
+          "pts": 7.338666666666668,
+          "samples": 4096,
+          "maximumSampleError": 0
+        },
+        {
+          "pts": 7.424000000000001,
+          "samples": 4096,
+          "maximumSampleError": 0
+        },
+        {
+          "pts": 7.509333333333335,
+          "samples": 4096,
+          "maximumSampleError": 0
+        },
+        {
+          "pts": 7.594666666666669,
+          "samples": 4096,
+          "maximumSampleError": 0
+        },
+        {
+          "pts": 7.680000000000002,
+          "samples": 4096,
+          "maximumSampleError": 0
+        },
+        {
+          "pts": 7.765333333333336,
+          "samples": 4096,
+          "maximumSampleError": 0
+        },
+        {
+          "pts": 7.85066666666667,
+          "samples": 4096,
+          "maximumSampleError": 0
+        },
+        {
+          "pts": 7.9360000000000035,
+          "samples": 4096,
+          "maximumSampleError": 0
+        }
+      ]
+    },
+    "backwardSeek": {
+      "epochs": [
+        2
+      ],
+      "frames": [
+        {
+          "pts": 1.9626666666666666,
+          "samples": 4096,
+          "maximumSampleError": 0
+        },
+        {
+          "pts": 2.048,
+          "samples": 4096,
+          "maximumSampleError": 0
+        },
+        {
+          "pts": 2.1333333333333333,
+          "samples": 4096,
+          "maximumSampleError": 0
+        },
+        {
+          "pts": 2.2186666666666666,
+          "samples": 4096,
+          "maximumSampleError": 0
+        },
+        {
+          "pts": 2.304,
+          "samples": 4096,
+          "maximumSampleError": 0
+        },
+        {
+          "pts": 2.389333333333333,
+          "samples": 4096,
+          "maximumSampleError": 0
+        },
+        {
+          "pts": 2.4746666666666663,
+          "samples": 4096,
+          "maximumSampleError": 0
+        },
+        {
+          "pts": 2.5599999999999996,
+          "samples": 4096,
+          "maximumSampleError": 0
+        },
+        {
+          "pts": 2.645333333333333,
+          "samples": 4096,
+          "maximumSampleError": 0
+        },
+        {
+          "pts": 2.730666666666666,
+          "samples": 4096,
+          "maximumSampleError": 0
+        },
+        {
+          "pts": 2.8159999999999994,
+          "samples": 4096,
+          "maximumSampleError": 0
+        },
+        {
+          "pts": 2.9013333333333327,
+          "samples": 4096,
+          "maximumSampleError": 0
+        },
+        {
+          "pts": 2.986666666666666,
+          "samples": 4096,
+          "maximumSampleError": 0
+        }
+      ]
+    },
+    "speed1_5": {
+      "epochs": [
+        2
+      ],
+      "frames": [
+        {
+          "pts": 3.071999999999999,
+          "samples": 4096,
+          "maximumSampleError": 0
+        },
+        {
+          "pts": 3.1573333333333324,
+          "samples": 4096,
+          "maximumSampleError": 0
+        },
+        {
+          "pts": 3.2426666666666657,
+          "samples": 4096,
+          "maximumSampleError": 0
+        },
+        {
+          "pts": 3.327999999999999,
+          "samples": 4096,
+          "maximumSampleError": 0
+        },
+        {
+          "pts": 3.413333333333332,
+          "samples": 4096,
+          "maximumSampleError": 0
+        },
+        {
+          "pts": 3.4986666666666655,
+          "samples": 4096,
+          "maximumSampleError": 0
+        },
+        {
+          "pts": 3.5839999999999987,
+          "samples": 4096,
+          "maximumSampleError": 0
+        },
+        {
+          "pts": 3.669333333333332,
+          "samples": 4096,
+          "maximumSampleError": 0
+        },
+        {
+          "pts": 3.7546666666666653,
+          "samples": 4096,
+          "maximumSampleError": 0
+        },
+        {
+          "pts": 3.8399999999999985,
+          "samples": 4096,
+          "maximumSampleError": 0
+        }
+      ]
+    },
+    "overflow": {
+      "epoch": 4,
+      "dropped": 1,
+      "returnedFrames": 16,
+      "transferBoundBytes": 262144
+    },
+    "pauseAndDisable": "passed"
+  },
+  "subtitles": {
+    "kind": "real-native-subtitle-decoder-null-output",
+    "local": {
+      "completeSrtAccessible": true,
+      "sourceIdentityPreserved": true,
+      "positiveAndNegativeDelay": "passed",
+      "manualDelayRestored": 0.125,
+      "nativeDecoderSelection": "passed",
+      "visiblePixelsValidated": false
+    },
+    "authenticatedHttp": {
+      "completeSrtAccessible": true,
+      "sourceIdentityPreserved": true,
+      "positiveAndNegativeDelay": "passed",
+      "manualDelayRestored": 0.125,
+      "nativeDecoderSelection": "passed",
+      "visiblePixelsValidated": false
+    },
+    "httpRequests": 2,
+    "sourceHashUnchanged": "e982c14fedc7dc9aecd0fc9341eb9caff774c4b0636a586499e0542e7e491f86"
+  },
+  "productionAppValidated": false,
+  "visiblePixelsValidated": false
+}

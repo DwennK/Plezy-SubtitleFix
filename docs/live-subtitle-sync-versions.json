@@ -561,10 +561,24 @@
       }
     },
     "windowsX64": {
-      "nativeBuildRun": 35029877791,
-      "status": "failed: curl needs libssh/scp.h with the fetched libssh 0.12 headers; cached build resumed successfully",
-      "verificationRun": 35020598056,
-      "applicationRun": 35030406999
+      "nativeBuildRun": 35031113958,
+      "status": "native x64 build and PCM/SRT probes passed; application build and visible renderer proof pending",
+      "verificationRun": 35031113958,
+      "applicationRun": 35032845964,
+      "nativeArtifact": {
+        "nativeRevision": "c7348c98438b74b3d3f64244a7f48f7e366dbf1a",
+        "liveSyncPatchSha256": "6a2e0e12b3e61c6f846127c90e75361a20cbfef9c822d56a0ecac55b6803a977",
+        "windowsCompatibilityPatchSha256": "ff63249eb0118550f3d37923a05dca9992c1f2bae66baee303992d7dcb1c5ca3",
+        "buildRepository": "DwennK/Plezy-SubtitleFix",
+        "buildRun": 35031113958,
+        "buildSourceSha": "4ac6dd6de627dbf8eeb9e71ed0e20af4955e9bc2",
+        "buildUrl": "https://github.com/DwennK/Plezy-SubtitleFix/actions/runs/35031113958",
+        "artifactId": 10421094562,
+        "artifactDigest": "sha256:cf754197c1652d6016e3e8fa1ef26f1dabea5a1a1f85bbb6bfab4656cd21752d",
+        "architecture": "x86_64",
+        "archiveSha256": "a2aff7c906a4f8e9cc2981092984e648a1edef4c1a00d5c590671dc6a9357b33",
+        "dllSha256": "834c26a327cfd829eca194e4a109f862cf0ed79346cab6f206bac667dba8b873"
+      }
     }
   },
   "checks": {
@@ -612,7 +626,9 @@
         "base.en",
         "base.en-q5_1"
       ],
-      "result": "passed actual CPU recognition, single-flight, cancellation, timebase and recovery; C ABI validation is a later run"
+      "result": "passed actual CPU recognition, single-flight, cancellation, timebase and recovery; C ABI validation is a later run",
+      "abiCiRun": 35030407327,
+      "abiCiResult": "passed versioned C ABI with both models on Windows x64 and macOS arm64"
     },
     "dartFeatureComponents": {
       "ciRun": 35028609282,
@@ -623,6 +639,11 @@
       ],
       "passed": 19,
       "failed": 0
+    },
+    "windowsCpuProfileEvaluation": {
+      "ciRun": 35031841845,
+      "profile": "avx2-evaluation",
+      "result": "passed guarded actual inference; single-trial base 1.694 s and q5 2.154 s; runtime dispatch and p95 not validated"
     }
   }
 }

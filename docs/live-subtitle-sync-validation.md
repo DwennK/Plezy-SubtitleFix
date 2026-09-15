@@ -534,3 +534,30 @@ Le run portable précédent était plus rapide (17–19 s) : cette variation de 
 renforce le besoin de séries mesurées sur machine identifiée. Le gain justifie
 une sélection CPU à l'exécution, mais celle-ci et son packaging restent à
 implémenter. Aucun p95, impact sur la lecture ou résultat GPU Windows n'est validé.
+
+## PCM et transport SRT Windows natifs démontrés — 2026-09-16
+
+Le run **`35031113958` est réussi**, SHA fork `4ac6dd6d` : compilation du DLL
+patché, puis probes exécutés sur Windows x64. Résumé et provenance complète :
+`docs/livesync-evidence/2026-09-16-windows-native-probes.json`.
+
+- 42 blocs PCM contrôlés sur lecture initiale, seeks avant/arrière et vitesse 1,5× :
+  erreur maximale **0** sur les échantillons vérifiés aux PTS attendus.
+- Pause/désactivation, overflow avec hausse d'epoch/dropped, et transfert limité
+  à 256 Kio vérifiés. Sortie audio nulle : aucune validation audible implicite.
+- SRT local et HTTP authentifié contrôlé : texte complet accessible, sélection
+  native, délais positifs/négatifs et restauration du manuel à **0,125 s** réussis.
+  Hash du SRT original conservé. Ni catalogue Plex/Jellyfin réel ni pixels validés.
+- Artefact natif `10421094562`, archive intérieure SHA-256
+  `a2aff7c906a4f8e9cc2981092984e648a1edef4c1a00d5c590671dc6a9357b33`,
+  DLL `834c26a327cfd829eca194e4a109f862cf0ed79346cab6f206bac667dba8b873`.
+- 87 révisions de sources observées sont archivées dans
+  `2026-09-16-windows-native-sources.json`. Ce relevé n'est pas encore un gel
+  exhaustif des téléchargements transitifs ni une preuve de rebuild identique.
+
+Le premier staging applicatif (`35032033326`) a refusé les fichiers d'entrée
+convertis en CRLF par Git Windows. `.gitattributes` force désormais LF uniquement
+pour les entrées comparées octet par octet ; **7 tests de staging réussissent**,
+dont un vrai checkout Git avec `core.autocrlf=true`. Le staging suivant a passé.
+Le run applicatif actuel est `35032845964` (SHA `6afb5ee9`), incluant le banc de
+rendu au nom d'exécutable réel `plezy_livesync.exe` ; résultat encore attendu.

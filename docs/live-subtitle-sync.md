@@ -40,8 +40,8 @@ l'accès précis requis. Ne pas annoncer le projet terminé avec des cases ouver
 - Réglages : `sub-delay` et `audio-delay` dans `SyncOffsetControl`.
 - Le client public libmpv ne fournit pas le prélèvement PCM requis. Le patch
   isolé ajoute une lecture destructive bornée de PCM horodaté dans le pipeline
-  existant, avant le filtre de vitesse. La preuve macOS est acquise ; Windows
-  attend encore la construction de la pile native et ses probes.
+  existant, avant le filtre de vitesse. Les probes PCM/SRT sont acquis sur macOS
+  et Windows ; le rendu visuel de l'application Windows reste à vérifier.
 
 Séparer capture, inférence, index SRT, rapprochement, alignement, confiance,
 timeline et adaptation player. UI indépendante de whisper. Une seule inférence,
@@ -81,8 +81,8 @@ renderer macOS et lecture complète bornée des SRT démontrés séparément.
 Le consommateur PCM 16 kHz borné passe sur Windows/macOS. La chaîne lecture
 active → consommateur → worker Whisper CPU passe sur le Mac avec les deux modèles.
 Le worker et son interface C passent en CI sur Windows/macOS. Le build Windows
-du mpv patché reprend après correction des prérequis Python et de l'include SCP
-de curl/libssh. Le rendu Windows reste à prouver. Aucun fonctionnement
+du mpv patché et les probes PCM/SRT passent dans `35031113958`. Le build applicatif
+et le rendu Windows restent à prouver. Aucun fonctionnement
 LiveSync de bout en bout livré. Voir le journal de validation et le manifeste.
 
 
