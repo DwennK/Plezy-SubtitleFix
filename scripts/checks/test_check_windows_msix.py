@@ -88,24 +88,23 @@ class WindowsMsixGuardTest(unittest.TestCase):
     def test_underscored_identity_name_is_rejected(self) -> None:
         # makeappx enforces the schema pattern on Identity/@Name before it reads
         # any payload, so an underscore makes the package unbuildable.
-        script = self._mutate('$IdentityName = "edde746.Plezy"', '$IdentityName = "edde746_Plezy"')
+        script = self._mutate('$IdentityName = "DwennK.PlezyLiveSync"', '$IdentityName = "DwennK_PlezyLiveSync"')
 
         result = self._run(script)
 
         self.assertNotEqual(result.returncode, 0)
         self.assertIn("[-.A-Za-z0-9]+ pattern", result.stderr)
 
-    def test_identity_drift_from_partner_center_is_rejected(self) -> None:
-        # The reserved identity is what Store validation matches the upload
-        # against, and what installed copies are keyed by.
+    def test_identity_drift_from_fork_is_rejected(self) -> None:
+        # Installed copies must remain keyed by the fork identity.
         script = self._mutate(
-            '$PublisherDisplayName = "edde746"', '$PublisherDisplayName = "someone else"'
+            '$PublisherDisplayName = "DwennK"', '$PublisherDisplayName = "someone else"'
         )
 
         result = self._run(script)
 
         self.assertNotEqual(result.returncode, 0)
-        self.assertIn("reserved in Partner Center", result.stderr)
+        self.assertIn("isolated fork identity", result.stderr)
 
     def test_three_part_version_is_rejected(self) -> None:
         script = self._mutate('    return "$Semver.0"', '    return "$Semver"')
@@ -142,7 +141,7 @@ class WindowsMsixGuardTest(unittest.TestCase):
     def test_unresolved_interpolation_is_rejected(self) -> None:
         # A new variable in the template has to be declared where the checker
         # can see it, or the manifest it validates is not the one that ships.
-        script = self._mutate("<DisplayName>Plezy</DisplayName>", "<DisplayName>$AppName</DisplayName>")
+        script = self._mutate("<DisplayName>Plezy + LiveSync</DisplayName>", "<DisplayName>$AppName</DisplayName>")
 
         result = self._run(script)
 
