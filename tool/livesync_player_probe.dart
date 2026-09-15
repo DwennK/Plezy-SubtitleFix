@@ -26,6 +26,15 @@ class _ProbeState extends State<_Probe> {
   final player = Player();
   String status = 'Preparing local fixture';
   bool busy = true;
+  String phase = 'starting';
+
+  Future<void> _checkpoint(String value) async {
+    phase = value;
+    const directory = String.fromEnvironment('LIVESYNC_RENDERER_AUTOMATION_DIR');
+    if (directory.isEmpty) return;
+    await Directory(directory).create(recursive: true);
+    await File('$directory/preparation.json').writeAsString(jsonEncode({'phase': phase}));
+  }
 
   @override
   void initState() {
@@ -35,6 +44,7 @@ class _ProbeState extends State<_Probe> {
 
   Future<void> _prepare() async {
     try {
+      await _checkpoint('checking-fixture');
       const directory = String.fromEnvironment('LIVESYNC_FIXTURE_DIR');
       final video = File('$directory/fixture.mkv');
       final subtitles = File('$directory/fixture.srt');
@@ -49,16 +59,28 @@ class _ProbeState extends State<_Probe> {
       if (const String.fromEnvironment('LIVESYNC_RENDERER_AUTOMATION_DIR').isNotEmpty) {
         // Hosted Windows runners may have no physical audio endpoint. This
         // dedicated rendering proof does not claim audible-output validation.
-        await player.setProperty('ao', 'null');
+        await _checkpoint('initializing-player');
+        await player.setProperty('ao', 'null').timeout(const Duration(seconds: 20));
+        if (Platform.isWindows) {
+          // A hosted runner has no physical GPU. Exercise the actual native
+          // D3D11 window with Windows WARP; this is not a hardware GPU proof.
+          await player.setProperty('gpu-api', 'd3d11');
+          await player.setProperty('gpu-context', 'd3d11');
+          await player.setProperty('d3d11-warp', 'yes');
+        }
       }
+      await _checkpoint('configuring-fonts');
       await player.setProperty('volume', '5');
       await player.configureSubtitleFonts();
+      await _checkpoint('opening-media');
       await player.open(
         Media(video.path, start: const Duration(milliseconds: 1500)),
         play: false,
         externalSubtitles: [track],
       );
+      await _checkpoint('waiting-playback-restart');
       await ready;
+      await _checkpoint('waiting-subtitle-track');
       final available = await tracksReady;
       await player.selectSubtitleTrack(available.subtitle.firstWhere((t) => t.uri == subtitles.path));
       await player.setProperty('sub-delay', '0.125');
@@ -67,6 +89,12 @@ class _ProbeState extends State<_Probe> {
       await _describe('Baseline: manual delay 0.125 s');
       await _automate();
     } catch (error) {
+      const directory = String.fromEnvironment('LIVESYNC_RENDERER_AUTOMATION_DIR');
+      if (directory.isNotEmpty) {
+        await File('$directory/failure.json').writeAsString(
+          jsonEncode({'passed': false, 'phase': phase, 'error': error.toString(), 'syntheticFixture': true}),
+        );
+      }
       if (mounted) setState(() => status = 'Probe error: $error');
     } finally {
       if (mounted) setState(() => busy = false);
@@ -111,6 +139,7 @@ class _ProbeState extends State<_Probe> {
             'delay': delay,
             'syntheticFixture': true,
             'audioOutput': 'null',
+            'videoBackend': Platform.isWindows ? 'd3d11-warp' : 'platform-default',
             'audiblePlaybackValidated': false,
           }),
           flush: true,

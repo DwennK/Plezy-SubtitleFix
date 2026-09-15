@@ -22,7 +22,7 @@ public static class LiveSyncProbeWindow {
 $executablePath = (Resolve-Path $Executable).Path
 $outputPath = (Resolve-Path $OutputDirectory).Path
 $screen = [System.Windows.Forms.Screen]::PrimaryScreen.WorkingArea
-$process = Start-Process -FilePath $executablePath -WorkingDirectory (Split-Path $executablePath) -PassThru
+$process = Start-Process -FilePath $executablePath -WorkingDirectory (Split-Path $executablePath) -PassThru -RedirectStandardOutput (Join-Path $outputPath 'stdout.log') -RedirectStandardError (Join-Path $outputPath 'stderr.log')
 try {
   $deadline = [DateTime]::UtcNow.AddSeconds(60)
   do {
@@ -83,6 +83,24 @@ try {
     visualInspectionRequired = $true
     automaticSynchronizationValidated = $false
   } | ConvertTo-Json -Depth 5 | Set-Content (Join-Path $outputPath 'capture-provenance.json')
+} catch {
+  # Preserve the real window on failure too, so a UI initialization error is
+  # distinguishable from a video/clock failure. This runner contains no user data.
+  $process.Refresh()
+  if (-not $process.HasExited -and $process.MainWindowHandle -ne [IntPtr]::Zero) {
+    $rect = New-Object LiveSyncProbeWindow+Rect
+    [LiveSyncProbeWindow]::SetForegroundWindow($process.MainWindowHandle) | Out-Null
+    Start-Sleep -Milliseconds 200
+    if ([LiveSyncProbeWindow]::GetWindowRect($process.MainWindowHandle, [ref]$rect)) {
+      $bitmap = New-Object System.Drawing.Bitmap(($rect.Right - $rect.Left), ($rect.Bottom - $rect.Top))
+      $graphics = [System.Drawing.Graphics]::FromImage($bitmap)
+      try {
+        $graphics.CopyFromScreen($rect.Left, $rect.Top, 0, 0, $bitmap.Size)
+        $bitmap.Save((Join-Path $outputPath 'failure-window.png'), [System.Drawing.Imaging.ImageFormat]::Png)
+      } finally { $graphics.Dispose(); $bitmap.Dispose() }
+    }
+  }
+  throw
 } finally {
   $process.Refresh()
   if (-not $process.HasExited) {

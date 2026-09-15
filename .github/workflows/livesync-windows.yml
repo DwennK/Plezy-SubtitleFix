@@ -7,6 +7,10 @@ on:
         description: Native build run in this fork containing the Windows x64 artifact
         required: true
         type: string
+      renderer_only:
+        description: Run only the dedicated renderer after a completed native/application probe run
+        type: boolean
+        default: false
 
 permissions:
   contents: read
@@ -63,11 +67,13 @@ jobs:
           Get-ComputerInfo -Property WindowsProductName,WindowsVersion,OsBuildNumber,CsProcessors |
             ConvertTo-Json -Depth 4 > build/livesync/evidence/runner.json
       - name: Build the isolated test application
+        if: ${{ !inputs.renderer_only }}
         shell: pwsh
         run: |
           flutter build windows --debug --no-pub
           if ($LASTEXITCODE -ne 0) { throw 'Windows application build failed' }
       - name: Build and execute upstream native reliability contracts
+        if: ${{ !inputs.renderer_only }}
         shell: pwsh
         run: |
           $buildDir = 'build/windows/x64'
@@ -80,6 +86,7 @@ jobs:
           ctest --test-dir "$buildDir/runner" -C Debug --output-on-failure --no-tests=error --output-junit "${{ github.workspace }}/build/livesync/evidence/native-contracts.xml"
           if ($LASTEXITCODE -ne 0) { throw 'Native contracts failed' }
       - name: Verify PCM and reversible SRT timing with the app-bundled DLL
+        if: ${{ !inputs.renderer_only }}
         shell: pwsh
         run: |
           $dll = 'build/windows/x64/runner/Debug/libmpv-2.dll'
@@ -91,6 +98,7 @@ jobs:
           python scripts/livesync/probe_subtitles.py --library $dll --output build/livesync/evidence/subtitles
           if ($LASTEXITCODE -ne 0) { throw 'SRT timing verification failed' }
       - name: Verify native PCM conversion with the app-bundled DLL
+        if: ${{ !inputs.renderer_only }}
         shell: pwsh
         run: |
           cmake -S native/live_subtitle_sync -B build/livesync/pcm-consumer
@@ -102,6 +110,7 @@ jobs:
           python scripts/livesync/probe_pcm_consumer.py --library build/windows/x64/runner/Debug/libmpv-2.dll --consumer build/livesync/pcm-consumer/Release/livesync_pcm_bridge.dll --output build/livesync/evidence/consumer
           if ($LASTEXITCODE -ne 0) { throw 'Native PCM conversion probe failed' }
       - name: Verify actual CPU inference from active-playback PCM
+        if: ${{ !inputs.renderer_only }}
         shell: pwsh
         run: |
           python scripts/livesync/prepare_native.py whisper --dest build/livesync/whisper-source
@@ -123,6 +132,7 @@ jobs:
             if ($LASTEXITCODE -ne 0) { throw 'Active-playback worker probe failed' }
           }
       - name: Preserve test application
+        if: ${{ !inputs.renderer_only }}
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7
         with:
           name: livesync-windows-app-${{ github.sha }}
@@ -130,6 +140,7 @@ jobs:
           if-no-files-found: error
           retention-days: 14
       - name: Emit and verify isolated packaging metadata
+        if: ${{ !inputs.renderer_only }}
         shell: pwsh
         run: |
           python scripts/checks/check_windows_installer.py
