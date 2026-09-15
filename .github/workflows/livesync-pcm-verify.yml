@@ -1,9 +1,6 @@
 name: LiveSync Windows PCM verification
 
 on:
-  workflow_run:
-    workflows: ['LiveSync patched mpv build']
-    types: [completed]
   workflow_dispatch:
     inputs:
       run_id:
@@ -16,12 +13,11 @@ permissions:
   actions: read
 
 concurrency:
-  group: livesync-pcm-verify-${{ github.event.workflow_run.id || inputs.run_id }}
+  group: livesync-pcm-verify-${{ inputs.run_id }}
   cancel-in-progress: false
 
 jobs:
   verify:
-    if: github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success'
     runs-on: windows-latest
     timeout-minutes: 15
     steps:
@@ -33,7 +29,7 @@ jobs:
         with:
           pattern: livesync-mpv-windows-x64-*
           merge-multiple: true
-          run-id: ${{ github.event.workflow_run.id || inputs.run_id }}
+          run-id: ${{ inputs.run_id }}
           github-token: ${{ github.token }}
           path: build/livesync/archive
       - name: Extract native dependency
@@ -45,7 +41,7 @@ jobs:
       - name: Verify native PCM with exact synthetic media timestamps
         shell: bash
         env:
-          NATIVE_RUN_ID: ${{ github.event.workflow_run.id || inputs.run_id }}
+          NATIVE_RUN_ID: ${{ inputs.run_id }}
         run: |
           python3 scripts/livesync/probe_pcm.py --library build/livesync/mpv/libmpv-2.dll --output build/livesync/evidence/pcm
           printf '%s\n' "$NATIVE_RUN_ID" > build/livesync/evidence/native-build-run.txt
