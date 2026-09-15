@@ -17,7 +17,20 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
+  wait-for-build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 350
+    steps:
+      - name: Wait for the selected native build to complete
+        env:
+          GH_TOKEN: ${{ github.token }}
+          NATIVE_RUN_ID: ${{ inputs.run_id }}
+        run: |
+          [[ "$NATIVE_RUN_ID" =~ ^[0-9]+$ ]] || exit 2
+          gh run watch "$NATIVE_RUN_ID" --repo "$GITHUB_REPOSITORY" --exit-status --interval 60
+
   verify:
+    needs: wait-for-build
     runs-on: windows-latest
     timeout-minutes: 15
     steps:

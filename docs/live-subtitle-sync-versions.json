@@ -9,7 +9,14 @@
     "sha": "4992d1bd8b76830a9539f03d650e1db4e85c8dc7",
     "commitDate": "2026-09-15T15:58:46+02:00",
     "plezyVersion": "2.20.0+150",
-    "stableRelease": "2.20.0"
+    "stableRelease": "2.20.0",
+    "latestCheck": {
+      "checkedAt": "2026-09-15T20:06:01.468893+00:00",
+      "latestSha": "7e4c8feb0c7bd3b8aade2d240bc13abb05e1e2a8",
+      "integratedSha": "4992d1bd8b76830a9539f03d650e1db4e85c8dc7",
+      "unintegratedCommits": 1,
+      "scope": "Android GpuVoPolicy.kt and MpvPlayerCore.kt only; no desktop/native dependency change"
+    }
   },
   "flutter": {
     "version": "3.47.1",

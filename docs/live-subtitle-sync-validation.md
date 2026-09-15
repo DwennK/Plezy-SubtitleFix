@@ -149,3 +149,27 @@ dans son cache `build/macos/SourcePackages` ont été supprimés. Les versions
 effectivement liées, les install trees, l'app construite et les preuves restent
 présents. Environ 2,9 Gio libres après nettoyage ; une nouvelle résolution SwiftPM
 peut retélécharger les variantes non utilisées.
+
+### Point de reprise — 2026-09-15, environ 20:06 UTC
+
+- Dernier refetch : `7e4c8feb0c7bd3b8aade2d240bc13abb05e1e2a8`, daté
+  `2026-09-15T21:58:00+02:00`. Un commit Android uniquement au-delà du SHA initial.
+  **Il n'est pas intégré aux binaires testés.** À intégrer/revalider avant livraison.
+- La deuxième CI d'inférence avec vérification explicite du texte est verte :
+  [35016502461](https://github.com/DwennK/Plezy-SubtitleFix/actions/runs/35016502461).
+- Le build natif Apple de la CI `35015208320` est vert ; le job Windows poursuit
+  son cross-build. La vérification Windows séparée accepte cet ID et attend la fin
+  du build avant de télécharger/exécuter sa DLL. Elle est déclenchable sans rebâtir
+  LLVM. Les nouveaux runs du workflow de build incluent aussi le probe en dépendance.
+- Le guard upstream refuse `workflow_run` : ce déclencheur a été retiré. Le helper
+  emploie un dispatch explicite et une attente read-only. Les guards de sécurité
+  et de pins passent avec ce fonctionnement.
+- `scripts/codegen.sh --check` est terminé sans modification générée ; analyse et
+  tests ciblés coexistence/updater restent verts. La suite complète de référence
+  garde son unique échec sous charge, réussi ensuite isolément.
+- Prochaine porte : preuve PCM Windows, ajout du rééchantillonnage hors thread UI,
+  intégration du mpv patché dans Plezy, accès SRT et correction visible réversible.
+  Ne pas confondre le build macOS de référence avec une app LiveSync fonctionnelle.
+- L'accès à une machine Windows interactive pour les mesures finales a été demandé
+  dans la conversation et n'est pas encore renseigné. Aucun secret serveur requis
+  n'a été inventé ni repris de l'application Plezy existante.
