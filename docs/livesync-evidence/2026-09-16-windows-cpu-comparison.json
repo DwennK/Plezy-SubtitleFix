@@ -1,0 +1,129 @@
+{
+  "kind": "single-trial-portable-versus-avx2-worker",
+  "ciRun": 35031841845,
+  "forkSha": "42fda2e8be6f0617d51c8910f53568e1a59ec0d8",
+  "physicalClientHardwareValidated": false,
+  "p95Validated": false,
+  "productionPlaybackImpactValidated": false,
+  "observations": {
+    "worker-abi-base.en-q5_1": {
+      "kind": "fixture-native-worker-abi",
+      "fixtureSha256": "59dfb9a4acb36fe2a2affc14bacbee2920ff435cb13cc314a08c13f66ba7860e",
+      "modelSha256": "4baf70dd0d7c4247ba2b81fafd9c01005ac77c2f9ef064e00dcf195d0e2fdd2f",
+      "workerSha256": "bac3806154e3f4ed0daff5e0f0d55a328c4ca4121b3229ba41b1e6d8ab640094",
+      "capture": {
+        "samples": 176000,
+        "mediaStart": 100,
+        "generation": 1,
+        "continuity": 1
+      },
+      "wordErrorRate": 0.0,
+      "referenceScope": "full fixture",
+      "inferenceSecondsExcludingModelLoad": 22.6698224,
+      "segments": [
+        {
+          "mediaStart": 100.0,
+          "mediaEnd": 111.0
+        }
+      ],
+      "timestampAccuracyValidated": false,
+      "srtAlignmentValidated": false,
+      "productionAppValidated": false,
+      "audiblePlaybackValidated": false,
+      "retainedCapturedAudio": false,
+      "retainedTranscript": false
+    },
+    "worker-abi-base.en": {
+      "kind": "fixture-native-worker-abi",
+      "fixtureSha256": "59dfb9a4acb36fe2a2affc14bacbee2920ff435cb13cc314a08c13f66ba7860e",
+      "modelSha256": "a03779c86df3323075f5e796cb2ce5029f00ec8869eee3fdfb897afe36c6d002",
+      "workerSha256": "bac3806154e3f4ed0daff5e0f0d55a328c4ca4121b3229ba41b1e6d8ab640094",
+      "capture": {
+        "samples": 176000,
+        "mediaStart": 100,
+        "generation": 1,
+        "continuity": 1
+      },
+      "wordErrorRate": 0.0,
+      "referenceScope": "full fixture",
+      "inferenceSecondsExcludingModelLoad": 25.4892999,
+      "segments": [
+        {
+          "mediaStart": 100.0,
+          "mediaEnd": 111.0
+        }
+      ],
+      "timestampAccuracyValidated": false,
+      "srtAlignmentValidated": false,
+      "productionAppValidated": false,
+      "audiblePlaybackValidated": false,
+      "retainedCapturedAudio": false,
+      "retainedTranscript": false
+    },
+    "host": {
+      "avx2EvaluationSupported": true,
+      "physicalMemoryBytes": 17174360064,
+      "processors": [
+        {
+          "Name": "AMD EPYC 9V74 80-Core Processor                ",
+          "NumberOfCores": 2,
+          "NumberOfLogicalProcessors": 4
+        }
+      ]
+    },
+    "worker-avx2-base.en-q5_1": {
+      "kind": "fixture-native-worker-abi",
+      "fixtureSha256": "59dfb9a4acb36fe2a2affc14bacbee2920ff435cb13cc314a08c13f66ba7860e",
+      "modelSha256": "4baf70dd0d7c4247ba2b81fafd9c01005ac77c2f9ef064e00dcf195d0e2fdd2f",
+      "workerSha256": "e367ad2333526d56be2a3fb4441707d75f19f376d88552eb7310419c22915418",
+      "capture": {
+        "samples": 176000,
+        "mediaStart": 100,
+        "generation": 1,
+        "continuity": 1
+      },
+      "wordErrorRate": 0.0,
+      "referenceScope": "full fixture",
+      "inferenceSecondsExcludingModelLoad": 2.1543475,
+      "segments": [
+        {
+          "mediaStart": 100.0,
+          "mediaEnd": 111.0
+        }
+      ],
+      "timestampAccuracyValidated": false,
+      "srtAlignmentValidated": false,
+      "productionAppValidated": false,
+      "audiblePlaybackValidated": false,
+      "retainedCapturedAudio": false,
+      "retainedTranscript": false
+    },
+    "worker-avx2-base.en": {
+      "kind": "fixture-native-worker-abi",
+      "fixtureSha256": "59dfb9a4acb36fe2a2affc14bacbee2920ff435cb13cc314a08c13f66ba7860e",
+      "modelSha256": "a03779c86df3323075f5e796cb2ce5029f00ec8869eee3fdfb897afe36c6d002",
+      "workerSha256": "e367ad2333526d56be2a3fb4441707d75f19f376d88552eb7310419c22915418",
+      "capture": {
+        "samples": 176000,
+        "mediaStart": 100,
+        "generation": 1,
+        "continuity": 1
+      },
+      "wordErrorRate": 0.0,
+      "referenceScope": "full fixture",
+      "inferenceSecondsExcludingModelLoad": 1.6944436,
+      "segments": [
+        {
+          "mediaStart": 100.0,
+          "mediaEnd": 111.0
+        }
+      ],
+      "timestampAccuracyValidated": false,
+      "srtAlignmentValidated": false,
+      "productionAppValidated": false,
+      "audiblePlaybackValidated": false,
+      "retainedCapturedAudio": false,
+      "retainedTranscript": false
+    }
+  }
+}

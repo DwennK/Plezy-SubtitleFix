@@ -516,3 +516,21 @@ dans le plan, avec la machine Windows physique encore à identifier.
   valider, 650–888 s sans cue SRT. Aucune inférence n'a encore été faite sur ces
   partitions. Les timings authored du SRT ne sont pas des ancres acoustiques
   indépendantes ; celles-ci et les variantes temporelles restent à préparer.
+
+### Comparaison CPU Windows AVX2 réussie
+
+Run `35031841845`, commit `42fda2e8`, runner Windows sur AMD EPYC 9V74 avec
+**2 cœurs/4 processeurs logiques attribués**, environ 16 Gio. Le contrôle CPU/OS
+préalable a confirmé toutes les instructions requises avant chargement de l'ABI.
+
+| Modèle | CPU portable, même run | CPU AVX2 | WER |
+|---|---:|---:|---:|
+| base.en | 25,49 s | 1,69 s | 0 |
+| base.en-q5_1 | 22,67 s | 2,15 s | 0 |
+
+Durées d'inférence hors chargement, un essai par combinaison, fixture de 11 s.
+Rapport : `docs/livesync-evidence/2026-09-16-windows-cpu-comparison.json`.
+Le run portable précédent était plus rapide (17–19 s) : cette variation de CI
+renforce le besoin de séries mesurées sur machine identifiée. Le gain justifie
+une sélection CPU à l'exécution, mais celle-ci et son packaging restent à
+implémenter. Aucun p95, impact sur la lecture ou résultat GPU Windows n'est validé.

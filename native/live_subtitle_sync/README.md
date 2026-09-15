@@ -262,3 +262,9 @@ The workflow checks OS-aware AVX2/SSE4.2/BMI2/FMA support and the F16C CPUID bit
 before loading that library. It is not a distribution profile or automatic CPU
 dispatch. The default remains portable; safe runtime selection and packaging
 must be implemented and validated before using an optimized build in the app.
+
+The guarded comparison passed in run `35031841845`. On that runner's assigned
+two cores/four logical processors, the same 11-second sample took 25.49/22.67 s
+with portable base/q5, versus 1.69/2.15 s with AVX2. These are single trials,
+excluding model load, not p95 or playback-impact results. The large improvement
+supports implementing runtime CPU dispatch while retaining the portable option.
