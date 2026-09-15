@@ -178,7 +178,7 @@ class InferenceWorker::Impl {
         next.status = InferenceStatus::inference_failed;
       }
       decoding.store(false);
-      std::fill(window->samples.begin(), window->samples.end(), 0);
+      std::fill(window->samples.begin(), window->samples.end(), 0.0f);
       {
         std::lock_guard<std::mutex> lock(mutex);
         if (!cancelled()) result = std::move(next);
@@ -201,7 +201,7 @@ void InferenceWorker::reset(uint64_t generation, uint64_t continuity) {
   s.continuity.store(continuity);
   s.result.reset();
   if (s.pending) {
-    std::fill(s.pending->samples.begin(), s.pending->samples.end(), 0);
+    std::fill(s.pending->samples.begin(), s.pending->samples.end(), 0.0f);
     s.pending.reset();
     s.active = false;
     s.release_slot();
@@ -251,7 +251,7 @@ void InferenceWorker::stop() {
   s.wake.notify_one();
   if (s.worker.joinable()) s.worker.join();
   std::lock_guard<std::mutex> lock(s.mutex);
-  if (s.pending) std::fill(s.pending->samples.begin(), s.pending->samples.end(), 0);
+  if (s.pending) std::fill(s.pending->samples.begin(), s.pending->samples.end(), 0.0f);
   s.pending.reset();
   s.result.reset();
   s.active = false;
