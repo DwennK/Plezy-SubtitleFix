@@ -2,20 +2,20 @@
   "schemaVersion": 1,
   "product": "Plezy + LiveSync",
   "status": "in-development-not-validated",
-  "recordedAt": "2026-09-15T19:30:46.912403+00:00",
+  "recordedAt": "2026-09-15T22:58:10.509093+00:00",
   "upstream": {
     "repository": "edde746/plezy",
     "branch": "main",
-    "sha": "7e4c8feb0c7bd3b8aade2d240bc13abb05e1e2a8",
-    "commitDate": "2026-09-15T21:58:00+02:00",
+    "sha": "9babe6814a0f8bea13ee25904431d809af1e5d08",
+    "commitDate": "2026-09-16T00:06:50+02:00",
     "plezyVersion": "2.20.0+150",
     "stableRelease": "2.20.0",
     "latestCheck": {
-      "checkedAt": "2026-09-15T20:59:00.555371+00:00",
-      "latestSha": "7e4c8feb0c7bd3b8aade2d240bc13abb05e1e2a8",
-      "integratedSha": "7e4c8feb0c7bd3b8aade2d240bc13abb05e1e2a8",
+      "checkedAt": "2026-09-15T22:58:10.509093+00:00",
+      "latestSha": "9babe6814a0f8bea13ee25904431d809af1e5d08",
+      "integratedSha": "9babe6814a0f8bea13ee25904431d809af1e5d08",
       "unintegratedCommits": 0,
-      "scope": "Integrated via merge b1057814; Android-only change. 7248 full-suite tests passed with 6 skipped, plus 8 separately executed SRT loader tests; analysis and codegen passed."
+      "scope": "Integrated via merge 71cec7d8. Sentry 9.30.0, website and scanner maintenance; Flutter/native pins unchanged. Locked pub resolution passed; full analysis, tests and application rebuilds pending. Earlier results retain their tested upstream SHA."
     }
   },
   "flutter": {
@@ -507,7 +507,7 @@
     "windowsCompatibilityPatchSha256": "ff63249eb0118550f3d37923a05dca9992c1f2bae66baee303992d7dcb1c5ca3"
   },
   "lockSha256": {
-    "pubspec.lock": "2991b19197f90b0b7fcdf8737b64d0d5a18f73630819aa9fd519eff714a428be",
+    "pubspec.lock": "277beef040df21338e9d41700f6a0784f62d188f7b5a4479b1f86a5f1edbaacb",
     "mpv-build.lock.json": "a4c9586e1f00f7e37c70e67f56c753b993176e4cc4509816a7f86ba33b0dfb3c",
     "macos/Podfile.lock": "cdef4deafd3cd7501f2f5ee80532ca9532419ccb89468b11947713bdac01fa6a",
     "macos/Runner.xcworkspace/xcshareddata/swiftpm/Package.resolved": "f5771cf4c56799def360edf4950e65579843894f51d06867a48ba2db232f4784",

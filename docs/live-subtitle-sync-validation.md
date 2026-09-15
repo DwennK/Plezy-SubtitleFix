@@ -561,3 +561,12 @@ pour les entrées comparées octet par octet ; **7 tests de staging réussissent
 dont un vrai checkout Git avec `core.autocrlf=true`. Le staging suivant a passé.
 Le run applicatif actuel est `35032845964` (SHA `6afb5ee9`), incluant le banc de
 rendu au nom d'exécutable réel `plezy_livesync.exe` ; résultat encore attendu.
+
+### Upstream 9babe681 intégré — contrôles en cours
+
+Le commit officiel `9babe6814a0f8bea13ee25904431d809af1e5d08` est intégré
+par le merge `71cec7d8`. Sentry passe à 9.30.0 ; les pins Flutter, moteur custom,
+mpv, FFmpeg et SentryCocoa restent inchangés. Résolution verrouillée réussie.
+Les résultats et artefacts précédents restent attribués à leur SHA testé ;
+la nouvelle analyse, suite complète et les builds natifs sont à revalider.
+Le build Windows `35032845964`, déjà lancé, contient encore `7e4c8feb`.
