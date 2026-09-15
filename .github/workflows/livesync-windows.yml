@@ -144,7 +144,7 @@ jobs:
           ffmpeg -version > build/livesync/evidence/renderer/fixture-generator.txt
           flutter build windows --debug --no-pub --target tool/livesync_player_probe.dart "--dart-define=LIVESYNC_FIXTURE_DIR=$fixture" "--dart-define=LIVESYNC_RENDERER_AUTOMATION_DIR=$evidence"
           if ($LASTEXITCODE -ne 0) { throw 'Dedicated renderer build failed' }
-          ./scripts/livesync/capture_windows_renderer.ps1 -Executable build/windows/x64/runner/Debug/PlezyLiveSync.exe -OutputDirectory $evidence
+          ./scripts/livesync/capture_windows_renderer.ps1 -Executable build/windows/x64/runner/Debug/plezy_livesync.exe -OutputDirectory $evidence
       - name: Preserve validation evidence
         if: always()
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7
