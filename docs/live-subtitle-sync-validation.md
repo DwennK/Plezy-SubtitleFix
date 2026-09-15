@@ -346,3 +346,24 @@ reconstruite après le banc de rendu, sans laisser son point d'entrée de test.
   pour les deux modèles. Run courant **35025719202**, commit `750e9ad2`, en
   attente du build natif `35015208320`. Les deux attenteurs d'application
   précédents ont été annulés après remplacement ; le build natif initial continue.
+
+## Gestion du modèle — 2026-09-15
+
+- Gestionnaire Dart ajouté : modèles épinglés, téléchargement unique par hash,
+  progression, contrôle de taille et SHA-256 en isolate, cache vérifié à chaque
+  acquisition et remplacement par rename après validation. Le flux disque utilise
+  des écritures attendues, sans charger le modèle entier dans l'isolate UI.
+- **10 tests réussis** : catalogue conforme au manifeste, téléchargements
+  concurrents, cache, corruption, taille incorrecte, interruption, suppression
+  pendant téléchargement, délais d'inactivité/global et chemins invalides.
+  Les leases empêchent de supprimer un modèle encore détenu par un worker.
+- Le téléchargement réel de `base.en-q5_1` a été effectué par ce gestionnaire :
+  **59 721 011 octets**, SHA-256 conforme, réutilisation locale sans nouvel appel
+  de téléchargement et suppression vérifiées. Résumé dans
+  `docs/livesync-evidence/2026-09-15-model-download-macos.json` ; les éventuelles
+  redirections HTTP ne sont pas comptées comme de nouveaux appels du manager.
+- Analyse et formatage des fichiers concernés réussis. Les 8 tests du loader SRT
+  restent réussis. Le nouveau workflow `livesync-dart.yml` vérifie les composants
+  sur Windows/macOS sans attendre la compilation de mpv.
+- Le modèle n'est pas encore exposé dans l'UI de production. La récupération
+  des temporaires après crash reste à raccorder au cycle de vie de l'application.

@@ -1,0 +1,11 @@
+{
+  "kind": "real-pinned-model-download-through-dart-manager",
+  "model": "base.en-q5_1",
+  "bytes": 59721011,
+  "sha256": "4baf70dd0d7c4247ba2b81fafd9c01005ac77c2f9ef064e00dcf195d0e2fdd2f",
+  "downloadAndVerificationSeconds": 7.439,
+  "cachedReuseVerified": true,
+  "deletionVerified": true,
+  "productionUiValidated": false,
+  "modelRequests": 1
+}

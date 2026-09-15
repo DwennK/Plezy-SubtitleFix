@@ -103,3 +103,24 @@ implémenter. Les huit tests couvrent aussi un vrai serveur HTTP local, le corps
 réseau bloqué puis annulé, la limite de taille et la préservation du fichier.
 Cette preuve de transport n'est pas une validation d'un serveur Plex/Jellyfin
 réel avec son catalogue.
+
+## Gestion locale du modèle
+
+`LiveSyncModelManager` expose les deux modèles épinglés au manifeste. Il reçoit
+un répertoire dédié dans l'Application Support du fork et un client HTTP sans
+en-têtes média. L'UI recevra la phase et les octets téléchargés, avec la taille
+totale exacte disponible avant activation.
+
+Une acquisition vérifie aussi un fichier déjà en cache. Le téléchargement écrit
+par blocs avec contre-pression disque, vérifie taille et SHA-256 dans un isolate,
+puis renomme le fichier validé sur le même système de fichiers. Les préparations
+concurrentes du même modèle partagent une seule opération. Annulation, inactivité
+et délai total interrompent le transport et nettoient les fichiers temporaires.
+Une lease protège le modèle chargé jusqu'à sa libération par le worker natif ;
+la suppression depuis les paramètres devra d'abord arrêter ce worker.
+
+L'intégration au contrôleur, à l'UI et au répertoire de production reste à faire,
+ainsi que la récupération des temporaires après arrêt brutal du processus.
+Le probe réseau explicite `flutter test --no-pub tool/livesync_model_probe_test.dart`
+vérifie un vrai téléchargement du modèle quantifié, sa réutilisation et sa suppression.
+Il utilise un répertoire temporaire et ne laisse pas de modèle utilisateur installé.
