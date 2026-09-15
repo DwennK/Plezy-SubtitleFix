@@ -98,7 +98,7 @@ FetchContent_Declare(
 )
 FetchContent_MakeAvailable(simdutf)
 
-set(BINARY_NAME "plezy")
+set(BINARY_NAME "plezy_livesync")
 
 # Explicitly opt in to modern CMake behaviors to avoid warnings with recent
 # versions of CMake.

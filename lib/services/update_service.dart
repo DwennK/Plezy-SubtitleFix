@@ -28,6 +28,9 @@ class UpdateService {
 
   /// Check if update checking is enabled via build flag
   static bool get isUpdateCheckEnabled {
+    // This desktop fork has no signed update channel yet. Even an inherited
+    // ENABLE_UPDATE_CHECK=true build must never install an official release.
+    if (Platform.isMacOS || Platform.isWindows) return false;
     return const bool.fromEnvironment('ENABLE_UPDATE_CHECK', defaultValue: false);
   }
 
@@ -50,6 +53,7 @@ class UpdateService {
   /// Initialize the native auto_updater (Sparkle/WinSparkle).
   /// Call once at startup if [useNativeUpdater] is true.
   static Future<void> initNativeUpdater() async {
+    if (!isUpdateCheckAvailable) return;
     if (_nativeUpdaterInitialized) return;
 
     try {

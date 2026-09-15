@@ -92,7 +92,15 @@ class AppDatabase extends _$AppDatabase {
     if (!await file.parent.exists()) {
       await file.parent.create(recursive: true);
     }
-    if (databaseFile == null && !Platform.isAndroid && !Platform.isIOS && !await file.exists()) {
+    // The desktop fork starts with its own app-support directory. Importing
+    // Documents/plezy_downloads.db would move an official Plezy installation's
+    // legacy database into this fork, defeating coexistence.
+    if (databaseFile == null &&
+        !Platform.isAndroid &&
+        !Platform.isIOS &&
+        !Platform.isMacOS &&
+        !Platform.isWindows &&
+        !await file.exists()) {
       await migrateLegacyDesktopDatabase(target: file);
     }
 

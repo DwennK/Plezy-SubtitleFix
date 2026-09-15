@@ -121,3 +121,31 @@ de modèle géré par l'UI ni d'automatisation quotidienne d'intégration upstre
 La branche par défaut du fork est `feature/live-subtitle-sync`, pour héberger les
 workflows propres au fork ; `main` reste le miroir officiel inchangé. Aucune
 release publique, aucun changement dans l'application Plezy installée.
+
+### Coexistence et application macOS de référence
+
+Build debug macOS réussi : `build/macos/Build/Products/Debug/PlezyLiveSync.app`.
+Bundle `com.dwennk.plezy.livesync`, fenêtre « Plezy + LiveSync ». Lancement natif
+via Computer Use vérifié : écran de connexion vide, aucun compte importé.
+Fenêtre agrandie à 1224 × 768 sur l'écran disponible, puis application refermée.
+Capture conservée dans `docs/livesync-evidence/2026-09-15-macos-onboarding.png`.
+Ce build d'application utilise encore le mpv officiel : le test du prélèvement
+patché reste un test natif séparé. Aucune synchronisation n'est annoncée dans l'UI.
+
+Windows : exécutable, métadonnées produit et mutex séparés préparés ; app Windows
+pas encore construite/ouverte. Installer et signature restent à adapter/valider.
+
+Protection des données : l'ancien import automatique depuis
+`Documents/plezy_downloads.db` est désactivé dans le fork Windows/macOS, car il
+déplace la base source. Le test passe sans même consulter Documents. 70 tests
+de base de données passent, ainsi que les 7 tests updater et le test d'interdiction
+de mise à jour officielle exécuté avec `ENABLE_UPDATE_CHECK=true`.
+Le feed Sparkle officiel est retiré du plist. Analyse Dart sans diagnostic après
+ces changements ; contrôles de pins et sécurité des workflows réussis.
+
+Le build a approché la limite d'espace disque. Seuls les répertoires de staging
+des téléchargements natifs de cette tâche et quatre produits Sentry non utilisés
+dans son cache `build/macos/SourcePackages` ont été supprimés. Les versions
+effectivement liées, les install trees, l'app construite et les preuves restent
+présents. Environ 2,9 Gio libres après nettoyage ; une nouvelle résolution SwiftPM
+peut retélécharger les variantes non utilisées.
