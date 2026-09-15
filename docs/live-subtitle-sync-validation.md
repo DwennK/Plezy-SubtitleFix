@@ -598,3 +598,36 @@ Le build Windows `35032845964`, déjà lancé, contient encore `7e4c8feb`.
 - Identités d'installation Windows séparées (Inno/MSIX), exécutable harmonisé,
   16 tests du guard MSIX réussis. Métadonnées PowerShell à exercer en CI ;
   installation/désinstallation et signature restent non validées.
+
+### Porte native acquise : rendu Windows lisible et réversible
+
+`35035639850` réussit au fork `58c6ec0a`, incluant `9babe681`. Les six PNG
+1024×720 sont inspectés dans `docs/livesync-evidence/2026-09-16-renderer-windows/` :
+FIRST, absence de cue à +2,125 s, SECOND à −3 s, restauration FIRST avec délai
+manuel +0,125 s, puis prélèvement activé/désactivé sans changer le rendu.
+Le bureau CI est limité à 1024×720 ; rendu natif D3D11 WARP, audio PCM éliminé
+dans `NUL`. Aucune validation audible ou de performance GPU n'en est déduite.
+
+La correction du banc monte `Video` après l'initialisation native : autrement
+le premier `setVideoRect` précède la création du HWND, accepte un no-op, et laisse
+la surface à 100×100. Les anciennes captures ne sont pas utilisées comme preuve
+d'un rendu de taille normale. Aucun changement du moteur Flutter custom.
+
+`capture_bridge` ajoute maintenant un poller natif en arrière-plan, à priorité
+réduite, avec client faible du lecteur. Sa table de fonctions vient du mpv déjà
+chargé (le framework Apple est statique : aucune deuxième image mpv à charger).
+Sur Mac, vraie capture, changements de génération, seeks avant/arrière, pause,
+exclusion d'un second captureur et libération du client à l'arrêt du lecteur
+passent. Le ring est vidé à l'arrêt. La purge double après seek a été supprimée :
+l'epoch du tap effectue déjà cette purge. Le même probe passe sur Windows x64
+dans `35036347229` au fork `8af77dc3` : erreur maximale des échantillons
+2,93e-5, ring vidé à l'arrêt et libération du parent en 15 ms sur cette exécution.
+Le rapport est conservé dans `2026-09-16-capture-owner-windows.json`.
+L'intégration au player applicatif reste à faire ; ces probes ne prouvent pas
+une sortie audible ni les performances de l'application finale.
+
+La CI complète `35035257410` passe désormais les tests unitaires, Windows x64
+et arm64, macOS, tvOS, Android et Linux ASan/TSan. Les deux échecs restants sont
+le contrôle de code non utilisé et le test iOS
+`testRealSetPropertyValidInvalidNonexistentAndPauseCache` (33,9 s). Ce dernier
+n'est pas classé comme régression LiveSync ni comme fluctuation sans diagnostic.

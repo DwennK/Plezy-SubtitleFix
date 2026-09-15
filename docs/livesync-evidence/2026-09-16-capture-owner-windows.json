@@ -1,0 +1,33 @@
+{
+  "kind": "native-polling-thread-and-weak-client",
+  "windows": [
+    {
+      "generation": 1,
+      "continuity": 4,
+      "samples": 6795,
+      "mediaStart": 0.6836666666666668,
+      "maximumSampleError": 2.927166916499857e-05
+    },
+    {
+      "generation": 2,
+      "continuity": 8,
+      "samples": 8160,
+      "mediaStart": 6.998333333333333,
+      "maximumSampleError": 2.6349008143106145e-05
+    },
+    {
+      "generation": 3,
+      "continuity": 13,
+      "samples": 8160,
+      "mediaStart": 1.9636666666666664,
+      "maximumSampleError": 2.927166913313517e-05
+    }
+  ],
+  "audiblePlaybackValidated": false,
+  "productionAppValidated": false,
+  "retainedCapturedAudio": false,
+  "singleCaptureEnforced": true,
+  "pauseStable": true,
+  "parentShutdownSeconds": 0.014999999999986358,
+  "shutdownClearsPcm": true
+}

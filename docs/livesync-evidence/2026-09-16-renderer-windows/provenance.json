@@ -1,0 +1,54 @@
+{
+  "automaticSynchronizationValidated": false,
+  "captures": [
+    {
+      "height": 720,
+      "state": "baseline",
+      "width": 1024,
+      "sha256": "9cbc5b9d25567d858c5c4697d9654666ed6f4126302fdf2b318fec71c09f6db8"
+    },
+    {
+      "height": 720,
+      "state": "positive",
+      "width": 1024,
+      "sha256": "1ee3d50e2cbc719b9d4da6fd82600bcfe3f56fe5f0481e91effe45a0dd64dc7d"
+    },
+    {
+      "height": 720,
+      "state": "negative",
+      "width": 1024,
+      "sha256": "20d68dfeef94fb49b3e4dbf4ffc00f1cff06e1f36fbb0ef84e0e537a8e1f6b2a"
+    },
+    {
+      "height": 720,
+      "state": "restored",
+      "width": 1024,
+      "sha256": "c07cd7d4cb354acf16e91b3f4ae5f0c06f7e14f4e7d14657d251a22d207ff3e6"
+    },
+    {
+      "height": 720,
+      "state": "capture-on",
+      "width": 1024,
+      "sha256": "3d14cd3d7442d7a924d54eb5b9348a52487b21d275168921d9c488f3e2abdf07"
+    },
+    {
+      "height": 720,
+      "state": "capture-off",
+      "width": 1024,
+      "sha256": "c98236e99c1a0859930e4a176131e4e22b81db162ec5b3719accec2c7a7bd651"
+    }
+  ],
+  "screenHeight": 720,
+  "kind": "native-windows-renderer-synthetic-fixture",
+  "screenWidth": 1024,
+  "visualInspectionRequired": true,
+  "run": 35035639850,
+  "forkSha": "58c6ec0af585fa77ddc8b6aef02abfb2ba6a7215",
+  "upstreamSha": "9babe6814a0f8bea13ee25904431d809af1e5d08",
+  "visuallyInspected": true,
+  "reviewedAt": "2026-09-15T23:39:07.273605+00:00",
+  "observation": "Full native video surface: first cue, blank positive offset, second cue at negative offset, restored first cue and unchanged appearance with capture toggled.",
+  "videoBackend": "D3D11 WARP",
+  "audioOutput": "pcm-to-NUL",
+  "audiblePlaybackValidated": false
+}

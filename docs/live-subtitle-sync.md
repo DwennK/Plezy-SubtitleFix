@@ -41,7 +41,7 @@ l'accès précis requis. Ne pas annoncer le projet terminé avec des cases ouver
 - Le client public libmpv ne fournit pas le prélèvement PCM requis. Le patch
   isolé ajoute une lecture destructive bornée de PCM horodaté dans le pipeline
   existant, avant le filtre de vitesse. Les probes PCM/SRT sont acquis sur macOS
-  et Windows ; le rendu visuel de l'application Windows reste à vérifier.
+  et Windows ; le délai est visible et réversible sur les deux plateformes.
 
 Séparer capture, inférence, index SRT, rapprochement, alignement, confiance,
 timeline et adaptation player. UI indépendante de whisper. Une seule inférence,
@@ -76,13 +76,13 @@ pas implicites dans un build de test.
 ## État
 
 Plan enregistré avant implémentation. Phase A revalidée sur `9babe681`, phase B
-en cours : inférence CPU Windows/macOS, prélèvement PCM macOS avec PTS,
+acquise sur fixtures natives : inférence CPU Windows/macOS, prélèvement PCM macOS avec PTS,
 renderer macOS et lecture complète bornée des SRT démontrés séparément.
 Le consommateur PCM 16 kHz borné passe sur Windows/macOS. La chaîne lecture
 active → consommateur → worker Whisper CPU passe sur le Mac avec les deux modèles.
 Le worker et son interface C passent en CI sur Windows/macOS. Le build Windows
 du mpv patché et les probes PCM/SRT passent dans `35031113958`. Le build applicatif Windows passe ;
-le rendu Windows reste à prouver. Aucun fonctionnement
+six états du renderer Windows sont vérifiés visuellement (`35035639850`). Aucun fonctionnement
 LiveSync de bout en bout livré. Voir le journal de validation et le manifeste.
 
 

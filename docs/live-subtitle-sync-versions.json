@@ -562,7 +562,7 @@
     },
     "windowsX64": {
       "nativeBuildRun": 35031113958,
-      "status": "App build, three native contracts, PCM/SRT/consumer and active-playback inference passed at 6afb5ee9 (upstream 7e4c8feb). Renderer initially failed; latest-upstream renderer rerun pending.",
+      "status": "App build/native/PCM/SRT/inference probes passed at 6afb5ee9; six full-window native renderer states passed and visually inspected at 58c6ec0a including upstream 9babe681. Automatic sync and audible/GPU performance remain unvalidated.",
       "verificationRun": 35031113958,
       "applicationRun": 35032845964,
       "nativeArtifact": {
@@ -579,7 +579,8 @@
         "archiveSha256": "a2aff7c906a4f8e9cc2981092984e648a1edef4c1a00d5c590671dc6a9357b33",
         "dllSha256": "834c26a327cfd829eca194e4a109f862cf0ed79346cab6f206bac667dba8b873"
       },
-      "rendererRun": 35034940985
+      "rendererRun": 35035639850,
+      "renderer": "1024x720 hosted Windows desktop, actual D3D11 WARP surface, PCM output discarded to NUL; six screenshots inspected."
     }
   },
   "checks": {
@@ -658,6 +659,14 @@
       "ciRun": 35034268551,
       "forkSha": "c4e64bba647bcf424517f8fe7481b4e910819194"
     },
-    "qualityLimitations": "Whole Dart analyzer and codegen passed. Unused-code/file checks still fail until prepared LiveSync components are connected to the app; no suppression added. Native CI staging and Apple pin test adapted after initial failures; rerun pending."
+    "qualityLimitations": "Whole Dart analyzer and codegen passed. CI 35035257410 passed unit tests, Windows x64/arm64, macOS, tvOS, Linux sanitizers, Android and native formatting. Unused-code/file checks still fail until prepared LiveSync components are connected to the app; no suppression added. iOS native real-property test failed and remains under investigation.",
+    "nativeCaptureOwner": {
+      "localResult": "passed real decoder PCM, forward/backward seeks, pause, exclusive capture and weak-client release on parent shutdown",
+      "platform": "macOS arm64 Apple M4",
+      "scope": "background native capture foundation, not connected to production player yet",
+      "windowsCiRun": 35036347229,
+      "windowsForkSha": "8af77dc371433650d59d26df697bba4bb2b4aa8e",
+      "windowsResult": "passed real decoder PCM, generation changes, forward/backward seeks, pause, exclusive capture and weak-client release on parent shutdown"
+    }
   }
 }
