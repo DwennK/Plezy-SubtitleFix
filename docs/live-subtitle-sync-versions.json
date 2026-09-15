@@ -15,7 +15,7 @@
       "latestSha": "9babe6814a0f8bea13ee25904431d809af1e5d08",
       "integratedSha": "9babe6814a0f8bea13ee25904431d809af1e5d08",
       "unintegratedCommits": 0,
-      "scope": "Integrated via merge 71cec7d8. Sentry 9.30.0, website and scanner maintenance; Flutter/native pins unchanged. Locked pub resolution passed; full analysis, tests and application rebuilds pending. Earlier results retain their tested upstream SHA."
+      "scope": "Integrated via merge 71cec7d8. Locked pub resolution, whole Dart analysis, codegen and 7267 tests (6 skipped) passed. Mac application and 13 native contracts passed at b77dd811. Windows latest renderer and final connected application remain pending."
     }
   },
   "flutter": {
@@ -496,12 +496,12 @@
     },
     "ciAppleBuild": {
       "nativeRevision": "c7348c98438b74b3d3f64244a7f48f7e366dbf1a",
-      "xcframeworkSha256": "79a087b74344026ce6452bf7b36f87c1d374fcb419de1233db195316f61a980a",
+      "xcframeworkSha256": "10f3f2707f1fb3a8a80a49c75807c277fad9efcac10424b3330a08f7de9b5437",
       "liveSyncPatchSha256": "6a2e0e12b3e61c6f846127c90e75361a20cbfef9c822d56a0ecac55b6803a977",
       "packageSource": "Pinned upstream Package.swift; only Libmpv target uses a local path",
-      "run": 35023134941,
-      "forkSha": "a1604b6d9aa5b738ddfeee3220ec90615c45c2e0",
-      "upstreamSha": "7e4c8feb0c7bd3b8aade2d240bc13abb05e1e2a8",
+      "run": 35033587609,
+      "forkSha": "b77dd811e65d7f813da9ccb44c00dcf726bb4314",
+      "upstreamSha": "9babe6814a0f8bea13ee25904431d809af1e5d08",
       "nativeContractsPassed": 13
     },
     "windowsCompatibilityPatchSha256": "ff63249eb0118550f3d37923a05dca9992c1f2bae66baee303992d7dcb1c5ca3"
@@ -550,19 +550,19 @@
       "localDebugBuild": "passed with patched native package",
       "nativeContracts": "13 passed locally",
       "renderer": "synthetic fixture, 1224x768 native window; delay +2.125, -3 and restoration to manual 0.125 seconds",
-      "ciRun": 35023134941,
-      "ciResult": "passed app build and 13 native contracts at a1604b6d, including upstream 7e4c8feb",
+      "ciRun": 35033587609,
+      "ciResult": "passed app build and 13 native contracts at b77dd811, including upstream 9babe681",
       "retryCiRun": 35020270952,
       "appArtifact": {
-        "id": 10418414006,
-        "bytes": 123408512,
-        "digest": "sha256:20a5fad4e1d4659836767250ae9c4043b7ec39b090329ac4392567061888a802",
+        "id": 10422931951,
+        "bytes": 123462499,
+        "digest": "sha256:e993862039e9585e9f874e1e33253b62f0d2eddc99815d5f1ccdb87b094c8124",
         "kind": "debug test artifact, not notarized, no automatic sync UI"
       }
     },
     "windowsX64": {
       "nativeBuildRun": 35031113958,
-      "status": "native x64 build and PCM/SRT probes passed; application build and visible renderer proof pending",
+      "status": "App build, three native contracts, PCM/SRT/consumer and active-playback inference passed at 6afb5ee9 (upstream 7e4c8feb). Renderer initially failed; latest-upstream renderer rerun pending.",
       "verificationRun": 35031113958,
       "applicationRun": 35032845964,
       "nativeArtifact": {
@@ -578,15 +578,18 @@
         "architecture": "x86_64",
         "archiveSha256": "a2aff7c906a4f8e9cc2981092984e648a1edef4c1a00d5c590671dc6a9357b33",
         "dllSha256": "834c26a327cfd829eca194e4a109f862cf0ed79346cab6f206bac667dba8b873"
-      }
+      },
+      "rendererRun": 35034940985
     }
   },
   "checks": {
     "fullFlutterTests": {
-      "passed": 7248,
+      "passed": 7267,
       "skipped": 6,
       "failed": 0,
-      "upstreamSha": "7e4c8feb0c7bd3b8aade2d240bc13abb05e1e2a8"
+      "upstreamSha": "9babe6814a0f8bea13ee25904431d809af1e5d08",
+      "forkSha": "b77dd811e65d7f813da9ccb44c00dcf726bb4314",
+      "scope": "Full local suite before the subsequently added SRT parser; includes model manager and subtitle source tests."
     },
     "additionalSubtitleSourceTests": {
       "passed": 8,
@@ -644,6 +647,17 @@
       "ciRun": 35031841845,
       "profile": "avx2-evaluation",
       "result": "passed guarded actual inference; single-trial base 1.694 s and q5 2.154 s; runtime dispatch and p95 not validated"
-    }
+    },
+    "subtitleParser": {
+      "passed": 8,
+      "failed": 0,
+      "corpus": "All 26 hash-pinned Sintel SRT cues parsed locally; no alignment evaluated."
+    },
+    "nativeFormatting": {
+      "result": "passed",
+      "ciRun": 35034268551,
+      "forkSha": "c4e64bba647bcf424517f8fe7481b4e910819194"
+    },
+    "qualityLimitations": "Whole Dart analyzer and codegen passed. Unused-code/file checks still fail until prepared LiveSync components are connected to the app; no suppression added. Native CI staging and Apple pin test adapted after initial failures; rerun pending."
   }
 }

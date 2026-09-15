@@ -75,14 +75,14 @@ pas implicites dans un build de test.
 
 ## État
 
-Plan enregistré avant implémentation. Phase A revalidée sur `7e4c8feb`, phase B
+Plan enregistré avant implémentation. Phase A revalidée sur `9babe681`, phase B
 en cours : inférence CPU Windows/macOS, prélèvement PCM macOS avec PTS,
 renderer macOS et lecture complète bornée des SRT démontrés séparément.
 Le consommateur PCM 16 kHz borné passe sur Windows/macOS. La chaîne lecture
 active → consommateur → worker Whisper CPU passe sur le Mac avec les deux modèles.
 Le worker et son interface C passent en CI sur Windows/macOS. Le build Windows
-du mpv patché et les probes PCM/SRT passent dans `35031113958`. Le build applicatif
-et le rendu Windows restent à prouver. Aucun fonctionnement
+du mpv patché et les probes PCM/SRT passent dans `35031113958`. Le build applicatif Windows passe ;
+le rendu Windows reste à prouver. Aucun fonctionnement
 LiveSync de bout en bout livré. Voir le journal de validation et le manifeste.
 
 
@@ -101,8 +101,10 @@ l'opération. Il conserve les octets originaux et calcule leur SHA-256 hors du
 thread principal quand l'isolate est disponible. Il ne ferme pas le client
 HTTP partagé. Les erreurs et la représentation textuelle des résultats
 n'incluent ni URL, ni jeton, ni dialogue.
-Décodage du texte, parsing, indexation et branchement au contrôleur restent à
-implémenter. Les huit tests couvrent aussi un vrai serveur HTTP local, le corps
+Le parseur complet conserve texte, styles, positions et ordre des cues ; il
+accepte UTF-8, UTF-16 et un fallback Windows-1252 explicite, rejette les cues
+endommagés et borne tailles/comptages. Indexation et branchement au contrôleur
+restent à implémenter. Les huit tests couvrent aussi un vrai serveur HTTP local, le corps
 réseau bloqué puis annulé, la limite de taille et la préservation du fichier.
 Cette preuve de transport n'est pas une validation d'un serveur Plex/Jellyfin
 réel avec son catalogue.

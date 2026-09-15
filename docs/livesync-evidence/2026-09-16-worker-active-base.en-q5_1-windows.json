@@ -1,0 +1,31 @@
+{
+  "kind": "active-playback-native-worker",
+  "fixtureSha256": "59dfb9a4acb36fe2a2affc14bacbee2920ff435cb13cc314a08c13f66ba7860e",
+  "modelSha256": "4baf70dd0d7c4247ba2b81fafd9c01005ac77c2f9ef064e00dcf195d0e2fdd2f",
+  "workerSha256": "aa249b0683ad47a0efe969d57e24b52abfbd196d232e8e08468c76d84ecea59f",
+  "capture": {
+    "samples": 144352,
+    "mediaStart": 0.001,
+    "generation": 1,
+    "continuity": 2,
+    "positionAtSubmission": 8.550738769531256,
+    "positionAtResult": 11.000000000000007
+  },
+  "wordErrorRate": 0.0,
+  "referenceScope": "best reference prefix",
+  "inferenceSecondsExcludingModelLoad": 23.6219366,
+  "segments": [
+    {
+      "mediaStart": 0.001,
+      "mediaEnd": 9.001
+    }
+  ],
+  "timestampAccuracyValidated": false,
+  "srtAlignmentValidated": false,
+  "productionAppValidated": false,
+  "audiblePlaybackValidated": false,
+  "retainedCapturedAudio": false,
+  "retainedTranscript": false,
+  "mpvLibrarySha256": "834c26a327cfd829eca194e4a109f862cf0ed79346cab6f206bac667dba8b873",
+  "consumerLibrarySha256": "cc3fdbe76475292a0b5889aa7a0a2140212faf864b77090e5bad124d50bd910d"
+}

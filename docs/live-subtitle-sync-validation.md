@@ -570,3 +570,31 @@ mpv, FFmpeg et SentryCocoa restent inchangés. Résolution verrouillée réussie
 Les résultats et artefacts précédents restent attribués à leur SHA testé ;
 la nouvelle analyse, suite complète et les builds natifs sont à revalider.
 Le build Windows `35032845964`, déjà lancé, contient encore `7e4c8feb`.
+
+### Revalidation 9babe681 et faisabilité Windows
+
+- Suite Flutter locale complète au fork `b77dd811` : **7 267 réussis, 6 ignorés,
+  aucun échec**. Analyse Dart complète et codegen réussis. Les huit tests du
+  parseur SRT ajoutés ensuite passent séparément, y compris les 26 cues Sintel.
+- macOS : build CI `35033587609` réussi à `b77dd811`, **13 contrats natifs**
+  réussis. Artefact app `10422931951` et provenance exacte dans le manifeste.
+- Windows : `35032845964` a construit l'app `6afb5ee9` (upstream `7e4c8feb`),
+  passé ses trois contrats natifs, les probes PCM/SRT, le consommateur et les
+  inférences sur PCM de lecture active. WER 0 sur le préfixe JFK ; base 18,26 s,
+  q5 23,62 s hors chargement. Le profil portable dépasse le budget de latence ;
+  ces valeurs isolées ne sont pas des p95 ni une validation de fluidité audible.
+- Le renderer Windows expire initialement pendant l’attente de la piste ;
+  les logs prouvent que `ao=null` déclenche la récupération audio upstream, qui arrête la lecture
+  après cinq tentatives. Diagnostics/screenshot conservés dans `35034266231`.
+  Le banc utilise désormais D3D11 WARP et PCM vers le périphérique `NUL` ;
+  relance `35034940985` en attente. Pas de preuve de sortie audible ou de GPU.
+- La CI upstream complète `35034268551` confirme le formatage natif, Linux
+  (ASan/TSan), le serveur, le site et les dépendances. Ses jobs Apple/macOS et
+  Windows x64 nécessitaient le staging patché, ajouté depuis ; le test tvOS
+  sur les pins Apple est adapté et passe localement (6 tests, 123 assertions).
+- Les contrôles de code/fichiers inutilisés refusent encore les composants
+  LiveSync préparés mais non branchés. Ils restent actifs. Le contrôleur et
+  l'intégration finale doivent supprimer ces échecs par une utilisation réelle.
+- Identités d'installation Windows séparées (Inno/MSIX), exécutable harmonisé,
+  16 tests du guard MSIX réussis. Métadonnées PowerShell à exercer en CI ;
+  installation/désinstallation et signature restent non validées.
