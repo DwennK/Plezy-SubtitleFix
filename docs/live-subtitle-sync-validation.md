@@ -436,3 +436,15 @@ reconstruite après le banc de rendu, sans laisser son point d'entrée de test.
   dans `990f061d`, sans réduire le niveau de diagnostics ; relance en cours.
 - Le worker et son ABI restent séparés de l'UI de production. Le probe utilise
   une sortie audio nulle et ne valide pas la préservation de la sortie audible.
+
+### Banc de rendu Windows automatisé (préparé)
+
+- Le point d'entrée de test peut désormais attendre une capture native pour six
+  états : délai initial, positif, négatif, restauration, capture PCM activée puis
+  désactivée. Il vérifie le texte attendu, la piste et le délai manuel avant chaque
+  capture. Ce mode exige deux `dart-define` et ne touche pas l'entrée de production.
+- Le workflow conserve d'abord l'application normale, puis construit ce banc.
+  Le pilote PowerShell capture uniquement sa fenêtre au premier plan, à 1440×900
+  si le bureau du runner le permet, et enregistre les dimensions réelles.
+  Une inspection visuelle des PNG reste obligatoire ; préparer ce test ne prouve
+  pas encore le rendu Windows. Analyse Dart et contrôles YAML locaux réussis.

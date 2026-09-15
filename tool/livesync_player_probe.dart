@@ -3,6 +3,7 @@
 library;
 
 import 'dart:async';
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
@@ -59,10 +60,59 @@ class _ProbeState extends State<_Probe> {
       await player.setProperty('sub-pos', '70');
       await player.setProperty('sub-font-size', '44');
       await _describe('Baseline: manual delay 0.125 s');
+      await _automate();
     } catch (error) {
       if (mounted) setState(() => status = 'Probe error: $error');
     } finally {
       if (mounted) setState(() => busy = false);
+    }
+  }
+
+  // Optional CI handshake, only in this dedicated synthetic-fixture entrypoint.
+  // The external driver captures the real native window before acknowledging
+  // each state. Flutter screenshots alone would omit the native video surface.
+  Future<void> _automate() async {
+    const directory = String.fromEnvironment('LIVESYNC_RENDERER_AUTOMATION_DIR');
+    if (directory.isEmpty) return;
+    await Directory(directory).create(recursive: true);
+    final originalSid = await player.getProperty('sid');
+    final steps = <(String, String, String, String)>[
+      ('baseline', 'sub-delay', '0.125', 'FIRST PROBE CUE'),
+      ('positive', 'sub-delay', '2.125', ''),
+      ('negative', 'sub-delay', '-3', 'SECOND PROBE CUE'),
+      ('restored', 'sub-delay', '0.125', 'FIRST PROBE CUE'),
+      ('capture-on', 'livesync-enabled', 'yes', 'FIRST PROBE CUE'),
+      ('capture-off', 'livesync-enabled', 'no', 'FIRST PROBE CUE'),
+    ];
+    try {
+      for (final (name, property, value, expectedCue) in steps) {
+        await player.setProperty(property, value);
+        await Future<void>.delayed(const Duration(milliseconds: 800));
+        final cue = (await player.getProperty('sub-text') ?? '').trim();
+        final sid = await player.getProperty('sid');
+        final delay = await player.getProperty('sub-delay');
+        if (cue != expectedCue || sid != originalSid) throw StateError('Renderer state mismatch: $name');
+        if ((name == 'restored' || name.startsWith('capture-')) && double.tryParse(delay ?? '') != 0.125) {
+          throw StateError('Manual delay changed: $name');
+        }
+        await _describe(name);
+        await WidgetsBinding.instance.endOfFrame;
+        final temporary = File('$directory/$name.tmp');
+        await temporary.writeAsString(
+          jsonEncode({'state': name, 'cue': cue, 'sid': sid, 'delay': delay, 'syntheticFixture': true}),
+          flush: true,
+        );
+        await temporary.rename('$directory/$name.json');
+        final deadline = DateTime.now().add(const Duration(seconds: 45));
+        while (!await File('$directory/$name.ack').exists()) {
+          if (DateTime.now().isAfter(deadline)) throw TimeoutException('Renderer capture acknowledgement');
+          await Future<void>.delayed(const Duration(milliseconds: 100));
+        }
+      }
+      await File('$directory/complete.json').writeAsString(jsonEncode({'states': steps.length, 'passed': true}));
+    } catch (_) {
+      await File('$directory/failure.json').writeAsString(jsonEncode({'passed': false}));
+      rethrow;
     }
   }
 

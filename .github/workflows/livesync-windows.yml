@@ -129,6 +129,22 @@ jobs:
           path: build/windows/x64/runner/Debug/
           if-no-files-found: error
           retention-days: 14
+      - name: Build and capture the dedicated native renderer harness
+        shell: pwsh
+        run: |
+          if (-not (Get-Command ffmpeg -ErrorAction SilentlyContinue)) {
+            choco install ffmpeg --yes --no-progress
+            if ($LASTEXITCODE -ne 0) { throw 'Fixture generator installation failed' }
+          }
+          python scripts/livesync/create_renderer_fixture.py --output build/livesync/renderer-fixture
+          if ($LASTEXITCODE -ne 0) { throw 'Renderer fixture generation failed' }
+          $fixture = (Resolve-Path build/livesync/renderer-fixture).Path
+          New-Item -ItemType Directory -Force build/livesync/evidence/renderer | Out-Null
+          $evidence = (Resolve-Path build/livesync/evidence/renderer).Path
+          ffmpeg -version > build/livesync/evidence/renderer/fixture-generator.txt
+          flutter build windows --debug --no-pub --target tool/livesync_player_probe.dart "--dart-define=LIVESYNC_FIXTURE_DIR=$fixture" "--dart-define=LIVESYNC_RENDERER_AUTOMATION_DIR=$evidence"
+          if ($LASTEXITCODE -ne 0) { throw 'Dedicated renderer build failed' }
+          ./scripts/livesync/capture_windows_renderer.ps1 -Executable build/windows/x64/runner/Debug/PlezyLiveSync.exe -OutputDirectory $evidence
       - name: Preserve validation evidence
         if: always()
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7
