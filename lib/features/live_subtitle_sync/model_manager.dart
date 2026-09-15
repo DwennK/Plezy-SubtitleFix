@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:convert';
 import 'dart:io';
 import 'dart:isolate';
 
@@ -122,15 +123,18 @@ class LiveSyncModelManager {
     required this.client,
     this.totalTimeout = const Duration(minutes: 15),
     this.idleTimeout = const Duration(seconds: 30),
+    this.staleAfter = const Duration(days: 1),
   });
 
   final Directory directory;
   final http.Client client;
   final Duration totalTimeout;
   final Duration idleTimeout;
+  final Duration staleAfter;
   final _preparations = <String, _Preparation>{};
   final _leases = <String, int>{};
   final _deleting = <String>{};
+  Future<void>? _recovery;
 
   Future<ModelLease> acquire(LiveSyncModel model, {void Function(ModelProgress)? onProgress}) async {
     _validate(model);
@@ -205,6 +209,7 @@ class LiveSyncModelManager {
     final deadline = Timer(totalTimeout, operation.timeout);
     Directory? temporary;
     try {
+      await _recoverOnce();
       final destination = _file(model);
       if (await _verifiedModel(destination.path, model.bytes, model.sha256)) {
         operation.check();
@@ -213,6 +218,9 @@ class LiveSyncModelManager {
       operation.check();
       await directory.create(recursive: true);
       temporary = await directory.createTemp('.livesync-model-');
+      await File(
+        p.join(temporary.path, 'owner.json'),
+      ).writeAsString(jsonEncode({'owner': 'plezy-livesync-model-v1', 'sha256': model.sha256}), flush: true);
       final partial = File(p.join(temporary.path, 'download.partial'));
       final request = http.AbortableRequest('GET', Uri.parse(model.url), abortTrigger: operation.abort.trigger);
       final pending = client.send(request).then((response) async {
@@ -269,6 +277,51 @@ class LiveSyncModelManager {
       } on FileSystemException {
         throw const ModelException(ModelFailure.storage);
       }
+    }
+  }
+
+  Future<void> _recoverOnce() async {
+    final recovery = _recovery ??= _removeStaleDownloads();
+    try {
+      await recovery;
+    } catch (_) {
+      if (identical(_recovery, recovery)) _recovery = null;
+      rethrow;
+    }
+  }
+
+  Future<void> _removeStaleDownloads() async {
+    if (!await directory.exists()) return;
+    final cutoff = DateTime.now().subtract(staleAfter);
+    await for (final entry in directory.list(followLinks: false)) {
+      if (entry is! Directory || !p.basename(entry.path).startsWith('.livesync-model-')) continue;
+      if ((await entry.stat()).modified.isAfter(cutoff)) continue;
+      final owner = File(p.join(entry.path, 'owner.json'));
+      if (await FileSystemEntity.type(owner.path, followLinks: false) != FileSystemEntityType.file ||
+          await owner.length() > 1024) {
+        continue;
+      }
+      Object? marker;
+      try {
+        marker = jsonDecode(await owner.readAsString());
+      } on FormatException {
+        continue;
+      }
+      if (marker is! Map ||
+          marker['owner'] != 'plezy-livesync-model-v1' ||
+          marker['sha256'] is! String ||
+          !RegExp(r'^[0-9a-f]{64}$').hasMatch(marker['sha256'] as String)) {
+        continue;
+      }
+      // A marker does not authorize deleting unrelated files or nested trees.
+      var ownedOnly = true;
+      await for (final child in entry.list(followLinks: false)) {
+        if (child is! File || !{'owner.json', 'download.partial'}.contains(p.basename(child.path))) {
+          ownedOnly = false;
+          break;
+        }
+      }
+      if (ownedOnly) await entry.delete(recursive: true);
     }
   }
 }

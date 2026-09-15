@@ -231,4 +231,29 @@ void main() {
       sender?.cancel();
     }
   });
+
+  test('crash recovery removes only stale marked downloads and preserves recent or unrelated files', () async {
+    final abandoned = await directory.createTemp('.livesync-model-');
+    await File(
+      '${abandoned.path}/owner.json',
+    ).writeAsString(jsonEncode({'owner': 'plezy-livesync-model-v1', 'sha256': model.sha256}));
+    await File('${abandoned.path}/download.partial').writeAsBytes([1, 2]);
+    final unrelated = await directory.createTemp('.livesync-model-');
+    await File(
+      '${unrelated.path}/owner.json',
+    ).writeAsString(jsonEncode({'owner': 'plezy-livesync-model-v1', 'sha256': model.sha256}));
+    await File('${unrelated.path}/keep.txt').writeAsString('keep');
+    server.listen((request) {
+      request.response.add(fixture);
+      finish(request.response);
+    });
+    final first = await manager.acquire(model);
+    first.release();
+    expect(await abandoned.exists(), isTrue, reason: 'recent directories must not be reclaimed');
+    final recovery = LiveSyncModelManager(directory: directory, client: client, staleAfter: Duration.zero);
+    final second = await recovery.acquire(model);
+    second.release();
+    expect(await abandoned.exists(), isFalse);
+    expect(await File('${unrelated.path}/keep.txt').readAsString(), 'keep');
+  });
 }

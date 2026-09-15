@@ -367,3 +367,16 @@ reconstruite après le banc de rendu, sans laisser son point d'entrée de test.
   sur Windows/macOS sans attendre la compilation de mpv.
 - Le modèle n'est pas encore exposé dans l'UI de production. La récupération
   des temporaires après crash reste à raccorder au cycle de vie de l'application.
+
+### Reprise après crash et première CI des composants
+
+- Ajout de la récupération des temporaires à la première acquisition : seuls
+  les dossiers portant le marqueur du gestionnaire, âgés de plus de 24 heures
+  et ne contenant que ses fichiers attendus sont supprimés. Ce délai dépasse
+  largement les 15 minutes maximales d'une préparation active. Fichiers étrangers,
+  liens symboliques et temporaires récents sont préservés.
+- **11 tests du gestionnaire et analyse ciblée réussis** après cette extension.
+- CI `35027104786` : macOS réussi ; Windows a échoué avant les tests parce que
+  le premier lancement Flutter ajoutait sa sortie de bootstrap au JSON de version.
+  Le workflow initialise désormais l'outil avant la lecture JSON stricte ; les
+  contrôles des révisions SDK/engine restent inchangés. Nouvelle CI à exécuter.

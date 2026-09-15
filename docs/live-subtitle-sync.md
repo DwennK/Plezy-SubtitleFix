@@ -119,8 +119,10 @@ et délai total interrompent le transport et nettoient les fichiers temporaires.
 Une lease protège le modèle chargé jusqu'à sa libération par le worker natif ;
 la suppression depuis les paramètres devra d'abord arrêter ce worker.
 
-L'intégration au contrôleur, à l'UI et au répertoire de production reste à faire,
-ainsi que la récupération des temporaires après arrêt brutal du processus.
+À la première acquisition, les temporaires identifiés par un marqueur propre au
+gestionnaire et vieux de plus de 24 heures sont récupérés après un éventuel crash.
+Les dossiers récents, non identifiés ou contenant d'autres fichiers sont préservés.
+L'intégration au contrôleur, à l'UI et au répertoire de production reste à faire.
 Le probe réseau explicite `flutter test --no-pub tool/livesync_model_probe_test.dart`
 vérifie un vrai téléchargement du modèle quantifié, sa réutilisation et sa suppression.
 Il utilise un répertoire temporaire et ne laisse pas de modèle utilisateur installé.
