@@ -115,7 +115,8 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y git cmake ninja-build build-essential pkg-config curl unzip zip patch ca-certificates python3 autoconf automake libtool libtool-bin bison flex gettext mercurial subversion gyp yasm nasm gcc-multilib g++-multilib clang lld libc++-dev libc++abi-dev libgmp-dev libmpfr-dev libmpc-dev libgcrypt-dev gperf ragel texinfo autopoint re2c asciidoc rst2pdf python3-docutils python3-mako python3-jsonschema p7zip-full ccache
           python3 -m venv build/livesync/tools
-          build/livesync/tools/bin/pip install meson
+          build/livesync/tools/bin/pip install meson jinja2 mako jsonschema
+          build/livesync/tools/bin/python3 -c 'import jinja2, mako, jsonschema'
           echo "$PWD/build/livesync/tools/bin" >> "$GITHUB_PATH"
       - name: Restore the pinned cross-build state
         uses: actions/cache/restore@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6

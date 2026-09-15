@@ -407,3 +407,14 @@ reconstruite après le banc de rendu, sans laisser son point d'entrée de test.
   active. Le worker n'est pas encore relié au player natif ou à l'UI ; son backend
   GPU et le matching SRT restent à implémenter. La CI native inclut désormais ce
   test de worker pour Windows/macOS ; résultat de cette nouvelle exécution à venir.
+
+### Reprise du build natif Windows
+
+- Le run `35015208320` a échoué à 22:01 UTC le 15 septembre dans le générateur
+  de shaders de libplacebo : `ModuleNotFoundError: No module named 'jinja2'`.
+  Le compilateur LLVM/MinGW et les dépendances déjà construites ont été mis en
+  cache avec succès. Les probes et le build applicatif dépendants n'ont pas démarré.
+- Le venv Meson reçoit désormais Jinja2, Mako et jsonschema, avec contrôle de
+  leurs imports avant le build. Les paquets Python installés par apt étaient
+  invisibles dans ce venv isolé. Aucune révision native ni patch Flutter ne change.
+  Le prochain run reprend le cache ; la preuve Windows reste à obtenir.

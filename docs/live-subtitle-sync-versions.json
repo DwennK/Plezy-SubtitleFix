@@ -561,7 +561,7 @@
     },
     "windowsX64": {
       "nativeBuildRun": 35015208320,
-      "status": "in progress at last check; no PCM proof yet",
+      "status": "failed in libplacebo shader generation: jinja2 absent from isolated build venv; bootstrap cached; no PCM proof yet",
       "verificationRun": 35020598056,
       "applicationRun": 35025719202
     }
