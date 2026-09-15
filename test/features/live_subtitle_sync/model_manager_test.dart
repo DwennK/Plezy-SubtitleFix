@@ -203,8 +203,8 @@ void main() {
     manager = LiveSyncModelManager(
       directory: directory,
       client: client,
-      totalTimeout: const Duration(milliseconds: 500),
-      idleTimeout: const Duration(milliseconds: 200),
+      totalTimeout: const Duration(seconds: 2),
+      idleTimeout: const Duration(milliseconds: 500),
     );
     final slow = LiveSyncModel(
       id: 'slow',

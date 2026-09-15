@@ -380,3 +380,9 @@ reconstruite après le banc de rendu, sans laisser son point d'entrée de test.
   le premier lancement Flutter ajoutait sa sortie de bootstrap au JSON de version.
   Le workflow initialise désormais l'outil avant la lecture JSON stricte ; les
   contrôles des révisions SDK/engine restent inchangés. Nouvelle CI à exécuter.
+- Relance `35027503606` : macOS réussi ; Windows passe l'analyse mais le test de
+  transfert lent expire avant sa première donnée. La vérification de présence et
+  taille se fait désormais par I/O asynchrone avant de créer l'isolate de hash,
+  évitant ce coût pour un cache absent. Le scénario de délai global utilise une
+  fenêtre de deux secondes pour laisser le transfert démarrer sur le runner ;
+  il exige toujours plusieurs chunks avant l'expiration. Les 11 tests locaux passent.

@@ -328,8 +328,8 @@ class LiveSyncModelManager {
 
 // Hash in a background isolate, with streaming input rather than loading a
 // 148 MB model into the UI isolate. This component is desktop-only.
-Future<bool> _verifiedModel(String path, int bytes, String expected) => Isolate.run(() async {
+Future<bool> _verifiedModel(String path, int bytes, String expected) async {
   final file = File(path);
   if (!await file.exists() || await file.length() != bytes) return false;
-  return (await crypto.sha256.bind(file.openRead()).first).toString() == expected;
-});
+  return Isolate.run(() async => (await crypto.sha256.bind(File(path).openRead()).first).toString() == expected);
+}
