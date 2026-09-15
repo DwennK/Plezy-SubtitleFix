@@ -77,6 +77,8 @@ pas implicites dans un build de test.
 Plan enregistré avant implémentation. Phase A revalidée sur `7e4c8feb`, phase B
 en cours : inférence CPU Windows/macOS, prélèvement PCM macOS avec PTS,
 renderer macOS et lecture complète bornée des SRT démontrés séparément.
+Le consommateur PCM 16 kHz borné passe sur Windows/macOS. La chaîne lecture
+active → consommateur → Whisper CPU passe sur le Mac avec les deux modèles.
 Le build Windows du mpv patché est encore en cours. Aucun fonctionnement
 LiveSync de bout en bout livré. Voir le journal de validation et le manifeste.
 

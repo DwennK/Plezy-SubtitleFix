@@ -1,0 +1,10 @@
+{
+  "nativeRevision": "c7348c98438b74b3d3f64244a7f48f7e366dbf1a",
+  "xcframeworkSha256": "79a087b74344026ce6452bf7b36f87c1d374fcb419de1233db195316f61a980a",
+  "liveSyncPatchSha256": "6a2e0e12b3e61c6f846127c90e75361a20cbfef9c822d56a0ecac55b6803a977",
+  "packageSource": "Pinned upstream Package.swift; only Libmpv target uses a local path",
+  "run": 35023134941,
+  "forkSha": "a1604b6d9aa5b738ddfeee3220ec90615c45c2e0",
+  "upstreamSha": "7e4c8feb0c7bd3b8aade2d240bc13abb05e1e2a8",
+  "nativeContractsPassed": 13
+}

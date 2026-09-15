@@ -496,12 +496,12 @@
     },
     "ciAppleBuild": {
       "nativeRevision": "c7348c98438b74b3d3f64244a7f48f7e366dbf1a",
-      "xcframeworkSha256": "f438e2849827e1dd185b8b0cb815e551d2ad31c034098fc7cb7fc2cf464919a4",
+      "xcframeworkSha256": "79a087b74344026ce6452bf7b36f87c1d374fcb419de1233db195316f61a980a",
       "liveSyncPatchSha256": "6a2e0e12b3e61c6f846127c90e75361a20cbfef9c822d56a0ecac55b6803a977",
       "packageSource": "Pinned upstream Package.swift; only Libmpv target uses a local path",
-      "run": 35020270952,
-      "forkSha": "8c3a24b62e42ce563e95e535fefe3068485ca42e",
-      "upstreamSha": "4992d1bd8b76830a9539f03d650e1db4e85c8dc7",
+      "run": 35023134941,
+      "forkSha": "a1604b6d9aa5b738ddfeee3220ec90615c45c2e0",
+      "upstreamSha": "7e4c8feb0c7bd3b8aade2d240bc13abb05e1e2a8",
       "nativeContractsPassed": 13
     }
   },
@@ -549,20 +549,21 @@
       "localDebugBuild": "passed with patched native package",
       "nativeContracts": "13 passed locally",
       "renderer": "synthetic fixture, 1224x768 native window; delay +2.125, -3 and restoration to manual 0.125 seconds",
-      "ciRun": 35018938322,
-      "ciResult": "passed app build and 13 native contracts in run 35020270952 at 8c3a24b6 (before the Android-only upstream 7e4c8feb merge)",
+      "ciRun": 35023134941,
+      "ciResult": "passed app build and 13 native contracts at a1604b6d, including upstream 7e4c8feb",
       "retryCiRun": 35020270952,
       "appArtifact": {
-        "id": 10418095406,
-        "bytes": 123408463,
-        "digest": "sha256:bbfb3689f698677c1797acc2b8362efd3428b9a5df42060f7b300989ffd077b1",
+        "id": 10418414006,
+        "bytes": 123408512,
+        "digest": "sha256:20a5fad4e1d4659836767250ae9c4043b7ec39b090329ac4392567061888a802",
         "kind": "debug test artifact, not notarized, no automatic sync UI"
       }
     },
     "windowsX64": {
       "nativeBuildRun": 35015208320,
       "status": "in progress at last check; no PCM proof yet",
-      "verificationRun": 35020598056
+      "verificationRun": 35020598056,
+      "applicationRun": 35025719202
     }
   },
   "checks": {
@@ -578,6 +579,26 @@
     },
     "analyze": "passed (whole checkout plus scoped new loader/tests)",
     "codegen": "passed",
-    "diffCheck": "passed"
+    "diffCheck": "passed",
+    "pcmConsumer": {
+      "nativeUnitTests": "passed on Apple M4, Release and AddressSanitizer/UndefinedBehaviorSanitizer",
+      "realDecoder": "passed synthetic stereo PCM across forward/backward seeks on macOS arm64",
+      "scope": "standalone worker-owned converter and ring; not wired to the production app lifecycle; surround rejected until capture includes a speaker map",
+      "ciRun": 35025239090,
+      "ciResult": "passed Windows x64 and macOS arm64 at 9c5b2b3e"
+    },
+    "activePlaybackInference": {
+      "platform": "macOS arm64 Apple M4",
+      "models": [
+        "base.en",
+        "base.en-q5_1"
+      ],
+      "fixture": "pinned public-domain JFK smoke sample",
+      "capturedSamples": 175968,
+      "wordErrorRate": 0,
+      "timestampAccuracyValidated": false,
+      "srtAlignmentValidated": false,
+      "scope": "active mpv PCM -> native mono 16 kHz consumer -> whisper-cli CPU via stdin; no captured audio or transcript retained"
+    }
   }
 }

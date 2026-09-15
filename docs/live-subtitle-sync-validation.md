@@ -300,3 +300,49 @@ reconstruite après le banc de rendu, sans laisser son point d'entrée de test.
 - Gardes de sécurité/actions et architecture du workflow : réussies localement.
   Le build natif Windows `35015208320` et la relance macOS `35023134941` restent
   en cours à ce point de contrôle. L'étape Windows n'est donc pas validée.
+
+## Consommateur PCM et nouveau résultat macOS — 2026-09-15
+
+- CI macOS `35023134941` **réussie** au commit `a1604b6d`, avec l'upstream
+  `7e4c8feb` intégré : application construite et **13 tests natifs réussis**.
+  Les identités et hashes de l'artefact sont inscrits au manifeste.
+- Workflow application Windows `35024252271` lancé sur `6053295b` ; il attend
+  encore le build natif `35015208320`. Aucun succès Windows PCM/app n'est annoncé.
+- Nouveau consommateur C++ : mono float32 16 kHz, filtre anti-repliement,
+  ring borné à 30 secondes et snapshots limités à 15 secondes. Le temps de chaque
+  sample provient du centre du filtre dans la timeline PCM d'origine.
+- Tests natifs locaux réussis en Release et sous AddressSanitizer/UBSan :
+  fréquences 8–192 kHz, packed/planar, représentations entières/flottantes,
+  invariance aux frontières de paquets, rejet 12 kHz lors de la conversion
+  48→16 kHz, timestamps, ring saturé, seeks/epochs, générations et données invalides.
+- Probe **réel libmpv → consommateur natif** réussi sur M4 : lecture et seeks
+  avant/arrière, erreur maximale des amplitudes normalisées inférieure à 0,00003
+  par rapport aux deux sinusoïdes connues et à leurs timestamps. Mesure conservée
+  dans `docs/livesync-evidence/2026-09-15-pcm-consumer-macos.json`.
+- Les quelques millisecondes de conversion mesurées sur ce probe court ne sont
+  **pas** un benchmark de lecture de l'application. Le composant n'est pas encore
+  raccordé au worker de production, à Whisper ou au contrôleur. Le multicanal
+  reste refusé tant que le tap n'expose pas les positions des haut-parleurs.
+- Le workflow Windows en attente `35024252271` a été remplacé par
+  `35025240430`, au commit `9c5b2b3e`, pour inclure aussi le probe du nouveau
+  consommateur. La CI `35025239090` construit et teste ce composant sur macOS
+  et Windows, puis refait les inférences CPU de référence. Résultats en attente.
+
+## Chaîne de transcription depuis la lecture active — 2026-09-15
+
+- CI `35025239090` **réussie sur Windows x64 et macOS arm64** : compilation et
+  tests du consommateur natif, puis inférences CPU de référence avec les deux
+  modèles. Cette CI utilise des PCM synthétiques pour le consommateur ; elle ne
+  prouve toujours pas la capture du player Windows.
+- Sur M4, `probe_inference_pipeline.py` fait lire l'extrait JFK vérifié par mpv,
+  récupère son PCM actif, le convertit via le consommateur C++, puis envoie la
+  fenêtre à Whisper CPU par stdin. **175 968 samples**, début média **0,001 s**,
+  erreur textuelle **0 sur cet extrait connu**, pour `base.en` et `base.en-q5_1`.
+  Aucun PCM capturé ni transcript n'est conservé ; seuls les résumés sont commis.
+- Les horodatages Whisper de ce smoke test ne constituent pas des ancres de
+  précision validée. Aucun rapprochement SRT ou mapping automatique n'est testé.
+  Les temps d'inférence de cet essai court ne constituent pas des budgets finaux.
+- Le workflow application Windows définit maintenant cette même chaîne complète
+  pour les deux modèles. Run courant **35025719202**, commit `750e9ad2`, en
+  attente du build natif `35015208320`. Les deux attenteurs d'application
+  précédents ont été annulés après remplacement ; le build natif initial continue.
