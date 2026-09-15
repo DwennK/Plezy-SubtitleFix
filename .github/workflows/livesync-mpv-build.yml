@@ -1,0 +1,97 @@
+name: LiveSync patched mpv build
+
+on:
+  workflow_dispatch:
+    inputs:
+      windows:
+        description: Build Windows x64 (cold LLVM bootstrap can take hours)
+        type: boolean
+        default: true
+      macos:
+        description: Build macOS arm64 and x64 XCFramework
+        type: boolean
+        default: true
+
+permissions:
+  contents: read
+
+concurrency:
+  group: livesync-mpv-build
+  cancel-in-progress: false
+
+jobs:
+  apple:
+    if: inputs.macos
+    runs-on: macos-26
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          persist-credentials: false
+      - name: Prepare upstream native sources and LiveSync patch
+        run: python3 scripts/livesync/prepare_native.py mpv-build --dest build/livesync/mpv-source
+      - name: Install upstream build tools
+        run: |
+          brew install autoconf automake libtool ninja
+          python3 -m venv build/livesync/tools
+          build/livesync/tools/bin/pip install meson==1.4.2
+          echo "$PWD/build/livesync/tools/bin" >> "$GITHUB_PATH"
+      - name: Build with upstream dependency install trees
+        working-directory: build/livesync/mpv-source
+        run: make build use-prebuilt libs=libmpv platform=macos
+      - name: Preserve native binaries
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7
+        with:
+          name: livesync-mpv-macos-${{ github.sha }}
+          path: build/livesync/mpv-source/dist/release/
+          if-no-files-found: error
+          retention-days: 14
+
+  windows:
+    if: inputs.windows
+    runs-on: ubuntu-latest
+    timeout-minutes: 350
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          persist-credentials: false
+      - name: Prepare upstream native sources and LiveSync patch
+        run: python3 scripts/livesync/prepare_native.py mpv-build --dest build/livesync/mpv-source
+      - name: Install upstream cross-build prerequisites
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y git cmake ninja-build build-essential pkg-config curl unzip zip patch ca-certificates python3 autoconf automake libtool libtool-bin bison flex gettext mercurial subversion gyp yasm nasm gcc-multilib g++-multilib clang lld libc++-dev libc++abi-dev libgmp-dev libmpfr-dev libmpc-dev libgcrypt-dev gperf ragel texinfo autopoint re2c asciidoc rst2pdf python3-docutils python3-mako python3-jsonschema p7zip-full ccache
+          python3 -m venv build/livesync/tools
+          build/livesync/tools/bin/pip install meson
+          echo "$PWD/build/livesync/tools/bin" >> "$GITHUB_PATH"
+      - name: Restore the pinned cross-build state
+        uses: actions/cache/restore@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6
+        with:
+          path: |
+            build/livesync/mpv-source/build/windows/x86_64
+            build/livesync/mpv-source/build/windows/src
+            build/livesync/mpv-source/build/windows/rustup
+          key: livesync-win-native-${{ hashFiles('docs/live-subtitle-sync-versions.json', 'native/live_subtitle_sync/patches/**') }}-${{ github.run_id }}
+          restore-keys: livesync-win-native-
+      - name: Cross-build the selected Windows stack
+        working-directory: build/livesync/mpv-source
+        run: bash platforms/windows/build.sh x86_64
+      - name: Package native dev archive
+        working-directory: build/livesync/mpv-source
+        run: bash platforms/windows/package.sh x86_64
+      - name: Preserve bootstrap progress
+        if: always()
+        uses: actions/cache/save@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6
+        with:
+          path: |
+            build/livesync/mpv-source/build/windows/x86_64
+            build/livesync/mpv-source/build/windows/src
+            build/livesync/mpv-source/build/windows/rustup
+          key: livesync-win-native-${{ hashFiles('docs/live-subtitle-sync-versions.json', 'native/live_subtitle_sync/patches/**') }}-${{ github.run_id }}
+      - name: Preserve native binaries
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7
+        with:
+          name: livesync-mpv-windows-x64-${{ github.sha }}
+          path: build/livesync/mpv-source/dist/release/
+          if-no-files-found: error
+          retention-days: 14

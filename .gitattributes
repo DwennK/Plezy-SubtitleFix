@@ -3,6 +3,9 @@
 Dockerfile text eol=lf
 *.bat text eol=lf
 
+# Unified diffs require a single space on empty context lines.
+native/live_subtitle_sync/patches/*.patch whitespace=-blank-at-eol
+
 # Byte-exact generated Dart checked by scripts/check_codegen.py.
 lib/data/ducet_order.dart text eol=lf
 lib/data/hid_key_labels.dart text eol=lf
