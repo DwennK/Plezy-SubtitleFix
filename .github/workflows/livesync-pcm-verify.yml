@@ -63,6 +63,18 @@ jobs:
           python3 scripts/livesync/probe_subtitles.py --library build/livesync/mpv/libmpv-2.dll --output build/livesync/evidence/subtitles
           printf '%s\n' "$NATIVE_RUN_ID" > build/livesync/evidence/native-build-run.txt
           git rev-parse HEAD > build/livesync/evidence/probe-source-sha.txt
+      - name: Verify native polling and player shutdown
+        shell: pwsh
+        run: |
+          $include = (Resolve-Path build/livesync/mpv/include).Path
+          cmake -S native/live_subtitle_sync -B build/livesync/capture-owner "-DLIVESYNC_MPV_INCLUDE=$include"
+          if ($LASTEXITCODE -ne 0) { throw 'Capture worker configuration failed' }
+          cmake --build build/livesync/capture-owner --config Release --parallel 2
+          if ($LASTEXITCODE -ne 0) { throw 'Capture worker build failed' }
+          ctest --test-dir build/livesync/capture-owner -C Release --output-on-failure
+          if ($LASTEXITCODE -ne 0) { throw 'PCM contracts failed' }
+          python scripts/livesync/probe_capture_owner.py --library build/livesync/mpv/libmpv-2.dll --capture build/livesync/capture-owner/Release/livesync_capture_bridge.dll --output build/livesync/evidence/capture-owner
+          if ($LASTEXITCODE -ne 0) { throw 'Capture ownership or shutdown verification failed' }
       - name: Preserve evidence
         if: always()
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7
