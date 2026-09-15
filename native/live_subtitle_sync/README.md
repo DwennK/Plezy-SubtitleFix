@@ -105,3 +105,11 @@ locally generated media and a known SRT. It is explicitly a feasibility screen,
 not the product's LiveSync UI. Rebuild with `-t lib/main.dart` afterwards to
 restore the ordinary application entrypoint. Never distribute the harness as
 an implementation of automatic synchronization.
+
+
+The test dylib linker reads the actual Meson dependency metadata, mpv's generated
+pkg-config framework flags and the selected Swift runtime paths. It does not
+require a CLI executable target or reconfigure the upstream build. `--arch
+x86_64` permits testing the Intel slice under an existing Rosetta installation;
+that result does not validate physical Intel hardware, its GPU, or a full Intel
+application build.
