@@ -86,3 +86,22 @@ not yet been adapted for the fork's distribution/native update process. Use the
 LiveSync test workflow; do not run the original release workflow. A native pin
 update must rebuild the patched artifact, regenerate the local package and
 revalidate its provenance. iOS/tvOS still use their original remote packages.
+
+
+## Visual renderer feasibility harness
+
+With an existing FFmpeg executable (fixture generation only):
+
+```sh
+python3 scripts/livesync/create_renderer_fixture.py --output build/livesync/renderer-fixture
+flutter build macos --debug --no-pub -t tool/livesync_player_probe.dart \
+  --dart-define=LIVESYNC_FIXTURE_DIR="$PWD/build/livesync/renderer-fixture"
+```
+
+Launch the resulting test app, compare the first cue, positive delay, negative
+delay, and Restore manual. Capture on/off must leave the manual delay intact.
+The test uses Plezy's real `Player`/`Video` and native subtitle renderer, with
+locally generated media and a known SRT. It is explicitly a feasibility screen,
+not the product's LiveSync UI. Rebuild with `-t lib/main.dart` afterwards to
+restore the ordinary application entrypoint. Never distribute the harness as
+an implementation of automatic synchronization.

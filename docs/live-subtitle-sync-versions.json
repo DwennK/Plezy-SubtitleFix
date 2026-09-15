@@ -483,12 +483,14 @@
       "artifactSha256": "d76af1b3703d3ca8e4ac57761903018a8ec18ccb2058274656362ecb418b4a32",
       "builtAt": "2026-09-15T19:52:08.150607+00:00",
       "runtimeTested": [
-        "arm64: synthetic PCM with null output"
+        "arm64: synthetic PCM with null output",
+        "arm64: app-hosted native contracts, 13 passing tests",
+        "arm64: Player/Video renderer harness, reversible SRT delay visually verified"
       ],
       "untested": [
         "x86_64 runtime",
-        "audible output",
-        "Plezy UI"
+        "audible-output preservation",
+        "automatic alignment"
       ]
     }
   },
@@ -496,7 +498,8 @@
     "pubspec.lock": "2991b19197f90b0b7fcdf8737b64d0d5a18f73630819aa9fd519eff714a428be",
     "mpv-build.lock.json": "a4c9586e1f00f7e37c70e67f56c753b993176e4cc4509816a7f86ba33b0dfb3c",
     "macos/Podfile.lock": "cdef4deafd3cd7501f2f5ee80532ca9532419ccb89468b11947713bdac01fa6a",
-    "macos/Runner.xcworkspace/xcshareddata/swiftpm/Package.resolved": "9f617c33c5087437cef6c5dca49f9ffc2989100732a802122fe73e5af56ad52e"
+    "macos/Runner.xcworkspace/xcshareddata/swiftpm/Package.resolved": "f5771cf4c56799def360edf4950e65579843894f51d06867a48ba2db232f4784",
+    "macos/Runner.xcodeproj/project.xcworkspace/xcshareddata/swiftpm/Package.resolved": "f5771cf4c56799def360edf4950e65579843894f51d06867a48ba2db232f4784"
   },
   "whisper": {
     "version": "v1.9.4",
@@ -529,5 +532,18 @@
     "cpu": "Apple M4",
     "memoryBytes": 17179869184,
     "appleBuildDriverMeson": "1.12.0 (driver resolved /opt/homebrew/bin/meson)"
+  },
+  "appValidation": {
+    "macosArm64": {
+      "localDebugBuild": "passed with patched native package",
+      "nativeContracts": "13 passed locally",
+      "renderer": "synthetic fixture, 1224x768 native window; delay +2.125, -3 and restoration to manual 0.125 seconds",
+      "ciRun": 35018938322,
+      "ciResult": "app built in run 35018938322; native test C-string portability fix 8c3a24b6 passed all 13 tests locally and is awaiting CI"
+    },
+    "windowsX64": {
+      "nativeBuildRun": 35015208320,
+      "status": "in progress at last check; no PCM proof yet"
+    }
   }
 }

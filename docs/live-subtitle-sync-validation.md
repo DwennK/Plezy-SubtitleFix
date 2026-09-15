@@ -213,3 +213,33 @@ peut retélécharger les variantes non utilisées.
   ni le contrôleur automatique. Ces validations restent ouvertes.
 - Les workflows natifs Windows/macOS intègrent maintenant ces probes. Les runs
   démarrés avant ce commit continuent d'utiliser leur ancienne définition.
+
+
+## 2026-09-15 — vérification visuelle du renderer macOS
+
+Banc dédié `tool/livesync_player_probe.dart`, construit avec le projet macOS du
+fork, son mpv patché, et les classes réelles `Player` / `Video` de Plezy. Média
+local synthétique FFV1/PCM, SRT synthétique ; aucun compte ni média personnel.
+Ce banc reste séparé du point d'entrée produit et ne contient pas d'alignement
+Whisper ni de contrôleur de synchronisation automatique.
+
+Contrôle via Computer Use dans une fenêtre native de 1224 × 768 :
+
+- À 1,5 s, le renderer affiche FIRST PROBE CUE, délai manuel +0,125 s.
+- Après +2 s supplémentaires, le cue disparaît visiblement.
+- Avec délai −3 s, SECOND PROBE CUE apparaît à la même position média.
+- Restaurer +0,125 s ramène FIRST PROBE CUE sans changer de piste (`sid=1`).
+- Activer puis désactiver la capture affiche respectivement `yes` puis `no` ;
+  la piste, son texte et le délai manuel sont conservés.
+
+Captures : `docs/livesync-evidence/2026-09-15-renderer-macos/`. Pour éviter que
+les contrôles du banc couvrent les sous-titres, leur position est fixée à 70 %
+dans ce banc uniquement. Un premier essai a également confirmé qu'une piste
+URI doit être résolue en identifiant natif avant `selectSubtitleTrack`, comme
+le fait déjà l'application. Le banc a été corrigé en attendant la liste native.
+L'entrée normale `lib/main.dart` a ensuite été reconstruite avec succès.
+
+Le run CI macOS 35018938322 a compilé l'application, puis a échoué à compiler
+le nouveau test : sa version de Swift exige des conversions C-string explicites
+que le compilateur local acceptait implicitement. Correction `8c3a24b6` : les 13 tests natifs repassent localement ; nouveau run
+CI lancé. Cela n'est pas encore un succès des tests CI.
