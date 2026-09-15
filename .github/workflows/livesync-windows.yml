@@ -129,6 +129,20 @@ jobs:
           path: build/windows/x64/runner/Debug/
           if-no-files-found: error
           retention-days: 14
+      - name: Emit and verify isolated packaging metadata
+        shell: pwsh
+        run: |
+          python scripts/checks/check_windows_installer.py
+          if ($LASTEXITCODE -ne 0) { throw 'Installer identity guard failed' }
+          python scripts/checks/check_windows_msix.py
+          if ($LASTEXITCODE -ne 0) { throw 'MSIX identity guard failed' }
+          $version = python scripts/pubspec_version.py
+          if ($LASTEXITCODE -ne 0) { throw 'Version parsing failed' }
+          New-Item -ItemType Directory -Force build/livesync/evidence/packaging | Out-Null
+          ./windows/build-installer.ps1 -Version $version -X64BuildDir build/windows/x64/runner/Debug -OutputDir build/livesync/evidence/packaging -EmitScriptOnly
+          if ($LASTEXITCODE -ne 0) { throw 'Installer metadata generation failed' }
+          ./windows/build-msix.ps1 -Version $version -OutputDir build/livesync/evidence/packaging -EmitManifestOnly
+          if ($LASTEXITCODE -ne 0) { throw 'MSIX metadata generation failed' }
       - name: Build and capture the dedicated native renderer harness
         shell: pwsh
         run: |

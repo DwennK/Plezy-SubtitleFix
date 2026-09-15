@@ -22,7 +22,7 @@ function New-InnoSetupScript {
 
     # Uninstall registry keys are named "{AppId}_is1", so the installer and the
     # elevation code below have to agree on this GUID.
-    $AppGuid = '4213385e-f7be-4f2b-95f9-54082a28bb8f'
+    $AppGuid = '79769758-e214-4a32-a8f8-a31e22b3bfb5'
 
     if ($HasX64 -and $HasArm64) {
         $ArchAllowed = 'x64compatible arm64'
@@ -39,10 +39,10 @@ Source: "staging\arm64\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs
     }
 
     return @"
-#define Name "Plezy"
+#define Name "Plezy + LiveSync"
 #define Version "$Version"
-#define Publisher "edde746"
-#define ExeName "plezy.exe"
+#define Publisher "DwennK"
+#define ExeName "plezy_livesync.exe"
 
 [Setup]
 AppId={{$AppGuid}
@@ -68,7 +68,7 @@ ArchitecturesInstallIn64BitMode=$ArchAllowed
 Name: "english"; MessagesFile: "compiler:Default.isl"
 
 [CustomMessages]
-ElevationRequired=Plezy is installed in %1, which requires administrator privileges to update.%n%nRe-run this installer using "Run as administrator", or download the latest installer from https://github.com/edde746/plezy/releases/latest
+ElevationRequired=Plezy + LiveSync is installed in %1, which requires administrator privileges to update.%n%nRe-run this installer using "Run as administrator", or download the latest installer from https://github.com/DwennK/Plezy-SubtitleFix/releases
 
 [Tasks]
 Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{cm:AdditionalIcons}"; Flags: unchecked
@@ -87,7 +87,7 @@ Filename: "{app}\{#ExeName}"; Description: "{cm:LaunchProgram,{#Name}}"; Flags: 
 [Code]
 const
   UninstallSubkey = 'Software\Microsoft\Windows\CurrentVersion\Uninstall\{$AppGuid}_is1';
-  WriteProbeName = 'plezy-write-probe.tmp';
+  WriteProbeName = 'plezy-livesync-write-probe.tmp';
 
 function IsNoRun: Boolean;
 begin

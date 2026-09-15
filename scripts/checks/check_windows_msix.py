@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Guard the generated MSIX manifest behind Microsoft Store submissions.
+"""Guard the generated MSIX manifest and the fork's isolated package identity.
 
 windows/build-msix.ps1 generates AppxManifest.xml per architecture at package
 time, so there is no manifest in the tree to review. These checks read the
@@ -9,7 +9,7 @@ PowerShell, because root CI runs on Linux where pwsh cannot be assumed, and
 
 The invariants pinned here are the ones makeappx, the shell and Store
 certification enforce: the schema's fixed child order, identity strings that
-satisfy their pattern constraints and match the reserved product, a four-part
+satisfy their pattern constraints and match the fork product, a four-part
 version whose revision field is the 0 the Store reserves, one template shared by
 both architectures, assets that actually exist in the tree, and the resource
 index without which the unplated taskbar icons never resolve.
@@ -38,11 +38,11 @@ PUBSPEC = ROOT / "pubspec.yaml"
 WORKFLOW = ROOT / ".github/workflows/build.yml"
 MSIX_STEP = "Build Store package (MSIX)"
 BUNDLE = "plezy-windows.msixbundle"
-# Partner Center reserves these identity values and derives the package family name.
-IDENTITY_NAME = "edde746.Plezy"
-PUBLISHER = "CN=AA9C53CB-AD3C-48DA-B3E3-D1E8986D4E25"
-PUBLISHER_DISPLAY_NAME = "edde746"
-PACKAGE_FAMILY_SUFFIX = "13q3sv6jzathm"
+# Private fork identity; not registered for Microsoft Store submission.
+IDENTITY_NAME = "DwennK.PlezyLiveSync"
+PUBLISHER = "CN=DwennK.PlezyLiveSync"
+PUBLISHER_DISPLAY_NAME = "DwennK"
+PACKAGE_FAMILY_SUFFIX = "whdqg23br7m7w"
 FOUNDATION = "http://schemas.microsoft.com/appx/manifest/foundation/windows10"
 ASSET_REFERENCE = re.compile(r"assets\\([A-Za-z0-9._-]+\.png)")
 # Package child order is fixed by the foundation schema.
@@ -208,9 +208,9 @@ if package is not None:
                 f"{{{FOUNDATION}}}Properties/{{{FOUNDATION}}}PublisherDisplayName"
             )
             == PUBLISHER_DISPLAY_NAME,
-            "the manifest must carry the identity reserved in Partner Center "
+            "the manifest must carry the isolated fork identity "
             f"({IDENTITY_NAME}, {PUBLISHER}, {PUBLISHER_DISPLAY_NAME}); any drift fails "
-            "Store validation",
+            "fork identity validation",
         )
         require(
             identity.get("Version") == values["MsixVersion"],
@@ -274,8 +274,8 @@ if package is not None:
 # Recompute the Partner Center package-family suffix to catch publisher drift.
 require(
     package_family_suffix(PUBLISHER) == PACKAGE_FAMILY_SUFFIX,
-    f"the pinned publisher must hash to the package family name reported by Partner "
-    f"Center, {IDENTITY_NAME}_{PACKAGE_FAMILY_SUFFIX}",
+    f"the pinned publisher must hash to the fork package family "
+    f"{IDENTITY_NAME}_{PACKAGE_FAMILY_SUFFIX}",
 )
 
 require(

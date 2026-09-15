@@ -17,7 +17,7 @@ DEFAULT_SCRIPT = ROOT / "windows/build-installer.ps1"
 if len(sys.argv) > 2:
     raise SystemExit(f"Usage: {Path(sys.argv[0]).name} [build-installer-path]")
 SCRIPT = Path(sys.argv[1]).resolve() if len(sys.argv) == 2 else DEFAULT_SCRIPT
-APP_GUID = "4213385e-f7be-4f2b-95f9-54082a28bb8f"
+APP_GUID = "79769758-e214-4a32-a8f8-a31e22b3bfb5"
 text = SCRIPT.read_text(encoding="utf-8")
 errors: list[str] = []
 
@@ -57,6 +57,9 @@ require(
 )
 
 require("AppId={{$AppGuid}" in iss, "AppId must be built from the shared $AppGuid")
+require('#define Name "Plezy + LiveSync"' in iss, "the fork needs its own installation directory and display name")
+require('#define ExeName "plezy_livesync.exe"' in iss, "the installer must launch the fork executable")
+require('4213385e-f7be-4f2b-95f9-54082a28bb8f' not in text, "the fork must not reuse the official uninstall identity")
 require(
     r"Uninstall\{$AppGuid}_is1" in iss,
     "the uninstall subkey must be the shared AppId with Inno's _is1 suffix",

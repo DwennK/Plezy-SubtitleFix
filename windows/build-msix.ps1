@@ -1,11 +1,11 @@
 #!/usr/bin/env pwsh
-# Windows Store (MSIX) Build Script
+# Isolated LiveSync MSIX Build Script
 # Packs the per-arch Flutter Release output into one dual-architecture
-# .msixbundle for Microsoft Store submission. Purely additive: the Inno Setup
+# unsigned .msixbundle for private tests. Purely additive: the Inno Setup
 # installer, the portable archives and the WinSparkle appcast are untouched.
 #
-# Nothing here signs the bundle. The Store re-signs after certification, and a
-# package signed with any other certificate fails publisher-identity validation.
+# Nothing here signs the bundle or registers a Microsoft Store product.
+# Installation requires an explicitly trusted certificate matching this fork.
 
 param(
     [string]$OutputDir = ".",
@@ -39,14 +39,11 @@ function New-AppxManifest {
         [Parameter(Mandatory)][string]$Architecture
     )
 
-    # Copied verbatim from the reserved product's identity page in Partner
-    # Center; Store validation rejects the upload if any of the three differs by
-    # a single character. Together they yield package family name
-    # edde746.Plezy_13q3sv6jzathm. Identity/@Name is also constrained to
-    # '[-.A-Za-z0-9]+' by the schema, so it can never carry an underscore.
-    $IdentityName = "edde746.Plezy"
-    $Publisher = "CN=AA9C53CB-AD3C-48DA-B3E3-D1E8986D4E25"
-    $PublisherDisplayName = "edde746"
+    # Private fork identity, independent of the official Store product.
+    # This unsigned test package is not registered for Store submission.
+    $IdentityName = "DwennK.PlezyLiveSync"
+    $Publisher = "CN=DwennK.PlezyLiveSync"
+    $PublisherDisplayName = "DwennK"
 
     # One template for both architectures, which can therefore not drift apart;
     # ProcessorArchitecture is the only difference between them.
@@ -74,7 +71,7 @@ function New-AppxManifest {
             ProcessorArchitecture="$Architecture" />
 
   <Properties>
-    <DisplayName>Plezy</DisplayName>
+    <DisplayName>Plezy + LiveSync</DisplayName>
     <PublisherDisplayName>$PublisherDisplayName</PublisherDisplayName>
     <Logo>assets\StoreLogo.png</Logo>
   </Properties>
@@ -96,8 +93,8 @@ function New-AppxManifest {
   </Capabilities>
 
   <Applications>
-    <Application Id="Plezy" Executable="plezy.exe" EntryPoint="Windows.FullTrustApplication">
-      <uap:VisualElements DisplayName="Plezy"
+    <Application Id="PlezyLiveSync" Executable="plezy_livesync.exe" EntryPoint="Windows.FullTrustApplication">
+      <uap:VisualElements DisplayName="Plezy + LiveSync"
                           Description="A modern client for Plex and Jellyfin"
                           BackgroundColor="transparent"
                           Square150x150Logo="assets\Square150x150Logo.png"
