@@ -180,3 +180,25 @@ python3 scripts/livesync/probe_pcm_consumer.py \
 The last command reads actual decoded synthetic PCM through libmpv and the
 native consumer. It validates sample values and their media times across seeks;
 it does not prove production app threading, audible playback or synchronization.
+
+`probe_inference_pipeline.py` connects the same real decoder/consumer to the
+pinned whisper CLI on CPU. It accepts only the hash-pinned JFK fixture and a
+hash-pinned model, feeds the bounded snapshot through stdin, and retains only
+counts, timing, hashes and word-error measurements. It neither feeds whisper
+the original media file nor saves captured PCM. Temporary transcript output is
+deleted. Both `base.en` and its `q5_1` variant passed locally on the M4; this
+single known excerpt is a feasibility smoke test, not an alignment benchmark.
+
+```sh
+python3 scripts/livesync/probe_inference_pipeline.py \
+  --library build/livesync/libmpv-probe-metadata.dylib \
+  --consumer build/livesync/pcm-consumer/liblivesync_pcm_bridge.dylib \
+  --fixture build/livesync/source/samples/jfk.wav \
+  --whisper-cli build/livesync/whisper/bin/whisper-cli \
+  --model build/livesync/models/ggml-base.en.bin \
+  --output build/livesync/evidence/pipeline-base.en.json
+```
+
+The Windows application workflow includes the same chain for both models,
+using its actual app-bundled mpv DLL. Execution remains contingent on completion
+of the native Windows build; a workflow definition is not a successful run.

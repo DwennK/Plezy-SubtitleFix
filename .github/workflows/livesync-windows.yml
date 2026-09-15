@@ -101,6 +101,21 @@ jobs:
           if ($LASTEXITCODE -ne 0) { throw 'PCM consumer tests failed' }
           python scripts/livesync/probe_pcm_consumer.py --library build/windows/x64/runner/Debug/libmpv-2.dll --consumer build/livesync/pcm-consumer/Release/livesync_pcm_bridge.dll --output build/livesync/evidence/consumer
           if ($LASTEXITCODE -ne 0) { throw 'Native PCM conversion probe failed' }
+      - name: Verify actual CPU inference from active-playback PCM
+        shell: pwsh
+        run: |
+          python scripts/livesync/prepare_native.py whisper --dest build/livesync/whisper-source
+          if ($LASTEXITCODE -ne 0) { throw 'Whisper source preparation failed' }
+          python scripts/livesync/prepare_native.py models --dest build/livesync/models
+          if ($LASTEXITCODE -ne 0) { throw 'Model verification failed' }
+          cmake -S build/livesync/whisper-source -B build/livesync/whisper -DGGML_METAL=OFF -DWHISPER_BUILD_TESTS=OFF -DWHISPER_BUILD_SERVER=OFF
+          if ($LASTEXITCODE -ne 0) { throw 'Whisper configure failed' }
+          cmake --build build/livesync/whisper --config Release --parallel 3 --target whisper-cli
+          if ($LASTEXITCODE -ne 0) { throw 'Whisper build failed' }
+          foreach ($model in @('base.en', 'base.en-q5_1')) {
+            python scripts/livesync/probe_inference_pipeline.py --library build/windows/x64/runner/Debug/libmpv-2.dll --consumer build/livesync/pcm-consumer/Release/livesync_pcm_bridge.dll --fixture build/livesync/whisper-source/samples/jfk.wav --whisper-cli build/livesync/whisper/bin/Release/whisper-cli.exe --model "build/livesync/models/ggml-$model.bin" --output "build/livesync/evidence/pipeline-$model.json"
+            if ($LASTEXITCODE -ne 0) { throw 'Active-playback inference probe failed' }
+          }
       - name: Preserve test application
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7
         with:
