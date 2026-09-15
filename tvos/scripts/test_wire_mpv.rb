@@ -143,6 +143,24 @@ class WireMpvTest < Minitest::Test
           'xcshareddata', 'swiftpm', 'Package.resolved'
         ),
       ]
+      if platform == 'macos'
+        # The fork stages the same native revision as a local package with the
+        # PCM patch. iOS and tvOS still consume the official remote package.
+        project = Xcodeproj::Project.open(File.join(repository_root, platform, 'Runner.xcodeproj'))
+        local = project.root_object.package_references.select do |candidate|
+          candidate.isa == 'XCLocalSwiftPackageReference' && candidate.relative_path == 'LiveSyncMPV'
+        end
+        assert_equal 1, local.length, 'macOS must use exactly one local LiveSyncMPV package'
+        lock_paths.each do |resolved_path|
+          pins = JSON.parse(File.read(resolved_path)).fetch('pins')
+          refute pins.any? { |pin| %w[mpvkit mpv-build].include?(pin['identity']) },
+                 'macOS must not also resolve the unpatched remote native package'
+        end
+        manifest = JSON.parse(File.read(File.join(repository_root, 'docs/live-subtitle-sync-versions.json')))
+        revisions['macos/LiveSyncMPV'] = manifest.fetch('native').fetch('commit')
+        locations['macos/LiveSyncMPV'] = "https://github.com/#{manifest.fetch('native').fetch('repo')}"
+        next
+      end
       lock_paths.each do |resolved_path|
         resolved = JSON.parse(File.read(resolved_path))
         pin = resolved.fetch('pins').find { |candidate| expected_locations.include?(candidate['location']) }

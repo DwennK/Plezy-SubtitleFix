@@ -380,7 +380,14 @@ jobs:
 
       - name: Prepare macOS Flutter build settings
         if: matrix.platform == 'macOS'
-        run: flutter build macos --config-only --debug --no-pub
+        run: |
+          brew install autoconf automake libtool ninja
+          python3 scripts/livesync/prepare_native.py mpv-build --dest build/livesync/mpv-source
+          make -C build/livesync/mpv-source build use-prebuilt libs=libmpv platform=macos
+          archive=build/livesync/mpv-source/dist/release/Libmpv.xcframework.zip
+          checksum=$(shasum -a 256 "$archive" | cut -d ' ' -f 1)
+          python3 scripts/livesync/stage_macos_package.py --source build/livesync/mpv-source --archive "$archive" --sha256 "$checksum"
+          flutter build macos --config-only --debug --no-pub
 
       - name: Prepare tvOS Flutter engine
         if: matrix.platform == 'tvOS'
@@ -458,6 +465,7 @@ jobs:
     runs-on: ${{ matrix.runner }}
     permissions:
       contents: read
+      actions: read
     strategy:
       fail-fast: false
       matrix:
@@ -513,7 +521,18 @@ jobs:
 
       - name: Prepare Flutter Windows configuration
         shell: pwsh
-        run: flutter build windows --debug --config-only --no-pub
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TEST_ARCH: ${{ matrix.arch }}
+        run: |
+          if ($env:TEST_ARCH -eq 'x64') {
+            $nativeRun = python -c "import json; print(json.load(open('docs/live-subtitle-sync-versions.json'))['appValidation']['windowsX64']['nativeBuildRun'])"
+            if ($LASTEXITCODE -ne 0) { throw 'Native build provenance unavailable' }
+            python scripts/livesync/stage_windows_package.py --run-id $nativeRun
+            if ($LASTEXITCODE -ne 0) { throw 'Patched native staging failed' }
+          }
+          flutter build windows --debug --config-only --no-pub
+          if ($LASTEXITCODE -ne 0) { throw 'Windows configuration failed' }
 
       - name: Configure Windows native reliability tests
         shell: pwsh
