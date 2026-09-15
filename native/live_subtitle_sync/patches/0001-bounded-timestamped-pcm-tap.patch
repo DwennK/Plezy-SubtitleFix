@@ -1,0 +1,242 @@
+diff --git a/filters/f_output_chain.c b/filters/f_output_chain.c
+index 4bbbdde..1ccf3aa 100644
+--- a/filters/f_output_chain.c
++++ b/filters/f_output_chain.c
+@@ -1,4 +1,7 @@
+ #include "audio/aframe.h"
++#include "audio/format.h"
++#include "misc/node.h"
++#include "mpv/client.h"
+ #include "audio/out/ao.h"
+ #include "common/global.h"
+ #include "options/m_config.h"
+@@ -14,6 +17,113 @@
+ #include "f_utils.h"
+ #include "user_filters.h"
+ 
++
++// The decoder path only copies to already allocated memory. No allocation,
++// resampling, inference, disk/network I/O or waiting in the capture operation.
++// 64 * 64 KiB bounds the raw queue. The consumer owns the 30s analysis ring.
++#define LIVESYNC_SLOTS 64
++#define LIVESYNC_FRAME_BYTES 65536
++struct mp_livesync_packet {
++    double pts, speed;
++    int rate, channels, samples, format, planes, plane_bytes;
++    uint8_t data[LIVESYNC_FRAME_BYTES];
++};
++struct mp_livesync_tap {
++    struct mp_livesync_packet packets[LIVESYNC_SLOTS];
++    int head, count;
++    int64_t epoch, dropped;
++};
++
++static void livesync_reset(struct mp_livesync_tap *tap)
++{
++    if (!tap)
++        return;
++    tap->head = tap->count = 0;
++    tap->epoch++;
++}
++
++static void livesync_capture(struct mp_livesync_tap *tap, struct mp_aframe *a)
++{
++    if (!tap)
++        return;
++    int planes = mp_aframe_get_planes(a);
++    int samples = mp_aframe_get_size(a);
++    size_t stride = mp_aframe_get_sstride(a);
++    double pts = mp_aframe_get_pts(a);
++    if (!af_fmt_is_pcm(mp_aframe_get_format(a)) || !isfinite(pts) ||
++        pts == MP_NOPTS_VALUE || samples <= 0 || planes <= 0 ||
++        stride == 0 || stride > LIVESYNC_FRAME_BYTES / planes ||
++        samples > LIVESYNC_FRAME_BYTES / (stride * planes)) {
++        livesync_reset(tap);
++        tap->dropped++;
++        return;
++    }
++    if (tap->count == LIVESYNC_SLOTS) {
++        livesync_reset(tap);
++        tap->dropped++;
++    }
++    struct mp_livesync_packet *p =
++        &tap->packets[(tap->head + tap->count) % LIVESYNC_SLOTS];
++    p->pts = pts;
++    p->speed = mp_aframe_get_speed(a);
++    p->rate = mp_aframe_get_rate(a);
++    p->channels = mp_aframe_get_channels(a);
++    p->samples = samples;
++    p->format = mp_aframe_get_format(a);
++    p->planes = planes;
++    p->plane_bytes = samples * stride;
++    uint8_t **data = mp_aframe_get_data_ro(a);
++    for (int n = 0; n < planes; n++)
++        memcpy(p->data + n * p->plane_bytes, data[n], p->plane_bytes);
++    tap->count++;
++}
++
++void mp_output_livesync_enable(struct mp_output_chain *c, bool enabled)
++{
++    if (!enabled) {
++        if (c->livesync) {
++            // Erase dialogue samples before releasing the private allocation.
++            memset(c->livesync, 0, sizeof(*c->livesync));
++            TA_FREEP(&c->livesync);
++        }
++    } else if (!c->livesync) {
++        c->livesync = talloc_zero(c->f, struct mp_livesync_tap);
++    }
++}
++
++void mp_output_livesync_read(struct mp_output_chain *c, struct mpv_node *out)
++{
++    struct mp_livesync_tap *tap = c->livesync;
++    node_init(out, MPV_FORMAT_NODE_MAP, NULL);
++    node_map_add_int64(out, "version", 1);
++    node_map_add_int64(out, "epoch", tap ? tap->epoch : 0);
++    node_map_add_int64(out, "dropped", tap ? tap->dropped : 0);
++    struct mpv_node *frames = node_map_add(out, "frames", MPV_FORMAT_NODE_ARRAY);
++    // Bound a single bridge transfer to at most 256 KiB of sample bytes.
++    int bytes = 0;
++    while (tap && tap->count) {
++        struct mp_livesync_packet *p = &tap->packets[tap->head];
++        int size = p->planes * p->plane_bytes;
++        if (bytes + size > 262144)
++            break;
++        bytes += size;
++        struct mpv_node *n = node_array_add(frames, MPV_FORMAT_NODE_MAP);
++        node_map_add_double(n, "pts", p->pts);
++        node_map_add_double(n, "speed", p->speed);
++        node_map_add_int64(n, "rate", p->rate);
++        node_map_add_int64(n, "channels", p->channels);
++        node_map_add_int64(n, "samples", p->samples);
++        node_map_add_int64(n, "planes", p->planes);
++        node_map_add_string(n, "format", af_fmt_to_str(p->format));
++        struct mpv_node *pcm = node_map_add(n, "pcm", MPV_FORMAT_BYTE_ARRAY);
++        pcm->u.ba->size = size;
++        pcm->u.ba->data = talloc_memdup(pcm->u.ba, p->data, size);
++        memset(p->data, 0, size);
++        tap->head = (tap->head + 1) % LIVESYNC_SLOTS;
++        tap->count--;
++    }
++}
++
+ struct chain {
+     struct mp_filter *f;
+     struct mp_log *log;
+@@ -297,6 +407,9 @@ static void output_chain_process(struct mp_filter *f)
+                                        mp_frame_get_pts(frame));
+         }
+ 
++        if (frame.type == MP_FRAME_AUDIO)
++            livesync_capture(p->public.livesync, frame.data);
++
+         mp_pin_in_write(p->filters_in, frame);
+     }
+ 
+@@ -315,6 +428,7 @@ static void output_chain_reset(struct mp_filter *f)
+ {
+     struct chain *p = f->priv;
+ 
++    livesync_reset(p->public.livesync);
+     p->public.ao_needs_update = false;
+ 
+     p->public.got_output_eof = false;
+@@ -347,6 +461,8 @@ void mp_output_chain_reset_harder(struct mp_output_chain *c)
+ static void output_chain_destroy(struct mp_filter *f)
+ {
+     output_chain_reset(f);
++    struct chain *p = f->priv;
++    mp_output_livesync_enable(&p->public, false);
+ }
+ 
+ static const struct mp_filter_info output_chain_filter = {
+diff --git a/filters/f_output_chain.h b/filters/f_output_chain.h
+index f313f9a..9955ad7 100644
+--- a/filters/f_output_chain.h
++++ b/filters/f_output_chain.h
+@@ -42,6 +42,9 @@ struct mp_output_chain {
+     // reference. The API user needs to call mp_output_chain_set_ao() again.
+     // Until this is done, the filter chain will not output new data.
+     bool ao_needs_update;
++
++    // LiveSync owns this pre-filter tap; disabled unless explicitly enabled.
++    struct mp_livesync_tap *livesync;
+ };
+ 
+ // (free by freeing mp_output_chain.f)
+@@ -88,3 +91,8 @@ double mp_output_get_measured_total_delay(struct mp_output_chain *p);
+ 
+ // Check if deinterlace user filter is inserted
+ bool mp_output_chain_deinterlace_active(struct mp_output_chain *p);
++
++// Experimental LiveSync polling ABI v1. Call on the player thread only.
++struct mpv_node;
++void mp_output_livesync_enable(struct mp_output_chain *c, bool enabled);
++void mp_output_livesync_read(struct mp_output_chain *c, struct mpv_node *out);
+diff --git a/player/command.c b/player/command.c
+index 96bc06a..824a54d 100644
+--- a/player/command.c
++++ b/player/command.c
+@@ -1873,6 +1873,52 @@ static int mp_property_audio_delay(void *ctx, struct m_property *prop,
+     return mp_property_generic_option(mpctx, prop, action, arg);
+ }
+ 
++
++// Private, opt-in LiveSync transport. Never observe livesync-pcm: GET drains
++// the bounded queue. Clients poll it on their worker and reject old playback
++// generations. A new audio chain starts disabled and must be enabled again.
++static int mp_property_livesync_enabled(void *ctx, struct m_property *prop,
++                                       int action, void *arg)
++{
++    MPContext *mpctx = ctx;
++    if (action == M_PROPERTY_GET_TYPE) {
++        *(struct m_option *)arg = (struct m_option){.type = CONF_TYPE_FLAG};
++        return M_PROPERTY_OK;
++    }
++    struct mp_output_chain *c = mpctx->ao_chain ? mpctx->ao_chain->filter : NULL;
++    if (!c)
++        return M_PROPERTY_UNAVAILABLE;
++    if (action == M_PROPERTY_GET) {
++        *(int *)arg = c->livesync != NULL;
++        return M_PROPERTY_OK;
++    }
++    if (action == M_PROPERTY_SET) {
++        if (*(int *)arg &&
++            !af_fmt_is_pcm(mp_aframe_get_format(c->input_aformat)))
++            return M_PROPERTY_UNAVAILABLE;
++        mp_output_livesync_enable(c, *(int *)arg != 0);
++        return M_PROPERTY_OK;
++    }
++    return M_PROPERTY_NOT_IMPLEMENTED;
++}
++
++static int mp_property_livesync_pcm(void *ctx, struct m_property *prop,
++                                   int action, void *arg)
++{
++    MPContext *mpctx = ctx;
++    if (action == M_PROPERTY_GET_TYPE) {
++        *(struct m_option *)arg = (struct m_option){.type = CONF_TYPE_NODE};
++        return M_PROPERTY_OK;
++    }
++    struct mp_output_chain *c = mpctx->ao_chain ? mpctx->ao_chain->filter : NULL;
++    if (!c || !c->livesync)
++        return M_PROPERTY_UNAVAILABLE;
++    if (action != M_PROPERTY_GET)
++        return M_PROPERTY_NOT_IMPLEMENTED;
++    mp_output_livesync_read(c, arg);
++    return M_PROPERTY_OK;
++}
++
+ static int property_audiofmt(struct mp_aframe *fmt, int action, void *arg)
+ {
+     if (!fmt || !mp_aframe_config_is_valid(fmt))
+@@ -4434,6 +4480,8 @@ static const struct m_property mp_properties_base[] = {
+     {"audio-delay", mp_property_audio_delay},
+     M_PROPERTY_ALIAS("audio-codec-name", "current-tracks/audio/codec"),
+     M_PROPERTY_ALIAS("audio-codec", "current-tracks/audio/codec-desc"),
++    {"livesync-enabled", mp_property_livesync_enabled},
++    {"livesync-pcm", mp_property_livesync_pcm},
+     {"audio-params", mp_property_audio_params},
+     {"audio-out-params", mp_property_audio_out_params},
+     {"aid", mp_property_switch_track, .priv = (void *)(const int[]){0, STREAM_AUDIO}},

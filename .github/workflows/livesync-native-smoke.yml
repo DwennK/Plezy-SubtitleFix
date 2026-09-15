@@ -1,0 +1,68 @@
+name: LiveSync native inference smoke
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [feature/live-subtitle-sync]
+    paths:
+      - '.github/workflows/livesync-native-smoke.yml'
+      - 'scripts/livesync/**'
+      - 'docs/live-subtitle-sync-versions.json'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: livesync-native-smoke-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  inference:
+    name: Inference ${{ matrix.platform }}
+    runs-on: ${{ matrix.runner }}
+    timeout-minutes: 30
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - platform: windows-x64
+            runner: windows-latest
+            metal: 'OFF'
+          - platform: macos-arm64
+            runner: macos-26
+            metal: 'ON'
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          persist-credentials: false
+      - name: Prepare pinned source and verified models
+        shell: bash
+        run: |
+          python3 scripts/livesync/prepare_native.py whisper --dest build/livesync/source
+          python3 scripts/livesync/prepare_native.py models --dest build/livesync/models
+      - name: Compile native inference
+        shell: bash
+        run: |
+          cmake -S build/livesync/source -B build/livesync/native -DCMAKE_BUILD_TYPE=Release -DGGML_METAL=${{ matrix.metal }} -DWHISPER_BUILD_TESTS=OFF -DWHISPER_BUILD_SERVER=OFF
+          cmake --build build/livesync/native --config Release --parallel 3 --target whisper-cli
+      - name: Run real CPU inference with both models
+        shell: bash
+        run: |
+          mkdir -p build/livesync/evidence
+          exe=build/livesync/native/bin/whisper-cli
+          if [[ "$RUNNER_OS" == Windows ]]; then exe=build/livesync/native/bin/Release/whisper-cli.exe; fi
+          for model in base.en base.en-q5_1; do
+            "$exe" -ng -m "build/livesync/models/ggml-$model.bin" -f build/livesync/source/samples/jfk.wav -ojf -of "build/livesync/evidence/$model-cpu" > "build/livesync/evidence/$model-cpu.txt" 2>&1
+          done
+          cp docs/live-subtitle-sync-versions.json build/livesync/evidence/versions.json
+          git rev-parse HEAD > build/livesync/evidence/fork-sha.txt
+          cmake --version > build/livesync/evidence/cmake-version.txt
+          uname -a > build/livesync/evidence/runner.txt
+      - name: Preserve native test artifacts
+        if: always()
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7
+        with:
+          name: livesync-inference-${{ matrix.platform }}-${{ github.sha }}
+          path: build/livesync/evidence/
+          if-no-files-found: error
+          retention-days: 14
