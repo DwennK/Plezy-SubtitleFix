@@ -448,6 +448,9 @@ reconstruite après le banc de rendu, sans laisser son point d'entrée de test.
   si le bureau du runner le permet, et enregistre les dimensions réelles.
   Une inspection visuelle des PNG reste obligatoire ; préparer ce test ne prouve
   pas encore le rendu Windows. Analyse Dart et contrôles YAML locaux réussis.
+- Ce mode automatisé utilise explicitement `ao=null`, les runners pouvant ne pas
+  avoir de périphérique audio physique. Chaque état le consigne ; il ne doit pas
+  être présenté comme preuve de préservation de l'audio audible.
 
 ### Compatibilité curl/libssh et provenance transitive
 

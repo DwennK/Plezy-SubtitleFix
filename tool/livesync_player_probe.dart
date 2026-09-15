@@ -46,6 +46,11 @@ class _ProbeState extends State<_Probe> {
           .firstWhere((tracks) => tracks.subtitle.any((t) => t.uri == subtitles.path))
           .timeout(const Duration(seconds: 20));
       final ready = player.streams.playbackRestart.first.timeout(const Duration(seconds: 20));
+      if (const String.fromEnvironment('LIVESYNC_RENDERER_AUTOMATION_DIR').isNotEmpty) {
+        // Hosted Windows runners may have no physical audio endpoint. This
+        // dedicated rendering proof does not claim audible-output validation.
+        await player.setProperty('ao', 'null');
+      }
       await player.setProperty('volume', '5');
       await player.configureSubtitleFonts();
       await player.open(
@@ -99,7 +104,15 @@ class _ProbeState extends State<_Probe> {
         await WidgetsBinding.instance.endOfFrame;
         final temporary = File('$directory/$name.tmp');
         await temporary.writeAsString(
-          jsonEncode({'state': name, 'cue': cue, 'sid': sid, 'delay': delay, 'syntheticFixture': true}),
+          jsonEncode({
+            'state': name,
+            'cue': cue,
+            'sid': sid,
+            'delay': delay,
+            'syntheticFixture': true,
+            'audioOutput': 'null',
+            'audiblePlaybackValidated': false,
+          }),
           flush: true,
         );
         await temporary.rename('$directory/$name.json');
