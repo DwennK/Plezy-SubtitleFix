@@ -112,9 +112,15 @@ jobs:
           if ($LASTEXITCODE -ne 0) { throw 'Whisper configure failed' }
           cmake --build build/livesync/whisper --config Release --parallel 3 --target whisper-cli
           if ($LASTEXITCODE -ne 0) { throw 'Whisper build failed' }
+          cmake -S native/live_subtitle_sync -B build/livesync/pcm-consumer -DGGML_METAL=OFF "-DLIVESYNC_WHISPER_SOURCE=$env:GITHUB_WORKSPACE/build/livesync/whisper-source"
+          if ($LASTEXITCODE -ne 0) { throw 'Native worker configure failed' }
+          cmake --build build/livesync/pcm-consumer --config Release --parallel 3 --target livesync_inference_bridge
+          if ($LASTEXITCODE -ne 0) { throw 'Native worker build failed' }
           foreach ($model in @('base.en', 'base.en-q5_1')) {
             python scripts/livesync/probe_inference_pipeline.py --library build/windows/x64/runner/Debug/libmpv-2.dll --consumer build/livesync/pcm-consumer/Release/livesync_pcm_bridge.dll --fixture build/livesync/whisper-source/samples/jfk.wav --whisper-cli build/livesync/whisper/bin/Release/whisper-cli.exe --model "build/livesync/models/ggml-$model.bin" --output "build/livesync/evidence/pipeline-$model.json"
             if ($LASTEXITCODE -ne 0) { throw 'Active-playback inference probe failed' }
+            python scripts/livesync/probe_inference_worker.py --worker build/livesync/pcm-consumer/Release/livesync_inference_bridge.dll --model "build/livesync/models/ggml-$model.bin" --fixture build/livesync/whisper-source/samples/jfk.wav --library build/windows/x64/runner/Debug/libmpv-2.dll --consumer build/livesync/pcm-consumer/Release/livesync_pcm_bridge.dll --output "build/livesync/evidence/worker-active-$model.json"
+            if ($LASTEXITCODE -ne 0) { throw 'Active-playback worker probe failed' }
           }
       - name: Preserve test application
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7

@@ -418,3 +418,21 @@ reconstruite après le banc de rendu, sans laisser son point d'entrée de test.
   leurs imports avant le build. Les paquets Python installés par apt étaient
   invisibles dans ce venv isolé. Aucune révision native ni patch Flutter ne change.
   Le prochain run reprend le cache ; la preuve Windows reste à obtenir.
+
+### Interface C et inférence pendant la lecture active
+
+- Ajout d'une interface C versionnée du worker, avec vérification de taille ABI
+  et résultat de capacité fixe détenu par l'appelant. Les textes et tokens restent
+  en mémoire ; la destruction attend la fin du worker sur le thread propriétaire.
+- Les deux modèles passent localement le probe ABI et le probe de lecture active
+  sur Apple M4. Ce dernier prélève environ neuf secondes du vrai PCM mpv, soumet
+  au worker asynchrone, puis vérifie que le lecteur avance avant réception.
+  Résumés : `docs/livesync-evidence/2026-09-16-worker-active-{base,q5}-macos.json`.
+- Le WER sur le meilleur préfixe de référence est nul dans ces deux essais connus.
+  Les durées sont des essais ponctuels CPU, hors chargement du modèle ; elles ne
+  constituent pas un benchmark ni une mesure de précision temporelle.
+- CI worker `35029878710` : macOS réussi ; Windows bloqué par C4244 traité comme
+  erreur dans `std::fill` (zéro entier vers float). Correction explicite `0.0f`
+  dans `990f061d`, sans réduire le niveau de diagnostics ; relance en cours.
+- Le worker et son ABI restent séparés de l'UI de production. Le probe utilise
+  une sortie audio nulle et ne valide pas la préservation de la sortie audible.

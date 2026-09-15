@@ -53,9 +53,12 @@ jobs:
         run: |
           python3 scripts/livesync/prepare_inference_fixture.py --fixture build/livesync/source/samples/jfk.wav --output build/livesync/fixtures/jfk.f32
           exe=build/livesync/pcm-consumer/livesync_inference_test
+          bridge=build/livesync/pcm-consumer/liblivesync_inference_bridge.dylib
           if [[ "$RUNNER_OS" == Windows ]]; then exe=build/livesync/pcm-consumer/Release/livesync_inference_test.exe; fi
+          if [[ "$RUNNER_OS" == Windows ]]; then bridge=build/livesync/pcm-consumer/Release/livesync_inference_bridge.dll; fi
           for model in base.en base.en-q5_1; do
             "$exe" "build/livesync/models/ggml-$model.bin" build/livesync/fixtures/jfk.f32 > "build/livesync/evidence/worker-$model.txt" 2>&1
+            python3 scripts/livesync/probe_inference_worker.py --worker "$bridge" --model "build/livesync/models/ggml-$model.bin" --fixture build/livesync/source/samples/jfk.wav --output "build/livesync/evidence/worker-abi-$model.json"
           done
       - name: Compile native inference
         shell: bash

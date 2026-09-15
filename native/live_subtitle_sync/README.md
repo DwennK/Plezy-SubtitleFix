@@ -241,3 +241,16 @@ failure. It is distinct from the active-playback probe and from app validation.
 The CMake integration rejects a different whisper source revision and disables
 host-specific CPU instruction flags for its baseline fallback. Older physical
 CPUs and optimized CPU variants still require measured distribution testing.
+
+`inference_bridge.h` exposes version 1 of the C ABI, with a caller-owned fixed
+result buffer (64 segments, 512 tokens, 8192 UTF-8 text bytes). Consumers verify
+both the ABI version and structure size before creating a worker. No C++ object
+or allocation crosses the result boundary. All calls must use one serialized
+background owner; destruction joins inference before releasing the model lease.
+
+`probe_inference_worker.py` exercises this interface either with the pinned
+fixture or with `--library` and `--consumer` for real active-playback PCM. The
+latter submits after nine seconds of captured audio and verifies that playback
+position advances before receipt of the result. It uses null audio output and
+compares against a prefix of the known fixture; it does not establish temporal
+alignment, audible-output preservation, or production UI responsiveness.
