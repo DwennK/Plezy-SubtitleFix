@@ -284,3 +284,19 @@ la preuve Windows, le consommateur PCM 16 kHz borné, le moteur de matching,
 la timeline segmentée, le contrôleur/UX, le modèle/cache utilisateur, les mesures
 end-to-end et le workflow quotidien upstream. L'application normale a été
 reconstruite après le banc de rendu, sans laisser son point d'entrée de test.
+
+## Préparation de l'application Windows — 2026-09-15
+
+- Ajout du raccordement CMake au paquet mpv patché x64, avec contrôle de révision,
+  hash du patch et hash de la DLL. Le paquet doit provenir d'un build natif réussi
+  du fork dont le lock et le patch sont identiques aux fichiers courants.
+- Six tests Python/CMake passent : préparation, provenance, conservation d'un
+  paquet antérieur en cas d'échec, refus d'archives dangereuses, de mauvaise
+  architecture et de paquet absent, corrompu ou périmé. Les octets PE de ces
+  tests sont synthétiques ; aucune preuve d'exécution Windows n'en est déduite.
+- Workflow Windows dédié préparé : SDK Flutter exact, installateur DComp upstream
+  inchangé, build de l'application, contrats natifs upstream et probes PCM/SRT
+  sur sa DLL effectivement empaquetée. Sorties limitées aux artefacts de test.
+- Gardes de sécurité/actions et architecture du workflow : réussies localement.
+  Le build natif Windows `35015208320` et la relance macOS `35023134941` restent
+  en cours à ce point de contrôle. L'étape Windows n'est donc pas validée.

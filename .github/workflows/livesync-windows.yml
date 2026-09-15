@@ -1,0 +1,107 @@
+name: LiveSync Windows application
+
+on:
+  workflow_dispatch:
+    inputs:
+      run_id:
+        description: Native build run in this fork containing the Windows x64 artifact
+        required: true
+        type: string
+
+permissions:
+  contents: read
+  actions: read
+
+concurrency:
+  group: livesync-windows-app-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  wait-for-native:
+    runs-on: ubuntu-latest
+    timeout-minutes: 350
+    steps:
+      - name: Wait for the selected native build
+        env:
+          GH_TOKEN: ${{ github.token }}
+          NATIVE_RUN_ID: ${{ inputs.run_id }}
+        run: |
+          [[ "$NATIVE_RUN_ID" =~ ^[0-9]+$ ]] || exit 2
+          gh run watch "$NATIVE_RUN_ID" --repo "$GITHUB_REPOSITORY" --exit-status --interval 60
+
+  app:
+    needs: wait-for-native
+    runs-on: windows-latest
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          persist-credentials: false
+      - name: Stage the patched native package with checked build provenance
+        shell: pwsh
+        env:
+          GH_TOKEN: ${{ github.token }}
+          NATIVE_RUN_ID: ${{ inputs.run_id }}
+        run: |
+          python scripts/livesync/stage_windows_package.py --run-id $env:NATIVE_RUN_ID
+          if ($LASTEXITCODE -ne 0) { throw 'Native package verification failed' }
+          New-Item -ItemType Directory -Force build/livesync/evidence | Out-Null
+          Copy-Item windows/LiveSyncMPV/livesync-provenance.json build/livesync/evidence/
+          Copy-Item docs/live-subtitle-sync-versions.json build/livesync/evidence/versions.json
+          git rev-parse HEAD > build/livesync/evidence/fork-sha.txt
+      - name: Setup the exact upstream Flutter SDK
+        uses: ./.github/actions/setup-flutter-git
+      - name: Resolve locked dependencies and install the upstream DComp engine
+        shell: pwsh
+        run: |
+          flutter pub get --enforce-lockfile --no-example
+          if ($LASTEXITCODE -ne 0) { throw 'Pub failed' }
+          flutter precache --windows
+          if ($LASTEXITCODE -ne 0) { throw 'Flutter precache failed' }
+          ./windows/tool/install-patched-engine.ps1
+          flutter --version --machine > build/livesync/evidence/flutter-version.json
+          Get-ComputerInfo -Property WindowsProductName,WindowsVersion,OsBuildNumber,CsProcessors |
+            ConvertTo-Json -Depth 4 > build/livesync/evidence/runner.json
+      - name: Build the isolated test application
+        shell: pwsh
+        run: |
+          flutter build windows --debug --no-pub
+          if ($LASTEXITCODE -ne 0) { throw 'Windows application build failed' }
+      - name: Build and execute upstream native reliability contracts
+        shell: pwsh
+        run: |
+          $buildDir = 'build/windows/x64'
+          cmake -S windows -B $buildDir -DPLEZY_BUILD_MPV_PROPERTY_CONTRACT_TESTS=ON -DPLEZY_BUILD_DISPLAY_RECOVERY_TESTS=ON
+          if ($LASTEXITCODE -ne 0) { throw 'Native test configure failed' }
+          cmake --build $buildDir --config Debug --parallel 2 --target mpv_property_result_contract_test mpv_player_property_contract_test display_mode_manager_test
+          if ($LASTEXITCODE -ne 0) { throw 'Native test build failed' }
+          $bundle = (Resolve-Path "$buildDir/runner/Debug").Path
+          $env:PATH = "$bundle;$env:PATH"
+          ctest --test-dir "$buildDir/runner" -C Debug --output-on-failure --no-tests=error --output-junit "${{ github.workspace }}/build/livesync/evidence/native-contracts.xml"
+          if ($LASTEXITCODE -ne 0) { throw 'Native contracts failed' }
+      - name: Verify PCM and reversible SRT timing with the app-bundled DLL
+        shell: pwsh
+        run: |
+          $dll = 'build/windows/x64/runner/Debug/libmpv-2.dll'
+          if ((Get-FileHash $dll).Hash -ne (Get-FileHash windows/LiveSyncMPV/libmpv-2.dll).Hash) {
+            throw 'App did not bundle the staged library'
+          }
+          python scripts/livesync/probe_pcm.py --library $dll --output build/livesync/evidence/pcm
+          if ($LASTEXITCODE -ne 0) { throw 'PCM verification failed' }
+          python scripts/livesync/probe_subtitles.py --library $dll --output build/livesync/evidence/subtitles
+          if ($LASTEXITCODE -ne 0) { throw 'SRT timing verification failed' }
+      - name: Preserve test application
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7
+        with:
+          name: livesync-windows-app-${{ github.sha }}
+          path: build/windows/x64/runner/Debug/
+          if-no-files-found: error
+          retention-days: 14
+      - name: Preserve validation evidence
+        if: always()
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7
+        with:
+          name: livesync-windows-contracts-${{ github.sha }}
+          path: build/livesync/evidence/
+          if-no-files-found: error
+          retention-days: 14

@@ -25,13 +25,17 @@ string(JSON MPV_SHA256 GET "${MPV_LOCK}" artifacts windows assets "${MPV_ARCH}" 
 # both arches share the FetchContent path (the old mpv-dev 7z needed a
 # 7-Zip binary on ARM64, whose libarchive lacks LZMA2).
 include(FetchContent)
-FetchContent_Declare(
-  mpv_dev
-  URL "${MPV_ASSET_BASE}/${MPV_ASSET}"
-  URL_HASH SHA256=${MPV_SHA256}
-  DOWNLOAD_EXTRACT_TIMESTAMP TRUE
-)
-FetchContent_MakeAvailable(mpv_dev)
+if(MPV_ARCH STREQUAL "x86_64")
+  include(cmake/livesync_mpv.cmake)
+else()
+  FetchContent_Declare(
+    mpv_dev
+    URL "${MPV_ASSET_BASE}/${MPV_ASSET}"
+    URL_HASH SHA256=${MPV_SHA256}
+    DOWNLOAD_EXTRACT_TIMESTAMP TRUE
+  )
+  FetchContent_MakeAvailable(mpv_dev)
+endif()
 
 set(MPV_INCLUDE_DIR "${mpv_dev_SOURCE_DIR}/include")
 set(MPV_LIB_DIR "${mpv_dev_SOURCE_DIR}")

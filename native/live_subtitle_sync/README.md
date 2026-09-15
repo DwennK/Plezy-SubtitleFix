@@ -113,3 +113,35 @@ require a CLI executable target or reconfigure the upstream build. `--arch
 x86_64` permits testing the Intel slice under an existing Rosetta installation;
 that result does not validate physical Intel hardware, its GPU, or a full Intel
 application build.
+
+## Windows application linkage
+
+Windows x64 requires the generated `windows/LiveSyncMPV` package. On an
+authenticated machine, stage a successful `livesync-mpv-build.yml` dispatch from
+this fork, then use the unchanged upstream Flutter DComp engine installer:
+
+```sh
+python scripts/livesync/stage_windows_package.py --run-id <completed-native-run>
+flutter pub get --enforce-lockfile --no-example
+flutter precache --windows
+```
+
+```powershell
+./windows/tool/install-patched-engine.ps1
+flutter build windows --debug --no-pub
+```
+
+Staging checks the run's repository, workflow, successful status, native lock
+and PCM patch against the current checkout. It records the build SHA, run,
+artifact identity and archive/DLL hashes, and rejects unsafe archives, a wrong
+PE architecture or missing PCM properties. CMake rejects missing, changed or
+stale packages instead of falling back to stock mpv. Windows ARM64 keeps the
+original pinned package and has no LiveSync support yet.
+
+The manually dispatched `livesync-windows.yml` waits for that native run,
+builds the real application with the exact upstream Flutter SDK and engine,
+runs the upstream native reliability contracts and probes the app-bundled DLL.
+It produces test artifacts only. Python/CMake packaging tests use synthetic
+PE bytes: they prove validation behavior, not Windows runtime functionality.
+The original CI/release Windows jobs have not been adapted to stage the fork
+package; use this dedicated workflow until upstream-maintenance wiring exists.
