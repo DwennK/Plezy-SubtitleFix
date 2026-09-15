@@ -46,6 +46,11 @@ jobs:
           cp macos/LiveSyncMPV/livesync-provenance.json build/livesync/evidence/
           cp docs/live-subtitle-sync-versions.json build/livesync/evidence/versions.json
           git rev-parse HEAD > build/livesync/evidence/fork-sha.txt
+          xcodebuild -version > build/livesync/evidence/xcode-version.txt
+          xcrun clang --version > build/livesync/evidence/clang-version.txt
+          swift --version > build/livesync/evidence/swift-version.txt
+          flutter --version --machine > build/livesync/evidence/flutter-version.json
+          uname -a > build/livesync/evidence/runner.txt
       - name: Resolve app dependencies
         run: |
           flutter pub get --enforce-lockfile --no-example

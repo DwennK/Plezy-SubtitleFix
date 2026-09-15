@@ -253,3 +253,34 @@ maintenant à côté de libmpv le chargeur x64 déjà épinglé par
 l'archive vérifiés localement ; aucun backend ni pin modifié. Cela évite de
 faire dépendre le chargement de la DLL de la présence d'un pilote système.
 La preuve d'exécution du PCM sous Windows reste attendue du build en cours.
+
+
+## Point de contrôle — 2026-09-15T20:59:00.555371+00:00
+
+- Upstream intégré : `7e4c8feb0c7bd3b8aade2d240bc13abb05e1e2a8`, via merge `b1057814`.
+  Dernier refetch : `7e4c8feb0c7bd3b8aade2d240bc13abb05e1e2a8` ; 0 commit non intégré.
+  La branche `main` locale reste le miroir officiel, sans patch LiveSync.
+- `scripts/run_tests.sh --no-pub` : **7 248 réussis, 6 ignorés, 0 échec**
+  en environ 15 minutes. Le test de playback qui avait échoué au contrôle initial
+  passe dans cette suite entière. Les huit nouveaux tests du loader SRT, ajoutés
+  après l'énumération de cette suite, passent séparément.
+- Analyse Dart globale et analyse ciblée du loader/tests : réussies.
+  `scripts/codegen.sh --check`, gardes workflow/SwiftPM et `git diff --check` : réussis.
+- CI macOS **35020270952 réussie**, commit `8c3a24b6`, avec 13 tests natifs.
+  Artefact de test : `livesync-macos-app-8c3a24b62e42ce563e95e535fefe3068485ca42e`
+  (123 408 463 octets). Ce build précède le merge Android-only ci-dessus ; il
+  n'est pas présenté comme contenant ce commit upstream plus récent.
+- Le probe natif utilise maintenant les métadonnées de linkage de la bibliothèque,
+  sans supposer que le build upstream crée un exécutable CLI. Validation PCM arm64
+  répétée avec succès. Probes PCM et SRT x86_64 réussis sous Rosetta sur le M4 ;
+  pas de validation sur Intel physique, ni d'application Intel complète.
+- Windows natif : run **35015208320** encore en cours au dernier contrôle.
+  L'ancien attenteur **35017599687** a été annulé, remplacé par **35020598056**
+  qui inclut le runtime Windows épinglé et les nouveaux probes PCM/SRT.
+
+**Le produit n'est pas livré.** La capture native macOS, l'inférence de référence,
+le transport SRT et le renderer ont des preuves séparées. Il reste notamment
+la preuve Windows, le consommateur PCM 16 kHz borné, le moteur de matching,
+la timeline segmentée, le contrôleur/UX, le modèle/cache utilisateur, les mesures
+end-to-end et le workflow quotidien upstream. L'application normale a été
+reconstruite après le banc de rendu, sans laisser son point d'entrée de test.

@@ -6,16 +6,16 @@
   "upstream": {
     "repository": "edde746/plezy",
     "branch": "main",
-    "sha": "4992d1bd8b76830a9539f03d650e1db4e85c8dc7",
-    "commitDate": "2026-09-15T15:58:46+02:00",
+    "sha": "7e4c8feb0c7bd3b8aade2d240bc13abb05e1e2a8",
+    "commitDate": "2026-09-15T21:58:00+02:00",
     "plezyVersion": "2.20.0+150",
     "stableRelease": "2.20.0",
     "latestCheck": {
-      "checkedAt": "2026-09-15T20:06:01.468893+00:00",
+      "checkedAt": "2026-09-15T20:59:00.555371+00:00",
       "latestSha": "7e4c8feb0c7bd3b8aade2d240bc13abb05e1e2a8",
-      "integratedSha": "4992d1bd8b76830a9539f03d650e1db4e85c8dc7",
-      "unintegratedCommits": 1,
-      "scope": "Android GpuVoPolicy.kt and MpvPlayerCore.kt only; no desktop/native dependency change"
+      "integratedSha": "7e4c8feb0c7bd3b8aade2d240bc13abb05e1e2a8",
+      "unintegratedCommits": 0,
+      "scope": "Integrated via merge b1057814; Android-only change. 7248 full-suite tests passed with 6 skipped, plus 8 separately executed SRT loader tests; analysis and codegen passed."
     }
   },
   "flutter": {
@@ -485,13 +485,24 @@
       "runtimeTested": [
         "arm64: synthetic PCM with null output",
         "arm64: app-hosted native contracts, 13 passing tests",
-        "arm64: Player/Video renderer harness, reversible SRT delay visually verified"
+        "arm64: Player/Video renderer harness, reversible SRT delay visually verified",
+        "x86_64: PCM and SRT decoder probes under Rosetta on Apple M4; not physical Intel hardware"
       ],
       "untested": [
-        "x86_64 runtime",
+        "physical Intel hardware and full Intel app",
         "audible-output preservation",
         "automatic alignment"
       ]
+    },
+    "ciAppleBuild": {
+      "nativeRevision": "c7348c98438b74b3d3f64244a7f48f7e366dbf1a",
+      "xcframeworkSha256": "f438e2849827e1dd185b8b0cb815e551d2ad31c034098fc7cb7fc2cf464919a4",
+      "liveSyncPatchSha256": "6a2e0e12b3e61c6f846127c90e75361a20cbfef9c822d56a0ecac55b6803a977",
+      "packageSource": "Pinned upstream Package.swift; only Libmpv target uses a local path",
+      "run": 35020270952,
+      "forkSha": "8c3a24b62e42ce563e95e535fefe3068485ca42e",
+      "upstreamSha": "4992d1bd8b76830a9539f03d650e1db4e85c8dc7",
+      "nativeContractsPassed": 13
     }
   },
   "lockSha256": {
@@ -539,11 +550,34 @@
       "nativeContracts": "13 passed locally",
       "renderer": "synthetic fixture, 1224x768 native window; delay +2.125, -3 and restoration to manual 0.125 seconds",
       "ciRun": 35018938322,
-      "ciResult": "app built in run 35018938322; native test C-string portability fix 8c3a24b6 passed all 13 tests locally and is awaiting CI"
+      "ciResult": "passed app build and 13 native contracts in run 35020270952 at 8c3a24b6 (before the Android-only upstream 7e4c8feb merge)",
+      "retryCiRun": 35020270952,
+      "appArtifact": {
+        "id": 10418095406,
+        "bytes": 123408463,
+        "digest": "sha256:bbfb3689f698677c1797acc2b8362efd3428b9a5df42060f7b300989ffd077b1",
+        "kind": "debug test artifact, not notarized, no automatic sync UI"
+      }
     },
     "windowsX64": {
       "nativeBuildRun": 35015208320,
-      "status": "in progress at last check; no PCM proof yet"
+      "status": "in progress at last check; no PCM proof yet",
+      "verificationRun": 35020598056
     }
+  },
+  "checks": {
+    "fullFlutterTests": {
+      "passed": 7248,
+      "skipped": 6,
+      "failed": 0,
+      "upstreamSha": "7e4c8feb0c7bd3b8aade2d240bc13abb05e1e2a8"
+    },
+    "additionalSubtitleSourceTests": {
+      "passed": 8,
+      "failed": 0
+    },
+    "analyze": "passed (whole checkout plus scoped new loader/tests)",
+    "codegen": "passed",
+    "diffCheck": "passed"
   }
 }

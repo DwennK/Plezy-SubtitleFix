@@ -74,10 +74,11 @@ pas implicites dans un build de test.
 
 ## État
 
-Plan enregistré avant implémentation. Phase A préparée, phase B en cours :
-inférence CPU Windows/macOS et prélèvement PCM natif macOS avec PTS démontrés.
-Le build Windows du mpv patché est en cours. Aucun fonctionnement LiveSync de bout
-en bout livré à ce stade. Voir le journal de validation et le manifeste.
+Plan enregistré avant implémentation. Phase A revalidée sur `7e4c8feb`, phase B
+en cours : inférence CPU Windows/macOS, prélèvement PCM macOS avec PTS,
+renderer macOS et lecture complète bornée des SRT démontrés séparément.
+Le build Windows du mpv patché est encore en cours. Aucun fonctionnement
+LiveSync de bout en bout livré. Voir le journal de validation et le manifeste.
 
 
 ## Accès au SRT retenu
