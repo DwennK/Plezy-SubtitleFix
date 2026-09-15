@@ -243,3 +243,13 @@ Le run CI macOS 35018938322 a compilé l'application, puis a échoué à compile
 le nouveau test : sa version de Swift exige des conversions C-string explicites
 que le compilateur local acceptait implicitement. Correction `8c3a24b6` : les 13 tests natifs repassent localement ; nouveau run
 CI lancé. Cela n'est pas encore un succès des tests CI.
+
+
+## 2026-09-15 — dépendance de chargement Windows
+
+Le mpv Windows upstream importe dynamiquement `vulkan-1.dll`. Le probe installe
+maintenant à côté de libmpv le chargeur x64 déjà épinglé par
+`windows/CMakeLists.txt` (1.4.357.0), avec sa licence. Téléchargement et hash de
+l'archive vérifiés localement ; aucun backend ni pin modifié. Cela évite de
+faire dépendre le chargement de la DLL de la présence d'un pilote système.
+La preuve d'exécution du PCM sous Windows reste attendue du build en cours.

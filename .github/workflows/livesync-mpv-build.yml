@@ -84,6 +84,9 @@ jobs:
       - name: Verify real Windows PCM contents and timestamps
         shell: bash
         run: |
+          python3 scripts/livesync/stage_windows_runtime.py --output build/livesync/mpv
+          mkdir -p build/livesync/evidence
+          cp build/livesync/mpv/livesync-runtime-provenance.json build/livesync/evidence/
           python3 scripts/livesync/probe_pcm.py --library build/livesync/mpv/libmpv-2.dll --output build/livesync/evidence/pcm
           python3 scripts/livesync/probe_subtitles.py --library build/livesync/mpv/libmpv-2.dll --output build/livesync/evidence/subtitles
           cp docs/live-subtitle-sync-versions.json build/livesync/evidence/versions.json
