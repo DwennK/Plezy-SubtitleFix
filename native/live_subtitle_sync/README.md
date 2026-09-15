@@ -145,3 +145,38 @@ It produces test artifacts only. Python/CMake packaging tests use synthetic
 PE bytes: they prove validation behavior, not Windows runtime functionality.
 The original CI/release Windows jobs have not been adapted to stage the fork
 package; use this dedicated workflow until upstream-maintenance wiring exists.
+
+## Bounded PCM consumer
+
+`pcm_buffer` and its small C bridge are portable, worker-owned native code,
+independent of Flutter and whisper.cpp. They accept the v1 raw PCM packets,
+convert packed/planar integer and floating samples to mono, and use a
+polyphase windowed-sinc low-pass filter for conversion to float32 at 16 kHz.
+The filter's center determines the output media timestamp. Startup and tail
+samples without sufficient real history are withheld, not zero-padded.
+
+The retained output ring is exactly 480,000 samples (30 seconds); snapshots
+are capped at 240,000 samples (15 seconds). Input packets remain capped at
+64 KiB, and accepted input rates are an explicit bounded set from 8 to 192 kHz.
+Generation mismatches are rejected without affecting current audio. Epoch,
+PTS, rate, format, channel count and frame-speed discontinuities clear history.
+Reset/destruction erases retained dialogue. No disk, network or logging occurs
+in this component. The production worker/inference lifecycle is not wired yet.
+
+The v1 tap omits speaker positions, so this stage accepts only mono/stereo.
+Surround support requires an explicit capture-protocol extension and native
+rebuilds; do not guess a surround downmix from the channel count alone.
+
+```sh
+cmake -S native/live_subtitle_sync -B build/livesync/pcm-consumer -DCMAKE_BUILD_TYPE=Release
+cmake --build build/livesync/pcm-consumer --config Release
+ctest --test-dir build/livesync/pcm-consumer -C Release --output-on-failure
+python3 scripts/livesync/probe_pcm_consumer.py \
+  --library build/livesync/libmpv-probe-metadata.dylib \
+  --consumer build/livesync/pcm-consumer/liblivesync_pcm_bridge.dylib \
+  --output build/livesync/evidence/pcm-consumer
+```
+
+The last command reads actual decoded synthetic PCM through libmpv and the
+native consumer. It validates sample values and their media times across seeks;
+it does not prove production app threading, audible playback or synchronization.

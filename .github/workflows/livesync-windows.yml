@@ -90,6 +90,17 @@ jobs:
           if ($LASTEXITCODE -ne 0) { throw 'PCM verification failed' }
           python scripts/livesync/probe_subtitles.py --library $dll --output build/livesync/evidence/subtitles
           if ($LASTEXITCODE -ne 0) { throw 'SRT timing verification failed' }
+      - name: Verify native PCM conversion with the app-bundled DLL
+        shell: pwsh
+        run: |
+          cmake -S native/live_subtitle_sync -B build/livesync/pcm-consumer
+          if ($LASTEXITCODE -ne 0) { throw 'PCM consumer configure failed' }
+          cmake --build build/livesync/pcm-consumer --config Release --parallel 2
+          if ($LASTEXITCODE -ne 0) { throw 'PCM consumer build failed' }
+          ctest --test-dir build/livesync/pcm-consumer -C Release --output-on-failure
+          if ($LASTEXITCODE -ne 0) { throw 'PCM consumer tests failed' }
+          python scripts/livesync/probe_pcm_consumer.py --library build/windows/x64/runner/Debug/libmpv-2.dll --consumer build/livesync/pcm-consumer/Release/livesync_pcm_bridge.dll --output build/livesync/evidence/consumer
+          if ($LASTEXITCODE -ne 0) { throw 'Native PCM conversion probe failed' }
       - name: Preserve test application
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7
         with:

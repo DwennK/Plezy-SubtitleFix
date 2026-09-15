@@ -7,6 +7,7 @@ on:
     paths:
       - '.github/workflows/livesync-native-smoke.yml'
       - 'scripts/livesync/**'
+      - 'native/live_subtitle_sync/**'
       - 'docs/live-subtitle-sync-versions.json'
 
 permissions:
@@ -40,6 +41,13 @@ jobs:
         run: |
           python3 scripts/livesync/prepare_native.py whisper --dest build/livesync/source
           python3 scripts/livesync/prepare_native.py models --dest build/livesync/models
+      - name: Build and test the bounded PCM consumer
+        shell: bash
+        run: |
+          cmake -S native/live_subtitle_sync -B build/livesync/pcm-consumer -DCMAKE_BUILD_TYPE=Release
+          cmake --build build/livesync/pcm-consumer --config Release --parallel 3
+          mkdir -p build/livesync/evidence
+          ctest --test-dir build/livesync/pcm-consumer -C Release --output-on-failure --output-junit "$GITHUB_WORKSPACE/build/livesync/evidence/pcm-consumer.xml"
       - name: Compile native inference
         shell: bash
         run: |

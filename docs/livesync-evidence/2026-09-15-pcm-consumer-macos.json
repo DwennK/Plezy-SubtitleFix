@@ -1,0 +1,33 @@
+{
+  "kind": "real-decoder-native-resampler-null-output",
+  "audiblePlaybackValidated": false,
+  "windows": [
+    {
+      "generation": 1,
+      "continuity": 2,
+      "mediaStart": 0.513,
+      "samples": 10891,
+      "maximumSampleError": 2.651442988343966e-05,
+      "frames": 8,
+      "conversionSeconds": 0.0021576230064965785
+    },
+    {
+      "generation": 2,
+      "continuity": 4,
+      "mediaStart": 6.998333333333333,
+      "samples": 17718,
+      "maximumSampleError": 2.6414109641215155e-05,
+      "frames": 13,
+      "conversionSeconds": 0.004031540971482173
+    },
+    {
+      "generation": 3,
+      "continuity": 6,
+      "mediaStart": 1.9636666666666664,
+      "samples": 19083,
+      "maximumSampleError": 2.927166913313517e-05,
+      "frames": 14,
+      "conversionSeconds": 0.002852126010111533
+    }
+  ]
+}
