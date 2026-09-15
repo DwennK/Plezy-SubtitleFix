@@ -386,3 +386,24 @@ reconstruite après le banc de rendu, sans laisser son point d'entrée de test.
   évitant ce coût pour un cache absent. Le scénario de délai global utilise une
   fenêtre de deux secondes pour laisser le transfert démarrer sur le runner ;
   il exige toujours plusieurs chunks avant l'expiration. Les 11 tests locaux passent.
+
+## Composants Dart et worker natif — 2026-09-16
+
+- CI `35028609282` **réussie sur Windows et macOS**, commit `f9afd243` : analyse,
+  11 tests de gestion du modèle et 8 tests de transport SRT. L'échec de préparation
+  Flutter et l'hypothèse trop courte du scénario réseau précédent sont corrigés.
+- Worker C++ CPU ajouté : thread dédié, contexte modèle réutilisé, au maximum
+  quatre threads de calcul, une seule inférence autorisée par processus et aucun
+  empilement de fenêtres. Résultats bornés et suppression des générations périmées.
+- Tests locaux avec les **deux vrais modèles** : reconnaissance de l'extrait
+  connu sous le seuil de 25 % d'erreur textuelle du smoke test, conversion exacte
+  origine/vitesse, refus d'une deuxième analyse, annulation pendant `whisper_full`,
+  reprise du même contexte, arrêt idempotent et erreur de modèle typée.
+- Le test du worker quantifié passe également sous **ThreadSanitizer**, sans
+  signalement sur ce scénario. Le build CPU désactive `GGML_NATIVE` et les
+  extensions x86 optionnelles ; il ne suppose pas les instructions du M4/runner.
+- Les timings de tokens restent expérimentaux. Ce test de worker utilise une
+  fixture exportée, tandis que le probe PCM → CLI précédent utilise la lecture
+  active. Le worker n'est pas encore relié au player natif ou à l'UI ; son backend
+  GPU et le matching SRT restent à implémenter. La CI native inclut désormais ce
+  test de worker pour Windows/macOS ; résultat de cette nouvelle exécution à venir.

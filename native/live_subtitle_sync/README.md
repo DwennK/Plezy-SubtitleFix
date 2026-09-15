@@ -202,3 +202,42 @@ python3 scripts/livesync/probe_inference_pipeline.py \
 The Windows application workflow includes the same chain for both models,
 using its actual app-bundled mpv DLL. Execution remains contingent on completion
 of the native Windows build; a workflow definition is not a successful run.
+
+## Asynchronous CPU inference worker
+
+`InferenceWorker` owns a dedicated low-priority control thread and one reusable
+whisper context. It accepts only finite 8–15 second windows, caps CPU threads at
+four, and reserves a process-wide analysis slot: another worker cannot start a
+concurrent inference. Input queues and completed results each hold at most one
+window/result. The caller must consume a result before submitting the next job.
+
+Generation and PCM-continuity changes cancel queued work, request abortion of
+running whisper computations and discard stale results. Segment/token timestamps
+are transformed from the original window's media origin and sample timebase.
+Whisper token times remain experimental observations, not validated alignment
+anchors or calibrated confidence probabilities. Output text/tokens are bounded;
+library logs are disabled and the worker writes nothing to disk or network.
+
+The model path must come from a held `ModelLease`. The owner must serialize
+control calls and stop/join the worker from a cleanup queue before releasing
+that lease. This native component is not wired to the production player yet.
+Only CPU inference is implemented here; GPU selection/fallback remains pending.
+
+```sh
+cmake -S native/live_subtitle_sync -B build/livesync/inference-worker \
+  -DCMAKE_BUILD_TYPE=Release -DGGML_METAL=OFF \
+  -DLIVESYNC_WHISPER_SOURCE="$PWD/build/livesync/source"
+cmake --build build/livesync/inference-worker --config Release --target livesync_inference_test
+python3 scripts/livesync/prepare_inference_fixture.py \
+  --fixture build/livesync/source/samples/jfk.wav --output build/livesync/fixtures/jfk.f32
+build/livesync/inference-worker/livesync_inference_test \
+  build/livesync/models/ggml-base.en.bin build/livesync/fixtures/jfk.f32
+```
+
+This test uses an explicitly exported, hash-pinned public-domain fixture. It
+checks actual CPU recognition, exact origin/speed transformation, contention,
+cancellation during inference, recovery with the same model context, and model
+failure. It is distinct from the active-playback probe and from app validation.
+The CMake integration rejects a different whisper source revision and disables
+host-specific CPU instruction flags for its baseline fallback. Older physical
+CPUs and optimized CPU variants still require measured distribution testing.

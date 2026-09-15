@@ -44,10 +44,19 @@ jobs:
       - name: Build and test the bounded PCM consumer
         shell: bash
         run: |
-          cmake -S native/live_subtitle_sync -B build/livesync/pcm-consumer -DCMAKE_BUILD_TYPE=Release
+          cmake -S native/live_subtitle_sync -B build/livesync/pcm-consumer -DCMAKE_BUILD_TYPE=Release -DGGML_METAL=OFF -DLIVESYNC_WHISPER_SOURCE="$GITHUB_WORKSPACE/build/livesync/source"
           cmake --build build/livesync/pcm-consumer --config Release --parallel 3
           mkdir -p build/livesync/evidence
           ctest --test-dir build/livesync/pcm-consumer -C Release --output-on-failure --output-junit "$GITHUB_WORKSPACE/build/livesync/evidence/pcm-consumer.xml"
+      - name: Verify asynchronous CPU inference and stale-generation rejection
+        shell: bash
+        run: |
+          python3 scripts/livesync/prepare_inference_fixture.py --fixture build/livesync/source/samples/jfk.wav --output build/livesync/fixtures/jfk.f32
+          exe=build/livesync/pcm-consumer/livesync_inference_test
+          if [[ "$RUNNER_OS" == Windows ]]; then exe=build/livesync/pcm-consumer/Release/livesync_inference_test.exe; fi
+          for model in base.en base.en-q5_1; do
+            "$exe" "build/livesync/models/ggml-$model.bin" build/livesync/fixtures/jfk.f32 > "build/livesync/evidence/worker-$model.txt" 2>&1
+          done
       - name: Compile native inference
         shell: bash
         run: |
