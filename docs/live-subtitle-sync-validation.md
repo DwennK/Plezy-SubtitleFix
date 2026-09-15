@@ -631,3 +631,13 @@ et arm64, macOS, tvOS, Android et Linux ASan/TSan. Les deux échecs restants son
 le contrôle de code non utilisé et le test iOS
 `testRealSetPropertyValidInvalidNonexistentAndPauseCache` (33,9 s). Ce dernier
 n'est pas classé comme régression LiveSync ni comme fluctuation sans diagnostic.
+
+### Identification textuelle initiale (tests injectés)
+
+Normalisation Unicode séparée du texte original, index chronologique borné et
+alignement approximatif sur plusieurs cues ajoutés. La recherche conserve les
+concurrents et refuse les candidats saturés, les phrases courtes/génériques et
+les répétitions adjacentes ou éloignées. La marge inclut les concurrents sous
+le seuil d'acceptation. Les scores restent heuristiques, sans calibration réelle
+ni déduction d'une ancre temporelle précise. Neuf nouveaux tests passent ; les
+36 tests des composants LiveSync passent localement, analyse Dart sans remarque.
