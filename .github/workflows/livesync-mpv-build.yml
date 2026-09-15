@@ -133,6 +133,17 @@ jobs:
       - name: Package native dev archive
         working-directory: build/livesync/mpv-source
         run: bash platforms/windows/package.sh x86_64
+      - name: Record actual transitive source revisions
+        if: always()
+        run: python3 scripts/livesync/record_windows_sources.py --native build/livesync/mpv-source --output build/livesync/mpv-source/dist/release/livesync-windows-sources.json
+      - name: Preserve native source provenance
+        if: always()
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7
+        with:
+          name: livesync-windows-native-sources-${{ github.sha }}
+          path: build/livesync/mpv-source/dist/release/livesync-windows-sources.json
+          if-no-files-found: error
+          retention-days: 14
       - name: Preserve bootstrap progress
         if: always()
         uses: actions/cache/save@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6

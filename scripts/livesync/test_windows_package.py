@@ -12,7 +12,7 @@ import zipfile
 from pathlib import Path
 from unittest.mock import patch
 
-from stage_windows_package import INPUTS, PATCH, ROOT, stage, verify_run
+from stage_windows_package import COMPATIBILITY_PATCH, INPUTS, PATCH, ROOT, stage, verify_run
 from prepare_native import digest
 
 
@@ -99,6 +99,7 @@ class WindowsPackageTest(unittest.TestCase):
         patch_path = project / PATCH
         patch_path.parent.mkdir(parents=True)
         shutil.copyfile(ROOT / PATCH, patch_path)
+        shutil.copyfile(ROOT / COMPATIBILITY_PATCH, project / COMPATIBILITY_PATCH)
         (project / "CMakeLists.txt").write_text(
             'cmake_minimum_required(VERSION 3.19)\nproject(packaging_test NONE)\n'
             'set(MPV_LOCK "{\\"commit\\":\\"expected\\"}")\n'
@@ -109,7 +110,8 @@ class WindowsPackageTest(unittest.TestCase):
         self.assertIn("Stage the patched", missing.stderr)
         self.archive_with()
         staged = project / "windows/LiveSyncMPV"
-        provenance = {"nativeRevision": "expected", "liveSyncPatchSha256": digest(ROOT / PATCH)}
+        provenance = {"nativeRevision": "expected", "liveSyncPatchSha256": digest(ROOT / PATCH),
+                      "windowsCompatibilityPatchSha256": digest(ROOT / COMPATIBILITY_PATCH)}
         stage(self.archive, staged, provenance)
         good = subprocess.run(command, capture_output=True, text=True)
         self.assertEqual(good.returncode, 0, good.stdout + good.stderr)

@@ -8,13 +8,16 @@ endif()
 file(READ "${LIVESYNC_PROVENANCE}" LIVESYNC_NATIVE)
 string(JSON LIVESYNC_REVISION GET "${LIVESYNC_NATIVE}" nativeRevision)
 string(JSON LIVESYNC_PATCH GET "${LIVESYNC_NATIVE}" liveSyncPatchSha256)
+string(JSON LIVESYNC_COMPATIBILITY_PATCH GET "${LIVESYNC_NATIVE}" windowsCompatibilityPatchSha256)
 string(JSON LIVESYNC_DLL_HASH GET "${LIVESYNC_NATIVE}" dllSha256)
 string(JSON LIVESYNC_ARCH GET "${LIVESYNC_NATIVE}" architecture)
 string(JSON MPV_REVISION GET "${MPV_LOCK}" commit)
 file(SHA256 "${CMAKE_CURRENT_LIST_DIR}/../../native/live_subtitle_sync/patches/0001-bounded-timestamped-pcm-tap.patch" LIVESYNC_EXPECTED_PATCH)
+file(SHA256 "${CMAKE_CURRENT_LIST_DIR}/../../native/live_subtitle_sync/patches/0002-windows-curl-scp-header.patch" LIVESYNC_EXPECTED_COMPATIBILITY_PATCH)
 file(SHA256 "${mpv_dev_SOURCE_DIR}/libmpv-2.dll" LIVESYNC_ACTUAL_DLL)
 if(NOT LIVESYNC_REVISION STREQUAL MPV_REVISION OR
    NOT LIVESYNC_PATCH STREQUAL LIVESYNC_EXPECTED_PATCH OR
+   NOT LIVESYNC_COMPATIBILITY_PATCH STREQUAL LIVESYNC_EXPECTED_COMPATIBILITY_PATCH OR
    NOT LIVESYNC_DLL_HASH STREQUAL LIVESYNC_ACTUAL_DLL OR
    NOT LIVESYNC_ARCH STREQUAL "x86_64")
   message(FATAL_ERROR "LiveSync Windows native package is stale or corrupt; rebuild and stage it again")
@@ -27,3 +30,5 @@ endforeach()
 set_property(DIRECTORY APPEND PROPERTY CMAKE_CONFIGURE_DEPENDS
   "${LIVESYNC_PROVENANCE}"
   "${CMAKE_CURRENT_LIST_DIR}/../../native/live_subtitle_sync/patches/0001-bounded-timestamped-pcm-tap.patch")
+set_property(DIRECTORY APPEND PROPERTY CMAKE_CONFIGURE_DEPENDS
+  "${CMAKE_CURRENT_LIST_DIR}/../../native/live_subtitle_sync/patches/0002-windows-curl-scp-header.patch")

@@ -503,7 +503,8 @@
       "forkSha": "a1604b6d9aa5b738ddfeee3220ec90615c45c2e0",
       "upstreamSha": "7e4c8feb0c7bd3b8aade2d240bc13abb05e1e2a8",
       "nativeContractsPassed": 13
-    }
+    },
+    "windowsCompatibilityPatchSha256": "ff63249eb0118550f3d37923a05dca9992c1f2bae66baee303992d7dcb1c5ca3"
   },
   "lockSha256": {
     "pubspec.lock": "2991b19197f90b0b7fcdf8737b64d0d5a18f73630819aa9fd519eff714a428be",
@@ -560,10 +561,10 @@
       }
     },
     "windowsX64": {
-      "nativeBuildRun": 35015208320,
-      "status": "failed in libplacebo shader generation: jinja2 absent from isolated build venv; bootstrap cached; no PCM proof yet",
+      "nativeBuildRun": 35029877791,
+      "status": "failed: curl needs libssh/scp.h with the fetched libssh 0.12 headers; cached build resumed successfully",
       "verificationRun": 35020598056,
-      "applicationRun": 35025719202
+      "applicationRun": 35030406999
     }
   },
   "checks": {
@@ -599,6 +600,29 @@
       "timestampAccuracyValidated": false,
       "srtAlignmentValidated": false,
       "scope": "active mpv PCM -> native mono 16 kHz consumer -> whisper-cli CPU via stdin; no captured audio or transcript retained"
+    },
+    "inferenceWorker": {
+      "ciRun": 35030271513,
+      "forkSha": "990f061d",
+      "platforms": [
+        "windows-x64",
+        "macos-arm64"
+      ],
+      "models": [
+        "base.en",
+        "base.en-q5_1"
+      ],
+      "result": "passed actual CPU recognition, single-flight, cancellation, timebase and recovery; C ABI validation is a later run"
+    },
+    "dartFeatureComponents": {
+      "ciRun": 35028609282,
+      "forkSha": "f9afd243",
+      "platforms": [
+        "windows-x64",
+        "macos-arm64"
+      ],
+      "passed": 19,
+      "failed": 0
     }
   }
 }

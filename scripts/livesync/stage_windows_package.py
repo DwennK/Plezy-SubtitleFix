@@ -22,7 +22,8 @@ from pathlib import Path, PurePosixPath
 from prepare_native import MANIFEST, ROOT, digest
 
 PATCH = "native/live_subtitle_sync/patches/0001-bounded-timestamped-pcm-tap.patch"
-INPUTS = ("mpv-build.lock.json", PATCH)
+COMPATIBILITY_PATCH = "native/live_subtitle_sync/patches/0002-windows-curl-scp-header.patch"
+INPUTS = ("mpv-build.lock.json", PATCH, COMPATIBILITY_PATCH, "scripts/livesync/prepare_native.py")
 MAX_EXPANDED = 512 * 1024 * 1024
 
 
@@ -108,7 +109,8 @@ def main():
     manifest = json.loads(MANIFEST.read_text())
     lock = json.loads((ROOT / "mpv-build.lock.json").read_text())
     if (lock["commit"] != manifest["native"]["commit"]
-            or digest(ROOT / PATCH) != manifest["native"]["liveSyncPatchSha256"]):
+            or digest(ROOT / PATCH) != manifest["native"]["liveSyncPatchSha256"]
+            or digest(ROOT / COMPATIBILITY_PATCH) != manifest["native"]["windowsCompatibilityPatchSha256"]):
         raise ValueError("Native manifest disagrees with current build inputs")
     with tempfile.TemporaryDirectory(prefix="livesync-win-download-") as scratch:
         subprocess.run(["gh", "run", "download", str(args.run_id), "--repo", args.repository,
@@ -119,6 +121,7 @@ def main():
         record = stage(archives[0], ROOT / "windows/LiveSyncMPV", {
             "nativeRevision": lock["commit"],
             "liveSyncPatchSha256": digest(ROOT / PATCH),
+            "windowsCompatibilityPatchSha256": digest(ROOT / COMPATIBILITY_PATCH),
             "buildRepository": args.repository,
             "buildRun": args.run_id,
             "buildSourceSha": info["head_sha"],

@@ -1,0 +1,27 @@
+--- a/platforms/windows/pin_packages.py
++++ b/platforms/windows/pin_packages.py
+@@ -367,6 +367,24 @@
+             toolchain_file.write_text(pinned, encoding="utf-8")
+         print(f"pinned {component} -> {pins['ref']} @ {pins['commit'][:10]}")
+ 
++    # libssh 0.12 moved its deprecated SCP declarations to a separate header.
++    # Keep the upstream dependency graph/revisions and expose that header only
++    # when available, including for cached builds that already fetched 0.12.
++    scp_header = packages_dir / "livesync-curl-scp-compat.h"
++    scp_header.write_text(
++        "#if defined(__has_include)\n"
++        "#if __has_include(<libssh/scp.h>)\n"
++        "#include <libssh/scp.h>\n"
++        "#endif\n#endif\n", encoding="utf-8")
++    curl_file = packages_dir / "curl.cmake"
++    curl_text = curl_file.read_text(encoding="utf-8")
++    flags = "-DCMAKE_C_FLAGS='"
++    if curl_text.count(flags) != 1 or " " in str(scp_header.resolve()):
++        fail("curl build flags differ from the reviewed compatibility shape")
++    include = "-include " + str(scp_header.resolve()) + " "
++    if include not in curl_text:
++        curl_file.write_text(curl_text.replace(flags, flags + include, 1), encoding="utf-8")
++
+     custom_steps = winbuild / "cmake" / "custom_steps.cmake"
+     if not custom_steps.is_file():
+         fail(f"{custom_steps}: missing")

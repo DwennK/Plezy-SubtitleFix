@@ -448,3 +448,20 @@ reconstruite après le banc de rendu, sans laisser son point d'entrée de test.
   si le bureau du runner le permet, et enregistre les dimensions réelles.
   Une inspection visuelle des PNG reste obligatoire ; préparer ce test ne prouve
   pas encore le rendu Windows. Analyse Dart et contrôles YAML locaux réussis.
+
+### Compatibilité curl/libssh et provenance transitive
+
+- Le run natif `35029877791` a restauré son cache et dépassé libplacebo, puis a
+  échoué dans curl : `ssh_scp` absent de `libssh.h` avec la libssh 0.12 récupérée.
+  Les déclarations se trouvent désormais dans `libssh/scp.h`.
+- Un patch séparé du driver Windows ajoute un include conditionnel de ce header
+  aux flags de curl. Aucune version de composant, protocole ni patch Flutter n'est
+  remplacé. Préparation idempotente, 20 tests du script upstream et six tests du
+  staging Windows réussis localement ; le build cross natif doit encore confirmer.
+- L'inspection révèle que certaines recettes transitives du winbuild sélectionné
+  suivent une branche sans SHA, malgré le commit figé du méta-build. Les SHAs
+  effectivement récupérés et les hashes des diffs sont désormais archivés, même
+  après échec. Le gel complet de ces références reste requis avant livraison ;
+  le manifeste principal ne suffit pas à prouver leur reproductibilité.
+- CI `35030407327` réussie : worker C++ **et interface C réelle** avec les deux
+  modèles sur Windows x64 et macOS arm64. Cela ne prouve pas le rendu Windows.

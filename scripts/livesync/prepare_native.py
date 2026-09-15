@@ -68,6 +68,15 @@ def prepare_mpv(manifest, destination):
     if digest(patch) != native["liveSyncPatchSha256"]:
         raise ValueError("LiveSync patch differs from the reviewed manifest")
     dest = checkout("https://github.com/" + native["repo"], native["commit"], destination)
+    compatibility = ROOT / "native/live_subtitle_sync/patches/0002-windows-curl-scp-header.patch"
+    if digest(compatibility) != native["windowsCompatibilityPatchSha256"]:
+        raise ValueError("Windows compatibility patch differs from the reviewed manifest")
+    applicable = subprocess.run(["git", "apply", "--check", str(compatibility)], cwd=dest, capture_output=True)
+    if applicable.returncode == 0:
+        run("git", "apply", str(compatibility), cwd=dest)
+    else:
+        # Repeated preparation is allowed only if this exact patch is present.
+        run("git", "apply", "--reverse", "--check", str(compatibility), cwd=dest)
     name = "0900-livesync-pcm-tap.patch"
     shutil.copyfile(patch, dest / "patches/mpv/pool" / name)
     for platform in ("apple", "windows"):
