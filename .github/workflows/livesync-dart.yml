@@ -39,6 +39,8 @@ jobs:
         shell: bash
         run: |
           mkdir -p build/livesync/evidence
+          # First Windows invocation may print SDK bootstrap output before JSON.
+          flutter --version
           flutter --version --machine > build/livesync/evidence/flutter-version.json
           python3 -c 'import json; actual=json.load(open("build/livesync/evidence/flutter-version.json")); expected=json.load(open("docs/live-subtitle-sync-versions.json"))["flutter"]; assert actual["frameworkRevision"] == expected["revision"]; assert actual["engineRevision"] == expected["engine"]'
           flutter pub get --enforce-lockfile --no-example
