@@ -78,3 +78,25 @@ Plan enregistré avant implémentation. Phase A préparée, phase B en cours :
 inférence CPU Windows/macOS et prélèvement PCM natif macOS avec PTS démontrés.
 Le build Windows du mpv patché est en cours. Aucun fonctionnement LiveSync de bout
 en bout livré à ce stade. Voir le journal de validation et le manifeste.
+
+
+## Accès au SRT retenu
+
+`SubtitleSourceLoader` reçoit la `SubtitleTrack` déjà résolue par Plezy et le
+client HTTP existant (avec les en-têtes de la session), sans reconstruire les
+URLs ni démarrer un flux média. Plex fournit des sidecars `/library/streams/…`
+avec son jeton ; Jellyfin/Emby fournissent une URL de sous-titre avec leur
+paramètre d'authentification ; les téléchargements hors ligne fournissent un
+chemin ou une URI `file:`. Ces détails restent dans les clients actuels.
+
+Le loader accepte uniquement les sidecars SRT/SubRip dont le fichier complet
+est accessible, borne la lecture à 4 MiB et 20 secondes, et permet d'annuler
+l'opération. Il conserve les octets originaux et calcule leur SHA-256 hors du
+thread principal quand l'isolate est disponible. Il ne ferme pas le client
+HTTP partagé. Les erreurs et la représentation textuelle des résultats
+n'incluent ni URL, ni jeton, ni dialogue.
+Décodage du texte, parsing, indexation et branchement au contrôleur restent à
+implémenter. Les huit tests couvrent aussi un vrai serveur HTTP local, le corps
+réseau bloqué puis annulé, la limite de taille et la préservation du fichier.
+Cette preuve de transport n'est pas une validation d'un serveur Plex/Jellyfin
+réel avec son catalogue.
