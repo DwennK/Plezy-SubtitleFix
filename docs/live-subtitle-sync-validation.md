@@ -486,3 +486,16 @@ réutilisant son contexte. Elles favorisent l'évaluation de Metal dans le playe
 sans prouver son impact vidéo, son utilisation GPU, ses performances soutenues
 ou la précision des timestamps. Les budgets de validation finale sont fixés
 dans le plan, avec la machine Windows physique encore à identifier.
+
+### Latence CPU portable Windows : échec du budget
+
+- Les rapports ABI de `35030407327` montrent **19,03 s pour base.en** et
+  **17,41 s pour q5_1**, hors chargement du modèle, sur l'extrait de 11 secondes.
+  Reconnaissance correcte (WER nul), mais le budget de latence est dépassé.
+  Ces mesures isolées du runner ne constituent pas une validation matérielle finale.
+- Rapports conservés sous `docs/livesync-evidence/2026-09-16-worker-portable-*-windows.json`.
+  La CI compare désormais un profil AVX2 explicite après vérification CPU/OS
+  d'AVX2, SSE4.2, BMI2, FMA et F16C. Les résultats de cette comparaison restent
+  à obtenir ; aucune sélection automatique ou distribution AVX2 n'est encore faite.
+- Le CPU portable demeure le défaut. Une sélection sûre avant chargement de la
+  bibliothèque optimisée sera requise pour les machines plus anciennes.

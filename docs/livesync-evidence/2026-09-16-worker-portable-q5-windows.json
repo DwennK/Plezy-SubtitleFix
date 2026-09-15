@@ -1,0 +1,27 @@
+{
+  "kind": "fixture-native-worker-abi",
+  "fixtureSha256": "59dfb9a4acb36fe2a2affc14bacbee2920ff435cb13cc314a08c13f66ba7860e",
+  "modelSha256": "4baf70dd0d7c4247ba2b81fafd9c01005ac77c2f9ef064e00dcf195d0e2fdd2f",
+  "workerSha256": "5c8973023541387969d87e95548fe3d6c009df6b46a6117343e81c050053d55b",
+  "capture": {
+    "samples": 176000,
+    "mediaStart": 100,
+    "generation": 1,
+    "continuity": 1
+  },
+  "wordErrorRate": 0.0,
+  "referenceScope": "full fixture",
+  "inferenceSecondsExcludingModelLoad": 17.4069394,
+  "segments": [
+    {
+      "mediaStart": 100.0,
+      "mediaEnd": 111.0
+    }
+  ],
+  "timestampAccuracyValidated": false,
+  "srtAlignmentValidated": false,
+  "productionAppValidated": false,
+  "audiblePlaybackValidated": false,
+  "retainedCapturedAudio": false,
+  "retainedTranscript": false
+}

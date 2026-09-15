@@ -60,6 +60,32 @@ jobs:
             "$exe" "build/livesync/models/ggml-$model.bin" build/livesync/fixtures/jfk.f32 > "build/livesync/evidence/worker-$model.txt" 2>&1
             python3 scripts/livesync/probe_inference_worker.py --worker "$bridge" --model "build/livesync/models/ggml-$model.bin" --fixture build/livesync/source/samples/jfk.wav --output "build/livesync/evidence/worker-abi-$model.json"
           done
+      - name: Check Windows CPU evaluation capabilities
+        if: runner.os == 'Windows'
+        id: cpu-capabilities
+        shell: pwsh
+        run: |
+          $features = [System.Runtime.Intrinsics.X86.X86Base]::CpuId(1, 0)
+          $supported = [System.Runtime.Intrinsics.X86.Avx2]::IsSupported -and
+            [System.Runtime.Intrinsics.X86.Sse42]::IsSupported -and
+            [System.Runtime.Intrinsics.X86.Bmi2]::IsSupported -and
+            [System.Runtime.Intrinsics.X86.Fma]::IsSupported -and
+            (($features.Item3 -band (1 -shl 29)) -ne 0)
+          "supported=$($supported.ToString().ToLowerInvariant())" >> $env:GITHUB_OUTPUT
+          @{
+            avx2EvaluationSupported = $supported
+            processors = @(Get-CimInstance Win32_Processor | Select-Object Name,NumberOfCores,NumberOfLogicalProcessors)
+            physicalMemoryBytes = (Get-CimInstance Win32_ComputerSystem).TotalPhysicalMemory
+          } | ConvertTo-Json -Depth 5 > build/livesync/evidence/worker-cpu-host.json
+      - name: Compare the guarded AVX2 worker with the portable CPU worker
+        if: runner.os == 'Windows' && steps.cpu-capabilities.outputs.supported == 'true'
+        shell: bash
+        run: |
+          cmake -S native/live_subtitle_sync -B build/livesync/worker-avx2 -DGGML_METAL=OFF -DLIVESYNC_CPU_PROFILE=avx2-evaluation -DLIVESYNC_WHISPER_SOURCE="$GITHUB_WORKSPACE/build/livesync/source"
+          cmake --build build/livesync/worker-avx2 --config Release --parallel 3 --target livesync_inference_bridge
+          for model in base.en base.en-q5_1; do
+            python3 scripts/livesync/probe_inference_worker.py --worker build/livesync/worker-avx2/Release/livesync_inference_bridge.dll --model "build/livesync/models/ggml-$model.bin" --fixture build/livesync/source/samples/jfk.wav --output "build/livesync/evidence/worker-avx2-$model.json"
+          done
       - name: Compile native inference
         shell: bash
         run: |

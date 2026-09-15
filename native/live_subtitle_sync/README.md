@@ -254,3 +254,11 @@ latter submits after nine seconds of captured audio and verifies that playback
 position advances before receipt of the result. It uses null audio output and
 compares against a prefix of the known fixture; it does not establish temporal
 alignment, audible-output preservation, or production UI responsiveness.
+
+The portable Windows CPU worker took 17–19 seconds for the 11-second fixture
+on CI (`35030407327`), exceeding the target latency. `LIVESYNC_CPU_PROFILE=
+avx2-evaluation` is an explicitly opt-in comparison build for Windows x64 CI.
+The workflow checks OS-aware AVX2/SSE4.2/BMI2/FMA support and the F16C CPUID bit
+before loading that library. It is not a distribution profile or automatic CPU
+dispatch. The default remains portable; safe runtime selection and packaging
+must be implemented and validated before using an optimized build in the app.
