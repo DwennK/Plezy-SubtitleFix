@@ -55,3 +55,34 @@ The whisper smoke workflow performs actual inference against the upstream JFK
 fixture using pinned `base.en` and `base.en-q5_1`. It proves neither the mpv tap
 nor temporal accuracy against SRT. Fixture outputs are permitted evidence; no
 production dialogue should be saved by default.
+
+## Building the macOS fork application
+
+macOS now selects a generated local `macos/LiveSyncMPV` Swift package. Its
+manifest and small wrapper sources come from the exact upstream native commit.
+Only the `Libmpv` binary target changes to the locally built, patched
+XCFramework; all other dependency URLs, checksums and linker settings are kept.
+The package is ignored by Git and must be staged before a macOS app build:
+
+```sh
+python3 scripts/livesync/stage_macos_package.py \
+  --source build/livesync/mpv-source \
+  --archive build/livesync/mpv-source/dist/release/Libmpv.xcframework.zip \
+  --sha256 <SHA256-of-the-reviewed-build-artifact>
+flutter build macos --debug --no-pub
+```
+
+The helper rejects a changed upstream lock, wrong source revision, archive hash
+mismatch and a stock binary without the PCM property. A provenance JSON is
+written beside the generated package. Do not substitute an arbitrary downloaded
+archive. The `LiveSync macOS app and native contracts` workflow builds and stages
+its own artifact from the same checkout before building and testing the app.
+The app-hosted XCTest exercises activation, timestamped decoded PCM and disabling
+in the actual app-linked library, with generated audio and paced null output.
+This is not a test of audible playback, video rendering or the complete feature.
+
+The original signed-release workflow and upstream `set_native_revision.sh` have
+not yet been adapted for the fork's distribution/native update process. Use the
+LiveSync test workflow; do not run the original release workflow. A native pin
+update must rebuild the patched artifact, regenerate the local package and
+revalidate its provenance. iOS/tvOS still use their original remote packages.

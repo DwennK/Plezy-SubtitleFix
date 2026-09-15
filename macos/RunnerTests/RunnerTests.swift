@@ -2,7 +2,7 @@ import Libmpv
 import FlutterMacOS
 import XCTest
 
-@testable import Plezy
+@testable import PlezyLiveSync
 
 final class ControllablePropertyCore: MpvPlayerCoreBase {
   var nextResult: Result<Void, Error>?
@@ -57,6 +57,68 @@ final class RecordingLifecycleDelegate: MpvPlayerDelegate {
 }
 
 final class MpvPlayerContractTests: XCTestCase {
+  func testBundledLibmpvCapturesOnlyAfterActivation() throws {
+    // Generated local WAV; no media server, microphone or network is involved.
+    var wav = Data()
+    func text(_ value: String) { wav.append(contentsOf: value.utf8) }
+    func u16(_ value: UInt16) {
+      var little = value.littleEndian
+      withUnsafeBytes(of: &little) { wav.append(contentsOf: $0) }
+    }
+    func u32(_ value: UInt32) {
+      var little = value.littleEndian
+      withUnsafeBytes(of: &little) { wav.append(contentsOf: $0) }
+    }
+    text("RIFF"); u32(36 + 96000); text("WAVEfmt "); u32(16)
+    u16(1); u16(1); u32(16000); u32(32000); u16(2); u16(16)
+    text("data"); u32(96000)
+    for i in 0..<48000 {
+      let sample = Int16(10000 * sin(2 * Double.pi * 317 * Double(i) / 16000))
+      u16(UInt16(bitPattern: sample))
+    }
+    let file = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString + ".wav")
+    try wav.write(to: file)
+    defer { try? FileManager.default.removeItem(at: file) }
+    guard let mpv = mpv_create() else { return XCTFail("mpv_create failed") }
+    defer { mpv_terminate_destroy(mpv) }
+    for (key, value) in [("config", "no"), ("vo", "null"), ("ao", "null"), ("idle", "yes")] {
+      XCTAssertGreaterThanOrEqual(mpv_set_option_string(mpv, key, value), 0)
+    }
+    XCTAssertGreaterThanOrEqual(mpv_initialize(mpv), 0)
+    let strings = ["loadfile", file.path].map { strdup($0) }
+    defer { strings.forEach { free($0) } }
+    var arguments: [UnsafePointer<CChar>?] = strings.map { $0.map { UnsafePointer($0) } } + [nil]
+    XCTAssertGreaterThanOrEqual(mpv_command(mpv, &arguments), 0)
+    var enabled: Int32 = -1
+    let deadline = Date().addingTimeInterval(5)
+    while mpv_get_property(mpv, "livesync-enabled", MPV_FORMAT_FLAG, &enabled) < 0,
+      Date() < deadline
+    { usleep(10000) }
+    XCTAssertEqual(enabled, 0, "A fresh audio chain must start with capture disabled")
+    XCTAssertGreaterThanOrEqual(mpv_set_property_string(mpv, "livesync-enabled", "yes"), 0)
+    var captured: [[String: Any]] = []
+    while captured.isEmpty, Date() < deadline {
+      usleep(20000)
+      var node = mpv_node()
+      let status = mpv_get_property(mpv, "livesync-pcm", MPV_FORMAT_NODE, &node)
+      XCTAssertGreaterThanOrEqual(status, 0)
+      if status >= 0 {
+        let value = MpvPlayerCoreBase().convertNode(node) as? [String: Any]
+        captured = value?["frames"] as? [[String: Any]] ?? []
+        mpv_free_node_contents(&node)
+      }
+    }
+    XCTAssertFalse(captured.isEmpty, "The app-linked decoder must deliver timestamped PCM")
+    for frame in captured {
+      XCTAssertEqual((frame["rate"] as? Int64), 16000)
+      XCTAssertNotNil(frame["pts"] as? Double)
+      XCTAssertFalse((frame["pcm"] as? Data ?? Data()).isEmpty)
+    }
+    XCTAssertGreaterThanOrEqual(mpv_set_property_string(mpv, "livesync-enabled", "no"), 0)
+    XCTAssertGreaterThanOrEqual(mpv_get_property(mpv, "livesync-enabled", MPV_FORMAT_FLAG, &enabled), 0)
+    XCTAssertEqual(enabled, 0)
+  }
+
   private let failure = NSError(
     domain: "MpvPlayerContractTests",
     code: 1,

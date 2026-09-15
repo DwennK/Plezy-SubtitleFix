@@ -173,3 +173,25 @@ peut retélécharger les variantes non utilisées.
 - L'accès à une machine Windows interactive pour les mesures finales a été demandé
   dans la conversation et n'est pas encore renseigné. Aucun secret serveur requis
   n'a été inventé ni repris de l'application Plezy existante.
+
+
+## 2026-09-15 — mpv patché lié dans l'application macOS
+
+- Le projet macOS utilise un package Swift local généré depuis le commit natif
+  épinglé ; seul son binaire Libmpv est remplacé par l'archive patchée vérifiée.
+  Les packages distants et lockfiles iOS/tvOS ne sont pas modifiés.
+- `flutter build macos --debug --no-pub` : réussi avec ce package.
+- `xcodebuild test ... -only-testing:RunnerTests` : **13 tests réussis**.
+  Le nouveau test ouvre une WAV sinusoïdale créée localement, constate la capture
+  désactivée, l'active, lit du PCM avec timestamps et la désactive dans la
+  bibliothèque effectivement liée à `PlezyLiveSync.app`. Sortie audio nulle.
+- Premier essai du nouveau test corrigé : lire la propriété avant toute piste
+  audio renvoie « indisponible », conformément au patch. Le test vérifie désormais
+  une vraie chaîne audio. Les douze contrats natifs upstream restent verts.
+- L'import XCTest et les références du scheme ont été adaptés au nom du fork.
+- Workflow dédié de construction macOS/test natif ajouté ; son exécution CI est
+  distincte de la validation locale ci-dessus et reste à constater.
+- Pas encore de contrôle LiveSync ni de synchronisation automatique dans l'UI.
+  Ce résultat remplace seulement la référence précédente à une app liée au mpv
+  officiel. Le workflow original de release et la mise à jour des pins natifs
+  devront être adaptés avant distribution ; le workflow dédié produit des tests.

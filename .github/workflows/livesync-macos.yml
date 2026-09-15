@@ -1,0 +1,77 @@
+name: LiveSync macOS app and native contracts
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [feature/live-subtitle-sync]
+    paths:
+      - '.github/workflows/livesync-macos.yml'
+      - 'scripts/livesync/stage_macos_package.py'
+      - 'native/live_subtitle_sync/patches/**'
+      - 'macos/RunnerTests/**'
+      - 'macos/Runner.xcodeproj/**'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: livesync-macos-app-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  app:
+    runs-on: macos-26
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          persist-credentials: false
+      - name: Setup upstream Flutter
+        uses: subosito/flutter-action@1a449444c387b1966244ae4d4f8c696479add0b2 # v2
+        with:
+          channel: stable
+          flutter-version: '3.47.1'
+          cache: true
+      - name: Prepare and build the patched native dependency
+        run: |
+          brew install autoconf automake libtool ninja
+          python3 scripts/livesync/prepare_native.py mpv-build --dest build/livesync/mpv-source
+          make -C build/livesync/mpv-source build use-prebuilt libs=libmpv platform=macos
+      - name: Stage the macOS-only package and provenance
+        run: |
+          archive=build/livesync/mpv-source/dist/release/Libmpv.xcframework.zip
+          checksum=$(shasum -a 256 "$archive" | cut -d ' ' -f 1)
+          python3 scripts/livesync/stage_macos_package.py --source build/livesync/mpv-source --archive "$archive" --sha256 "$checksum"
+          mkdir -p build/livesync/evidence
+          cp macos/LiveSyncMPV/livesync-provenance.json build/livesync/evidence/
+          cp docs/live-subtitle-sync-versions.json build/livesync/evidence/versions.json
+          git rev-parse HEAD > build/livesync/evidence/fork-sha.txt
+      - name: Resolve app dependencies
+        run: |
+          flutter pub get --enforce-lockfile --no-example
+          cd packages/wakelock_plus
+          flutter pub get --enforce-lockfile --no-example
+      - name: Build the isolated test application
+        run: flutter build macos --debug --no-pub
+      - name: Test the actual app-linked native library
+        run: |
+          xcodebuild test -workspace macos/Runner.xcworkspace -scheme Runner -configuration Debug -destination 'platform=macOS,arch=arm64' -derivedDataPath build/macos -clonedSourcePackagesDirPath build/macos/SourcePackages -only-testing:RunnerTests -resultBundlePath build/livesync/evidence/native-contracts.xcresult
+          xcrun xcresulttool get test-results summary --path build/livesync/evidence/native-contracts.xcresult --format json > build/livesync/evidence/native-contracts.json
+          python3 scripts/checks/check_apple_spm_locks.py
+      - name: Package the test application
+        run: ditto -c -k --sequesterRsrc --keepParent build/macos/Build/Products/Debug/PlezyLiveSync.app build/livesync/PlezyLiveSync-macos-test.zip
+      - name: Preserve test application
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7
+        with:
+          name: livesync-macos-app-${{ github.sha }}
+          path: build/livesync/PlezyLiveSync-macos-test.zip
+          if-no-files-found: error
+          retention-days: 14
+      - name: Preserve validation evidence
+        if: always()
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7
+        with:
+          name: livesync-macos-contracts-${{ github.sha }}
+          path: build/livesync/evidence/
+          if-no-files-found: error
+          retention-days: 14

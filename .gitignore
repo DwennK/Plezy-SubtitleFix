@@ -75,3 +75,7 @@ maestro/**/*.png
 
 server/deploy.sh
 server/Caddyfile
+
+# Generated pinned macOS package with the LiveSync native patch
+/macos/LiveSyncMPV/
+/macos/.livesync-mpv-*/
