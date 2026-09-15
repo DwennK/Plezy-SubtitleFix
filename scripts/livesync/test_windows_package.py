@@ -90,6 +90,24 @@ class WindowsPackageTest(unittest.TestCase):
             with self.assertRaisesRegex(ValueError, "inputs changed"):
                 verify_run("DwennK/Plezy-SubtitleFix", 123)
 
+    def test_hashed_inputs_survive_windows_checkout_conversion(self):
+        repository = self.root / "checkout-filter-test"
+        repository.mkdir()
+        subprocess.run(["git", "init", "-q", str(repository)], check=True)
+        subprocess.run(["git", "-C", str(repository), "config", "core.autocrlf", "true"], check=True)
+        shutil.copyfile(ROOT / ".gitattributes", repository / ".gitattributes")
+        for name in INPUTS:
+            target = repository / name
+            target.parent.mkdir(parents=True, exist_ok=True)
+            shutil.copyfile(ROOT / name, target)
+        subprocess.run(["git", "-C", str(repository), "add", ".gitattributes", *INPUTS], check=True,
+                       capture_output=True)
+        output = self.root / "filtered"
+        output.mkdir()
+        subprocess.run(["git", "-C", str(repository), "checkout-index", "--all", "--prefix=" + str(output) + "/"],
+                       check=True, capture_output=True)
+        for name in INPUTS:
+            self.assertEqual((output / name).read_bytes(), (ROOT / name).read_bytes(), name)
     @unittest.skipUnless(shutil.which("cmake"), "CMake not installed")
     def test_cmake_checks_staged_bytes_and_native_revision(self):
         project = self.root / "project"
