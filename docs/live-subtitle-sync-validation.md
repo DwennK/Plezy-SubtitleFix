@@ -465,3 +465,24 @@ reconstruite après le banc de rendu, sans laisser son point d'entrée de test.
   le manifeste principal ne suffit pas à prouver leur reproductibilité.
 - CI `35030407327` réussie : worker C++ **et interface C réelle** avec les deux
   modèles sur Windows x64 et macOS arm64. Cela ne prouve pas le rendu Windows.
+
+### Comparaison locale CPU/Metal — Apple M4
+
+`compare_macos_backends.py` lance cinq essais par modèle/backend, quatre threads
+CPU, un nouveau processus/contexte à chaque fois, caches OS potentiellement chauds.
+Il vérifie le backend réellement utilisé et la reconnaissance, puis supprime la
+transcription temporaire. Les 20 essais passent le seuil textuel de faisabilité.
+
+| Modèle | Backend | Durée médiane du processus | CPU cumulé médian | RSS maximal |
+|---|---|---:|---:|---:|
+| base.en-q5_1 | CPU | 0,423 s | 1,20 s | 262,6 Mio |
+| base.en-q5_1 | Metal | 0,303 s | 0,16 s | 243,5 Mio |
+| base.en | CPU | 0,415 s | 1,12 s | 345,7 Mio |
+| base.en | Metal | 0,308 s | 0,17 s | 360,7 Mio |
+
+Rapport complet et hashes : `docs/livesync-evidence/2026-09-16-macos-backend-comparison.json`.
+Ces durées incluent le démarrage/chargement et diffèrent de celles du worker
+réutilisant son contexte. Elles favorisent l'évaluation de Metal dans le player,
+sans prouver son impact vidéo, son utilisation GPU, ses performances soutenues
+ou la précision des timestamps. Les budgets de validation finale sont fixés
+dans le plan, avec la machine Windows physique encore à identifier.

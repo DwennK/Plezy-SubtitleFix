@@ -1,0 +1,259 @@
+{
+  "kind": "standalone-macos-cpu-metal-feasibility-comparison",
+  "machine": "Apple M4",
+  "physicalMemoryBytes": 17179869184,
+  "os": "macOS-26.6.2-arm64-arm-64bit-Mach-O",
+  "cliSha256": "61b2c871f0a15d6c59a973086477cd767dc0b3e101a3dbf56d4c4f38fd488300",
+  "fixtureSha256": "59dfb9a4acb36fe2a2affc14bacbee2920ff435cb13cc314a08c13f66ba7860e",
+  "whisperRevision": "927cfce34f31707e17f2bff35c349632fb9e2c3a",
+  "models": [
+    {
+      "file": "ggml-base.en-q5_1.bin",
+      "sha256": "4baf70dd0d7c4247ba2b81fafd9c01005ac77c2f9ef064e00dcf195d0e2fdd2f"
+    },
+    {
+      "file": "ggml-base.en.bin",
+      "sha256": "a03779c86df3323075f5e796cb2ce5029f00ec8869eee3fdfb897afe36c6d002"
+    }
+  ],
+  "scope": "fresh process per trial; OS caches potentially warm; four CPU threads; known short fixture",
+  "productionPlaybackImpactValidated": false,
+  "gpuUtilizationMeasured": false,
+  "temporalAccuracyValidated": false,
+  "summaries": [
+    {
+      "model": "ggml-base.en-q5_1.bin",
+      "backend": "cpu",
+      "medianWallSeconds": 0.42272208399663214,
+      "maxWallSeconds": 0.49324295901169535,
+      "medianCpuSeconds": 1.2,
+      "maxResidentBytes": 275349504
+    },
+    {
+      "model": "ggml-base.en-q5_1.bin",
+      "backend": "metal",
+      "medianWallSeconds": 0.3032067080057459,
+      "maxWallSeconds": 0.31954575001145713,
+      "medianCpuSeconds": 0.16,
+      "maxResidentBytes": 255361024
+    },
+    {
+      "model": "ggml-base.en.bin",
+      "backend": "cpu",
+      "medianWallSeconds": 0.4149824170017382,
+      "maxWallSeconds": 0.43523320800159127,
+      "medianCpuSeconds": 1.12,
+      "maxResidentBytes": 362528768
+    },
+    {
+      "model": "ggml-base.en.bin",
+      "backend": "metal",
+      "medianWallSeconds": 0.3084353750018636,
+      "maxWallSeconds": 0.31281425000634044,
+      "medianCpuSeconds": 0.16999999999999998,
+      "maxResidentBytes": 378175488
+    }
+  ],
+  "trials": [
+    {
+      "model": "ggml-base.en-q5_1.bin",
+      "backend": "cpu",
+      "trial": 0,
+      "wallSeconds": 0.49324295901169535,
+      "whisperTotalSeconds": 0.42342,
+      "cpuSeconds": 1.37,
+      "peakResidentBytes": 275349504,
+      "wordErrorRate": 0.0
+    },
+    {
+      "model": "ggml-base.en-q5_1.bin",
+      "backend": "metal",
+      "trial": 0,
+      "wallSeconds": 0.31954575001145713,
+      "whisperTotalSeconds": 0.25547,
+      "cpuSeconds": 0.17,
+      "peakResidentBytes": 255361024,
+      "wordErrorRate": 0.0
+    },
+    {
+      "model": "ggml-base.en-q5_1.bin",
+      "backend": "cpu",
+      "trial": 1,
+      "wallSeconds": 0.483583749999525,
+      "whisperTotalSeconds": 0.42504000000000003,
+      "cpuSeconds": 1.3800000000000001,
+      "peakResidentBytes": 274006016,
+      "wordErrorRate": 0.0
+    },
+    {
+      "model": "ggml-base.en-q5_1.bin",
+      "backend": "metal",
+      "trial": 1,
+      "wallSeconds": 0.3171721659891773,
+      "whisperTotalSeconds": 0.26073,
+      "cpuSeconds": 0.16,
+      "peakResidentBytes": 255115264,
+      "wordErrorRate": 0.0
+    },
+    {
+      "model": "ggml-base.en-q5_1.bin",
+      "backend": "cpu",
+      "trial": 2,
+      "wallSeconds": 0.4160275409958558,
+      "whisperTotalSeconds": 0.36202999999999996,
+      "cpuSeconds": 1.18,
+      "peakResidentBytes": 273072128,
+      "wordErrorRate": 0.0
+    },
+    {
+      "model": "ggml-base.en-q5_1.bin",
+      "backend": "metal",
+      "trial": 2,
+      "wallSeconds": 0.29952670900092926,
+      "whisperTotalSeconds": 0.24154,
+      "cpuSeconds": 0.15,
+      "peakResidentBytes": 254722048,
+      "wordErrorRate": 0.0
+    },
+    {
+      "model": "ggml-base.en-q5_1.bin",
+      "backend": "cpu",
+      "trial": 3,
+      "wallSeconds": 0.42017595800280105,
+      "whisperTotalSeconds": 0.36555,
+      "cpuSeconds": 1.19,
+      "peakResidentBytes": 273416192,
+      "wordErrorRate": 0.0
+    },
+    {
+      "model": "ggml-base.en-q5_1.bin",
+      "backend": "metal",
+      "trial": 3,
+      "wallSeconds": 0.29705554200336337,
+      "whisperTotalSeconds": 0.24059999999999998,
+      "cpuSeconds": 0.16,
+      "peakResidentBytes": 255328256,
+      "wordErrorRate": 0.0
+    },
+    {
+      "model": "ggml-base.en-q5_1.bin",
+      "backend": "cpu",
+      "trial": 4,
+      "wallSeconds": 0.42272208399663214,
+      "whisperTotalSeconds": 0.36694,
+      "cpuSeconds": 1.2,
+      "peakResidentBytes": 273612800,
+      "wordErrorRate": 0.0
+    },
+    {
+      "model": "ggml-base.en-q5_1.bin",
+      "backend": "metal",
+      "trial": 4,
+      "wallSeconds": 0.3032067080057459,
+      "whisperTotalSeconds": 0.24448,
+      "cpuSeconds": 0.15,
+      "peakResidentBytes": 255049728,
+      "wordErrorRate": 0.0
+    },
+    {
+      "model": "ggml-base.en.bin",
+      "backend": "cpu",
+      "trial": 0,
+      "wallSeconds": 0.4075900829921011,
+      "whisperTotalSeconds": 0.35675,
+      "cpuSeconds": 1.11,
+      "peakResidentBytes": 361168896,
+      "wordErrorRate": 0.0
+    },
+    {
+      "model": "ggml-base.en.bin",
+      "backend": "metal",
+      "trial": 0,
+      "wallSeconds": 0.3084353750018636,
+      "whisperTotalSeconds": 0.24841,
+      "cpuSeconds": 0.16999999999999998,
+      "peakResidentBytes": 376225792,
+      "wordErrorRate": 0.0
+    },
+    {
+      "model": "ggml-base.en.bin",
+      "backend": "cpu",
+      "trial": 1,
+      "wallSeconds": 0.4149824170017382,
+      "whisperTotalSeconds": 0.35911000000000004,
+      "cpuSeconds": 1.12,
+      "peakResidentBytes": 361381888,
+      "wordErrorRate": 0.0
+    },
+    {
+      "model": "ggml-base.en.bin",
+      "backend": "metal",
+      "trial": 1,
+      "wallSeconds": 0.29831837500387337,
+      "whisperTotalSeconds": 0.2454,
+      "cpuSeconds": 0.16999999999999998,
+      "peakResidentBytes": 376766464,
+      "wordErrorRate": 0.0
+    },
+    {
+      "model": "ggml-base.en.bin",
+      "backend": "cpu",
+      "trial": 2,
+      "wallSeconds": 0.41091224999399856,
+      "whisperTotalSeconds": 0.35806,
+      "cpuSeconds": 1.11,
+      "peakResidentBytes": 361807872,
+      "wordErrorRate": 0.0
+    },
+    {
+      "model": "ggml-base.en.bin",
+      "backend": "metal",
+      "trial": 2,
+      "wallSeconds": 0.3058627080026781,
+      "whisperTotalSeconds": 0.24659999999999999,
+      "cpuSeconds": 0.16999999999999998,
+      "peakResidentBytes": 376700928,
+      "wordErrorRate": 0.0
+    },
+    {
+      "model": "ggml-base.en.bin",
+      "backend": "cpu",
+      "trial": 3,
+      "wallSeconds": 0.4343141249992186,
+      "whisperTotalSeconds": 0.37857,
+      "cpuSeconds": 1.19,
+      "peakResidentBytes": 362528768,
+      "wordErrorRate": 0.0
+    },
+    {
+      "model": "ggml-base.en.bin",
+      "backend": "metal",
+      "trial": 3,
+      "wallSeconds": 0.31281425000634044,
+      "whisperTotalSeconds": 0.25455,
+      "cpuSeconds": 0.18,
+      "peakResidentBytes": 376291328,
+      "wordErrorRate": 0.0
+    },
+    {
+      "model": "ggml-base.en.bin",
+      "backend": "cpu",
+      "trial": 4,
+      "wallSeconds": 0.43523320800159127,
+      "whisperTotalSeconds": 0.38004000000000004,
+      "cpuSeconds": 1.19,
+      "peakResidentBytes": 362217472,
+      "wordErrorRate": 0.0
+    },
+    {
+      "model": "ggml-base.en.bin",
+      "backend": "metal",
+      "trial": 4,
+      "wallSeconds": 0.31061220800620504,
+      "whisperTotalSeconds": 0.25292,
+      "cpuSeconds": 0.19,
+      "peakResidentBytes": 378175488,
+      "wordErrorRate": 0.0
+    }
+  ]
+}

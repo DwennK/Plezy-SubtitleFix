@@ -38,9 +38,10 @@ l'accès précis requis. Ne pas annoncer le projet terminé avec des cases ouver
   `mpv-build.lock.json`, moteur Flutter patché sélectionné par upstream.
 - SRT : `PlaybackSubtitleResolver`, sidecars et `external-filename` de mpv.
 - Réglages : `sub-delay` et `audio-delay` dans `SyncOffsetControl`.
-- Le client public libmpv expose un renderer vidéo et des callbacks de flux
-  d'entrée ; l'existence d'un callback PCM de sortie reste à vérifier dans la
-  révision effective. Étudier un filtre de prélèvement isolé si nécessaire.
+- Le client public libmpv ne fournit pas le prélèvement PCM requis. Le patch
+  isolé ajoute une lecture destructive bornée de PCM horodaté dans le pipeline
+  existant, avant le filtre de vitesse. La preuve macOS est acquise ; Windows
+  attend encore la construction de la pile native et ses probes.
 
 Séparer capture, inférence, index SRT, rapprochement, alignement, confiance,
 timeline et adaptation player. UI indépendante de whisper. Une seule inférence,
@@ -78,8 +79,10 @@ Plan enregistré avant implémentation. Phase A revalidée sur `7e4c8feb`, phase
 en cours : inférence CPU Windows/macOS, prélèvement PCM macOS avec PTS,
 renderer macOS et lecture complète bornée des SRT démontrés séparément.
 Le consommateur PCM 16 kHz borné passe sur Windows/macOS. La chaîne lecture
-active → consommateur → Whisper CPU passe sur le Mac avec les deux modèles.
-Le build Windows du mpv patché est encore en cours. Aucun fonctionnement
+active → consommateur → worker Whisper CPU passe sur le Mac avec les deux modèles.
+Le worker et son interface C passent en CI sur Windows/macOS. Le build Windows
+du mpv patché reprend après correction des prérequis Python et de l'include SCP
+de curl/libssh. Le rendu Windows reste à prouver. Aucun fonctionnement
 LiveSync de bout en bout livré. Voir le journal de validation et le manifeste.
 
 
@@ -126,3 +129,38 @@ L'intégration au contrôleur, à l'UI et au répertoire de production reste à 
 Le probe réseau explicite `flutter test --no-pub tool/livesync_model_probe_test.dart`
 vérifie un vrai téléchargement du modèle quantifié, sa réutilisation et sa suppression.
 Il utilise un répertoire temporaire et ne laisse pas de modèle utilisateur installé.
+
+## Budgets fixés avant la validation de bout en bout
+
+Référence macOS : Apple M4, 16 Gio, macOS 26.6.2. La machine Windows physique
+et son GPU restent à identifier ; le runner CI sert aux contrats et à la
+faisabilité, pas à certifier les performances de toutes les machines clientes.
+Les mêmes cibles seront appliquées à la référence Windows annoncée avant ses
+mesures. Un dépassement impose une correction ou une limite documentée ; ces
+valeurs sont des critères, pas des résultats acquis.
+
+| Mesure | Cible de validation |
+|---|---|
+| Capture | Ring ≤30 s, snapshot ≤15 s ; une inférence active ; aucun backlog |
+| Inférence sur fenêtre de 12 s | p95 ≤3 s, modèle déjà chargé |
+| Mémoire supplémentaire | pic ≤512 Mio au-dessus de la lecture seule |
+| CPU en suivi stabilisé | moyenne sur 5 min ≤30 % d'un cœur supplémentaire |
+| UI pendant l'inférence | p95 réponse à une interaction ≤100 ms |
+| Vidéo | hausse des frames perdues ≤0,1 point de pourcentage sur 10 min |
+| Audio | aucune interruption supplémentaire sur le scénario de 10 min |
+| Acquisition initiale | ≤45 s avec dialogues exploitables, hors téléchargement |
+| Reprise après seek inconnu | ≤30 s avec dialogues exploitables |
+| Erreur d'alignement sur validation séparée | médiane ≤250 ms ; p95 ≤750 ms |
+| Mauvais verrouillages/grands sauts | zéro observé dans le corpus négatif, effectif publié |
+
+Mesurer séparément pause, absence de dialogue et contenu sans correspondance :
+ces périodes ne doivent pas être forcées à converger pour tenir un délai.
+Relever CPU/GPU, thermique, mémoire, latences et défauts audio/vidéo avec fonction
+désactivée puis activée. Publier les distributions, pas seulement les moyennes.
+
+Premier choix à évaluer dans le player : `base.en-q5_1` avec Metal sur Apple
+Silicon, CPU disponible comme repli. Cinq lancements isolés par combinaison sur
+le M4 donnent environ 0,30 s médiane Metal contre 0,42 s CPU sur la fixture JFK,
+avec moins de temps CPU cumulé. Ce petit extrait connu ne valide aucun des
+budgets de lecture ou d'alignement ci-dessus. Le worker de production préparé
+reste CPU à ce stade ; Metal, Vulkan et le repli réel restent à intégrer/tester.
