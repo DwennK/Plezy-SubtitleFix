@@ -85,9 +85,14 @@ final class MpvPlayerContractTests: XCTestCase {
       XCTAssertGreaterThanOrEqual(mpv_set_option_string(mpv, key, value), 0)
     }
     XCTAssertGreaterThanOrEqual(mpv_initialize(mpv), 0)
-    let strings = ["loadfile", file.path].map { strdup($0) }
+    let strings: [UnsafeMutablePointer<CChar>?] = ["loadfile", file.path].map { argument in
+      argument.withCString { strdup($0) }
+    }
     defer { strings.forEach { free($0) } }
-    var arguments: [UnsafePointer<CChar>?] = strings.map { $0.map { UnsafePointer($0) } } + [nil]
+    var arguments: [UnsafePointer<CChar>?] =
+      strings.map { pointer in
+        pointer.map { UnsafePointer<CChar>($0) }
+      } + [nil]
     XCTAssertGreaterThanOrEqual(mpv_command(mpv, &arguments), 0)
     var enabled: Int32 = -1
     let deadline = Date().addingTimeInterval(5)
