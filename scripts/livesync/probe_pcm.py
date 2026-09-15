@@ -141,6 +141,8 @@ def collect(player, duration=0.6):
     while time.monotonic() < deadline:
         result = player.get("livesync-pcm")
         assert result["version"] == 1
+        assert len(result["frames"]) <= 64
+        assert sum(len(f["pcm"]) for f in result["frames"]) <= 262144
         epochs.add(result["epoch"])
         for frame in result["frames"]:
             records.append(check_frame(frame))
@@ -175,6 +177,8 @@ def main():
         report["forwardSeek"] = collect(player)
         player.command("seek", "2", "absolute+exact")
         report["backwardSeek"] = collect(player)
+        assert min(report["forwardSeek"]["epochs"]) > max(report["initial"]["epochs"])
+        assert min(report["backwardSeek"]["epochs"]) > max(report["forwardSeek"]["epochs"])
         player.set("speed", "1.5")
         report["speed1_5"] = collect(player)
         player.set("pause", "yes")
@@ -184,6 +188,22 @@ def main():
             pass
         time.sleep(0.2)
         assert not player.get("livesync-pcm")["frames"], "Capture continued while paused"
+        # Deliberately stop polling while the decoder runs fast. Overflow must
+        # invalidate the old window instead of accumulating unbounded audio.
+        player.set("speed", "4")
+        player.command("seek", "0", "absolute+exact")
+        player.set("pause", "no")
+        before = player.get("livesync-pcm")
+        time.sleep(2.1)
+        overflow = player.get("livesync-pcm")
+        assert overflow["dropped"] > before["dropped"], "Expected bounded-queue overflow"
+        assert overflow["epoch"] > before["epoch"], "Overflow did not invalidate continuity"
+        assert len(overflow["frames"]) <= 64
+        assert sum(len(f["pcm"]) for f in overflow["frames"]) <= 262144
+        for frame in overflow["frames"]:
+            check_frame(frame)
+        report["overflow"] = {"epoch": overflow["epoch"], "dropped": overflow["dropped"],
+                              "returnedFrames": len(overflow["frames"]), "transferBoundBytes": 262144}
         player.set("livesync-enabled", "no")
         assert not player.get("livesync-enabled")
         report["pauseAndDisable"] = "passed"

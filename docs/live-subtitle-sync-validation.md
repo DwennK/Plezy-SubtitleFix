@@ -195,3 +195,21 @@ peut retélécharger les variantes non utilisées.
   Ce résultat remplace seulement la référence précédente à une app liée au mpv
   officiel. Le workflow original de release et la mise à jour des pins natifs
   devront être adaptés avant distribution ; le workflow dédié produit des tests.
+
+
+## 2026-09-15 — bornes PCM et timing SRT natif
+
+- Probe PCM enrichi : vérification du changement d'époque après seeks avant et
+  arrière ; taille de chaque transfert ≤ 256 KiB et ≤ 64 blocs ; arrêt volontaire
+  du consommateur pendant une lecture accélérée. Le débordement augmente le
+  compteur de pertes et invalide l'époque. Les échantillons gardent leur PTS exact.
+  Exécution macOS arm64 réussie sur le mpv patché réel.
+- Nouveau probe SRT : fichier local intégral et serveur HTTP local avec en-tête
+  Authorization factice. Même texte chargé par le client et par libmpv ; URI de
+  piste préservée. Délai positif : disparition du cue ; délai négatif : cue suivant ;
+  retour au délai manuel 0,125 s : cue initial restauré. Fichier source inchangé.
+- Cette preuve observe `sub-text` du décodeur réel avec sorties nulles. Elle ne
+  prouve ni les pixels du renderer, ni l'intégration des clients Plex/Jellyfin,
+  ni le contrôleur automatique. Ces validations restent ouvertes.
+- Les workflows natifs Windows/macOS intègrent maintenant ces probes. Les runs
+  démarrés avant ce commit continuent d'utiliser leur ancienne définition.

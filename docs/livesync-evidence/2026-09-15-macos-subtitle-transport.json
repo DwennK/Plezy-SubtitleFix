@@ -1,0 +1,21 @@
+{
+  "kind": "real-native-subtitle-decoder-null-output",
+  "local": {
+    "completeSrtAccessible": true,
+    "sourceIdentityPreserved": true,
+    "positiveAndNegativeDelay": "passed",
+    "manualDelayRestored": 0.125,
+    "nativeDecoderSelection": "passed",
+    "visiblePixelsValidated": false
+  },
+  "authenticatedHttp": {
+    "completeSrtAccessible": true,
+    "sourceIdentityPreserved": true,
+    "positiveAndNegativeDelay": "passed",
+    "manualDelayRestored": 0.125,
+    "nativeDecoderSelection": "passed",
+    "visiblePixelsValidated": false
+  },
+  "httpRequests": 2,
+  "sourceHashUnchanged": "e982c14fedc7dc9aecd0fc9341eb9caff774c4b0636a586499e0542e7e491f86"
+}

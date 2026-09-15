@@ -43,6 +43,7 @@ jobs:
         run: |
           python3 scripts/livesync/link_macos_probe.py --build build/livesync/mpv-source/dist/libmpv/macos/scratch/arm64 --output build/livesync/libmpv-probe.dylib
           python3 scripts/livesync/probe_pcm.py --library build/livesync/libmpv-probe.dylib --output build/livesync/evidence/pcm
+          python3 scripts/livesync/probe_subtitles.py --library build/livesync/libmpv-probe.dylib --output build/livesync/evidence/subtitles
           cp docs/live-subtitle-sync-versions.json build/livesync/evidence/versions.json
           git rev-parse HEAD > build/livesync/evidence/fork-sha.txt
       - name: Preserve PCM proof
@@ -84,6 +85,7 @@ jobs:
         shell: bash
         run: |
           python3 scripts/livesync/probe_pcm.py --library build/livesync/mpv/libmpv-2.dll --output build/livesync/evidence/pcm
+          python3 scripts/livesync/probe_subtitles.py --library build/livesync/mpv/libmpv-2.dll --output build/livesync/evidence/subtitles
           cp docs/live-subtitle-sync-versions.json build/livesync/evidence/versions.json
           git rev-parse HEAD > build/livesync/evidence/fork-sha.txt
       - name: Preserve PCM proof

@@ -57,6 +57,7 @@ jobs:
           NATIVE_RUN_ID: ${{ inputs.run_id }}
         run: |
           python3 scripts/livesync/probe_pcm.py --library build/livesync/mpv/libmpv-2.dll --output build/livesync/evidence/pcm
+          python3 scripts/livesync/probe_subtitles.py --library build/livesync/mpv/libmpv-2.dll --output build/livesync/evidence/subtitles
           printf '%s\n' "$NATIVE_RUN_ID" > build/livesync/evidence/native-build-run.txt
           git rev-parse HEAD > build/livesync/evidence/probe-source-sha.txt
       - name: Preserve evidence
