@@ -18,6 +18,9 @@
 # SwiftPM locks are not redundant to us: scripts/checks/check_apple_spm_locks.py
 # fails the build when a pair drifts, and tvos/scripts/test_wire_mpv.rb asserts
 # all ten sites name one commit.
+# LiveSync keeps macOS on a local patched package instead: preserve that
+# reference and its native-pin-free SwiftPM locks. Refresh the LiveSync versions
+# manifest and rebuild/restage its generated package before the next app build.
 #
 # mpv-build.lock.json is how the non-Apple platforms consume the same pin.
 # JSON cannot carry comments, so its schema lives here:
@@ -321,6 +324,11 @@ errors: list[str] = []
 notes: list[str] = []
 writes: list[tuple[str, str]] = []
 unchanged: list[str] = []
+local_macos = False
+LOCAL_PACKAGE = re.compile(
+    r'/\* XCLocalSwiftPackageReference "LiveSyncMPV" \*/ = \{\s*'
+    r'isa = XCLocalSwiftPackageReference;\s*relativePath = LiveSyncMPV;\s*\};'
+)
 
 
 def sole_pin(pattern: re.Pattern[str], text: str, path: str) -> re.Match[str] | None:
@@ -349,7 +357,7 @@ def splice(text: str, match: re.Match[str], replacements: list[tuple[str, str]])
     return "".join(parts)
 
 
-def check_lock_schema(path: str, text: str) -> bool:
+def check_lock_schema(path: str, text: str, *, local: bool = False) -> bool:
     try:
         payload = json.loads(text)
     except json.JSONDecodeError as error:
@@ -363,6 +371,14 @@ def check_lock_schema(path: str, text: str) -> bool:
     if not isinstance(pins, list):
         errors.append(f"{path}: missing pins array")
         return False
+    if local:
+        # The fork's staging step must use the same revision as the root lock;
+        # SwiftPM must not also resolve an unpatched remote native package.
+        if any(isinstance(item, dict) and item.get("identity") in
+               (ACCEPTED_IDENTITIES | {"mpv-build"}) for item in pins):
+            errors.append(f"{path}: local LiveSyncMPV must not retain a remote native pin")
+            return False
+        return True
     pin = next(
         (
             item
@@ -507,6 +523,18 @@ for path in projects:
     with open(path, encoding="utf-8") as handle:
         original = handle.read()
 
+    if path.startswith("macos/") and 'XCLocalSwiftPackageReference "LiveSyncMPV"' in original:
+        if len(LOCAL_PACKAGE.findall(original)) != 1 or any(
+            url_identity(item.group("url")) in (ACCEPTED_IDENTITIES | {"mpv-build"})
+            for item in PACKAGE_REFERENCE.finditer(original)
+        ):
+            errors.append(f"{path}: expected one local LiveSyncMPV and no remote native package")
+        else:
+            local_macos = True
+            unchanged.append(path)
+            notes.append("note: preserve local macOS LiveSyncMPV; refresh the LiveSync manifest and rebuild/restage for the new root lock")
+        continue
+
     match = sole_pin(PACKAGE_REFERENCE, original, path)
     if match is None:
         continue
@@ -536,7 +564,11 @@ for path in projects:
 for path in locks:
     with open(path, encoding="utf-8") as handle:
         original = handle.read()
-    if not check_lock_schema(path, original):
+    local = local_macos and path.startswith("macos/")
+    if not check_lock_schema(path, original, local=local):
+        continue
+    if local:
+        unchanged.append(path)
         continue
 
     match = sole_pin(PIN, original, path)

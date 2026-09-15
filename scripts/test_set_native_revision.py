@@ -291,6 +291,57 @@ class SetNativeRevisionTest(unittest.TestCase):
 
     # ---- the pin moves as one unit ----------------------------------------
 
+    def _use_local_macos(self) -> None:
+        self._pbxproj("macos").write_text('''\
+/* XCLocalSwiftPackageReference "LiveSyncMPV" */ = {
+  isa = XCLocalSwiftPackageReference;
+  relativePath = LiveSyncMPV;
+};
+''')
+        for path in self._resolved("macos"):
+            payload = json.loads(path.read_text())
+            payload["pins"] = [pin for pin in payload["pins"] if pin["identity"] != "mpvkit"]
+            path.write_text(json.dumps(payload, indent=2) + "\n")
+
+    def test_preserves_local_macos_package_while_moving_other_pins(self) -> None:
+        self._use_local_macos()
+        macos = [self._pbxproj("macos"), *self._resolved("macos")]
+        before = {path: path.read_bytes() for path in macos}
+        repo, head = self._make_mpv_build()
+        result = self._run(head, "--repo", str(repo))
+        self.assertEqual(result.returncode, 0, result.stderr)
+        self.assertEqual(before, {path: path.read_bytes() for path in macos})
+        self.assertEqual((self.root / "mpv-build.lock.json").read_text(), self._expected_lock(head))
+        for platform in ("ios", "tvos"):
+            self.assertIn(head, self._pbxproj(platform).read_text())
+            for path in self._resolved(platform):
+                self.assertIn(head, path.read_text())
+        again = self._run(head, "--repo", str(repo))
+        self.assertEqual(again.returncode, 0, again.stderr)
+        self.assertIn("nothing to do", again.stdout)
+
+    def test_local_macos_rejects_stale_remote_lock_without_partial_write(self) -> None:
+        self._use_local_macos()
+        self._resolved("macos")[0].write_text(json.dumps(RESOLVED_TEMPLATE, indent=2) + "\n")
+        before = self._snapshot()
+        repo, head = self._make_mpv_build()
+        result = self._run(head, "--repo", str(repo))
+        self.assertNotEqual(result.returncode, 0)
+        self.assertIn("must not retain a remote native pin", result.stderr)
+        self.assertEqual(before, self._snapshot())
+        self.assertFalse((self.root / "mpv-build.lock.json").exists())
+
+    def test_local_macos_rejects_changed_package_path_without_partial_write(self) -> None:
+        self._use_local_macos()
+        path = self._pbxproj("macos")
+        path.write_text(path.read_text().replace("relativePath = LiveSyncMPV", "relativePath = Elsewhere"))
+        before = self._snapshot()
+        repo, head = self._make_mpv_build()
+        result = self._run(head, "--repo", str(repo))
+        self.assertNotEqual(result.returncode, 0)
+        self.assertIn("expected one local LiveSyncMPV", result.stderr)
+        self.assertEqual(before, self._snapshot())
+
     def _assert_pinned(self, commit: str, url: str = NEW_URL) -> None:
         """All nine Apple sites name url@commit with coherent names/identities."""
         name = url.rsplit("/", 1)[-1]
