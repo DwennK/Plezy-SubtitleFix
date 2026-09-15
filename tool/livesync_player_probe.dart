@@ -52,26 +52,41 @@ class _ProbeState extends State<_Probe> {
         throw StateError('Build with LIVESYNC_FIXTURE_DIR containing fixture.mkv and fixture.srt');
       }
       final track = SubtitleTrack.uri(subtitles.path, language: 'eng', codec: 'srt');
-      final tracksReady = player.streams.tracks
-          .firstWhere((tracks) => tracks.subtitle.any((t) => t.uri == subtitles.path))
-          .timeout(const Duration(seconds: 20));
-      final ready = player.streams.playbackRestart.first.timeout(const Duration(seconds: 20));
+      String canonicalPath(String path) {
+        final uri = Uri.tryParse(path);
+        final file = uri?.scheme == 'file' ? uri!.toFilePath(windows: Platform.isWindows) : path;
+        return Platform.isWindows ? file.replaceAll(r'\', '/').toLowerCase() : file;
+      }
+
+      bool isFixtureTrack(SubtitleTrack candidate) =>
+          candidate.uri != null && canonicalPath(candidate.uri!) == canonicalPath(subtitles.path);
       if (const String.fromEnvironment('LIVESYNC_RENDERER_AUTOMATION_DIR').isNotEmpty) {
         // Hosted Windows runners may have no physical audio endpoint. This
         // dedicated rendering proof does not claim audible-output validation.
         await _checkpoint('initializing-player');
-        await player.setProperty('ao', 'null').timeout(const Duration(seconds: 20));
         if (Platform.isWindows) {
+          // Plezy's audio recovery intentionally treats ao=null as a failed
+          // device and ends playback. Use the Windows discard device instead;
+          // no samples are retained, and audible playback is still untested.
+          await player.setProperty('ao-pcm-file', 'NUL').timeout(const Duration(seconds: 20));
+          await player.setProperty('ao-pcm-waveheader', 'no');
+          await player.setProperty('ao', 'pcm');
           // A hosted runner has no physical GPU. Exercise the actual native
           // D3D11 window with Windows WARP; this is not a hardware GPU proof.
           await player.setProperty('gpu-api', 'd3d11');
           await player.setProperty('gpu-context', 'd3d11');
           await player.setProperty('d3d11-warp', 'yes');
+        } else {
+          await player.setProperty('ao', 'null').timeout(const Duration(seconds: 20));
         }
       }
       await _checkpoint('configuring-fonts');
       await player.setProperty('volume', '5');
       await player.configureSubtitleFonts();
+      final tracksReady = player.streams.tracks
+          .firstWhere((tracks) => tracks.subtitle.any(isFixtureTrack))
+          .timeout(const Duration(seconds: 20));
+      final ready = player.streams.playbackRestart.first.timeout(const Duration(seconds: 20));
       await _checkpoint('opening-media');
       await player.open(
         Media(video.path, start: const Duration(milliseconds: 1500)),
@@ -82,7 +97,7 @@ class _ProbeState extends State<_Probe> {
       await ready;
       await _checkpoint('waiting-subtitle-track');
       final available = await tracksReady;
-      await player.selectSubtitleTrack(available.subtitle.firstWhere((t) => t.uri == subtitles.path));
+      await player.selectSubtitleTrack(available.subtitle.firstWhere(isFixtureTrack));
       await player.setProperty('sub-delay', '0.125');
       await player.setProperty('sub-pos', '70');
       await player.setProperty('sub-font-size', '44');
@@ -138,7 +153,7 @@ class _ProbeState extends State<_Probe> {
             'sid': sid,
             'delay': delay,
             'syntheticFixture': true,
-            'audioOutput': 'null',
+            'audioOutput': Platform.isWindows ? 'pcm-to-NUL' : 'null',
             'videoBackend': Platform.isWindows ? 'd3d11-warp' : 'platform-default',
             'audiblePlaybackValidated': false,
           }),
