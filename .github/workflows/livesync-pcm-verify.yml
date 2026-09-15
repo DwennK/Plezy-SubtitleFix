@@ -1,0 +1,60 @@
+name: LiveSync Windows PCM verification
+
+on:
+  workflow_run:
+    workflows: ['LiveSync patched mpv build']
+    types: [completed]
+  workflow_dispatch:
+    inputs:
+      run_id:
+        description: Native build run in this fork containing the Windows x64 artifact
+        required: true
+        type: string
+
+permissions:
+  contents: read
+  actions: read
+
+concurrency:
+  group: livesync-pcm-verify-${{ github.event.workflow_run.id || inputs.run_id }}
+  cancel-in-progress: false
+
+jobs:
+  verify:
+    if: github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success'
+    runs-on: windows-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          persist-credentials: false
+      - name: Download the completed build from this fork
+        uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8
+        with:
+          pattern: livesync-mpv-windows-x64-*
+          merge-multiple: true
+          run-id: ${{ github.event.workflow_run.id || inputs.run_id }}
+          github-token: ${{ github.token }}
+          path: build/livesync/archive
+      - name: Extract native dependency
+        shell: pwsh
+        run: |
+          $archives = @(Get-ChildItem build/livesync/archive -Filter *.zip)
+          if ($archives.Count -ne 1) { throw 'Expected exactly one native archive' }
+          Expand-Archive $archives[0].FullName build/livesync/mpv
+      - name: Verify native PCM with exact synthetic media timestamps
+        shell: bash
+        env:
+          NATIVE_RUN_ID: ${{ github.event.workflow_run.id || inputs.run_id }}
+        run: |
+          python3 scripts/livesync/probe_pcm.py --library build/livesync/mpv/libmpv-2.dll --output build/livesync/evidence/pcm
+          printf '%s\n' "$NATIVE_RUN_ID" > build/livesync/evidence/native-build-run.txt
+          git rev-parse HEAD > build/livesync/evidence/probe-source-sha.txt
+      - name: Preserve evidence
+        if: always()
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7
+        with:
+          name: livesync-windows-pcm-${{ github.run_id }}
+          path: build/livesync/evidence/
+          if-no-files-found: error
+          retention-days: 14
