@@ -75,6 +75,18 @@ void main() {
   });
 
   group('segment domains and gaps', () {
+    test('refinement keeps the latest accepted cue timing and unreobserved historical anchors', () {
+      final historical = [anchor(0, 100, 104), anchor(1, 110, 114), anchor(2, 120, 124)];
+      final earlier = TimelineMap(segments: [fitter.fit(historical)!]);
+      final updated = anchor(1, 110, 114.2);
+      final candidate = fitter.fit([historical[0], updated, anchor(3, 130, 134.2)])!;
+      final refined = earlier.withSegment(candidate).segments.single;
+      expect(refined.anchors.singleWhere((a) => a.cue == 1), same(updated));
+      expect(refined.anchors.singleWhere((a) => a.cue == 2), same(historical[2]));
+      expect(refined.anchors.map((a) => a.cue).toSet(), {0, 1, 2, 3});
+      expect(earlier.segments.single.anchors[1].mediaTime, 114);
+    });
+
     test('video insertion preserves earlier segment when seeking backward', () {
       final map = TimelineMap(
         segments: [segment(0, 20, 0), segment(20, 40, 90)],

@@ -28,6 +28,7 @@ void main() {
     final tracker = TimelineTracker()..observe([anchor(0, 100, 104), anchor(1, 110, 114)]);
     expect(tracker.observe([anchor(1, 110, 114.2)]), isTrue);
     expect(tracker.correctionAt(120).position.automaticDelay, closeTo(4.1, 1e-9));
+    expect(tracker.map.segments.single.anchors.singleWhere((a) => a.cue == 1).mediaTime, 114.2);
     expect(tracker.observe([anchor(1, 110, 114.2)]), isFalse);
   });
 
