@@ -1749,3 +1749,26 @@ sans nouveau commit à intégrer. Les branches ultérieures du cache v2 et de
 mesure d'acquisition restent exclues de ces archives. Les tests natifs encore
 actifs sont référencés dans la matrice d'acceptation ; aucun succès n'est déduit
 du seul lancement des workflows.
+
+
+### Première trace complète d’acquisition — 16 septembre
+
+Le run `35108145786` au SHA `902d7701` passe le même seek pendant le démarrage,
+avec acquisition en 37,647 s et erreur de calibration 274,625 ms. Capture prête
+à 9,124 s ; première demande à 17,748 s ; premier résultat à 24,682 s avec une
+seule ancre, insuffisante pour un mapping. Deuxième demande à 30,141 s ; résultat
+à 37,193 s et mapping appris à 37,198 s. Les inférences prennent 6,323 et 6,708 s,
+le matching 37 et 57 ms. Le coût du matching ne justifie pas d’abaisser ses seuils.
+
+L’intro-90 acquiert à 126,303 s avec erreur de calibration 245,958 ms. Les deux
+cibles d’acquisition de cet essai passent, avec les contrôles natifs existants.
+Le CPU annoncé par les deux runners Debug est AMD EPYC 9V74, deux cœurs/quatre
+processeurs logiques ; cela ne démontre pas l’identité ou la charge de l’hôte.
+L’ancien résultat de 52,022 s n’est pas effacé et ne peut être reconstitué sans
+sa trace. Aucune accélération causale n’est déduite de l’instrumentation.
+
+Preuve : [rapports et décomposition](livesync-evidence/acquisition-trace-902d7701-windows.json).
+Le scénario Release `35110773889` est lancé au SHA `7267abfc`, sans changement
+de l’algorithme ou des seuils. Les archives Release sont distinguées et le probe
+rapporte son mode de compilation. Résultat encore attendu ; cela ne remplace
+pas les mesures matérielles de lecture audible ni la validation de Mentalist.

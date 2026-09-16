@@ -62,8 +62,14 @@ Les limites ne sont pas des validations. Les preuves historiques gardent leur SH
   `35109362139` et macOS `35109400288` sont en cours au relevé.
 - **Mesure de l'acquisition**, `902d7701` : le probe conserve maintenant les
   instants des demandes/résultats, le coût natif et le coût du matching, sans
-  dialogue ni PCM. Run Windows `35108145786` en cours ; aucune accélération
-  n'est encore déduite de cette instrumentation.
+  dialogue ni PCM. [Run Windows `35108145786` réussi](livesync-evidence/acquisition-trace-902d7701-windows.json) :
+  acquisition 37,647 s avec deux inférences de 6,32 et 6,71 s ; matching de
+  37 et 57 ms. L'ancien échec à 52,022 s demeure, sans trace permettant de le
+  décomposer. Ce nouvel essai ne prouve pas une accélération.
+- **Validation Release**, `7267abfc` : même scénario, modèle et seuils ; mode de
+  compilation et archives identifiés séparément. Run Windows `35110773889`
+  en cours. Aucun gain ni respect général des budgets n'est encore attribué au
+  mode Release.
 
 ## Point utilisateur prioritaire
 
