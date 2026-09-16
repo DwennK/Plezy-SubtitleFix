@@ -38,6 +38,49 @@ void main() {
       ]);
   final passage = const TranscriptMatcher().find(phrases.join(' '), index).passage!;
 
+  NativeTranscript alteredFirst(List<String> words, {int? untimed, int? reversed}) =>
+      NativeTranscript(1, 2, 90, 105, 0.2, [
+        NativeTranscriptSegment(words.join(' '), 92, 96, [
+          for (var i = 0; i < words.length; i++)
+            NativeTranscriptToken(
+              ' ${words[i]}',
+              i == reversed ? 91.5 : 92 + i * 0.5,
+              i == reversed ? 91.8 : 92.3 + i * 0.5,
+              0.95,
+              i != untimed,
+            ),
+        ]),
+        transcript(90).segments[1],
+      ]);
+
+  List<SubtitleAnchor> align(NativeTranscript source) {
+    final match = const TranscriptMatcher().find(source.segments.map((s) => s.text).join(' '), index);
+    expect(match.status, TranscriptMatchStatus.matched);
+    return const TemporalAligner().anchors(source, index, match.passage!);
+  }
+
+  test('one interior substitution has four exact flanks and retains canonical cue identity', () {
+    final anchors = align(alteredFirst(['Please', 'bring', 'that', 'silver', 'lantern']));
+    expect(anchors, hasLength(2));
+    expect(anchors.first.offset, 90);
+    expect(anchors.first.phrase, 'please bring the');
+    expect(anchors.first.phrase, const TemporalAligner().anchors(transcript(90), index, passage).first.phrase);
+  });
+
+  test('substitution recovery cannot accept missing beginnings, shifted words or bad times', () {
+    for (final source in [
+      alteredFirst(['Kindly', 'bring', 'the', 'silver', 'lantern']),
+      alteredFirst(['Please', 'bring', 'those', 'gold', 'lantern']),
+      alteredFirst(['Please', 'bring', 'silver', 'lantern']),
+      alteredFirst(['Please', 'bring', 'really', 'the', 'silver', 'lantern']),
+      alteredFirst(['Please', 'bring', 'that', 'silver', 'lantern'], untimed: 2),
+      alteredFirst(['Please', 'bring', 'that', 'silver', 'lantern'], reversed: 2),
+      alteredFirst(['Please', 'bring', 'please', 'silver', 'lantern']),
+    ]) {
+      expect(align(source).map((a) => a.cue), [1]);
+    }
+  });
+
   test('timestamps come from matched cue beginnings, with signed media offsets', () {
     for (final offset in [0.0, 90.0, -1.5]) {
       final anchors = const TemporalAligner().anchors(transcript(offset), index, passage);

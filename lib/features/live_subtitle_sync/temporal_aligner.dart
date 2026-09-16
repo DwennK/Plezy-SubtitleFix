@@ -110,30 +110,55 @@ class TemporalAligner {
         continue;
       }
       final matched = <String>[];
-      for (var i = 0; i < 3; i++) {
+      String? matchFailure(int i) {
         final next = pairs[pair.subtitleWord + i];
         if (next == null ||
             !next.exact ||
             next.transcriptWord != pair.transcriptWord + i ||
             next.transcriptWord >= words.length ||
             index.words[next.subtitleWord].cueOrdinal != source.cueOrdinal) {
-          rejected('phraseNotMatched');
-          break;
+          return 'phraseNotMatched';
         }
         if (!words[next.transcriptWord].valid) {
-          rejected(words[next.transcriptWord].score < 0.35 ? 'phraseLowConfidence' : 'phraseInvalidTimestamp');
-          break;
+          return words[next.transcriptWord].score < 0.35 ? 'phraseLowConfidence' : 'phraseInvalidTimestamp';
         }
-        matched.add(words[next.transcriptWord].text);
+        return null;
       }
-      if (matched.length < 3) continue;
+
+      String? failure;
+      for (var i = 0; i < 3; i++) {
+        failure = matchFailure(i);
+        if (failure != null) break;
+        matched.add(words[pair.transcriptWord + i].text);
+      }
+      if (matched.length < 3) {
+        // A single interior substitution must not discard an accurately timed
+        // cue beginning. Require four exact words at unchanged positions,
+        // two on each side, plus valid monotonic times throughout. Insertions,
+        // deletions, a missing first word or a repeated beginning do not qualify.
+        const flanks = [0, 1, 3, 4];
+        final canCheck = flanks.every((i) => matchFailure(i) == null);
+        final local = canCheck ? words.sublist(pair.transcriptWord, pair.transcriptWord + 5) : <_TimedWord>[];
+        final validSubstitution =
+            local.length == 5 &&
+            local[2].text != beginning.text &&
+            local.every((word) => word.valid && word.start >= beginning.start && word.end <= transcript.windowEnd) &&
+            local.last.start - beginning.start <= 5 &&
+            List.generate(4, (i) => local[i + 1].start >= local[i].start).every((value) => value);
+        if (!validSubstitution) {
+          rejected(failure ?? 'phraseNotMatched');
+          continue;
+        }
+      }
       result.add(
         SubtitleAnchor(
           source.cueOrdinal,
           source.cueStart.inMicroseconds / 1e6,
           beginning.start,
           math.max(0.35, (beginning.end - beginning.start) / 2),
-          matched.join(' '),
+          // Keep the same deduplication identity whether ASR recognized all
+          // three initial words or the guarded five-word substitution case.
+          index.words.sublist(pair.subtitleWord, pair.subtitleWord + 3).map((word) => word.text).join(' '),
         ),
       );
     }
