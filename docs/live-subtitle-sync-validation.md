@@ -4,7 +4,7 @@
 
 Travail en cours, pas de livraison répondant à tous les critères. Des acquisitions
 automatiques passent dans le contrôleur Windows et dans les probes natifs Mac.
-La validation visible et audible de Mentalist, la dérive réelle, les gaps, le
+La validation visible et audible de Mentalist, la dérive dans le lecteur réel, les gaps, le
 cache, les performances et la distribution restent incomplets. Les sections
 datées ci-dessous distinguent les résultats historiques des avancées suivantes.
 
@@ -1045,7 +1045,13 @@ Ce sont des durées murales ponctuelles, pas des mesures CPU/UI ni un p95 de
 transcription. Rapports : `activity-{intro-90,negative}-dbe211a4.json`.
 La nouvelle CI applicative Windows
 [35054766606](https://github.com/DwennK/Plezy-SubtitleFix/actions/runs/35054766606)
-reste en cours ; les résultats Windows précédents ne valident pas le VAD.
+a échoué sur la calibration : aucun verrouillage avant expiration. Trois puis
+quatre cues reconnues comportent des horodatages contradictoires ; le moteur
+refuse de les considérer comme un recalage fiable. L’intro et les contrôles
+après acquisition ne sont pas atteints. Rapport conservé :
+`windows-calibration-dbe211a4.json`. Les résultats Windows précédents ne
+valident donc pas ce build VAD. La CI upstream complète `35055632459`, à
+`2346f164`, passe ; elle ne remplace pas cette validation fonctionnelle.
 
 ### Absence de PCM et build de revue — `c679fc8a`
 
@@ -1061,3 +1067,58 @@ passent. Le build macOS debug `c679fc8a` et sa signature stricte passent ; copie
 et provenance dans `build/livesync/review-builds/c679fc8a/`. Les contrôles visuels
 sur le Mac verrouillé, la dérive réelle, les gaps et les autres critères du Goal
 restent ouverts. Aucun statut de livraison finale n'est attribué.
+
+
+### Dérive avec parole réelle — `8f2f7ac2`
+
+Le chapitre de développement LibriSpeech `1272/128104` contient 145,195 s de
+parole et 15 transcriptions originales. La fixture ralentie conserve le texte
+et applique la pente `25025/24000` à l'audio. Les cues suivent les limites des
+fichiers source : ce ne sont pas des annotations de début des mots. Provenance,
+licence, sommes de contrôle et reproduction dans
+`live-subtitle-sync-speech-fixtures.md`.
+
+| Essai natif Mac | Acquisition initiale | Pente acquise | Erreur p95 / maximum après acquisition |
+|---|---:|---|---:|
+| Sans dérive, `fe3b0b18` | 70,777 s | Constante conservée | 638 / 638 ms |
+| Dérive initiale, `9fda2cf3` | 93,541 s | Non | 912 / 997 ms — échec |
+| Conservation des repères, `9ad7ab86` | 93,631 s | Non ; analyse suivante rejetée | 1 946 / 2 030 ms — échec |
+| Confirmation rapprochée, `8f2f7ac2` | 93,611 s | 1,042619 à 117,647 s | 637 / 683 ms — passe |
+
+Le premier essai a révélé qu'un repère isolé initial était perdu après la
+confirmation d'un groupe de décalages constants. Le tracker conserve désormais
+ces observations dans son ensemble borné et les réévalue avec les confirmations
+suivantes. Un test reprend les valeurs réellement observées ; les garde-fous
+contre les contradictions, les longues zones non observées et la réutilisation
+de répliques sont conservés.
+
+Le deuxième essai a échoué après un rejet natif : le délai constant vieillissait
+pendant une nouvelle attente de 30 s. La cadence permet maintenant cinq demandes
+de confirmation rapprochées après le premier verrouillage et les deux reprises
+natives bornées même lorsqu'un décalage est déjà actif. Les limites de matching
+ne sont pas assouplies. **107 tests ciblés** passent.
+
+Ces statistiques décrivent des positions de lecture corrélées après le premier
+verrouillage, y compris les éventuelles zones inconnues à délai automatique nul.
+Elles ne sont pas un p95 indépendant des débuts acoustiques des mots. L'absence
+de dérive présente déjà un biais d'environ 638 ms face aux limites des fichiers.
+Le probe vérifie le délai natif écrit et relu, mais pas le contrôleur Flutter,
+l'interface, l'audio audible, la charge CPU stable ou les frames vidéo perdues.
+L'acquisition initiale reste au-delà des 45 s demandées. Le ralentissement testé
+ne suffit pas à valider les deux sens de dérive, les films ou Mentalist.
+Les rapports `speech-*.json` conservent succès et échecs avec leurs SHA exacts.
+
+
+Le sens inverse, `24000/25025`, à `8f2f7ac2`, acquiert la pente 0,958991
+après 130,563 s. Il ne reste que 7 échantillons de suivi avant la fin du
+probe de 138 s (minimum exigé : 10) : **le test échoue**. Les 633 ms p95 sur
+ces quelques positions ne valident pas le suivi sur la durée. Le build macOS et
+l'analyseur tournaient simultanément ; ce temps n'est pas un benchmark de
+performance contrôlé. Rapport : `speech-drift-faster-8f2f7ac2.json`.
+
+Le build macOS debug `8f2f7ac2` et sa signature stricte passent, avec **107 tests
+ciblés** et l'analyse complète sans diagnostic. Copie et provenance dans
+`build/livesync/review-builds/8f2f7ac2/`. Kernel Dart SHA-256 :
+`fb63267c8de1fd4b64b123c308c99f8a5a18f82148df576952df5f2fea458981`.
+La CI Windows `35056961286` et la CI upstream `35056963159` sont en cours.
+Aucune conclusion de réussite n'est attribuée avant leur fin.

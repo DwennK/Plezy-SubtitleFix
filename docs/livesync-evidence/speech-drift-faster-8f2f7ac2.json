@@ -1,0 +1,629 @@
+{
+  "provenance": {
+    "forkSha": "8f2f7ac29ee5d7c92cde45bad234309d57933529",
+    "rawReportSha256": "d5e623ff418e523ceb7e7300d2f1e99ee1d7ebbddd6e06f4685ddc688997e76c",
+    "scope": "Development fixture. Slope acquired too late for the required 10 tracking samples; test fails. Local app build/analyzer ran concurrently, so acquisition time is not a controlled performance benchmark. No production UI or audible validation.",
+    "modelSha256": "4baf70dd0d7c4247ba2b81fafd9c01005ac77c2f9ef064e00dcf195d0e2fdd2f",
+    "fixture": {
+      "source": {
+        "id": "librispeech-dev-clean-1272-128104",
+        "sourcePage": "https://www.openslr.org/12",
+        "url": "https://openslr.trmal.net/resources/12/dev-clean.tar.gz",
+        "bytes": 337926286,
+        "sha256": "76f87d090650617fca0cac8f88b9416e0ebf80350acb97b343a85fa903728ab3",
+        "officialMd5": "42e2234ba48799c1f50f24a7926300a1",
+        "officialChecksumUrl": "https://openslr.trmal.net/resources/12/md5sum.txt",
+        "attribution": "LibriSpeech (c) 2014 by Vassil Panayotov; derived from LibriVox audiobooks",
+        "license": "CC-BY-4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+        "chapter": "LibriSpeech/dev-clean/1272/128104",
+        "utterancePrefix": "1272-128104",
+        "utteranceCount": 15,
+        "role": "development; never report this chapter as independent validation",
+        "reference": "Original utterance boundaries and official text; not manually annotated acoustic onsets"
+      },
+      "case": "drift-faster",
+      "role": "development",
+      "sampleRate": 16000,
+      "sourceSamples": 2323120,
+      "outputSamples": 2228154,
+      "durationSeconds": 139.259625,
+      "expectedSlope": 0.9590409590409591,
+      "slopeNumerator": 960,
+      "slopeDenominator": 1001,
+      "expectedOffsetSeconds": 0,
+      "tempoDurationErrorSeconds": 0.011672952047945273,
+      "reference": "Original utterance boundaries and official text; not manually annotated acoustic onsets",
+      "utterances": [
+        {
+          "id": "1272-128104-0000",
+          "startSample": 0,
+          "endSample": 93680
+        },
+        {
+          "id": "1272-128104-0001",
+          "startSample": 93680,
+          "endSample": 170720
+        },
+        {
+          "id": "1272-128104-0002",
+          "startSample": 170720,
+          "endSample": 370480
+        },
+        {
+          "id": "1272-128104-0003",
+          "startSample": 370480,
+          "endSample": 528880
+        },
+        {
+          "id": "1272-128104-0004",
+          "startSample": 528880,
+          "endSample": 999280
+        },
+        {
+          "id": "1272-128104-0005",
+          "startSample": 999280,
+          "endSample": 1143440
+        },
+        {
+          "id": "1272-128104-0006",
+          "startSample": 1143440,
+          "endSample": 1233680
+        },
+        {
+          "id": "1272-128104-0007",
+          "startSample": 1233680,
+          "endSample": 1381520
+        },
+        {
+          "id": "1272-128104-0008",
+          "startSample": 1381520,
+          "endSample": 1463440
+        },
+        {
+          "id": "1272-128104-0009",
+          "startSample": 1463440,
+          "endSample": 1756080
+        },
+        {
+          "id": "1272-128104-0010",
+          "startSample": 1756080,
+          "endSample": 1845680
+        },
+        {
+          "id": "1272-128104-0011",
+          "startSample": 1845680,
+          "endSample": 2087520
+        },
+        {
+          "id": "1272-128104-0012",
+          "startSample": 2087520,
+          "endSample": 2173600
+        },
+        {
+          "id": "1272-128104-0013",
+          "startSample": 2173600,
+          "endSample": 2287200
+        },
+        {
+          "id": "1272-128104-0014",
+          "startSample": 2287200,
+          "endSample": 2323120
+        }
+      ],
+      "fixtureTools": {
+        "ffmpeg": "ffmpeg version 9.0.1 Copyright (c) 2000-2026 the FFmpeg developers",
+        "ffprobe": "ffprobe version 9.0.1 Copyright (c) 2007-2026 the FFmpeg developers"
+      },
+      "files": {
+        "fixture.wav": "d0c1171f8d9172fac1293e72c883c4647306f4213e1dcdbb89f7502b3b25df38",
+        "fixture.mkv": "7585dde38d49190e94f76017f73e4a42d3120628e0ab7181d09fd7dfe8fd1cb8",
+        "fixture.srt": "98fd1f94ff6c4fe1ac3c1a6d3f342e17933878f725fd77b8e3d250d6d0bdeec1"
+      }
+    }
+  },
+  "report": {
+    "kind": "native-active-pcm-real-asr-and-domain-alignment",
+    "platform": "macos",
+    "inferenceBackend": "portable-cpu",
+    "alignmentEngine": "bounded-affine-timeline",
+    "acquiredMediaPosition": 130.67137071227293,
+    "learnedSegments": 1,
+    "activityChecks": 269,
+    "activityVoiceChecks": 260,
+    "activityTotalMicros": 172734,
+    "activityMaxMicros": 4465,
+    "actualOffset": -5.250627601170407,
+    "acquisitionMs": 130563,
+    "evaluationMs": 138068,
+    "expectedOffset": 0.0,
+    "expectNoLock": false,
+    "completedAnalyses": 10,
+    "rejectedAnalyses": 1,
+    "absoluteOffsetError": 0.6327158741947585,
+    "maximumOffsetError": 0.75,
+    "reference": "fixture SRT timings, not precise acoustic-onset ground truth",
+    "passed": false,
+    "expectedSlope": 0.9590409590409591,
+    "slopeConfirmed": true,
+    "affineAcquisitionMs": 130563,
+    "trackingErrorP95": 0.6330498085495435,
+    "trackingErrorMaximum": 0.6330498085495435,
+    "trackingSamples": [
+      {
+        "mediaTime": 131.07822331237054,
+        "automaticDelay": -4.965082553191564,
+        "mappingAvailable": true,
+        "nativeDelay": -4.96508264541626,
+        "expectedDelay": -5.598132453965803,
+        "error": 0.6330498085495435
+      },
+      {
+        "mediaTime": 132.10154771422592,
+        "automaticDelay": -5.008842331432504,
+        "mappingAvailable": true,
+        "nativeDelay": -5.008842468261719,
+        "expectedDelay": -5.641836933628383,
+        "error": 0.6329944653666644
+      },
+      {
+        "mediaTime": 133.0773430633469,
+        "automaticDelay": -5.050569654663207,
+        "mappingAvailable": true,
+        "nativeDelay": -5.050569534301758,
+        "expectedDelay": -5.683511526663779,
+        "error": 0.6329419923620208
+      },
+      {
+        "mediaTime": 134.1524512786788,
+        "automaticDelay": -5.096543831573911,
+        "mappingAvailable": true,
+        "nativeDelay": -5.096543788909912,
+        "expectedDelay": -5.7294276066935765,
+        "error": 0.6328838177836644
+      },
+      {
+        "mediaTime": 135.20820124816112,
+        "automaticDelay": -5.141690203983956,
+        "mappingAvailable": true,
+        "nativeDelay": -5.141690254211426,
+        "expectedDelay": -5.774516928306866,
+        "error": 0.6328266740954405
+      },
+      {
+        "mediaTime": 136.19869754027525,
+        "automaticDelay": -5.184046174400379,
+        "mappingAvailable": true,
+        "nativeDelay": -5.184046268463135,
+        "expectedDelay": -5.816819374115909,
+        "error": 0.6327731056527739
+      },
+      {
+        "mediaTime": 137.25518234252124,
+        "automaticDelay": -5.229223970002039,
+        "mappingAvailable": true,
+        "nativeDelay": -5.22922420501709,
+        "expectedDelay": -5.861940079211848,
+        "error": 0.6327158741947585
+      }
+    ],
+    "trackingReference": "Correlated playback-time samples after first lock, including unknown regions at zero automatic delay. Ideal fixture transform, not independent acoustic annotations.",
+    "analyses": [
+      {
+        "attempt": 1,
+        "windowStart": 0.7050000000000002,
+        "windowEnd": 8.767,
+        "match": "matched",
+        "contextWindows": 1,
+        "segmentedMatch": false,
+        "transcriptWords": 26,
+        "wordsInSubtitleVocabulary": 24,
+        "contextWords": 0,
+        "segmentBounds": [
+          {
+            "start": 0.7050000000000002,
+            "end": 6.1850000000000005,
+            "timedTokens": 22,
+            "firstToken": 0.7850000000000001,
+            "lastToken": 5.865
+          },
+          {
+            "start": 6.1850000000000005,
+            "end": 8.785,
+            "timedTokens": 14,
+            "firstToken": 6.325,
+            "lastToken": 8.745000000000001
+          }
+        ],
+        "similarity": 0.9230769230769231,
+        "anchors": [],
+        "regions": []
+      },
+      {
+        "attempt": 2,
+        "windowStart": 5.8629999999999995,
+        "windowEnd": 20.863,
+        "match": "matched",
+        "contextWindows": 1,
+        "segmentedMatch": false,
+        "transcriptWords": 39,
+        "wordsInSubtitleVocabulary": 38,
+        "contextWords": 0,
+        "segmentBounds": [
+          {
+            "start": 5.8629999999999995,
+            "end": 10.843,
+            "timedTokens": 15,
+            "firstToken": 6.3229999999999995,
+            "lastToken": 10.303
+          },
+          {
+            "start": 10.843,
+            "end": 16.163,
+            "timedTokens": 18,
+            "firstToken": 10.843,
+            "lastToken": 16.063000000000002
+          },
+          {
+            "start": 16.163,
+            "end": 20.863,
+            "timedTokens": 15,
+            "firstToken": 16.463,
+            "lastToken": 20.843
+          }
+        ],
+        "similarity": 0.9743589743589743,
+        "anchors": [
+          {
+            "cue": 2,
+            "offset": 0.17300000000000004
+          }
+        ],
+        "regions": []
+      },
+      {
+        "attempt": 3,
+        "windowStart": 17.895,
+        "windowEnd": 32.894999999999996,
+        "match": "matched",
+        "contextWindows": 1,
+        "segmentedMatch": false,
+        "transcriptWords": 37,
+        "wordsInSubtitleVocabulary": 34,
+        "contextWords": 64,
+        "segmentBounds": [
+          {
+            "start": 17.895,
+            "end": 22.835,
+            "timedTokens": 14,
+            "firstToken": 18.195,
+            "lastToken": 22.615
+          },
+          {
+            "start": 22.835,
+            "end": 28.215,
+            "timedTokens": 19,
+            "firstToken": 22.855,
+            "lastToken": 28.174999999999997
+          },
+          {
+            "start": 28.215,
+            "end": 32.375,
+            "timedTokens": 12,
+            "firstToken": 28.335,
+            "lastToken": 31.875
+          }
+        ],
+        "similarity": 0.9189189189189189,
+        "anchors": [],
+        "regions": []
+      },
+      {
+        "attempt": 4,
+        "windowStart": 29.863,
+        "windowEnd": 44.863,
+        "match": "matched",
+        "contextWindows": 1,
+        "segmentedMatch": false,
+        "transcriptWords": 29,
+        "wordsInSubtitleVocabulary": 23,
+        "contextWords": 57,
+        "segmentBounds": [
+          {
+            "start": 29.863,
+            "end": 32.263,
+            "timedTokens": 6,
+            "firstToken": 30.023,
+            "lastToken": 32.003
+          },
+          {
+            "start": 32.263,
+            "end": 36.903,
+            "timedTokens": 14,
+            "firstToken": 32.383,
+            "lastToken": 36.703
+          },
+          {
+            "start": 36.903,
+            "end": 42.783,
+            "timedTokens": 14,
+            "firstToken": 36.983,
+            "lastToken": 42.703
+          },
+          {
+            "start": 42.783,
+            "end": 44.863,
+            "timedTokens": 8,
+            "firstToken": 42.943,
+            "lastToken": 44.083
+          }
+        ],
+        "similarity": 0.7931034482758621,
+        "anchors": [],
+        "regions": []
+      },
+      {
+        "attempt": 5,
+        "windowStart": 41.895,
+        "windowEnd": 56.895,
+        "match": "matched",
+        "contextWindows": 1,
+        "segmentedMatch": false,
+        "transcriptWords": 39,
+        "wordsInSubtitleVocabulary": 32,
+        "contextWords": 53,
+        "segmentBounds": [
+          {
+            "start": 41.895,
+            "end": 48.05500000000001,
+            "timedTokens": 23,
+            "firstToken": 42.935,
+            "lastToken": 47.655
+          },
+          {
+            "start": 48.05500000000001,
+            "end": 50.775000000000006,
+            "timedTokens": 6,
+            "firstToken": 48.195,
+            "lastToken": 50.415000000000006
+          },
+          {
+            "start": 50.775000000000006,
+            "end": 56.855000000000004,
+            "timedTokens": 24,
+            "firstToken": 50.735,
+            "lastToken": 56.855000000000004
+          }
+        ],
+        "similarity": 0.8461538461538461,
+        "anchors": [],
+        "regions": []
+      },
+      {
+        "attempt": 6,
+        "windowStart": 53.991,
+        "windowEnd": 68.991,
+        "match": "matched",
+        "contextWindows": 1,
+        "segmentedMatch": false,
+        "transcriptWords": 34,
+        "wordsInSubtitleVocabulary": 31,
+        "contextWords": 54,
+        "segmentBounds": [
+          {
+            "start": 53.991,
+            "end": 55.511,
+            "timedTokens": 5,
+            "firstToken": 54.211,
+            "lastToken": 55.211
+          },
+          {
+            "start": 55.511,
+            "end": 62.131,
+            "timedTokens": 20,
+            "firstToken": 55.431,
+            "lastToken": 61.591
+          },
+          {
+            "start": 62.131,
+            "end": 68.111,
+            "timedTokens": 17,
+            "firstToken": 62.351,
+            "lastToken": 68.111
+          }
+        ],
+        "similarity": 0.9117647058823529,
+        "anchors": [
+          {
+            "cue": 5,
+            "offset": -1.9439999999999955
+          }
+        ],
+        "regions": []
+      },
+      {
+        "attempt": 7,
+        "windowStart": 65.95899999999999,
+        "windowEnd": 80.95899999999999,
+        "match": "matched",
+        "contextWindows": 1,
+        "segmentedMatch": false,
+        "transcriptWords": 31,
+        "wordsInSubtitleVocabulary": 29,
+        "contextWords": 51,
+        "segmentBounds": [
+          {
+            "start": 65.95899999999999,
+            "end": 69.11899999999999,
+            "timedTokens": 5,
+            "firstToken": 66.15899999999999,
+            "lastToken": 68.73899999999999
+          },
+          {
+            "start": 69.11899999999999,
+            "end": 74.47899999999998,
+            "timedTokens": 17,
+            "firstToken": 69.139,
+            "lastToken": 74.09899999999999
+          },
+          {
+            "start": 74.47899999999998,
+            "end": 80.67899999999999,
+            "timedTokens": 19,
+            "firstToken": 74.719,
+            "lastToken": 80.53899999999999
+          }
+        ],
+        "similarity": 0.9032258064516129,
+        "anchors": [
+          {
+            "cue": 7,
+            "offset": -2.38600000000001
+          }
+        ],
+        "regions": []
+      },
+      {
+        "attempt": 8,
+        "failure": "inferenceUnavailable"
+      },
+      {
+        "attempt": 9,
+        "windowStart": 89.895,
+        "windowEnd": 104.895,
+        "match": "matched",
+        "contextWindows": 1,
+        "segmentedMatch": false,
+        "transcriptWords": 38,
+        "wordsInSubtitleVocabulary": 36,
+        "contextWords": 0,
+        "segmentBounds": [
+          {
+            "start": 89.895,
+            "end": 96.455,
+            "timedTokens": 17,
+            "firstToken": 90.015,
+            "lastToken": 96.395
+          },
+          {
+            "start": 96.455,
+            "end": 101.77499999999999,
+            "timedTokens": 18,
+            "firstToken": 96.55499999999999,
+            "lastToken": 101.77499999999999
+          },
+          {
+            "start": 101.77499999999999,
+            "end": 104.815,
+            "timedTokens": 13,
+            "firstToken": 101.895,
+            "lastToken": 104.815
+          }
+        ],
+        "similarity": 0.9210526315789473,
+        "anchors": [],
+        "regions": []
+      },
+      {
+        "attempt": 10,
+        "windowStart": 102.05499999999999,
+        "windowEnd": 117.05499999999999,
+        "match": "matched",
+        "contextWindows": 1,
+        "segmentedMatch": false,
+        "transcriptWords": 37,
+        "wordsInSubtitleVocabulary": 33,
+        "contextWords": 70,
+        "segmentBounds": [
+          {
+            "start": 102.05499999999999,
+            "end": 108.175,
+            "timedTokens": 23,
+            "firstToken": 102.335,
+            "lastToken": 108.13499999999999
+          },
+          {
+            "start": 108.175,
+            "end": 111.255,
+            "timedTokens": 8,
+            "firstToken": 108.35499999999999,
+            "lastToken": 110.85499999999999
+          },
+          {
+            "start": 111.255,
+            "end": 116.975,
+            "timedTokens": 20,
+            "firstToken": 111.23499999999999,
+            "lastToken": 116.815
+          }
+        ],
+        "similarity": 0.9054054054054054,
+        "anchors": [
+          {
+            "cue": 10,
+            "offset": -4.219999999999999
+          },
+          {
+            "cue": 11,
+            "offset": -4.120000000000019
+          }
+        ],
+        "regions": []
+      },
+      {
+        "attempt": 11,
+        "windowStart": 114.023,
+        "windowEnd": 129.023,
+        "match": "matched",
+        "contextWindows": 1,
+        "segmentedMatch": false,
+        "transcriptWords": 33,
+        "wordsInSubtitleVocabulary": 31,
+        "contextWords": 53,
+        "segmentBounds": [
+          {
+            "start": 114.023,
+            "end": 120.503,
+            "timedTokens": 17,
+            "firstToken": 114.26299999999999,
+            "lastToken": 120.523
+          },
+          {
+            "start": 120.503,
+            "end": 127.54299999999999,
+            "timedTokens": 18,
+            "firstToken": 120.883,
+            "lastToken": 127.54299999999999
+          },
+          {
+            "start": 127.54299999999999,
+            "end": 128.983,
+            "timedTokens": 5,
+            "firstToken": 127.823,
+            "lastToken": 128.983
+          }
+        ],
+        "similarity": 0.8939393939393939,
+        "anchors": [
+          {
+            "cue": 12,
+            "offset": -4.567000000000007
+          }
+        ],
+        "regions": [
+          {
+            "start": 10.846318813583622,
+            "end": 125.73347265980797,
+            "slope": 0.9589912594927638,
+            "offset": 0.613882074795832,
+            "anchors": 6
+          }
+        ]
+      }
+    ],
+    "productionPlayerValidated": false,
+    "audiblePlaybackValidated": false,
+    "pcmOrTranscriptPersisted": false,
+    "mainIsolateHeartbeatTicks": 5530
+  }
+}

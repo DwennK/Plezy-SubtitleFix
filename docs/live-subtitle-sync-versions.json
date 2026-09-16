@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "product": "Plezy + LiveSync",
   "status": "in-development-not-validated",
-  "recordedAt": "2026-09-16T04:26:50.598720+00:00",
+  "recordedAt": "2026-09-16T04:53:49.981088+00:00",
   "upstream": {
     "repository": "edde746/plezy",
     "branch": "main",
@@ -659,7 +659,7 @@
       "ciRun": 35034268551,
       "forkSha": "c4e64bba647bcf424517f8fe7481b4e910819194"
     },
-    "qualityLimitations": "Whole upstream CI 35054120815 passed at 0d795195. Later audio activity/watchdog changes require new CI. Native UI on Mentalist, physical hardware and performance budgets remain incomplete.",
+    "qualityLimitations": "Whole upstream CI 35055632459 passed at 2346f164. Windows activity build dbe211a4 failed calibration acquisition; no latest Windows feature pass. Native UI on Mentalist, physical hardware and performance budgets remain incomplete.",
     "nativeCaptureOwner": {
       "localResult": "passed real decoder PCM, forward/backward seeks, pause, exclusive capture and weak-client release on parent shutdown",
       "platform": "macOS arm64 Apple M4",
@@ -708,9 +708,9 @@
     },
     "timelineIntegration": {
       "forkSha": "55da27265cc1775e458000fc4a277e43f4a684fc",
-      "focusedLocalTestsPassed": 104,
+      "focusedLocalTestsPassed": 107,
       "windowsCiRun": 35054766606,
-      "nativeStatus": "Timeline, intro and manual delays confirmed on Windows at 3e4b4229. Audio activity application run dbe211a4 in progress. The no-PCM watchdog c679fc8a has domain tests and a signed Mac build; native injected-failure validation remains pending.",
+      "nativeStatus": "Timeline, intro and manual delays confirmed on Windows at 3e4b4229. Audio activity application run dbe211a4 failed calibration acquisition; intro and post-lock controls were not reached. The no-PCM watchdog c679fc8a has domain tests and a signed Mac build; native injected-failure validation remains pending.",
       "gapSuppressionImplemented": false,
       "persistentCacheImplemented": false,
       "nativeIntro90": {
@@ -720,13 +720,13 @@
         "scope": "55da2726 tracker and native media clock, zero manual audio delay; not production UI."
       },
       "macosBuild": {
-        "forkSha": "c679fc8a8533c09092d2a891e081ef05f95394f9",
+        "forkSha": "8f2f7ac29ee5d7c92cde45bad234309d57933529",
         "upstreamSha": "e38759127a1fb26c4cd99172ba6609fd50e355d9",
         "platform": "macos-arm64",
         "configuration": "debug",
         "strictSignatureVerified": true,
-        "dartKernelSha256": "4d37f88cec992bcd4a33d51c411127391b7e3baf44b0bd632e86b7eb2c7b87ed",
-        "focusedTestsPassed": 104,
+        "dartKernelSha256": "fb63267c8de1fd4b64b123c308c99f8a5a18f82148df576952df5f2fea458981",
+        "focusedTestsPassed": 107,
         "nativeUiValidated": false
       },
       "cadenceIntro90": {
@@ -762,13 +762,44 @@
       "macosIntro90Report": "docs/livesync-evidence/activity-intro-90-dbe211a4.json",
       "macosNegativeRegressionReport": "docs/livesync-evidence/activity-negative-dbe211a4.json",
       "windowsCiRun": 35054766606,
-      "windowsStatus": "in progress",
-      "classificationAccuracyValidated": false
+      "windowsStatus": "failed: calibration acquisition timeout; intro not reached",
+      "classificationAccuracyValidated": false,
+      "windowsReport": "docs/livesync-evidence/windows-calibration-dbe211a4.json"
     },
     "pcmAvailability": {
       "forkSha": "c679fc8a8533c09092d2a891e081ef05f95394f9",
       "timeoutSeconds": 30,
       "scope": "Active unbuffered startup with zero samples; silence with PCM is accepted. Native failure-path application validation remains pending."
+    },
+    "speechDriftDevelopment": {
+      "sourceManifest": "test/fixtures/livesync/librispeech-development.json",
+      "scope": "Native active PCM/shared matcher and tracker; utterance boundaries, correlated playback samples, not acoustic ground truth or application-level validation.",
+      "forkSha": "8f2f7ac29ee5d7c92cde45bad234309d57933529",
+      "slower": {
+        "report": "docs/livesync-evidence/speech-drift-slower-8f2f7ac2.json",
+        "passed": true,
+        "acquisitionMs": 93611,
+        "affineAcquisitionMs": 117647,
+        "trackingErrorP95Seconds": 0.6368989171803179,
+        "trackingErrorMaximumSeconds": 0.6826753795175478
+      },
+      "faster": {
+        "report": "docs/livesync-evidence/speech-drift-faster-8f2f7ac2.json",
+        "passed": false,
+        "slopeConfirmed": true,
+        "acquisitionMs": 130563,
+        "affineAcquisitionMs": 130563,
+        "trackingSamples": 7,
+        "failure": "fewer than 10 post-acquisition samples before fixture ends",
+        "trackingErrorP95Seconds": 0.6330498085495435,
+        "scope": "App build and analyzer ran concurrently; not a controlled acquisition/performance benchmark."
+      },
+      "independentCorpusValidated": false,
+      "initialAcquisitionBudgetPassed": false,
+      "windowsCiRun": 35056961286,
+      "windowsStatus": "in progress",
+      "upstreamCiRun": 35056963159,
+      "upstreamCiStatus": "in progress"
     }
   }
 }

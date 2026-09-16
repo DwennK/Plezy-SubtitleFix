@@ -27,6 +27,12 @@ changes an offset, validates a cached mapping, or establishes a scene gap.
   normal 30-second unsuccessful-acquisition backoff.
 - A recognized passage lacking enough timing anchors still gets a wider 15-second
   retry. Repeated native errors remain bounded by the earlier retry policy.
+- After the first constant correction, allow up to five confirmation requests
+  at 12-second intervals to gather a longer drift baseline. Repeated successful
+  corrections do not replenish that allowance. Then use 30 seconds until the
+  mapping is established and 90 seconds afterwards. Quiet/mismatch policies
+  still apply. Two native recovery attempts can also shorten the normal mapped
+  interval instead of leaving an old correction unchecked for another 30–90 s.
 - With a mapping, compare aggregate activity against the union of dialogue cue
   durations (normalization excludes sound-only cues). Large disagreement allows a
   verification after 30 seconds instead of the normal 90-second established-map

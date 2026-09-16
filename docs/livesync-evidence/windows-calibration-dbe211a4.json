@@ -1,0 +1,125 @@
+{
+  "provenance": {
+    "ciRun": 35054766606,
+    "forkSha": "dbe211a4642814a16a7659fca2db05ac6c5443c8",
+    "rawReportSha256": "9e993904ea7feca6d50d9d85fd743a6fa0aeeb3a3886f775679179cb1eb8b829",
+    "scope": "Production Windows controller, VAD/cadence build. Calibration timed out without lock; intro and post-lock controls were not reached."
+  },
+  "report": {
+    "passed": false,
+    "phase": "acquisition-timeout",
+    "analyses": [
+      {
+        "selectedAudioLanguage": "eng",
+        "selectedSubtitleLanguage": "eng",
+        "subtitleExternal": true,
+        "subtitleSourceMatchesFixture": true
+      },
+      {
+        "inferenceBackend": "avx2-cpu"
+      },
+      {
+        "analysisRequest": 1,
+        "activityVoicePresent": null,
+        "activityTimingMismatch": false,
+        "analysisIntervalMs": 12000,
+        "analysisWindowSeconds": 12.0
+      },
+      {
+        "attempt": 1,
+        "windowStart": 7.350333333333346,
+        "windowEnd": 15.455020833333347,
+        "match": "matched",
+        "similarity": 1.0,
+        "competitor": null,
+        "contextWindows": 1,
+        "segmentedMatch": false,
+        "anchors": []
+      },
+      {
+        "analysisRequest": 2,
+        "activityVoicePresent": true,
+        "activityTimingMismatch": false,
+        "analysisIntervalMs": 12000,
+        "analysisWindowSeconds": 15.0
+      },
+      {
+        "analysisRequest": 3,
+        "activityVoicePresent": true,
+        "activityTimingMismatch": false,
+        "analysisIntervalMs": 12000,
+        "analysisWindowSeconds": 15.0
+      },
+      {
+        "attempt": 3,
+        "windowStart": 24.860333333333344,
+        "windowEnd": 39.860333333333344,
+        "match": "matched",
+        "similarity": 1.0,
+        "competitor": null,
+        "contextWindows": 1,
+        "segmentedMatch": false,
+        "anchors": [
+          {
+            "cue": 6,
+            "offset": -100.07966666666667
+          },
+          {
+            "cue": 7,
+            "offset": -101.71966666666665
+          },
+          {
+            "cue": 8,
+            "offset": -100.21966666666665
+          }
+        ]
+      },
+      {
+        "analysisRequest": 4,
+        "activityVoicePresent": true,
+        "activityTimingMismatch": false,
+        "analysisIntervalMs": 12000,
+        "analysisWindowSeconds": 15.0
+      },
+      {
+        "attempt": 4,
+        "windowStart": 37.31902083333335,
+        "windowEnd": 52.31902083333335,
+        "match": "matched",
+        "similarity": 0.9333333333333333,
+        "competitor": null,
+        "contextWindows": 1,
+        "segmentedMatch": false,
+        "anchors": [
+          {
+            "cue": 8,
+            "offset": -100.18097916666665
+          },
+          {
+            "cue": 10,
+            "offset": -102.21097916666665
+          }
+        ]
+      },
+      {
+        "analysisRequest": 5,
+        "activityVoicePresent": true,
+        "activityTimingMismatch": false,
+        "analysisIntervalMs": 12000,
+        "analysisWindowSeconds": 15.0
+      },
+      {
+        "attempt": 5,
+        "windowStart": 49.35102083333335,
+        "windowEnd": 64.35102083333335,
+        "match": "matched",
+        "similarity": 1.0,
+        "competitor": null,
+        "contextWindows": 1,
+        "segmentedMatch": false,
+        "anchors": []
+      }
+    ],
+    "failureCode": "inferenceUnavailable"
+  }
+}

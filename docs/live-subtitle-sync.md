@@ -25,7 +25,7 @@ Le délai manuel est additionné séparément ; désactiver retire seulement la
 contribution automatique. Les seeks, changements de vitesse et discontinuités
 PCM invalident l'analyse et les prédictions, en conservant les régions connues ;
 un changement de piste relance une session demandée. Le délai audio manuel est
-composé dans la timeline audio ; sa vérification dans le banc natif est en cours.
+composé dans la timeline audio ; le contrôleur Windows l'a vérifié à `3e4b4229`.
 
 La première preuve native macOS sur audio réel de calibration a appliqué
 −100,16 s pour −100 s attendues, en 47,49 s, puis vérifié le délai manuel et
@@ -50,10 +50,21 @@ Le suivi léger d'activité vocale est branché, avec un retour périodique à A
 pour la parole manquée et sans accorder de confiance sur ce seul indice. Il
 réagit à la reprise d'activité et aux désaccords avec les durées des cues ; il
 ne sait pas séparer fiablement musique et voix. Les premiers essais natifs Mac
-passent, sa validation applicative Windows reste en cours.
+passent, mais la validation applicative Windows `dbe211a4` échoue sur
+l'acquisition de calibration. Une nouvelle exécution `8f2f7ac2` est en cours.
+
+Sur un chapitre de développement LibriSpeech, le probe natif Mac `8f2f7ac2`
+apprend la dérive `25025/24000` après 117,647 s : erreur p95 637 ms, maximum
+683 ms après le premier verrouillage (93,611 s). Deux essais précédents ont
+échoué et restent conservés. Le correctif garde les repères isolés utiles à la
+pente et confirme plus vite le premier réglage. C'est une preuve de mécanisme
+sur cette fixture, sans précision acoustique indépendante ni validation UI ;
+le délai d'acquisition dépasse encore le budget utilisateur. Le sens inverse
+apprend sa pente seulement à 130,563 s : trop peu de suivi avant la fin du clip,
+donc ce test reste en échec.
 
 Les gaps confirmés et leur rendu, le cache de mappings et la suppression
-du modèle dans les paramètres ne sont pas livrés. La dérive avec vraie parole,
+du modèle dans les paramètres ne sont pas livrés. La dérive dans le lecteur réel,
 les performances, la validation native de Mentalist et les autres critères de
 livraison restent ouverts. Aucun build final annoncé. Voir les preuves exactes
 et leur provenance dans `live-subtitle-sync-validation.md`.

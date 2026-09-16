@@ -67,5 +67,25 @@ slope within 0.005, and p95 below the requested timing bound.
 The time samples are correlated and use the ideal fixture transform. Their p95
 is an engineering regression measure, not an independent-corpus acoustic p95.
 The probe is not the Flutter controller, a visible renderer check, or an audible
-playback/performance test. At introduction, the first real drift evaluation is
-still pending; unit tests of the generator and a build do not establish drift.
+playback/performance test. The initial drift trial failed: no affine mapping was learned and tracking
+p95 was 912 ms. A control without tempo change passed the 750 ms threshold
+with 638 ms p95, but this is still biased relative to the file boundaries.
+The sparse-anchor regression exposed by that run is now covered by a test.
+Its first native rerun still failed after a rejected inference left an old
+constant correction active (1.946 s p95). Both failures are preserved; a unit
+regression fix does not establish successful native drift compensation.
+
+
+With retained anchors and bounded confirmation/recovery (`8f2f7ac2`), the slower
+fixture acquired a slope of 1.042619 after 117.647 s. Tracking p95 was 636.899 ms
+and maximum error 682.675 ms after the first lock at 93.611 s. This development
+regression passed its 750 ms bound. Initial acquisition is still too slow, and
+this single result does not establish application-level or independent accuracy.
+
+
+The opposite `24000/25025` case at the same revision learned slope 0.958991 at
+130.563 s, leaving only 7 tracking samples before the 138 s probe ended.
+It **failed** the minimum 10-sample requirement. Its 633 ms p95 on that short
+interval is not sufficient tracking evidence. The local application build and
+analyzer overlapped this trial; it is not a controlled acquisition benchmark.
+The clip/end condition was not extended to manufacture more successful samples.
