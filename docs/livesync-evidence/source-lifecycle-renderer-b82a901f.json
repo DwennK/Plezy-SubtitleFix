@@ -1,0 +1,324 @@
+{
+  "schema": 1,
+  "sourceSha": "b82a901f7d08f265e6def001c26356d6af5c8a5c",
+  "runId": 35159030958,
+  "artifactId": 10473080105,
+  "conclusion": "success",
+  "rendererOnly": true,
+  "reports": {
+    "baseline.json": {
+      "sha256": "e607ade3481621de17fba27a215e55d982c9f7419b118fbc4921d8b9b8f58d73",
+      "data": {
+        "state": "baseline",
+        "cue": "FIRST PROBE CUE",
+        "sid": "1",
+        "delay": "0.125000",
+        "visibility": "yes",
+        "automaticGapDetectionValidated": false,
+        "syntheticFixture": true,
+        "audioOutput": "pcm-to-NUL",
+        "videoBackend": "d3d11-warp",
+        "audiblePlaybackValidated": false
+      }
+    },
+    "capture-off.json": {
+      "sha256": "f7ebf359e224ba78f798c97950ac5453a246f3d16d62db246bf2faf2f036e013",
+      "data": {
+        "state": "capture-off",
+        "cue": "FIRST PROBE CUE",
+        "sid": "1",
+        "delay": "0.125000",
+        "visibility": "yes",
+        "automaticGapDetectionValidated": false,
+        "syntheticFixture": true,
+        "audioOutput": "pcm-to-NUL",
+        "videoBackend": "d3d11-warp",
+        "audiblePlaybackValidated": false
+      }
+    },
+    "capture-on.json": {
+      "sha256": "5ca315694abd8e0d48b81577f942c69fe17f262695d248f2cf7fe7a2c8168836",
+      "data": {
+        "state": "capture-on",
+        "cue": "FIRST PROBE CUE",
+        "sid": "1",
+        "delay": "0.125000",
+        "visibility": "yes",
+        "automaticGapDetectionValidated": false,
+        "syntheticFixture": true,
+        "audioOutput": "pcm-to-NUL",
+        "videoBackend": "d3d11-warp",
+        "audiblePlaybackValidated": false
+      }
+    },
+    "capture-provenance.json": {
+      "sha256": "63c5506f3bd1a727c861eb92df1c1ffa5141b73aa113cfad07485df1e59d4502",
+      "data": {
+        "automaticSynchronizationValidated": false,
+        "screenWidth": 1024,
+        "captures": [
+          {
+            "height": 720,
+            "state": "baseline",
+            "sha256": "662824cc7704fd1c420888d272940c54be130d7ee19b94763ac9e0bd5372fbc7",
+            "width": 1024
+          },
+          {
+            "height": 720,
+            "state": "positive",
+            "sha256": "3d28fe3ee553c410e8fc1be4eb3e9d7c11b3d09355e1b52ec85c259404b3e073",
+            "width": 1024
+          },
+          {
+            "height": 720,
+            "state": "negative",
+            "sha256": "ad4eceaf478ae634ecabff27736246c9e4dd1732ac88f931fa29758611e820bd",
+            "width": 1024
+          },
+          {
+            "height": 720,
+            "state": "restored",
+            "sha256": "cd3e7f1a5f87de8fb4be31c4b13f4ecd1ea054a423a0e532854dc5db44e2b67c",
+            "width": 1024
+          },
+          {
+            "height": 720,
+            "state": "gap-hidden",
+            "sha256": "65d3b6dac18231841a298a5a6938121305a3567d7f5c865f2e238a427266cab3",
+            "width": 1024
+          },
+          {
+            "height": 720,
+            "state": "gap-shown-manual",
+            "sha256": "1ebca915af06309e726df386952213e30e0ee8a9af73946ce9732968b93ff2bf",
+            "width": 1024
+          },
+          {
+            "height": 720,
+            "state": "gap-restored",
+            "sha256": "55ccc420d83ea48a5620d5db489819a7ffb0919218f1d3b0b87aba9fd7b1f28b",
+            "width": 1024
+          },
+          {
+            "height": 720,
+            "state": "gap-hidden-again",
+            "sha256": "95d2dcac310d4d5b54a04b4404e70d86b7267bd010ce743b96290539f556846f",
+            "width": 1024
+          },
+          {
+            "height": 720,
+            "state": "gap-manual-hidden",
+            "sha256": "c2c43fae5a1a933984383d74210d732eb68b2169cde572255228e09bef6c8f8e",
+            "width": 1024
+          },
+          {
+            "height": 720,
+            "state": "gap-release-manual-hidden",
+            "sha256": "118452f91a0943731ea927c958c507796e2f2b21e0d6f591d9ecee8564b39058",
+            "width": 1024
+          },
+          {
+            "height": 720,
+            "state": "manual-shown",
+            "sha256": "b9240a4d6505d0b5f37c5e029c1f9e3d94a44ab864ae2f51b56cf7bb72124f30",
+            "width": 1024
+          },
+          {
+            "height": 720,
+            "state": "capture-on",
+            "sha256": "4bfb0e1981c27c6b5f6e71642e20abaf1b48261f9ca1f83de4b72de3a95c8be1",
+            "width": 1024
+          },
+          {
+            "height": 720,
+            "state": "capture-off",
+            "sha256": "8282bbcf820a72e6eb9d23c7431ee0b12ec06bb0ff80a9174499912615af6ced",
+            "width": 1024
+          }
+        ],
+        "screenHeight": 720,
+        "visualInspectionRequired": true,
+        "kind": "native-windows-renderer-synthetic-fixture"
+      }
+    },
+    "complete.json": {
+      "sha256": "e5b47ca0dddbd96cf404d29bb1de7a467e665c737ed486d66a678691fa40cf63",
+      "data": {
+        "states": 13,
+        "passed": true
+      }
+    },
+    "gap-hidden-again.json": {
+      "sha256": "bc8f6478325246982d50ac6f75dcb2343bb7dfa99e143ab8415977230467bc38",
+      "data": {
+        "state": "gap-hidden-again",
+        "cue": "FIRST PROBE CUE",
+        "sid": "1",
+        "delay": "0.125000",
+        "visibility": "no",
+        "automaticGapDetectionValidated": false,
+        "syntheticFixture": true,
+        "audioOutput": "pcm-to-NUL",
+        "videoBackend": "d3d11-warp",
+        "audiblePlaybackValidated": false
+      }
+    },
+    "gap-hidden.json": {
+      "sha256": "8bb50637ace573098c5487969f23b3390e325ba240feeef8e7fcebceb486ff48",
+      "data": {
+        "state": "gap-hidden",
+        "cue": "FIRST PROBE CUE",
+        "sid": "1",
+        "delay": "0.125000",
+        "visibility": "no",
+        "automaticGapDetectionValidated": false,
+        "syntheticFixture": true,
+        "audioOutput": "pcm-to-NUL",
+        "videoBackend": "d3d11-warp",
+        "audiblePlaybackValidated": false
+      }
+    },
+    "gap-manual-hidden.json": {
+      "sha256": "cc95944c1af037edb142796cf3785d0282754ecef73ecc80f5fa37eea4081c72",
+      "data": {
+        "state": "gap-manual-hidden",
+        "cue": "FIRST PROBE CUE",
+        "sid": "1",
+        "delay": "0.125000",
+        "visibility": "no",
+        "automaticGapDetectionValidated": false,
+        "syntheticFixture": true,
+        "audioOutput": "pcm-to-NUL",
+        "videoBackend": "d3d11-warp",
+        "audiblePlaybackValidated": false
+      }
+    },
+    "gap-release-manual-hidden.json": {
+      "sha256": "dd0c83ffbf17e424736caf8a4cdcbb6c54f284073514457f94cebf33890c25dc",
+      "data": {
+        "state": "gap-release-manual-hidden",
+        "cue": "FIRST PROBE CUE",
+        "sid": "1",
+        "delay": "0.125000",
+        "visibility": "no",
+        "automaticGapDetectionValidated": false,
+        "syntheticFixture": true,
+        "audioOutput": "pcm-to-NUL",
+        "videoBackend": "d3d11-warp",
+        "audiblePlaybackValidated": false
+      }
+    },
+    "gap-restored.json": {
+      "sha256": "824f8d521b877db6f94ca37ab904a13b2b60dfbe4b2a1992970f9e3aaa8009a9",
+      "data": {
+        "state": "gap-restored",
+        "cue": "FIRST PROBE CUE",
+        "sid": "1",
+        "delay": "0.125000",
+        "visibility": "yes",
+        "automaticGapDetectionValidated": false,
+        "syntheticFixture": true,
+        "audioOutput": "pcm-to-NUL",
+        "videoBackend": "d3d11-warp",
+        "audiblePlaybackValidated": false
+      }
+    },
+    "gap-shown-manual.json": {
+      "sha256": "b7cd8f0f1c2f7be0c3776042effc64078083ed4a11b86cfedf5847a742fb7a3a",
+      "data": {
+        "state": "gap-shown-manual",
+        "cue": "FIRST PROBE CUE",
+        "sid": "1",
+        "delay": "0.125000",
+        "visibility": "no",
+        "automaticGapDetectionValidated": false,
+        "syntheticFixture": true,
+        "audioOutput": "pcm-to-NUL",
+        "videoBackend": "d3d11-warp",
+        "audiblePlaybackValidated": false
+      }
+    },
+    "manual-shown.json": {
+      "sha256": "f846cb831810e6f7fdaafc2dc4073e32e488f9793e17563d512d31af90da7a22",
+      "data": {
+        "state": "manual-shown",
+        "cue": "FIRST PROBE CUE",
+        "sid": "1",
+        "delay": "0.125000",
+        "visibility": "yes",
+        "automaticGapDetectionValidated": false,
+        "syntheticFixture": true,
+        "audioOutput": "pcm-to-NUL",
+        "videoBackend": "d3d11-warp",
+        "audiblePlaybackValidated": false
+      }
+    },
+    "negative.json": {
+      "sha256": "24c5f5f4c6820f5b895e562e079d7f3ff49e4f810ffa98383897594443927e07",
+      "data": {
+        "state": "negative",
+        "cue": "SECOND PROBE CUE",
+        "sid": "1",
+        "delay": "-3.000000",
+        "visibility": "yes",
+        "automaticGapDetectionValidated": false,
+        "syntheticFixture": true,
+        "audioOutput": "pcm-to-NUL",
+        "videoBackend": "d3d11-warp",
+        "audiblePlaybackValidated": false
+      }
+    },
+    "positive.json": {
+      "sha256": "0cef8d19b17d119b0c54b6aa137fb005027371f183b26f06cac93b82d384835a",
+      "data": {
+        "state": "positive",
+        "cue": "",
+        "sid": "1",
+        "delay": "2.125000",
+        "visibility": "yes",
+        "automaticGapDetectionValidated": false,
+        "syntheticFixture": true,
+        "audioOutput": "pcm-to-NUL",
+        "videoBackend": "d3d11-warp",
+        "audiblePlaybackValidated": false
+      }
+    },
+    "preparation.json": {
+      "sha256": "c315db32d898bbe49158e63bd9a713d40fafbc998d803dfef5828e8abdcbcb19",
+      "data": {
+        "phase": "waiting-subtitle-track"
+      }
+    },
+    "restored.json": {
+      "sha256": "828f853833464333d09c3b18ef03a788b23c174b64d31c1322abbc9c81b11707",
+      "data": {
+        "state": "restored",
+        "cue": "FIRST PROBE CUE",
+        "sid": "1",
+        "delay": "0.125000",
+        "visibility": "yes",
+        "automaticGapDetectionValidated": false,
+        "syntheticFixture": true,
+        "audioOutput": "pcm-to-NUL",
+        "videoBackend": "d3d11-warp",
+        "audiblePlaybackValidated": false
+      }
+    }
+  },
+  "viewedScreenshots": {
+    "gap-hidden.png": {
+      "sha256": "65d3b6dac18231841a298a5a6938121305a3567d7f5c865f2e238a427266cab3",
+      "subtitleVisible": false
+    },
+    "gap-restored.png": {
+      "sha256": "55ccc420d83ea48a5620d5db489819a7ffb0919218f1d3b0b87aba9fd7b1f28b",
+      "subtitleVisible": true
+    }
+  },
+  "fullProductAcceptance": false,
+  "limitations": [
+    "Synthetic anchors verify rendering only; automatic scene-gap detection and acoustic accuracy are not tested.",
+    "The preceding renderer exits remain unexplained. This passing run does not demonstrate a crash fix or exercise the fault-event wait.",
+    "The production controller and full app packaging were intentionally skipped in this renderer-only run."
+  ]
+}
