@@ -13,6 +13,8 @@ on:
       - 'scripts/livesync/test_analysis_fixture.py'
       - 'scripts/livesync/create_speech_fixture.py'
       - 'scripts/livesync/test_speech_fixture.py'
+      - 'scripts/livesync/probe_pcm.py'
+      - 'scripts/livesync/test_pcm_probe.py'
       - 'test/fixtures/livesync/librispeech-development.json'
 
 permissions:
@@ -53,6 +55,9 @@ jobs:
       - name: Verify fixture timing transforms
         shell: bash
         run: python3 -m unittest discover -s scripts/livesync -p 'test_*fixture.py' > build/livesync/evidence/fixture-tests.txt 2>&1
+      - name: Verify queued seek observation
+        shell: bash
+        run: python3 -m unittest discover -s scripts/livesync -p 'test_pcm_probe.py'
       - name: Analyze and test the feature components
         shell: bash
         run: |

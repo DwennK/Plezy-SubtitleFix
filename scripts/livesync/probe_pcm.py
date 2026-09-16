@@ -135,20 +135,34 @@ def check_frame(frame):
     return {"pts": frame["pts"], "samples": samples, "maximumSampleError": worst}
 
 
-def collect(player, duration=0.6):
-    deadline = time.monotonic() + duration
+def collect(player, duration=0.6, after_epoch=None):
+    # mpv's seek command queues the operation (MPSEEK_FLAG_DELAY). Its return
+    # does not mean the decoder has reset yet. Validate and record in-flight
+    # packets separately, then require a newer epoch within a bounded wait.
+    deadline = time.monotonic() + duration if after_epoch is None else None
+    reset_deadline = time.monotonic() + 2
     records, epochs = [], set()
-    while time.monotonic() < deadline:
+    transition_epochs, transition_frames = set(), 0
+    while deadline is None or time.monotonic() < deadline:
+        assert deadline is not None or time.monotonic() < reset_deadline, "Seek did not reset PCM within 2 seconds"
         result = player.get("livesync-pcm")
         assert result["version"] == 1
         assert len(result["frames"]) <= 64
         assert sum(len(f["pcm"]) for f in result["frames"]) <= 262144
-        epochs.add(result["epoch"])
-        for frame in result["frames"]:
-            records.append(check_frame(frame))
+        checked = [check_frame(frame) for frame in result["frames"]]
+        if after_epoch is not None and result["epoch"] <= after_epoch:
+            assert deadline is None, "PCM epoch regressed after seek reset"
+            transition_epochs.add(result["epoch"])
+            transition_frames += len(checked)
+        else:
+            if deadline is None:
+                deadline = time.monotonic() + duration
+            epochs.add(result["epoch"])
+            records.extend(checked)
         time.sleep(0.03)
     assert records, "No native PCM captured"
-    return {"epochs": sorted(epochs), "frames": records}
+    return {"epochs": sorted(epochs), "frames": records,
+            "seekTransition": {"epochs": sorted(transition_epochs), "validatedFrames": transition_frames}}
 
 
 def main():
@@ -174,9 +188,9 @@ def main():
                 time.sleep(0.05)
         report["initial"] = collect(player)
         player.command("seek", "7", "absolute+exact")
-        report["forwardSeek"] = collect(player)
+        report["forwardSeek"] = collect(player, after_epoch=max(report["initial"]["epochs"]))
         player.command("seek", "2", "absolute+exact")
-        report["backwardSeek"] = collect(player)
+        report["backwardSeek"] = collect(player, after_epoch=max(report["forwardSeek"]["epochs"]))
         assert min(report["forwardSeek"]["epochs"]) > max(report["initial"]["epochs"])
         assert min(report["backwardSeek"]["epochs"]) > max(report["forwardSeek"]["epochs"])
         player.set("speed", "1.5")
