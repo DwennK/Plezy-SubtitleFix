@@ -12,6 +12,8 @@ namespace livesync {
 
 struct TranscriptToken {
   std::string text;
+  // A DTW alignment-point interval (20 ms quantum), not word onset/offset
+  // ground truth. The temporal aligner must retain its own uncertainty.
   double media_start;
   double media_end;
   float recognition_score;

@@ -1,0 +1,51 @@
+{
+  "kind": "native-active-pcm-real-asr-and-domain-alignment",
+  "platform": "macos",
+  "actualOffset": -100.22897916666668,
+  "acquisitionMs": 33616,
+  "passed": true,
+  "analyses": [
+    {
+      "attempt": 1,
+      "windowStart": 0.6943333333333334,
+      "windowEnd": 8.713708333333333,
+      "match": "noCandidate",
+      "similarity": null,
+      "anchors": []
+    },
+    {
+      "attempt": 2,
+      "windowStart": 8.831020833333334,
+      "windowEnd": 20.831020833333334,
+      "match": "matched",
+      "similarity": 0.9411764705882353,
+      "anchors": [
+        {
+          "cue": 2,
+          "offset": -100.22897916666668
+        }
+      ]
+    },
+    {
+      "attempt": 3,
+      "windowStart": 20.94833333333333,
+      "windowEnd": 32.94833333333333,
+      "match": "matched",
+      "similarity": 0.85,
+      "anchors": [
+        {
+          "cue": 3,
+          "offset": -100.30166666666668
+        },
+        {
+          "cue": 6,
+          "offset": -100.07166666666667
+        }
+      ]
+    }
+  ],
+  "productionPlayerValidated": false,
+  "audiblePlaybackValidated": false,
+  "pcmOrTranscriptPersisted": false,
+  "mainIsolateHeartbeatTicks": 1354
+}

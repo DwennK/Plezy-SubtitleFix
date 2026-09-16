@@ -136,11 +136,13 @@ class InferenceWorker::Impl {
           out.segments.clear();
           return out;
         }
-        item.has_timestamp =
-            token.t0 >= 0 && token.t1 >= token.t0 && static_cast<double>(token.t1) * 0.01 <= duration + 0.02;
+        // DTW relates token attention to the audio. The legacy t0/t1 heuristic
+        // can put a correctly recognized cue several seconds before speech.
+        // Export a 20 ms alignment-point interval, not an invented word duration.
+        item.has_timestamp = token.t_dtw >= 0 && static_cast<double>(token.t_dtw) * 0.01 < duration;
         if (item.has_timestamp) {
-          item.media_start = media_time(token.t0);
-          item.media_end = media_time(token.t1);
+          item.media_start = media_time(token.t_dtw);
+          item.media_end = std::min(media_time(token.t_dtw + 2), window.media_start + duration * scale);
         }
         segment.tokens.push_back(std::move(item));
       }
@@ -170,6 +172,12 @@ class InferenceWorker::Impl {
           if (!context) {
             auto options = whisper_context_default_params();
             options.use_gpu = false;
+            // Both pinned models use the base.en architecture/alignment heads.
+            // Flash attention silently disables DTW in this whisper revision.
+            options.flash_attn = false;
+            options.dtw_token_timestamps = true;
+            options.dtw_aheads_preset = WHISPER_AHEADS_BASE_EN;
+            options.dtw_mem_size = 128 * 1024 * 1024;
             context = whisper_init_from_file_with_params(model_path.c_str(), options);
           }
           if (context && !cancelled()) next = transcribe(context, *window);
