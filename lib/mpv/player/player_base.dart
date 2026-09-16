@@ -5,6 +5,7 @@ import 'dart:math' as math;
 import 'package:collection/collection.dart';
 import 'package:flutter/foundation.dart' show listEquals, protected, visibleForTesting;
 import 'package:flutter/services.dart';
+import 'package:path/path.dart' as p;
 
 import '../../utils/app_logger.dart';
 import '../../utils/track_label_builder.dart';
@@ -734,7 +735,9 @@ abstract class PlayerBase with PlayerStreamControllersMixin implements Player {
       if (type == 'audio') {
         final rawExternalFilename = track['external-filename'];
         final externalFilename = rawExternalFilename is String ? rawExternalFilename : null;
-        final externalMetadata = externalFilename == null ? null : _externalSubtitleMetadataByUri[externalFilename];
+        final externalMetadata = externalFilename == null
+            ? null
+            : _externalSubtitleMetadataByUri[_externalSubtitleMetadataKey(externalFilename)];
         // Container sidecars are opened only to expose their subtitle tracks.
         // Do not let their audio streams participate in normal track matching.
         if (externalMetadata?.any((metadata) => metadata.isContainer) == true) continue;
@@ -770,7 +773,9 @@ abstract class PlayerBase with PlayerStreamControllersMixin implements Player {
         final rawLanguage = track['lang'];
         final rawExternalFilename = track['external-filename'];
         final externalFilename = rawExternalFilename is String ? rawExternalFilename : null;
-        final externalMetadata = externalFilename == null ? null : _externalSubtitleMetadataByUri[externalFilename];
+        final externalMetadata = externalFilename == null
+            ? null
+            : _externalSubtitleMetadataByUri[_externalSubtitleMetadataKey(externalFilename)];
         final isContainer =
             track['container'] == true || externalMetadata?.any((metadata) => metadata.isContainer) == true;
         SubtitleTrack? matchedMetadata;
@@ -875,13 +880,24 @@ abstract class PlayerBase with PlayerStreamControllersMixin implements Player {
     _deferringTrackList = false;
   }
 
+  // mpv reports canonical Windows paths for sidecars, replacing forward
+  // slashes (including mixed separators) and resolving dot components.
+  // Match those spellings without rewriting URLs, their query strings, or
+  // case-sensitive path components. Keep the original URI on the track.
+  static String _externalSubtitleMetadataKey(String uri) {
+    if (RegExp(r'^[A-Za-z]:[\\/]').hasMatch(uri) || uri.startsWith(r'\\')) {
+      return p.windows.normalize(uri);
+    }
+    return uri;
+  }
+
   @protected
   void setExternalSubtitleMetadata(List<SubtitleTrack>? externalSubtitles) {
     final metadataByUri = <String, List<SubtitleTrack>>{};
     for (final subtitle in externalSubtitles ?? const <SubtitleTrack>[]) {
       final uri = subtitle.uri;
       if (uri != null && uri.isNotEmpty) {
-        (metadataByUri[uri] ??= <SubtitleTrack>[]).add(subtitle);
+        (metadataByUri[_externalSubtitleMetadataKey(uri)] ??= <SubtitleTrack>[]).add(subtitle);
       }
     }
     _externalSubtitleMetadataByUri = metadataByUri;

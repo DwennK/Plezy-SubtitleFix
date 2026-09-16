@@ -715,6 +715,65 @@ void main() {
       );
     });
 
+    test('MPV retains sidecar language when Windows canonicalizes mixed separators', () async {
+      await withMockPlayerChannels(
+        methodChannelName: 'com.plezy/mpv_player',
+        eventChannelName: 'com.plezy/mpv_player/events',
+        methodHandler: (call) async => call.method == 'initialize' ? true : null,
+        testBody: () async {
+          final player = PlayerNative();
+          try {
+            const requested = r'D:\media\episode/./fixture.srt';
+            const reported = r'D:\media\episode\fixture.srt';
+            await player.open(
+              Media('fixture.mkv'),
+              externalSubtitles: const [SubtitleTrack(id: 'external', uri: requested, language: 'eng', codec: 'srt')],
+            );
+            player.handlePlayerEvent('start-file', null);
+            player.handlePropertyChange('track-list', const [
+              {'type': 'sub', 'id': 1, 'external': true, 'selected': true, 'external-filename': reported},
+            ]);
+            expect(player.state.track.subtitle?.language, 'eng');
+            expect(player.state.track.subtitle?.codec, 'srt');
+            expect(player.state.track.subtitle?.uri, reported);
+          } finally {
+            await player.dispose();
+          }
+        },
+      );
+    });
+
+    test('MPV sidecar metadata keeps signed HTTP paths distinct', () async {
+      await withMockPlayerChannels(
+        methodChannelName: 'com.plezy/mpv_player',
+        eventChannelName: 'com.plezy/mpv_player/events',
+        methodHandler: (call) async => call.method == 'initialize' ? true : null,
+        testBody: () async {
+          final player = PlayerNative();
+          try {
+            const english = r'https://example.test/episode/../fixture.srt?path=C:\subs&sig=A';
+            const french = r'https://example.test/fixture.srt?path=C:\subs&sig=A';
+            await player.open(
+              Media('fixture.mkv'),
+              externalSubtitles: const [
+                SubtitleTrack(id: 'external-en', uri: english, language: 'eng'),
+                SubtitleTrack(id: 'external-fr', uri: french, language: 'fra'),
+              ],
+            );
+            player.handlePlayerEvent('start-file', null);
+            player.handlePropertyChange('track-list', const [
+              {'type': 'sub', 'id': 1, 'external': true, 'external-filename': english},
+              {'type': 'sub', 'id': 2, 'external': true, 'external-filename': french},
+            ]);
+            expect(player.state.tracks.subtitle.map((track) => track.language), ['eng', 'fra']);
+            expect(player.state.tracks.subtitle.map((track) => track.uri), [english, french]);
+          } finally {
+            await player.dispose();
+          }
+        },
+      );
+    });
+
     test('MPV rebuilds HTTP headers with clr first, appends in map order, all before loadfile', () async {
       final calls = <MethodCall>[];
 

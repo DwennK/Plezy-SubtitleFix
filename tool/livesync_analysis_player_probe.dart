@@ -103,6 +103,13 @@ class _ProbeState extends State<_Probe> {
             .firstWhere((selection) => selection.audio?.id == audio.id && selection.subtitle?.id == subtitle.id)
             .timeout(const Duration(seconds: 10));
       }
+      diagnostics.add({
+        'selectedAudioLanguage': player.state.track.audio?.language,
+        'selectedSubtitleLanguage': player.state.track.subtitle?.language,
+        'subtitleExternal': player.state.track.subtitle?.isExternal,
+        'subtitleSourceMatchesFixture':
+            p.normalize(player.state.track.subtitle?.uri ?? '') == p.normalize('$directory/fixture.srt'),
+      });
       await player.setProperty('sub-delay', '0.125');
       final sync = controller = LiveSubtitleSyncController.forPlayer(player);
       sync.diagnosticObserver = diagnostics.add;
