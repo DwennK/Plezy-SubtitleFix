@@ -1,0 +1,173 @@
+{
+  "schema": 1,
+  "sourceSha": "b18c9891c406fdd49fd96738dbc259cd4588504a",
+  "runs": {
+    "general": {
+      "id": 35154889277,
+      "conclusion": "success"
+    },
+    "macos": {
+      "id": 35154983581,
+      "conclusion": "success",
+      "contractsArtifactId": 10471565896,
+      "appArtifactId": 10470739467
+    },
+    "windows": {
+      "id": 35154910255,
+      "conclusion": "failure",
+      "contractsArtifactId": 10471810799,
+      "appArtifactId": 10471236235
+    }
+  },
+  "reports": {
+    "macos/native-contracts.json": {
+      "sha256": "2e65c7e140c76e1e5915341a437f7248d0c34aa5c03ca3e0a34e77267f3d350b",
+      "data": {
+        "devicesAndConfigurations": [
+          {
+            "device": {
+              "architecture": "arm64",
+              "deviceId": "9ca97659c2698bba3ece1d75a8fc2b35288a2763",
+              "deviceName": "My Mac",
+              "modelName": "Apple Virtual Machine 1",
+              "osBuildNumber": "25G83",
+              "osVersion": "26.6.2",
+              "platform": "macOS"
+            },
+            "expectedFailures": 0,
+            "failedTests": 0,
+            "passedTests": 14,
+            "skippedTests": 0,
+            "testPlanConfiguration": {
+              "configurationId": "1",
+              "configurationName": "Test Scheme Action"
+            }
+          }
+        ],
+        "environmentDescription": "Runner \u00b7 Built with macOS 26.6.2",
+        "expectedFailures": 0,
+        "failedTests": 0,
+        "finishTime": 1789596624.858,
+        "passedTests": 14,
+        "result": "Passed",
+        "skippedTests": 0,
+        "startTime": 1789596534.356,
+        "statistics": [],
+        "testFailures": [],
+        "title": "Test - Runner",
+        "topInsights": [],
+        "totalTestCount": 14
+      }
+    },
+    "windows/dart-native-base.en-q5_1.json": {
+      "sha256": "170511a1533431f4c991a35728a144313b834d197833d4bf22918bd120672fda",
+      "data": {
+        "kind": "dart-isolate-real-native-capture-and-inference",
+        "inferenceBackend": "avx2-cpu",
+        "platform": "windows",
+        "generationReset": true,
+        "duplicateCaptureRejected": true,
+        "singleInferenceEnforced": true,
+        "fixtureDialogueRecognized": true,
+        "windowStart": 0.6410000000000001,
+        "windowEnd": 9.151,
+        "segments": 2,
+        "tokens": 21,
+        "inferenceSeconds": 3.1204548,
+        "productionPlayerValidated": false,
+        "audiblePlaybackValidated": false,
+        "pcmOrTranscriptPersisted": false,
+        "mainIsolateHeartbeatTicks": 484
+      }
+    },
+    "windows/dart-native-base.en.json": {
+      "sha256": "0315150e373a8319a5dadeaca410f8b2b786c7df01dbb8c9b98517bcce6eb38a",
+      "data": {
+        "kind": "dart-isolate-real-native-capture-and-inference",
+        "inferenceBackend": "avx2-cpu",
+        "platform": "windows",
+        "generationReset": true,
+        "duplicateCaptureRejected": true,
+        "singleInferenceEnforced": true,
+        "fixtureDialogueRecognized": true,
+        "windowStart": 0.6410000000000001,
+        "windowEnd": 9.151,
+        "segments": 2,
+        "tokens": 21,
+        "inferenceSeconds": 2.538398,
+        "productionPlayerValidated": false,
+        "audiblePlaybackValidated": false,
+        "pcmOrTranscriptPersisted": false,
+        "mainIsolateHeartbeatTicks": 461
+      }
+    },
+    "windows/dart-native-fallback.json": {
+      "sha256": "b6e93f130c708471093acc69f824b550b9554f63b02463fa0df17ec97644600b",
+      "data": {
+        "kind": "dart-isolate-real-native-capture-and-inference",
+        "inferenceBackend": "portable-cpu",
+        "platform": "windows",
+        "generationReset": true,
+        "duplicateCaptureRejected": true,
+        "singleInferenceEnforced": true,
+        "fixtureDialogueRecognized": true,
+        "windowStart": 0.6410000000000001,
+        "windowEnd": 9.151,
+        "segments": 2,
+        "tokens": 21,
+        "inferenceSeconds": 32.1801463,
+        "productionPlayerValidated": false,
+        "audiblePlaybackValidated": false,
+        "pcmOrTranscriptPersisted": false,
+        "mainIsolateHeartbeatTicks": 1645
+      }
+    },
+    "windows/worker-active-base.en-q5_1.json": {
+      "sha256": "741507155c7c5318243562481e10d19ecd276a06596c02c0b2994b275384e4b5",
+      "data": {
+        "kind": "active-playback-native-worker",
+        "fixtureSha256": "59dfb9a4acb36fe2a2affc14bacbee2920ff435cb13cc314a08c13f66ba7860e",
+        "modelSha256": "4baf70dd0d7c4247ba2b81fafd9c01005ac77c2f9ef064e00dcf195d0e2fdd2f",
+        "workerSha256": "84562b51cbb843e4a60d2fb3ae636a4cd8dae50f84528a51cf7f485f047b5349",
+        "capture": {
+          "samples": 144352,
+          "mediaStart": 0.001,
+          "generation": 1,
+          "continuity": 2,
+          "positionAtSubmission": 8.546748748779303,
+          "positionAtResult": 11.000000000000007
+        },
+        "wordErrorRate": 0.0,
+        "referenceScope": "best reference prefix",
+        "inferenceSecondsExcludingModelLoad": 22.7240231,
+        "segments": [
+          {
+            "mediaStart": 0.001,
+            "mediaEnd": 9.001
+          }
+        ],
+        "validPrefixOnly": false,
+        "timestampAccuracyValidated": false,
+        "srtAlignmentValidated": false,
+        "productionAppValidated": false,
+        "audiblePlaybackValidated": false,
+        "retainedCapturedAudio": false,
+        "retainedTranscript": false,
+        "mpvLibrarySha256": "e0abf158f4ab736843bf9fd3002955b44c2e8f43f5dadfefc0d4e69627e182ec",
+        "consumerLibrarySha256": "c23a1aa19228181a7e4ddf0fd644920f08a4345e8c9569ca7ff68c356cf290fd"
+      }
+    },
+    "windows/renderer/preparation.json": {
+      "sha256": "6068fd09f3829358ba3ef2c3ed8390b9a876623d60fc36cdbb6fa9a18dd05027",
+      "data": {
+        "phase": "waiting-playback-restart"
+      }
+    }
+  },
+  "fullProductAcceptance": false,
+  "limitations": [
+    "Windows renderer exited while waiting for playback restart, before baseline capture. No exception or exit status was preserved by that harness version.",
+    "Windows production-controller step was skipped after renderer failure.",
+    "Native model recognition and synthetic timing contracts do not establish acoustic subtitle precision or performance acceptance."
+  ]
+}

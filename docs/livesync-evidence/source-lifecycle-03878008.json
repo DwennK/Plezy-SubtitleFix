@@ -1,0 +1,65 @@
+{
+  "schema": 1,
+  "sourceSha": "03878008cf6be1f524901cb686e44ad817f5fdb3",
+  "runtimeSourceSha": "b18c9891c406fdd49fd96738dbc259cd4588504a",
+  "runId": 35155256236,
+  "runUrl": "https://github.com/DwennK/Plezy-SubtitleFix/actions/runs/35155256236",
+  "conclusion": "success",
+  "reports": {
+    "livesync-dart-windows-latest-03878008cf6be1f524901cb686e44ad817f5fdb3": {
+      "sha256": "bdfd28aec1d563b89bb1f3f43a3115d767cc1167ae3dcc134efb96f4a21b45f0",
+      "events": [
+        {
+          "testID": 1,
+          "result": "success",
+          "skipped": false,
+          "hidden": true,
+          "type": "testDone",
+          "time": 9058
+        },
+        {
+          "testID": 3,
+          "result": "success",
+          "skipped": false,
+          "hidden": false,
+          "type": "testDone",
+          "time": 10561
+        },
+        {
+          "success": true,
+          "type": "done",
+          "time": 10610
+        }
+      ]
+    },
+    "livesync-dart-macos-26-03878008cf6be1f524901cb686e44ad817f5fdb3": {
+      "sha256": "3bfd47843a0746079b8f0874e19e50e33b8f03cf956d2bc5931d10c8720f50b0",
+      "events": [
+        {
+          "testID": 1,
+          "result": "success",
+          "skipped": false,
+          "hidden": true,
+          "type": "testDone",
+          "time": 10335
+        },
+        {
+          "testID": 3,
+          "result": "success",
+          "skipped": false,
+          "hidden": false,
+          "type": "testDone",
+          "time": 11633
+        },
+        {
+          "success": true,
+          "type": "done",
+          "time": 11681
+        }
+      ]
+    }
+  },
+  "scope": "real Flutter screen and PlayerNative lifecycle with native method channels and Plex network mocked",
+  "nativeDecodeValidated": false,
+  "fullProductAcceptance": false
+}
