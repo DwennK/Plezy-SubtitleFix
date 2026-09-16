@@ -3,6 +3,7 @@ import 'dart:ffi';
 
 import 'package:ffi/ffi.dart';
 
+import 'audio_activity.dart';
 import 'runtime_dispatch.dart';
 
 // Handwritten ABI v1 declarations, checked against native sizeof before use.
@@ -187,6 +188,7 @@ class NativeLiveSyncEngine {
   double _submittedEnd = 0;
   bool _pending = false;
   bool _closed = false;
+  final _voiceActivity = VoiceActivityDetector();
 
   late final _captureDestroy = _captureLibrary
       .lookupFunction<Void Function(Pointer<Void>), void Function(Pointer<Void>)>('ls_capture_destroy');
@@ -346,7 +348,33 @@ class NativeLiveSyncEngine {
     _generation = generation;
     _continuity = -1;
     _pending = false;
+    _voiceActivity.clear();
     _inferenceReset(_inference, generation, 0);
+  }
+
+  AudioActivity? activity() {
+    final current = status();
+    if (current.state != 0 || current.generation != _generation) return null;
+    // Runs on the serialized analysis isolate. Reuse the existing temporary
+    // allocation, return only aggregate timing, then erase the copied PCM.
+    final count = _snapshot(_capture, 2, _samples, 32000, _window);
+    try {
+      if (count == 0 ||
+          count > 32000 ||
+          _window.ref.generation != _generation ||
+          _window.ref.continuity != _continuity) {
+        return null;
+      }
+      return _voiceActivity.observe(
+        _samples.asTypedList(count),
+        generation: _generation,
+        continuity: _continuity,
+        start: _window.ref.mediaStart,
+        secondsPerSample: _window.ref.mediaSecondsPerSample,
+      );
+    } finally {
+      _samples.asTypedList(32000).fillRange(0, 32000, 0);
+    }
   }
 
   bool submitRecent({double seconds = 12}) {
@@ -458,6 +486,7 @@ class NativeLiveSyncEngine {
   }
 
   void close() {
+    _voiceActivity.clear();
     if (_closed) return;
     _closed = true;
     if (_capture != nullptr) _captureDestroy(_capture);

@@ -308,16 +308,50 @@ class LiveSubtitleSyncController extends ChangeNotifier {
       if (!enabled || generation != _generation) return;
       if (position != null) await _applyCorrection(position, generation);
       if (!player.state.playing || player.state.buffering || status.samples < 128000) return;
+      final activity = await worker.activity();
+      if (!enabled || generation != _generation) return;
+      final validActivity =
+          activity != null &&
+          activity.generation == generation &&
+          activity.continuity == _continuity &&
+          activity.observedSeconds >= 4;
+      bool? voicePresent;
+      var mismatch = false;
+      if (validActivity) {
+        voicePresent = activity.voiceSeconds >= 0.4;
+        final start = _timeline.correctionAt(activity.start).position.subtitleTime;
+        final end = _timeline.correctionAt(activity.end).position.subtitleTime;
+        if (start != null && end != null && end > start) {
+          final expectedFraction = index.dialogueSecondsBetween(start, end) / (end - start);
+          final actualFraction = activity.voiceSeconds / activity.observedSeconds;
+          // Wide tolerances: subtitle display durations are only a rough proxy
+          // for speech. Disagreement requests ASR; it never invalidates a map.
+          mismatch =
+              expectedFraction < 0.05 && actualFraction > 0.35 || expectedFraction > 0.5 && actualFraction < 0.02;
+        }
+      }
       // Collect spaced confirmation windows before slowing to steady-state
       // checks, so a cadence difference can actually accumulate six anchors.
       final established = _timeline.map.segments.any(
         (segment) => segment.anchors.length >= 6 && segment.subtitleEnd - segment.subtitleStart >= 60,
       );
-      final intervalMs = _cadence.intervalMs(synced: phase == LiveSyncPhase.synced, established: established);
+      final intervalMs = _cadence.intervalMs(
+        synced: phase == LiveSyncPhase.synced,
+        established: established,
+        voicePresent: voicePresent,
+        timingMismatch: mismatch,
+      );
       if (_clock.elapsedMilliseconds - _lastAnalysisMs >= intervalMs &&
           await worker.submitRecent(seconds: _cadence.windowSeconds)) {
         _lastAnalysisMs = _clock.elapsedMilliseconds;
         _cadence.submitted();
+        diagnosticObserver?.call({
+          'analysisRequest': _cadence.attempts,
+          'activityVoicePresent': voicePresent,
+          'activityTimingMismatch': mismatch,
+          'analysisIntervalMs': intervalMs,
+          'analysisWindowSeconds': _cadence.windowSeconds,
+        });
       }
     } catch (error) {
       if (enabled &&

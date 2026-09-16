@@ -5,6 +5,7 @@ import 'package:flutter/services.dart';
 
 import 'model_manager.dart';
 import 'native_bindings.dart';
+import 'audio_activity.dart';
 
 /// Main-isolate control port. Creation, PCM access, inference and thread joins
 /// run in the analysis isolate. A verified model lease is held until close has
@@ -94,6 +95,11 @@ class LiveSyncAnalysisWorker {
     return (await _request('submit', seconds))! as bool;
   }
 
+  Future<AudioActivity?> activity() async {
+    _checkOpen();
+    return await _request('activity', null) as AudioActivity?;
+  }
+
   Future<NativeTranscript?> takeResult() async {
     _checkOpen();
     return await _request('take', null) as NativeTranscript?;
@@ -146,6 +152,8 @@ void _runAnalysis(SendPort replies) {
           result = engine!.status();
         case 'submit':
           result = engine!.submitRecent(seconds: payload as double);
+        case 'activity':
+          result = engine!.activity();
         case 'take':
           result = engine!.takeResult();
         case 'reset':

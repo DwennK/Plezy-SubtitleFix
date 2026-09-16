@@ -2,6 +2,37 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:plezy/features/live_subtitle_sync/analysis_cadence.dart';
 
 void main() {
+  test('continuous music-like activity cannot force fast transcription forever', () {
+    final cadence = AnalysisCadence();
+    for (var i = 0; i < 5; i++) {
+      cadence.submitted();
+    }
+    expect(cadence.intervalMs(synced: false, established: false, voicePresent: true), 12000);
+    cadence.submitted();
+    cadence.evidence(recognizedPassage: false, learned: false);
+    expect(cadence.intervalMs(synced: false, established: false, voicePresent: true), 30000);
+    expect(cadence.intervalMs(synced: false, established: false, voicePresent: false), 90000);
+    expect(cadence.intervalMs(synced: false, established: false, voicePresent: true), 12000);
+  });
+
+  test('VAD conserves quiet periods, wakes acquisition and only requests rechecks', () {
+    final cadence = AnalysisCadence();
+    int interval(bool? voice, {bool synced = false, bool mismatch = false}) =>
+        cadence.intervalMs(synced: synced, established: true, voicePresent: voice, timingMismatch: mismatch);
+    expect(interval(false), 12000);
+    cadence.submitted();
+    expect(interval(false), 90000);
+    expect(interval(true), 12000);
+    expect(interval(true, synced: true), 90000);
+    expect(interval(true, synced: true, mismatch: true), 30000);
+    expect(interval(false, synced: true, mismatch: true), 30000);
+    for (var i = 0; i < 5; i++) {
+      cadence.submitted();
+      cadence.rejectedInference();
+    }
+    expect(interval(true), 30000);
+  });
+
   int interval(AnalysisCadence cadence) => cadence.intervalMs(synced: false, established: false);
 
   test('quiet intro backs off but weak recognized dialogue promptly retries a wider window', () {

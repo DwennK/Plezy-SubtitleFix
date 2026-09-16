@@ -147,12 +147,19 @@ Future<Map<String, Object>> probe(Map<String, String> options) async {
       double? offset;
       double? acquiredPosition;
       int? continuity;
+      bool? voicePresent;
+      var lastActivityMs = -500;
+      var activityChecks = 0;
+      var voiceChecks = 0;
+      var activityMicros = 0;
+      var activityMaxMicros = 0;
       while (clock.elapsedMilliseconds < analysisSeconds * 1000 && offset == null) {
         final capture = engine.status();
         if (continuity != null && capture.continuity != continuity) {
           timeline.discontinuity();
           context.clear();
           cadence.clear();
+          voicePresent = null;
         }
         continuity = capture.continuity;
         try {
@@ -202,7 +209,18 @@ Future<Map<String, Object>> probe(Map<String, String> options) async {
           cadence.rejectedInference();
           analyses.add({'attempt': cadence.attempts, 'failure': error.reason.name});
         }
-        final interval = cadence.intervalMs(synced: false, established: false);
+        if (clock.elapsedMilliseconds - lastActivityMs >= 500) {
+          final measured = Stopwatch()..start();
+          final activity = engine.activity();
+          final micros = measured.elapsedMicroseconds;
+          activityMicros += micros;
+          if (micros > activityMaxMicros) activityMaxMicros = micros;
+          activityChecks++;
+          voicePresent = activity != null && activity.observedSeconds >= 4 ? activity.voiceSeconds >= 0.4 : null;
+          if (voicePresent == true) voiceChecks++;
+          lastActivityMs = clock.elapsedMilliseconds;
+        }
+        final interval = cadence.intervalMs(synced: false, established: false, voicePresent: voicePresent);
         if (capture.samples >= 128000 &&
             clock.elapsedMilliseconds - last >= interval &&
             engine.submitRecent(seconds: cadence.windowSeconds)) {
@@ -220,6 +238,10 @@ Future<Map<String, Object>> probe(Map<String, String> options) async {
         'alignmentEngine': 'bounded-affine-timeline',
         'acquiredMediaPosition': acquiredPosition ?? 'none',
         'learnedSegments': timeline.map.segments.length,
+        'activityChecks': activityChecks,
+        'activityVoiceChecks': voiceChecks,
+        'activityTotalMicros': activityMicros,
+        'activityMaxMicros': activityMaxMicros,
         'actualOffset': offset ?? 'none',
         'acquisitionMs': clock.elapsedMilliseconds,
         'expectedOffset': expectNoLock ? 'none' : expectedOffset,
