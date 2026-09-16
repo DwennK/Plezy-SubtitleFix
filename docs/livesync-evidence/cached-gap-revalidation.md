@@ -25,3 +25,19 @@ and `git diff --check` pass.
 These are deterministic domain/player tests. They do not establish native scene
 discovery or correction of Mentalist S2 E16. The frozen native startup candidate
 `a5838cbe` does not contain this follow-up.
+
+## Cache algorithm revision
+
+The algorithm identity is now `bounded-affine-titles-v2`. Bounded segmented
+recognition and fresh gap revalidation changed which evidence can establish or
+revoke a mapping. Reusing the v1 identity would restore timings learned under
+the former semantics before background validation could examine them.
+
+The new identity changes the cache key and rejects v1 envelopes even if copied
+under the new key with a valid checksum. Existing files remain subject to the
+normal bounded cache retention; no subtitle source or manual delay is modified.
+The explicit v1-envelope regression failed before the version change.
+
+After the version change, all 160 feature/player tests (including the downloaded
+Sintel parser case), 51 focused map/cache tests, full Flutter analysis, and
+`git diff --check` pass. Native app validation of this follow-up remains pending.
