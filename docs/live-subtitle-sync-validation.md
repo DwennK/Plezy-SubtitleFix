@@ -1206,3 +1206,53 @@ Les CI générales `35058400300` (`30b73ce9`) et `35058912671` (`503d81b0`)
 sont maintenant terminées avec succès. La modification de cadence `574ef060`
 est vérifiée localement, pas par ces deux exécutions antérieures. Les validations
 applicatives Windows distinctes restent en cours/en attente.
+
+## Titres abrégés et résultats Windows — 16 septembre, suite
+
+`2056ccc6` normalise les titres anglais `Mr.`/`mister` et `Dr.`/`doctor`
+dans l'index et la transcription, en conservant un mot et son horodatage.
+Les deux tests ajoutés portent le total ciblé à 113 ; l'analyse complète passe.
+L'essai PCM/ASR natif aligné acquiert en 21,606 s, avec 668,5 ms d'écart
+aux frontières des fichiers LibriSpeech. Rapport `speech-titles-2056ccc6.json`.
+Ce résultat ne démontre ni un gain par rapport à `503d81b0`, ni une précision
+acoustique indépendante. Le premier début de cue est correctement rejeté
+à moins de 100 ms du bord de la fenêtre. Le contrôle direct des tokens ne
+confirme pas l'hypothèse d'une ponctuation faussant cet horodatage ; aucune
+modification des règles temporelles n'a été faite pour cette hypothèse.
+
+Windows `35058268463`, au SHA `30b73ce9`, est **réussi** : calibration en
+38,485 s, erreur 271 ms ; intro de 90 s en 123,997 s, erreur 238 ms. Les seeks
+connus/inconnus, délais manuels/audio et arrêt de capture passent. Les rapports
+`windows-calibration-30b73ce9.json` et `windows-intro-90-30b73ce9.json`
+conservent ces preuves. Ce build précède les changements ultérieurs du tracker.
+Il utilise base.en/AVX2, WARP et une sortie PCM vers NUL : aucune preuve audible
+ou de performances sur un GPU physique.
+
+Le run `35058910946` à `503d81b0` échoue avant la calibration : le probe PCM
+supposait que le retour de la commande seek signifiait déjà une nouvelle epoch.
+Le code mpv épinglé met pourtant le seek en attente avec `MPSEEK_FLAG_DELAY`.
+`08ae0e6e` sépare les paquets en transit de la génération suivante, tout en
+vérifiant leur PCM/PTS. Il exige un reset sous deux secondes, des frames après
+le reset et aucune réapparition d'une ancienne génération. Quatre tests Python
+couvrent ces cas ; le probe natif Mac passe. Le run Windows suivant
+`35060999895` passe également ces contrôles natifs.
+
+Ce dernier run échoue ensuite à `manual-during`. Les ancres montrent cette fois
+une correction valide affinée de −100,268625 à −100,243625 s, soit 25 ms.
+Le test utilisait encore la première correction comme référence fixe.
+Contrairement à l'échec `8f2f7ac2`, aucune révocation par un outlier n'est
+observée ici. Rapport conservé : `windows-calibration-08ae0e6e.json`.
+`9b13df5b` vérifie la composition native contre la correction courante,
+avec la même tolérance manuelle de 0,1 ms et la même exigence de précision
+de 750 ms. Un seek préalable dans la zone connue annule les inférences en vol
+et établit la référence exacte de l'aller-retour connu/inconnu/connu.
+Un verrouillage perdu ou une modification du délai manuel échouent toujours.
+L'analyse du probe passe ; le nouveau run natif `35070113686` est en cours.
+
+L'application macOS à `08ae0e6e` compile et sa signature stricte passe.
+Copie conservée dans `build/livesync/review-builds/08ae0e6e/`, kernel SHA-256
+`549d241fde4f7d2484f2ca522f3478619ac2847d45765a99502c6cfe64e6b864`.
+La dérive complète et Mentalist restent non validés ; ni ces changements
+ni les corrections du protocole de test ne constituent la livraison finale.
+
+Upstream refetché à `2026-09-16T07:47:16.102395+00:00` : `e38759127a1fb26c4cd99172ba6609fd50e355d9`, 0 commit non intégré.

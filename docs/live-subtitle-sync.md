@@ -53,7 +53,11 @@ ne sait pas séparer fiablement musique et voix. Les premiers essais natifs Mac
 passent, mais la validation applicative Windows `dbe211a4` échoue sur
 l'acquisition de calibration. `8f2f7ac2` acquiert puis retire sa prédiction à tort
 avant le contrôle manuel. Le repère intérieur déjà rejeté qui provoquait ce
-retrait est maintenant écarté ; une validation Windows `503d81b0` est en cours.
+retrait est maintenant écarté. Le run Windows `30b73ce9` passe la calibration,
+l'intro et les réglages manuels. Les essais suivants ont révélé deux défauts
+du protocole de test : observation trop précoce du seek et comparaison à une
+correction initiale ensuite affinée. Ils sont corrigés ; `9b13df5b` est en cours
+de validation native. Les rapports d'échec sont conservés.
 
 Sur un chapitre de développement LibriSpeech, le probe natif Mac `8f2f7ac2`
 apprend la dérive `25025/24000` après 117,647 s : erreur p95 637 ms, maximum

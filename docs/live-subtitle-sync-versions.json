@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "product": "Plezy + LiveSync",
   "status": "in-development-not-validated",
-  "recordedAt": "2026-09-16T05:31:46.497727+00:00",
+  "recordedAt": "2026-09-16T07:47:16.102395+00:00",
   "upstream": {
     "repository": "edde746/plezy",
     "branch": "main",
@@ -11,11 +11,11 @@
     "plezyVersion": "2.20.0+150",
     "stableRelease": "2.20.0",
     "latestCheck": {
-      "checkedAt": "2026-09-16T05:29:56Z",
+      "checkedAt": "2026-09-16T07:47:16.102395+00:00",
       "latestSha": "e38759127a1fb26c4cd99172ba6609fd50e355d9",
       "integratedSha": "e38759127a1fb26c4cd99172ba6609fd50e355d9",
       "unintegratedCommits": 0,
-      "scope": "Refetched upstream/main; no newer commits. 574ef060 Mac build/signature, 111 focused tests and whole analysis passed. Full upstream CI passed at 8f2f7ac2; newer Windows/general CI still pending. No final feature/UI validation."
+      "scope": "Upstream refetched; no newer commits. Signed macOS build at 08ae0e6e contains the normalization change validated by 113 focused tests and whole analysis at 2056ccc6. Native Windows run 35070113686 at 9b13df5b pending. No final feature/UI validation."
     }
   },
   "flutter": {
@@ -659,7 +659,7 @@
       "ciRun": 35034268551,
       "forkSha": "c4e64bba647bcf424517f8fe7481b4e910819194"
     },
-    "qualityLimitations": "Whole upstream CI 35058912671 passed at 503d81b0; 574ef060 has local analysis, 111 focused tests and signed Mac build. Windows functional runs still pending. Earlier Windows calibration acquired but lost prediction; fixed pending retest. Full-playback drift still fails; Mentalist UI/audible behavior, independent accuracy, gaps/cache and performance remain incomplete.",
+    "qualityLimitations": "113 focused Flutter tests and whole analysis passed at 2056ccc6; signed Mac application built at 08ae0e6e. Windows 30b73ce9 passed calibration, intro and post-lock controls. 503d81b0 failed an asynchronous-seek probe assertion; 08ae0e6e passed PCM then failed a stale initial-offset assertion after valid 25 ms refinement. Both probe issues fixed; 9b13df5b native Windows run pending. Full-playback drift, Mentalist UI/audible behavior, independent accuracy, gaps/cache and performance remain incomplete.",
     "nativeCaptureOwner": {
       "localResult": "passed real decoder PCM, forward/backward seeks, pause, exclusive capture and weak-client release on parent shutdown",
       "platform": "macOS arm64 Apple M4",
@@ -710,7 +710,7 @@
       "forkSha": "55da27265cc1775e458000fc4a277e43f4a684fc",
       "focusedLocalTestsPassed": 111,
       "windowsCiRun": 35054766606,
-      "nativeStatus": "Timeline, intro and manual delays confirmed on Windows at 3e4b4229. Audio activity application run dbe211a4 failed calibration acquisition; intro and post-lock controls were not reached. The no-PCM watchdog c679fc8a has domain tests and a signed Mac build; native injected-failure validation remains pending.",
+      "nativeStatus": "Production controller calibration, intro-90, known/unknown seeks and manual/audio delays passed on Windows at 30b73ce9. Later 08ae0e6e has successful native PCM but a stale-reference test failure after valid refinement; corrected test at 9b13df5b is awaiting native validation. No audible hardware or Mentalist proof.",
       "gapSuppressionImplemented": false,
       "persistentCacheImplemented": false,
       "nativeIntro90": {
@@ -720,13 +720,13 @@
         "scope": "55da2726 tracker and native media clock, zero manual audio delay; not production UI."
       },
       "macosBuild": {
-        "forkSha": "574ef0609a8231a7c0c80a02b12382eb24be266a",
+        "forkSha": "08ae0e6ee6fc25466979f2cb626ed60db3c78bbb",
         "upstreamSha": "e38759127a1fb26c4cd99172ba6609fd50e355d9",
         "platform": "macos-arm64",
         "configuration": "debug",
         "strictSignatureVerified": true,
-        "dartKernelSha256": "f585fef25fa0603f640734bf3fdca43d2120efdbc1b8e4fa1e0a8d0dfbcd3e4c",
-        "focusedTestsPassed": 111,
+        "dartKernelSha256": "549d241fde4f7d2484f2ca522f3478619ac2847d45765a99502c6cfe64e6b864",
+        "focusedTestsPassed": 113,
         "nativeUiValidated": false
       },
       "cadenceIntro90": {
@@ -738,15 +738,19 @@
       "finalUnusedCode": "passed at f80d7e65; no suppression",
       "finalUnusedFiles": "passed",
       "windowsNativeConfirmed": {
-        "ciRun": 35053526846,
-        "forkSha": "3e4b4229444bdd305375a9707094699e633e10e9",
+        "ciRun": 35058268463,
+        "forkSha": "30b73ce98eccb496b383435f9bf8816bcbdc524d",
         "cases": [
           "calibration",
           "intro-90"
         ],
         "knownAndUnknownSeeks": true,
         "manualSubtitleAndAudioDelays": true,
-        "audiblePlayback": false
+        "audiblePlayback": false,
+        "reports": [
+          "docs/livesync-evidence/windows-calibration-30b73ce9.json",
+          "docs/livesync-evidence/windows-intro-90-30b73ce9.json"
+        ]
       }
     },
     "windowsIntro90": {
@@ -811,7 +815,7 @@
       "nativePrefixRegression": "docs/livesync-evidence/valid-prefix-regression-56f3e9ff.json",
       "windowsCiRun": 35058910946,
       "upstreamCiRun": 35058912671,
-      "windowsStatus": "in progress",
+      "windowsStatus": "failed at queued seek epoch assertion before calibration; probe fixed at 08ae0e6e",
       "upstreamStatus": "passed at 503d81b0",
       "longRegressions": {
         "slower": {
@@ -838,6 +842,25 @@
           "trackingErrorMaximumSeconds": 2.7426236571645006,
           "remainingIssue": "Constant correction ages before six sufficiently spaced anchors establish slope."
         }
+      },
+      "titleNormalization": {
+        "forkSha": "2056ccc6",
+        "report": "docs/livesync-evidence/speech-titles-2056ccc6.json",
+        "acquisitionMs": 21606,
+        "absoluteOffsetErrorSeconds": 0.6684999999999981,
+        "focusedTestsPassed": 113,
+        "scope": "Aligned development fixture; no demonstrated improvement over 503d81b0 and no independent acoustic accuracy claim."
+      },
+      "windowsFollowUp": {
+        "ciRun": 35060999895,
+        "forkSha": "08ae0e6ee6fc25466979f2cb626ed60db3c78bbb",
+        "passed": false,
+        "report": "docs/livesync-evidence/windows-calibration-08ae0e6e.json",
+        "failure": "manual-during probe compared to initial offset after valid 0.025 second refinement",
+        "pcmProbePassed": true,
+        "correctedProbeSha": "9b13df5b789fde5fe318a54f0dc659bc2c695330",
+        "correctedProbeCiRun": 35070113686,
+        "correctedProbeStatus": "in progress"
       }
     }
   }

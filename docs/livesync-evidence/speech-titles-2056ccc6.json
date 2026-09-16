@@ -1,0 +1,239 @@
+{
+  "kind": "native-active-pcm-real-asr-and-domain-alignment",
+  "platform": "macos",
+  "inferenceBackend": "portable-cpu",
+  "alignmentEngine": "bounded-affine-timeline",
+  "acquiredMediaPosition": 21.638729873657244,
+  "learnedSegments": 1,
+  "activityChecks": 43,
+  "activityVoiceChecks": 34,
+  "activityTotalMicros": 47480,
+  "activityMaxMicros": 10104,
+  "actualOffset": 0.6684999999999981,
+  "acquisitionMs": 21606,
+  "evaluationMs": 21710,
+  "expectedOffset": 0.0,
+  "expectNoLock": false,
+  "completedAnalyses": 2,
+  "validPrefixAnalyses": 0,
+  "rejectedAnalyses": 0,
+  "absoluteOffsetError": 0.6684999999999981,
+  "maximumOffsetError": 0.75,
+  "reference": "fixture SRT timings, not precise acoustic-onset ground truth",
+  "passed": true,
+  "analyses": [
+    {
+      "attempt": 1,
+      "windowStart": 0.7050000000000002,
+      "windowEnd": 8.895,
+      "validPrefixOnly": false,
+      "match": "matched",
+      "contextWindows": 1,
+      "segmentedMatch": false,
+      "transcriptWords": 24,
+      "wordsInSubtitleVocabulary": 24,
+      "contextWords": 0,
+      "segmentBounds": [
+        {
+          "start": 0.7050000000000002,
+          "end": 6.525,
+          "timedTokens": 22,
+          "firstToken": 0.7850000000000001,
+          "lastToken": 6.125
+        },
+        {
+          "start": 6.525,
+          "end": 8.885,
+          "timedTokens": 12,
+          "firstToken": 6.585,
+          "lastToken": 8.825000000000001
+        }
+      ],
+      "similarity": 1.0,
+      "anchors": [
+        {
+          "cue": 1,
+          "offset": 0.7299999999999995
+        }
+      ],
+      "anchorRejections": {
+        "beginningAtWindowEdge": 1
+      },
+      "cueBeginningMatches": [
+        {
+          "cue": 0,
+          "wordInCue": 0,
+          "transcriptWord": 0,
+          "exact": true
+        },
+        {
+          "cue": 0,
+          "wordInCue": 1,
+          "transcriptWord": 1,
+          "exact": true
+        },
+        {
+          "cue": 0,
+          "wordInCue": 2,
+          "transcriptWord": 2,
+          "exact": true
+        },
+        {
+          "cue": 0,
+          "wordInCue": 3,
+          "transcriptWord": 3,
+          "exact": true
+        },
+        {
+          "cue": 0,
+          "wordInCue": 4,
+          "transcriptWord": 4,
+          "exact": true
+        },
+        {
+          "cue": 1,
+          "wordInCue": 0,
+          "transcriptWord": 17,
+          "exact": true
+        },
+        {
+          "cue": 1,
+          "wordInCue": 1,
+          "transcriptWord": 18,
+          "exact": true
+        },
+        {
+          "cue": 1,
+          "wordInCue": 2,
+          "transcriptWord": 19,
+          "exact": true
+        },
+        {
+          "cue": 1,
+          "wordInCue": 3,
+          "transcriptWord": 20,
+          "exact": true
+        },
+        {
+          "cue": 1,
+          "wordInCue": 4,
+          "transcriptWord": 21,
+          "exact": true
+        }
+      ]
+    },
+    {
+      "attempt": 2,
+      "windowStart": 5.991,
+      "windowEnd": 20.991,
+      "validPrefixOnly": false,
+      "match": "matched",
+      "contextWindows": 1,
+      "segmentedMatch": false,
+      "transcriptWords": 37,
+      "wordsInSubtitleVocabulary": 37,
+      "contextWords": 0,
+      "segmentBounds": [
+        {
+          "start": 5.991,
+          "end": 11.291,
+          "timedTokens": 15,
+          "firstToken": 6.571,
+          "lastToken": 10.771
+        },
+        {
+          "start": 11.291,
+          "end": 16.831,
+          "timedTokens": 18,
+          "firstToken": 11.291,
+          "lastToken": 16.750999999999998
+        },
+        {
+          "start": 16.831,
+          "end": 20.930999999999997,
+          "timedTokens": 12,
+          "firstToken": 17.171,
+          "lastToken": 20.871000000000002
+        }
+      ],
+      "similarity": 0.972972972972973,
+      "anchors": [
+        {
+          "cue": 1,
+          "offset": 0.7159999999999993
+        },
+        {
+          "cue": 2,
+          "offset": 0.6210000000000004
+        }
+      ],
+      "anchorRejections": {},
+      "cueBeginningMatches": [
+        {
+          "cue": 1,
+          "wordInCue": 0,
+          "transcriptWord": 0,
+          "exact": true
+        },
+        {
+          "cue": 1,
+          "wordInCue": 1,
+          "transcriptWord": 1,
+          "exact": true
+        },
+        {
+          "cue": 1,
+          "wordInCue": 2,
+          "transcriptWord": 2,
+          "exact": true
+        },
+        {
+          "cue": 1,
+          "wordInCue": 3,
+          "transcriptWord": 3,
+          "exact": true
+        },
+        {
+          "cue": 1,
+          "wordInCue": 4,
+          "transcriptWord": 4,
+          "exact": true
+        },
+        {
+          "cue": 2,
+          "wordInCue": 0,
+          "transcriptWord": 10,
+          "exact": true
+        },
+        {
+          "cue": 2,
+          "wordInCue": 1,
+          "transcriptWord": 11,
+          "exact": true
+        },
+        {
+          "cue": 2,
+          "wordInCue": 2,
+          "transcriptWord": 12,
+          "exact": true
+        },
+        {
+          "cue": 2,
+          "wordInCue": 3,
+          "transcriptWord": 13,
+          "exact": true
+        },
+        {
+          "cue": 2,
+          "wordInCue": 4,
+          "transcriptWord": 14,
+          "exact": true
+        }
+      ]
+    }
+  ],
+  "productionPlayerValidated": false,
+  "audiblePlaybackValidated": false,
+  "pcmOrTranscriptPersisted": false,
+  "mainIsolateHeartbeatTicks": 876
+}
