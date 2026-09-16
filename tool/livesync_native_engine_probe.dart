@@ -238,6 +238,18 @@ Future<Map<String, Object>> probe(Map<String, String> options) async {
                     'timedTokens': segment.tokens.where((token) => token.hasTimestamp).length,
                     'firstToken': segment.tokens.isEmpty ? null : segment.tokens.first.start,
                     'lastToken': segment.tokens.isEmpty ? null : segment.tokens.last.end,
+                    // Numeric-only diagnostics distinguish recognition confidence
+                    // from timestamp validity without retaining dialogue.
+                    'tokenMetrics': [
+                      for (final token in segment.tokens)
+                        {
+                          'start': token.start,
+                          'end': token.end,
+                          'score': token.score,
+                          'hasTimestamp': token.hasTimestamp,
+                          'normalizedWords': const DialogueNormalizer().words(token.text).length,
+                        },
+                    ],
                   },
               ],
               'similarity': result.passage?.similarity,
