@@ -214,18 +214,38 @@ void main() {
     );
     Timer? sender;
     var chunks = 0;
+    var flushing = false;
     server.listen((request) {
       request.response.bufferOutput = false;
       request.response.contentLength = slow.bytes;
       sender = Timer.periodic(const Duration(milliseconds: 20), (_) {
-        request.response.add([1]);
-        chunks++;
-        unawaited(request.response.flush().then<void>((_) {}, onError: (Object _) {}));
+        // Under suite-wide load a flush can outlive one timer period. HTTP
+        // response sinks cannot accept another add while a flush is bound.
+        if (flushing) return;
+        flushing = true;
+        try {
+          request.response.add([1]);
+          chunks++;
+          unawaited(
+            request.response.flush().then<void>(
+              (_) => flushing = false,
+              onError: (Object _) {
+                flushing = false;
+                sender?.cancel();
+              },
+            ),
+          );
+        } catch (_) {
+          flushing = false;
+          sender?.cancel();
+        }
       });
     });
+    final elapsed = Stopwatch()..start();
     try {
       await expectLater(manager.acquire(slow), throwsA(failure(ModelFailure.timeout)));
       expect(chunks, greaterThan(1));
+      expect(elapsed.elapsed, greaterThanOrEqualTo(const Duration(milliseconds: 1800)));
       expect(await directory.list().isEmpty, isTrue);
     } finally {
       sender?.cancel();
