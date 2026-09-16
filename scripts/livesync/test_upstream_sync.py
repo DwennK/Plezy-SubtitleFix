@@ -165,6 +165,21 @@ class OrchestrationTests(unittest.TestCase):
         self.assertEqual(commands[1][:5], ("gh", "pr", "ready", "42", "--undo"))
         self.assertFalse(any(command[1:3] == ("pr", "create") for command in commands))
 
+    def test_live_child_identity_is_preserved_before_waiting_and_failure(self):
+        candidate = "a" * 40
+        live = {"id": 123, "head_sha": candidate, "event": "workflow_dispatch", "status": "in_progress",
+                "display_title": f"LiveSync upstream {candidate}", "html_url": "https://github.com/example/run/123"}
+        report, checkpoints = {}, []
+        with patch.object(sync, "api", side_effect=[{"object": {"sha": candidate}},
+                {"workflow_runs": [live]}, {**live, "status": "completed", "conclusion": "failure"}]), \
+                patch.object(sync, "run") as run:
+            with self.assertRaisesRegex(RuntimeError, "validation failed"):
+                sync.validate(candidate, "checks", report, checkpoint=lambda: checkpoints.append(dict(report)))
+            run.assert_not_called()
+        self.assertEqual(checkpoints[0]["runId"], 123)
+        self.assertNotIn("conclusion", checkpoints[0])
+        self.assertEqual(checkpoints[-1]["conclusion"], "failure")
+
 
 if __name__ == "__main__":
     unittest.main()

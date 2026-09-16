@@ -209,7 +209,7 @@ def matching_run(runs, candidate):
     return max(successful, key=lambda r: r["id"], default=None)
 
 
-def validate(candidate, kind, report, native_run=None):
+def validate(candidate, kind, report, native_run=None, checkpoint=None):
     sha(candidate)
     branch = api(f"repos/{FORK}/git/ref/heads/{INTEGRATION}")
     if branch["object"]["sha"] != candidate:
@@ -249,6 +249,9 @@ def validate(candidate, kind, report, native_run=None):
             raise RuntimeError("Dispatch observation timed out; inspect existing runs before retrying")
     run_id = selected["id"]
     report.update(candidateSha=candidate, kind=kind, runId=run_id, url=selected["html_url"])
+    if checkpoint:
+        checkpoint()
+    print(f"Observing {kind}: https://github.com/{FORK}/actions/runs/{run_id}", flush=True)
     output("run_id", run_id)
     deadline = time.monotonic() + (345 if kind == "native" else 85) * 60
     while time.monotonic() < deadline:
@@ -256,6 +259,8 @@ def validate(candidate, kind, report, native_run=None):
         if current["head_sha"] != candidate:
             raise ValueError("Validation run does not match the immutable candidate")
         report.update(status=current["status"], conclusion=current["conclusion"])
+        if checkpoint:
+            checkpoint()
         if current["status"] == "completed":
             if current["conclusion"] != "success":
                 raise RuntimeError(f"{kind} validation failed: {current['html_url']}")
@@ -305,19 +310,22 @@ def main():
     parser.add_argument("--validate-current", action="store_true")
     args = parser.parse_args()
     report = {"checkedAt": datetime.now(timezone.utc).isoformat()}
+    def save():
+        args.report.parent.mkdir(parents=True, exist_ok=True)
+        args.report.write_text(json.dumps(report, indent=2) + "\n")
+    save()
     try:
         if args.operation == "prepare":
             prepare(Path.cwd(), report, args.validate_current)
         elif args.operation == "validate":
-            validate(args.sha, args.kind, report, args.native_run)
+            validate(args.sha, args.kind, report, args.native_run, save)
         else:
             publish_pr(args.sha, report, args.evidence)
     except IntegrationConflict as error:
         report.update(state="conflict", files=error.files)
         raise
     finally:
-        args.report.parent.mkdir(parents=True, exist_ok=True)
-        args.report.write_text(json.dumps(report, indent=2) + "\n")
+        save()
 
 
 if __name__ == "__main__":
