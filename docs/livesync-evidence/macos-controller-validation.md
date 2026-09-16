@@ -36,6 +36,23 @@ acknowledgement, and keep the real PCM and disable assertions. Swift formatting
 and a type check against the actual mpv header pass; new native execution remains
 required. The workflow also exports the numeric XCTest summary after failures.
 
-The first Mac controller workflow is run `35149938639`, source `4da5ba32`.
-It retains the earlier contract and is still running; do not cancel or replace
-its evidence merely because the bounded-activation test correction is now ready.
+The first Mac controller workflow, run `35149938639` at `4da5ba32`, subsequently
+passes. It retains the earlier contract; this success does not erase the preceding
+activation race. Run `35150764799` separately validates the bounded wait at
+`18c16d19` and remains in progress at this record.
+
+## First actual Mac controller result
+
+The [complete reports](macos-controller-4da5ba32.json) record macOS arm64 Release,
+base.en-q5_1, actual active PCM/Whisper and the production Dart controller.
+Calibration acquires in 24.533 seconds with 218.98 ms error against the caption
+reference. The 90-second intro acquires in 118.245 seconds with 226.31 ms error.
+Both satisfy their unchanged 45-second-plus-intro budgets and pass wrong cached
+gap recovery, known/unknown/backward seeks, manual and audio delay composition,
+persistent cache and capture teardown. All 14 native contracts pass in this run.
+
+The renderer is a real Flutter/native player but no screenshots were inspected;
+audio output is null. Neither this helper nor the earlier domain replay proves
+audible playback, Mentalist, independent acoustic accuracy, full scene/drift or
+hardware performance acceptance. The runtime code is unchanged from e85fd4bd;
+4da5ba32 adds validation infrastructure and prior evidence only.
