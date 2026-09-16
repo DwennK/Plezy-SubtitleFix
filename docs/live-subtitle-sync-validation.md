@@ -1587,3 +1587,24 @@ préserve l'identité source et les délais signés/manuels. Rapport
 `upstream-native-35078943474.json`. Sorties nulles, aucun rendu visible ou audible
 validé. Le parent `35078879715` a terminé en **échec** à cause de la CI générale
 déjà documentée ; le candidat n'est pas promu et aucune PR de succès n'est créée.
+
+### Candidat upstream `fe4fc52c` : contrôles ciblés terminés
+
+Le candidat contenant upstream `7883cf8c` et native `6855ea37` passe la CI
+générale (`35093713202`), Dart (`35093840651`), Windows (`35093718839`) et
+macOS (`35093715981`, tentative 2). La première tentative Mac a échoué sur
+un HTTP 500 du téléchargement SwiftPM libuchardet ; seul le job échoué a
+été relancé au même SHA. Quatorze contrats natifs de l’app Mac passent.
+
+Dans le contrôleur de production Windows, la calibration acquiert en
+**33,922 s**, erreur **218 ms** ; intro +90 s en **124,361 s**, erreur **237 ms**.
+Navigation connue/inconnue, composition du délai audio, délai manuel,
+restauration du cache et fermeture du prélèvement passent. Sortie audio
+`pcm-to-NUL` : aucune validation audible. Ce sont des cas de développement
+connus, pas une précision généralisée sur corpus indépendant.
+
+Les rapports et hashes sont dans `livesync-evidence/upstream-fe4fc52c-validation.json`.
+Le natif Windows provient du run `35078943474` au SHA `18e50324`, avec identité
+des quatre entrées natives contrôlée avant réutilisation. Les options
+expérimentales d’acquisition sont absentes du candidat. Ces dispatchs manuels
+ne valident pas encore l’enchaînement quotidien complet, sa PR et son no-op.
