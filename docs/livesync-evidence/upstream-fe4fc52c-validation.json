@@ -1,0 +1,152 @@
+{
+  "sourceSha": "fe4fc52c0a707f0fcc5a200e63cac4285416232c",
+  "upstreamSha": "7883cf8c88d31e9b81e574c6949031a1c46de0b4",
+  "nativeRevision": "6855ea3776b437a922c0c7841560842e799fc152",
+  "runs": {
+    "checks": 35093713202,
+    "dart": 35093840651,
+    "windows": 35093718839,
+    "macos": 35093715981,
+    "compatibleWindowsNative": 35078943474
+  },
+  "macosAttempt": 2,
+  "macosFirstAttemptFailure": "HTTP 500 downloading upstream libuchardet SwiftPM artifact; failed job rerun after terminal failure, same source SHA.",
+  "scope": "Manually dispatched exact-source validations. Does not establish complete daily orchestrator, independently validated automatic timing, audible playback, Mentalist, or final acceptance. Experimental acquisition changes are absent.",
+  "reports": {
+    "windowsCalibration": {
+      "sha256": "2f200aae34593374028ed0f953989728dac664995738694e3a96ee82f9020161",
+      "report": {
+        "kind": "actual-plezy-production-controller-calibration",
+        "platform": "windows",
+        "inferenceBackend": "avx2-cpu",
+        "expectedOffset": -100.0,
+        "absoluteOffsetError": 0.21764583333333576,
+        "maximumOffsetError": 0.75,
+        "modelId": "base.en",
+        "modelSha256": "a03779c86df3323075f5e796cb2ce5029f00ec8869eee3fdfb897afe36c6d002",
+        "fixtureCase": "calibration",
+        "introSilenceSeconds": 0,
+        "actualOffset": -100.21764583333334,
+        "reference": "authored Sintel SRT, not precise acoustic-onset ground truth",
+        "acquisitionMs": 33922,
+        "nativeDelay": -100.092644,
+        "audioPartitionSeconds": [
+          100,
+          175
+        ],
+        "audioOutput": "pcm-to-NUL",
+        "audiblePlaybackValidated": false,
+        "pcmOrTranscriptPersisted": false,
+        "postConfirmationOffset": -100.21764583333334,
+        "knownRegionRestoredAfterSeek": true,
+        "unknownSeekClearsAutomaticOnly": true,
+        "audioDelayCompositionAndPreservation": true,
+        "cacheRestoreMs": 1347,
+        "persistentCacheKnownAndUnknownRegions": true,
+        "manualDelayDuringAndAfter": true,
+        "tapDisabledOnClose": true,
+        "passed": true
+      }
+    },
+    "windowsIntro90": {
+      "sha256": "c8dc13b8b95a610e3b447a2aa28120c526d5fb9035c1deed6bca387470075c3c",
+      "report": {
+        "kind": "actual-plezy-production-controller-calibration",
+        "platform": "windows",
+        "inferenceBackend": "avx2-cpu",
+        "expectedOffset": 90.0,
+        "absoluteOffsetError": 0.2369791666666572,
+        "maximumOffsetError": 0.75,
+        "modelId": "base.en",
+        "modelSha256": "a03779c86df3323075f5e796cb2ce5029f00ec8869eee3fdfb897afe36c6d002",
+        "fixtureCase": "intro-90",
+        "introSilenceSeconds": 90,
+        "actualOffset": 89.76302083333334,
+        "reference": "authored Sintel SRT, not precise acoustic-onset ground truth",
+        "acquisitionMs": 124361,
+        "nativeDelay": 89.888023,
+        "audioPartitionSeconds": [
+          100,
+          175
+        ],
+        "audioOutput": "pcm-to-NUL",
+        "audiblePlaybackValidated": false,
+        "pcmOrTranscriptPersisted": false,
+        "postConfirmationOffset": 89.78302083333335,
+        "knownRegionRestoredAfterSeek": true,
+        "unknownSeekClearsAutomaticOnly": true,
+        "audioDelayCompositionAndPreservation": true,
+        "cacheRestoreMs": 1346,
+        "persistentCacheKnownAndUnknownRegions": true,
+        "manualDelayDuringAndAfter": true,
+        "tapDisabledOnClose": true,
+        "passed": true
+      }
+    },
+    "windowsNativeProvenance": {
+      "sha256": "7b93b4df539d5d357080dc3ce197f7a018d7f58054bedf42a3ec0f81a987fe9d",
+      "report": {
+        "nativeRevision": "6855ea3776b437a922c0c7841560842e799fc152",
+        "liveSyncPatchSha256": "6a2e0e12b3e61c6f846127c90e75361a20cbfef9c822d56a0ecac55b6803a977",
+        "windowsCompatibilityPatchSha256": "ff63249eb0118550f3d37923a05dca9992c1f2bae66baee303992d7dcb1c5ca3",
+        "buildRepository": "DwennK/Plezy-SubtitleFix",
+        "buildRun": 35078943474,
+        "buildSourceSha": "18e50324b1b133eeab663a2c241725abf2d33661",
+        "buildUrl": "https://github.com/DwennK/Plezy-SubtitleFix/actions/runs/35078943474",
+        "artifactId": 10443174294,
+        "artifactDigest": "sha256:0487cc12b9d454033d7417a3a7e8e8255bdd1ea900555f5b188201a6ef4a52f4",
+        "architecture": "x86_64",
+        "archiveSha256": "8b0147da54d0a2b6351d9b7920fdd6dbb278b03e090df191f1ff6c70b1acec3d",
+        "dllSha256": "3ca3215c50e891e431e1af737a03777da35dd62aef60cdf95262f424419b6709"
+      }
+    },
+    "macosNativeContracts": {
+      "sha256": "f7040b7efd2d2d7d67d20a46631d4cfbffbb96743439a5eff4879f0b98c2f39c",
+      "report": {
+        "devicesAndConfigurations": [
+          {
+            "device": {
+              "architecture": "arm64",
+              "deviceId": "538b0abd3dd1eb4c44462bb101b696d6391b979d",
+              "deviceName": "My Mac",
+              "modelName": "Apple Virtual Machine 1",
+              "osBuildNumber": "25G83",
+              "osVersion": "26.6.2",
+              "platform": "macOS"
+            },
+            "expectedFailures": 0,
+            "failedTests": 0,
+            "passedTests": 14,
+            "skippedTests": 0,
+            "testPlanConfiguration": {
+              "configurationId": "1",
+              "configurationName": "Test Scheme Action"
+            }
+          }
+        ],
+        "environmentDescription": "Runner \u00b7 Built with macOS 26.6.2",
+        "expectedFailures": 0,
+        "failedTests": 0,
+        "finishTime": 1789561508.683,
+        "passedTests": 14,
+        "result": "Passed",
+        "skippedTests": 0,
+        "startTime": 1789561455.178,
+        "statistics": [],
+        "testFailures": [],
+        "title": "Test - Runner",
+        "topInsights": [],
+        "totalTestCount": 14
+      }
+    },
+    "macosNativeProvenance": {
+      "sha256": "b35dbf17d856ba33c607e7290eccc69ef89b755f9d597afcb058fba3c0cd0076",
+      "report": {
+        "nativeRevision": "6855ea3776b437a922c0c7841560842e799fc152",
+        "xcframeworkSha256": "7c005c2554cef5d7da5cbaf47d908ed1aaf69064ea827128e1a99432c1389fca",
+        "liveSyncPatchSha256": "6a2e0e12b3e61c6f846127c90e75361a20cbfef9c822d56a0ecac55b6803a977",
+        "packageSource": "Pinned upstream Package.swift; only Libmpv target uses a local path"
+      }
+    }
+  }
+}
