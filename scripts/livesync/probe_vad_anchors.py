@@ -65,14 +65,22 @@ def evaluate(args):
         duration = end - beginning
         if not all(math.isfinite(v) for v in (beginning, end)) or beginning < 0 or not 7.99 <= duration <= 15.01:
             raise ValueError('Only bounded recorded windows are permitted')
+        first_sample, last_sample = round(beginning * 16000), round(end * 16000)
+        sample_origin = first_sample / 16000
         with tempfile.TemporaryDirectory(prefix='livesync-public-vad-') as directory:
             audio = Path(directory) / 'window.wav'
-            subprocess.run(['ffmpeg', '-v', 'error', '-nostdin', '-ss', str(beginning), '-i', str(args.fixture),
-                            '-t', str(duration), '-vn', '-ac', '1', '-ar', '16000', '-c:a', 'pcm_s16le', str(audio)],
+            # A container seek dropped 65 ms from the short retry. This offline
+            # public-fixture replay trims decoded sample indices instead. It
+            # does not add a second decode or network stream to production.
+            trim = (f'aformat=sample_rates=16000:channel_layouts=mono,'
+                    f'atrim=start_sample={first_sample}:end_sample={last_sample},asetpts=PTS-STARTPTS')
+            subprocess.run(['ffmpeg', '-v', 'error', '-nostdin', '-i', str(args.fixture),
+                            '-vn', '-af', trim, '-c:a', 'pcm_s16le', str(audio)],
                            check=True, timeout=30)
             with wave.open(str(audio)) as pcm:
                 actual_duration = pcm.getnframes() / pcm.getframerate()
-                if pcm.getnchannels() != 1 or pcm.getframerate() != 16000 or abs(actual_duration - duration) > 0.01:
+                if (pcm.getnchannels() != 1 or pcm.getframerate() != 16000
+                        or pcm.getnframes() != last_sample - first_sample):
                     raise ValueError('Incorrect decoded window')
             started = time.monotonic()
             completed = subprocess.run([str(args.binary), '-vm', str(args.model), '-f', str(audio), '-t', '2',
@@ -80,7 +88,7 @@ def evaluate(args):
                                        check=True, capture_output=True, text=True, timeout=30)
             elapsed = time.monotonic() - started
             intervals = speech_intervals(completed.stdout, actual_duration)
-            media_intervals = [[beginning + a, beginning + b] for a, b in intervals]
+            media_intervals = [[sample_origin + a, sample_origin + b] for a, b in intervals]
             anchors = []
             for anchor in analysis['anchors']:
                 media_time = starts[anchor['cue']] + anchor['offset']
@@ -90,6 +98,7 @@ def evaluate(args):
                                 'distanceToVoiceSeconds': distance,
                                 'voiceWithinExistingUncertainty': inside and distance is not None and distance <= 0.35})
             observations.append({'attempt': analysis['attempt'], 'windowStart': beginning, 'windowEnd': end,
+                                 'decodedSampleOrigin': sample_origin, 'decodedSamples': last_sample - first_sample,
                                  'windowWavSha256': digest(audio), 'speechIntervals': media_intervals,
                                  'elapsedSecondsIncludingModelLoad': elapsed, 'anchors': anchors})
     return {'schema': 1, 'scope': 'offline VAD on recorded public development windows, not native player validation',
