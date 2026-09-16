@@ -34,3 +34,7 @@ checks. It does not alter acquisition/accuracy thresholds.
 Native delayed-source validation is pending. A successful synthetic source-delay
 test would prove concurrent startup, not live Plex extraction speed or audible
 Mentalist synchronization. No application containing this change is installed.
+
+## Subsequent result
+
+Subsequent result: run 35101753081 passed the 15-second delayed-source scenario at 41dba5c5; see startup-41dba5c5-windows.json. The combined code was promoted through PR #2 after its own startup-seek checks. Mentalist remains unvalidated.

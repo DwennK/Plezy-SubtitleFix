@@ -36,3 +36,7 @@ proof: mpv still decodes selected subtitles when `sub-visibility` is disabled.
 Automatic gap detection, removed scenes, cues crossing boundaries, real-film
 native gap playback, macOS UI, and Mentalist remain unvalidated. The mask is not
 inferred from silence, missing recognition or a single offset jump.
+
+## Subsequent result
+
+Subsequent result: the 13-state renderer run passed at c205484a, with five captures inspected; see scene-c205484a-windows.json. The combined a5838cbe run also passed and its five visibility captures were inspected. This code is now promoted through PR #2; automatic gap discovery remains absent.

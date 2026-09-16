@@ -1718,8 +1718,10 @@ extraite ; arm64, identité `com.dwennk.plezy.livesync` et signature stricte son
 vérifiés. Elle n'est ni installée ni lancée sur le Mac utilisateur. Les cinq
 captures Windows de masquage/restauration ont été inspectées. Voir la
 [preuve structurée](livesync-evidence/startup-seek-a5838cbe-comparison.json).
-La CI upstream complète est encore en cours lors de ce relevé ; la PR interne
-nº 2 demeure brouillon et le code maintenu reste celui de `10ace9fc`.
+La CI upstream complète `35104724035` a ensuite réussi. La PR interne nº 2
+est intégrée dans `893b247f` le 16 septembre à 14:18:49 UTC. Le code correspond
+exactement au candidat testé ; seuls les documents de preuve ajoutés sur la
+branche maintenue diffèrent. Cette promotion ne valide pas le produit complet.
 
 Le correctif indépendant `ccde2f31` retire un gap en cache contredit par plusieurs
 repères frais internes. Sept nouveaux cas couvrent les deux timelines, les

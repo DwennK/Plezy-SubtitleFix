@@ -36,3 +36,7 @@ listener can cancel the already-owned timer.
 The old-ordering reproduction remains frozen at `114301c0` in run `35103325258`.
 Its native outcome and the corrected native run are still pending; neither is
 claimed to have reproduced/fixed the issue merely from the local checks.
+
+## Subsequent result
+
+Outcome: the pre-fix run failed without inference; corrected run 35104648989 passed both startup-seek cases at a5838cbe. Calibration acquisition took 52.022 seconds, above the 45-second target. See startup-seek-a5838cbe-comparison.json. The full CI passed and PR #2 was merged at 893b247f.

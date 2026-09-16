@@ -221,7 +221,7 @@
   },
   "fullUpstreamCI": {
     "runId": 35104724035,
-    "conclusion": "pending-at-recording"
+    "conclusion": "success"
   },
   "renderer": {
     "inspectedImages": {
@@ -254,5 +254,15 @@
     "The scene renderer exercises explicit known gaps, not automatic gap discovery.",
     "Mentalist and the installed Mac UI remain unvalidated.",
     "The separate ccde2f31 cache fix is absent from this candidate."
-  ]
+  ],
+  "promotion": {
+    "mergeCommit": "893b247fe3bc6e99bf763ff80e48f37f20c684f8",
+    "mergedAt": "2026-09-16T14:18:49Z",
+    "codeIdenticalToTestedCandidate": true,
+    "onlyAdditionalFilesChanged": [
+      "docs/live-subtitle-sync-acceptance.md",
+      "docs/live-subtitle-sync-validation.md",
+      "docs/livesync-evidence/startup-seek-a5838cbe-comparison.json"
+    ]
+  }
 }
