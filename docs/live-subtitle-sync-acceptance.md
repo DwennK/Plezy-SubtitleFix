@@ -20,13 +20,13 @@ Les limites ne sont pas des validations. Les preuves historiques gardent leur SH
 | Demande | État démontré | Travail ou preuve encore nécessaire |
 |---|---|---|
 | 1. Dernier upstream et versions | Intégration complète, cinq workflows réussis sur le même SHA ; locks et natifs épinglés | Répéter la vérification upstream avant la livraison finale et tester le code finalement livré |
-| 2. Synchronisation locale anglais/SRT, Windows x64 et Mac arm64 | Code local, plateformes ciblées, transport des sidecars et extraction complète du SRT Plex ; acquisitions dans des probes et le contrôleur Windows | Mentalist dans le lecteur utilisateur ; parcours serveur/UI complets et limites des architectures optionnelles |
+| 2. Synchronisation locale anglais/SRT, Windows x64 et Mac arm64 | Code local, plateformes ciblées, transport des sidecars et extraction complète du SRT Plex ; acquisitions dans des probes, le contrôleur Windows et le candidat Mac `4da5ba32` | Mentalist dans le lecteur utilisateur ; parcours serveur/UI complets et limites des architectures optionnelles |
 | 3. Faisabilité native et petite surface d'intégration | PCM actif horodaté, worker, SRT complet, rendu réversible et builds documentés sur les deux plateformes | Revalider l'ensemble sur les derniers correctifs combinés, sans attribuer d'anciens résultats au nouveau code |
 | 4. Capture et horloges | Ring borné, mono 16 kHz, générations et contrats de pause/seek/vitesse ; capture dans mpv | Comparaison de lecture audible et charge réelle ; parcours applicatifs d'échec/passthrough complets |
 | 5. Whisper, identification et alignement | Versions/modèles figés, matching conservateur et ancres ; segmentation ASR bornée corrigée | Précision des repères, corpus indépendant et absence de dégradation encore non établis |
 | 6. Suivi léger et stabilité | VAD heuristique, cadence adaptative et confirmations indépendantes implémentés | Calibrage musique/parole/confiance ; stabilité et coût sur des épisodes réels |
 | 7. Dérive et scènes différentes | Segments/domaines, fits affines et navigation connue/inconnue présents ; des essais de dérive échouent encore | Détection automatique des gaps, scènes supprimées, cues aux frontières, dérive réelle et retour arrière après apprentissage complet |
-| 8. Corrections et UX | Composition manuel/automatique/audio et arrêt vérifiés dans le contrôleur Windows ; états et contrôles intégrés | UX native courante sur Mac, Mentalist audible/visible ; rendu des frontières appris automatiquement |
+| 8. Corrections et UX | Composition manuel/automatique/audio et arrêt vérifiés dans les contrôleurs Windows et candidat Mac `4da5ba32` ; états et contrôles intégrés | UX native courante sur Mac, Mentalist audible/visible ; rendu des frontières appris automatiquement |
 | 9. Cache, modèles, confidentialité | Cache borné/atomique avec identité forte, vérification SHA du modèle, suppression et tests d'annulation ; aucun transcript/PCM privé conservé par défaut | Validation native des paramètres et de la persistance entre processus ; revue des derniers chemins d'erreur |
 | 10. Performances et backends | Comparaisons CPU et explorations Metal historiques ; fallback CPU contrôlé | Budgets CPU/GPU/mémoire/latence/frames/audio respectés sur machines de référence ; évaluation Vulkan Windows et stratégie finale |
 | 11. Tests et preuves | CI upstream complète et nombreux tests natifs/domaines ; acquisition, intro-90, seeks, délais et cache passent sur calibration Windows | Tous les scénarios de la demande, précision médiane/percentiles sur validation indépendante, faux sauts et absence de dégradation |
@@ -120,3 +120,23 @@ retire une extrapolation lorsque deux répliques indépendantes contredisent
 l’ancien mapping sans permettre un nouveau fit. Elle ne détecte aucun gap et
 ne constitue pas une correction complète des scènes différentes. Le build
 brouillon `0d2482fb` ne contient pas ce candidat.
+
+## Candidat : première chaîne complète dans le contrôleur Mac
+
+Le [run Mac Release `35149938639`](https://github.com/DwennK/Plezy-SubtitleFix/actions/runs/35149938639)
+passe au source `4da5ba32a6da94a572f882d1d252934dabdfc5ee`, dont le code produit
+est celui de `e85fd4bd` (PR nº 6 encore séparée). Les 14 contrats natifs et le
+contrôleur réel avec PCM/Whisper passent : acquisition de calibration en 24,533 s,
+intro-90 en 118,245 s, erreurs face au SRT de 219 et 226 ms. Mauvais cache,
+seeks, délais manuel/audio, persistance et arrêt sont vérifiés.
+[Rapports complets](livesync-evidence/macos-controller-4da5ba32.json).
+
+Ce résultat provient d'un point d'entrée de test dans l'application Flutter
+native, avec sortie audio nulle, sans inspection visuelle. Il ne prouve pas
+Mentalist, la lecture audible, la précision indépendante ou les scènes complètes.
+Le run Mac précédent `35148927428` échoue sur une course d'activation dans un
+contrat ; la correction du test est en validation séparée dans la PR nº 7.
+Le run Windows `35148901282` échoue par arrêt du renderer avant son premier état ;
+la PR nº 8 ajoute son diagnostic et conserve le contrôle de synchronisation
+indépendant. Aucun de ces candidats n'est présenté comme un nouveau build validé
+sur les deux plateformes ; les archives brouillon `0d2482fb` restent distinctes.
