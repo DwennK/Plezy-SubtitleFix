@@ -1403,3 +1403,38 @@ Build Mac Debug et signature stricte réussis, copie dans
 `8cd13bd1381e1d5619094d73736e7d37c9f33a3955afecd4e6ffbcb27ad49407`.
 Windows `35076360711` est mis en file après le run natif `3da717cc` ; CI générale
 `35076363135` lancée. Mentalist et la dérive complète restent non validés.
+
+
+## Windows après correction du protocole d'erreur — 2026-09-16
+
+Le run `35075644905`, SHA `3da717cc`, est **réussi**, ainsi que sa CI générale
+`35075647742`. Calibration : acquisition 22,090 s, erreur 205 ms ; intro de 90 s :
+124,936 s, erreur 246 ms. Restauration du cache : respectivement 2,039 s et 1,821 s.
+Délais manuel/audio, seeks connus/inconnus et fermeture du tap passent.
+Rapports numériques `windows-calibration-3da717cc.json` et
+`windows-intro-90-3da717cc.json`. Mesures uniques avec sortie PCM vers NUL ; aucune
+conclusion statistique ni preuve sur Mentalist. La différence d'acquisition entre
+runs ne démontre pas à elle seule une amélioration causale du correctif.
+
+La CI générale `35076363135` à `df53e749` passe aussi. Sa validation applicative
+Windows `35076360711` a démarré après le run précédent et reste en cours.
+
+## Installation du suivi upstream — 2026-09-16
+
+`1df536ed` ajoute l'action quotidienne `livesync-upstream.yml`, à 05:23 UTC,
+également déclenchable manuellement. Le détail et la promotion figurent dans
+[live-subtitle-sync-upstream.md](live-subtitle-sync-upstream.md).
+
+Dix tests Python passent sur des dépôts temporaires : préservation des deux
+historiques, mises à jour sans duplication du patch, conflits nommés, refus d'un
+worktree sale, pins upstream, absence de mutation si inchangé, restriction au
+fork, reprise des runs actifs, preuve exacte avant PR et retour au brouillon.
+Actionlint 1.7.12 ne signale aucune erreur sur les six workflows concernés.
+
+GitHub confirme le workflow `359481988` actif sur la branche par défaut du fork.
+Le premier dispatch immédiat a reçu un 404 pendant l'enregistrement ; après
+vérification de l'API, le run réel `35078100333` est créé. Le réglage autorisant
+Actions à créer les PRs est activé ; les permissions par défaut restent en lecture.
+Aucun token personnel n'est ajouté. Aucun workflow n'approuve ou ne fusionne une PR.
+Le run sans changement et l'exercice complet restent à vérifier ; installation
+et tests locaux ne sont pas présentés comme une intégration native réussie.
