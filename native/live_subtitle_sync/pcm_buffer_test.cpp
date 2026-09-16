@@ -109,8 +109,8 @@ void invalid_pcm() {
   float bad = std::numeric_limits<float>::quiet_NaN();
   PcmPacket packet{7, 1, 0, 1, 16000, 1, 1, 1, "float", reinterpret_cast<uint8_t*>(&bad), sizeof(bad)};
   require(buffer.append(packet) == PcmResult::invalid, "NaN accepted");
-  packet.channels = 6;
-  require(buffer.append(packet) == PcmResult::unsupported_layout, "surround speaker order guessed");
+  packet.channels = 9;
+  require(buffer.append(packet) == PcmResult::unsupported_layout, "unbounded channel layout accepted");
   packet.channels = 1;
   packet.size = 1;
   require(buffer.append(packet) == PcmResult::invalid, "truncated sample accepted");
@@ -157,6 +157,43 @@ void sample_representations() {
   constant_format<double>("doublep", 0.25, 0.5, true);
 }
 
+void multichannel_analysis() {
+  // A dialogue signal in ANY channel must survive analysis, without assuming
+  // that a particular index denotes the center speaker. Test both storage
+  // layouts and verify the supplied PCM remains byte-for-byte unchanged.
+  for (int channels : {3, 6, 8}) {
+    for (bool planar : {false, true}) {
+      for (int active = 0; active < channels; ++active) {
+        PcmBuffer buffer;
+        buffer.reset(7);
+        constexpr int count = 1024;
+        std::vector<float> samples(count * channels, 0);
+        for (int i = 0; i < count; ++i) samples[planar ? active * count + i : i * channels + active] = 0.75f;
+        const auto original = samples;
+        PcmPacket packet{
+            7,
+            1,
+            123,
+            1,
+            16000,
+            channels,
+            count,
+            planar ? channels : 1,
+            planar ? "floatp" : "float",
+            reinterpret_cast<const uint8_t*>(samples.data()),
+            samples.size() * sizeof(float)};
+        require(buffer.append(packet) == PcmResult::accepted, "multichannel PCM rejected");
+        const auto window = buffer.recent(15);
+        require(window.samples.size() > 900, "multichannel analysis missing");
+        for (float value : window.samples)
+          require(std::abs(value - 0.75f / channels) < 1e-6, "dialogue channel lost or misweighted");
+        require(samples == original, "analysis modified source PCM");
+        require(window.media_start >= 123 && window.media_start < 123.01, "multichannel PTS lost");
+      }
+    }
+  }
+}
+
 int main() {
   try {
     const auto started = std::chrono::steady_clock::now();
@@ -165,6 +202,7 @@ int main() {
     bounded_storage_and_generation();
     invalid_pcm();
     sample_representations();
+    multichannel_analysis();
     const double seconds = std::chrono::duration<double>(std::chrono::steady_clock::now() - started).count();
     std::cout << "PCM consumer tests passed in " << seconds << " seconds\n";
     return EXIT_SUCCESS;

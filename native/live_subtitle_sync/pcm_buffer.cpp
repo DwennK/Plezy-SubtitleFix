@@ -135,7 +135,7 @@ void PcmBuffer::reset(uint64_t generation) {
 PcmResult PcmBuffer::append(const PcmPacket& p) {
   auto& s = *impl_;
   if (p.generation != s.generation) return PcmResult::stale;
-  if (p.channels > 2) {
+  if (p.channels > 8) {
     s.clear();
     return PcmResult::unsupported_layout;
   }

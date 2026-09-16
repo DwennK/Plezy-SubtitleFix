@@ -9,7 +9,9 @@
 namespace livesync {
 
 // Worker-owned: no method may run on the audio callback or UI thread.
-// v1 capture has no speaker map, so only mono/stereo are accepted here.
+// Analysis averages every channel with equal weight, independent of speaker
+// order. This deliberately does not implement a speaker-specific output mix.
+// Mono through eight-channel PCM are accepted; audible playback is untouched.
 struct PcmPacket {
   uint64_t generation;
   int64_t epoch;

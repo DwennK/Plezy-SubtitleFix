@@ -161,11 +161,16 @@ are capped at 240,000 samples (15 seconds). Input packets remain capped at
 Generation mismatches are rejected without affecting current audio. Epoch,
 PTS, rate, format, channel count and frame-speed discontinuities clear history.
 Reset/destruction erases retained dialogue. No disk, network or logging occurs
-in this component. The production worker/inference lifecycle is not wired yet.
+in this component. The production controller owns this worker through its
+dedicated Dart isolate and the active player's weak native client.
 
-The v1 tap omits speaker positions, so this stage accepts only mono/stereo.
-Surround support requires an explicit capture-protocol extension and native
-rebuilds; do not guess a surround downmix from the channel count alone.
+The v1 tap omits speaker positions. Analysis therefore averages all channels
+equally (one through eight), without assigning speaker roles or applying a
+guessed center/LFE matrix. This is an analysis signal, not the audible downmix:
+input PCM and speaker routing remain unchanged. Synthetic tests place dialogue
+in every possible channel in packed and planar layouts. Real multichannel
+recognition still requires end-to-end evidence; a genuine surround mix may be
+less intelligible than the designated calibration fixture.
 
 ```sh
 cmake -S native/live_subtitle_sync -B build/livesync/pcm-consumer -DCMAKE_BUILD_TYPE=Release
