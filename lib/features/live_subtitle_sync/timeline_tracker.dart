@@ -45,9 +45,24 @@ class TimelineTracker {
   }
 
   bool observe(List<SubtitleAnchor> anchors) {
+    var changed = false;
     for (final anchor in anchors) {
+      final previous = _pending[anchor.cue] ?? _continuous[anchor.cue];
+      if (previous != null &&
+          previous.subtitleTime == anchor.subtitleTime &&
+          previous.mediaTime == anchor.mediaTime &&
+          previous.uncertainty == anchor.uncertainty &&
+          previous.phrase == anchor.phrase) {
+        continue;
+      }
       _pending[anchor.cue] = anchor;
+      changed = true;
     }
+    // Adjacent transcript context can repeat the exact previous cue starts.
+    // Reusing that text helps recognition, but does not confirm a mapping or
+    // justify shrinking the next analysis window. A reset clears both sets,
+    // so genuinely reobserved evidence can still validate a cached region.
+    if (!changed) return false;
     while (_pending.length > 24) {
       _pending.remove(_pending.keys.first);
     }
