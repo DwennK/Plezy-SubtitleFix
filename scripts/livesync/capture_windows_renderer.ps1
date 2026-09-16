@@ -1,6 +1,7 @@
 param(
   [Parameter(Mandatory=$true)][string]$Executable,
-  [Parameter(Mandatory=$true)][string]$OutputDirectory
+  [Parameter(Mandatory=$true)][string]$OutputDirectory,
+  [string]$DebuggerExecutable = ''
 )
 $ErrorActionPreference = 'Stop'
 Add-Type -AssemblyName System.Drawing
@@ -23,8 +24,29 @@ $executablePath = (Resolve-Path $Executable).Path
 $outputPath = (Resolve-Path $OutputDirectory).Path
 $screen = [System.Windows.Forms.Screen]::PrimaryScreen.WorkingArea
 $startedAt = [DateTime]::UtcNow
-$process = Start-Process -FilePath $executablePath -WorkingDirectory (Split-Path $executablePath) -PassThru -RedirectStandardOutput (Join-Path $outputPath 'stdout.log') -RedirectStandardError (Join-Path $outputPath 'stderr.log')
+$process = $null
+$debugger = $null
+$captureFinished = $false
 try {
+  if ($DebuggerExecutable) {
+    $debuggerPath = (Resolve-Path $DebuggerExecutable).Path
+    $pidFile = Join-Path $outputPath 'debuggee.pid'
+    Remove-Item $pidFile -ErrorAction SilentlyContinue
+    $debugger = Start-Process -FilePath $debuggerPath -ArgumentList ('"{0}" "{1}"' -f $outputPath, $executablePath) -PassThru -RedirectStandardOutput (Join-Path $outputPath 'stdout.log') -RedirectStandardError (Join-Path $outputPath 'stderr.log')
+    $deadline = [DateTime]::UtcNow.AddSeconds(10)
+    while (-not (Test-Path $pidFile)) {
+      $debugger.Refresh()
+      if ($debugger.HasExited) { throw 'Native debugger exited before reporting its child' }
+      if ([DateTime]::UtcNow -gt $deadline) { throw 'Native debugger startup deadline exceeded' }
+      Start-Sleep -Milliseconds 50
+    }
+    # The writer closes this tiny file before continuing any target event.
+    $childId = [int](Get-Content $pidFile -Raw)
+    $process = Get-Process -Id $childId
+    $null = $process.Handle # Retain the native handle for reliable exit-code reads.
+  } else {
+    $process = Start-Process -FilePath $executablePath -WorkingDirectory (Split-Path $executablePath) -PassThru -RedirectStandardOutput (Join-Path $outputPath 'stdout.log') -RedirectStandardError (Join-Path $outputPath 'stderr.log')
+  }
   $deadline = [DateTime]::UtcNow.AddSeconds(60)
   do {
     $process.Refresh()
@@ -87,11 +109,13 @@ try {
     captures = $captures
     visualInspectionRequired = $true
     automaticSynchronizationValidated = $false
+    nativeDebugger = [bool]$DebuggerExecutable
   } | ConvertTo-Json -Depth 5 | Set-Content (Join-Path $outputPath 'capture-provenance.json')
+  $captureFinished = $true
 } catch {
   $failureReason = $_.Exception.Message
-  $process.Refresh()
-  $exited = $process.HasExited
+  if ($null -ne $process) { $process.Refresh() }
+  $exited = $null -ne $process -and $process.HasExited
   if ($exited) { $process.WaitForExit() }
   $exitCode = if ($exited) { $process.ExitCode } else { $null }
   @{
@@ -102,6 +126,8 @@ try {
     processExitCode = $exitCode
     elapsedSeconds = ([DateTime]::UtcNow - $startedAt).TotalSeconds
     source = 'dedicated synthetic renderer process'
+    nativeDebugger = [bool]$DebuggerExecutable
+    processObserved = $null -ne $process
   } | ConvertTo-Json | Set-Content (Join-Path $outputPath 'driver-failure.json')
   # A native crash may leave neither a Dart exception nor a live window. Keep
   # the OS fault record for this executable on the disposable hosted runner.
@@ -138,8 +164,8 @@ try {
     Set-Content (Join-Path $outputPath 'process-fault-events.json')
   # Preserve the real window on failure too, so a UI initialization error is
   # distinguishable from a video/clock failure. This runner contains no user data.
-  $process.Refresh()
-  if (-not $process.HasExited -and $process.MainWindowHandle -ne [IntPtr]::Zero) {
+  if ($null -ne $process) { $process.Refresh() }
+  if ($null -ne $process -and -not $process.HasExited -and $process.MainWindowHandle -ne [IntPtr]::Zero) {
     $rect = New-Object LiveSyncProbeWindow+Rect
     [LiveSyncProbeWindow]::SetForegroundWindow($process.MainWindowHandle) | Out-Null
     Start-Sleep -Milliseconds 200
@@ -154,9 +180,16 @@ try {
   }
   throw
 } finally {
-  $process.Refresh()
-  if (-not $process.HasExited) {
-    $process.CloseMainWindow() | Out-Null
-    if (-not $process.WaitForExit(3000)) { $process.Kill() }
+  if ($null -ne $process) {
+    $process.Refresh()
+    if (-not $process.HasExited) {
+      $process.CloseMainWindow() | Out-Null
+      if (-not $process.WaitForExit(3000)) { $process.Kill() }
+    }
+  }
+  if ($null -ne $debugger) {
+    if (-not $debugger.WaitForExit(5000)) { $debugger.Kill() }
+    $debugger.WaitForExit()
+    if ($captureFinished -and $debugger.ExitCode -ne 0) { throw "Native debugger reported failure: $($debugger.ExitCode)" }
   }
 }

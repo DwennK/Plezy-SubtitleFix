@@ -31,6 +31,10 @@ on:
         description: Run only the dedicated renderer after a completed native/application probe run
         type: boolean
         default: false
+      debug_renderer:
+        description: Observe native first/second-chance exceptions in the synthetic renderer (timing changes under debugger)
+        type: boolean
+        default: false
       seed_wrong_gap:
         description: Seed a wrong cached video-only region and verify recovery (use with immediate subtitles and no startup seek)
         type: boolean
@@ -69,6 +73,17 @@ jobs:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
         with:
           persist-credentials: false
+      - name: Build and verify the optional native exception observer
+        if: ${{ inputs.debug_renderer }}
+        shell: pwsh
+        run: |
+          New-Item -ItemType Directory -Force build/livesync/evidence | Out-Null
+          cmake -S scripts/livesync/windows_debugger -B build/livesync/windows-debugger -A x64
+          if ($LASTEXITCODE -ne 0) { throw 'Debugger configure failed' }
+          cmake --build build/livesync/windows-debugger --config Release
+          if ($LASTEXITCODE -ne 0) { throw 'Debugger build failed' }
+          python scripts/livesync/windows_debugger/test_debugger.py build/livesync/windows-debugger/Release/livesync_windows_debugger.exe > build/livesync/evidence/debugger-contracts.json
+          if ($LASTEXITCODE -ne 0) { throw 'Debugger contracts failed' }
       - name: Stage the patched native package with checked build provenance
         shell: pwsh
         env:
@@ -228,7 +243,8 @@ jobs:
           ffmpeg -version > build/livesync/evidence/renderer/fixture-generator.txt
           flutter build windows "--$env:FLUTTER_BUILD_MODE" --no-pub --target tool/livesync_player_probe.dart "--dart-define=LIVESYNC_FIXTURE_DIR=$fixture" "--dart-define=LIVESYNC_RENDERER_AUTOMATION_DIR=$evidence"
           if ($LASTEXITCODE -ne 0) { throw 'Dedicated renderer build failed' }
-          ./scripts/livesync/capture_windows_renderer.ps1 -Executable "$env:APP_BUNDLE/plezy_livesync.exe" -OutputDirectory $evidence
+          $debugger = if ('${{ inputs.debug_renderer }}' -eq 'true') { 'build/livesync/windows-debugger/Release/livesync_windows_debugger.exe' } else { '' }
+          ./scripts/livesync/capture_windows_renderer.ps1 -Executable "$env:APP_BUNDLE/plezy_livesync.exe" -OutputDirectory $evidence -DebuggerExecutable $debugger
       - name: Verify actual automatic correction in the production controller
         # Renderer failure still fails the job, but must not discard an
         # independent controller observation when its native runtime passed.
