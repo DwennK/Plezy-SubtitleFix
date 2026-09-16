@@ -1,0 +1,69 @@
+{
+  "schemaVersion": 1,
+  "id": "scene-edits-development-v1",
+  "role": "development-regression-only",
+  "mainSource": {
+    "id": "sintel-stereo-en",
+    "media": {
+      "name": "sintel-master-st.flac",
+      "url": "https://media.xiph.org/sintel/sintel-master-st.flac",
+      "bytes": 71533398,
+      "sha256": "49b279400b6fcad23f6a8862ae65a2a22f21f249cd7576b09991880da221412b",
+      "checksumSource": "https://media.xiph.org/sintel/SHA256SUMS.txt"
+    },
+    "subtitles": {
+      "name": "sintel_en.srt",
+      "url": "https://media.xiph.org/sintel/subtitles/sintel_en.srt",
+      "bytes": 1514,
+      "sha256": "4ed7e1f1bc5ff69fe33606960e4c048ba6766237bf33b132fef76e1a92cb64b2"
+    },
+    "attribution": "Copyright (c) Blender Foundation | durian.blender.org",
+    "license": "CC-BY-3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/3.0/",
+    "partitionSeconds": [
+      100,
+      175
+    ]
+  },
+  "insertSource": {
+    "id": "elephants-dream-commons-en",
+    "media": {
+      "name": "Elephants_Dream.ogv",
+      "url": "https://upload.wikimedia.org/wikipedia/commons/d/d5/Elephants_Dream.ogv",
+      "sourcePage": "https://commons.wikimedia.org/wiki/File:Elephants_Dream.ogv",
+      "publishedAt": "2009-12-24T02:08:36Z",
+      "bytes": 35614993,
+      "sha256": "a4b7c7888645d54255a2eeb0d509146b83761b1ac03dd0eff546994832fa3a18",
+      "publishedSha1": "9a6272dc01919e2b891f0dadb8cbabf9a61d23ad",
+      "license": "CC-BY-SA-2.5",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.5/",
+      "attribution": "(c) copyright 2006, Blender Foundation / Netherlands Media Art Institute / www.elephantsdream.org; Commons Ogg encoding by Mdale"
+    },
+    "partitionSeconds": [
+      14,
+      44
+    ]
+  },
+  "sampleRate": 48000,
+  "channels": 2,
+  "sampleFormat": "signed-16-bit-little-endian",
+  "cases": {
+    "added-scene": {
+      "kind": "insert",
+      "atSubtitleSeconds": 134.5
+    },
+    "removed-scene": {
+      "kind": "remove",
+      "startSubtitleSeconds": 134.5,
+      "endSubtitleSeconds": 147.5
+    },
+    "added-scene-crossing-cue": {
+      "kind": "insert",
+      "atSubtitleSeconds": 136.25
+    }
+  },
+  "reference": "Exact sample-domain edit transform, not manually annotated acoustic onsets. Full original Sintel SRT bytes remain unchanged.",
+  "heldoutStatus": "All used partitions were previously consumed for development. Elephants Dream 360-540 s remains untouched.",
+  "sourceMaterialDecodedOnlyForFixturePreparation": true,
+  "inferencePerformed": false
+}
