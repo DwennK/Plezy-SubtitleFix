@@ -43,8 +43,16 @@ Les limites ne sont pas des validations. Les preuves historiques gardent leur SH
   acquisition en 23,373 s et erreur de calibration 182,7 ms. Le coût d'extraction
   Plex lui-même demeure.
 - **Candidat combiné**, `114301c0` : 153 tests locaux et analyse passent ;
-  run `35103325258` vérifie un seek réel au milieu de l'initialisation. Il s'agit
-  d'une investigation de concurrence, pas d'un correctif déjà prouvé.
+  run `35103325258` échoue après un seek pendant l'initialisation, sans analyse.
+  Le correctif `a5838cbe` acquiert ensuite le décalage et passe les contrôles de
+  seek, délai manuel/audio, cache et arrêt dans le run Windows `35104648989`.
+  [Comparaison native et build Mac](livesync-evidence/startup-seek-a5838cbe-comparison.json).
+  L'acquisition de calibration prend **52,022 s**, au-delà du budget initial de
+  **45 s** ; l'intro-90 prend 125,266 s. La PR interne nº 2 reste brouillon.
+- **Revalidation des gaps en cache**, `ccde2f31` : trois régressions reproduites,
+  puis sept nouveaux cas et les contrôles existants passent ; analyse locale et
+  CI Dart `35106046085` réussissent. Cette branche séparée n'est pas dans le
+  build `a5838cbe` et n'ajoute pas la détection automatique des gaps.
 
 ## Point utilisateur prioritaire
 

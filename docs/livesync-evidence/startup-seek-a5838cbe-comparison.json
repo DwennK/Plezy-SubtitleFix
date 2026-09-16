@@ -1,0 +1,258 @@
+{
+  "schema": 1,
+  "recordedAt": "2026-09-16T14:17:45.747551+00:00",
+  "sourceSha": "a5838cbe26be02e3a19f259661e48c10c0994d7e",
+  "pullRequest": "https://github.com/DwennK/Plezy-SubtitleFix/pull/2",
+  "before": {
+    "sourceSha": "114301c0021106f0d261b3ecc46b58170d147067",
+    "runId": 35103325258,
+    "conclusion": "failure",
+    "result": {
+      "sha256": "bbd65703c2e36a8e2be6412b983a387d8e944e070965094db57cfffee1161904",
+      "report": {
+        "passed": false,
+        "phase": "acquisition-timeout",
+        "analyses": [
+          {
+            "selectedAudioLanguage": "eng",
+            "selectedSubtitleLanguage": "eng",
+            "subtitleExternal": true,
+            "subtitleSourceMatchesFixture": true
+          },
+          {
+            "startupSubtitlesMs": 958,
+            "mappingCacheEligible": true,
+            "restoredSegments": 0
+          },
+          {
+            "startupCaptureMs": 8949,
+            "captureReadyBeforeSubtitles": false
+          },
+          {
+            "startupReadyMs": 8953,
+            "startupBufferedSamples": 0
+          },
+          {
+            "inferenceBackend": "avx2-cpu"
+          }
+        ],
+        "failureCode": null
+      }
+    }
+  },
+  "after": {
+    "runId": 35104648989,
+    "conclusion": "success",
+    "reports": {
+      "calibration-player-calibration.json": {
+        "sha256": "bd6ab32a1920d57eb9055c9ffc379db65933e7d602dd2b42f16cdeeb52fdd71d",
+        "report": {
+          "kind": "actual-plezy-production-controller-calibration",
+          "subtitleLoadDelayMs": 0,
+          "seekDuringStartupValidated": true,
+          "startupDiagnostics": [
+            {
+              "startupSubtitlesMs": 775,
+              "mappingCacheEligible": true,
+              "restoredSegments": 0
+            },
+            {
+              "startupCaptureMs": 5964,
+              "captureReadyBeforeSubtitles": false
+            },
+            {
+              "startupReadyMs": 5970,
+              "startupBufferedSamples": 0
+            }
+          ],
+          "captureDuringSubtitleLoadValidated": false,
+          "platform": "windows",
+          "inferenceBackend": "avx2-cpu",
+          "expectedOffset": -100.0,
+          "absoluteOffsetError": 0.0019791666666435503,
+          "maximumOffsetError": 0.75,
+          "modelId": "base.en",
+          "modelSha256": "a03779c86df3323075f5e796cb2ce5029f00ec8869eee3fdfb897afe36c6d002",
+          "fixtureCase": "calibration",
+          "introSilenceSeconds": 0,
+          "actualOffset": -100.00197916666664,
+          "reference": "authored Sintel SRT, not precise acoustic-onset ground truth",
+          "acquisitionMs": 52022,
+          "nativeDelay": -99.876976,
+          "audioPartitionSeconds": [
+            100,
+            175
+          ],
+          "audioOutput": "pcm-to-NUL",
+          "audiblePlaybackValidated": false,
+          "pcmOrTranscriptPersisted": false,
+          "postConfirmationOffset": -100.00197916666664,
+          "knownRegionRestoredAfterSeek": true,
+          "unknownSeekClearsAutomaticOnly": true,
+          "audioDelayCompositionAndPreservation": true,
+          "cacheRestoreMs": 1984,
+          "persistentCacheKnownAndUnknownRegions": true,
+          "manualDelayDuringAndAfter": true,
+          "tapDisabledOnClose": true,
+          "passed": true
+        }
+      },
+      "calibration-player-intro-90.json": {
+        "sha256": "652dca4bf82807f3493114e806c935fd4b05ff0bed172ec83a24cba0a9fd46d8",
+        "report": {
+          "kind": "actual-plezy-production-controller-calibration",
+          "subtitleLoadDelayMs": 0,
+          "seekDuringStartupValidated": true,
+          "startupDiagnostics": [
+            {
+              "startupSubtitlesMs": 503,
+              "mappingCacheEligible": true,
+              "restoredSegments": 0
+            },
+            {
+              "startupCaptureMs": 7392,
+              "captureReadyBeforeSubtitles": false
+            },
+            {
+              "startupReadyMs": 7403,
+              "startupBufferedSamples": 0
+            }
+          ],
+          "captureDuringSubtitleLoadValidated": false,
+          "platform": "windows",
+          "inferenceBackend": "avx2-cpu",
+          "expectedOffset": 90.0,
+          "absoluteOffsetError": 0.24662499999999454,
+          "maximumOffsetError": 0.75,
+          "modelId": "base.en",
+          "modelSha256": "a03779c86df3323075f5e796cb2ce5029f00ec8869eee3fdfb897afe36c6d002",
+          "fixtureCase": "intro-90",
+          "introSilenceSeconds": 90,
+          "actualOffset": 89.753375,
+          "reference": "authored Sintel SRT, not precise acoustic-onset ground truth",
+          "acquisitionMs": 125266,
+          "nativeDelay": 89.878372,
+          "audioPartitionSeconds": [
+            100,
+            175
+          ],
+          "audioOutput": "pcm-to-NUL",
+          "audiblePlaybackValidated": false,
+          "pcmOrTranscriptPersisted": false,
+          "postConfirmationOffset": 89.773375,
+          "knownRegionRestoredAfterSeek": true,
+          "unknownSeekClearsAutomaticOnly": true,
+          "audioDelayCompositionAndPreservation": true,
+          "cacheRestoreMs": 1951,
+          "persistentCacheKnownAndUnknownRegions": true,
+          "manualDelayDuringAndAfter": true,
+          "tapDisabledOnClose": true,
+          "passed": true
+        }
+      }
+    }
+  },
+  "macOS": {
+    "runId": 35104652372,
+    "conclusion": "success",
+    "nativeContracts": {
+      "sha256": "1571852a7fedd11e846bda5c2f4f2bc96d08cd060c4ba934e001bfaffbe55dc3",
+      "report": {
+        "devicesAndConfigurations": [
+          {
+            "device": {
+              "architecture": "arm64",
+              "deviceId": "3d66070c580d78678c6132c2ac2439d38b6db84e",
+              "deviceName": "My Mac",
+              "modelName": "Apple Virtual Machine 1",
+              "osBuildNumber": "25G83",
+              "osVersion": "26.6.2",
+              "platform": "macOS"
+            },
+            "expectedFailures": 0,
+            "failedTests": 0,
+            "passedTests": 14,
+            "skippedTests": 0,
+            "testPlanConfiguration": {
+              "configurationId": "1",
+              "configurationName": "Test Scheme Action"
+            }
+          }
+        ],
+        "environmentDescription": "Runner \u00b7 Built with macOS 26.6.2",
+        "expectedFailures": 0,
+        "failedTests": 0,
+        "finishTime": 1789567299.802,
+        "passedTests": 14,
+        "result": "Passed",
+        "skippedTests": 0,
+        "startTime": 1789567255.591,
+        "statistics": [],
+        "testFailures": [],
+        "title": "Test - Runner",
+        "topInsights": [
+          {
+            "category": "Longest Test Runs",
+            "impact": "60% of duration",
+            "text": "1 longest test run with outlier durations exceeding 0.77s (three standard deviations)"
+          }
+        ],
+        "totalTestCount": 14
+      }
+    },
+    "artifact": {
+      "candidateSha": "a5838cbe26be02e3a19f259661e48c10c0994d7e",
+      "workflowRun": 35104652372,
+      "bundleId": "com.dwennk.plezy.livesync",
+      "version": "2.20.0",
+      "build": "150",
+      "architecture": "arm64",
+      "strictSignatureVerified": true,
+      "bytes": 125633218,
+      "sha256": "8ad73e21bf3e9678335e5ffc627d4815b30bb925af5effb183c986bfeeb49e78",
+      "installed": false,
+      "launched": false,
+      "MentalistValidated": false
+    }
+  },
+  "dartCI": {
+    "runId": 35104721069,
+    "conclusion": "success"
+  },
+  "fullUpstreamCI": {
+    "runId": 35104724035,
+    "conclusion": "pending-at-recording"
+  },
+  "renderer": {
+    "inspectedImages": {
+      "gap-hidden.png": "8953a569ee1d81ec2ab73ee7f788c55b2dc4a8d537dd37123878f1d2c25ec44e",
+      "gap-shown-manual.png": "954308c1290396172de173f9227b831640009e88dbb351d1e03d788634e74bbf",
+      "gap-restored.png": "485981b84bd96ee0924fea28e72b1268bbc240c03980f524d73e718e7aac6319",
+      "gap-release-manual-hidden.png": "5914a6ff3bfb5abbb51edc7de13afd4defcee8488ea315b12cffbbee0c671d3f",
+      "manual-shown.png": "528d2fff3ab612d83df8b69dddb6ea52099904a64c610d85ad6e2cb8e1b69f74"
+    },
+    "visibleCueOnlyIn": [
+      "gap-restored.png",
+      "manual-shown.png"
+    ]
+  },
+  "acceptance": {
+    "startupSeekLiveness": true,
+    "calibrationAcquisitionMs": 52022,
+    "initialAcquisitionBudgetMs": 45000,
+    "initialAcquisitionBudgetPassed": false,
+    "intro90AcquisitionMs": 125266,
+    "intro90BudgetMs": 135000,
+    "intro90BudgetPassed": true,
+    "fullProductAcceptance": false
+  },
+  "limits": [
+    "Sintel authored captions are not manual acoustic-onset ground truth.",
+    "Windows PCM-to-NUL does not validate audible playback.",
+    "Corrected startup-seek acquisition exceeds the chosen 45-second initial budget.",
+    "This run uses immediate subtitles; delayed-source evidence remains scoped to 41dba5c5.",
+    "The scene renderer exercises explicit known gaps, not automatic gap discovery.",
+    "Mentalist and the installed Mac UI remain unvalidated.",
+    "The separate ccde2f31 cache fix is absent from this candidate."
+  ]
+}

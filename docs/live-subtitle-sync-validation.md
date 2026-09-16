@@ -1700,3 +1700,29 @@ Il s'agit de lectures PCM natives et du contrôleur de production avec une sourc
 SRT locale contrôlée, sans sortie audible. Cela valide le recouvrement des deux
 préparations, pas un gain chronométré sur Plex, une précision indépendante ou
 Mentalist. L'essai de seek pendant l'initialisation reste distinct.
+
+
+### Démarrage avec déplacement de lecture — 16 septembre, candidat a5838cbe
+
+Le run Windows pré-correctif `35103325258` (`114301c0`) atteint la capture,
+puis expire sans aucune analyse après le seek. Le run `35104648989`
+(`a5838cbe`) passe le même scénario avec un minuteur détenu avant les derniers
+awaits de démarrage. Calibration : acquisition 52,022 s, erreur par rapport au
+SRT 1,979 ms ; intro-90 : 125,266 s, erreur 246,625 ms. Ces erreurs de deux cas
+ne constituent pas une médiane ou une mesure de précision sur corpus indépendant.
+Le budget initial de 45 s reste dépassé. Les contrôles manuel/audio, cache,
+allers-retours et arrêt passent dans les deux cas.
+
+Le build macOS du même SHA et ses 14 contrats natifs passent. L'archive a été
+extraite ; arm64, identité `com.dwennk.plezy.livesync` et signature stricte sont
+vérifiés. Elle n'est ni installée ni lancée sur le Mac utilisateur. Les cinq
+captures Windows de masquage/restauration ont été inspectées. Voir la
+[preuve structurée](livesync-evidence/startup-seek-a5838cbe-comparison.json).
+La CI upstream complète est encore en cours lors de ce relevé ; la PR interne
+nº 2 demeure brouillon et le code maintenu reste celui de `10ace9fc`.
+
+Le correctif indépendant `ccde2f31` retire un gap en cache contredit par plusieurs
+repères frais internes. Sept nouveaux cas couvrent les deux timelines, les
+frontières incertaines, les répétitions et les seeks ; 51 tests ciblés passent,
+ainsi que l'analyse et la CI Dart `35106046085`. Ce correctif n'est pas dans le
+build applicatif ci-dessus. Mentalist S2 E16 reste non validé dans le lecteur.
