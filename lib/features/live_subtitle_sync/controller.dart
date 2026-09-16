@@ -18,6 +18,7 @@ import 'runtime_paths.dart';
 import 'subtitle_index.dart';
 import 'subtitle_parser.dart';
 import 'subtitle_source.dart';
+import 'timeline_map.dart';
 import 'timeline_tracker.dart';
 import 'transcript_context.dart';
 import 'transcript_matcher.dart';
@@ -318,6 +319,8 @@ class LiveSubtitleSyncController extends ChangeNotifier {
           await player.setLiveSubtitleOffset(0);
           if (!enabled || generation != _generation) return;
         }
+        await player.setLiveSubtitleSuppressed(false);
+        if (!enabled || generation != _generation) return;
         _state(LiveSyncPhase.resyncing);
       }
       _continuity = status.continuity;
@@ -432,7 +435,21 @@ class LiveSubtitleSyncController extends ChangeNotifier {
           if (error is NativeSyncException && error.nativeStatus != null) 'nativeStatus': error.nativeStatus,
         });
       }
-      if (enabled && generation == _generation) _state(LiveSyncPhase.unable, LiveSyncReason.nativeRuntime);
+      if (enabled && generation == _generation) {
+        final rejectedInference =
+            error is NativeSyncException &&
+            (error.reason == NativeSyncFailure.inferenceUnavailable || error.reason == NativeSyncFailure.invalidOutput);
+        if (!rejectedInference) {
+          try {
+            // A failed capture/control path can stop clock updates. Its mask
+            // must not keep hiding dialogue after playback has left the gap.
+            await _clearAutomaticPresentation(generation: generation);
+          } catch (_) {
+            // Preserve the failure state; explicit disable may retry cleanup.
+          }
+        }
+        if (enabled && generation == _generation) _state(LiveSyncPhase.unable, LiveSyncReason.nativeRuntime);
+      }
     } finally {
       _tickBusy = false;
     }
@@ -444,10 +461,23 @@ class LiveSubtitleSyncController extends ChangeNotifier {
     final correction = _timeline.correctionAt(position, audioDelay: audioDelay);
     final offset = correction.position.automaticDelay;
     if (offset == null) {
+      final suppressed = correction.position.kind == TimelineRegionKind.videoOnly;
+      if (suppressed) {
+        // Mask first, before clearing a previous delay could expose future
+        // dialogue inside an explicitly confirmed absence of correspondence.
+        await player.setLiveSubtitleSuppressed(true);
+        if (!enabled || generation != _generation) return false;
+      }
       if (automaticOffset != null) {
         await player.setLiveSubtitleOffset(0);
         if (!enabled || generation != _generation) return false;
         automaticOffset = null;
+        _state(LiveSyncPhase.resyncing);
+      }
+      if (!suppressed) {
+        await player.setLiveSubtitleSuppressed(false);
+        if (!enabled || generation != _generation) return false;
+      } else if (phase != LiveSyncPhase.resyncing) {
         _state(LiveSyncPhase.resyncing);
       }
       return false;
@@ -457,6 +487,9 @@ class LiveSubtitleSyncController extends ChangeNotifier {
       if (!enabled || generation != _generation) return false;
       automaticOffset = offset;
     }
+    // Apply the new mapping before revealing subtitles when leaving a gap.
+    await player.setLiveSubtitleSuppressed(false);
+    if (!enabled || generation != _generation) return false;
     if (phase != LiveSyncPhase.synced) _state(LiveSyncPhase.synced);
     return correction.established;
   }
@@ -476,10 +509,21 @@ class LiveSubtitleSyncController extends ChangeNotifier {
       await player.setLiveSubtitleOffset(0);
       if (enabled && generation == _generation) {
         _state(LiveSyncPhase.resyncing);
-        if (target != null) await _applyCorrection(target.inMicroseconds / 1e6, generation);
+        if (target != null) {
+          await _applyCorrection(target.inMicroseconds / 1e6, generation);
+        } else {
+          await player.setLiveSubtitleSuppressed(false);
+        }
       }
     } catch (_) {
-      if (enabled) _state(LiveSyncPhase.unable, LiveSyncReason.nativeRuntime);
+      if (enabled && generation == _generation) {
+        try {
+          await player.setLiveSubtitleSuppressed(false);
+        } catch (_) {
+          // Keep the error state; the next tick or explicit stop can retry.
+        }
+        if (enabled && generation == _generation) _state(LiveSyncPhase.unable, LiveSyncReason.nativeRuntime);
+      }
     }
   }
 
@@ -493,25 +537,41 @@ class LiveSubtitleSyncController extends ChangeNotifier {
     _timer = null;
     final worker = _worker;
     _worker = null;
-    if (worker != null) {
-      final retirement = worker.close();
-      _retiringWorker = retirement;
-      try {
-        await retirement;
-      } finally {
-        if (identical(_retiringWorker, retirement)) _retiringWorker = null;
+    try {
+      if (worker != null) {
+        final retirement = worker.close();
+        _retiringWorker = retirement;
+        try {
+          await retirement;
+        } finally {
+          if (identical(_retiringWorker, retirement)) _retiringWorker = null;
+        }
+      }
+    } finally {
+      if (enabled && generation == _generation) {
+        await _clearAutomaticPresentation(generation: generation);
+        if (enabled && generation == _generation) {
+          _timeline.clear();
+          _transcriptContext.clear();
+          _state(phase, reason);
+        }
       }
     }
-    if (!enabled || generation != _generation) return;
-    await player.setLiveSubtitleOffset(0);
-    if (!enabled || generation != _generation) return;
-    automaticOffset = null;
-    _timeline.clear();
-    _transcriptContext.clear();
-    _state(phase, reason);
   }
 
   Future<void> _stopSession() => _stopping ??= _stop().whenComplete(() => _stopping = null);
+
+  Future<void> _clearAutomaticPresentation({int? generation}) async {
+    bool current() => generation == null || (enabled && generation == _generation);
+    try {
+      await player.setLiveSubtitleOffset(0);
+      if (current()) automaticOffset = null;
+    } finally {
+      // A failed delay write must not strand a temporary visibility mask.
+      // A superseded tick must not release a newer generation's mask either.
+      if (current()) await player.setLiveSubtitleSuppressed(false);
+    }
+  }
 
   Future<void> _stop() async {
     enabled = false;
@@ -520,17 +580,27 @@ class LiveSubtitleSyncController extends ChangeNotifier {
     _timer = null;
     _sourceAbort?.abort();
     _shared?.models.cancel(preferredModel);
-    await _loading;
-    final worker = _worker;
-    _worker = null;
-    await worker?.close();
-    await _retiringWorker;
-    await player.setLiveSubtitleOffset(0);
-    automaticOffset = null;
-    _index = null;
-    _cacheKey = null;
-    _timeline.clear();
-    _transcriptContext.clear();
-    _state(LiveSyncPhase.off);
+    try {
+      await _loading;
+      final worker = _worker;
+      _worker = null;
+      await worker?.close();
+      await _retiringWorker;
+    } finally {
+      var presentationRestored = false;
+      try {
+        await _clearAutomaticPresentation();
+        presentationRestored = true;
+      } finally {
+        _index = null;
+        _cacheKey = null;
+        _timeline.clear();
+        _transcriptContext.clear();
+        _state(
+          presentationRestored ? LiveSyncPhase.off : LiveSyncPhase.unable,
+          presentationRestored ? null : LiveSyncReason.nativeRuntime,
+        );
+      }
+    }
   }
 }
