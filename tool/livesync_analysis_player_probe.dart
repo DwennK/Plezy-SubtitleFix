@@ -54,6 +54,14 @@ class _ProbeState extends State<_Probe> {
     final diagnostics = <Map<String, Object?>>[];
     try {
       check(directory.isNotEmpty, 'fixture');
+      final provenance = jsonDecode(await File('$directory/fixture-provenance.json').readAsString()) as Map;
+      final expectedOffset = (provenance['expectedOffsetSeconds'] as num).toDouble();
+      final introSilence = (provenance['introSilenceSeconds'] as num?)?.toInt() ?? 0;
+      check(
+        expectedOffset.isFinite && expectedOffset.abs() <= 600 && (introSilence == 0 || introSilence == 90),
+        'fixture-metadata',
+      );
+      final acquisitionLimit = Duration(seconds: 75 + introSilence);
       final spec = LiveSubtitleSyncController.preferredModel;
       final cache = Directory(p.join((await getApplicationSupportDirectory()).path, 'live-subtitle-sync', 'models'));
       await cache.create(recursive: true);
@@ -112,7 +120,9 @@ class _ProbeState extends State<_Probe> {
       await player.setProperty('sub-delay', '0.125');
       final sync = controller = LiveSubtitleSyncController.forPlayer(player);
       sync.diagnosticObserver = diagnostics.add;
-      if (mounted) setState(() => status = 'Sintel calibration audio 100–175 s; expected offset −100 s');
+      if (mounted) {
+        setState(() => status = 'Sintel calibration; expected offset $expectedOffset s; added silence $introSilence s');
+      }
       await player.play();
       final started = Stopwatch()..start();
       await sync.enable();
@@ -127,12 +137,13 @@ class _ProbeState extends State<_Probe> {
             'elapsedMs': started.elapsedMilliseconds,
           }),
         );
-        check(started.elapsed < const Duration(seconds: 75), 'acquisition-timeout');
+        check(started.elapsed < acquisitionLimit, 'acquisition-timeout');
         check(sync.phase != LiveSyncPhase.unsupported, 'unsupported-${sync.reason?.name}');
         await Future<void>.delayed(const Duration(milliseconds: 500));
       }
       final automatic = sync.automaticOffset!;
-      check((automatic + 100).abs() < 1.5, 'incorrect-offset');
+      const maximumOffsetError = 0.75;
+      check((automatic - expectedOffset).abs() < maximumOffsetError, 'incorrect-offset');
       final nativeDelay = double.parse((await player.getProperty('sub-delay'))!);
       check((nativeDelay - automatic - 0.125).abs() < 0.0001, 'native-delay');
       final report = <String, Object>{
@@ -140,12 +151,18 @@ class _ProbeState extends State<_Probe> {
         'platform': Platform.operatingSystem,
         'inferenceBackend':
             diagnostics.firstWhere((entry) => entry.containsKey('inferenceBackend'))['inferenceBackend']! as String,
-        'expectedOffset': -100,
+        'expectedOffset': expectedOffset,
+        'absoluteOffsetError': (automatic - expectedOffset).abs(),
+        'maximumOffsetError': maximumOffsetError,
+        'modelId': spec.id,
+        'modelSha256': spec.sha256,
+        'fixtureCase': provenance['case'] ?? 'calibration',
+        'introSilenceSeconds': introSilence,
         'actualOffset': automatic,
         'reference': 'authored Sintel SRT, not precise acoustic-onset ground truth',
         'acquisitionMs': started.elapsedMilliseconds,
         'nativeDelay': nativeDelay,
-        'audioPartitionSeconds': [100, 175],
+        'audioPartitionSeconds': provenance['partition'] as List,
         'audioOutput': Platform.isWindows ? 'pcm-to-NUL' : 'null',
         'audiblePlaybackValidated': false,
         'pcmOrTranscriptPersisted': false,

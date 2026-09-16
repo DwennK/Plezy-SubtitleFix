@@ -201,30 +201,40 @@ jobs:
         if: ${{ !inputs.renderer_only }}
         shell: pwsh
         run: |
-          python scripts/livesync/create_analysis_fixture.py --source build/livesync/corpus-source --output build/livesync/calibration-player --model build/livesync/models/ggml-base.en.bin --channels 6
-          if ($LASTEXITCODE -ne 0) { throw 'Calibration fixture preparation failed' }
+          New-Item -ItemType Directory -Force build/livesync/calibration-player | Out-Null
           $fixture = (Resolve-Path build/livesync/calibration-player).Path
           flutter build windows --debug --no-pub --target tool/livesync_analysis_player_probe.dart "--dart-define=LIVESYNC_ANALYSIS_FIXTURE_DIR=$fixture"
           if ($LASTEXITCODE -ne 0) { throw 'Production controller probe build failed' }
-          $process = Start-Process -FilePath build/windows/x64/runner/Debug/plezy_livesync.exe -PassThru
-          try {
-            $deadline = (Get-Date).AddSeconds(150)
-            $passed = $false
-            while ((Get-Date) -lt $deadline -and -not $process.HasExited) {
-              Start-Sleep -Seconds 2
-              if (Test-Path "$fixture/result.json") {
-                try { $report = Get-Content "$fixture/result.json" -Raw | ConvertFrom-Json } catch { continue }
-                if ($null -ne $report.passed) {
-                  $passed = $report.passed -eq $true
-                  break
+          foreach ($case in @('calibration', 'intro-90')) {
+            python scripts/livesync/create_analysis_fixture.py --source build/livesync/corpus-source --output build/livesync/calibration-player --model build/livesync/models/ggml-base.en.bin --channels 6 --case $case
+            if ($LASTEXITCODE -ne 0) { throw 'Calibration fixture preparation failed' }
+            # A result from the preceding process must never satisfy this case.
+            Remove-Item "$fixture/result.json" -ErrorAction SilentlyContinue
+            $process = Start-Process -FilePath build/windows/x64/runner/Debug/plezy_livesync.exe -PassThru
+            try {
+              $limit = if ($case -eq 'intro-90') { 240 } else { 150 }
+              $deadline = (Get-Date).AddSeconds($limit)
+              $passed = $false
+              while ((Get-Date) -lt $deadline -and -not $process.HasExited) {
+                Start-Sleep -Seconds 2
+                if (Test-Path "$fixture/result.json") {
+                  try { $report = Get-Content "$fixture/result.json" -Raw | ConvertFrom-Json } catch { continue }
+                  if ($null -ne $report.passed) {
+                    $passed = $report.passed -eq $true
+                    break
+                  }
                 }
               }
+              Copy-Item "$fixture/fixture-provenance.json" "build/livesync/evidence/calibration-fixture-$case.json"
+              if (Test-Path "$fixture/result.json") { Copy-Item "$fixture/result.json" "build/livesync/evidence/calibration-player-$case.json" }
+              if ($case -eq 'calibration') {
+                Copy-Item "$fixture/fixture-provenance.json" build/livesync/evidence/calibration-fixture.json
+                if (Test-Path "$fixture/result.json") { Copy-Item "$fixture/result.json" build/livesync/evidence/calibration-player.json }
+              }
+              if (-not $passed) { throw "Production controller did not acquire the expected offset for $case" }
+            } finally {
+              if (-not $process.HasExited) { Stop-Process -Id $process.Id -Force }
             }
-            Copy-Item "$fixture/fixture-provenance.json" build/livesync/evidence/calibration-fixture.json
-            if (Test-Path "$fixture/result.json") { Copy-Item "$fixture/result.json" build/livesync/evidence/calibration-player.json }
-            if (-not $passed) { throw 'Production controller did not acquire the expected offset' }
-          } finally {
-            if (-not $process.HasExited) { Stop-Process -Id $process.Id -Force }
           }
       - name: Preserve validation evidence
         if: always()
