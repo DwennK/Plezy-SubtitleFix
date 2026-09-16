@@ -108,6 +108,25 @@ jobs:
           xcodebuild test -workspace macos/Runner.xcworkspace -scheme Runner -configuration "$BUILD_CONFIGURATION" ENABLE_TESTABILITY=YES -destination 'platform=macOS,arch=arm64' -derivedDataPath build/macos -clonedSourcePackagesDirPath build/macos/SourcePackages -only-testing:RunnerTests -resultBundlePath build/livesync/evidence/native-contracts.xcresult
           xcrun xcresulttool get test-results summary --path build/livesync/evidence/native-contracts.xcresult --format json > build/livesync/evidence/native-contracts.json
           python3 scripts/checks/check_apple_spm_locks.py
+      - name: Verify actual automatic correction in the Mac production controller
+        run: |
+          brew install ffmpeg
+          python3 -m unittest discover -s scripts/livesync -p test_macos_controller_runner.py
+          python3 scripts/livesync/prepare_native.py models --dest build/livesync/models
+          mkdir -p build/livesync/calibration-player
+          fixture="$GITHUB_WORKSPACE/build/livesync/calibration-player"
+          # The ordinary app has already been archived. This distinct entrypoint
+          # exercises real PCM/Whisper and the production controller, with null
+          # audio output. It neither installs the app nor proves audible playback.
+          flutter build macos "--$FLUTTER_BUILD_MODE" --no-pub --target tool/livesync_analysis_player_probe.dart "--dart-define=LIVESYNC_ANALYSIS_FIXTURE_DIR=$fixture" --dart-define=LIVESYNC_SEED_WRONG_GAP=true
+          bundle="build/macos/Build/Products/$BUILD_CONFIGURATION/PlezyLiveSync.app"
+          codesign --verify --deep --strict "$bundle"
+          for case in calibration intro-90; do
+            python3 scripts/livesync/create_analysis_fixture.py --source build/livesync/corpus-source --output "$fixture" --model build/livesync/models/ggml-base.en-q5_1.bin --channels 6 --case "$case"
+            limit=150
+            if [ "$case" = intro-90 ]; then limit=240; fi
+            python3 scripts/livesync/run_macos_controller.py --bundle "$bundle" --fixture "$fixture" --evidence build/livesync/evidence --mode "$FLUTTER_BUILD_MODE" --timeout "$limit"
+          done
       - name: Preserve validation evidence
         if: always()
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7
