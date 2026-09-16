@@ -1,0 +1,42 @@
+{
+  "schema": 1,
+  "sourceSha": "3132338f7b6db42a4271fefa99b543b3b7b1211d",
+  "runId": 35159363668,
+  "conclusion": "success",
+  "platforms": {
+    "macos": {
+      "artifactId": 10472461514,
+      "reportSha256": "72ed9dafa42a4fd6f6ae192e2e8ea8073e83ff133e0980907aa2c8724680167e",
+      "testDoneEvents": 192,
+      "passedEvents": 191,
+      "skippedEvents": 1,
+      "note": "JSON event totals include runner lifecycle entries; do not interpret as distinct product tests."
+    },
+    "windows": {
+      "artifactId": 10472342028,
+      "reportSha256": "d090864f73e357a1fe9ae7d7d1466d8708d3f71bb6bffc58539bfc4fbc9898c8",
+      "testDoneEvents": 192,
+      "passedEvents": 190,
+      "skippedEvents": 2,
+      "note": "JSON event totals include runner lifecycle entries; do not interpret as distinct product tests."
+    }
+  },
+  "generalRun": {
+    "runId": 35159365463,
+    "windowsX64": "failed before tests: strict native provenance rejected prepare_native.py changed by speech-model CLI addition"
+  },
+  "followUp": {
+    "sourceSha": "d177926f",
+    "runId": 35160217253,
+    "status": "pending",
+    "change": "Move speech model CLI to an independent entry point. Preserve exact comparison of all native build inputs.",
+    "localValidation": [
+      "All four native input files byte-identical to build source 10ace9fc6d93c59a2f577e1d2a2d9e7245087f52",
+      "verify_run remotely confirms native artifact 10446984028 from run 35097915052",
+      "Windows package tests: 6 pass, 1 existing skip",
+      "Pinned speech model download/checksum passes",
+      "actionlint and git diff --check pass"
+    ]
+  },
+  "fullProductAcceptance": false
+}
