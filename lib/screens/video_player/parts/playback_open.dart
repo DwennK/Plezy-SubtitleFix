@@ -1191,6 +1191,9 @@ extension _VideoPlayerOpenMethods on VideoPlayerScreenState {
       );
     }
 
+    if (!isCurrent()) return false;
+    _attachLiveSyncSource(currentPlayer, openSession);
+
     if (beforeTrackSetup != null && !await beforeTrackSetup()) return false;
 
     // Track manager: owns track selection, external subtitle loading, and Plex

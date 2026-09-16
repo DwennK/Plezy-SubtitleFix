@@ -1021,7 +1021,24 @@ class VideoPlayerScreenState extends State<VideoPlayerScreen>
   /// it — untouched, so there is nothing to roll back.
   void _commitPlaybackSession(PlaybackSession session) {
     _playbackSession = session;
-    final currentPlayer = player;
+    _effectiveSelectedMediaIndex = session.mediaIndex;
+    _requestedMediaSourceId = session.mediaSourceId;
+    _selectedQualityPreset = session.qualityPreset;
+    _selectedAudioStreamId = session.audioStreamId;
+    // Any freshly opened stream ends a dead-stream park (#1520).
+    _eofRecovery.clearPark();
+    // Every successful open passes through here (never live TV), making it
+    // the chokepoint for the local last-played history. Offline plays are
+    // excluded — like version prefs, the history describes online intent.
+    if (!session.isOffline) {
+      unawaited(LocalPlaybackHistory.recordPlayback(session.metadata));
+    }
+  }
+
+  /// Bind the source after native open has cleared the previous media's hooks.
+  /// Initial session publication happens before open; reload publication alone
+  /// also cannot cover a second open after a sidecar fallback.
+  void _attachLiveSyncSource(Player currentPlayer, PlaybackSession session) {
     final client = session.reportingClient;
     final mediaInfo = session.mediaInfo;
     if ((Platform.isMacOS || Platform.isWindows) && currentPlayer is PlayerNative) {
@@ -1048,18 +1065,6 @@ class VideoPlayerScreenState extends State<VideoPlayerScreen>
           return source.load(row.id, transport, abort);
         };
       }
-    }
-    _effectiveSelectedMediaIndex = session.mediaIndex;
-    _requestedMediaSourceId = session.mediaSourceId;
-    _selectedQualityPreset = session.qualityPreset;
-    _selectedAudioStreamId = session.audioStreamId;
-    // Any freshly opened stream ends a dead-stream park (#1520).
-    _eofRecovery.clearPark();
-    // Every successful open passes through here (never live TV), making it
-    // the chokepoint for the local last-played history. Offline plays are
-    // excluded — like version prefs, the history describes online intent.
-    if (!session.isOffline) {
-      unawaited(LocalPlaybackHistory.recordPlayback(session.metadata));
     }
   }
 
