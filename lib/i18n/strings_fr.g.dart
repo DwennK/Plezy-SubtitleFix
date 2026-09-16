@@ -1849,7 +1849,7 @@ class _Translations$liveSubtitleSync$fr extends Translations$liveSubtitleSync$en
 	@override String get resyncing => 'Resynchronisation…';
 	@override String get unable => 'Synchronisation impossible';
 	@override String get unsupported => 'Non pris en charge';
-	@override String get modelSize => 'La première activation télécharge un modèle de 60 Mo. L’audio reste sur cet appareil.';
+	@override String modelSize({required Object size}) => 'La première activation télécharge un modèle de ${size} Mo. L’audio reste sur cet appareil.';
 	@override String get platform => 'Nécessite un Mac Apple Silicon ou Windows x64.';
 	@override String get englishTracks => 'Sélectionnez un audio et des sous-titres en anglais.';
 	@override String get externalSrt => 'Sélectionnez une piste de sous-titres SRT accessible.';
@@ -4642,7 +4642,7 @@ extension on TranslationsFr {
 			'liveSubtitleSync.resyncing' => 'Resynchronisation…',
 			'liveSubtitleSync.unable' => 'Synchronisation impossible',
 			'liveSubtitleSync.unsupported' => 'Non pris en charge',
-			'liveSubtitleSync.modelSize' => 'La première activation télécharge un modèle de 60 Mo. L’audio reste sur cet appareil.',
+			'liveSubtitleSync.modelSize' => ({required Object size}) => 'La première activation télécharge un modèle de ${size} Mo. L’audio reste sur cet appareil.',
 			'liveSubtitleSync.platform' => 'Nécessite un Mac Apple Silicon ou Windows x64.',
 			'liveSubtitleSync.englishTracks' => 'Sélectionnez un audio et des sous-titres en anglais.',
 			'liveSubtitleSync.externalSrt' => 'Sélectionnez une piste de sous-titres SRT accessible.',

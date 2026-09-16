@@ -50,7 +50,9 @@ class LiveSubtitleSyncControl extends StatelessWidget {
             ? '${(progress.receivedBytes / 1000000).toStringAsFixed(1)} / ${(progress.totalBytes / 1000000).toStringAsFixed(1)} MB'
             : (reason ??
                   (controller.automaticOffset == null
-                      ? t.liveSubtitleSync.modelSize
+                      ? t.liveSubtitleSync.modelSize(
+                          size: (LiveSubtitleSyncController.preferredModel.bytes / 1000000).ceil(),
+                        )
                       : t.liveSubtitleSync.offset(seconds: controller.automaticOffset!.toStringAsFixed(2))));
         return FocusableListTile(
           leading: AppIcon(Symbols.sync_rounded, fill: 1),

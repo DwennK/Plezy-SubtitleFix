@@ -1890,7 +1890,7 @@
     "resyncing": "Re-syncing…",
     "unable": "Unable to sync",
     "unsupported": "Unsupported",
-    "modelSize": "First activation downloads a 60 MB model. Audio stays on this device.",
+    "modelSize": "First activation downloads a ${size} MB model. Audio stays on this device.",
     "platform": "Requires macOS Apple Silicon or Windows x64.",
     "englishTracks": "Select English audio and English subtitles.",
     "externalSrt": "Select an accessible SRT subtitle track.",

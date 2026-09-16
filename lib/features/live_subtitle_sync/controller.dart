@@ -67,6 +67,12 @@ class LiveSubtitleSyncController extends ChangeNotifier {
     );
   }();
 
+  // The guarded Windows runtime recognizes the same fixture in 2.66 s with
+  // base.en versus 14.27 s with Q5_1 (DTW enabled). Prefer the larger model
+  // there; macOS keeps the smaller model validated on Apple Silicon.
+  static LiveSyncModel get preferredModel =>
+      Platform.isWindows ? LiveSyncModel.baseEnglish : LiveSyncModel.quantizedEnglish;
+
   final PlayerNative player;
   final _subscriptions = <StreamSubscription<Object?>>[];
   final _estimator = ConstantOffsetEstimator();
@@ -170,7 +176,7 @@ class LiveSubtitleSyncController extends ChangeNotifier {
       if (!current()) return;
       _state(LiveSyncPhase.downloading);
       final lease = await resources.models.acquire(
-        LiveSyncModel.quantizedEnglish,
+        preferredModel,
         onProgress: (progress) {
           if (current()) {
             modelProgress = progress;
@@ -325,7 +331,7 @@ class LiveSubtitleSyncController extends ChangeNotifier {
     _timer?.cancel();
     _timer = null;
     _sourceAbort?.abort();
-    _shared?.models.cancel(LiveSyncModel.quantizedEnglish);
+    _shared?.models.cancel(preferredModel);
     await _loading;
     final worker = _worker;
     _worker = null;

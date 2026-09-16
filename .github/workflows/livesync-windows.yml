@@ -201,7 +201,7 @@ jobs:
         if: ${{ !inputs.renderer_only }}
         shell: pwsh
         run: |
-          python scripts/livesync/create_analysis_fixture.py --source build/livesync/corpus-source --output build/livesync/calibration-player --model build/livesync/models/ggml-base.en-q5_1.bin --channels 6
+          python scripts/livesync/create_analysis_fixture.py --source build/livesync/corpus-source --output build/livesync/calibration-player --model build/livesync/models/ggml-base.en.bin --channels 6
           if ($LASTEXITCODE -ne 0) { throw 'Calibration fixture preparation failed' }
           $fixture = (Resolve-Path build/livesync/calibration-player).Path
           flutter build windows --debug --no-pub --target tool/livesync_analysis_player_probe.dart "--dart-define=LIVESYNC_ANALYSIS_FIXTURE_DIR=$fixture"

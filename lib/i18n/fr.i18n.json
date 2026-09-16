@@ -1890,7 +1890,7 @@
     "resyncing": "Resynchronisation…",
     "unable": "Synchronisation impossible",
     "unsupported": "Non pris en charge",
-    "modelSize": "La première activation télécharge un modèle de 60 Mo. L’audio reste sur cet appareil.",
+    "modelSize": "La première activation télécharge un modèle de ${size} Mo. L’audio reste sur cet appareil.",
     "platform": "Nécessite un Mac Apple Silicon ou Windows x64.",
     "englishTracks": "Sélectionnez un audio et des sous-titres en anglais.",
     "externalSrt": "Sélectionnez une piste de sous-titres SRT accessible.",

@@ -4632,8 +4632,8 @@ class Translations$liveSubtitleSync$en {
 	/// en: 'Unsupported'
 	String get unsupported => 'Unsupported';
 
-	/// en: 'First activation downloads a 60 MB model. Audio stays on this device.'
-	String get modelSize => 'First activation downloads a 60 MB model. Audio stays on this device.';
+	/// en: 'First activation downloads a ${size} MB model. Audio stays on this device.'
+	String modelSize({required Object size}) => 'First activation downloads a ${size} MB model. Audio stays on this device.';
 
 	/// en: 'Requires macOS Apple Silicon or Windows x64.'
 	String get platform => 'Requires macOS Apple Silicon or Windows x64.';
@@ -8835,7 +8835,7 @@ extension on Translations {
 			'liveSubtitleSync.resyncing' => 'Re-syncing…',
 			'liveSubtitleSync.unable' => 'Unable to sync',
 			'liveSubtitleSync.unsupported' => 'Unsupported',
-			'liveSubtitleSync.modelSize' => 'First activation downloads a 60 MB model. Audio stays on this device.',
+			'liveSubtitleSync.modelSize' => ({required Object size}) => 'First activation downloads a ${size} MB model. Audio stays on this device.',
 			'liveSubtitleSync.platform' => 'Requires macOS Apple Silicon or Windows x64.',
 			'liveSubtitleSync.englishTracks' => 'Select English audio and English subtitles.',
 			'liveSubtitleSync.externalSrt' => 'Select an accessible SRT subtitle track.',

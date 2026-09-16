@@ -12,7 +12,6 @@ import 'package:path/path.dart' as p;
 import 'package:path_provider/path_provider.dart';
 import 'package:plezy/features/live_subtitle_sync/control.dart';
 import 'package:plezy/features/live_subtitle_sync/controller.dart';
-import 'package:plezy/features/live_subtitle_sync/model_manager.dart';
 import 'package:plezy/mpv/mpv.dart';
 import 'package:plezy/mpv/player/player_native.dart';
 import 'package:plezy/services/settings_service.dart';
@@ -55,7 +54,7 @@ class _ProbeState extends State<_Probe> {
     final diagnostics = <Map<String, Object?>>[];
     try {
       check(directory.isNotEmpty, 'fixture');
-      final spec = LiveSyncModel.quantizedEnglish;
+      final spec = LiveSubtitleSyncController.preferredModel;
       final cache = Directory(p.join((await getApplicationSupportDirectory()).path, 'live-subtitle-sync', 'models'));
       await cache.create(recursive: true);
       final model = File(p.join(cache.path, '${spec.sha256}.bin'));
