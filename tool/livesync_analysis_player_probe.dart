@@ -54,6 +54,8 @@ class _ProbeState extends State<_Probe> {
     final diagnostics = <Map<String, Object?>>[];
     HttpServer? subtitleServer;
     const sourceDelayMs = int.fromEnvironment('LIVESYNC_SUBTITLE_LOAD_DELAY_MS');
+    const seekDuringStartup = bool.fromEnvironment('LIVESYNC_SEEK_DURING_STARTUP');
+    Future<void>? startupSeek;
     var delayNextSourceRead = false;
     var delayedSourceReads = 0;
     try {
@@ -144,7 +146,15 @@ class _ProbeState extends State<_Probe> {
       });
       await player.setProperty('sub-delay', '0.125');
       final sync = controller = LiveSubtitleSyncController.forPlayer(player);
-      sync.diagnosticObserver = diagnostics.add;
+      sync.diagnosticObserver = (event) {
+        diagnostics.add(event);
+        if (seekDuringStartup && startupSeek == null && event.containsKey('startupReadyMs')) {
+          // A real seek announces its intent before the native reply. Issue it
+          // while the controller owns capture but startup is still awaiting
+          // player properties. Only the first activation exercises this race.
+          startupSeek = player.seek(player.currentPosition);
+        }
+      };
       if (mounted) {
         setState(() => status = 'Sintel calibration; expected offset $expectedOffset s; added silence $introSilence s');
       }
@@ -152,6 +162,10 @@ class _ProbeState extends State<_Probe> {
       delayNextSourceRead = sourceDelayMs > 0;
       final started = Stopwatch()..start();
       await sync.enable();
+      if (seekDuringStartup) {
+        check(startupSeek != null, 'startup-seek-not-issued');
+        await startupSeek;
+      }
       if (sourceDelayMs > 0) {
         final capture = diagnostics.firstWhere((event) => event.containsKey('startupCaptureMs'));
         final source = diagnostics.firstWhere((event) => event.containsKey('startupSubtitlesMs'));
@@ -185,6 +199,7 @@ class _ProbeState extends State<_Probe> {
       final report = <String, Object>{
         'kind': 'actual-plezy-production-controller-calibration',
         'subtitleLoadDelayMs': sourceDelayMs,
+        'seekDuringStartupValidated': seekDuringStartup,
         'startupDiagnostics': diagnostics.where((event) => event.keys.any((key) => key.startsWith('startup'))).toList(),
         'captureDuringSubtitleLoadValidated': sourceDelayMs > 0,
         'platform': Platform.operatingSystem,
