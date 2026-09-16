@@ -146,3 +146,12 @@ Numeric evidence: [integration controls](speech-support-integrated-4fc16a06.json
 and [bounded retry follow-up](speech-support-retry-cb9abb2f.json). The installed
 Mentalist fix remains b18c9891. No production installation, acoustic-precision,
 full-app packaging or performance-budget acceptance follows from this candidate.
+
+### Cache compatibility
+
+The candidate uses `bounded-affine-speech-v3` for mapping identity and envelope
+validation. A valid-checksum map from `bounded-affine-titles-v2` is not reused
+because its accepted cue-start evidence predates voice support. The regression
+first accepts that old envelope on the previous version (test fails), then
+rejects it after the version bump; cache round-trip and controller restoration
+checks still pass. This changes no installed user data during development.
