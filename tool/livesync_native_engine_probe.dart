@@ -16,6 +16,8 @@ import 'package:plezy/features/live_subtitle_sync/transcript_context.dart';
 import 'package:plezy/features/live_subtitle_sync/transcript_matcher.dart';
 import 'package:plezy/features/live_subtitle_sync/text_normalization.dart';
 
+import 'livesync_probe_metrics.dart';
+
 void require(bool value, String reason) {
   if (!value) throw StateError(reason);
 }
@@ -149,12 +151,17 @@ Future<Map<String, Object>> probe(Map<String, String> options) async {
       final expectedOffset = double.parse(options['expected-offset'] ?? '-100');
       final expectedSlope = double.parse(options['expected-slope'] ?? '1');
       final maximumError = double.parse(options['maximum-error'] ?? '1.5');
+      final maximumMedianError = double.parse(options['maximum-median-error'] ?? '0.25');
       final analysisSeconds = int.parse(options['analysis-seconds'] ?? '75');
       require(expectedOffset.isFinite && expectedOffset.abs() <= 600, 'Invalid expected offset');
       require(expectedSlope.isFinite && expectedSlope >= 0.9 && expectedSlope <= 1.1, 'Invalid expected slope');
       require(!tracking || !expectNoLock, 'Tracking and negative modes are separate');
       require(expectedSlope == 1 || tracking, 'Affine evaluation requires full tracking');
       require(maximumError.isFinite && maximumError > 0 && maximumError <= 1.5, 'Invalid error bound');
+      require(
+        maximumMedianError.isFinite && maximumMedianError > 0 && maximumMedianError <= maximumError,
+        'Invalid median error bound',
+      );
       require(analysisSeconds >= 15 && analysisSeconds <= 900, 'Invalid analysis duration');
       final index = SubtitleIndex(const SubtitleParser().parse(await File(options['srt']!).readAsBytes()));
       final timeline = TimelineTracker(experimentalEarlyAcquisition: experimentalEarlyAcquisition);
@@ -358,8 +365,7 @@ Future<Map<String, Object>> probe(Map<String, String> options) async {
       }
       if (offset != null) property('sub-delay', offset.toString());
       final completedAnalyses = analyses.where((entry) => entry.containsKey('match')).length;
-      final errors = trackingSamples.map((sample) => sample['error']! as double).toList()..sort();
-      final p95 = errors.isEmpty ? null : errors[(errors.length * 0.95).ceil() - 1];
+      final metrics = LiveSyncProbeMetrics(trackingSamples.map((sample) => sample['error']! as double));
       final acquisitionWithinBudget = acquisitionMs != null && acquisitionMs <= maximumAcquisitionMs;
       final slopeConfirmed =
           expectedSlope == 1 ||
@@ -382,7 +388,7 @@ Future<Map<String, Object>> probe(Map<String, String> options) async {
         'activityTotalMicros': activityMicros,
         'activityMaxMicros': activityMaxMicros,
         'actualOffset': offset ?? 'none',
-        'acquisitionMs': acquisitionMs ?? clock.elapsedMilliseconds,
+        'acquisitionMs': acquisitionMs ?? 'none',
         'evaluationMs': clock.elapsedMilliseconds,
         'expectedOffset': expectNoLock ? 'none' : expectedOffset,
         'expectNoLock': expectNoLock,
@@ -393,12 +399,20 @@ Future<Map<String, Object>> probe(Map<String, String> options) async {
             ? (trackingSamples.isEmpty ? 'unavailable' : trackingSamples.last['error']!)
             : (expectNoLock || offset == null ? 'unavailable' : (offset - expectedOffset).abs()),
         'maximumOffsetError': maximumError,
+        'maximumMedianError': maximumMedianError,
         'reference': 'fixture SRT timings, not precise acoustic-onset ground truth',
         'passed': tracking
-            ? acquisitionWithinBudget && errors.length >= 10 && p95! < maximumError && slopeConfirmed && offset != null
+            ? metrics.passes(
+                acquisitionMs: acquisitionMs,
+                maximumAcquisitionMs: maximumAcquisitionMs,
+                maximumMedianError: maximumMedianError,
+                maximumP95Error: maximumError,
+                slopeConfirmed: slopeConfirmed,
+                finalMappingAvailable: offset != null,
+              )
             : expectNoLock
             ? offset == null && completedAnalyses > 0
-            : offset != null && (offset - expectedOffset).abs() < maximumError,
+            : acquisitionWithinBudget && offset != null && (offset - expectedOffset).abs() < maximumError,
         if (tracking) ...{
           'activationSamples': activationSamples,
           'activationUnknownSamples': activationSamples.where((sample) => sample['mappingAvailable'] == false).length,
@@ -407,8 +421,9 @@ Future<Map<String, Object>> probe(Map<String, String> options) async {
           'expectedSlope': expectedSlope,
           'slopeConfirmed': slopeConfirmed,
           'affineAcquisitionMs': affineAcquisitionMs ?? 'none',
-          'trackingErrorP95': p95 ?? 'unavailable',
-          'trackingErrorMaximum': errors.isEmpty ? 'unavailable' : errors.last,
+          'trackingErrorMedian': metrics.median ?? 'unavailable',
+          'trackingErrorP95': metrics.p95 ?? 'unavailable',
+          'trackingErrorMaximum': metrics.maximum ?? 'unavailable',
           'trackingSamples': trackingSamples,
           'trackingReference':
               'Correlated playback-time samples after first lock, including unknown regions at zero automatic delay. Ideal fixture transform, not independent acoustic annotations.',
