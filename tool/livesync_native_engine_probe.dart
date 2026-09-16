@@ -55,11 +55,12 @@ Future<Map<String, Object>> probe(Map<String, String> options) async {
   final player = create();
   require(player != nullptr, 'mpv creation failed');
   NativeLiveSyncEngine? engine;
-  double? mediaPosition() => using((arena) {
+  double? numberProperty(String name) => using((arena) {
     final value = arena<Double>();
     // MPV_FORMAT_DOUBLE from the pinned public client.h.
-    return get(player, 'time-pos'.toNativeUtf8(allocator: arena), 5, value.cast()) >= 0 ? value.value : null;
+    return get(player, name.toNativeUtf8(allocator: arena), 5, value.cast()) >= 0 ? value.value : null;
   });
+  double? mediaPosition() => numberProperty('time-pos');
   void property(String name, String value, {bool option = false}) {
     using(
       (arena) => require(
@@ -131,10 +132,16 @@ Future<Map<String, Object>> probe(Map<String, String> options) async {
     if (options['srt'] != null) {
       require(['true', 'false'].contains(options['expect-no-lock'] ?? 'false'), 'Invalid negative-case flag');
       final expectNoLock = options['expect-no-lock'] == 'true';
+      require(['true', 'false'].contains(options['track-timeline'] ?? 'false'), 'Invalid tracking flag');
+      final tracking = options['track-timeline'] == 'true';
       final expectedOffset = double.parse(options['expected-offset'] ?? '-100');
+      final expectedSlope = double.parse(options['expected-slope'] ?? '1');
       final maximumError = double.parse(options['maximum-error'] ?? '1.5');
       final analysisSeconds = int.parse(options['analysis-seconds'] ?? '75');
       require(expectedOffset.isFinite && expectedOffset.abs() <= 600, 'Invalid expected offset');
+      require(expectedSlope.isFinite && expectedSlope >= 0.9 && expectedSlope <= 1.1, 'Invalid expected slope');
+      require(!tracking || !expectNoLock, 'Tracking and negative modes are separate');
+      require(expectedSlope == 1 || tracking, 'Affine evaluation requires full tracking');
       require(maximumError.isFinite && maximumError > 0 && maximumError <= 1.5, 'Invalid error bound');
       require(analysisSeconds >= 15 && analysisSeconds <= 900, 'Invalid analysis duration');
       final index = SubtitleIndex(const SubtitleParser().parse(await File(options['srt']!).readAsBytes()));
@@ -146,6 +153,10 @@ Future<Map<String, Object>> probe(Map<String, String> options) async {
       final analyses = <Map<String, Object?>>[];
       double? offset;
       double? acquiredPosition;
+      int? acquisitionMs;
+      int? affineAcquisitionMs;
+      var lastTrackingSample = -1000;
+      final trackingSamples = <Map<String, Object>>[];
       int? continuity;
       bool? voicePresent;
       var lastActivityMs = -500;
@@ -153,7 +164,7 @@ Future<Map<String, Object>> probe(Map<String, String> options) async {
       var voiceChecks = 0;
       var activityMicros = 0;
       var activityMaxMicros = 0;
-      while (clock.elapsedMilliseconds < analysisSeconds * 1000 && offset == null) {
+      while (clock.elapsedMilliseconds < analysisSeconds * 1000 && (tracking || offset == null)) {
         final capture = engine.status();
         if (continuity != null && capture.continuity != continuity) {
           timeline.discontinuity();
@@ -177,7 +188,13 @@ Future<Map<String, Object>> probe(Map<String, String> options) async {
             final position = mediaPosition();
             if (position != null) {
               offset = timeline.correctionAt(position).position.automaticDelay;
-              if (offset != null) acquiredPosition = position;
+              if (offset != null && acquisitionMs == null) {
+                acquiredPosition = position;
+                acquisitionMs = clock.elapsedMilliseconds;
+              }
+              if (timeline.map.segments.any((segment) => (segment.slope - 1).abs() > 0.005)) {
+                affineAcquisitionMs ??= clock.elapsedMilliseconds;
+              }
             }
             analyses.add({
               'attempt': cadence.attempts,
@@ -203,6 +220,17 @@ Future<Map<String, Object>> probe(Map<String, String> options) async {
               ],
               'similarity': result.passage?.similarity,
               'anchors': anchors.map((anchor) => {'cue': anchor.cue, 'offset': anchor.offset}).toList(),
+              if (tracking)
+                'regions': [
+                  for (final segment in timeline.map.segments)
+                    {
+                      'start': segment.mediaStart,
+                      'end': segment.mediaEnd,
+                      'slope': segment.slope,
+                      'offset': segment.offset,
+                      'anchors': segment.anchors.length,
+                    },
+                ],
             });
           }
         } on NativeSyncException catch (error) {
@@ -219,8 +247,36 @@ Future<Map<String, Object>> probe(Map<String, String> options) async {
           voicePresent = activity != null && activity.observedSeconds >= 4 ? activity.voiceSeconds >= 0.4 : null;
           if (voicePresent == true) voiceChecks++;
           lastActivityMs = clock.elapsedMilliseconds;
+          if (tracking) {
+            final position = mediaPosition();
+            if (position != null) {
+              offset = timeline.correctionAt(position).position.automaticDelay;
+              property('sub-delay', (offset ?? 0).toString());
+              final nativeDelay = numberProperty('sub-delay');
+              require(nativeDelay != null && (nativeDelay - (offset ?? 0)).abs() < 0.001, 'Native delay mismatch');
+              if (acquisitionMs != null && clock.elapsedMilliseconds - lastTrackingSample >= 1000) {
+                final expected = position - (position - expectedOffset) / expectedSlope;
+                trackingSamples.add({
+                  'mediaTime': position,
+                  'automaticDelay': offset ?? 0,
+                  'mappingAvailable': offset != null,
+                  'nativeDelay': nativeDelay!,
+                  'expectedDelay': expected,
+                  'error': (nativeDelay - expected).abs(),
+                });
+                lastTrackingSample = clock.elapsedMilliseconds;
+              }
+            }
+          }
         }
-        final interval = cadence.intervalMs(synced: false, established: false, voicePresent: voicePresent);
+        final established = timeline.map.segments.any(
+          (segment) => segment.anchors.length >= 6 && segment.subtitleEnd - segment.subtitleStart >= 60,
+        );
+        final interval = cadence.intervalMs(
+          synced: tracking && offset != null,
+          established: established,
+          voicePresent: voicePresent,
+        );
         if (capture.samples >= 128000 &&
             clock.elapsedMilliseconds - last >= interval &&
             engine.submitRecent(seconds: cadence.windowSeconds)) {
@@ -231,6 +287,13 @@ Future<Map<String, Object>> probe(Map<String, String> options) async {
       }
       if (offset != null) property('sub-delay', offset.toString());
       final completedAnalyses = analyses.where((entry) => entry.containsKey('match')).length;
+      final errors = trackingSamples.map((sample) => sample['error']! as double).toList()..sort();
+      final p95 = errors.isEmpty ? null : errors[(errors.length * 0.95).ceil() - 1];
+      final slopeConfirmed =
+          expectedSlope == 1 ||
+          timeline.map.segments.any(
+            (segment) => (segment.slope - expectedSlope).abs() < 0.005 && (segment.slope - 1).abs() > 0.005,
+          );
       return {
         'kind': 'native-active-pcm-real-asr-and-domain-alignment',
         'platform': Platform.operatingSystem,
@@ -243,17 +306,32 @@ Future<Map<String, Object>> probe(Map<String, String> options) async {
         'activityTotalMicros': activityMicros,
         'activityMaxMicros': activityMaxMicros,
         'actualOffset': offset ?? 'none',
-        'acquisitionMs': clock.elapsedMilliseconds,
+        'acquisitionMs': acquisitionMs ?? clock.elapsedMilliseconds,
+        'evaluationMs': clock.elapsedMilliseconds,
         'expectedOffset': expectNoLock ? 'none' : expectedOffset,
         'expectNoLock': expectNoLock,
         'completedAnalyses': completedAnalyses,
         'rejectedAnalyses': analyses.where((entry) => entry.containsKey('failure')).length,
-        'absoluteOffsetError': expectNoLock || offset == null ? 'unavailable' : (offset - expectedOffset).abs(),
+        'absoluteOffsetError': tracking
+            ? (trackingSamples.isEmpty ? 'unavailable' : trackingSamples.last['error']!)
+            : (expectNoLock || offset == null ? 'unavailable' : (offset - expectedOffset).abs()),
         'maximumOffsetError': maximumError,
-        'reference': 'authored SRT timings, not precise acoustic-onset ground truth',
-        'passed': expectNoLock
+        'reference': 'fixture SRT timings, not precise acoustic-onset ground truth',
+        'passed': tracking
+            ? errors.length >= 10 && p95! < maximumError && slopeConfirmed && offset != null
+            : expectNoLock
             ? offset == null && completedAnalyses > 0
             : offset != null && (offset - expectedOffset).abs() < maximumError,
+        if (tracking) ...{
+          'expectedSlope': expectedSlope,
+          'slopeConfirmed': slopeConfirmed,
+          'affineAcquisitionMs': affineAcquisitionMs ?? 'none',
+          'trackingErrorP95': p95 ?? 'unavailable',
+          'trackingErrorMaximum': errors.isEmpty ? 'unavailable' : errors.last,
+          'trackingSamples': trackingSamples,
+          'trackingReference':
+              'Correlated playback-time samples after first lock, including unknown regions at zero automatic delay. Ideal fixture transform, not independent acoustic annotations.',
+        },
         'analyses': analyses,
         'productionPlayerValidated': false,
         'audiblePlaybackValidated': false,

@@ -1,0 +1,17 @@
+{
+  "id": "librispeech-dev-clean-1272-128104",
+  "sourcePage": "https://www.openslr.org/12",
+  "url": "https://openslr.trmal.net/resources/12/dev-clean.tar.gz",
+  "bytes": 337926286,
+  "sha256": "76f87d090650617fca0cac8f88b9416e0ebf80350acb97b343a85fa903728ab3",
+  "officialMd5": "42e2234ba48799c1f50f24a7926300a1",
+  "officialChecksumUrl": "https://openslr.trmal.net/resources/12/md5sum.txt",
+  "attribution": "LibriSpeech (c) 2014 by Vassil Panayotov; derived from LibriVox audiobooks",
+  "license": "CC-BY-4.0",
+  "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+  "chapter": "LibriSpeech/dev-clean/1272/128104",
+  "utterancePrefix": "1272-128104",
+  "utteranceCount": 15,
+  "role": "development; never report this chapter as independent validation",
+  "reference": "Original utterance boundaries and official text; not manually annotated acoustic onsets"
+}
