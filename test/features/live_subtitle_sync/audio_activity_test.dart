@@ -11,6 +11,32 @@ Float32List tone(double frequency, {double offset = 0, double amplitude = 0.05})
 ]);
 
 void main() {
+  test('window onsets retain early boundaries, quiet evidence and active duration without PCM', () {
+    final samples = Float32List(240000);
+    samples.setRange(16000, 48000, tone(250));
+    samples.setRange(160000, 192000, tone(250));
+    final onsets = VoiceActivityDetector.scanWindow(samples, start: 100, secondsPerSample: 1 / 16000);
+    expect(onsets, hasLength(2));
+    expect(onsets.first.start, closeTo(101, 0.04));
+    expect(onsets.first.precedingQuietSeconds, closeTo(1, 0.04));
+    expect(onsets.first.activeSeconds, closeTo(2, 0.04));
+    expect(onsets.last.start, closeTo(110, 0.04));
+    expect(onsets.last.precedingQuietSeconds, greaterThan(6.5));
+    expect(samples[17000], isNot(0));
+    final scaled = VoiceActivityDetector.scanWindow(samples, start: 100, secondsPerSample: 2 / 16000);
+    expect(scaled.first.start, closeTo(102, 0.08));
+    expect(scaled.last.start, closeTo(120, 0.08));
+  });
+
+  test('window onset hints do not invent preceding silence and reject corrupt or oversized PCM', () {
+    final clipped = VoiceActivityDetector.scanWindow(tone(250), start: 10, secondsPerSample: 1 / 16000);
+    expect(clipped.single.precedingQuietSeconds, 0);
+    for (final samples in [Float32List(240001), Float32List(32000)..[0] = double.nan]) {
+      expect(VoiceActivityDetector.scanWindow(samples, start: 0, secondsPerSample: 1 / 16000), isEmpty);
+    }
+    expect(VoiceActivityDetector.scanWindow(tone(250), start: double.nan, secondsPerSample: 1 / 16000), isEmpty);
+  });
+
   test('silence and low rumble do not count as voice; speech-band tone is only an activity hint', () {
     for (final samples in [Float32List(32000), tone(40)]) {
       final result = VoiceActivityDetector().observe(

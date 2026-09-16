@@ -13,10 +13,21 @@ class AudioActivity {
 }
 
 class _ActivityFrame {
-  const _ActivityFrame(this.start, this.end, this.voice);
+  const _ActivityFrame(this.start, this.end, this.voice, this.active);
   final double start;
   final double end;
   final bool voice;
+  final bool active;
+}
+
+/// Numeric activity boundary from the same PCM window as a transcription.
+/// This is a heuristic acoustic hint, not evidence that words were spoken.
+class AudioVoiceOnset {
+  const AudioVoiceOnset(this.start, this.end, this.precedingQuietSeconds, this.activeSeconds);
+  final double start;
+  final double end;
+  final double precedingQuietSeconds;
+  final double activeSeconds;
 }
 
 /// Streaming heuristic VAD on mono float32 16 kHz. Energy, a speech-band
@@ -24,6 +35,9 @@ class _ActivityFrame {
 /// probability. Music can activate it; quiet speech can be missed. Periodic
 /// ASR remains available. PCM is neither copied into this object nor retained.
 class VoiceActivityDetector {
+  VoiceActivityDetector() : _historySeconds = 12;
+  VoiceActivityDetector._window() : _historySeconds = double.infinity;
+  final double _historySeconds;
   static const _frameSamples = 320;
   final _frames = ListQueue<_ActivityFrame>();
   int? _generation;
@@ -41,6 +55,59 @@ class VoiceActivityDetector {
   double _low = 0;
   double _previousBand = 0;
   double _noisePower = 0.000001;
+
+  /// Inspect one bounded inference window without retaining its PCM. Keeping
+  /// the complete window here is important: the first three seconds of a
+  /// fifteen-second window are absent from the scheduling detector's history.
+  static List<AudioVoiceOnset> scanWindow(
+    Float32List samples, {
+    required double start,
+    required double secondsPerSample,
+  }) {
+    if (samples.isEmpty || samples.length > 240000) return const [];
+    final detector = VoiceActivityDetector._window();
+    for (var i = 0; i < samples.length; i += 32000) {
+      final end = math.min(i + 32000, samples.length);
+      if (detector.observe(
+            Float32List.sublistView(samples, i, end),
+            generation: 1,
+            continuity: 1,
+            start: start + i * secondsPerSample,
+            secondsPerSample: secondsPerSample,
+          ) ==
+          null) {
+        return const [];
+      }
+    }
+    final result = <AudioVoiceOnset>[];
+    double? beginning;
+    var end = start;
+    var quiet = 0.0;
+    var preceding = 0.0;
+    var active = 0.0;
+    void finish() {
+      if (beginning != null) result.add(AudioVoiceOnset(beginning!, end, preceding, active));
+      beginning = null;
+      active = 0;
+    }
+
+    for (final frame in detector._frames) {
+      if (frame.voice) {
+        if (beginning == null) {
+          beginning = frame.start;
+          preceding = quiet;
+          quiet = 0;
+        }
+        end = frame.end;
+        if (frame.active) active += frame.end - frame.start;
+      } else {
+        finish();
+        quiet += frame.end - frame.start;
+      }
+    }
+    finish();
+    return List.unmodifiable(result);
+  }
 
   void clear() {
     _frames.clear();
@@ -113,8 +180,8 @@ class VoiceActivityDetector {
         // not raise the floor enough to mask subsequent quiet dialogue.
         _noisePower = 0.98 * _noisePower + 0.02 * math.min(power, 0.000016);
       }
-      _frames.add(_ActivityFrame(_frameStart, _nextTime!, possibleVoice || _hangover > 0));
-      while (_frames.length > 1500 || _frames.first.end <= _nextTime! - 12) {
+      _frames.add(_ActivityFrame(_frameStart, _nextTime!, possibleVoice || _hangover > 0, possibleVoice));
+      while (_frames.length > 1500 || _frames.first.end <= _nextTime! - _historySeconds) {
         _frames.removeFirst();
       }
       _count = _crossings = 0;
@@ -122,7 +189,7 @@ class VoiceActivityDetector {
     }
     if (_frames.isEmpty) return null;
     final end = _frames.last.end;
-    final beginning = math.max(_frames.first.start, end - 12);
+    final beginning = math.max(_frames.first.start, end - _historySeconds);
     final voiced = _frames
         .where((frame) => frame.voice)
         .fold<double>(0, (sum, frame) => sum + frame.end - math.max(frame.start, beginning));

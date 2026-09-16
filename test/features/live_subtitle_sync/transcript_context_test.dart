@@ -1,4 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
+import 'package:plezy/features/live_subtitle_sync/audio_activity.dart';
 import 'package:plezy/features/live_subtitle_sync/native_bindings.dart';
 import 'package:plezy/features/live_subtitle_sync/subtitle_index.dart';
 import 'package:plezy/features/live_subtitle_sync/subtitle_parser.dart';
@@ -21,6 +22,22 @@ NativeTranscript window(
 ]);
 
 void main() {
+  test('acoustic hints follow their window and never bridge a generation or overlapping interval', () {
+    final first = window(90, 99, 'Carry the lantern', 92);
+    const earlier = AudioVoiceOnset(92, 94, 1, 1.5);
+    const overlapped = AudioVoiceOnset(95, 98, 0.5, 2);
+    const current = AudioVoiceOnset(97, 99, 0.5, 1);
+    final hints = [earlier, overlapped];
+    final previous = NativeTranscript(1, 2, 90, 99, 0.1, first.segments, voiceOnsets: hints);
+    hints.clear();
+    expect(previous.voiceOnsets, hasLength(2));
+    final second = window(96, 104, 'Cross the bridge', 97);
+    final next = NativeTranscript(1, 2, 96, 104, 0.1, second.segments, voiceOnsets: [current]);
+    final context = TranscriptContext()..add(previous);
+    expect(context.add(next)!.voiceOnsets, [earlier, current]);
+    expect(context.add(NativeTranscript(2, 2, 104, 112, 0.1, next.segments, voiceOnsets: [current])), isNull);
+  });
+
   final index = SubtitleIndex(
     ParsedSubtitles(SubtitleEncoding.utf8, [
       for (final (i, time, text) in [(0, 2, 'Carry the lantern'), (1, 7, 'Cross the bridge')])

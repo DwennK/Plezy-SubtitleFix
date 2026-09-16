@@ -198,6 +198,8 @@ Future<Map<String, Object>> probe(Map<String, String> options) async {
             }
             analyses.add({
               'attempt': cadence.attempts,
+              'receivedAtMs': clock.elapsedMilliseconds,
+              'receivedMediaTime': position,
               'windowStart': transcript.windowStart,
               'windowEnd': transcript.windowEnd,
               'validPrefixOnly': transcript.validPrefixOnly,
@@ -220,7 +222,26 @@ Future<Map<String, Object>> probe(Map<String, String> options) async {
                   },
               ],
               'similarity': result.passage?.similarity,
-              'anchors': anchors.map((anchor) => {'cue': anchor.cue, 'offset': anchor.offset}).toList(),
+              'anchors': anchors
+                  .map(
+                    (anchor) => {
+                      'cue': anchor.cue,
+                      'offset': anchor.offset,
+                      'subtitleTime': anchor.subtitleTime,
+                      'mediaTime': anchor.mediaTime,
+                      'uncertainty': anchor.uncertainty,
+                    },
+                  )
+                  .toList(),
+              'voiceOnsets': [
+                for (final onset in transcript.voiceOnsets)
+                  {
+                    'start': onset.start,
+                    'end': onset.end,
+                    'precedingQuietSeconds': onset.precedingQuietSeconds,
+                    'activeSeconds': onset.activeSeconds,
+                  },
+              ],
               'anchorRejections': evidence.anchorRejections,
               if (!evidence.segmented && evidence.windowCount == 1 && result.passage != null)
                 'cueBeginningMatches': [

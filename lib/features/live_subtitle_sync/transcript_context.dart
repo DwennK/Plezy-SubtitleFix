@@ -59,6 +59,7 @@ class TranscriptContext {
       previous.elapsed + current.elapsed,
       segments,
       validPrefixOnly: previous.validPrefixOnly || current.validPrefixOnly,
+      voiceOnsets: [...previous.voiceOnsets.where((onset) => onset.end <= current.windowStart), ...current.voiceOnsets],
     );
   }
 
@@ -127,6 +128,7 @@ TranscriptEvidence _matchWindow(NativeTranscript source, SubtitleIndex index, in
         source.elapsed,
         segments,
         validPrefixOnly: source.validPrefixOnly,
+        voiceOnsets: source.voiceOnsets,
       );
       final matched = const TemporalAligner().anchors(selected, index, match.passage!, rejectionCounts: rejected);
       for (final anchor in matched) {

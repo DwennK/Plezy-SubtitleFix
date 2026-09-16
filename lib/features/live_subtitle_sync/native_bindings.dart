@@ -133,7 +133,9 @@ class NativeTranscript {
     this.elapsed,
     List<NativeTranscriptSegment> segments, {
     this.validPrefixOnly = false,
-  }) : segments = List.unmodifiable(segments);
+    List<AudioVoiceOnset> voiceOnsets = const [],
+  }) : segments = List.unmodifiable(segments),
+       voiceOnsets = List.unmodifiable(voiceOnsets);
   final int generation;
   final int continuity;
   final double windowStart;
@@ -141,6 +143,7 @@ class NativeTranscript {
   final double elapsed;
   final List<NativeTranscriptSegment> segments;
   final bool validPrefixOnly;
+  final List<AudioVoiceOnset> voiceOnsets;
 }
 
 /// An owned weak client supplied by the *active* platform player. The function
@@ -191,6 +194,7 @@ class NativeLiveSyncEngine {
   int _continuity = -1;
   double _submittedStart = 0;
   double _submittedEnd = 0;
+  List<AudioVoiceOnset> _submittedOnsets = const [];
   bool _pending = false;
   bool _closed = false;
   final _voiceActivity = VoiceActivityDetector();
@@ -341,6 +345,7 @@ class NativeLiveSyncEngine {
     if (value.continuity != _continuity || value.state == 4) {
       _continuity = value.continuity;
       _pending = false;
+      _submittedOnsets = const [];
       _inferenceReset(_inference, _generation, _continuity);
     }
     return NativeCaptureStatus(value.generation, value.continuity, value.samples, value.state);
@@ -353,6 +358,7 @@ class NativeLiveSyncEngine {
     _generation = generation;
     _continuity = -1;
     _pending = false;
+    _submittedOnsets = const [];
     _voiceActivity.clear();
     _inferenceReset(_inference, generation, 0);
   }
@@ -406,6 +412,13 @@ class NativeLiveSyncEngine {
       _submittedStart = _window.ref.mediaStart;
       _submittedEnd = _submittedStart + count * _window.ref.mediaSecondsPerSample;
       _pending = true;
+      // Inspect exactly the submitted PCM, before erasing this staging buffer.
+      // A later live activity snapshot could belong to another window or seek.
+      _submittedOnsets = VoiceActivityDetector.scanWindow(
+        _samples.asTypedList(count),
+        start: _submittedStart,
+        secondsPerSample: _window.ref.mediaSecondsPerSample,
+      );
       return true;
     } finally {
       _samples.asTypedList(240000).fillRange(0, 240000, 0);
@@ -486,6 +499,7 @@ class NativeLiveSyncEngine {
         value.elapsed,
         segments,
         validPrefixOnly: value.status == 5,
+        voiceOnsets: _submittedOnsets,
       );
     } on FormatException {
       throw const NativeSyncException(NativeSyncFailure.invalidOutput);
@@ -496,6 +510,7 @@ class NativeLiveSyncEngine {
 
   void close() {
     _voiceActivity.clear();
+    _submittedOnsets = const [];
     if (_closed) return;
     _closed = true;
     if (_capture != nullptr) _captureDestroy(_capture);
