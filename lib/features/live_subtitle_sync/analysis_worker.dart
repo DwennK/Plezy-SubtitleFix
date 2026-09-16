@@ -39,7 +39,7 @@ class LiveSyncAnalysisWorker {
         if (message[1] == true) {
           reply?.complete(message[2]);
         } else {
-          reply?.completeError(NativeSyncException(message[2] as NativeSyncFailure));
+          reply?.completeError(NativeSyncException(message[2] as NativeSyncFailure, nativeStatus: message[3] as int?));
         }
       }
     });
@@ -169,7 +169,12 @@ void _runAnalysis(SendPort replies) {
     } catch (error) {
       // Do not send native paths, dialogue, PCM or arbitrary exception messages
       // back to the UI/error reporter. Explicit typed reasons only.
-      replies.send([id, false, error is NativeSyncException ? error.reason : NativeSyncFailure.invalidOutput]);
+      replies.send([
+        id,
+        false,
+        error is NativeSyncException ? error.reason : NativeSyncFailure.invalidOutput,
+        error is NativeSyncException ? error.nativeStatus : null,
+      ]);
     }
   });
 }

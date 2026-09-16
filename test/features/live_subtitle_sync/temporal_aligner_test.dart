@@ -49,7 +49,15 @@ void main() {
   });
 
   test('text recognition without timestamps cannot become an anchor', () {
-    expect(const TemporalAligner().anchors(transcript(90, timestamps: false), index, passage), isEmpty);
+    final rejected = <String, int>{};
+    expect(
+      const TemporalAligner().anchors(transcript(90, timestamps: false), index, passage, rejectionCounts: rejected),
+      isEmpty,
+    );
+    expect(rejected, {'beginningInvalidTimestamp': 2});
+    rejected.clear();
+    expect(const TemporalAligner().anchors(transcript(90), index, passage, rejectionCounts: rejected), hasLength(2));
+    expect(rejected, isEmpty);
   });
 
   test('repeated windows and phrases cannot confirm a large correction', () {

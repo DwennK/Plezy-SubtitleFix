@@ -74,11 +74,20 @@ class TranscriptContext {
 }
 
 class TranscriptEvidence {
-  const TranscriptEvidence(this.match, this.anchors, this.windowCount, {this.segmented = false});
+  const TranscriptEvidence(
+    this.match,
+    this.anchors,
+    this.windowCount, {
+    this.segmented = false,
+    this.anchorRejections = const {},
+  });
   final TranscriptMatchResult match;
   final List<SubtitleAnchor> anchors;
   final int windowCount;
   final bool segmented;
+
+  /// Opt-in counts only. Never includes phrases, token text or audio.
+  final Map<String, int> anchorRejections;
 }
 
 /// First try the complete current window. If noise outside the authored
@@ -86,10 +95,16 @@ class TranscriptEvidence {
 /// segments. This bounded search keeps the same textual quality thresholds.
 /// All accepted anchors reach the estimator, including conflicting groups;
 /// choosing only the strongest group could hide a contradictory edition.
-TranscriptEvidence _matchWindow(NativeTranscript source, SubtitleIndex index, int windowCount) {
+TranscriptEvidence _matchWindow(NativeTranscript source, SubtitleIndex index, int windowCount, bool diagnostics) {
+  final rejected = diagnostics ? <String, int>{} : null;
   final whole = const TranscriptMatcher().find(source.segments.map((segment) => segment.text).join(' '), index);
   if (whole.status == TranscriptMatchStatus.matched) {
-    return TranscriptEvidence(whole, const TemporalAligner().anchors(source, index, whole.passage!), windowCount);
+    return TranscriptEvidence(
+      whole,
+      const TemporalAligner().anchors(source, index, whole.passage!, rejectionCounts: rejected),
+      windowCount,
+      anchorRejections: rejected ?? const {},
+    );
   }
   // At most 21 groups per source, avoiding an unbounded search that also
   // multiplies opportunities for false matches. Long windows remain unknown.
@@ -110,7 +125,7 @@ TranscriptEvidence _matchWindow(NativeTranscript source, SubtitleIndex index, in
         source.elapsed,
         segments,
       );
-      final matched = const TemporalAligner().anchors(selected, index, match.passage!);
+      final matched = const TemporalAligner().anchors(selected, index, match.passage!, rejectionCounts: rejected);
       for (final anchor in matched) {
         final previous = anchors[anchor.cue];
         if (previous != null && (previous.mediaTime - anchor.mediaTime).abs() > 0.8) {
@@ -126,8 +141,14 @@ TranscriptEvidence _matchWindow(NativeTranscript source, SubtitleIndex index, in
     }
   }
   return best == null
-      ? TranscriptEvidence(whole, const [], windowCount)
-      : TranscriptEvidence(best, List.unmodifiable(anchors.values), windowCount, segmented: true);
+      ? TranscriptEvidence(whole, const [], windowCount, anchorRejections: rejected ?? const {})
+      : TranscriptEvidence(
+          best,
+          List.unmodifiable(anchors.values),
+          windowCount,
+          segmented: true,
+          anchorRejections: rejected ?? const {},
+        );
 }
 
 /// Context can resolve a short or ambiguous passage, while keeping every
@@ -136,9 +157,10 @@ TranscriptEvidence matchTranscriptEvidence(
   NativeTranscript transcript,
   SubtitleIndex index, {
   NativeTranscript? context,
+  bool diagnostics = false,
 }) {
-  final current = _matchWindow(transcript, index, 1);
+  final current = _matchWindow(transcript, index, 1, diagnostics);
   if (current.match.status == TranscriptMatchStatus.matched || context == null) return current;
-  final combined = _matchWindow(context, index, 2);
+  final combined = _matchWindow(context, index, 2, diagnostics);
   return combined.match.status == TranscriptMatchStatus.matched ? combined : current;
 }

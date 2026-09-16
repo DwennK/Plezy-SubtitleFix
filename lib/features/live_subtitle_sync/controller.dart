@@ -374,6 +374,13 @@ class LiveSubtitleSyncController extends ChangeNotifier {
         _cadence.rejectedInference();
       }
       diagnosticFailure = error is NativeSyncException ? error.reason.name : error.runtimeType.toString();
+      if (enabled && generation == _generation) {
+        diagnosticObserver?.call({
+          'attempt': _cadence.attempts,
+          'failure': diagnosticFailure,
+          if (error is NativeSyncException && error.nativeStatus != null) 'nativeStatus': error.nativeStatus,
+        });
+      }
       if (enabled && generation == _generation) _state(LiveSyncPhase.unable, LiveSyncReason.nativeRuntime);
     } finally {
       _tickBusy = false;

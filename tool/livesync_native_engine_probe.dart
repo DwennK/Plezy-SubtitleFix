@@ -177,7 +177,7 @@ Future<Map<String, Object>> probe(Map<String, String> options) async {
           final transcript = engine.takeResult();
           if (transcript != null && transcript.generation == 1 && transcript.continuity == continuity) {
             final adjacent = context.add(transcript);
-            final evidence = matchTranscriptEvidence(transcript, index, context: adjacent);
+            final evidence = matchTranscriptEvidence(transcript, index, context: adjacent, diagnostics: true);
             final words = const DialogueNormalizer().words(
               transcript.segments.map((segment) => segment.text).join(' '),
             );
@@ -220,6 +220,7 @@ Future<Map<String, Object>> probe(Map<String, String> options) async {
               ],
               'similarity': result.passage?.similarity,
               'anchors': anchors.map((anchor) => {'cue': anchor.cue, 'offset': anchor.offset}).toList(),
+              'anchorRejections': evidence.anchorRejections,
               if (tracking)
                 'regions': [
                   for (final segment in timeline.map.segments)
@@ -235,7 +236,11 @@ Future<Map<String, Object>> probe(Map<String, String> options) async {
           }
         } on NativeSyncException catch (error) {
           cadence.rejectedInference();
-          analyses.add({'attempt': cadence.attempts, 'failure': error.reason.name});
+          analyses.add({
+            'attempt': cadence.attempts,
+            'failure': error.reason.name,
+            if (error.nativeStatus != null) 'nativeStatus': error.nativeStatus,
+          });
         }
         if (clock.elapsedMilliseconds - lastActivityMs >= 500) {
           final measured = Stopwatch()..start();

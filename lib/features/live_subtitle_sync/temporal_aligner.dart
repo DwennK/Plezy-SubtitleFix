@@ -32,7 +32,16 @@ class _TimedWord {
 class TemporalAligner {
   const TemporalAligner();
 
-  List<SubtitleAnchor> anchors(NativeTranscript transcript, SubtitleIndex index, PassageMatch passage) {
+  List<SubtitleAnchor> anchors(
+    NativeTranscript transcript,
+    SubtitleIndex index,
+    PassageMatch passage, {
+    Map<String, int>? rejectionCounts,
+  }) {
+    void rejected(String reason) {
+      if (rejectionCounts != null) rejectionCounts[reason] = (rejectionCounts[reason] ?? 0) + 1;
+    }
+
     final words = <_TimedWord>[];
     const normalizer = DialogueNormalizer();
     for (final segment in transcript.segments) {
@@ -62,19 +71,42 @@ class TemporalAligner {
       }
       // Normalization can remove entire sound/music lines. Do not use an index
       // if independently normalizing the token spans changed word correspondence.
-      if (segmentWords.map((word) => word.text).join(' ') != normalizer.words(segment.text).join(' ')) return [];
+      if (segmentWords.map((word) => word.text).join(' ') != normalizer.words(segment.text).join(' ')) {
+        rejected('normalizationMismatch');
+        return [];
+      }
       words.addAll(segmentWords);
     }
     final pairs = {for (final pair in passage.words) pair.subtitleWord: pair};
+    if (rejectionCounts != null) {
+      final touched = passage.words.map((pair) => index.words[pair.subtitleWord].cueOrdinal).toSet();
+      final beginnings = passage.words
+          .where((pair) => index.words[pair.subtitleWord].wordInCue == 0)
+          .map((pair) => index.words[pair.subtitleWord].cueOrdinal)
+          .toSet();
+      for (final _ in touched.difference(beginnings)) {
+        rejected('cueBeginningAbsent');
+      }
+    }
     final result = <SubtitleAnchor>[];
     for (final pair in passage.words) {
       final source = index.words[pair.subtitleWord];
-      if (!pair.exact || source.wordInCue != 0 || pair.transcriptWord >= words.length) continue;
+      if (source.wordInCue != 0) continue;
+      if (!pair.exact || pair.transcriptWord >= words.length) {
+        rejected('cueBeginningNotMatched');
+        continue;
+      }
       final beginning = words[pair.transcriptWord];
-      if (!beginning.valid ||
-          beginning.start < transcript.windowStart + 0.1 ||
-          beginning.end > transcript.windowEnd ||
-          beginning.end - beginning.start > 2) {
+      if (!beginning.valid) {
+        rejected(beginning.score < 0.35 ? 'beginningLowConfidence' : 'beginningInvalidTimestamp');
+        continue;
+      }
+      if (beginning.start < transcript.windowStart + 0.1 || beginning.end > transcript.windowEnd) {
+        rejected('beginningAtWindowEdge');
+        continue;
+      }
+      if (beginning.end - beginning.start > 2) {
+        rejected('beginningTooWide');
         continue;
       }
       final matched = <String>[];
@@ -84,8 +116,12 @@ class TemporalAligner {
             !next.exact ||
             next.transcriptWord != pair.transcriptWord + i ||
             next.transcriptWord >= words.length ||
-            index.words[next.subtitleWord].cueOrdinal != source.cueOrdinal ||
-            !words[next.transcriptWord].valid) {
+            index.words[next.subtitleWord].cueOrdinal != source.cueOrdinal) {
+          rejected('phraseNotMatched');
+          break;
+        }
+        if (!words[next.transcriptWord].valid) {
+          rejected(words[next.transcriptWord].score < 0.35 ? 'phraseLowConfidence' : 'phraseInvalidTimestamp');
           break;
         }
         matched.add(words[next.transcriptWord].text);

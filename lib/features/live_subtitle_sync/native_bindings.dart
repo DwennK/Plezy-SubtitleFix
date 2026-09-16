@@ -97,8 +97,11 @@ final class _Result extends Struct {
 enum NativeSyncFailure { libraryUnavailable, incompatibleAbi, captureUnavailable, inferenceUnavailable, invalidOutput }
 
 class NativeSyncException implements Exception {
-  const NativeSyncException(this.reason);
+  const NativeSyncException(this.reason, {this.nativeStatus});
   final NativeSyncFailure reason;
+
+  /// Numeric ABI result only; never a native path or arbitrary error message.
+  final int? nativeStatus;
   @override
   String toString() => 'NativeSyncException(${reason.name})';
 }
@@ -417,7 +420,9 @@ class NativeLiveSyncEngine {
     try {
       final value = _result.ref;
       if (value.generation != _generation || value.continuity != _continuity) return null;
-      if (value.status != 0) throw const NativeSyncException(NativeSyncFailure.inferenceUnavailable);
+      if (value.status != 0) {
+        throw NativeSyncException(NativeSyncFailure.inferenceUnavailable, nativeStatus: value.status);
+      }
       if (value.segmentCount > 64 ||
           value.tokenCount > 512 ||
           value.textBytes > 8192 ||
