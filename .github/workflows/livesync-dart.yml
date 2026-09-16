@@ -11,6 +11,9 @@ on:
       - 'docs/live-subtitle-sync-versions.json'
       - 'scripts/livesync/create_analysis_fixture.py'
       - 'scripts/livesync/test_analysis_fixture.py'
+      - 'scripts/livesync/create_speech_fixture.py'
+      - 'scripts/livesync/test_speech_fixture.py'
+      - 'test/fixtures/livesync/librispeech-development.json'
 
 permissions:
   contents: read
@@ -49,7 +52,7 @@ jobs:
           git rev-parse HEAD > build/livesync/evidence/fork-sha.txt
       - name: Verify fixture timing transforms
         shell: bash
-        run: python3 -m unittest discover -s scripts/livesync -p test_analysis_fixture.py > build/livesync/evidence/fixture-tests.txt 2>&1
+        run: python3 -m unittest discover -s scripts/livesync -p 'test_*fixture.py' > build/livesync/evidence/fixture-tests.txt 2>&1
       - name: Analyze and test the feature components
         shell: bash
         run: |

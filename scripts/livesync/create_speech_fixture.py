@@ -115,6 +115,10 @@ def main():
         "expectedSlope": float(slope), "slopeNumerator": slope.numerator, "slopeDenominator": slope.denominator,
         "expectedOffsetSeconds": 0, "tempoDurationErrorSeconds": duration_error,
         "reference": source["reference"], "utterances": boundaries,
+        "fixtureTools": {
+            name: subprocess.check_output([name, "-version"], text=True).splitlines()[0]
+            for name in ["ffmpeg", "ffprobe"]
+        },
         "files": {name: digest(args.output / name) for name in ["fixture.wav", "fixture.mkv", "fixture.srt"]},
     }
     (args.output / "fixture-provenance.json").write_text(json.dumps(record, indent=2) + "\n")
