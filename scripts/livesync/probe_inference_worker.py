@@ -42,7 +42,9 @@ class Result(C.Structure):
 
 
 class NativeInference:
-    def __init__(self, library, model):
+    def __init__(self, library, model, threads=4):
+        if threads not in range(1, 5):
+            raise ValueError("Expected one to four inference threads")
         self.lib = lib = C.CDLL(str(Path(library).resolve()))
         lib.ls_inference_abi_version.restype = C.c_uint32
         lib.ls_inference_result_size.restype = C.c_size_t
@@ -59,7 +61,7 @@ class NativeInference:
         lib.ls_inference_submit.restype = C.c_int
         lib.ls_inference_take_result.argtypes = [C.c_void_p, C.POINTER(Result), C.c_size_t]
         lib.ls_inference_take_result.restype = C.c_int
-        self.handle = lib.ls_inference_create(str(Path(model).resolve()).encode(), 4)
+        self.handle = lib.ls_inference_create(str(Path(model).resolve()).encode(), threads)
         assert self.handle, "Native worker creation failed"
         result = Result()
         assert lib.ls_inference_take_result(self.handle, C.byref(result), C.sizeof(result) - 1) == -1
@@ -141,6 +143,7 @@ def main():
     parser.add_argument("--consumer", type=Path)
     parser.add_argument("--output", type=Path, required=True)
     parser.add_argument("--require-speech-support", action="store_true")
+    parser.add_argument("--threads", type=int, choices=range(1, 5), default=4)
     parser.add_argument("--active-timeout-seconds", type=int, default=35,
                         help="Functional active-playback deadline, not a performance budget")
     args = parser.parse_args()
@@ -150,7 +153,7 @@ def main():
     assert digest(args.fixture) == FIXTURE_SHA256, "Only the pinned public fixture is accepted"
     model_hash = digest(args.model)
     assert any(model["sha256"] == model_hash for model in json.loads(MANIFEST.read_text())["models"])
-    worker = NativeInference(args.worker, args.model)
+    worker = NativeInference(args.worker, args.model, args.threads)
     try:
         if args.library:
             result, capture = recognize_active(args, worker)
@@ -198,7 +201,7 @@ def main():
         assert error <= 0.25, "Known-fixture recognition exceeded the smoke WER threshold"
         report = {"kind": "active-playback-native-worker" if args.library else "fixture-native-worker-abi",
                   "fixtureSha256": FIXTURE_SHA256, "modelSha256": model_hash,
-                  "workerSha256": digest(args.worker), "capture": capture,
+                  "workerSha256": digest(args.worker), "capture": capture, "threads": args.threads,
                   "wordErrorRate": error, "referenceScope": "best reference prefix" if args.library else "full fixture",
                   "inferenceSecondsExcludingModelLoad": result.elapsed_seconds, "segments": segments,
                   "validPrefixOnly": result.status == 5,

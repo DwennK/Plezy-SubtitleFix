@@ -98,6 +98,7 @@ jobs:
           cmake --build build/livesync/worker-avx2 --config Release --parallel 3 --target livesync_inference_bridge
           for model in base.en base.en-q5_1; do
             python3 scripts/livesync/probe_inference_worker.py --require-speech-support --worker build/livesync/worker-avx2/Release/livesync_inference_bridge.dll --model "build/livesync/models/ggml-$model.bin" --fixture build/livesync/source/samples/jfk.wav --output "build/livesync/evidence/worker-avx2-$model.json"
+            python3 scripts/livesync/probe_inference_worker.py --threads 2 --require-speech-support --worker build/livesync/worker-avx2/Release/livesync_inference_bridge.dll --model "build/livesync/models/ggml-$model.bin" --fixture build/livesync/source/samples/jfk.wav --output "build/livesync/evidence/worker-avx2-2threads-$model.json"
           done
       - name: Compile native inference
         shell: bash
