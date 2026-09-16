@@ -1,0 +1,73 @@
+{
+  "schema": 1,
+  "sourceSha": "0d2482fb6dcc00b5411e20ec382b88b2466de70f",
+  "runId": 35113276812,
+  "runUrl": "https://github.com/DwennK/Plezy-SubtitleFix/actions/runs/35113276812",
+  "conclusion": "success",
+  "buildMode": {
+    "flutterMode": "release",
+    "nativeConfiguration": "Release",
+    "contractTestabilityOverride": true,
+    "artifactPreservedBeforeContractRebuild": true
+  },
+  "nativeContracts": {
+    "devicesAndConfigurations": [
+      {
+        "device": {
+          "architecture": "arm64",
+          "deviceId": "305b1d0aad1c734b149299eb9231183564f34462",
+          "deviceName": "My Mac",
+          "modelName": "Apple Virtual Machine 1",
+          "osBuildNumber": "25G83",
+          "osVersion": "26.6.2",
+          "platform": "macOS"
+        },
+        "expectedFailures": 0,
+        "failedTests": 0,
+        "passedTests": 14,
+        "skippedTests": 0,
+        "testPlanConfiguration": {
+          "configurationId": "1",
+          "configurationName": "Test Scheme Action"
+        }
+      }
+    ],
+    "environmentDescription": "Runner \u00b7 Built with macOS 26.6.2",
+    "expectedFailures": 0,
+    "failedTests": 0,
+    "finishTime": 1789572137.082,
+    "passedTests": 14,
+    "result": "Passed",
+    "skippedTests": 0,
+    "startTime": 1789572069.745,
+    "statistics": [],
+    "testFailures": [],
+    "title": "Test - Runner",
+    "topInsights": [],
+    "totalTestCount": 14
+  },
+  "artifact": {
+    "name": "PlezyLiveSync-macos-test.zip",
+    "bytes": 94740422,
+    "sha256": "dbf7a0e47765ae6f130ab4fe50bece621e0b1f0fc9c19d656045fef6c44c47c0",
+    "bundleIdentifier": "com.dwennk.plezy.livesync",
+    "version": "2.20.0",
+    "build": "150",
+    "executableArchitectures": [
+      "arm64",
+      "x86_64"
+    ],
+    "liveSyncBridgeArchitectures": [
+      "arm64"
+    ],
+    "debugDylibPresent": false,
+    "strictBundleSignatureVerified": true
+  },
+  "fullProductAcceptance": false,
+  "limitations": [
+    "The normal Release archive is preserved before XCTest rebuilds a host with Swift testability.",
+    "Only the arm64 native contract destination was tested. LiveSync explicitly returns unsupported on Intel; universal application slices do not establish Intel LiveSync support.",
+    "The application was not installed or launched on the user Mac. Native settings UI, audible playback, Mentalist, installation/removal and notarization remain unvalidated.",
+    "Windows controller validation for this combined candidate remains pending. Dart and full upstream CI pass; this receipt does not promote the candidate."
+  ]
+}

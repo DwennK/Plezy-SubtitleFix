@@ -93,5 +93,18 @@ accusés de soumission arrivant après un seek, et les builds Release Windows/Ma
 La protection a passé 162 tests locaux et l’analyse sur le code cache combiné ;
 la course elle-même n’a pas été reproduite dans un probe natif. Le bundle Mac
 ordinaire est archivé avant qu’XCTest active la testabilité de son hôte Release.
-Les quatre workflows du candidat sont lancés ; aucun résultat antérieur ne
-lui est attribué. La branche maintenue reste au candidat validé `f04d8e29`.
+La CI Dart, la CI générale et le [build Mac Release avec 14 contrats](livesync-evidence/release-0d2482fb-macos.json)
+passent. Le contrôleur Windows Release reste en cours au relevé ; aucun résultat antérieur ne lui est attribué. La branche maintenue reste au candidat validé `f04d8e29`.
+
+## Scènes ajoutées/supprimées : référence native en échec
+
+La [PR nº 5](https://github.com/DwennK/Plezy-SubtitleFix/pull/5) conserve trois
+fixtures réelles à coupures connues et leurs premières inférences au SHA
+`f3621f5c`. Le SRT complet reste identique ; le moteur ne reçoit pas l’oracle.
+Les trois cas apprennent deux régions mais aucun gap. Après ajout de 30 s,
+la récupération prend 29,634 s et le p95 de suivi vaut 30,210 s. Après suppression
+de 13 s : 11,575 s et p95 12,780 s. Le cas coupant une cue échoue également.
+Ces essais utilisent l’ancienne bibliothèque locale c734, sans UI ni audio audible ;
+ils démontrent une limite du suivi, pas une validation du bundle actuel.
+La reconstruction locale du natif upstream actuel est engagée pour poursuivre
+ce travail. Détection des coupures et rendu des cues traversantes restent requis.

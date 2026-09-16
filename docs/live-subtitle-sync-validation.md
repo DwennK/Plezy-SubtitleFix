@@ -1814,3 +1814,27 @@ Le code cache+protection passe 162 tests locaux et l’analyse ; actionlint et
 utilisent un hôte Release avec testabilité Swift ; l’application ordinaire
 est archivée avant cette instrumentation. Les nouvelles CI sont en cours,
 sans promotion de ce candidat ni attribution des résultats de `7267abfc`.
+
+
+### Candidat Mac Release et échecs de scènes — 16 septembre
+
+Le candidat `0d2482fb` passe le build Mac Release `35113276812`, ses 14 contrats
+natifs et la vérification stricte du bundle téléchargé. L’archive ordinaire
+précède le rebuild XCTest avec testabilité Swift. Le lanceur et App.framework
+sont universels ; les bibliothèques LiveSync restent arm64 et le code exclut
+explicitement Intel. Aucune validation de LiveSync Intel n’est déduite du build.
+[Reçu et empreintes](livesync-evidence/release-0d2482fb-macos.json).
+
+La branche `codex/livesync-scene-evidence`, PR nº 5, prépare trois cas réels
+d’ajout/suppression/cue traversante. Sept contrôles ciblés, 13 tests de fixtures,
+analyse Flutter et actionlint passent. Les trois MKV restituent exactement le
+PCM édité et conservent le hash du SRT original. Aucun oracle ne va au moteur.
+Les inférences au SHA `f3621f5c` acquièrent vers 21,4 s puis retrouvent le nouvel
+offset, mais ne produisent aucun gap. Les erreurs pendant la transition font
+échouer le suivi complet : p95 30,210 s / 12,780 s / 30,205 s.
+
+Le périmètre natif est l’ancien développement c734, déclaré avec empreintes ;
+ni le bundle courant, ni un renderer, ni Mentalist audible ne sont ainsi validés.
+Une reconstruction locale depuis le lock upstream courant est lancée. Ces échecs
+sont conservés pour guider l’apprentissage des coupures et leurs frontières,
+sans réduire l’objectif à la seule récupération d’un offset final.
