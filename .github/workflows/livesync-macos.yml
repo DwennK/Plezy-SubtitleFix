@@ -57,7 +57,9 @@ jobs:
           cd packages/wakelock_plus
           flutter pub get --enforce-lockfile --no-example
       - name: Build the isolated test application
-        run: flutter build macos --debug --no-pub
+        run: |
+          python3 scripts/livesync/build_analysis_runtime.py --target macos-arm64
+          flutter build macos --debug --no-pub
       - name: Test the actual app-linked native library
         run: |
           xcodebuild test -workspace macos/Runner.xcworkspace -scheme Runner -configuration Debug -destination 'platform=macOS,arch=arm64' -derivedDataPath build/macos -clonedSourcePackagesDirPath build/macos/SourcePackages -only-testing:RunnerTests -resultBundlePath build/livesync/evidence/native-contracts.xcresult

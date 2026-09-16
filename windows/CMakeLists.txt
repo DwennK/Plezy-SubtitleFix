@@ -252,6 +252,34 @@ install(FILES "${MPV_LIB_DIR}/libmpv-2.dll"
   DESTINATION "${INSTALL_BUNDLE_LIB_DIR}"
   COMPONENT Runtime)
 
+if(MPV_ARCH STREQUAL "x86_64")
+  find_package(Python3 REQUIRED COMPONENTS Interpreter)
+  set(LIVESYNC_ANALYSIS_DIR "${CMAKE_CURRENT_SOURCE_DIR}/../build/livesync/runtime/windows-x64")
+  execute_process(
+    COMMAND "${Python3_EXECUTABLE}" "${CMAKE_CURRENT_SOURCE_DIR}/../scripts/livesync/build_analysis_runtime.py"
+      --target windows-x64 --verify
+    RESULT_VARIABLE LIVESYNC_ANALYSIS_RESULT
+  )
+  if(NOT LIVESYNC_ANALYSIS_RESULT EQUAL 0)
+    message(FATAL_ERROR "Build the verified LiveSync analysis runtime before building Windows x64")
+  endif()
+  set_property(DIRECTORY APPEND PROPERTY CMAKE_CONFIGURE_DEPENDS "${LIVESYNC_ANALYSIS_DIR}/provenance.json")
+  install(CODE "
+    execute_process(COMMAND \"${Python3_EXECUTABLE}\" \"${CMAKE_CURRENT_SOURCE_DIR}/../scripts/livesync/build_analysis_runtime.py\"
+      --target windows-x64 --verify RESULT_VARIABLE analysis_verification)
+    if(NOT analysis_verification EQUAL 0)
+      message(FATAL_ERROR \"LiveSync analysis runtime changed after configuration\")
+    endif()
+    file(REMOVE \"${INSTALL_BUNDLE_LIB_DIR}/livesync_capture_bridge.dll\"
+      \"${INSTALL_BUNDLE_LIB_DIR}/livesync_inference_bridge.dll\")
+    " COMPONENT Runtime)
+  install(FILES "${LIVESYNC_ANALYSIS_DIR}/livesync_capture_bridge.dll"
+    "${LIVESYNC_ANALYSIS_DIR}/livesync_inference_bridge.dll"
+    DESTINATION "${INSTALL_BUNDLE_LIB_DIR}" COMPONENT Runtime)
+  install(FILES "${LIVESYNC_ANALYSIS_DIR}/whisper-ggml-LICENSE" "${LIVESYNC_ANALYSIS_DIR}/provenance.json"
+    DESTINATION "${INSTALL_BUNDLE_DATA_DIR}/livesync" COMPONENT Runtime)
+endif()
+
 # Install the Vulkan loader (and its license) next to the executable so the
 # hard import in libmpv-2.dll resolves on machines whose GPU driver does not
 # provide vulkan-1.dll.

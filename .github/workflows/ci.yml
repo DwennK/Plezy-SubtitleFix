@@ -387,6 +387,7 @@ jobs:
           archive=build/livesync/mpv-source/dist/release/Libmpv.xcframework.zip
           checksum=$(shasum -a 256 "$archive" | cut -d ' ' -f 1)
           python3 scripts/livesync/stage_macos_package.py --source build/livesync/mpv-source --archive "$archive" --sha256 "$checksum"
+          python3 scripts/livesync/build_analysis_runtime.py --target macos-arm64
           flutter build macos --config-only --debug --no-pub
 
       - name: Prepare tvOS Flutter engine
@@ -530,6 +531,8 @@ jobs:
             if ($LASTEXITCODE -ne 0) { throw 'Native build provenance unavailable' }
             python scripts/livesync/stage_windows_package.py --run-id $nativeRun
             if ($LASTEXITCODE -ne 0) { throw 'Patched native staging failed' }
+            python scripts/livesync/build_analysis_runtime.py --target windows-x64
+            if ($LASTEXITCODE -ne 0) { throw 'Analysis runtime build failed' }
           }
           flutter build windows --debug --config-only --no-pub
           if ($LASTEXITCODE -ne 0) { throw 'Windows configuration failed' }
