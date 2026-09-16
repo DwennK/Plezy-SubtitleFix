@@ -2,7 +2,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:plezy/features/live_subtitle_sync/native_bindings.dart';
 import 'package:plezy/features/live_subtitle_sync/subtitle_index.dart';
 import 'package:plezy/features/live_subtitle_sync/subtitle_parser.dart';
-import 'package:plezy/features/live_subtitle_sync/temporal_aligner.dart';
+import 'package:plezy/features/live_subtitle_sync/timeline_map.dart';
 import 'package:plezy/features/live_subtitle_sync/transcript_context.dart';
 import 'package:plezy/features/live_subtitle_sync/transcript_matcher.dart';
 
@@ -46,7 +46,7 @@ void main() {
     expect(evidence.windowCount, 2);
     expect(evidence.match.status, TranscriptMatchStatus.matched);
     expect(evidence.anchors.map((anchor) => anchor.mediaTime), [92, 97]);
-    expect(ConstantOffsetEstimator().add(evidence.anchors), 90);
+    expect(const TimelineFitter().fit(evidence.anchors)?.offset, 90);
   });
 
   test('context preserves a window-edge timestamp rejection', () {
@@ -55,7 +55,7 @@ void main() {
     final evidence = matchTranscriptEvidence(second, index, context: context.add(second));
     expect(evidence.match.status, TranscriptMatchStatus.matched);
     expect(evidence.anchors.map((anchor) => anchor.cue), [0]);
-    expect(ConstantOffsetEstimator().add(evidence.anchors), isNull);
+    expect(const TimelineFitter().fit(evidence.anchors)?.offset, isNull);
   });
 
   test('overlapped audio is not counted twice', () {
@@ -131,7 +131,7 @@ void main() {
     final evidence = matchTranscriptEvidence(source, index);
     expect(evidence.segmented, isTrue);
     expect(evidence.anchors.map((anchor) => anchor.cue), [0, 1]);
-    expect(ConstantOffsetEstimator().add(evidence.anchors), 90);
+    expect(const TimelineFitter().fit(evidence.anchors)?.offset, 90);
   });
 
   test('group searches retain conflicting timing evidence for rejection', () {
@@ -164,7 +164,7 @@ void main() {
     final evidence = matchTranscriptEvidence(source, expanded);
     expect(evidence.segmented, isTrue);
     expect(evidence.anchors.length, 4);
-    expect(ConstantOffsetEstimator().add(evidence.anchors), isNull);
+    expect(const TimelineFitter().fit(evidence.anchors)?.offset, isNull);
   });
 
   test('an individually valid match stays preferred over unrelated context', () {
