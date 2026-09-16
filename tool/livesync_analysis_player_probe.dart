@@ -176,6 +176,37 @@ class _ProbeState extends State<_Probe> {
         (double.parse((await player.getProperty('sub-delay'))!) - automatic + 0.25).abs() < 0.0001,
         'manual-during',
       );
+      final learned = diagnostics.lastWhere((entry) => entry.containsKey('learnedMediaStart'));
+      final learnedStart = (learned['learnedMediaStart'] as num).toDouble();
+      final learnedEnd = (learned['learnedMediaEnd'] as num).toDouble();
+      check(learnedEnd - learnedStart >= 3, 'learned-domain');
+      final knownPosition = (learnedStart + learnedEnd) / 2;
+      final unknownPosition = 73.0 + introSilence;
+      check(unknownPosition > learnedEnd + 1, 'unknown-test-domain');
+      Future<void> seekAndWait(double seconds, bool known) async {
+        await player.seek(Duration(microseconds: (seconds * 1e6).round()));
+        final deadline = Stopwatch()..start();
+        while (true) {
+          final actual = double.tryParse(await player.getProperty('time-pos') ?? '');
+          final ready = known ? sync.phase == LiveSyncPhase.synced : sync.automaticOffset == null;
+          if (ready && actual != null && (actual - seconds).abs() < 0.5) break;
+          check(deadline.elapsed < const Duration(seconds: 8), known ? 'known-seek-timeout' : 'unknown-seek-timeout');
+          await Future<void>.delayed(const Duration(milliseconds: 100));
+        }
+        // Let the next controller tick observe the native landing as well.
+        await Future<void>.delayed(const Duration(milliseconds: 600));
+      }
+
+      await seekAndWait(unknownPosition, false);
+      check(sync.automaticOffset == null, 'unknown-seek-retained-prediction');
+      check((double.parse((await player.getProperty('sub-delay'))!) + 0.25).abs() < 0.0001, 'unknown-seek-manual');
+      await seekAndWait(knownPosition, true);
+      check((sync.automaticOffset! - automatic).abs() < 0.0001, 'known-seek-mapping');
+      check(
+        (double.parse((await player.getProperty('sub-delay'))!) - automatic + 0.25).abs() < 0.0001,
+        'known-seek-manual',
+      );
+      report.addAll({'knownRegionRestoredAfterSeek': true, 'unknownSeekClearsAutomaticOnly': true});
       await sync.disable();
       check((double.parse((await player.getProperty('sub-delay'))!) + 0.25).abs() < 0.0001, 'manual-after');
       check(await player.getProperty('livesync-enabled') == 'no', 'capture-after');

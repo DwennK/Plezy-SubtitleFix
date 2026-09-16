@@ -1,8 +1,10 @@
 # Timeline domain work in progress
 
-This branch contains the bounded domain model for phase E. It is not yet wired
-into the production controller or renderer and does not establish native drift
-or scene-gap support. Production still applies a constant offset.
+The bounded domain model and learner are connected to the production controller.
+The controller queries mpv's media clock every 500 ms and updates `sub-delay`
+when its automatic contribution changes by at least 10 ms. This integration
+still needs native drift and boundary validation; scene-gap suppression is not
+implemented. Existing constant-offset native evidence predates this integration.
 
 All times are seconds. The canonical mapping is `media = slope * subtitle +
 offset`; media bounds are derived from subtitle bounds. Regions are half-open.
@@ -18,7 +20,11 @@ a residual majority, and an improvement over the constant fit reject weak or
 contradictory evidence. These are heuristics, not calibrated probabilities.
 
 A fitted region spans only its inlier anchors, ending one microsecond beyond
-the last cue start. It never asserts that unobserved future playback is valid.
+the last cue start. The learner keeps predictions separate from this map. During
+continuous playback it may predict at most 120 media seconds beyond the last
+observed anchor; a seek, rate change or capture discontinuity revokes that
+prediction. Known regions survive those events. Media/track changes and disable
+clear the session map. No persistent cache is involved yet.
 An insertion or refinement preserves previously learned regions and rejects
 contradictory overlaps. Video-only and subtitle-only gaps are explicit objects;
 the fitter never infers them from silence or a failed match. A learner must
@@ -30,6 +36,23 @@ editions, invalid evidence, scene insertions/deletions, half-open boundaries,
 unknown intervals, retained regions on backward seeks and conflicting updates.
 These use injected anchors. They do not test real speech or native rendering.
 
-Remaining integration: observation provenance, learner/discontinuity policy,
-bounded and explicitly uncertain prediction, cues crossing boundaries,
-audio/manual delay composition, renderer proof, cache and held-out real audio.
+Six learner tests additionally cover expiring predictions, known/unknown seeks,
+incremental cadence fitting, confirmed offset jumps with unknown boundaries,
+contradictory overlapping editions and session reset. Individually confirmed
+clusters are retained for fitting because drift can exceed the constant-fit
+tolerance before the six-anchor/60-second slope requirement is met. A refinement
+must explain both old and new observations within 800 ms, without dropping old
+domains. At most 128 continuous observations, 24 pending observations and 128
+segments are retained; unbounded history is never accumulated.
+
+The controller checks every 30 seconds after first acquisition until a segment
+contains six anchors spanning 60 seconds, then every 90 seconds. These intervals
+and the 120-second prediction bound remain heuristics requiring real validation.
+The Windows application probe now checks native delay after a paused seek to an
+unknown region and back into the learned domain, including the manual delay.
+Its success must be checked in CI before claiming the native behavior is proven.
+
+Remaining work: explicit gap learning and subtitle suppression, cues crossing
+boundaries, audio-delay composition, smoothing, renderer proof, persistent cache,
+performance and independent real-audio drift validation. A changed offset alone
+does not locate a cut: the interval between incompatible regions stays unknown.

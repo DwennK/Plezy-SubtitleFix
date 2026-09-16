@@ -15,7 +15,7 @@ import 'runtime_paths.dart';
 import 'subtitle_index.dart';
 import 'subtitle_parser.dart';
 import 'subtitle_source.dart';
-import 'temporal_aligner.dart';
+import 'timeline_tracker.dart';
 import 'transcript_context.dart';
 
 enum LiveSyncPhase { off, loadingSubtitles, downloading, analyzing, synced, resyncing, unable, unsupported }
@@ -41,7 +41,7 @@ class _Resources {
 class LiveSubtitleSyncController extends ChangeNotifier {
   LiveSubtitleSyncController._(this.player) {
     LiveSyncPlayerAttachment.sessions[player] = LiveSyncPlayerAttachment(disable);
-    _subscriptions.add(player.streams.playheadJump.listen((_) => unawaited(_reset())));
+    _subscriptions.add(player.streams.playheadJump.listen((target) => unawaited(_reset(target: target))));
     _subscriptions.add(player.streams.rate.listen((_) => unawaited(_reset())));
     _subscriptions.add(
       player.streams.track.listen((selection) {
@@ -75,7 +75,7 @@ class LiveSubtitleSyncController extends ChangeNotifier {
 
   final PlayerNative player;
   final _subscriptions = <StreamSubscription<Object?>>[];
-  final _estimator = ConstantOffsetEstimator();
+  final _timeline = TimelineTracker();
   final _transcriptContext = TranscriptContext();
   final _clock = Stopwatch()..start();
   LiveSyncPhase phase = LiveSyncPhase.off;
@@ -205,7 +205,7 @@ class LiveSubtitleSyncController extends ChangeNotifier {
       _worker = worker;
       diagnosticObserver?.call({'inferenceBackend': worker.inferenceBackend});
       _continuity = null;
-      _estimator.clear();
+      _timeline.clear();
       _transcriptContext.clear();
       _attempts = 0;
       _analysisWindowSeconds = 12;
@@ -248,7 +248,7 @@ class LiveSubtitleSyncController extends ChangeNotifier {
       if (_continuity != null && status.continuity != _continuity) {
         // Overflow, decoder resets and dropped blocks invalidate the evidence
         // as well as the inference. Do not combine anchors across a PCM gap.
-        _estimator.clear();
+        _timeline.discontinuity();
         _transcriptContext.clear();
         _attempts = 0;
         _analysisWindowSeconds = 12;
@@ -286,18 +286,33 @@ class LiveSubtitleSyncController extends ChangeNotifier {
         // Keep the cadence and all matching thresholds; only use the already
         // bounded 15-second snapshot when no timestamp anchor was usable.
         _analysisWindowSeconds = anchors.isEmpty ? 15 : 12;
-        final offset = _estimator.add(anchors);
-        if (offset != null) {
-          await player.setLiveSubtitleOffset(offset.abs() < 0.25 ? 0 : offset);
-          if (!enabled || generation != _generation) return;
-          automaticOffset = offset;
-          _state(LiveSyncPhase.synced);
-        } else if (_attempts >= 5 && automaticOffset == null) {
+        if (_timeline.observe(anchors)) {
+          final learned = _timeline.map.segments.last;
+          diagnosticObserver?.call({
+            'learnedMediaStart': learned.mediaStart,
+            'learnedMediaEnd': learned.mediaEnd,
+            'learnedSlope': learned.slope,
+            'learnedSegments': _timeline.map.segments.length,
+          });
+        }
+        if (_attempts >= 5 && automaticOffset == null) {
           _state(LiveSyncPhase.unable, LiveSyncReason.noMatch);
         }
       }
+      // Query the native media clock: cached UI positions can be throttled or
+      // lag behind a seek. Affine correction changes with playback position.
+      final position = double.tryParse(await player.getProperty('time-pos') ?? '');
+      if (!enabled || generation != _generation) return;
+      if (position != null) await _applyCorrection(position, generation);
       if (!player.state.playing || player.state.buffering || status.samples < 128000) return;
-      final intervalMs = phase == LiveSyncPhase.synced ? 90000 : (_attempts > 3 ? 30000 : 12000);
+      // Collect spaced confirmation windows before slowing to steady-state
+      // checks, so a cadence difference can actually accumulate six anchors.
+      final established = _timeline.map.segments.any(
+        (segment) => segment.anchors.length >= 6 && segment.subtitleEnd - segment.subtitleStart >= 60,
+      );
+      final intervalMs = phase == LiveSyncPhase.synced
+          ? (established ? 90000 : 30000)
+          : (_attempts > 3 ? 30000 : 12000);
       if (_clock.elapsedMilliseconds - _lastAnalysisMs >= intervalMs &&
           await worker.submitRecent(seconds: _analysisWindowSeconds)) {
         _lastAnalysisMs = _clock.elapsedMilliseconds;
@@ -311,10 +326,30 @@ class LiveSubtitleSyncController extends ChangeNotifier {
     }
   }
 
-  Future<void> _reset() async {
+  Future<void> _applyCorrection(double position, int generation) async {
+    final correction = _timeline.correctionAt(position);
+    final offset = correction.position.automaticDelay;
+    if (offset == null) {
+      if (automaticOffset != null) {
+        await player.setLiveSubtitleOffset(0);
+        if (!enabled || generation != _generation) return;
+        automaticOffset = null;
+        _state(LiveSyncPhase.resyncing);
+      }
+      return;
+    }
+    if (automaticOffset == null || (offset - automaticOffset!).abs() >= 0.01) {
+      await player.setLiveSubtitleOffset(offset);
+      if (!enabled || generation != _generation) return;
+      automaticOffset = offset;
+    }
+    if (phase != LiveSyncPhase.synced) _state(LiveSyncPhase.synced);
+  }
+
+  Future<void> _reset({Duration? target}) async {
     if (!enabled || _worker == null) return;
     final generation = ++_generation;
-    _estimator.clear();
+    _timeline.discontinuity();
     _transcriptContext.clear();
     _continuity = null;
     _attempts = 0;
@@ -324,7 +359,10 @@ class LiveSubtitleSyncController extends ChangeNotifier {
     try {
       await _worker!.reset(generation);
       await player.setLiveSubtitleOffset(0);
-      if (enabled && generation == _generation) _state(LiveSyncPhase.resyncing);
+      if (enabled && generation == _generation) {
+        _state(LiveSyncPhase.resyncing);
+        if (target != null) await _applyCorrection(target.inMicroseconds / 1e6, generation);
+      }
     } catch (_) {
       if (enabled) _state(LiveSyncPhase.unable, LiveSyncReason.nativeRuntime);
     }
@@ -351,7 +389,7 @@ class LiveSubtitleSyncController extends ChangeNotifier {
     await player.setLiveSubtitleOffset(0);
     automaticOffset = null;
     _index = null;
-    _estimator.clear();
+    _timeline.clear();
     _transcriptContext.clear();
     _state(LiveSyncPhase.off);
   }
