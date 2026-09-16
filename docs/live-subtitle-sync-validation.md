@@ -781,3 +781,81 @@ Le délai du probe de compatibilité CPU portable Windows passe explicitement
 à 90 s, car son précédent délai total de 35 s incluait neuf secondes de
 capture et masquait le résultat lent. Cela ne change pas le budget de
 performance de 3 s p95 et ne constitue pas une validation de ce budget.
+
+### Vérifications du 16 septembre : upstream e3875912 et sources locales Windows
+
+À `d99fad3b`, la suite complète locale termine en 10 min 59 s avec **7 311
+succès et 6 tests ignorés**. Le build macOS de ce SHA et sa copie de revue
+passent la vérification stricte de signature. Les contrôles CI natifs et Dart
+`35047604719` / `35047604744` passent sur macOS et Windows. Les catalogues
+non traduits nécessitaient les clés vides de repli LiveSync (`22121478`) ;
+les icônes de bascule devaient utiliser les Symbols arrondis (`beb7416e`).
+Génération, hygiène des traductions, icônes, analyse et détection du code et
+des fichiers inutilisés passent localement après ces corrections.
+
+Le run Windows `35047604169` prouve le choix automatique AVX2, le secours
+portable lorsque la DLL accélérée manque, la capture et l'inférence natives,
+ainsi que les six étapes de rendu du délai. Les captures baseline/positive/
+restored montrent respectivement le cue, son absence après +2 s, puis son
+retour avec le délai manuel restauré. Ce banc synthétique ne prouve pas le
+recalage automatique d'un film. Sa capture de bureau est limitée à 1024×720.
+
+Le contrôleur applicatif de ce run échoue sur `unsupported-englishTracks`.
+L'attente de sélection ne suffit donc pas : mpv canonicalise les chemins
+Windows des sidecars, tandis que le catalogue était indexé sur la chaîne
+exacte. Les chemins mélangeant `\\` et `/` perdent leurs métadonnées. Le
+correctif `7568fff0` canonicalise seulement les clés des chemins Windows,
+conserve les URI des pistes et ne réécrit pas les URL signées. Ses 41 tests
+ciblés passent. La confirmation dans l'application Windows reste en cours.
+
+Sur ce même runner Windows Server 2025 / AMD EPYC 9V74, 2 cœurs / 4 threads,
+le pont réel avec DTW et AVX2 traite la fenêtre JFK d'environ 8,51 s en
+**2,665 s avec base.en**, contre **14,266 s avec Q5_1**. Le secours portable
+Q5_1 prend **29,122 s** sur environ 8,57 s. Windows choisit désormais base.en
+(148 Mo affichés), tandis que macOS conserve Q5_1 (60 Mo). Ces observations
+uniques ne sont ni un p95, ni une preuve de fluidité audible ; le budget
+sur des fenêtres de 12 s n'est pas encore établi.
+
+### Première portion de validation indépendante : acquisition échouée
+
+Le moteur figé avant l'essai (`5de134a9`, runtime natif de `bac639f9`) a lu
+l'audio Sintel 200–275 s avec le SRT original complet. Aucun seuil n'a été
+modifié pour ce résultat : offset attendu −200 s, limite d'erreur fixée à
+750 ms, fenêtre d'acquisition maximale de 75 s.
+
+Résultat : **aucun verrouillage en 75,049 s**, quatre analyses terminées,
+un résultat sans candidat puis trois avec dialogue insuffisant. Il n'y a
+aucune mesure de précision à calculer et aucun faux verrouillage observé
+sur cet unique essai. Les dialogues courts et les fenêtres de capture sont
+à étudier sur les fixtures de développement. Le rapport initial est conservé
+dans `docs/livesync-evidence/heldout-200-275-initial.json` sans PCM ni dialogue.
+Cette portion ne pourra plus servir de validation indépendante après un
+ajustement motivé par cet échec. Les portions 275–650 s et 650–888 s restent
+non évaluées. Ne pas présenter l'ensemble du corpus comme validé.
+
+Le modèle de timeline affine et ses 17 tests d'ancres injectées restent
+isolés sur `codex/livesync-timeline` (`05a71c55`). Ils couvrent domaines bornés,
+dérive et gaps explicites, mais ne sont pas raccordés au contrôleur de
+production. La dérive et les scènes différentes ne sont donc pas livrées.
+
+Reproduction de cette première portion (sources vérifiées par
+`prepare_corpus.py`, runtime Mac construit par `build_analysis_runtime.py`) :
+
+```sh
+mkdir -p build/livesync/heldout-200-275
+ffmpeg -v error -y -ss 200 -t 75 \
+  -i build/livesync/corpus-source/sintel-master-st.flac -c:a pcm_s16le \
+  build/livesync/heldout-200-275/fixture.wav
+dart run tool/livesync_native_engine_probe.dart \
+  --mpv build/livesync/libmpv-probe-metadata.dylib \
+  --capture build/livesync/runtime/macos-arm64/liblivesync_capture_bridge.dylib \
+  --inference build/livesync/runtime/macos-arm64/liblivesync_inference_bridge.dylib \
+  --model /path/to/verified/ggml-base.en-q5_1.bin \
+  --audio build/livesync/heldout-200-275/fixture.wav \
+  --srt build/livesync/corpus-source/sintel_en.srt \
+  --expected-offset -200 --maximum-error 0.75 \
+  --output build/livesync/evidence/heldout-200-275-native.json
+```
+
+Ce WAV est une fixture redistribuable préparée explicitement pour le test ;
+le prélèvement PCM effectué pendant sa lecture n'est pas conservé.

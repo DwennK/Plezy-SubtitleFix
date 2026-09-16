@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "status": "calibration-in-progress-heldout-not-evaluated",
+  "status": "first-heldout-subpartition-evaluated-acquisition-failed",
   "sources": [
     {
       "id": "sintel-stereo-en",
@@ -42,9 +42,43 @@
         }
       ],
       "partitions": [
-        {"role": "calibration", "startSeconds": 100, "endSeconds": 175, "srtCueCount": 12},
-        {"role": "held-out-validation", "startSeconds": 200, "endSeconds": 650, "srtCueCount": 14},
-        {"role": "held-out-without-srt-cues", "startSeconds": 650, "endSeconds": 888, "srtCueCount": 0}
+        {
+          "role": "calibration",
+          "startSeconds": 100,
+          "endSeconds": 175,
+          "srtCueCount": 12
+        },
+        {
+          "role": "held-out-validation",
+          "startSeconds": 200,
+          "endSeconds": 650,
+          "srtCueCount": 14
+        },
+        {
+          "role": "held-out-without-srt-cues",
+          "startSeconds": 650,
+          "endSeconds": 888,
+          "srtCueCount": 0
+        }
+      ]
+    }
+  ],
+  "evaluations": [
+    {
+      "partitionSeconds": [
+        200,
+        275
+      ],
+      "report": "docs/livesync-evidence/heldout-200-275-initial.json",
+      "initialResult": "no-lock-within-75-seconds",
+      "nowAvailableFor": "regression-only-after-any-tuning",
+      "untouchedPositiveAudioSeconds": [
+        275,
+        650
+      ],
+      "untouchedNegativeAudioSeconds": [
+        650,
+        888
       ]
     }
   ]

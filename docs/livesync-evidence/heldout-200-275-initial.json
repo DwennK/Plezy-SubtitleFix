@@ -1,0 +1,64 @@
+{
+  "kind": "native-active-pcm-real-asr-and-domain-alignment",
+  "platform": "macos",
+  "inferenceBackend": "portable-cpu",
+  "actualOffset": "none",
+  "acquisitionMs": 75049,
+  "expectedOffset": -200.0,
+  "absoluteOffsetError": "unavailable",
+  "maximumOffsetError": 0.75,
+  "reference": "authored SRT timings, not precise acoustic-onset ground truth",
+  "passed": false,
+  "analyses": [
+    {
+      "attempt": 1,
+      "windowStart": 0.7690000000000001,
+      "windowEnd": 8.788375,
+      "match": "noCandidate",
+      "similarity": null,
+      "anchors": []
+    },
+    {
+      "attempt": 2,
+      "windowStart": 8.9056875,
+      "windowEnd": 20.9056875,
+      "match": "insufficientDialogue",
+      "similarity": null,
+      "anchors": []
+    },
+    {
+      "attempt": 3,
+      "windowStart": 21.023,
+      "windowEnd": 33.022999999999996,
+      "match": "insufficientDialogue",
+      "similarity": null,
+      "anchors": []
+    },
+    {
+      "attempt": 4,
+      "windowStart": 33.055,
+      "windowEnd": 45.055,
+      "match": "insufficientDialogue",
+      "similarity": null,
+      "anchors": []
+    }
+  ],
+  "productionPlayerValidated": false,
+  "audiblePlaybackValidated": false,
+  "pcmOrTranscriptPersisted": false,
+  "mainIsolateHeartbeatTicks": 3049,
+  "sourceCommit": "5de134a9",
+  "engineImplementationCommit": "bac639f9",
+  "sourcePartitionSeconds": [
+    200,
+    275
+  ],
+  "originalRole": "held-out-validation",
+  "modelSha256": "4baf70dd0d7c4247ba2b81fafd9c01005ac77c2f9ef064e00dcf195d0e2fdd2f",
+  "sourceFileSha256": "49b279400b6fcad23f6a8862ae65a2a22f21f249cd7576b09991880da221412b",
+  "fixtureSha256": "5b9b35916611f248aad5709ccdfe32a4871f3d45d34851bf33d0b06d1a6684c8",
+  "falseLocksObserved": 0,
+  "precisionSampleCount": 0,
+  "captureLibrarySha256": "331a34571115074a28bdb41734a424ff977b7b33b984b272ed4ea83e8fe90e07",
+  "inferenceLibrarySha256": "cccc74b721c7011b27c164ddea593d0579a0b3d167eae8ea75e436e8739bae1c"
+}
