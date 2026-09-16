@@ -272,6 +272,18 @@ class LiveSubtitleSyncController extends ChangeNotifier {
       }
       _index = index;
       _worker = worker;
+      _continuity = null;
+      _pcmAvailability.clear();
+      _transcriptContext.clear();
+      _cadence.clear();
+      _lastAnalysisMs = -90000;
+      // Own the timer before awaiting player properties. A seek may supersede
+      // this startup generation while keeping the prepared session active.
+      // Register before notifying listeners as a synchronous disable must also
+      // be able to cancel the timer immediately.
+      _timer = Timer.periodic(const Duration(milliseconds: 500), (_) => unawaited(_tick()));
+      _state(LiveSyncPhase.analyzing);
+      if (!current()) return;
       if (diagnosticObserver != null) {
         final status = await worker.status();
         if (!current()) return;
@@ -281,17 +293,9 @@ class LiveSubtitleSyncController extends ChangeNotifier {
         });
       }
       diagnosticObserver?.call({'inferenceBackend': worker.inferenceBackend});
-      _continuity = null;
-      _pcmAvailability.clear();
-      _transcriptContext.clear();
-      _cadence.clear();
-      _lastAnalysisMs = -90000;
-      _state(LiveSyncPhase.analyzing);
       final position = double.tryParse(await player.getProperty('time-pos') ?? '');
       if (!current()) return;
       if (position != null) await _applyCorrection(position, generation);
-      if (!current()) return;
-      _timer = Timer.periodic(const Duration(milliseconds: 500), (_) => unawaited(_tick()));
     } on SubtitleSourceException catch (error) {
       if (current()) {
         _state(

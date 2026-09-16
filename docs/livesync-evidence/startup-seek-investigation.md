@@ -23,3 +23,16 @@ separate delayed-SRT experiment.
 No production fix is included in this test commit. Retain its exact source SHA
 and native outcome before changing the startup ordering. A fixture failure for
 another reason does not confirm this hypothesis.
+
+## Proposed ordering correction
+
+The follow-up prepares the session state and owns its periodic timer immediately
+when index/capture ownership transfers, before awaiting native properties and
+before notifying state listeners. A superseding seek can then invalidate the
+initial property reads without losing ongoing analysis. A synchronous disable
+listener can cancel the already-owned timer.
+
+153 local feature/player tests and full analysis pass after this reorder.
+The old-ordering reproduction remains frozen at `114301c0` in run `35103325258`.
+Its native outcome and the corrected native run are still pending; neither is
+claimed to have reproduced/fixed the issue merely from the local checks.
