@@ -12,6 +12,7 @@ import 'analysis_worker.dart';
 import 'model_manager.dart';
 import 'native_bindings.dart';
 import 'player_attachment.dart';
+import 'pcm_availability.dart';
 import 'runtime_paths.dart';
 import 'subtitle_index.dart';
 import 'subtitle_parser.dart';
@@ -78,6 +79,7 @@ class LiveSubtitleSyncController extends ChangeNotifier {
   final PlayerNative player;
   final _subscriptions = <StreamSubscription<Object?>>[];
   final _timeline = TimelineTracker();
+  final _pcmAvailability = PcmAvailability();
   final _transcriptContext = TranscriptContext();
   final _clock = Stopwatch()..start();
   LiveSyncPhase phase = LiveSyncPhase.off;
@@ -104,6 +106,7 @@ class LiveSubtitleSyncController extends ChangeNotifier {
   SubtitleIndex? _index;
   Future<void>? _loading;
   Future<void>? _stopping;
+  Future<void>? _retiringWorker;
   Future<void>? _restarting;
   int? _continuity;
   _Resources? _shared;
@@ -206,6 +209,7 @@ class LiveSubtitleSyncController extends ChangeNotifier {
       _worker = worker;
       diagnosticObserver?.call({'inferenceBackend': worker.inferenceBackend});
       _continuity = null;
+      _pcmAvailability.clear();
       _timeline.clear();
       _transcriptContext.clear();
       _cadence.clear();
@@ -232,17 +236,26 @@ class LiveSubtitleSyncController extends ChangeNotifier {
     try {
       final status = await worker.status();
       if (!enabled || generation != _generation) return;
-      if (status.state == 3) {
-        _timer?.cancel();
-        _worker = null;
-        await worker.close();
-        await player.setLiveSubtitleOffset(0);
-        automaticOffset = null;
-        _state(LiveSyncPhase.unsupported, LiveSyncReason.surround);
+      if (player.audioPassthroughActive || status.state == 3) {
+        await _suspend(
+          generation,
+          LiveSyncPhase.unsupported,
+          player.audioPassthroughActive ? LiveSyncReason.passthrough : LiveSyncReason.surround,
+        );
         return;
       }
       if (status.state == 4) {
         await disable();
+        return;
+      }
+      if (_pcmAvailability.expired(
+        nowMs: _clock.elapsedMilliseconds,
+        samples: status.samples,
+        playing: player.state.playing,
+        buffering: player.state.buffering,
+      )) {
+        diagnosticFailure = 'noPcm';
+        await _suspend(generation, LiveSyncPhase.unable, LiveSyncReason.nativeRuntime);
         return;
       }
       if (_continuity != null && status.continuity != _continuity) {
@@ -395,6 +408,7 @@ class LiveSubtitleSyncController extends ChangeNotifier {
     _timeline.discontinuity();
     _transcriptContext.clear();
     _continuity = null;
+    _pcmAvailability.clear();
     _cadence.clear();
     automaticOffset = null;
     _lastAnalysisMs = -60000;
@@ -415,6 +429,29 @@ class LiveSubtitleSyncController extends ChangeNotifier {
     return _stopSession();
   }
 
+  Future<void> _suspend(int generation, LiveSyncPhase phase, LiveSyncReason reason) async {
+    _timer?.cancel();
+    _timer = null;
+    final worker = _worker;
+    _worker = null;
+    if (worker != null) {
+      final retirement = worker.close();
+      _retiringWorker = retirement;
+      try {
+        await retirement;
+      } finally {
+        if (identical(_retiringWorker, retirement)) _retiringWorker = null;
+      }
+    }
+    if (!enabled || generation != _generation) return;
+    await player.setLiveSubtitleOffset(0);
+    if (!enabled || generation != _generation) return;
+    automaticOffset = null;
+    _timeline.clear();
+    _transcriptContext.clear();
+    _state(phase, reason);
+  }
+
   Future<void> _stopSession() => _stopping ??= _stop().whenComplete(() => _stopping = null);
 
   Future<void> _stop() async {
@@ -428,6 +465,7 @@ class LiveSubtitleSyncController extends ChangeNotifier {
     final worker = _worker;
     _worker = null;
     await worker?.close();
+    await _retiringWorker;
     await player.setLiveSubtitleOffset(0);
     automaticOffset = null;
     _index = null;
