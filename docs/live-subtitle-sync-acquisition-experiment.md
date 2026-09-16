@@ -136,3 +136,30 @@ non-dégradation validée.** La partition 0–180 s est désormais consommée ; 
 modification et réévaluation qui s’y appuie relève du développement. Les deux
 partitions réservées restent non analysées. Les limites de matching/timing
 restent à diagnostiquer avant de généraliser les améliorations LibriSpeech.
+
+### Diagnostic du même extrait après consommation
+
+`7dcc840d`, modèle **base.en non quantifié**, options expérimentales actives :
+179,002 s, neuf analyses, aucun recalage. Le remplacement du modèle quantifié
+ne résout pas cet échec. Il produit une première ancre −1,943 s et une ancre
+distante −0,137 s, insuffisantes pour confirmer le domaine.
+
+`980cbf24` ajoute uniquement des diagnostics numériques des tokens. Une lecture
+de 59 s avec q5 montre un premier point DTW à 16,183 s pour la cue 18,130 s,
+puis le mot suivant à 18,403 s. Une autre fenêtre place le début à 18,299 s.
+Ces points d’alignement ne sont pas des durées acoustiques de mots ; la confiance
+textuelle ne garantit pas leur précision. Aucune transcription n’est conservée.
+
+`0c9df1d1` corrige les verdicts du probe : médiane <250 ms désormais requise
+en plus du p95 ; acquisition absente explicitement `none`, et budget de latence
+aussi appliqué aux contrôles positifs constants. Quatre tests de ces verdicts
+passent. Les résultats historiques restent conservés avec leurs limites.
+
+`1a02e229` corrige le rejet systématique des fenêtres de plus de huit segments.
+Le moteur énumère tous les groupes contigus d’au plus trois segments, élimine
+ceux qui ne peuvent satisfaire les conditions nécessaires du matcher, puis
+conserve un plafond de **21 recherches**. Si plus de 21 groupes sont viables,
+il reste sans résultat ; il ne tronque pas les concurrents. Seuils de similarité,
+ambiguïté, précision et estimation inchangés. Régression rouge avant correction,
+**156 tests** après, analyse Flutter sans diagnostic. Le nouvel essai natif
+utilise les options expérimentales **désactivées**, comme l’app actuelle.

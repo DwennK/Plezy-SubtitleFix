@@ -1,0 +1,1363 @@
+{
+  "provenance": {
+    "forkSha": "980cbf2403d7352f9484db494a7478cd1e351382",
+    "rawReportSha256": "efa8ef80bc5b98e8bae1ff0b6a1b3758c7207dc3da848648f1fce09981e1d473",
+    "modelId": "base.en-q5_1",
+    "fixture": "elephants-dream-commons-en 0-180s",
+    "scope": "Development reevaluation of the already consumed initial partition. No independent validation or performance claim."
+  },
+  "assessment": {
+    "acquired": false,
+    "actualAcquisitionMs": null,
+    "overallPrecisionValidated": false,
+    "note": "Legacy acquisitionMs means elapsed time on failure; numeric diagnostics only."
+  },
+  "report": {
+    "kind": "native-active-pcm-real-asr-and-domain-alignment",
+    "platform": "macos",
+    "inferenceBackend": "portable-cpu",
+    "alignmentEngine": "bounded-affine-timeline",
+    "experimentalAcousticBeginnings": true,
+    "experimentalEarlyAcquisition": true,
+    "maximumAcquisitionMs": 45000,
+    "acquisitionWithinBudget": false,
+    "acquiredMediaPosition": "none",
+    "learnedSegments": 0,
+    "activityChecks": 115,
+    "activityVoiceChecks": 106,
+    "activityTotalMicros": 74065,
+    "activityMaxMicros": 5816,
+    "actualOffset": "none",
+    "acquisitionMs": 59019,
+    "evaluationMs": 59019,
+    "expectedOffset": 0.0,
+    "expectNoLock": false,
+    "completedAnalyses": 4,
+    "validPrefixAnalyses": 0,
+    "rejectedAnalyses": 0,
+    "absoluteOffsetError": "unavailable",
+    "maximumOffsetError": 0.75,
+    "reference": "fixture SRT timings, not precise acoustic-onset ground truth",
+    "passed": false,
+    "activationSamples": [
+      {
+        "elapsedMs": 2,
+        "mediaTime": 0.11618209838867188,
+        "automaticDelay": 0,
+        "mappingAvailable": false,
+        "nativeDelay": 0.0,
+        "expectedDelay": 0.0,
+        "error": 0.0
+      },
+      {
+        "elapsedMs": 1040,
+        "mediaTime": 1.1085299377441415,
+        "automaticDelay": 0,
+        "mappingAvailable": false,
+        "nativeDelay": 0.0,
+        "expectedDelay": 0.0,
+        "error": 0.0
+      },
+      {
+        "elapsedMs": 2063,
+        "mediaTime": 2.197415313720705,
+        "automaticDelay": 0,
+        "mappingAvailable": false,
+        "nativeDelay": 0.0,
+        "expectedDelay": 0.0,
+        "error": 0.0
+      },
+      {
+        "elapsedMs": 3090,
+        "mediaTime": 3.225270751953128,
+        "automaticDelay": 0,
+        "mappingAvailable": false,
+        "nativeDelay": 0.0,
+        "expectedDelay": 0.0,
+        "error": 0.0
+      },
+      {
+        "elapsedMs": 4113,
+        "mediaTime": 4.226247879028324,
+        "automaticDelay": 0,
+        "mappingAvailable": false,
+        "nativeDelay": 0.0,
+        "expectedDelay": 0.0,
+        "error": 0.0
+      },
+      {
+        "elapsedMs": 5140,
+        "mediaTime": 5.2730074920654335,
+        "automaticDelay": 0,
+        "mappingAvailable": false,
+        "nativeDelay": 0.0,
+        "expectedDelay": 0.0,
+        "error": 0.0
+      },
+      {
+        "elapsedMs": 6169,
+        "mediaTime": 6.290765975952153,
+        "automaticDelay": 0,
+        "mappingAvailable": false,
+        "nativeDelay": 0.0,
+        "expectedDelay": 0.0,
+        "error": 0.0
+      },
+      {
+        "elapsedMs": 7200,
+        "mediaTime": 7.282846847534186,
+        "automaticDelay": 0,
+        "mappingAvailable": false,
+        "nativeDelay": 0.0,
+        "expectedDelay": 0.0,
+        "error": 0.0
+      },
+      {
+        "elapsedMs": 8230,
+        "mediaTime": 8.282538467407232,
+        "automaticDelay": 0,
+        "mappingAvailable": false,
+        "nativeDelay": 0.0,
+        "expectedDelay": 0.0,
+        "error": 0.0
+      },
+      {
+        "elapsedMs": 9302,
+        "mediaTime": 9.390745956420906,
+        "automaticDelay": 0,
+        "mappingAvailable": false,
+        "nativeDelay": 0.0,
+        "expectedDelay": 0.0,
+        "error": 0.0
+      },
+      {
+        "elapsedMs": 10336,
+        "mediaTime": 10.4415149383545,
+        "automaticDelay": 0,
+        "mappingAvailable": false,
+        "nativeDelay": 0.0,
+        "expectedDelay": 0.0,
+        "error": 0.0
+      },
+      {
+        "elapsedMs": 11363,
+        "mediaTime": 11.46534193420411,
+        "automaticDelay": 0,
+        "mappingAvailable": false,
+        "nativeDelay": 0.0,
+        "expectedDelay": 0.0,
+        "error": 0.0
+      },
+      {
+        "elapsedMs": 12393,
+        "mediaTime": 12.513908416748057,
+        "automaticDelay": 0,
+        "mappingAvailable": false,
+        "nativeDelay": 0.0,
+        "expectedDelay": 0.0,
+        "error": 0.0
+      },
+      {
+        "elapsedMs": 13420,
+        "mediaTime": 13.549506301879893,
+        "automaticDelay": 0,
+        "mappingAvailable": false,
+        "nativeDelay": 0.0,
+        "expectedDelay": 0.0,
+        "error": 0.0
+      },
+      {
+        "elapsedMs": 14448,
+        "mediaTime": 14.481191818237317,
+        "automaticDelay": 0,
+        "mappingAvailable": false,
+        "nativeDelay": 0.0,
+        "expectedDelay": 0.0,
+        "error": 0.0
+      },
+      {
+        "elapsedMs": 15481,
+        "mediaTime": 15.602546417236338,
+        "automaticDelay": 0,
+        "mappingAvailable": false,
+        "nativeDelay": 0.0,
+        "expectedDelay": 0.0,
+        "error": 0.0
+      },
+      {
+        "elapsedMs": 16510,
+        "mediaTime": 16.624569946289075,
+        "automaticDelay": 0,
+        "mappingAvailable": false,
+        "nativeDelay": 0.0,
+        "expectedDelay": 0.0,
+        "error": 0.0
+      },
+      {
+        "elapsedMs": 17540,
+        "mediaTime": 17.654562011718763,
+        "automaticDelay": 0,
+        "mappingAvailable": false,
+        "nativeDelay": 0.0,
+        "expectedDelay": 0.0,
+        "error": 0.0
+      },
+      {
+        "elapsedMs": 18569,
+        "mediaTime": 18.687212707519546,
+        "automaticDelay": 0,
+        "mappingAvailable": false,
+        "nativeDelay": 0.0,
+        "expectedDelay": 0.0,
+        "error": 0.0
+      },
+      {
+        "elapsedMs": 19595,
+        "mediaTime": 19.690813583374037,
+        "automaticDelay": 0,
+        "mappingAvailable": false,
+        "nativeDelay": 0.0,
+        "expectedDelay": 0.0,
+        "error": 0.0
+      },
+      {
+        "elapsedMs": 20631,
+        "mediaTime": 20.69877760314943,
+        "automaticDelay": 0,
+        "mappingAvailable": false,
+        "nativeDelay": 0.0,
+        "expectedDelay": 0.0,
+        "error": 0.0
+      },
+      {
+        "elapsedMs": 21671,
+        "mediaTime": 21.78261402893068,
+        "automaticDelay": 0,
+        "mappingAvailable": false,
+        "nativeDelay": 0.0,
+        "expectedDelay": 0.0,
+        "error": 0.0
+      },
+      {
+        "elapsedMs": 22701,
+        "mediaTime": 22.824351928710954,
+        "automaticDelay": 0,
+        "mappingAvailable": false,
+        "nativeDelay": 0.0,
+        "expectedDelay": 0.0,
+        "error": 0.0
+      },
+      {
+        "elapsedMs": 23732,
+        "mediaTime": 23.827311935424824,
+        "automaticDelay": 0,
+        "mappingAvailable": false,
+        "nativeDelay": 0.0,
+        "expectedDelay": 0.0,
+        "error": 0.0
+      },
+      {
+        "elapsedMs": 24759,
+        "mediaTime": 24.86441662597658,
+        "automaticDelay": 0,
+        "mappingAvailable": false,
+        "nativeDelay": 0.0,
+        "expectedDelay": 0.0,
+        "error": 0.0
+      },
+      {
+        "elapsedMs": 25787,
+        "mediaTime": 25.889844848632833,
+        "automaticDelay": 0,
+        "mappingAvailable": false,
+        "nativeDelay": 0.0,
+        "expectedDelay": 0.0,
+        "error": 0.0
+      },
+      {
+        "elapsedMs": 26814,
+        "mediaTime": 26.934934555053733,
+        "automaticDelay": 0,
+        "mappingAvailable": false,
+        "nativeDelay": 0.0,
+        "expectedDelay": 0.0,
+        "error": 0.0
+      },
+      {
+        "elapsedMs": 27840,
+        "mediaTime": 27.968333145141624,
+        "automaticDelay": 0,
+        "mappingAvailable": false,
+        "nativeDelay": 0.0,
+        "expectedDelay": 0.0,
+        "error": 0.0
+      },
+      {
+        "elapsedMs": 28866,
+        "mediaTime": 28.972969543457054,
+        "automaticDelay": 0,
+        "mappingAvailable": false,
+        "nativeDelay": 0.0,
+        "expectedDelay": 0.0,
+        "error": 0.0
+      },
+      {
+        "elapsedMs": 29893,
+        "mediaTime": 30.0121151275635,
+        "automaticDelay": 0,
+        "mappingAvailable": false,
+        "nativeDelay": 0.0,
+        "expectedDelay": 0.0,
+        "error": 0.0
+      },
+      {
+        "elapsedMs": 30922,
+        "mediaTime": 31.039222366333032,
+        "automaticDelay": 0,
+        "mappingAvailable": false,
+        "nativeDelay": 0.0,
+        "expectedDelay": 0.0,
+        "error": 0.0
+      },
+      {
+        "elapsedMs": 31953,
+        "mediaTime": 32.082625076293965,
+        "automaticDelay": 0,
+        "mappingAvailable": false,
+        "nativeDelay": 0.0,
+        "expectedDelay": 0.0,
+        "error": 0.0
+      },
+      {
+        "elapsedMs": 32986,
+        "mediaTime": 33.08255267333987,
+        "automaticDelay": 0,
+        "mappingAvailable": false,
+        "nativeDelay": 0.0,
+        "expectedDelay": 0.0,
+        "error": 0.0
+      },
+      {
+        "elapsedMs": 34018,
+        "mediaTime": 34.06429791259768,
+        "automaticDelay": 0,
+        "mappingAvailable": false,
+        "nativeDelay": 0.0,
+        "expectedDelay": 0.0,
+        "error": 0.0
+      },
+      {
+        "elapsedMs": 35048,
+        "mediaTime": 35.09720324707034,
+        "automaticDelay": 0,
+        "mappingAvailable": false,
+        "nativeDelay": 0.0,
+        "expectedDelay": 0.0,
+        "error": 0.0
+      },
+      {
+        "elapsedMs": 36076,
+        "mediaTime": 36.190865951538115,
+        "automaticDelay": 0,
+        "mappingAvailable": false,
+        "nativeDelay": 0.0,
+        "expectedDelay": 0.0,
+        "error": 0.0
+      },
+      {
+        "elapsedMs": 37105,
+        "mediaTime": 37.2177716674805,
+        "automaticDelay": 0,
+        "mappingAvailable": false,
+        "nativeDelay": 0.0,
+        "expectedDelay": 0.0,
+        "error": 0.0
+      },
+      {
+        "elapsedMs": 38134,
+        "mediaTime": 38.23226867675784,
+        "automaticDelay": 0,
+        "mappingAvailable": false,
+        "nativeDelay": 0.0,
+        "expectedDelay": 0.0,
+        "error": 0.0
+      },
+      {
+        "elapsedMs": 39160,
+        "mediaTime": 39.27268528747562,
+        "automaticDelay": 0,
+        "mappingAvailable": false,
+        "nativeDelay": 0.0,
+        "expectedDelay": 0.0,
+        "error": 0.0
+      },
+      {
+        "elapsedMs": 40186,
+        "mediaTime": 40.30432962036136,
+        "automaticDelay": 0,
+        "mappingAvailable": false,
+        "nativeDelay": 0.0,
+        "expectedDelay": 0.0,
+        "error": 0.0
+      },
+      {
+        "elapsedMs": 41215,
+        "mediaTime": 41.34214004516605,
+        "automaticDelay": 0,
+        "mappingAvailable": false,
+        "nativeDelay": 0.0,
+        "expectedDelay": 0.0,
+        "error": 0.0
+      },
+      {
+        "elapsedMs": 42241,
+        "mediaTime": 42.34714321899417,
+        "automaticDelay": 0,
+        "mappingAvailable": false,
+        "nativeDelay": 0.0,
+        "expectedDelay": 0.0,
+        "error": 0.0
+      },
+      {
+        "elapsedMs": 43272,
+        "mediaTime": 43.38083337402347,
+        "automaticDelay": 0,
+        "mappingAvailable": false,
+        "nativeDelay": 0.0,
+        "expectedDelay": 0.0,
+        "error": 0.0
+      },
+      {
+        "elapsedMs": 44305,
+        "mediaTime": 44.39626655578616,
+        "automaticDelay": 0,
+        "mappingAvailable": false,
+        "nativeDelay": 0.0,
+        "expectedDelay": 0.0,
+        "error": 0.0
+      },
+      {
+        "elapsedMs": 45337,
+        "mediaTime": 45.46124971008304,
+        "automaticDelay": 0,
+        "mappingAvailable": false,
+        "nativeDelay": 0.0,
+        "expectedDelay": 0.0,
+        "error": 0.0
+      },
+      {
+        "elapsedMs": 46366,
+        "mediaTime": 46.46299890136722,
+        "automaticDelay": 0,
+        "mappingAvailable": false,
+        "nativeDelay": 0.0,
+        "expectedDelay": 0.0,
+        "error": 0.0
+      },
+      {
+        "elapsedMs": 47398,
+        "mediaTime": 47.510386489868196,
+        "automaticDelay": 0,
+        "mappingAvailable": false,
+        "nativeDelay": 0.0,
+        "expectedDelay": 0.0,
+        "error": 0.0
+      },
+      {
+        "elapsedMs": 48425,
+        "mediaTime": 48.54856239318851,
+        "automaticDelay": 0,
+        "mappingAvailable": false,
+        "nativeDelay": 0.0,
+        "expectedDelay": 0.0,
+        "error": 0.0
+      },
+      {
+        "elapsedMs": 49456,
+        "mediaTime": 49.59124960327152,
+        "automaticDelay": 0,
+        "mappingAvailable": false,
+        "nativeDelay": 0.0,
+        "expectedDelay": 0.0,
+        "error": 0.0
+      },
+      {
+        "elapsedMs": 50480,
+        "mediaTime": 50.61613612365726,
+        "automaticDelay": 0,
+        "mappingAvailable": false,
+        "nativeDelay": 0.0,
+        "expectedDelay": 0.0,
+        "error": 0.0
+      },
+      {
+        "elapsedMs": 51510,
+        "mediaTime": 51.605878524780316,
+        "automaticDelay": 0,
+        "mappingAvailable": false,
+        "nativeDelay": 0.0,
+        "expectedDelay": 0.0,
+        "error": 0.0
+      },
+      {
+        "elapsedMs": 52536,
+        "mediaTime": 52.63240483093266,
+        "automaticDelay": 0,
+        "mappingAvailable": false,
+        "nativeDelay": 0.0,
+        "expectedDelay": 0.0,
+        "error": 0.0
+      },
+      {
+        "elapsedMs": 53565,
+        "mediaTime": 53.689940063476605,
+        "automaticDelay": 0,
+        "mappingAvailable": false,
+        "nativeDelay": 0.0,
+        "expectedDelay": 0.0,
+        "error": 0.0
+      },
+      {
+        "elapsedMs": 54594,
+        "mediaTime": 54.68239936828618,
+        "automaticDelay": 0,
+        "mappingAvailable": false,
+        "nativeDelay": 0.0,
+        "expectedDelay": 0.0,
+        "error": 0.0
+      },
+      {
+        "elapsedMs": 55623,
+        "mediaTime": 55.74039086914067,
+        "automaticDelay": 0,
+        "mappingAvailable": false,
+        "nativeDelay": 0.0,
+        "expectedDelay": 0.0,
+        "error": 0.0
+      },
+      {
+        "elapsedMs": 56652,
+        "mediaTime": 56.786688476562546,
+        "automaticDelay": 0,
+        "mappingAvailable": false,
+        "nativeDelay": 0.0,
+        "expectedDelay": 0.0,
+        "error": 0.0
+      },
+      {
+        "elapsedMs": 57682,
+        "mediaTime": 57.78221513366704,
+        "automaticDelay": 0,
+        "mappingAvailable": false,
+        "nativeDelay": 0.0,
+        "expectedDelay": 0.0,
+        "error": 0.0
+      },
+      {
+        "elapsedMs": 58712,
+        "mediaTime": 58.82089378356938,
+        "automaticDelay": 0,
+        "mappingAvailable": false,
+        "nativeDelay": 0.0,
+        "expectedDelay": 0.0,
+        "error": 0.0
+      }
+    ],
+    "activationUnknownSamples": 58,
+    "activationReference": "Every sampled playback position from activation, including the acquisition interval. Accuracy after acquisition and acquisition latency are separate gates.",
+    "expectedSlope": 1.0,
+    "slopeConfirmed": true,
+    "affineAcquisitionMs": "none",
+    "trackingErrorP95": "unavailable",
+    "trackingErrorMaximum": "unavailable",
+    "trackingSamples": [],
+    "trackingReference": "Correlated playback-time samples after first lock, including unknown regions at zero automatic delay. Ideal fixture transform, not independent acoustic annotations.",
+    "analyses": [
+      {
+        "attempt": 1,
+        "receivedAtMs": 9510,
+        "receivedMediaTime": 9.556978866577156,
+        "windowStart": 0.7050000000000002,
+        "windowEnd": 8.831,
+        "validPrefixOnly": false,
+        "match": "insufficientDialogue",
+        "contextWindows": 1,
+        "segmentedMatch": false,
+        "transcriptWords": 0,
+        "wordsInSubtitleVocabulary": 0,
+        "contextWords": 0,
+        "segmentBounds": [],
+        "similarity": null,
+        "anchors": [],
+        "voiceOnsets": [
+          {
+            "start": 3.105,
+            "end": 3.305,
+            "precedingQuietSeconds": 2.3999999999999937,
+            "activeSeconds": 0.020000000000000018
+          },
+          {
+            "start": 3.685,
+            "end": 3.8850000000000002,
+            "precedingQuietSeconds": 0.3799999999999968,
+            "activeSeconds": 0.020000000000000018
+          },
+          {
+            "start": 3.9050000000000002,
+            "end": 4.105,
+            "precedingQuietSeconds": 0.020000000000000018,
+            "activeSeconds": 0.020000000000000018
+          },
+          {
+            "start": 7.305,
+            "end": 7.585000000000001,
+            "precedingQuietSeconds": 3.2000000000000455,
+            "activeSeconds": 0.040000000000000924
+          }
+        ],
+        "anchorRejections": {},
+        "regions": []
+      },
+      {
+        "attempt": 2,
+        "receivedAtMs": 21566,
+        "receivedMediaTime": 21.67421755981447,
+        "windowStart": 5.8629999999999995,
+        "windowEnd": 20.863,
+        "validPrefixOnly": false,
+        "match": "matched",
+        "contextWindows": 1,
+        "segmentedMatch": false,
+        "transcriptWords": 15,
+        "wordsInSubtitleVocabulary": 14,
+        "contextWords": 0,
+        "segmentBounds": [
+          {
+            "start": 5.8629999999999995,
+            "end": 20.863,
+            "timedTokens": 18,
+            "firstToken": 14.363,
+            "lastToken": 20.843,
+            "tokenMetrics": [
+              {
+                "start": 14.363,
+                "end": 14.383,
+                "score": 0.1213965117931366,
+                "hasTimestamp": true,
+                "normalizedWords": 1
+              },
+              {
+                "start": 14.843,
+                "end": 14.863,
+                "score": 0.9732345938682556,
+                "hasTimestamp": true,
+                "normalizedWords": 1
+              },
+              {
+                "start": 15.063,
+                "end": 15.083,
+                "score": 0.9290035367012024,
+                "hasTimestamp": true,
+                "normalizedWords": 1
+              },
+              {
+                "start": 15.403,
+                "end": 15.423,
+                "score": 0.7008649110794067,
+                "hasTimestamp": true,
+                "normalizedWords": 1
+              },
+              {
+                "start": 15.563,
+                "end": 15.583,
+                "score": 0.9795385003089905,
+                "hasTimestamp": true,
+                "normalizedWords": 1
+              },
+              {
+                "start": 15.903,
+                "end": 15.923,
+                "score": 0.9944194555282593,
+                "hasTimestamp": true,
+                "normalizedWords": 1
+              },
+              {
+                "start": 16.103,
+                "end": 16.122999999999998,
+                "score": 0.41270580887794495,
+                "hasTimestamp": true,
+                "normalizedWords": 0
+              },
+              {
+                "start": 16.183,
+                "end": 16.203,
+                "score": 0.7527971863746643,
+                "hasTimestamp": true,
+                "normalizedWords": 1
+              },
+              {
+                "start": 18.403,
+                "end": 18.423000000000002,
+                "score": 0.9844607710838318,
+                "hasTimestamp": true,
+                "normalizedWords": 1
+              },
+              {
+                "start": 18.622999999999998,
+                "end": 18.643,
+                "score": 0.8372517824172974,
+                "hasTimestamp": true,
+                "normalizedWords": 1
+              },
+              {
+                "start": 18.983,
+                "end": 19.003,
+                "score": 0.87937331199646,
+                "hasTimestamp": true,
+                "normalizedWords": 1
+              },
+              {
+                "start": 19.163,
+                "end": 19.183,
+                "score": 0.9839370250701904,
+                "hasTimestamp": true,
+                "normalizedWords": 1
+              },
+              {
+                "start": 19.463,
+                "end": 19.483,
+                "score": 0.9926173090934753,
+                "hasTimestamp": true,
+                "normalizedWords": 1
+              },
+              {
+                "start": 19.883,
+                "end": 19.903,
+                "score": 0.5435920357704163,
+                "hasTimestamp": true,
+                "normalizedWords": 1
+              },
+              {
+                "start": 20.403,
+                "end": 20.423000000000002,
+                "score": 0.7532317042350769,
+                "hasTimestamp": true,
+                "normalizedWords": 1
+              },
+              {
+                "start": 20.683,
+                "end": 20.703,
+                "score": 0.7890161275863647,
+                "hasTimestamp": true,
+                "normalizedWords": 1
+              },
+              {
+                "start": 20.823,
+                "end": 20.843,
+                "score": 0.9191361665725708,
+                "hasTimestamp": true,
+                "normalizedWords": 1
+              },
+              {
+                "start": 20.823,
+                "end": 20.843,
+                "score": 0.10187371075153351,
+                "hasTimestamp": true,
+                "normalizedWords": 0
+              }
+            ]
+          }
+        ],
+        "similarity": 0.8666666666666667,
+        "anchors": [
+          {
+            "cue": 1,
+            "offset": -1.9469999999999992,
+            "subtitleTime": 18.13,
+            "mediaTime": 16.183,
+            "uncertainty": 0.35
+          }
+        ],
+        "voiceOnsets": [
+          {
+            "start": 6.082999999999999,
+            "end": 6.303,
+            "precedingQuietSeconds": 0.22000000000000508,
+            "activeSeconds": 0.040000000000000924
+          },
+          {
+            "start": 6.523,
+            "end": 6.803,
+            "precedingQuietSeconds": 0.22000000000000242,
+            "activeSeconds": 0.040000000000000924
+          },
+          {
+            "start": 7.302999999999999,
+            "end": 7.583,
+            "precedingQuietSeconds": 0.5000000000000053,
+            "activeSeconds": 0.060000000000002274
+          },
+          {
+            "start": 13.123,
+            "end": 13.323,
+            "precedingQuietSeconds": 5.540000000000081,
+            "activeSeconds": 0.019999999999999574
+          },
+          {
+            "start": 13.562999999999999,
+            "end": 13.763,
+            "precedingQuietSeconds": 0.240000000000002,
+            "activeSeconds": 0.02000000000000135
+          },
+          {
+            "start": 14.443,
+            "end": 15.302999999999999,
+            "precedingQuietSeconds": 0.6800000000000104,
+            "activeSeconds": 0.38000000000000433
+          },
+          {
+            "start": 15.323,
+            "end": 16.322999999999997,
+            "precedingQuietSeconds": 0.02000000000000135,
+            "activeSeconds": 0.4999999999999982
+          },
+          {
+            "start": 16.363,
+            "end": 17.162999999999997,
+            "precedingQuietSeconds": 0.039999999999995595,
+            "activeSeconds": 0.4399999999999693
+          },
+          {
+            "start": 17.203,
+            "end": 17.622999999999998,
+            "precedingQuietSeconds": 0.03999999999999915,
+            "activeSeconds": 0.21999999999998465
+          },
+          {
+            "start": 17.643,
+            "end": 20.122999999999998,
+            "precedingQuietSeconds": 0.01999999999999602,
+            "activeSeconds": 1.5799999999998953
+          },
+          {
+            "start": 20.143,
+            "end": 20.662999999999997,
+            "precedingQuietSeconds": 0.01999999999999602,
+            "activeSeconds": 0.339999999999975
+          },
+          {
+            "start": 20.703,
+            "end": 20.863,
+            "precedingQuietSeconds": 0.03999999999999915,
+            "activeSeconds": 0.15999999999998593
+          }
+        ],
+        "anchorRejections": {
+          "beginningLowConfidence": 1,
+          "acousticBeginningUnproven": 1
+        },
+        "cueBeginningMatches": [
+          {
+            "cue": 0,
+            "wordInCue": 0,
+            "transcriptWord": 0,
+            "exact": true
+          },
+          {
+            "cue": 0,
+            "wordInCue": 1,
+            "transcriptWord": 1,
+            "exact": true
+          },
+          {
+            "cue": 0,
+            "wordInCue": 2,
+            "transcriptWord": 2,
+            "exact": true
+          },
+          {
+            "cue": 0,
+            "wordInCue": 3,
+            "transcriptWord": 3,
+            "exact": true
+          },
+          {
+            "cue": 0,
+            "wordInCue": 4,
+            "transcriptWord": 4,
+            "exact": true
+          },
+          {
+            "cue": 1,
+            "wordInCue": 0,
+            "transcriptWord": 6,
+            "exact": true
+          },
+          {
+            "cue": 1,
+            "wordInCue": 1,
+            "transcriptWord": 7,
+            "exact": true
+          },
+          {
+            "cue": 1,
+            "wordInCue": 2,
+            "transcriptWord": 8,
+            "exact": true
+          },
+          {
+            "cue": 1,
+            "wordInCue": 3,
+            "transcriptWord": 9,
+            "exact": true
+          },
+          {
+            "cue": 1,
+            "wordInCue": 4,
+            "transcriptWord": 10,
+            "exact": true
+          }
+        ],
+        "regions": []
+      },
+      {
+        "attempt": 3,
+        "receivedAtMs": 33607,
+        "receivedMediaTime": 33.68248280334475,
+        "windowStart": 17.959,
+        "windowEnd": 32.959,
+        "validPrefixOnly": false,
+        "match": "matched",
+        "contextWindows": 1,
+        "segmentedMatch": true,
+        "transcriptWords": 21,
+        "wordsInSubtitleVocabulary": 20,
+        "contextWords": 0,
+        "segmentBounds": [
+          {
+            "start": 17.959,
+            "end": 22.959,
+            "timedTokens": 16,
+            "firstToken": 18.299,
+            "lastToken": 23.239,
+            "tokenMetrics": [
+              {
+                "start": 18.299,
+                "end": 18.319,
+                "score": 0.8030292391777039,
+                "hasTimestamp": true,
+                "normalizedWords": 1
+              },
+              {
+                "start": 18.419,
+                "end": 18.439,
+                "score": 0.9959532022476196,
+                "hasTimestamp": true,
+                "normalizedWords": 1
+              },
+              {
+                "start": 18.679,
+                "end": 18.698999999999998,
+                "score": 0.9893237948417664,
+                "hasTimestamp": true,
+                "normalizedWords": 1
+              },
+              {
+                "start": 18.999,
+                "end": 19.019,
+                "score": 0.6763551235198975,
+                "hasTimestamp": true,
+                "normalizedWords": 1
+              },
+              {
+                "start": 19.159,
+                "end": 19.179,
+                "score": 0.9726871252059937,
+                "hasTimestamp": true,
+                "normalizedWords": 1
+              },
+              {
+                "start": 19.459,
+                "end": 19.479,
+                "score": 0.9869462251663208,
+                "hasTimestamp": true,
+                "normalizedWords": 1
+              },
+              {
+                "start": 19.719,
+                "end": 19.739,
+                "score": 0.7093943357467651,
+                "hasTimestamp": true,
+                "normalizedWords": 1
+              },
+              {
+                "start": 20.378999999999998,
+                "end": 20.399,
+                "score": 0.7565945386886597,
+                "hasTimestamp": true,
+                "normalizedWords": 1
+              },
+              {
+                "start": 20.799,
+                "end": 20.819,
+                "score": 0.5058024525642395,
+                "hasTimestamp": true,
+                "normalizedWords": 1
+              },
+              {
+                "start": 20.979,
+                "end": 20.999,
+                "score": 0.6082858443260193,
+                "hasTimestamp": true,
+                "normalizedWords": 1
+              },
+              {
+                "start": 21.279,
+                "end": 21.299,
+                "score": 0.9716848731040955,
+                "hasTimestamp": true,
+                "normalizedWords": 1
+              },
+              {
+                "start": 21.579,
+                "end": 21.599,
+                "score": 0.3986626863479614,
+                "hasTimestamp": true,
+                "normalizedWords": 1
+              },
+              {
+                "start": 21.999,
+                "end": 22.019,
+                "score": 0.9545325040817261,
+                "hasTimestamp": true,
+                "normalizedWords": 1
+              },
+              {
+                "start": 22.419,
+                "end": 22.439,
+                "score": 0.987646758556366,
+                "hasTimestamp": true,
+                "normalizedWords": 1
+              },
+              {
+                "start": 22.739,
+                "end": 22.759,
+                "score": 0.9586925506591797,
+                "hasTimestamp": true,
+                "normalizedWords": 1
+              },
+              {
+                "start": 23.219,
+                "end": 23.239,
+                "score": 0.45504704117774963,
+                "hasTimestamp": true,
+                "normalizedWords": 0
+              }
+            ]
+          },
+          {
+            "start": 22.959,
+            "end": 23.959,
+            "timedTokens": 4,
+            "firstToken": 23.259,
+            "lastToken": 24.499,
+            "tokenMetrics": [
+              {
+                "start": 23.259,
+                "end": 23.279,
+                "score": 0.9738343358039856,
+                "hasTimestamp": true,
+                "normalizedWords": 1
+              },
+              {
+                "start": 23.559,
+                "end": 23.579,
+                "score": 0.9986295700073242,
+                "hasTimestamp": true,
+                "normalizedWords": 1
+              },
+              {
+                "start": 23.859,
+                "end": 23.878999999999998,
+                "score": 0.9879575967788696,
+                "hasTimestamp": true,
+                "normalizedWords": 1
+              },
+              {
+                "start": 24.479,
+                "end": 24.499,
+                "score": 0.6649535298347473,
+                "hasTimestamp": true,
+                "normalizedWords": 0
+              }
+            ]
+          },
+          {
+            "start": 23.959,
+            "end": 24.959,
+            "timedTokens": 3,
+            "firstToken": 24.679,
+            "lastToken": 25.639,
+            "tokenMetrics": [
+              {
+                "start": 24.679,
+                "end": 24.698999999999998,
+                "score": 0.6077025532722473,
+                "hasTimestamp": true,
+                "normalizedWords": 1
+              },
+              {
+                "start": 24.859,
+                "end": 24.878999999999998,
+                "score": 0.9863430857658386,
+                "hasTimestamp": true,
+                "normalizedWords": 1
+              },
+              {
+                "start": 25.619,
+                "end": 25.639,
+                "score": 0.4230492413043976,
+                "hasTimestamp": true,
+                "normalizedWords": 0
+              }
+            ]
+          },
+          {
+            "start": 24.959,
+            "end": 25.959,
+            "timedTokens": 3,
+            "firstToken": 25.939,
+            "lastToken": 26.779,
+            "tokenMetrics": [
+              {
+                "start": 25.939,
+                "end": 25.959,
+                "score": 0.9599578380584717,
+                "hasTimestamp": true,
+                "normalizedWords": 1
+              },
+              {
+                "start": 26.219,
+                "end": 26.238999999999997,
+                "score": 0.9980630874633789,
+                "hasTimestamp": true,
+                "normalizedWords": 1
+              },
+              {
+                "start": 26.759,
+                "end": 26.779,
+                "score": 0.5439602732658386,
+                "hasTimestamp": true,
+                "normalizedWords": 0
+              }
+            ]
+          },
+          {
+            "start": 25.959,
+            "end": 26.959,
+            "timedTokens": 2,
+            "firstToken": 27.339,
+            "lastToken": 27.859,
+            "tokenMetrics": [
+              {
+                "start": 27.339,
+                "end": 27.359,
+                "score": 0.20481012761592865,
+                "hasTimestamp": true,
+                "normalizedWords": 1
+              },
+              {
+                "start": 27.839,
+                "end": 27.859,
+                "score": 0.5264094471931458,
+                "hasTimestamp": true,
+                "normalizedWords": 0
+              }
+            ]
+          },
+          {
+            "start": 26.959,
+            "end": 27.959,
+            "timedTokens": 2,
+            "firstToken": 27.999000000000002,
+            "lastToken": 28.759,
+            "tokenMetrics": [
+              {
+                "start": 27.999000000000002,
+                "end": 28.019,
+                "score": 0.5300240516662598,
+                "hasTimestamp": true,
+                "normalizedWords": 1
+              },
+              {
+                "start": 28.738999999999997,
+                "end": 28.759,
+                "score": 0.8824523091316223,
+                "hasTimestamp": true,
+                "normalizedWords": 0
+              }
+            ]
+          },
+          {
+            "start": 27.959,
+            "end": 28.959,
+            "timedTokens": 2,
+            "firstToken": 28.738999999999997,
+            "lastToken": 29.479,
+            "tokenMetrics": [
+              {
+                "start": 28.738999999999997,
+                "end": 28.759,
+                "score": 0.39128196239471436,
+                "hasTimestamp": true,
+                "normalizedWords": 1
+              },
+              {
+                "start": 29.459,
+                "end": 29.479,
+                "score": 0.9185306429862976,
+                "hasTimestamp": true,
+                "normalizedWords": 0
+              }
+            ]
+          },
+          {
+            "start": 28.959,
+            "end": 29.959,
+            "timedTokens": 2,
+            "firstToken": 29.579,
+            "lastToken": 29.959,
+            "tokenMetrics": [
+              {
+                "start": 29.579,
+                "end": 29.599,
+                "score": 0.3500610291957855,
+                "hasTimestamp": true,
+                "normalizedWords": 1
+              },
+              {
+                "start": 29.939,
+                "end": 29.959,
+                "score": 0.9273491501808167,
+                "hasTimestamp": true,
+                "normalizedWords": 0
+              }
+            ]
+          }
+        ],
+        "similarity": 0.8125,
+        "anchors": [
+          {
+            "cue": 1,
+            "offset": 0.16900000000000048,
+            "subtitleTime": 18.13,
+            "mediaTime": 18.299,
+            "uncertainty": 0.35
+          },
+          {
+            "cue": 3,
+            "offset": 0.01899999999999835,
+            "subtitleTime": 21.98,
+            "mediaTime": 21.999,
+            "uncertainty": 0.35
+          }
+        ],
+        "voiceOnsets": [
+          {
+            "start": 17.979,
+            "end": 32.958999999999996,
+            "precedingQuietSeconds": 0.019999999999999574,
+            "activeSeconds": 14.239999999998926
+          }
+        ],
+        "anchorRejections": {
+          "phraseNotMatched": 1
+        },
+        "regions": []
+      },
+      {
+        "attempt": 4,
+        "receivedAtMs": 45646,
+        "receivedMediaTime": 45.73396171569828,
+        "windowStart": 30.055,
+        "windowEnd": 45.055,
+        "validPrefixOnly": false,
+        "match": "insufficientDialogue",
+        "contextWindows": 1,
+        "segmentedMatch": false,
+        "transcriptWords": 2,
+        "wordsInSubtitleVocabulary": 0,
+        "contextWords": 23,
+        "segmentBounds": [
+          {
+            "start": 30.055,
+            "end": 33.135,
+            "timedTokens": 6,
+            "firstToken": 32.815,
+            "lastToken": 32.835,
+            "tokenMetrics": [
+              {
+                "start": 32.815,
+                "end": 32.835,
+                "score": 0.7473044395446777,
+                "hasTimestamp": true,
+                "normalizedWords": 0
+              },
+              {
+                "start": 32.815,
+                "end": 32.835,
+                "score": 0.4257156550884247,
+                "hasTimestamp": true,
+                "normalizedWords": 1
+              },
+              {
+                "start": 32.815,
+                "end": 32.835,
+                "score": 1.0,
+                "hasTimestamp": true,
+                "normalizedWords": 1
+              },
+              {
+                "start": 32.815,
+                "end": 32.835,
+                "score": 1.0,
+                "hasTimestamp": true,
+                "normalizedWords": 1
+              },
+              {
+                "start": 32.815,
+                "end": 32.835,
+                "score": 0.9931968450546265,
+                "hasTimestamp": true,
+                "normalizedWords": 1
+              },
+              {
+                "start": 32.815,
+                "end": 32.835,
+                "score": 1.0,
+                "hasTimestamp": true,
+                "normalizedWords": 0
+              }
+            ]
+          }
+        ],
+        "similarity": null,
+        "anchors": [],
+        "voiceOnsets": [
+          {
+            "start": 30.055,
+            "end": 45.055,
+            "precedingQuietSeconds": 0.0,
+            "activeSeconds": 14.779999999998907
+          }
+        ],
+        "anchorRejections": {},
+        "regions": []
+      }
+    ],
+    "productionPlayerValidated": false,
+    "audiblePlaybackValidated": false,
+    "pcmOrTranscriptPersisted": false,
+    "mainIsolateHeartbeatTicks": 2368
+  }
+}
