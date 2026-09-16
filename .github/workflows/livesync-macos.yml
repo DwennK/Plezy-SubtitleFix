@@ -66,7 +66,9 @@ jobs:
           xcrun xcresulttool get test-results summary --path build/livesync/evidence/native-contracts.xcresult --format json > build/livesync/evidence/native-contracts.json
           python3 scripts/checks/check_apple_spm_locks.py
       - name: Package the test application
-        run: ditto -c -k --sequesterRsrc --keepParent build/macos/Build/Products/Debug/PlezyLiveSync.app build/livesync/PlezyLiveSync-macos-test.zip
+        run: |
+          codesign --verify --deep --strict build/macos/Build/Products/Debug/PlezyLiveSync.app
+          ditto -c -k --sequesterRsrc --keepParent build/macos/Build/Products/Debug/PlezyLiveSync.app build/livesync/PlezyLiveSync-macos-test.zip
       - name: Preserve test application
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7
         with:
