@@ -391,6 +391,7 @@ class PlayerNative extends PlayerBase {
   }) async {
     if (_nativeCoreUnavailable) return null;
     await LiveSyncPlayerAttachment.sessions[this]?.stop();
+    LiveSyncPlayerAttachment.subtitleProviders[this] = null;
     _liveSubtitleHeaders = Map.unmodifiable(media.headers ?? const <String, String>{});
     await _ensureInitialized();
     if (_nativeCoreUnavailable) return null;
@@ -732,6 +733,7 @@ class PlayerNative extends PlayerBase {
   Future<void> _disposeNative({required bool preserveDisplayMode}) async {
     if (disposed) return;
     await LiveSyncPlayerAttachment.sessions[this]?.stop();
+    LiveSyncPlayerAttachment.subtitleProviders[this] = null;
     // Settle an armed-but-unconsumed content fd before the base teardown
     // disables invoke() — the playlist is torn down without mpv ever opening
     // the entry.

@@ -1839,6 +1839,8 @@ class _Translations$liveSubtitleSync$fr extends Translations$liveSubtitleSync$en
 	final TranslationsFr _root; // ignore: unused_field
 
 	// Translations
+	@override String get loadingSubtitles => 'Chargement des sous-titres';
+	@override String get loadingSubtitlesDetail => 'Récupération du texte complet. Une piste intégrée peut demander plusieurs minutes. La lecture continue.';
 	@override String get title => 'Live subtitle sync';
 	@override String get off => 'Désactivé · SRT anglais · analyse locale';
 	@override String get downloading => 'Téléchargement du modèle';
@@ -1850,7 +1852,7 @@ class _Translations$liveSubtitleSync$fr extends Translations$liveSubtitleSync$en
 	@override String get modelSize => 'La première activation télécharge un modèle de 60 Mo. L’audio reste sur cet appareil.';
 	@override String get platform => 'Nécessite un Mac Apple Silicon ou Windows x64.';
 	@override String get englishTracks => 'Sélectionnez un audio et des sous-titres en anglais.';
-	@override String get externalSrt => 'Sélectionnez une piste de sous-titres SRT externe.';
+	@override String get externalSrt => 'Sélectionnez une piste de sous-titres SRT accessible.';
 	@override String get passthrough => 'L’audio PCM est indisponible en passthrough.';
 	@override String get surround => 'Cette configuration de canaux audio n’est pas encore prise en charge.';
 	@override String get source => 'Impossible de charger le fichier complet des sous-titres.';
@@ -4630,6 +4632,8 @@ extension on TranslationsFr {
 			'companionRemote.errors.connectionLostAfterAttempts' => ({required Object attempts}) => 'Connexion perdue après ${attempts} tentatives',
 			'companionRemote.errors.connectionLost' => 'Connexion perdue',
 			'companionRemote.closedBeforeAuth' => 'La connexion a été fermée avant l’authentification',
+			'liveSubtitleSync.loadingSubtitles' => 'Chargement des sous-titres',
+			'liveSubtitleSync.loadingSubtitlesDetail' => 'Récupération du texte complet. Une piste intégrée peut demander plusieurs minutes. La lecture continue.',
 			'liveSubtitleSync.title' => 'Live subtitle sync',
 			'liveSubtitleSync.off' => 'Désactivé · SRT anglais · analyse locale',
 			'liveSubtitleSync.downloading' => 'Téléchargement du modèle',
@@ -4641,7 +4645,7 @@ extension on TranslationsFr {
 			'liveSubtitleSync.modelSize' => 'La première activation télécharge un modèle de 60 Mo. L’audio reste sur cet appareil.',
 			'liveSubtitleSync.platform' => 'Nécessite un Mac Apple Silicon ou Windows x64.',
 			'liveSubtitleSync.englishTracks' => 'Sélectionnez un audio et des sous-titres en anglais.',
-			'liveSubtitleSync.externalSrt' => 'Sélectionnez une piste de sous-titres SRT externe.',
+			'liveSubtitleSync.externalSrt' => 'Sélectionnez une piste de sous-titres SRT accessible.',
 			'liveSubtitleSync.passthrough' => 'L’audio PCM est indisponible en passthrough.',
 			'liveSubtitleSync.surround' => 'Cette configuration de canaux audio n’est pas encore prise en charge.',
 			'liveSubtitleSync.source' => 'Impossible de charger le fichier complet des sous-titres.',

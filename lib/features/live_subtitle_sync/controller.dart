@@ -18,7 +18,7 @@ import 'subtitle_source.dart';
 import 'temporal_aligner.dart';
 import 'transcript_matcher.dart';
 
-enum LiveSyncPhase { off, downloading, analyzing, synced, resyncing, unable, unsupported }
+enum LiveSyncPhase { off, loadingSubtitles, downloading, analyzing, synced, resyncing, unable, unsupported }
 
 enum LiveSyncReason {
   platform,
@@ -146,18 +146,26 @@ class LiveSubtitleSyncController extends ChangeNotifier {
         _state(LiveSyncPhase.unsupported, LiveSyncReason.englishTracks);
         return;
       }
-      if (subtitle == null || !subtitle.isExternal || subtitle.uri == null) {
+      final provider = LiveSyncPlayerAttachment.subtitleProviders[player];
+      final external = subtitle?.isExternal == true && subtitle?.uri != null && subtitle?.isContainer != true;
+      if (subtitle == null || (!external && provider == null)) {
         _state(LiveSyncPhase.unsupported, LiveSyncReason.externalSrt);
         return;
       }
-      _state(LiveSyncPhase.analyzing);
+      _state(LiveSyncPhase.loadingSubtitles);
       final resources = _shared = await _prepareResources();
       if (!current()) return;
       final abort = _sourceAbort = AbortController();
-      final document = await SubtitleSourceLoader(
-        client: resources.transport.inner,
-      ).load(subtitle, headers: player.liveSubtitleHeaders, abort: abort);
+      final document = external
+          ? await SubtitleSourceLoader(
+              client: resources.transport.inner,
+            ).load(subtitle, headers: player.liveSubtitleHeaders, abort: abort)
+          : await provider!(subtitle, resources.transport.inner, abort);
       if (!current()) return;
+      if (document == null) {
+        _state(LiveSyncPhase.unsupported, LiveSyncReason.externalSrt);
+        return;
+      }
       _index = await compute((bytes) => SubtitleIndex(const SubtitleParser().parse(bytes)), document.bytes);
       if (!current()) return;
       _state(LiveSyncPhase.downloading);

@@ -4602,6 +4602,12 @@ class Translations$liveSubtitleSync$en {
 
 	// Translations
 
+	/// en: 'Loading subtitles'
+	String get loadingSubtitles => 'Loading subtitles';
+
+	/// en: 'Retrieving the full text. Extracting an embedded track can take several minutes. Playback continues.'
+	String get loadingSubtitlesDetail => 'Retrieving the full text. Extracting an embedded track can take several minutes. Playback continues.';
+
 	/// en: 'Live subtitle sync'
 	String get title => 'Live subtitle sync';
 
@@ -4635,8 +4641,8 @@ class Translations$liveSubtitleSync$en {
 	/// en: 'Select English audio and English subtitles.'
 	String get englishTracks => 'Select English audio and English subtitles.';
 
-	/// en: 'Select an external SRT subtitle track.'
-	String get externalSrt => 'Select an external SRT subtitle track.';
+	/// en: 'Select an accessible SRT subtitle track.'
+	String get externalSrt => 'Select an accessible SRT subtitle track.';
 
 	/// en: 'PCM audio is unavailable with passthrough.'
 	String get passthrough => 'PCM audio is unavailable with passthrough.';
@@ -8819,6 +8825,8 @@ extension on Translations {
 			'companionRemote.errors.connectionLostAfterAttempts' => ({required Object attempts}) => 'Connection lost after ${attempts} attempts',
 			'companionRemote.errors.connectionLost' => 'Connection lost',
 			'companionRemote.closedBeforeAuth' => 'The connection closed before authentication',
+			'liveSubtitleSync.loadingSubtitles' => 'Loading subtitles',
+			'liveSubtitleSync.loadingSubtitlesDetail' => 'Retrieving the full text. Extracting an embedded track can take several minutes. Playback continues.',
 			'liveSubtitleSync.title' => 'Live subtitle sync',
 			'liveSubtitleSync.off' => 'Off · English SRT · local analysis',
 			'liveSubtitleSync.downloading' => 'Downloading model',
@@ -8830,7 +8838,7 @@ extension on Translations {
 			'liveSubtitleSync.modelSize' => 'First activation downloads a 60 MB model. Audio stays on this device.',
 			'liveSubtitleSync.platform' => 'Requires macOS Apple Silicon or Windows x64.',
 			'liveSubtitleSync.englishTracks' => 'Select English audio and English subtitles.',
-			'liveSubtitleSync.externalSrt' => 'Select an external SRT subtitle track.',
+			'liveSubtitleSync.externalSrt' => 'Select an accessible SRT subtitle track.',
 			'liveSubtitleSync.passthrough' => 'PCM audio is unavailable with passthrough.',
 			'liveSubtitleSync.surround' => 'This audio channel layout is not supported yet.',
 			'liveSubtitleSync.source' => 'The complete subtitle file could not be loaded.',

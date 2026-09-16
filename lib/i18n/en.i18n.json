@@ -1880,6 +1880,8 @@
     "closedBeforeAuth": "The connection closed before authentication"
   },
   "liveSubtitleSync": {
+    "loadingSubtitles": "Loading subtitles",
+    "loadingSubtitlesDetail": "Retrieving the full text. Extracting an embedded track can take several minutes. Playback continues.",
     "title": "Live subtitle sync",
     "off": "Off · English SRT · local analysis",
     "downloading": "Downloading model",
@@ -1891,7 +1893,7 @@
     "modelSize": "First activation downloads a 60 MB model. Audio stays on this device.",
     "platform": "Requires macOS Apple Silicon or Windows x64.",
     "englishTracks": "Select English audio and English subtitles.",
-    "externalSrt": "Select an external SRT subtitle track.",
+    "externalSrt": "Select an accessible SRT subtitle track.",
     "passthrough": "PCM audio is unavailable with passthrough.",
     "surround": "This audio channel layout is not supported yet.",
     "source": "The complete subtitle file could not be loaded.",

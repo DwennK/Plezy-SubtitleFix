@@ -12,6 +12,8 @@ import 'package:os_media_controls/os_media_controls.dart';
 import 'package:provider/provider.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
 
+import '../features/live_subtitle_sync/player_attachment.dart';
+import '../features/live_subtitle_sync/plex_subtitle_source.dart';
 import '../mpv/mpv.dart';
 import '../mpv/player/platform/player_android.dart';
 import '../mpv/player/player_native.dart';
@@ -1010,6 +1012,30 @@ class VideoPlayerScreenState extends State<VideoPlayerScreen> with WidgetsBindin
   /// it — untouched, so there is nothing to roll back.
   void _commitPlaybackSession(PlaybackSession session) {
     _playbackSession = session;
+    final currentPlayer = player;
+    final client = session.reportingClient;
+    final mediaInfo = session.mediaInfo;
+    if ((Platform.isMacOS || Platform.isWindows) && currentPlayer is PlayerNative) {
+      LiveSyncPlayerAttachment.subtitleProviders[currentPlayer] = null;
+      if (!session.isOffline && !session.isTranscoding && client is PlexClient && mediaInfo != null) {
+        final source = PlexSubtitleSource(
+          baseUrl: client.config.baseUrl,
+          headers: Map.unmodifiable(client.streamHeaders),
+          itemId: session.metadata.id,
+          mediaIndex: mediaInfo.mediaIndex ?? session.mediaIndex,
+          partIndex: mediaInfo.partIndex ?? 0,
+        );
+        LiveSyncPlayerAttachment.subtitleProviders[currentPlayer] = (track, transport, abort) async {
+          final row = findPlexTrackForMpvSubtitle(
+            track,
+            mediaInfo.subtitleTracks,
+            allMpvTracks: currentPlayer.state.tracks.subtitle,
+          );
+          if (row == null || row.isExternal || !const {'srt', 'subrip'}.contains(row.codec)) return null;
+          return source.load(row.id, transport, abort);
+        };
+      }
+    }
     _effectiveSelectedMediaIndex = session.mediaIndex;
     _requestedMediaSourceId = session.mediaSourceId;
     _selectedQualityPreset = session.qualityPreset;

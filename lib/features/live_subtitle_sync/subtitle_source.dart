@@ -41,6 +41,7 @@ class SubtitleSourceLoader {
     required this.client,
     this.maximumBytes = 4 * 1024 * 1024,
     this.timeout = const Duration(seconds: 20),
+    this.allowedContentTypes,
   });
 
   /// Borrowed transport: keeps Plezy's certificate, proxy and native HTTP
@@ -48,6 +49,9 @@ class SubtitleSourceLoader {
   final http.Client client;
   final int maximumBytes;
   final Duration timeout;
+
+  /// Server subtitle extraction must never consume a media or playlist response.
+  final Set<String>? allowedContentTypes;
 
   Future<SubtitleDocument> load(
     SubtitleTrack track, {
@@ -91,9 +95,12 @@ class SubtitleSourceLoader {
       }
       stream = file.openRead();
     } else if (uri.scheme == 'http' || uri.scheme == 'https') {
-      final request = http.AbortableRequest('GET', uri, abortTrigger: abort.trigger)..headers.addAll(headers);
+      final request = http.AbortableRequest('GET', uri, abortTrigger: abort.trigger)
+        ..followRedirects = allowedContentTypes == null
+        ..headers.addAll(headers);
       final response = await client.send(request);
-      if (response.statusCode != 200) {
+      final contentType = response.headers['content-type']?.split(';').first.trim().toLowerCase();
+      if (response.statusCode != 200 || (allowedContentTypes != null && !allowedContentTypes!.contains(contentType))) {
         await response.stream.listen(null).cancel();
         throw const SubtitleSourceException(SubtitleSourceFailure.unavailable);
       }

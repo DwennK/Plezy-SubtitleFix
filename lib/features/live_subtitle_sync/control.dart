@@ -23,6 +23,7 @@ class LiveSubtitleSyncControl extends StatelessWidget {
       builder: (context, _) {
         final label = switch (controller.phase) {
           LiveSyncPhase.off => t.liveSubtitleSync.off,
+          LiveSyncPhase.loadingSubtitles => t.liveSubtitleSync.loadingSubtitles,
           LiveSyncPhase.downloading => t.liveSubtitleSync.downloading,
           LiveSyncPhase.analyzing => t.liveSubtitleSync.analyzing,
           LiveSyncPhase.synced => t.liveSubtitleSync.synced,
@@ -43,7 +44,9 @@ class LiveSubtitleSyncControl extends StatelessWidget {
           LiveSyncReason.noMatch => t.liveSubtitleSync.noMatch,
         };
         final progress = controller.modelProgress;
-        final detail = controller.phase == LiveSyncPhase.downloading && progress != null
+        final detail = controller.phase == LiveSyncPhase.loadingSubtitles
+            ? t.liveSubtitleSync.loadingSubtitlesDetail
+            : controller.phase == LiveSyncPhase.downloading && progress != null
             ? '${(progress.receivedBytes / 1000000).toStringAsFixed(1)} / ${(progress.totalBytes / 1000000).toStringAsFixed(1)} MB'
             : (reason ??
                   (controller.automaticOffset == null

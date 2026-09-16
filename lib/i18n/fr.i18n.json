@@ -1880,6 +1880,8 @@
     "closedBeforeAuth": "La connexion a été fermée avant l’authentification"
   },
   "liveSubtitleSync": {
+    "loadingSubtitles": "Chargement des sous-titres",
+    "loadingSubtitlesDetail": "Récupération du texte complet. Une piste intégrée peut demander plusieurs minutes. La lecture continue.",
     "title": "Live subtitle sync",
     "off": "Désactivé · SRT anglais · analyse locale",
     "downloading": "Téléchargement du modèle",
@@ -1891,7 +1893,7 @@
     "modelSize": "La première activation télécharge un modèle de 60 Mo. L’audio reste sur cet appareil.",
     "platform": "Nécessite un Mac Apple Silicon ou Windows x64.",
     "englishTracks": "Sélectionnez un audio et des sous-titres en anglais.",
-    "externalSrt": "Sélectionnez une piste de sous-titres SRT externe.",
+    "externalSrt": "Sélectionnez une piste de sous-titres SRT accessible.",
     "passthrough": "L’audio PCM est indisponible en passthrough.",
     "surround": "Cette configuration de canaux audio n’est pas encore prise en charge.",
     "source": "Impossible de charger le fichier complet des sous-titres.",
