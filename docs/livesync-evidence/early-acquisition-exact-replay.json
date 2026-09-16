@@ -1,0 +1,75 @@
+{
+  "scope": "Exact Dart tracker replay of recorded native anchors at recorded arrival times and unchanged playback samples. Does not reproduce ASR/cadence feedback. Unknown intervals after the original first lock count as zero correction. Earlier activation samples were not recorded, so full activation accuracy is unavailable.",
+  "sourceRevision": "90e85325",
+  "sourceFileSha256": {
+    "timeline_map.dart": "3d8181d2f2c774620aac89975f7b413817e1893b970d21f408ed8486497e3f05",
+    "timeline_tracker.dart": "a3e692693818dc9473ee357119054c975e0401311f640d5800367ea2b53ac5d0"
+  },
+  "variants": {
+    "baseline": "Production six anchors / sixty seconds / thirty-second slope pairs.",
+    "early": "Three anchors / fifteen seconds / eight-second pairs; original two-cue initial lock.",
+    "guarded": "Same early fit, but initial lock requires three cues spanning fifteen seconds in both timelines. Replay has no explicit batch gate; the native candidate adds it."
+  },
+  "cases": {
+    "slower": {
+      "baseline": {
+        "acquisitionMs": 9577,
+        "affineAcquisitionMs": 69752,
+        "observedSamples": 138,
+        "mappedSamples": 138,
+        "p95IncludingUnknown": 1.5276666585977523,
+        "p95MappedOnly": 1.5276666585977523,
+        "maximumDifferenceFromRecordedCorrection": 0.0
+      },
+      "early": {
+        "acquisitionMs": 9577,
+        "affineAcquisitionMs": 33541,
+        "observedSamples": 138,
+        "mappedSamples": 138,
+        "p95IncludingUnknown": 0.583024072110625,
+        "p95MappedOnly": 0.583024072110625,
+        "maximumDifferenceFromRecordedCorrection": 2.1482739976625425
+      },
+      "guarded": {
+        "acquisitionMs": 33541,
+        "affineAcquisitionMs": 33541,
+        "observedSamples": 138,
+        "mappedSamples": 114,
+        "p95IncludingUnknown": 1.117925551057219,
+        "p95MappedOnly": 0.5870894553294406,
+        "maximumDifferenceFromRecordedCorrection": 2.1482739976625425
+      },
+      "inputSha256": "c5b05d8b377f21762ebe65b86596960dc766f417a9df33252e3395cb48d00637"
+    },
+    "faster": {
+      "baseline": {
+        "acquisitionMs": 21651,
+        "affineAcquisitionMs": 94017,
+        "observedSamples": 113,
+        "mappedSamples": 113,
+        "p95IncludingUnknown": 3.441377488342866,
+        "p95MappedOnly": 3.441377488342866,
+        "maximumDifferenceFromRecordedCorrection": 0.0
+      },
+      "early": {
+        "acquisitionMs": 21651,
+        "affineAcquisitionMs": 33642,
+        "observedSamples": 113,
+        "mappedSamples": 113,
+        "p95IncludingUnknown": 1.533418330303828,
+        "p95MappedOnly": 1.533418330303828,
+        "maximumDifferenceFromRecordedCorrection": 3.0576003046146383
+      },
+      "guarded": {
+        "acquisitionMs": 33642,
+        "affineAcquisitionMs": 33642,
+        "observedSamples": 113,
+        "mappedSamples": 101,
+        "p95IncludingUnknown": 1.2089183303038276,
+        "p95MappedOnly": 0.7248734714645195,
+        "maximumDifferenceFromRecordedCorrection": 3.0576003046146383
+      },
+      "inputSha256": "66f6b75ae5d745bb0dab11998a6383a4c4b5c5257d0330bdabec898500c7a657"
+    }
+  }
+}

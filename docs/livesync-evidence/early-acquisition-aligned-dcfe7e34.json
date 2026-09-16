@@ -1,0 +1,3278 @@
+{
+  "provenance": {
+    "forkSha": "dcfe7e346490c2c1774104ff36066877645d2f6d",
+    "rawReportSha256": "100e3861410770438e69a58f68923b24d32d0d441c8c2e449a6e831aedb13731",
+    "scope": "Development-only native PCM/ASR experiment. No false slope, but a nonzero correction is applied to the aligned utterance-boundary reference. No proof of absence of degradation, independent corpus, production controller or audible playback."
+  },
+  "qualitySummary": {
+    "medianErrorSeconds": 0.656000018119812,
+    "medianLimitSeconds": 0.25,
+    "medianPassed": false,
+    "acquisitionAndP95ProbePassed": true,
+    "overallPrecisionValidated": false
+  },
+  "report": {
+    "kind": "native-active-pcm-real-asr-and-domain-alignment",
+    "platform": "macos",
+    "inferenceBackend": "portable-cpu",
+    "alignmentEngine": "bounded-affine-timeline",
+    "experimentalAcousticBeginnings": true,
+    "experimentalEarlyAcquisition": true,
+    "maximumAcquisitionMs": 45000,
+    "acquisitionWithinBudget": true,
+    "acquiredMediaPosition": 33.7468827056885,
+    "learnedSegments": 1,
+    "activityChecks": 280,
+    "activityVoiceChecks": 271,
+    "activityTotalMicros": 167351,
+    "activityMaxMicros": 11236,
+    "actualOffset": 0.6610000000000014,
+    "acquisitionMs": 33693,
+    "evaluationMs": 144004,
+    "expectedOffset": 0.0,
+    "expectNoLock": false,
+    "completedAnalyses": 8,
+    "validPrefixAnalyses": 3,
+    "rejectedAnalyses": 0,
+    "absoluteOffsetError": 0.6610000133514404,
+    "maximumOffsetError": 0.75,
+    "reference": "fixture SRT timings, not precise acoustic-onset ground truth",
+    "passed": true,
+    "activationSamples": [
+      {
+        "elapsedMs": 2,
+        "mediaTime": 0.0580948944091797,
+        "automaticDelay": 0,
+        "mappingAvailable": false,
+        "nativeDelay": 0.0,
+        "expectedDelay": 0.0,
+        "error": 0.0
+      },
+      {
+        "elapsedMs": 1044,
+        "mediaTime": 1.1246880340576182,
+        "automaticDelay": 0,
+        "mappingAvailable": false,
+        "nativeDelay": 0.0,
+        "expectedDelay": 0.0,
+        "error": 0.0
+      },
+      {
+        "elapsedMs": 2075,
+        "mediaTime": 2.1396781158447284,
+        "automaticDelay": 0,
+        "mappingAvailable": false,
+        "nativeDelay": 0.0,
+        "expectedDelay": 0.0,
+        "error": 0.0
+      },
+      {
+        "elapsedMs": 3104,
+        "mediaTime": 3.174944305419925,
+        "automaticDelay": 0,
+        "mappingAvailable": false,
+        "nativeDelay": 0.0,
+        "expectedDelay": 0.0,
+        "error": 0.0
+      },
+      {
+        "elapsedMs": 4132,
+        "mediaTime": 4.219625137329105,
+        "automaticDelay": 0,
+        "mappingAvailable": false,
+        "nativeDelay": 0.0,
+        "expectedDelay": 0.0,
+        "error": 0.0
+      },
+      {
+        "elapsedMs": 5162,
+        "mediaTime": 5.209595825195317,
+        "automaticDelay": 0,
+        "mappingAvailable": false,
+        "nativeDelay": 0.0,
+        "expectedDelay": 0.0,
+        "error": 0.0
+      },
+      {
+        "elapsedMs": 6187,
+        "mediaTime": 6.236539428710943,
+        "automaticDelay": 0,
+        "mappingAvailable": false,
+        "nativeDelay": 0.0,
+        "expectedDelay": 0.0,
+        "error": 0.0
+      },
+      {
+        "elapsedMs": 7218,
+        "mediaTime": 7.270682647705084,
+        "automaticDelay": 0,
+        "mappingAvailable": false,
+        "nativeDelay": 0.0,
+        "expectedDelay": 0.0,
+        "error": 0.0
+      },
+      {
+        "elapsedMs": 8245,
+        "mediaTime": 8.323707809448248,
+        "automaticDelay": 0,
+        "mappingAvailable": false,
+        "nativeDelay": 0.0,
+        "expectedDelay": 0.0,
+        "error": 0.0
+      },
+      {
+        "elapsedMs": 9316,
+        "mediaTime": 9.392288772583015,
+        "automaticDelay": 0,
+        "mappingAvailable": false,
+        "nativeDelay": 0.0,
+        "expectedDelay": 0.0,
+        "error": 0.0
+      },
+      {
+        "elapsedMs": 10354,
+        "mediaTime": 10.445758712768562,
+        "automaticDelay": 0,
+        "mappingAvailable": false,
+        "nativeDelay": 0.0,
+        "expectedDelay": 0.0,
+        "error": 0.0
+      },
+      {
+        "elapsedMs": 11383,
+        "mediaTime": 11.456679809570321,
+        "automaticDelay": 0,
+        "mappingAvailable": false,
+        "nativeDelay": 0.0,
+        "expectedDelay": 0.0,
+        "error": 0.0
+      },
+      {
+        "elapsedMs": 12411,
+        "mediaTime": 12.503323257446299,
+        "automaticDelay": 0,
+        "mappingAvailable": false,
+        "nativeDelay": 0.0,
+        "expectedDelay": 0.0,
+        "error": 0.0
+      },
+      {
+        "elapsedMs": 13438,
+        "mediaTime": 13.53597625732423,
+        "automaticDelay": 0,
+        "mappingAvailable": false,
+        "nativeDelay": 0.0,
+        "expectedDelay": 0.0,
+        "error": 0.0
+      },
+      {
+        "elapsedMs": 14467,
+        "mediaTime": 14.5270390777588,
+        "automaticDelay": 0,
+        "mappingAvailable": false,
+        "nativeDelay": 0.0,
+        "expectedDelay": 0.0,
+        "error": 0.0
+      },
+      {
+        "elapsedMs": 15499,
+        "mediaTime": 15.562736389160166,
+        "automaticDelay": 0,
+        "mappingAvailable": false,
+        "nativeDelay": 0.0,
+        "expectedDelay": 0.0,
+        "error": 0.0
+      },
+      {
+        "elapsedMs": 16526,
+        "mediaTime": 16.592752517700205,
+        "automaticDelay": 0,
+        "mappingAvailable": false,
+        "nativeDelay": 0.0,
+        "expectedDelay": 0.0,
+        "error": 0.0
+      },
+      {
+        "elapsedMs": 17552,
+        "mediaTime": 17.595932266235366,
+        "automaticDelay": 0,
+        "mappingAvailable": false,
+        "nativeDelay": 0.0,
+        "expectedDelay": 0.0,
+        "error": 0.0
+      },
+      {
+        "elapsedMs": 18575,
+        "mediaTime": 18.663874313354505,
+        "automaticDelay": 0,
+        "mappingAvailable": false,
+        "nativeDelay": 0.0,
+        "expectedDelay": 0.0,
+        "error": 0.0
+      },
+      {
+        "elapsedMs": 19601,
+        "mediaTime": 19.69283050537111,
+        "automaticDelay": 0,
+        "mappingAvailable": false,
+        "nativeDelay": 0.0,
+        "expectedDelay": 0.0,
+        "error": 0.0
+      },
+      {
+        "elapsedMs": 20635,
+        "mediaTime": 20.733494979858413,
+        "automaticDelay": 0,
+        "mappingAvailable": false,
+        "nativeDelay": 0.0,
+        "expectedDelay": 0.0,
+        "error": 0.0
+      },
+      {
+        "elapsedMs": 21668,
+        "mediaTime": 21.71636465454103,
+        "automaticDelay": 0,
+        "mappingAvailable": false,
+        "nativeDelay": 0.0,
+        "expectedDelay": 0.0,
+        "error": 0.0
+      },
+      {
+        "elapsedMs": 22698,
+        "mediaTime": 22.75737445068361,
+        "automaticDelay": 0,
+        "mappingAvailable": false,
+        "nativeDelay": 0.0,
+        "expectedDelay": 0.0,
+        "error": 0.0
+      },
+      {
+        "elapsedMs": 23728,
+        "mediaTime": 23.798353897094746,
+        "automaticDelay": 0,
+        "mappingAvailable": false,
+        "nativeDelay": 0.0,
+        "expectedDelay": 0.0,
+        "error": 0.0
+      },
+      {
+        "elapsedMs": 24755,
+        "mediaTime": 24.790213790893574,
+        "automaticDelay": 0,
+        "mappingAvailable": false,
+        "nativeDelay": 0.0,
+        "expectedDelay": 0.0,
+        "error": 0.0
+      },
+      {
+        "elapsedMs": 25780,
+        "mediaTime": 25.82603356933596,
+        "automaticDelay": 0,
+        "mappingAvailable": false,
+        "nativeDelay": 0.0,
+        "expectedDelay": 0.0,
+        "error": 0.0
+      },
+      {
+        "elapsedMs": 26806,
+        "mediaTime": 26.842640441894552,
+        "automaticDelay": 0,
+        "mappingAvailable": false,
+        "nativeDelay": 0.0,
+        "expectedDelay": 0.0,
+        "error": 0.0
+      },
+      {
+        "elapsedMs": 27834,
+        "mediaTime": 27.931584625244163,
+        "automaticDelay": 0,
+        "mappingAvailable": false,
+        "nativeDelay": 0.0,
+        "expectedDelay": 0.0,
+        "error": 0.0
+      },
+      {
+        "elapsedMs": 28859,
+        "mediaTime": 28.919427246093772,
+        "automaticDelay": 0,
+        "mappingAvailable": false,
+        "nativeDelay": 0.0,
+        "expectedDelay": 0.0,
+        "error": 0.0
+      },
+      {
+        "elapsedMs": 29888,
+        "mediaTime": 29.976065185546897,
+        "automaticDelay": 0,
+        "mappingAvailable": false,
+        "nativeDelay": 0.0,
+        "expectedDelay": 0.0,
+        "error": 0.0
+      },
+      {
+        "elapsedMs": 30911,
+        "mediaTime": 30.97309088134768,
+        "automaticDelay": 0,
+        "mappingAvailable": false,
+        "nativeDelay": 0.0,
+        "expectedDelay": 0.0,
+        "error": 0.0
+      },
+      {
+        "elapsedMs": 31936,
+        "mediaTime": 32.01810482788088,
+        "automaticDelay": 0,
+        "mappingAvailable": false,
+        "nativeDelay": 0.0,
+        "expectedDelay": 0.0,
+        "error": 0.0
+      },
+      {
+        "elapsedMs": 32974,
+        "mediaTime": 33.01602331542971,
+        "automaticDelay": 0,
+        "mappingAvailable": false,
+        "nativeDelay": 0.0,
+        "expectedDelay": 0.0,
+        "error": 0.0
+      },
+      {
+        "elapsedMs": 34004,
+        "mediaTime": 34.08613201904299,
+        "automaticDelay": 0.6559999999999988,
+        "mappingAvailable": true,
+        "nativeDelay": 0.656000018119812,
+        "expectedDelay": 0.0,
+        "error": 0.656000018119812
+      },
+      {
+        "elapsedMs": 35033,
+        "mediaTime": 35.03275103759768,
+        "automaticDelay": 0.6559999999999988,
+        "mappingAvailable": true,
+        "nativeDelay": 0.656000018119812,
+        "expectedDelay": 0.0,
+        "error": 0.656000018119812
+      },
+      {
+        "elapsedMs": 36062,
+        "mediaTime": 36.140894409179715,
+        "automaticDelay": 0.6559999999999988,
+        "mappingAvailable": true,
+        "nativeDelay": 0.656000018119812,
+        "expectedDelay": 0.0,
+        "error": 0.656000018119812
+      },
+      {
+        "elapsedMs": 37091,
+        "mediaTime": 37.182846588134794,
+        "automaticDelay": 0.6559999999999988,
+        "mappingAvailable": true,
+        "nativeDelay": 0.656000018119812,
+        "expectedDelay": 0.0,
+        "error": 0.656000018119812
+      },
+      {
+        "elapsedMs": 38121,
+        "mediaTime": 38.17133674621585,
+        "automaticDelay": 0.6559999999999988,
+        "mappingAvailable": true,
+        "nativeDelay": 0.656000018119812,
+        "expectedDelay": 0.0,
+        "error": 0.656000018119812
+      },
+      {
+        "elapsedMs": 39152,
+        "mediaTime": 39.22743058776858,
+        "automaticDelay": 0.6559999999999988,
+        "mappingAvailable": true,
+        "nativeDelay": 0.656000018119812,
+        "expectedDelay": 0.0,
+        "error": 0.656000018119812
+      },
+      {
+        "elapsedMs": 40177,
+        "mediaTime": 40.25760099792483,
+        "automaticDelay": 0.6559999999999988,
+        "mappingAvailable": true,
+        "nativeDelay": 0.656000018119812,
+        "expectedDelay": 0.0,
+        "error": 0.656000018119812
+      },
+      {
+        "elapsedMs": 41203,
+        "mediaTime": 41.29750619506839,
+        "automaticDelay": 0.6559999999999988,
+        "mappingAvailable": true,
+        "nativeDelay": 0.656000018119812,
+        "expectedDelay": 0.0,
+        "error": 0.656000018119812
+      },
+      {
+        "elapsedMs": 42228,
+        "mediaTime": 42.257205139160185,
+        "automaticDelay": 0.6559999999999988,
+        "mappingAvailable": true,
+        "nativeDelay": 0.656000018119812,
+        "expectedDelay": 0.0,
+        "error": 0.656000018119812
+      },
+      {
+        "elapsedMs": 43254,
+        "mediaTime": 43.3232295379639,
+        "automaticDelay": 0.6559999999999988,
+        "mappingAvailable": true,
+        "nativeDelay": 0.656000018119812,
+        "expectedDelay": 0.0,
+        "error": 0.656000018119812
+      },
+      {
+        "elapsedMs": 44284,
+        "mediaTime": 44.352078231811554,
+        "automaticDelay": 0.6559999999999988,
+        "mappingAvailable": true,
+        "nativeDelay": 0.656000018119812,
+        "expectedDelay": 0.0,
+        "error": 0.656000018119812
+      },
+      {
+        "elapsedMs": 45308,
+        "mediaTime": 45.37462983703617,
+        "automaticDelay": 0.6559999999999988,
+        "mappingAvailable": true,
+        "nativeDelay": 0.656000018119812,
+        "expectedDelay": 0.0,
+        "error": 0.656000018119812
+      },
+      {
+        "elapsedMs": 46331,
+        "mediaTime": 46.41715403747562,
+        "automaticDelay": 0.6559999999999988,
+        "mappingAvailable": true,
+        "nativeDelay": 0.656000018119812,
+        "expectedDelay": 0.0,
+        "error": 0.656000018119812
+      },
+      {
+        "elapsedMs": 47359,
+        "mediaTime": 47.43385417175296,
+        "automaticDelay": 0.6559999999999988,
+        "mappingAvailable": true,
+        "nativeDelay": 0.656000018119812,
+        "expectedDelay": 0.0,
+        "error": 0.656000018119812
+      },
+      {
+        "elapsedMs": 48387,
+        "mediaTime": 48.45718554687504,
+        "automaticDelay": 0.6559999999999988,
+        "mappingAvailable": true,
+        "nativeDelay": 0.656000018119812,
+        "expectedDelay": 0.0,
+        "error": 0.656000018119812
+      },
+      {
+        "elapsedMs": 49416,
+        "mediaTime": 49.429174697876014,
+        "automaticDelay": 0.6559999999999988,
+        "mappingAvailable": true,
+        "nativeDelay": 0.656000018119812,
+        "expectedDelay": 0.0,
+        "error": 0.656000018119812
+      },
+      {
+        "elapsedMs": 50442,
+        "mediaTime": 50.45910559082035,
+        "automaticDelay": 0.6559999999999988,
+        "mappingAvailable": true,
+        "nativeDelay": 0.656000018119812,
+        "expectedDelay": 0.0,
+        "error": 0.656000018119812
+      },
+      {
+        "elapsedMs": 51468,
+        "mediaTime": 51.54850267028812,
+        "automaticDelay": 0.6559999999999988,
+        "mappingAvailable": true,
+        "nativeDelay": 0.656000018119812,
+        "expectedDelay": 0.0,
+        "error": 0.656000018119812
+      },
+      {
+        "elapsedMs": 52495,
+        "mediaTime": 52.577039489746134,
+        "automaticDelay": 0.6559999999999988,
+        "mappingAvailable": true,
+        "nativeDelay": 0.656000018119812,
+        "expectedDelay": 0.0,
+        "error": 0.656000018119812
+      },
+      {
+        "elapsedMs": 53521,
+        "mediaTime": 53.56785241699223,
+        "automaticDelay": 0.6559999999999988,
+        "mappingAvailable": true,
+        "nativeDelay": 0.656000018119812,
+        "expectedDelay": 0.0,
+        "error": 0.656000018119812
+      },
+      {
+        "elapsedMs": 54548,
+        "mediaTime": 54.62456777954106,
+        "automaticDelay": 0.6559999999999988,
+        "mappingAvailable": true,
+        "nativeDelay": 0.656000018119812,
+        "expectedDelay": 0.0,
+        "error": 0.656000018119812
+      },
+      {
+        "elapsedMs": 55579,
+        "mediaTime": 55.66427954101567,
+        "automaticDelay": 0.6559999999999988,
+        "mappingAvailable": true,
+        "nativeDelay": 0.656000018119812,
+        "expectedDelay": 0.0,
+        "error": 0.656000018119812
+      },
+      {
+        "elapsedMs": 56613,
+        "mediaTime": 56.67298075866704,
+        "automaticDelay": 0.6559999999999988,
+        "mappingAvailable": true,
+        "nativeDelay": 0.656000018119812,
+        "expectedDelay": 0.0,
+        "error": 0.656000018119812
+      },
+      {
+        "elapsedMs": 57644,
+        "mediaTime": 57.737297729492234,
+        "automaticDelay": 0.6559999999999988,
+        "mappingAvailable": true,
+        "nativeDelay": 0.656000018119812,
+        "expectedDelay": 0.0,
+        "error": 0.656000018119812
+      },
+      {
+        "elapsedMs": 58674,
+        "mediaTime": 58.72568916320805,
+        "automaticDelay": 0.6559999999999988,
+        "mappingAvailable": true,
+        "nativeDelay": 0.656000018119812,
+        "expectedDelay": 0.0,
+        "error": 0.656000018119812
+      },
+      {
+        "elapsedMs": 59703,
+        "mediaTime": 59.757044174194384,
+        "automaticDelay": 0.6559999999999988,
+        "mappingAvailable": true,
+        "nativeDelay": 0.656000018119812,
+        "expectedDelay": 0.0,
+        "error": 0.656000018119812
+      },
+      {
+        "elapsedMs": 60729,
+        "mediaTime": 60.7944742584229,
+        "automaticDelay": 0.6559999999999988,
+        "mappingAvailable": true,
+        "nativeDelay": 0.656000018119812,
+        "expectedDelay": 0.0,
+        "error": 0.656000018119812
+      },
+      {
+        "elapsedMs": 61756,
+        "mediaTime": 61.84059654235845,
+        "automaticDelay": 0.6559999999999988,
+        "mappingAvailable": true,
+        "nativeDelay": 0.656000018119812,
+        "expectedDelay": 0.0,
+        "error": 0.656000018119812
+      },
+      {
+        "elapsedMs": 62785,
+        "mediaTime": 62.80900091552739,
+        "automaticDelay": 0.6559999999999988,
+        "mappingAvailable": true,
+        "nativeDelay": 0.656000018119812,
+        "expectedDelay": 0.0,
+        "error": 0.656000018119812
+      },
+      {
+        "elapsedMs": 63815,
+        "mediaTime": 63.89915620422363,
+        "automaticDelay": 0.6559999999999988,
+        "mappingAvailable": true,
+        "nativeDelay": 0.656000018119812,
+        "expectedDelay": 0.0,
+        "error": 0.656000018119812
+      },
+      {
+        "elapsedMs": 64845,
+        "mediaTime": 64.94349154663075,
+        "automaticDelay": 0.6560000000000059,
+        "mappingAvailable": true,
+        "nativeDelay": 0.656000018119812,
+        "expectedDelay": 0.0,
+        "error": 0.656000018119812
+      },
+      {
+        "elapsedMs": 65877,
+        "mediaTime": 65.94060769653298,
+        "automaticDelay": 0.6559999999999917,
+        "mappingAvailable": true,
+        "nativeDelay": 0.656000018119812,
+        "expectedDelay": 0.0,
+        "error": 0.656000018119812
+      },
+      {
+        "elapsedMs": 66905,
+        "mediaTime": 66.90015351867643,
+        "automaticDelay": 0.6560000000000059,
+        "mappingAvailable": true,
+        "nativeDelay": 0.656000018119812,
+        "expectedDelay": 0.0,
+        "error": 0.656000018119812
+      },
+      {
+        "elapsedMs": 67933,
+        "mediaTime": 67.9890318603511,
+        "automaticDelay": 0.6560000000000059,
+        "mappingAvailable": true,
+        "nativeDelay": 0.656000018119812,
+        "expectedDelay": 0.0,
+        "error": 0.656000018119812
+      },
+      {
+        "elapsedMs": 68974,
+        "mediaTime": 69.02506571960393,
+        "automaticDelay": 0.6560000000000059,
+        "mappingAvailable": true,
+        "nativeDelay": 0.656000018119812,
+        "expectedDelay": 0.0,
+        "error": 0.656000018119812
+      },
+      {
+        "elapsedMs": 70002,
+        "mediaTime": 70.0335640716546,
+        "automaticDelay": 0.6559999999999917,
+        "mappingAvailable": true,
+        "nativeDelay": 0.656000018119812,
+        "expectedDelay": 0.0,
+        "error": 0.656000018119812
+      },
+      {
+        "elapsedMs": 71032,
+        "mediaTime": 71.10999545288007,
+        "automaticDelay": 0.6460000000000008,
+        "mappingAvailable": true,
+        "nativeDelay": 0.6460000276565552,
+        "expectedDelay": 0.0,
+        "error": 0.6460000276565552
+      },
+      {
+        "elapsedMs": 72057,
+        "mediaTime": 72.10891648864656,
+        "automaticDelay": 0.6460000000000008,
+        "mappingAvailable": true,
+        "nativeDelay": 0.6460000276565552,
+        "expectedDelay": 0.0,
+        "error": 0.6460000276565552
+      },
+      {
+        "elapsedMs": 73084,
+        "mediaTime": 73.10845460510153,
+        "automaticDelay": 0.6460000000000008,
+        "mappingAvailable": true,
+        "nativeDelay": 0.6460000276565552,
+        "expectedDelay": 0.0,
+        "error": 0.6460000276565552
+      },
+      {
+        "elapsedMs": 74109,
+        "mediaTime": 74.15853073120005,
+        "automaticDelay": 0.6460000000000008,
+        "mappingAvailable": true,
+        "nativeDelay": 0.6460000276565552,
+        "expectedDelay": 0.0,
+        "error": 0.6460000276565552
+      },
+      {
+        "elapsedMs": 75140,
+        "mediaTime": 75.22799150085325,
+        "automaticDelay": 0.6460000000000008,
+        "mappingAvailable": true,
+        "nativeDelay": 0.6460000276565552,
+        "expectedDelay": 0.0,
+        "error": 0.6460000276565552
+      },
+      {
+        "elapsedMs": 76168,
+        "mediaTime": 76.26605262756212,
+        "automaticDelay": 0.6460000000000008,
+        "mappingAvailable": true,
+        "nativeDelay": 0.6460000276565552,
+        "expectedDelay": 0.0,
+        "error": 0.6460000276565552
+      },
+      {
+        "elapsedMs": 77195,
+        "mediaTime": 77.29376922607274,
+        "automaticDelay": 0.6460000000000008,
+        "mappingAvailable": true,
+        "nativeDelay": 0.6460000276565552,
+        "expectedDelay": 0.0,
+        "error": 0.6460000276565552
+      },
+      {
+        "elapsedMs": 78223,
+        "mediaTime": 78.27548081970058,
+        "automaticDelay": 0.6460000000000008,
+        "mappingAvailable": true,
+        "nativeDelay": 0.6460000276565552,
+        "expectedDelay": 0.0,
+        "error": 0.6460000276565552
+      },
+      {
+        "elapsedMs": 79251,
+        "mediaTime": 79.33090351867506,
+        "automaticDelay": 0.6460000000000008,
+        "mappingAvailable": true,
+        "nativeDelay": 0.6460000276565552,
+        "expectedDelay": 0.0,
+        "error": 0.6460000276565552
+      },
+      {
+        "elapsedMs": 80279,
+        "mediaTime": 80.31989575195132,
+        "automaticDelay": 0.6460000000000008,
+        "mappingAvailable": true,
+        "nativeDelay": 0.6460000276565552,
+        "expectedDelay": 0.0,
+        "error": 0.6460000276565552
+      },
+      {
+        "elapsedMs": 81310,
+        "mediaTime": 81.3786788177471,
+        "automaticDelay": 0.6460000000000008,
+        "mappingAvailable": true,
+        "nativeDelay": 0.6460000276565552,
+        "expectedDelay": 0.0,
+        "error": 0.6460000276565552
+      },
+      {
+        "elapsedMs": 82340,
+        "mediaTime": 82.41566828918253,
+        "automaticDelay": 0.6559999999999917,
+        "mappingAvailable": true,
+        "nativeDelay": 0.656000018119812,
+        "expectedDelay": 0.0,
+        "error": 0.656000018119812
+      },
+      {
+        "elapsedMs": 83372,
+        "mediaTime": 83.45226414489531,
+        "automaticDelay": 0.6560000000000059,
+        "mappingAvailable": true,
+        "nativeDelay": 0.656000018119812,
+        "expectedDelay": 0.0,
+        "error": 0.656000018119812
+      },
+      {
+        "elapsedMs": 84398,
+        "mediaTime": 84.4369795532204,
+        "automaticDelay": 0.6560000000000059,
+        "mappingAvailable": true,
+        "nativeDelay": 0.656000018119812,
+        "expectedDelay": 0.0,
+        "error": 0.656000018119812
+      },
+      {
+        "elapsedMs": 85430,
+        "mediaTime": 85.52846051025152,
+        "automaticDelay": 0.6559999999999917,
+        "mappingAvailable": true,
+        "nativeDelay": 0.656000018119812,
+        "expectedDelay": 0.0,
+        "error": 0.656000018119812
+      },
+      {
+        "elapsedMs": 86457,
+        "mediaTime": 86.50833807372798,
+        "automaticDelay": 0.6559999999999917,
+        "mappingAvailable": true,
+        "nativeDelay": 0.656000018119812,
+        "expectedDelay": 0.0,
+        "error": 0.656000018119812
+      },
+      {
+        "elapsedMs": 87484,
+        "mediaTime": 87.52499964904526,
+        "automaticDelay": 0.6559999999999917,
+        "mappingAvailable": true,
+        "nativeDelay": 0.656000018119812,
+        "expectedDelay": 0.0,
+        "error": 0.656000018119812
+      },
+      {
+        "elapsedMs": 88511,
+        "mediaTime": 88.6094353637668,
+        "automaticDelay": 0.6560000000000059,
+        "mappingAvailable": true,
+        "nativeDelay": 0.656000018119812,
+        "expectedDelay": 0.0,
+        "error": 0.656000018119812
+      },
+      {
+        "elapsedMs": 89540,
+        "mediaTime": 89.60494474792198,
+        "automaticDelay": 0.6559999999999917,
+        "mappingAvailable": true,
+        "nativeDelay": 0.656000018119812,
+        "expectedDelay": 0.0,
+        "error": 0.656000018119812
+      },
+      {
+        "elapsedMs": 90570,
+        "mediaTime": 90.57746922301952,
+        "automaticDelay": 0.6559999999999917,
+        "mappingAvailable": true,
+        "nativeDelay": 0.656000018119812,
+        "expectedDelay": 0.0,
+        "error": 0.656000018119812
+      },
+      {
+        "elapsedMs": 91600,
+        "mediaTime": 91.66680400085143,
+        "automaticDelay": 0.6559999999999917,
+        "mappingAvailable": true,
+        "nativeDelay": 0.656000018119812,
+        "expectedDelay": 0.0,
+        "error": 0.656000018119812
+      },
+      {
+        "elapsedMs": 92627,
+        "mediaTime": 92.70596510314624,
+        "automaticDelay": 0.6560000000000059,
+        "mappingAvailable": true,
+        "nativeDelay": 0.656000018119812,
+        "expectedDelay": 0.0,
+        "error": 0.656000018119812
+      },
+      {
+        "elapsedMs": 93658,
+        "mediaTime": 93.65188319396646,
+        "automaticDelay": 0.6560000000000059,
+        "mappingAvailable": true,
+        "nativeDelay": 0.656000018119812,
+        "expectedDelay": 0.0,
+        "error": 0.656000018119812
+      },
+      {
+        "elapsedMs": 94681,
+        "mediaTime": 94.7711197051968,
+        "automaticDelay": 0.6559999999999917,
+        "mappingAvailable": true,
+        "nativeDelay": 0.656000018119812,
+        "expectedDelay": 0.0,
+        "error": 0.656000018119812
+      },
+      {
+        "elapsedMs": 95707,
+        "mediaTime": 95.77694798278458,
+        "automaticDelay": 0.6610000000000014,
+        "mappingAvailable": true,
+        "nativeDelay": 0.6610000133514404,
+        "expectedDelay": 0.0,
+        "error": 0.6610000133514404
+      },
+      {
+        "elapsedMs": 96734,
+        "mediaTime": 96.80312777709598,
+        "automaticDelay": 0.6610000000000014,
+        "mappingAvailable": true,
+        "nativeDelay": 0.6610000133514404,
+        "expectedDelay": 0.0,
+        "error": 0.6610000133514404
+      },
+      {
+        "elapsedMs": 97757,
+        "mediaTime": 97.80216816711052,
+        "automaticDelay": 0.6610000000000014,
+        "mappingAvailable": true,
+        "nativeDelay": 0.6610000133514404,
+        "expectedDelay": 0.0,
+        "error": 0.6610000133514404
+      },
+      {
+        "elapsedMs": 98785,
+        "mediaTime": 98.883425430294,
+        "automaticDelay": 0.6610000000000014,
+        "mappingAvailable": true,
+        "nativeDelay": 0.6610000133514404,
+        "expectedDelay": 0.0,
+        "error": 0.6610000133514404
+      },
+      {
+        "elapsedMs": 99813,
+        "mediaTime": 99.86539883422455,
+        "automaticDelay": 0.6610000000000014,
+        "mappingAvailable": true,
+        "nativeDelay": 0.6610000133514404,
+        "expectedDelay": 0.0,
+        "error": 0.6610000133514404
+      },
+      {
+        "elapsedMs": 100846,
+        "mediaTime": 100.89230798339436,
+        "automaticDelay": 0.6610000000000014,
+        "mappingAvailable": true,
+        "nativeDelay": 0.6610000133514404,
+        "expectedDelay": 0.0,
+        "error": 0.6610000133514404
+      },
+      {
+        "elapsedMs": 101876,
+        "mediaTime": 101.94185955810129,
+        "automaticDelay": 0.6610000000000014,
+        "mappingAvailable": true,
+        "nativeDelay": 0.6610000133514404,
+        "expectedDelay": 0.0,
+        "error": 0.6610000133514404
+      },
+      {
+        "elapsedMs": 102904,
+        "mediaTime": 102.9728632812457,
+        "automaticDelay": 0.6610000000000014,
+        "mappingAvailable": true,
+        "nativeDelay": 0.6610000133514404,
+        "expectedDelay": 0.0,
+        "error": 0.6610000133514404
+      },
+      {
+        "elapsedMs": 103930,
+        "mediaTime": 104.00011616515673,
+        "automaticDelay": 0.6610000000000014,
+        "mappingAvailable": true,
+        "nativeDelay": 0.6610000133514404,
+        "expectedDelay": 0.0,
+        "error": 0.6610000133514404
+      },
+      {
+        "elapsedMs": 104958,
+        "mediaTime": 105.03041802978063,
+        "automaticDelay": 0.6610000000000014,
+        "mappingAvailable": true,
+        "nativeDelay": 0.6610000133514404,
+        "expectedDelay": 0.0,
+        "error": 0.6610000133514404
+      },
+      {
+        "elapsedMs": 105982,
+        "mediaTime": 106.07317546081079,
+        "automaticDelay": 0.6610000000000014,
+        "mappingAvailable": true,
+        "nativeDelay": 0.6610000133514404,
+        "expectedDelay": 0.0,
+        "error": 0.6610000133514404
+      },
+      {
+        "elapsedMs": 107010,
+        "mediaTime": 107.10677148437024,
+        "automaticDelay": 0.6610000000000014,
+        "mappingAvailable": true,
+        "nativeDelay": 0.6610000133514404,
+        "expectedDelay": 0.0,
+        "error": 0.6610000133514404
+      },
+      {
+        "elapsedMs": 108038,
+        "mediaTime": 108.04879672240725,
+        "automaticDelay": 0.6610000000000014,
+        "mappingAvailable": true,
+        "nativeDelay": 0.6610000133514404,
+        "expectedDelay": 0.0,
+        "error": 0.6610000133514404
+      },
+      {
+        "elapsedMs": 109065,
+        "mediaTime": 109.14133718871572,
+        "automaticDelay": 0.6610000000000014,
+        "mappingAvailable": true,
+        "nativeDelay": 0.6610000133514404,
+        "expectedDelay": 0.0,
+        "error": 0.6610000133514404
+      },
+      {
+        "elapsedMs": 110091,
+        "mediaTime": 110.17149183654276,
+        "automaticDelay": 0.6610000000000014,
+        "mappingAvailable": true,
+        "nativeDelay": 0.6610000133514404,
+        "expectedDelay": 0.0,
+        "error": 0.6610000133514404
+      },
+      {
+        "elapsedMs": 111118,
+        "mediaTime": 111.21075576781706,
+        "automaticDelay": 0.6610000000000014,
+        "mappingAvailable": true,
+        "nativeDelay": 0.6610000133514404,
+        "expectedDelay": 0.0,
+        "error": 0.6610000133514404
+      },
+      {
+        "elapsedMs": 112144,
+        "mediaTime": 112.2419000854439,
+        "automaticDelay": 0.6610000000000014,
+        "mappingAvailable": true,
+        "nativeDelay": 0.6610000133514404,
+        "expectedDelay": 0.0,
+        "error": 0.6610000133514404
+      },
+      {
+        "elapsedMs": 113173,
+        "mediaTime": 113.26671371459418,
+        "automaticDelay": 0.6610000000000014,
+        "mappingAvailable": true,
+        "nativeDelay": 0.6610000133514404,
+        "expectedDelay": 0.0,
+        "error": 0.6610000133514404
+      },
+      {
+        "elapsedMs": 114203,
+        "mediaTime": 114.29842895507258,
+        "automaticDelay": 0.6610000000000014,
+        "mappingAvailable": true,
+        "nativeDelay": 0.6610000133514404,
+        "expectedDelay": 0.0,
+        "error": 0.6610000133514404
+      },
+      {
+        "elapsedMs": 115227,
+        "mediaTime": 115.32537216185958,
+        "automaticDelay": 0.6610000000000014,
+        "mappingAvailable": true,
+        "nativeDelay": 0.6610000133514404,
+        "expectedDelay": 0.0,
+        "error": 0.6610000133514404
+      },
+      {
+        "elapsedMs": 116251,
+        "mediaTime": 116.24816403197666,
+        "automaticDelay": 0.6610000000000014,
+        "mappingAvailable": true,
+        "nativeDelay": 0.6610000133514404,
+        "expectedDelay": 0.0,
+        "error": 0.6610000133514404
+      },
+      {
+        "elapsedMs": 117280,
+        "mediaTime": 117.3480062866152,
+        "automaticDelay": 0.6610000000000014,
+        "mappingAvailable": true,
+        "nativeDelay": 0.6610000133514404,
+        "expectedDelay": 0.0,
+        "error": 0.6610000133514404
+      },
+      {
+        "elapsedMs": 118308,
+        "mediaTime": 118.40613949584362,
+        "automaticDelay": 0.6610000000000014,
+        "mappingAvailable": true,
+        "nativeDelay": 0.6610000133514404,
+        "expectedDelay": 0.0,
+        "error": 0.6610000133514404
+      },
+      {
+        "elapsedMs": 119333,
+        "mediaTime": 119.43207072448119,
+        "automaticDelay": 0.6610000000000014,
+        "mappingAvailable": true,
+        "nativeDelay": 0.6610000133514404,
+        "expectedDelay": 0.0,
+        "error": 0.6610000133514404
+      },
+      {
+        "elapsedMs": 120364,
+        "mediaTime": 120.44095362853382,
+        "automaticDelay": 0.6610000000000014,
+        "mappingAvailable": true,
+        "nativeDelay": 0.6610000133514404,
+        "expectedDelay": 0.0,
+        "error": 0.6610000133514404
+      },
+      {
+        "elapsedMs": 121393,
+        "mediaTime": 121.47626519774757,
+        "automaticDelay": 0.6610000000000014,
+        "mappingAvailable": true,
+        "nativeDelay": 0.6610000133514404,
+        "expectedDelay": 0.0,
+        "error": 0.6610000133514404
+      },
+      {
+        "elapsedMs": 122420,
+        "mediaTime": 122.49207115172695,
+        "automaticDelay": 0.6610000000000014,
+        "mappingAvailable": true,
+        "nativeDelay": 0.6610000133514404,
+        "expectedDelay": 0.0,
+        "error": 0.6610000133514404
+      },
+      {
+        "elapsedMs": 123448,
+        "mediaTime": 123.53768142699539,
+        "automaticDelay": 0.6610000000000014,
+        "mappingAvailable": true,
+        "nativeDelay": 0.6610000133514404,
+        "expectedDelay": 0.0,
+        "error": 0.6610000133514404
+      },
+      {
+        "elapsedMs": 124480,
+        "mediaTime": 124.54325460814762,
+        "automaticDelay": 0.6610000000000014,
+        "mappingAvailable": true,
+        "nativeDelay": 0.6610000133514404,
+        "expectedDelay": 0.0,
+        "error": 0.6610000133514404
+      },
+      {
+        "elapsedMs": 125509,
+        "mediaTime": 125.59122801207816,
+        "automaticDelay": 0.6610000000000014,
+        "mappingAvailable": true,
+        "nativeDelay": 0.6610000133514404,
+        "expectedDelay": 0.0,
+        "error": 0.6610000133514404
+      },
+      {
+        "elapsedMs": 126537,
+        "mediaTime": 126.63557960509563,
+        "automaticDelay": 0.6610000000000014,
+        "mappingAvailable": true,
+        "nativeDelay": 0.6610000133514404,
+        "expectedDelay": 0.0,
+        "error": 0.6610000133514404
+      },
+      {
+        "elapsedMs": 127564,
+        "mediaTime": 127.5752088470389,
+        "automaticDelay": 0.6610000000000014,
+        "mappingAvailable": true,
+        "nativeDelay": 0.6610000133514404,
+        "expectedDelay": 0.0,
+        "error": 0.6610000133514404
+      },
+      {
+        "elapsedMs": 128594,
+        "mediaTime": 128.6917354583669,
+        "automaticDelay": 0.6610000000000014,
+        "mappingAvailable": true,
+        "nativeDelay": 0.6610000133514404,
+        "expectedDelay": 0.0,
+        "error": 0.6610000133514404
+      },
+      {
+        "elapsedMs": 129619,
+        "mediaTime": 129.70404760741465,
+        "automaticDelay": 0.6610000000000014,
+        "mappingAvailable": true,
+        "nativeDelay": 0.6610000133514404,
+        "expectedDelay": 0.0,
+        "error": 0.6610000133514404
+      },
+      {
+        "elapsedMs": 130649,
+        "mediaTime": 130.72692430114012,
+        "automaticDelay": 0.6610000000000014,
+        "mappingAvailable": true,
+        "nativeDelay": 0.6610000133514404,
+        "expectedDelay": 0.0,
+        "error": 0.6610000133514404
+      },
+      {
+        "elapsedMs": 131678,
+        "mediaTime": 131.73696192931382,
+        "automaticDelay": 0.6610000000000014,
+        "mappingAvailable": true,
+        "nativeDelay": 0.6610000133514404,
+        "expectedDelay": 0.0,
+        "error": 0.6610000133514404
+      },
+      {
+        "elapsedMs": 132708,
+        "mediaTime": 132.79413949584205,
+        "automaticDelay": 0.6610000000000014,
+        "mappingAvailable": true,
+        "nativeDelay": 0.6610000133514404,
+        "expectedDelay": 0.0,
+        "error": 0.6610000133514404
+      },
+      {
+        "elapsedMs": 133733,
+        "mediaTime": 133.7886401061935,
+        "automaticDelay": 0.6610000000000014,
+        "mappingAvailable": true,
+        "nativeDelay": 0.6610000133514404,
+        "expectedDelay": 0.0,
+        "error": 0.6610000133514404
+      },
+      {
+        "elapsedMs": 134762,
+        "mediaTime": 134.80882058715042,
+        "automaticDelay": 0.6610000000000014,
+        "mappingAvailable": true,
+        "nativeDelay": 0.6610000133514404,
+        "expectedDelay": 0.0,
+        "error": 0.6610000133514404
+      },
+      {
+        "elapsedMs": 135787,
+        "mediaTime": 135.88260800170107,
+        "automaticDelay": 0.6610000000000014,
+        "mappingAvailable": true,
+        "nativeDelay": 0.6610000133514404,
+        "expectedDelay": 0.0,
+        "error": 0.6610000133514404
+      },
+      {
+        "elapsedMs": 136811,
+        "mediaTime": 136.88506657408865,
+        "automaticDelay": 0.6610000000000014,
+        "mappingAvailable": true,
+        "nativeDelay": 0.6610000133514404,
+        "expectedDelay": 0.0,
+        "error": 0.6610000133514404
+      },
+      {
+        "elapsedMs": 137838,
+        "mediaTime": 137.93640243529458,
+        "automaticDelay": 0.6610000000000014,
+        "mappingAvailable": true,
+        "nativeDelay": 0.6610000133514404,
+        "expectedDelay": 0.0,
+        "error": 0.6610000133514404
+      },
+      {
+        "elapsedMs": 138867,
+        "mediaTime": 138.96045817565093,
+        "automaticDelay": 0.6610000000000014,
+        "mappingAvailable": true,
+        "nativeDelay": 0.6610000133514404,
+        "expectedDelay": 0.0,
+        "error": 0.6610000133514404
+      },
+      {
+        "elapsedMs": 139896,
+        "mediaTime": 139.9564297637856,
+        "automaticDelay": 0.6610000000000014,
+        "mappingAvailable": true,
+        "nativeDelay": 0.6610000133514404,
+        "expectedDelay": 0.0,
+        "error": 0.6610000133514404
+      },
+      {
+        "elapsedMs": 140925,
+        "mediaTime": 140.98162794493783,
+        "automaticDelay": 0.6610000000000014,
+        "mappingAvailable": true,
+        "nativeDelay": 0.6610000133514404,
+        "expectedDelay": 0.0,
+        "error": 0.6610000133514404
+      },
+      {
+        "elapsedMs": 141950,
+        "mediaTime": 142.04830197142695,
+        "automaticDelay": 0.6610000000000014,
+        "mappingAvailable": true,
+        "nativeDelay": 0.6610000133514404,
+        "expectedDelay": 0.0,
+        "error": 0.6610000133514404
+      },
+      {
+        "elapsedMs": 142978,
+        "mediaTime": 143.0479437713536,
+        "automaticDelay": 0.6610000000000014,
+        "mappingAvailable": true,
+        "nativeDelay": 0.6610000133514404,
+        "expectedDelay": 0.0,
+        "error": 0.6610000133514404
+      }
+    ],
+    "activationUnknownSamples": 33,
+    "activationReference": "Every sampled playback position from activation, including the acquisition interval. Accuracy after acquisition and acquisition latency are separate gates.",
+    "expectedSlope": 1.0,
+    "slopeConfirmed": true,
+    "affineAcquisitionMs": "none",
+    "trackingErrorP95": 0.6610000133514404,
+    "trackingErrorMaximum": 0.6610000133514404,
+    "trackingSamples": [
+      {
+        "elapsedMs": 34004,
+        "mediaTime": 34.08613201904299,
+        "automaticDelay": 0.6559999999999988,
+        "mappingAvailable": true,
+        "nativeDelay": 0.656000018119812,
+        "expectedDelay": 0.0,
+        "error": 0.656000018119812
+      },
+      {
+        "elapsedMs": 35033,
+        "mediaTime": 35.03275103759768,
+        "automaticDelay": 0.6559999999999988,
+        "mappingAvailable": true,
+        "nativeDelay": 0.656000018119812,
+        "expectedDelay": 0.0,
+        "error": 0.656000018119812
+      },
+      {
+        "elapsedMs": 36062,
+        "mediaTime": 36.140894409179715,
+        "automaticDelay": 0.6559999999999988,
+        "mappingAvailable": true,
+        "nativeDelay": 0.656000018119812,
+        "expectedDelay": 0.0,
+        "error": 0.656000018119812
+      },
+      {
+        "elapsedMs": 37091,
+        "mediaTime": 37.182846588134794,
+        "automaticDelay": 0.6559999999999988,
+        "mappingAvailable": true,
+        "nativeDelay": 0.656000018119812,
+        "expectedDelay": 0.0,
+        "error": 0.656000018119812
+      },
+      {
+        "elapsedMs": 38121,
+        "mediaTime": 38.17133674621585,
+        "automaticDelay": 0.6559999999999988,
+        "mappingAvailable": true,
+        "nativeDelay": 0.656000018119812,
+        "expectedDelay": 0.0,
+        "error": 0.656000018119812
+      },
+      {
+        "elapsedMs": 39152,
+        "mediaTime": 39.22743058776858,
+        "automaticDelay": 0.6559999999999988,
+        "mappingAvailable": true,
+        "nativeDelay": 0.656000018119812,
+        "expectedDelay": 0.0,
+        "error": 0.656000018119812
+      },
+      {
+        "elapsedMs": 40177,
+        "mediaTime": 40.25760099792483,
+        "automaticDelay": 0.6559999999999988,
+        "mappingAvailable": true,
+        "nativeDelay": 0.656000018119812,
+        "expectedDelay": 0.0,
+        "error": 0.656000018119812
+      },
+      {
+        "elapsedMs": 41203,
+        "mediaTime": 41.29750619506839,
+        "automaticDelay": 0.6559999999999988,
+        "mappingAvailable": true,
+        "nativeDelay": 0.656000018119812,
+        "expectedDelay": 0.0,
+        "error": 0.656000018119812
+      },
+      {
+        "elapsedMs": 42228,
+        "mediaTime": 42.257205139160185,
+        "automaticDelay": 0.6559999999999988,
+        "mappingAvailable": true,
+        "nativeDelay": 0.656000018119812,
+        "expectedDelay": 0.0,
+        "error": 0.656000018119812
+      },
+      {
+        "elapsedMs": 43254,
+        "mediaTime": 43.3232295379639,
+        "automaticDelay": 0.6559999999999988,
+        "mappingAvailable": true,
+        "nativeDelay": 0.656000018119812,
+        "expectedDelay": 0.0,
+        "error": 0.656000018119812
+      },
+      {
+        "elapsedMs": 44284,
+        "mediaTime": 44.352078231811554,
+        "automaticDelay": 0.6559999999999988,
+        "mappingAvailable": true,
+        "nativeDelay": 0.656000018119812,
+        "expectedDelay": 0.0,
+        "error": 0.656000018119812
+      },
+      {
+        "elapsedMs": 45308,
+        "mediaTime": 45.37462983703617,
+        "automaticDelay": 0.6559999999999988,
+        "mappingAvailable": true,
+        "nativeDelay": 0.656000018119812,
+        "expectedDelay": 0.0,
+        "error": 0.656000018119812
+      },
+      {
+        "elapsedMs": 46331,
+        "mediaTime": 46.41715403747562,
+        "automaticDelay": 0.6559999999999988,
+        "mappingAvailable": true,
+        "nativeDelay": 0.656000018119812,
+        "expectedDelay": 0.0,
+        "error": 0.656000018119812
+      },
+      {
+        "elapsedMs": 47359,
+        "mediaTime": 47.43385417175296,
+        "automaticDelay": 0.6559999999999988,
+        "mappingAvailable": true,
+        "nativeDelay": 0.656000018119812,
+        "expectedDelay": 0.0,
+        "error": 0.656000018119812
+      },
+      {
+        "elapsedMs": 48387,
+        "mediaTime": 48.45718554687504,
+        "automaticDelay": 0.6559999999999988,
+        "mappingAvailable": true,
+        "nativeDelay": 0.656000018119812,
+        "expectedDelay": 0.0,
+        "error": 0.656000018119812
+      },
+      {
+        "elapsedMs": 49416,
+        "mediaTime": 49.429174697876014,
+        "automaticDelay": 0.6559999999999988,
+        "mappingAvailable": true,
+        "nativeDelay": 0.656000018119812,
+        "expectedDelay": 0.0,
+        "error": 0.656000018119812
+      },
+      {
+        "elapsedMs": 50442,
+        "mediaTime": 50.45910559082035,
+        "automaticDelay": 0.6559999999999988,
+        "mappingAvailable": true,
+        "nativeDelay": 0.656000018119812,
+        "expectedDelay": 0.0,
+        "error": 0.656000018119812
+      },
+      {
+        "elapsedMs": 51468,
+        "mediaTime": 51.54850267028812,
+        "automaticDelay": 0.6559999999999988,
+        "mappingAvailable": true,
+        "nativeDelay": 0.656000018119812,
+        "expectedDelay": 0.0,
+        "error": 0.656000018119812
+      },
+      {
+        "elapsedMs": 52495,
+        "mediaTime": 52.577039489746134,
+        "automaticDelay": 0.6559999999999988,
+        "mappingAvailable": true,
+        "nativeDelay": 0.656000018119812,
+        "expectedDelay": 0.0,
+        "error": 0.656000018119812
+      },
+      {
+        "elapsedMs": 53521,
+        "mediaTime": 53.56785241699223,
+        "automaticDelay": 0.6559999999999988,
+        "mappingAvailable": true,
+        "nativeDelay": 0.656000018119812,
+        "expectedDelay": 0.0,
+        "error": 0.656000018119812
+      },
+      {
+        "elapsedMs": 54548,
+        "mediaTime": 54.62456777954106,
+        "automaticDelay": 0.6559999999999988,
+        "mappingAvailable": true,
+        "nativeDelay": 0.656000018119812,
+        "expectedDelay": 0.0,
+        "error": 0.656000018119812
+      },
+      {
+        "elapsedMs": 55579,
+        "mediaTime": 55.66427954101567,
+        "automaticDelay": 0.6559999999999988,
+        "mappingAvailable": true,
+        "nativeDelay": 0.656000018119812,
+        "expectedDelay": 0.0,
+        "error": 0.656000018119812
+      },
+      {
+        "elapsedMs": 56613,
+        "mediaTime": 56.67298075866704,
+        "automaticDelay": 0.6559999999999988,
+        "mappingAvailable": true,
+        "nativeDelay": 0.656000018119812,
+        "expectedDelay": 0.0,
+        "error": 0.656000018119812
+      },
+      {
+        "elapsedMs": 57644,
+        "mediaTime": 57.737297729492234,
+        "automaticDelay": 0.6559999999999988,
+        "mappingAvailable": true,
+        "nativeDelay": 0.656000018119812,
+        "expectedDelay": 0.0,
+        "error": 0.656000018119812
+      },
+      {
+        "elapsedMs": 58674,
+        "mediaTime": 58.72568916320805,
+        "automaticDelay": 0.6559999999999988,
+        "mappingAvailable": true,
+        "nativeDelay": 0.656000018119812,
+        "expectedDelay": 0.0,
+        "error": 0.656000018119812
+      },
+      {
+        "elapsedMs": 59703,
+        "mediaTime": 59.757044174194384,
+        "automaticDelay": 0.6559999999999988,
+        "mappingAvailable": true,
+        "nativeDelay": 0.656000018119812,
+        "expectedDelay": 0.0,
+        "error": 0.656000018119812
+      },
+      {
+        "elapsedMs": 60729,
+        "mediaTime": 60.7944742584229,
+        "automaticDelay": 0.6559999999999988,
+        "mappingAvailable": true,
+        "nativeDelay": 0.656000018119812,
+        "expectedDelay": 0.0,
+        "error": 0.656000018119812
+      },
+      {
+        "elapsedMs": 61756,
+        "mediaTime": 61.84059654235845,
+        "automaticDelay": 0.6559999999999988,
+        "mappingAvailable": true,
+        "nativeDelay": 0.656000018119812,
+        "expectedDelay": 0.0,
+        "error": 0.656000018119812
+      },
+      {
+        "elapsedMs": 62785,
+        "mediaTime": 62.80900091552739,
+        "automaticDelay": 0.6559999999999988,
+        "mappingAvailable": true,
+        "nativeDelay": 0.656000018119812,
+        "expectedDelay": 0.0,
+        "error": 0.656000018119812
+      },
+      {
+        "elapsedMs": 63815,
+        "mediaTime": 63.89915620422363,
+        "automaticDelay": 0.6559999999999988,
+        "mappingAvailable": true,
+        "nativeDelay": 0.656000018119812,
+        "expectedDelay": 0.0,
+        "error": 0.656000018119812
+      },
+      {
+        "elapsedMs": 64845,
+        "mediaTime": 64.94349154663075,
+        "automaticDelay": 0.6560000000000059,
+        "mappingAvailable": true,
+        "nativeDelay": 0.656000018119812,
+        "expectedDelay": 0.0,
+        "error": 0.656000018119812
+      },
+      {
+        "elapsedMs": 65877,
+        "mediaTime": 65.94060769653298,
+        "automaticDelay": 0.6559999999999917,
+        "mappingAvailable": true,
+        "nativeDelay": 0.656000018119812,
+        "expectedDelay": 0.0,
+        "error": 0.656000018119812
+      },
+      {
+        "elapsedMs": 66905,
+        "mediaTime": 66.90015351867643,
+        "automaticDelay": 0.6560000000000059,
+        "mappingAvailable": true,
+        "nativeDelay": 0.656000018119812,
+        "expectedDelay": 0.0,
+        "error": 0.656000018119812
+      },
+      {
+        "elapsedMs": 67933,
+        "mediaTime": 67.9890318603511,
+        "automaticDelay": 0.6560000000000059,
+        "mappingAvailable": true,
+        "nativeDelay": 0.656000018119812,
+        "expectedDelay": 0.0,
+        "error": 0.656000018119812
+      },
+      {
+        "elapsedMs": 68974,
+        "mediaTime": 69.02506571960393,
+        "automaticDelay": 0.6560000000000059,
+        "mappingAvailable": true,
+        "nativeDelay": 0.656000018119812,
+        "expectedDelay": 0.0,
+        "error": 0.656000018119812
+      },
+      {
+        "elapsedMs": 70002,
+        "mediaTime": 70.0335640716546,
+        "automaticDelay": 0.6559999999999917,
+        "mappingAvailable": true,
+        "nativeDelay": 0.656000018119812,
+        "expectedDelay": 0.0,
+        "error": 0.656000018119812
+      },
+      {
+        "elapsedMs": 71032,
+        "mediaTime": 71.10999545288007,
+        "automaticDelay": 0.6460000000000008,
+        "mappingAvailable": true,
+        "nativeDelay": 0.6460000276565552,
+        "expectedDelay": 0.0,
+        "error": 0.6460000276565552
+      },
+      {
+        "elapsedMs": 72057,
+        "mediaTime": 72.10891648864656,
+        "automaticDelay": 0.6460000000000008,
+        "mappingAvailable": true,
+        "nativeDelay": 0.6460000276565552,
+        "expectedDelay": 0.0,
+        "error": 0.6460000276565552
+      },
+      {
+        "elapsedMs": 73084,
+        "mediaTime": 73.10845460510153,
+        "automaticDelay": 0.6460000000000008,
+        "mappingAvailable": true,
+        "nativeDelay": 0.6460000276565552,
+        "expectedDelay": 0.0,
+        "error": 0.6460000276565552
+      },
+      {
+        "elapsedMs": 74109,
+        "mediaTime": 74.15853073120005,
+        "automaticDelay": 0.6460000000000008,
+        "mappingAvailable": true,
+        "nativeDelay": 0.6460000276565552,
+        "expectedDelay": 0.0,
+        "error": 0.6460000276565552
+      },
+      {
+        "elapsedMs": 75140,
+        "mediaTime": 75.22799150085325,
+        "automaticDelay": 0.6460000000000008,
+        "mappingAvailable": true,
+        "nativeDelay": 0.6460000276565552,
+        "expectedDelay": 0.0,
+        "error": 0.6460000276565552
+      },
+      {
+        "elapsedMs": 76168,
+        "mediaTime": 76.26605262756212,
+        "automaticDelay": 0.6460000000000008,
+        "mappingAvailable": true,
+        "nativeDelay": 0.6460000276565552,
+        "expectedDelay": 0.0,
+        "error": 0.6460000276565552
+      },
+      {
+        "elapsedMs": 77195,
+        "mediaTime": 77.29376922607274,
+        "automaticDelay": 0.6460000000000008,
+        "mappingAvailable": true,
+        "nativeDelay": 0.6460000276565552,
+        "expectedDelay": 0.0,
+        "error": 0.6460000276565552
+      },
+      {
+        "elapsedMs": 78223,
+        "mediaTime": 78.27548081970058,
+        "automaticDelay": 0.6460000000000008,
+        "mappingAvailable": true,
+        "nativeDelay": 0.6460000276565552,
+        "expectedDelay": 0.0,
+        "error": 0.6460000276565552
+      },
+      {
+        "elapsedMs": 79251,
+        "mediaTime": 79.33090351867506,
+        "automaticDelay": 0.6460000000000008,
+        "mappingAvailable": true,
+        "nativeDelay": 0.6460000276565552,
+        "expectedDelay": 0.0,
+        "error": 0.6460000276565552
+      },
+      {
+        "elapsedMs": 80279,
+        "mediaTime": 80.31989575195132,
+        "automaticDelay": 0.6460000000000008,
+        "mappingAvailable": true,
+        "nativeDelay": 0.6460000276565552,
+        "expectedDelay": 0.0,
+        "error": 0.6460000276565552
+      },
+      {
+        "elapsedMs": 81310,
+        "mediaTime": 81.3786788177471,
+        "automaticDelay": 0.6460000000000008,
+        "mappingAvailable": true,
+        "nativeDelay": 0.6460000276565552,
+        "expectedDelay": 0.0,
+        "error": 0.6460000276565552
+      },
+      {
+        "elapsedMs": 82340,
+        "mediaTime": 82.41566828918253,
+        "automaticDelay": 0.6559999999999917,
+        "mappingAvailable": true,
+        "nativeDelay": 0.656000018119812,
+        "expectedDelay": 0.0,
+        "error": 0.656000018119812
+      },
+      {
+        "elapsedMs": 83372,
+        "mediaTime": 83.45226414489531,
+        "automaticDelay": 0.6560000000000059,
+        "mappingAvailable": true,
+        "nativeDelay": 0.656000018119812,
+        "expectedDelay": 0.0,
+        "error": 0.656000018119812
+      },
+      {
+        "elapsedMs": 84398,
+        "mediaTime": 84.4369795532204,
+        "automaticDelay": 0.6560000000000059,
+        "mappingAvailable": true,
+        "nativeDelay": 0.656000018119812,
+        "expectedDelay": 0.0,
+        "error": 0.656000018119812
+      },
+      {
+        "elapsedMs": 85430,
+        "mediaTime": 85.52846051025152,
+        "automaticDelay": 0.6559999999999917,
+        "mappingAvailable": true,
+        "nativeDelay": 0.656000018119812,
+        "expectedDelay": 0.0,
+        "error": 0.656000018119812
+      },
+      {
+        "elapsedMs": 86457,
+        "mediaTime": 86.50833807372798,
+        "automaticDelay": 0.6559999999999917,
+        "mappingAvailable": true,
+        "nativeDelay": 0.656000018119812,
+        "expectedDelay": 0.0,
+        "error": 0.656000018119812
+      },
+      {
+        "elapsedMs": 87484,
+        "mediaTime": 87.52499964904526,
+        "automaticDelay": 0.6559999999999917,
+        "mappingAvailable": true,
+        "nativeDelay": 0.656000018119812,
+        "expectedDelay": 0.0,
+        "error": 0.656000018119812
+      },
+      {
+        "elapsedMs": 88511,
+        "mediaTime": 88.6094353637668,
+        "automaticDelay": 0.6560000000000059,
+        "mappingAvailable": true,
+        "nativeDelay": 0.656000018119812,
+        "expectedDelay": 0.0,
+        "error": 0.656000018119812
+      },
+      {
+        "elapsedMs": 89540,
+        "mediaTime": 89.60494474792198,
+        "automaticDelay": 0.6559999999999917,
+        "mappingAvailable": true,
+        "nativeDelay": 0.656000018119812,
+        "expectedDelay": 0.0,
+        "error": 0.656000018119812
+      },
+      {
+        "elapsedMs": 90570,
+        "mediaTime": 90.57746922301952,
+        "automaticDelay": 0.6559999999999917,
+        "mappingAvailable": true,
+        "nativeDelay": 0.656000018119812,
+        "expectedDelay": 0.0,
+        "error": 0.656000018119812
+      },
+      {
+        "elapsedMs": 91600,
+        "mediaTime": 91.66680400085143,
+        "automaticDelay": 0.6559999999999917,
+        "mappingAvailable": true,
+        "nativeDelay": 0.656000018119812,
+        "expectedDelay": 0.0,
+        "error": 0.656000018119812
+      },
+      {
+        "elapsedMs": 92627,
+        "mediaTime": 92.70596510314624,
+        "automaticDelay": 0.6560000000000059,
+        "mappingAvailable": true,
+        "nativeDelay": 0.656000018119812,
+        "expectedDelay": 0.0,
+        "error": 0.656000018119812
+      },
+      {
+        "elapsedMs": 93658,
+        "mediaTime": 93.65188319396646,
+        "automaticDelay": 0.6560000000000059,
+        "mappingAvailable": true,
+        "nativeDelay": 0.656000018119812,
+        "expectedDelay": 0.0,
+        "error": 0.656000018119812
+      },
+      {
+        "elapsedMs": 94681,
+        "mediaTime": 94.7711197051968,
+        "automaticDelay": 0.6559999999999917,
+        "mappingAvailable": true,
+        "nativeDelay": 0.656000018119812,
+        "expectedDelay": 0.0,
+        "error": 0.656000018119812
+      },
+      {
+        "elapsedMs": 95707,
+        "mediaTime": 95.77694798278458,
+        "automaticDelay": 0.6610000000000014,
+        "mappingAvailable": true,
+        "nativeDelay": 0.6610000133514404,
+        "expectedDelay": 0.0,
+        "error": 0.6610000133514404
+      },
+      {
+        "elapsedMs": 96734,
+        "mediaTime": 96.80312777709598,
+        "automaticDelay": 0.6610000000000014,
+        "mappingAvailable": true,
+        "nativeDelay": 0.6610000133514404,
+        "expectedDelay": 0.0,
+        "error": 0.6610000133514404
+      },
+      {
+        "elapsedMs": 97757,
+        "mediaTime": 97.80216816711052,
+        "automaticDelay": 0.6610000000000014,
+        "mappingAvailable": true,
+        "nativeDelay": 0.6610000133514404,
+        "expectedDelay": 0.0,
+        "error": 0.6610000133514404
+      },
+      {
+        "elapsedMs": 98785,
+        "mediaTime": 98.883425430294,
+        "automaticDelay": 0.6610000000000014,
+        "mappingAvailable": true,
+        "nativeDelay": 0.6610000133514404,
+        "expectedDelay": 0.0,
+        "error": 0.6610000133514404
+      },
+      {
+        "elapsedMs": 99813,
+        "mediaTime": 99.86539883422455,
+        "automaticDelay": 0.6610000000000014,
+        "mappingAvailable": true,
+        "nativeDelay": 0.6610000133514404,
+        "expectedDelay": 0.0,
+        "error": 0.6610000133514404
+      },
+      {
+        "elapsedMs": 100846,
+        "mediaTime": 100.89230798339436,
+        "automaticDelay": 0.6610000000000014,
+        "mappingAvailable": true,
+        "nativeDelay": 0.6610000133514404,
+        "expectedDelay": 0.0,
+        "error": 0.6610000133514404
+      },
+      {
+        "elapsedMs": 101876,
+        "mediaTime": 101.94185955810129,
+        "automaticDelay": 0.6610000000000014,
+        "mappingAvailable": true,
+        "nativeDelay": 0.6610000133514404,
+        "expectedDelay": 0.0,
+        "error": 0.6610000133514404
+      },
+      {
+        "elapsedMs": 102904,
+        "mediaTime": 102.9728632812457,
+        "automaticDelay": 0.6610000000000014,
+        "mappingAvailable": true,
+        "nativeDelay": 0.6610000133514404,
+        "expectedDelay": 0.0,
+        "error": 0.6610000133514404
+      },
+      {
+        "elapsedMs": 103930,
+        "mediaTime": 104.00011616515673,
+        "automaticDelay": 0.6610000000000014,
+        "mappingAvailable": true,
+        "nativeDelay": 0.6610000133514404,
+        "expectedDelay": 0.0,
+        "error": 0.6610000133514404
+      },
+      {
+        "elapsedMs": 104958,
+        "mediaTime": 105.03041802978063,
+        "automaticDelay": 0.6610000000000014,
+        "mappingAvailable": true,
+        "nativeDelay": 0.6610000133514404,
+        "expectedDelay": 0.0,
+        "error": 0.6610000133514404
+      },
+      {
+        "elapsedMs": 105982,
+        "mediaTime": 106.07317546081079,
+        "automaticDelay": 0.6610000000000014,
+        "mappingAvailable": true,
+        "nativeDelay": 0.6610000133514404,
+        "expectedDelay": 0.0,
+        "error": 0.6610000133514404
+      },
+      {
+        "elapsedMs": 107010,
+        "mediaTime": 107.10677148437024,
+        "automaticDelay": 0.6610000000000014,
+        "mappingAvailable": true,
+        "nativeDelay": 0.6610000133514404,
+        "expectedDelay": 0.0,
+        "error": 0.6610000133514404
+      },
+      {
+        "elapsedMs": 108038,
+        "mediaTime": 108.04879672240725,
+        "automaticDelay": 0.6610000000000014,
+        "mappingAvailable": true,
+        "nativeDelay": 0.6610000133514404,
+        "expectedDelay": 0.0,
+        "error": 0.6610000133514404
+      },
+      {
+        "elapsedMs": 109065,
+        "mediaTime": 109.14133718871572,
+        "automaticDelay": 0.6610000000000014,
+        "mappingAvailable": true,
+        "nativeDelay": 0.6610000133514404,
+        "expectedDelay": 0.0,
+        "error": 0.6610000133514404
+      },
+      {
+        "elapsedMs": 110091,
+        "mediaTime": 110.17149183654276,
+        "automaticDelay": 0.6610000000000014,
+        "mappingAvailable": true,
+        "nativeDelay": 0.6610000133514404,
+        "expectedDelay": 0.0,
+        "error": 0.6610000133514404
+      },
+      {
+        "elapsedMs": 111118,
+        "mediaTime": 111.21075576781706,
+        "automaticDelay": 0.6610000000000014,
+        "mappingAvailable": true,
+        "nativeDelay": 0.6610000133514404,
+        "expectedDelay": 0.0,
+        "error": 0.6610000133514404
+      },
+      {
+        "elapsedMs": 112144,
+        "mediaTime": 112.2419000854439,
+        "automaticDelay": 0.6610000000000014,
+        "mappingAvailable": true,
+        "nativeDelay": 0.6610000133514404,
+        "expectedDelay": 0.0,
+        "error": 0.6610000133514404
+      },
+      {
+        "elapsedMs": 113173,
+        "mediaTime": 113.26671371459418,
+        "automaticDelay": 0.6610000000000014,
+        "mappingAvailable": true,
+        "nativeDelay": 0.6610000133514404,
+        "expectedDelay": 0.0,
+        "error": 0.6610000133514404
+      },
+      {
+        "elapsedMs": 114203,
+        "mediaTime": 114.29842895507258,
+        "automaticDelay": 0.6610000000000014,
+        "mappingAvailable": true,
+        "nativeDelay": 0.6610000133514404,
+        "expectedDelay": 0.0,
+        "error": 0.6610000133514404
+      },
+      {
+        "elapsedMs": 115227,
+        "mediaTime": 115.32537216185958,
+        "automaticDelay": 0.6610000000000014,
+        "mappingAvailable": true,
+        "nativeDelay": 0.6610000133514404,
+        "expectedDelay": 0.0,
+        "error": 0.6610000133514404
+      },
+      {
+        "elapsedMs": 116251,
+        "mediaTime": 116.24816403197666,
+        "automaticDelay": 0.6610000000000014,
+        "mappingAvailable": true,
+        "nativeDelay": 0.6610000133514404,
+        "expectedDelay": 0.0,
+        "error": 0.6610000133514404
+      },
+      {
+        "elapsedMs": 117280,
+        "mediaTime": 117.3480062866152,
+        "automaticDelay": 0.6610000000000014,
+        "mappingAvailable": true,
+        "nativeDelay": 0.6610000133514404,
+        "expectedDelay": 0.0,
+        "error": 0.6610000133514404
+      },
+      {
+        "elapsedMs": 118308,
+        "mediaTime": 118.40613949584362,
+        "automaticDelay": 0.6610000000000014,
+        "mappingAvailable": true,
+        "nativeDelay": 0.6610000133514404,
+        "expectedDelay": 0.0,
+        "error": 0.6610000133514404
+      },
+      {
+        "elapsedMs": 119333,
+        "mediaTime": 119.43207072448119,
+        "automaticDelay": 0.6610000000000014,
+        "mappingAvailable": true,
+        "nativeDelay": 0.6610000133514404,
+        "expectedDelay": 0.0,
+        "error": 0.6610000133514404
+      },
+      {
+        "elapsedMs": 120364,
+        "mediaTime": 120.44095362853382,
+        "automaticDelay": 0.6610000000000014,
+        "mappingAvailable": true,
+        "nativeDelay": 0.6610000133514404,
+        "expectedDelay": 0.0,
+        "error": 0.6610000133514404
+      },
+      {
+        "elapsedMs": 121393,
+        "mediaTime": 121.47626519774757,
+        "automaticDelay": 0.6610000000000014,
+        "mappingAvailable": true,
+        "nativeDelay": 0.6610000133514404,
+        "expectedDelay": 0.0,
+        "error": 0.6610000133514404
+      },
+      {
+        "elapsedMs": 122420,
+        "mediaTime": 122.49207115172695,
+        "automaticDelay": 0.6610000000000014,
+        "mappingAvailable": true,
+        "nativeDelay": 0.6610000133514404,
+        "expectedDelay": 0.0,
+        "error": 0.6610000133514404
+      },
+      {
+        "elapsedMs": 123448,
+        "mediaTime": 123.53768142699539,
+        "automaticDelay": 0.6610000000000014,
+        "mappingAvailable": true,
+        "nativeDelay": 0.6610000133514404,
+        "expectedDelay": 0.0,
+        "error": 0.6610000133514404
+      },
+      {
+        "elapsedMs": 124480,
+        "mediaTime": 124.54325460814762,
+        "automaticDelay": 0.6610000000000014,
+        "mappingAvailable": true,
+        "nativeDelay": 0.6610000133514404,
+        "expectedDelay": 0.0,
+        "error": 0.6610000133514404
+      },
+      {
+        "elapsedMs": 125509,
+        "mediaTime": 125.59122801207816,
+        "automaticDelay": 0.6610000000000014,
+        "mappingAvailable": true,
+        "nativeDelay": 0.6610000133514404,
+        "expectedDelay": 0.0,
+        "error": 0.6610000133514404
+      },
+      {
+        "elapsedMs": 126537,
+        "mediaTime": 126.63557960509563,
+        "automaticDelay": 0.6610000000000014,
+        "mappingAvailable": true,
+        "nativeDelay": 0.6610000133514404,
+        "expectedDelay": 0.0,
+        "error": 0.6610000133514404
+      },
+      {
+        "elapsedMs": 127564,
+        "mediaTime": 127.5752088470389,
+        "automaticDelay": 0.6610000000000014,
+        "mappingAvailable": true,
+        "nativeDelay": 0.6610000133514404,
+        "expectedDelay": 0.0,
+        "error": 0.6610000133514404
+      },
+      {
+        "elapsedMs": 128594,
+        "mediaTime": 128.6917354583669,
+        "automaticDelay": 0.6610000000000014,
+        "mappingAvailable": true,
+        "nativeDelay": 0.6610000133514404,
+        "expectedDelay": 0.0,
+        "error": 0.6610000133514404
+      },
+      {
+        "elapsedMs": 129619,
+        "mediaTime": 129.70404760741465,
+        "automaticDelay": 0.6610000000000014,
+        "mappingAvailable": true,
+        "nativeDelay": 0.6610000133514404,
+        "expectedDelay": 0.0,
+        "error": 0.6610000133514404
+      },
+      {
+        "elapsedMs": 130649,
+        "mediaTime": 130.72692430114012,
+        "automaticDelay": 0.6610000000000014,
+        "mappingAvailable": true,
+        "nativeDelay": 0.6610000133514404,
+        "expectedDelay": 0.0,
+        "error": 0.6610000133514404
+      },
+      {
+        "elapsedMs": 131678,
+        "mediaTime": 131.73696192931382,
+        "automaticDelay": 0.6610000000000014,
+        "mappingAvailable": true,
+        "nativeDelay": 0.6610000133514404,
+        "expectedDelay": 0.0,
+        "error": 0.6610000133514404
+      },
+      {
+        "elapsedMs": 132708,
+        "mediaTime": 132.79413949584205,
+        "automaticDelay": 0.6610000000000014,
+        "mappingAvailable": true,
+        "nativeDelay": 0.6610000133514404,
+        "expectedDelay": 0.0,
+        "error": 0.6610000133514404
+      },
+      {
+        "elapsedMs": 133733,
+        "mediaTime": 133.7886401061935,
+        "automaticDelay": 0.6610000000000014,
+        "mappingAvailable": true,
+        "nativeDelay": 0.6610000133514404,
+        "expectedDelay": 0.0,
+        "error": 0.6610000133514404
+      },
+      {
+        "elapsedMs": 134762,
+        "mediaTime": 134.80882058715042,
+        "automaticDelay": 0.6610000000000014,
+        "mappingAvailable": true,
+        "nativeDelay": 0.6610000133514404,
+        "expectedDelay": 0.0,
+        "error": 0.6610000133514404
+      },
+      {
+        "elapsedMs": 135787,
+        "mediaTime": 135.88260800170107,
+        "automaticDelay": 0.6610000000000014,
+        "mappingAvailable": true,
+        "nativeDelay": 0.6610000133514404,
+        "expectedDelay": 0.0,
+        "error": 0.6610000133514404
+      },
+      {
+        "elapsedMs": 136811,
+        "mediaTime": 136.88506657408865,
+        "automaticDelay": 0.6610000000000014,
+        "mappingAvailable": true,
+        "nativeDelay": 0.6610000133514404,
+        "expectedDelay": 0.0,
+        "error": 0.6610000133514404
+      },
+      {
+        "elapsedMs": 137838,
+        "mediaTime": 137.93640243529458,
+        "automaticDelay": 0.6610000000000014,
+        "mappingAvailable": true,
+        "nativeDelay": 0.6610000133514404,
+        "expectedDelay": 0.0,
+        "error": 0.6610000133514404
+      },
+      {
+        "elapsedMs": 138867,
+        "mediaTime": 138.96045817565093,
+        "automaticDelay": 0.6610000000000014,
+        "mappingAvailable": true,
+        "nativeDelay": 0.6610000133514404,
+        "expectedDelay": 0.0,
+        "error": 0.6610000133514404
+      },
+      {
+        "elapsedMs": 139896,
+        "mediaTime": 139.9564297637856,
+        "automaticDelay": 0.6610000000000014,
+        "mappingAvailable": true,
+        "nativeDelay": 0.6610000133514404,
+        "expectedDelay": 0.0,
+        "error": 0.6610000133514404
+      },
+      {
+        "elapsedMs": 140925,
+        "mediaTime": 140.98162794493783,
+        "automaticDelay": 0.6610000000000014,
+        "mappingAvailable": true,
+        "nativeDelay": 0.6610000133514404,
+        "expectedDelay": 0.0,
+        "error": 0.6610000133514404
+      },
+      {
+        "elapsedMs": 141950,
+        "mediaTime": 142.04830197142695,
+        "automaticDelay": 0.6610000000000014,
+        "mappingAvailable": true,
+        "nativeDelay": 0.6610000133514404,
+        "expectedDelay": 0.0,
+        "error": 0.6610000133514404
+      },
+      {
+        "elapsedMs": 142978,
+        "mediaTime": 143.0479437713536,
+        "automaticDelay": 0.6610000000000014,
+        "mappingAvailable": true,
+        "nativeDelay": 0.6610000133514404,
+        "expectedDelay": 0.0,
+        "error": 0.6610000133514404
+      }
+    ],
+    "trackingReference": "Correlated playback-time samples after first lock, including unknown regions at zero automatic delay. Ideal fixture transform, not independent acoustic annotations.",
+    "analyses": [
+      {
+        "attempt": 1,
+        "receivedAtMs": 9738,
+        "receivedMediaTime": 9.83365376281739,
+        "windowStart": 0.7690000000000002,
+        "windowEnd": 8.895,
+        "validPrefixOnly": true,
+        "match": "matched",
+        "contextWindows": 1,
+        "segmentedMatch": false,
+        "transcriptWords": 17,
+        "wordsInSubtitleVocabulary": 17,
+        "contextWords": 0,
+        "segmentBounds": [
+          {
+            "start": 0.7690000000000002,
+            "end": 6.449,
+            "timedTokens": 21,
+            "firstToken": 0.7690000000000002,
+            "lastToken": 6.149
+          }
+        ],
+        "similarity": 0.9411764705882353,
+        "anchors": [],
+        "voiceOnsets": [
+          {
+            "start": 0.7690000000000002,
+            "end": 3.3089999999999997,
+            "precedingQuietSeconds": 0.0,
+            "activeSeconds": 1.7599999999999942
+          },
+          {
+            "start": 3.329,
+            "end": 5.589,
+            "precedingQuietSeconds": 0.020000000000000018,
+            "activeSeconds": 1.6600000000000095
+          },
+          {
+            "start": 6.389,
+            "end": 8.889000000000001,
+            "precedingQuietSeconds": 0.8000000000000096,
+            "activeSeconds": 2.080000000000033
+          }
+        ],
+        "anchorRejections": {
+          "cueBeginningAbsent": 1,
+          "acousticBeginningUnproven": 1
+        },
+        "cueBeginningMatches": [
+          {
+            "cue": 0,
+            "wordInCue": 1,
+            "transcriptWord": 1,
+            "exact": true
+          },
+          {
+            "cue": 0,
+            "wordInCue": 2,
+            "transcriptWord": 2,
+            "exact": true
+          },
+          {
+            "cue": 0,
+            "wordInCue": 3,
+            "transcriptWord": 3,
+            "exact": true
+          },
+          {
+            "cue": 0,
+            "wordInCue": 4,
+            "transcriptWord": 4,
+            "exact": true
+          }
+        ],
+        "regions": []
+      },
+      {
+        "attempt": 2,
+        "receivedAtMs": 21668,
+        "receivedMediaTime": 21.71636465454103,
+        "windowStart": 5.8629999999999995,
+        "windowEnd": 20.863,
+        "validPrefixOnly": false,
+        "match": "matched",
+        "contextWindows": 1,
+        "segmentedMatch": false,
+        "transcriptWords": 37,
+        "wordsInSubtitleVocabulary": 37,
+        "contextWords": 0,
+        "segmentBounds": [
+          {
+            "start": 5.8629999999999995,
+            "end": 11.303,
+            "timedTokens": 15,
+            "firstToken": 6.563,
+            "lastToken": 10.902999999999999
+          },
+          {
+            "start": 11.303,
+            "end": 16.863,
+            "timedTokens": 18,
+            "firstToken": 11.303,
+            "lastToken": 16.743000000000002
+          },
+          {
+            "start": 16.863,
+            "end": 20.863,
+            "timedTokens": 12,
+            "firstToken": 17.163,
+            "lastToken": 20.843
+          }
+        ],
+        "similarity": 0.972972972972973,
+        "anchors": [
+          {
+            "cue": 1,
+            "offset": 0.7079999999999993,
+            "subtitleTime": 5.855,
+            "mediaTime": 6.563,
+            "uncertainty": 0.35
+          },
+          {
+            "cue": 2,
+            "offset": 0.6330000000000009,
+            "subtitleTime": 10.67,
+            "mediaTime": 11.303,
+            "uncertainty": 0.35
+          }
+        ],
+        "voiceOnsets": [
+          {
+            "start": 6.403,
+            "end": 9.743,
+            "precedingQuietSeconds": 0.540000000000008,
+            "activeSeconds": 2.600000000000035
+          },
+          {
+            "start": 9.763,
+            "end": 10.403,
+            "precedingQuietSeconds": 0.019999999999999574,
+            "activeSeconds": 0.42000000000000703
+          },
+          {
+            "start": 11.283,
+            "end": 12.783,
+            "precedingQuietSeconds": 0.8800000000000132,
+            "activeSeconds": 0.8200000000000109
+          },
+          {
+            "start": 12.843,
+            "end": 14.802999999999999,
+            "precedingQuietSeconds": 0.0600000000000005,
+            "activeSeconds": 1.2000000000000188
+          },
+          {
+            "start": 14.863,
+            "end": 17.642999999999997,
+            "precedingQuietSeconds": 0.0600000000000005,
+            "activeSeconds": 1.9799999999999365
+          },
+          {
+            "start": 18.523,
+            "end": 20.863,
+            "precedingQuietSeconds": 0.8799999999999351,
+            "activeSeconds": 1.7799999999998732
+          }
+        ],
+        "anchorRejections": {},
+        "cueBeginningMatches": [
+          {
+            "cue": 1,
+            "wordInCue": 0,
+            "transcriptWord": 0,
+            "exact": true
+          },
+          {
+            "cue": 1,
+            "wordInCue": 1,
+            "transcriptWord": 1,
+            "exact": true
+          },
+          {
+            "cue": 1,
+            "wordInCue": 2,
+            "transcriptWord": 2,
+            "exact": true
+          },
+          {
+            "cue": 1,
+            "wordInCue": 3,
+            "transcriptWord": 3,
+            "exact": true
+          },
+          {
+            "cue": 1,
+            "wordInCue": 4,
+            "transcriptWord": 4,
+            "exact": true
+          },
+          {
+            "cue": 2,
+            "wordInCue": 0,
+            "transcriptWord": 10,
+            "exact": true
+          },
+          {
+            "cue": 2,
+            "wordInCue": 1,
+            "transcriptWord": 11,
+            "exact": true
+          },
+          {
+            "cue": 2,
+            "wordInCue": 2,
+            "transcriptWord": 12,
+            "exact": true
+          },
+          {
+            "cue": 2,
+            "wordInCue": 3,
+            "transcriptWord": 13,
+            "exact": true
+          },
+          {
+            "cue": 2,
+            "wordInCue": 4,
+            "transcriptWord": 14,
+            "exact": true
+          }
+        ],
+        "regions": []
+      },
+      {
+        "attempt": 3,
+        "receivedAtMs": 33693,
+        "receivedMediaTime": 33.7468827056885,
+        "windowStart": 17.831,
+        "windowEnd": 32.831,
+        "validPrefixOnly": false,
+        "match": "matched",
+        "contextWindows": 1,
+        "segmentedMatch": false,
+        "transcriptWords": 37,
+        "wordsInSubtitleVocabulary": 35,
+        "contextWords": 64,
+        "segmentBounds": [
+          {
+            "start": 17.831,
+            "end": 22.831,
+            "timedTokens": 15,
+            "firstToken": 18.570999999999998,
+            "lastToken": 23.651
+          },
+          {
+            "start": 22.831,
+            "end": 27.831,
+            "timedTokens": 15,
+            "firstToken": 23.811,
+            "lastToken": 27.671
+          },
+          {
+            "start": 27.831,
+            "end": 32.831,
+            "timedTokens": 15,
+            "firstToken": 28.211,
+            "lastToken": 32.811
+          }
+        ],
+        "similarity": 0.9459459459459459,
+        "anchors": [
+          {
+            "cue": 3,
+            "offset": 0.6559999999999988,
+            "subtitleTime": 23.155,
+            "mediaTime": 23.811,
+            "uncertainty": 0.35
+          }
+        ],
+        "voiceOnsets": [
+          {
+            "start": 18.511,
+            "end": 22.790999999999997,
+            "precedingQuietSeconds": 0.67999999999995,
+            "activeSeconds": 3.2799999999997667
+          },
+          {
+            "start": 23.451,
+            "end": 23.650999999999996,
+            "precedingQuietSeconds": 0.6599999999999504,
+            "activeSeconds": 0.01999999999999602
+          },
+          {
+            "start": 23.771,
+            "end": 27.531,
+            "precedingQuietSeconds": 0.11999999999999744,
+            "activeSeconds": 2.7199999999998035
+          },
+          {
+            "start": 27.570999999999998,
+            "end": 29.031,
+            "precedingQuietSeconds": 0.03999999999999915,
+            "activeSeconds": 1.0199999999999214
+          },
+          {
+            "start": 29.291,
+            "end": 32.771,
+            "precedingQuietSeconds": 0.25999999999998025,
+            "activeSeconds": 2.439999999999813
+          }
+        ],
+        "anchorRejections": {
+          "cueBeginningAbsent": 1
+        },
+        "cueBeginningMatches": [
+          {
+            "cue": 3,
+            "wordInCue": 0,
+            "transcriptWord": 13,
+            "exact": true
+          },
+          {
+            "cue": 3,
+            "wordInCue": 1,
+            "transcriptWord": 14,
+            "exact": true
+          },
+          {
+            "cue": 3,
+            "wordInCue": 3,
+            "transcriptWord": 16,
+            "exact": true
+          },
+          {
+            "cue": 3,
+            "wordInCue": 4,
+            "transcriptWord": 17,
+            "exact": true
+          }
+        ],
+        "regions": [
+          {
+            "start": 6.510999999999999,
+            "end": 23.811001,
+            "slope": 1.0,
+            "offset": 0.6559999999999988,
+            "anchors": 3
+          }
+        ]
+      },
+      {
+        "attempt": 4,
+        "receivedAtMs": 46537,
+        "receivedMediaTime": 46.5912699890137,
+        "windowStart": 32.991,
+        "windowEnd": 44.991,
+        "validPrefixOnly": false,
+        "match": "matched",
+        "contextWindows": 1,
+        "segmentedMatch": false,
+        "transcriptWords": 22,
+        "wordsInSubtitleVocabulary": 19,
+        "contextWords": 59,
+        "segmentBounds": [
+          {
+            "start": 32.991,
+            "end": 39.791,
+            "timedTokens": 19,
+            "firstToken": 33.771,
+            "lastToken": 39.511
+          },
+          {
+            "start": 39.791,
+            "end": 44.631,
+            "timedTokens": 11,
+            "firstToken": 39.951,
+            "lastToken": 43.851
+          }
+        ],
+        "similarity": 0.8181818181818181,
+        "anchors": [],
+        "voiceOnsets": [
+          {
+            "start": 33.611,
+            "end": 34.811,
+            "precedingQuietSeconds": 0.6199999999999477,
+            "activeSeconds": 0.7599999999999412
+          },
+          {
+            "start": 34.871,
+            "end": 35.851,
+            "precedingQuietSeconds": 0.05999999999998806,
+            "activeSeconds": 0.5999999999999659
+          },
+          {
+            "start": 36.051,
+            "end": 37.391,
+            "precedingQuietSeconds": 0.19999999999998153,
+            "activeSeconds": 0.8799999999999315
+          },
+          {
+            "start": 37.431,
+            "end": 38.071,
+            "precedingQuietSeconds": 0.03999999999999915,
+            "activeSeconds": 0.4399999999999622
+          },
+          {
+            "start": 38.471,
+            "end": 40.891,
+            "precedingQuietSeconds": 0.39999999999997726,
+            "activeSeconds": 1.439999999999884
+          },
+          {
+            "start": 41.031,
+            "end": 43.171,
+            "precedingQuietSeconds": 0.13999999999999346,
+            "activeSeconds": 1.6999999999998892
+          },
+          {
+            "start": 43.911,
+            "end": 44.411,
+            "precedingQuietSeconds": 0.7399999999999451,
+            "activeSeconds": 0.21999999999999176
+          },
+          {
+            "start": 44.571,
+            "end": 44.991,
+            "precedingQuietSeconds": 0.15999999999998238,
+            "activeSeconds": 0.3199999999999861
+          }
+        ],
+        "anchorRejections": {
+          "cueBeginningAbsent": 1,
+          "acousticBeginningUnproven": 1
+        },
+        "cueBeginningMatches": [
+          {
+            "cue": 4,
+            "wordInCue": 1,
+            "transcriptWord": 1,
+            "exact": true
+          },
+          {
+            "cue": 4,
+            "wordInCue": 2,
+            "transcriptWord": 2,
+            "exact": true
+          },
+          {
+            "cue": 4,
+            "wordInCue": 3,
+            "transcriptWord": 3,
+            "exact": true
+          },
+          {
+            "cue": 4,
+            "wordInCue": 4,
+            "transcriptWord": 4,
+            "exact": true
+          }
+        ],
+        "regions": [
+          {
+            "start": 6.510999999999999,
+            "end": 23.811001,
+            "slope": 1.0,
+            "offset": 0.6559999999999988,
+            "anchors": 3
+          }
+        ]
+      },
+      {
+        "attempt": 5,
+        "receivedAtMs": 57749,
+        "receivedMediaTime": 57.79539172363286,
+        "windowStart": 42.023,
+        "windowEnd": 57.023,
+        "validPrefixOnly": false,
+        "match": "matched",
+        "contextWindows": 1,
+        "segmentedMatch": false,
+        "transcriptWords": 35,
+        "wordsInSubtitleVocabulary": 33,
+        "contextWords": 49,
+        "segmentBounds": [
+          {
+            "start": 42.023,
+            "end": 44.703,
+            "timedTokens": 3,
+            "firstToken": 42.283,
+            "lastToken": 44.043000000000006
+          },
+          {
+            "start": 44.703,
+            "end": 50.343,
+            "timedTokens": 22,
+            "firstToken": 44.763000000000005,
+            "lastToken": 50.263000000000005
+          },
+          {
+            "start": 50.343,
+            "end": 52.943000000000005,
+            "timedTokens": 5,
+            "firstToken": 50.463,
+            "lastToken": 52.623000000000005
+          },
+          {
+            "start": 52.943000000000005,
+            "end": 57.023,
+            "timedTokens": 17,
+            "firstToken": 52.903000000000006,
+            "lastToken": 57.003
+          }
+        ],
+        "similarity": 0.9571428571428572,
+        "anchors": [],
+        "voiceOnsets": [
+          {
+            "start": 42.023,
+            "end": 43.203,
+            "precedingQuietSeconds": 0.0,
+            "activeSeconds": 0.9799999999999329
+          },
+          {
+            "start": 43.983000000000004,
+            "end": 44.423,
+            "precedingQuietSeconds": 0.7799999999999372,
+            "activeSeconds": 0.21999999999997755
+          },
+          {
+            "start": 44.563,
+            "end": 46.543,
+            "precedingQuietSeconds": 0.13999999999999346,
+            "activeSeconds": 1.2799999999999017
+          },
+          {
+            "start": 46.583000000000006,
+            "end": 50.023,
+            "precedingQuietSeconds": 0.03999999999999204,
+            "activeSeconds": 2.459999999999795
+          },
+          {
+            "start": 50.203,
+            "end": 51.183,
+            "precedingQuietSeconds": 0.1799999999999855,
+            "activeSeconds": 0.45999999999997954
+          },
+          {
+            "start": 51.263000000000005,
+            "end": 51.603,
+            "precedingQuietSeconds": 0.0799999999999983,
+            "activeSeconds": 0.15999999999998238
+          },
+          {
+            "start": 52.823,
+            "end": 57.023,
+            "precedingQuietSeconds": 1.2199999999999136,
+            "activeSeconds": 2.8799999999997894
+          }
+        ],
+        "anchorRejections": {
+          "cueBeginningAbsent": 1
+        },
+        "cueBeginningMatches": [],
+        "regions": [
+          {
+            "start": 6.510999999999999,
+            "end": 23.811001,
+            "slope": 1.0,
+            "offset": 0.6559999999999988,
+            "anchors": 3
+          }
+        ]
+      },
+      {
+        "attempt": 6,
+        "receivedAtMs": 70725,
+        "receivedMediaTime": 70.80254322814866,
+        "windowStart": 53.991,
+        "windowEnd": 68.991,
+        "validPrefixOnly": false,
+        "match": "matched",
+        "contextWindows": 1,
+        "segmentedMatch": false,
+        "transcriptWords": 36,
+        "wordsInSubtitleVocabulary": 34,
+        "contextWords": 58,
+        "segmentBounds": [
+          {
+            "start": 53.991,
+            "end": 59.871,
+            "timedTokens": 18,
+            "firstToken": 54.531,
+            "lastToken": 59.851
+          },
+          {
+            "start": 59.871,
+            "end": 66.071,
+            "timedTokens": 16,
+            "firstToken": 60.150999999999996,
+            "lastToken": 66.071
+          },
+          {
+            "start": 66.071,
+            "end": 68.931,
+            "timedTokens": 6,
+            "firstToken": 66.511,
+            "lastToken": 68.931
+          }
+        ],
+        "similarity": 0.9444444444444444,
+        "anchors": [
+          {
+            "cue": 5,
+            "offset": 0.6360000000000028,
+            "subtitleTime": 62.455,
+            "mediaTime": 63.091,
+            "uncertainty": 0.35
+          }
+        ],
+        "voiceOnsets": [
+          {
+            "start": 53.991,
+            "end": 55.571,
+            "precedingQuietSeconds": 0.0,
+            "activeSeconds": 0.7399999999999451
+          },
+          {
+            "start": 55.611,
+            "end": 57.571,
+            "precedingQuietSeconds": 0.03999999999999915,
+            "activeSeconds": 1.2399999999999025
+          },
+          {
+            "start": 57.591,
+            "end": 60.870999999999995,
+            "precedingQuietSeconds": 0.020000000000003126,
+            "activeSeconds": 2.3999999999998494
+          },
+          {
+            "start": 61.051,
+            "end": 62.171,
+            "precedingQuietSeconds": 0.1799999999999855,
+            "activeSeconds": 0.7199999999999633
+          },
+          {
+            "start": 63.011,
+            "end": 67.291,
+            "precedingQuietSeconds": 0.8399999999999395,
+            "activeSeconds": 3.0399999999998
+          },
+          {
+            "start": 67.31099999999999,
+            "end": 68.851,
+            "precedingQuietSeconds": 0.01999999999999602,
+            "activeSeconds": 0.8999999999999346
+          },
+          {
+            "start": 68.871,
+            "end": 68.991,
+            "precedingQuietSeconds": 0.01999999999999602,
+            "activeSeconds": 0.12000000000000455
+          }
+        ],
+        "anchorRejections": {
+          "cueBeginningAbsent": 1
+        },
+        "cueBeginningMatches": [
+          {
+            "cue": 5,
+            "wordInCue": 0,
+            "transcriptWord": 21,
+            "exact": true
+          },
+          {
+            "cue": 5,
+            "wordInCue": 1,
+            "transcriptWord": 22,
+            "exact": true
+          },
+          {
+            "cue": 5,
+            "wordInCue": 2,
+            "transcriptWord": 23,
+            "exact": true
+          },
+          {
+            "cue": 5,
+            "wordInCue": 3,
+            "transcriptWord": 24,
+            "exact": true
+          },
+          {
+            "cue": 5,
+            "wordInCue": 4,
+            "transcriptWord": 25,
+            "exact": true
+          }
+        ],
+        "regions": [
+          {
+            "start": 6.501000000000001,
+            "end": 63.101001,
+            "slope": 1.0,
+            "offset": 0.6460000000000008,
+            "anchors": 4
+          }
+        ]
+      },
+      {
+        "attempt": 7,
+        "receivedAtMs": 81723,
+        "receivedMediaTime": 81.82062129211228,
+        "windowStart": 69.023,
+        "windowEnd": 81.023,
+        "validPrefixOnly": true,
+        "match": "matched",
+        "contextWindows": 1,
+        "segmentedMatch": false,
+        "transcriptWords": 24,
+        "wordsInSubtitleVocabulary": 23,
+        "contextWords": 60,
+        "segmentBounds": [
+          {
+            "start": 69.023,
+            "end": 72.083,
+            "timedTokens": 4,
+            "firstToken": 69.76299999999999,
+            "lastToken": 71.723
+          },
+          {
+            "start": 72.083,
+            "end": 77.76299999999999,
+            "timedTokens": 17,
+            "firstToken": 72.083,
+            "lastToken": 77.283
+          },
+          {
+            "start": 77.76299999999999,
+            "end": 80.883,
+            "timedTokens": 12,
+            "firstToken": 77.883,
+            "lastToken": 80.963
+          }
+        ],
+        "similarity": 0.9166666666666666,
+        "anchors": [
+          {
+            "cue": 7,
+            "offset": 0.7779999999999916,
+            "subtitleTime": 77.105,
+            "mediaTime": 77.883,
+            "uncertainty": 0.35
+          }
+        ],
+        "voiceOnsets": [
+          {
+            "start": 69.023,
+            "end": 69.34299999999999,
+            "precedingQuietSeconds": 0.0,
+            "activeSeconds": 0.13999999999998636
+          },
+          {
+            "start": 69.363,
+            "end": 70.383,
+            "precedingQuietSeconds": 0.020000000000010232,
+            "activeSeconds": 0.7199999999999278
+          },
+          {
+            "start": 70.443,
+            "end": 71.143,
+            "precedingQuietSeconds": 0.05999999999998806,
+            "activeSeconds": 0.37999999999996703
+          },
+          {
+            "start": 72.003,
+            "end": 76.743,
+            "precedingQuietSeconds": 0.8599999999999284,
+            "activeSeconds": 3.3799999999997397
+          },
+          {
+            "start": 77.663,
+            "end": 79.283,
+            "precedingQuietSeconds": 0.9199999999999307,
+            "activeSeconds": 1.099999999999909
+          },
+          {
+            "start": 79.703,
+            "end": 81.023,
+            "precedingQuietSeconds": 0.4199999999999591,
+            "activeSeconds": 1.2599999999999056
+          }
+        ],
+        "anchorRejections": {
+          "cueBeginningAbsent": 2
+        },
+        "cueBeginningMatches": [
+          {
+            "cue": 6,
+            "wordInCue": 2,
+            "transcriptWord": 4,
+            "exact": true
+          },
+          {
+            "cue": 6,
+            "wordInCue": 3,
+            "transcriptWord": 5,
+            "exact": true
+          },
+          {
+            "cue": 6,
+            "wordInCue": 4,
+            "transcriptWord": 6,
+            "exact": true
+          },
+          {
+            "cue": 7,
+            "wordInCue": 0,
+            "transcriptWord": 14,
+            "exact": true
+          },
+          {
+            "cue": 7,
+            "wordInCue": 1,
+            "transcriptWord": 15,
+            "exact": true
+          },
+          {
+            "cue": 7,
+            "wordInCue": 2,
+            "transcriptWord": 16,
+            "exact": true
+          },
+          {
+            "cue": 7,
+            "wordInCue": 3,
+            "transcriptWord": 17,
+            "exact": true
+          },
+          {
+            "cue": 7,
+            "wordInCue": 4,
+            "transcriptWord": 18,
+            "exact": true
+          }
+        ],
+        "regions": [
+          {
+            "start": 6.510999999999999,
+            "end": 77.761001,
+            "slope": 1.0,
+            "offset": 0.6559999999999988,
+            "anchors": 5
+          }
+        ]
+      },
+      {
+        "attempt": 8,
+        "receivedAtMs": 95707,
+        "receivedMediaTime": 95.77694798278458,
+        "windowStart": 80.991,
+        "windowEnd": 92.991,
+        "validPrefixOnly": true,
+        "match": "matched",
+        "contextWindows": 1,
+        "segmentedMatch": false,
+        "transcriptWords": 19,
+        "wordsInSubtitleVocabulary": 17,
+        "contextWords": 0,
+        "segmentBounds": [
+          {
+            "start": 80.991,
+            "end": 89.591,
+            "timedTokens": 21,
+            "firstToken": 81.491,
+            "lastToken": 89.471
+          },
+          {
+            "start": 89.591,
+            "end": 92.151,
+            "timedTokens": 4,
+            "firstToken": 89.851,
+            "lastToken": 91.931
+          }
+        ],
+        "similarity": 0.8421052631578947,
+        "anchors": [
+          {
+            "cue": 8,
+            "offset": 0.6659999999999968,
+            "subtitleTime": 86.345,
+            "mediaTime": 87.011,
+            "uncertainty": 0.35
+          }
+        ],
+        "voiceOnsets": [
+          {
+            "start": 80.991,
+            "end": 81.731,
+            "precedingQuietSeconds": 0.0,
+            "activeSeconds": 0.49999999999995737
+          },
+          {
+            "start": 82.371,
+            "end": 83.071,
+            "precedingQuietSeconds": 0.6399999999999721,
+            "activeSeconds": 0.3999999999999915
+          },
+          {
+            "start": 83.131,
+            "end": 84.191,
+            "precedingQuietSeconds": 0.060000000000002274,
+            "activeSeconds": 0.739999999999938
+          },
+          {
+            "start": 84.631,
+            "end": 86.03099999999999,
+            "precedingQuietSeconds": 0.4399999999999835,
+            "activeSeconds": 1.0399999999999352
+          },
+          {
+            "start": 86.611,
+            "end": 86.81099999999999,
+            "precedingQuietSeconds": 0.5799999999999699,
+            "activeSeconds": 0.01999999999999602
+          },
+          {
+            "start": 86.891,
+            "end": 89.291,
+            "precedingQuietSeconds": 0.0800000000000125,
+            "activeSeconds": 1.5599999999998886
+          },
+          {
+            "start": 89.611,
+            "end": 90.03099999999999,
+            "precedingQuietSeconds": 0.31999999999997897,
+            "activeSeconds": 0.23999999999998067
+          },
+          {
+            "start": 90.351,
+            "end": 91.131,
+            "precedingQuietSeconds": 0.31999999999997897,
+            "activeSeconds": 0.4999999999999858
+          },
+          {
+            "start": 91.651,
+            "end": 91.871,
+            "precedingQuietSeconds": 0.5199999999999534,
+            "activeSeconds": 0.03999999999999204
+          },
+          {
+            "start": 92.151,
+            "end": 92.991,
+            "precedingQuietSeconds": 0.2799999999999869,
+            "activeSeconds": 0.7199999999999847
+          }
+        ],
+        "anchorRejections": {
+          "cueBeginningAbsent": 1
+        },
+        "cueBeginningMatches": [
+          {
+            "cue": 8,
+            "wordInCue": 0,
+            "transcriptWord": 9,
+            "exact": true
+          },
+          {
+            "cue": 8,
+            "wordInCue": 1,
+            "transcriptWord": 10,
+            "exact": true
+          },
+          {
+            "cue": 8,
+            "wordInCue": 2,
+            "transcriptWord": 11,
+            "exact": true
+          },
+          {
+            "cue": 8,
+            "wordInCue": 4,
+            "transcriptWord": 13,
+            "exact": true
+          }
+        ],
+        "regions": [
+          {
+            "start": 6.515999999999998,
+            "end": 87.006001,
+            "slope": 1.0,
+            "offset": 0.6609999999999978,
+            "anchors": 6
+          }
+        ]
+      }
+    ],
+    "productionPlayerValidated": false,
+    "audiblePlaybackValidated": false,
+    "pcmOrTranscriptPersisted": false,
+    "mainIsolateHeartbeatTicks": 5769
+  }
+}
