@@ -184,9 +184,9 @@ class TimelineMap {
 class TimelineFitter {
   const TimelineFitter();
 
-  /// The fitted domain ends at the last observed anchor (inclusive to one
-  /// microsecond). Prediction outside that domain requires a separate policy.
-  TimelineSegment? fit(List<SubtitleAnchor> observations) {
+  /// Sanitized, independent cue starts. Independence alone does not establish
+  /// a timing model: callers still need a fit before applying a correction.
+  List<SubtitleAnchor> independentObservations(List<SubtitleAnchor> observations) {
     final independent = <SubtitleAnchor>[];
     final cues = <int>{};
     final phrases = <String>{};
@@ -211,6 +211,13 @@ class TimelineFitter {
       independent.add(anchor);
     }
     independent.sort((a, b) => a.subtitleTime.compareTo(b.subtitleTime));
+    return independent;
+  }
+
+  /// The fitted domain ends at the last observed anchor (inclusive to one
+  /// microsecond). Prediction outside that domain requires a separate policy.
+  TimelineSegment? fit(List<SubtitleAnchor> observations) {
+    final independent = independentObservations(observations);
     if (independent.length < 2 || independent.last.subtitleTime - independent.first.subtitleTime < 3) return null;
 
     var slope = 1.0;
