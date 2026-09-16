@@ -79,6 +79,9 @@ jobs:
         run: |
           flutter analyze --no-pub lib/features/live_subtitle_sync test/features/live_subtitle_sync
           flutter test --no-pub --machine test/features/live_subtitle_sync > build/livesync/evidence/dart-tests.jsonl
+      - name: Verify Plex source survives the native open lifecycle
+        shell: bash
+        run: flutter test --no-pub --machine test/screens/video_player/livesync_source_lifecycle_test.dart > build/livesync/evidence/source-lifecycle-tests.jsonl
       - name: Preserve test evidence
         if: always()
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7

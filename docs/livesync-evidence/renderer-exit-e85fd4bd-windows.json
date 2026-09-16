@@ -1,0 +1,101 @@
+{
+  "schema": 1,
+  "sourceSha": "e85fd4bdb62856956d1b98e1b89d32ff6b8d5fb7",
+  "runId": 35148901282,
+  "runUrl": "https://github.com/DwennK/Plezy-SubtitleFix/actions/runs/35148901282",
+  "conclusion": "failure",
+  "artifactId": 10469180962,
+  "fullProductAcceptance": false,
+  "productionControllerExecuted": false,
+  "rendererStatesCompleted": 0,
+  "reports": {
+    "build-mode.json": {
+      "sha256": "485ec862bd9a4d2a79ccfbd893036e3f2bfd03671aadec21d13c347160ed5309",
+      "data": {
+        "flutterMode": "release",
+        "nativeConfiguration": "Release"
+      }
+    },
+    "dart-native-base.en.json": {
+      "sha256": "7d3fcb8f51f982a082dc0d63e12d6f471d5586115d777627491c5ebe561d3169",
+      "data": {
+        "kind": "dart-isolate-real-native-capture-and-inference",
+        "inferenceBackend": "avx2-cpu",
+        "platform": "windows",
+        "generationReset": true,
+        "duplicateCaptureRejected": true,
+        "singleInferenceEnforced": true,
+        "fixtureDialogueRecognized": true,
+        "windowStart": 0.6410000000000001,
+        "windowEnd": 9.151,
+        "segments": 2,
+        "tokens": 21,
+        "inferenceSeconds": 2.4717292,
+        "productionPlayerValidated": false,
+        "audiblePlaybackValidated": false,
+        "pcmOrTranscriptPersisted": false,
+        "mainIsolateHeartbeatTicks": 459
+      }
+    },
+    "dart-native-base.en-q5_1.json": {
+      "sha256": "9a2772181793f3ee4bd51efa7e93c66901a30f6d9427a5b64a56accfe0532a31",
+      "data": {
+        "kind": "dart-isolate-real-native-capture-and-inference",
+        "inferenceBackend": "avx2-cpu",
+        "platform": "windows",
+        "generationReset": true,
+        "duplicateCaptureRejected": true,
+        "singleInferenceEnforced": true,
+        "fixtureDialogueRecognized": true,
+        "windowStart": 0.6410000000000001,
+        "windowEnd": 9.151,
+        "segments": 2,
+        "tokens": 21,
+        "inferenceSeconds": 2.9930038,
+        "productionPlayerValidated": false,
+        "audiblePlaybackValidated": false,
+        "pcmOrTranscriptPersisted": false,
+        "mainIsolateHeartbeatTicks": 478
+      }
+    },
+    "dart-native-fallback.json": {
+      "sha256": "7c67b63a4d90e1bbe91169e8d09e0125b2b9525501efd9292b67f7d246f86aa4",
+      "data": {
+        "kind": "dart-isolate-real-native-capture-and-inference",
+        "inferenceBackend": "portable-cpu",
+        "platform": "windows",
+        "generationReset": true,
+        "duplicateCaptureRejected": true,
+        "singleInferenceEnforced": true,
+        "fixtureDialogueRecognized": true,
+        "windowStart": 0.6410000000000001,
+        "windowEnd": 9.151,
+        "segments": 2,
+        "tokens": 21,
+        "inferenceSeconds": 27.3342241,
+        "productionPlayerValidated": false,
+        "audiblePlaybackValidated": false,
+        "pcmOrTranscriptPersisted": false,
+        "mainIsolateHeartbeatTicks": 1451
+      }
+    },
+    "renderer/preparation.json": {
+      "sha256": "6068fd09f3829358ba3ef2c3ed8390b9a876623d60fc36cdbb6fa9a18dd05027",
+      "data": {
+        "phase": "waiting-playback-restart"
+      }
+    }
+  },
+  "rendererDiagnostics": {
+    "stdout.log": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "text": ""
+    },
+    "stderr.log": {
+      "sha256": "8ac45fecc276a9759419260766e75c30c6ff8c335120a49001c590bebe3d7d26",
+      "text": "[WARNING:flutter/shell/platform/windows/flutter_windows_engine.cc(375)] Running with unmerged platform and UI threads. This will be removed in future.\n[ERROR:flutter/shell/platform/common/accessibility_bridge.cc(114)] Failed to update ui::AXTree, error: Nodes left pending by the update: 5 6 7 8 9 10 11 12 13 14\n"
+    }
+  },
+  "finding": "The renderer process exits during waiting-playback-restart, before the baseline state and without Dart failure.json or a capturable window. The driver did not retain an exit code or Windows fault event. The accessibility error in stderr is an observation, not an established cause.",
+  "followUp": "Record owned process exit diagnostics and bounded matching Windows fault events. Run independent controller checks if the native isolate passed, while preserving renderer failure as a failed workflow."
+}
