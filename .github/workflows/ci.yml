@@ -16,6 +16,10 @@ on:
         description: Exact candidate SHA supplied by upstream integration
         type: string
         default: ""
+      native_run_id:
+        description: Completed patched Windows native build for this candidate
+        type: string
+        default: ""
       build_linux_packages:
         description: >
           Smoke-build the Linux deb/rpm/pacman packages. Off by default: it needs
@@ -531,10 +535,17 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
           TEST_ARCH: ${{ matrix.arch }}
+          NATIVE_RUN_ID: ${{ inputs.native_run_id }}
+          INTEGRATION_ID: ${{ inputs.integration_id }}
         run: |
           if ($env:TEST_ARCH -eq 'x64') {
-            $nativeRun = python -c "import json; print(json.load(open('docs/live-subtitle-sync-versions.json'))['appValidation']['windowsX64']['nativeBuildRun'])"
-            if ($LASTEXITCODE -ne 0) { throw 'Native build provenance unavailable' }
+            $nativeRun = $env:NATIVE_RUN_ID
+            if (-not $nativeRun) {
+              if ($env:INTEGRATION_ID) { throw 'Upstream integration requires its completed native build' }
+              $nativeRun = python -c "import json; print(json.load(open('docs/live-subtitle-sync-versions.json'))['appValidation']['windowsX64']['nativeBuildRun'])"
+              if ($LASTEXITCODE -ne 0) { throw 'Native build provenance unavailable' }
+            }
+            if ($nativeRun -notmatch '^[0-9]+$') { throw 'Invalid native build run ID' }
             python scripts/livesync/stage_windows_package.py --run-id $nativeRun
             if ($LASTEXITCODE -ne 0) { throw 'Patched native staging failed' }
             python scripts/livesync/build_analysis_runtime.py --target windows-x64

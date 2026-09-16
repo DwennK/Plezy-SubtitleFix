@@ -8,6 +8,41 @@ SubtitleAnchor anchor(int cue, double subtitle, double media) =>
     SubtitleAnchor(cue, subtitle, media, 0.35, 'distinct phrase number $cue');
 
 void main() {
+  test('replayed context does not rewrite a mapping or count as fresh timing evidence', () {
+    final tracker = TimelineTracker();
+    final observations = [anchor(0, 100, 104), anchor(1, 110, 114)];
+    expect(tracker.observe(observations), isTrue);
+    final learned = tracker.map;
+    final cadence = AnalysisCadence()..evidence(recognizedPassage: true, learned: true);
+    expect(cadence.windowSeconds, 12);
+    final repeated = tracker.observe([anchor(0, 100, 104), anchor(1, 110, 114)]);
+    expect(repeated, isFalse);
+    cadence.evidence(recognizedPassage: true, learned: repeated);
+    expect(cadence.windowSeconds, 15);
+    expect(identical(tracker.map, learned), isTrue);
+    expect(tracker.observe([]), isFalse);
+    expect(identical(tracker.map, learned), isTrue);
+  });
+
+  test('a genuinely refined timestamp still updates the correction', () {
+    final tracker = TimelineTracker()..observe([anchor(0, 100, 104), anchor(1, 110, 114)]);
+    expect(tracker.observe([anchor(1, 110, 114.2)]), isTrue);
+    expect(tracker.correctionAt(120).position.automaticDelay, closeTo(4.1, 1e-9));
+    expect(tracker.map.segments.single.anchors.singleWhere((a) => a.cue == 1).mediaTime, 114.2);
+    expect(tracker.observe([anchor(1, 110, 114.2)]), isFalse);
+  });
+
+  test('a seek allows independently reobserved cue starts to validate a restored region', () {
+    final observations = [for (var i = 0; i < 6; i++) anchor(i, 100 + i * 20, 104 + i * 20)];
+    final tracker = TimelineTracker()..observe(observations);
+    tracker.restore(tracker.map);
+    expect(tracker.correctionAt(150).established, isFalse);
+    expect(tracker.observe([observations[0]]), isFalse);
+    expect(tracker.observe([observations[0]]), isFalse);
+    expect(tracker.observe([observations[1]]), isTrue);
+    expect(tracker.correctionAt(150).established, isTrue);
+  });
+
   test('an established old scene cannot slow confirmation in a newly learned scene', () {
     final tracker = TimelineTracker()
       ..observe([for (var i = 0; i < 6; i++) anchor(i, 100 + i * 20, 104 + i * 20)])

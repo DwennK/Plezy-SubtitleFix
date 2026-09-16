@@ -1,0 +1,40 @@
+{
+  "provenance": {
+    "forkSha": "df53e74936943f69d519b63437290d2952066763",
+    "ciRun": 35076360711,
+    "rawReportSha256": "a3b6603980fc76571038bdabd81dfaaa604d1144e0688d801eec62d06a37936d",
+    "scope": "Actual production controller in Windows CI with PCM-to-NUL output. No audible playback, hardware GPU or Mentalist proof."
+  },
+  "report": {
+    "kind": "actual-plezy-production-controller-calibration",
+    "platform": "windows",
+    "inferenceBackend": "avx2-cpu",
+    "expectedOffset": -100.0,
+    "absoluteOffsetError": 0.2183333333333337,
+    "maximumOffsetError": 0.75,
+    "modelId": "base.en",
+    "modelSha256": "a03779c86df3323075f5e796cb2ce5029f00ec8869eee3fdfb897afe36c6d002",
+    "fixtureCase": "calibration",
+    "introSilenceSeconds": 0,
+    "actualOffset": -100.21833333333333,
+    "reference": "authored Sintel SRT, not precise acoustic-onset ground truth",
+    "acquisitionMs": 26365,
+    "nativeDelay": -100.09333,
+    "audioPartitionSeconds": [
+      100,
+      175
+    ],
+    "audioOutput": "pcm-to-NUL",
+    "audiblePlaybackValidated": false,
+    "pcmOrTranscriptPersisted": false,
+    "postConfirmationOffset": -100.21833333333333,
+    "knownRegionRestoredAfterSeek": true,
+    "unknownSeekClearsAutomaticOnly": true,
+    "audioDelayCompositionAndPreservation": true,
+    "cacheRestoreMs": 2091,
+    "persistentCacheKnownAndUnknownRegions": true,
+    "manualDelayDuringAndAfter": true,
+    "tapDisabledOnClose": true,
+    "passed": true
+  }
+}

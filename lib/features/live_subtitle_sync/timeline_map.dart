@@ -135,7 +135,9 @@ class TimelineMap {
         throw ArgumentError('Conflicting timeline evidence');
       }
       for (final anchor in previous.anchors) {
-        evidence[anchor.cue] = anchor;
+        // The candidate may refine a previously observed cue. Preserve the
+        // accepted new timestamp; only carry forward cues not reobserved.
+        evidence.putIfAbsent(anchor.cue, () => anchor);
       }
     }
     final refined = TimelineSegment(

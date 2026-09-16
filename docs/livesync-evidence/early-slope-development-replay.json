@@ -1,0 +1,396 @@
+{
+  "scope": "Development-only hypothesis replay. Numeric evidence; no production mutation.\nAssumes each recorded ASR result arrives one second after its window end.\nNo inference, native renderer, policy/cadence feedback or uncertainty calibration.\n",
+  "thresholdsAreHeuristics": true,
+  "productionChanged": false,
+  "results": [
+    {
+      "source": "speech-drift-slower-1738e659.json",
+      "hypothesis": "baseline",
+      "firstMapping": 9.703,
+      "firstAffine": 94.119,
+      "replayedP95": 2.454436563436559,
+      "samples": 140,
+      "maps": [
+        [
+          9.703,
+          1.0,
+          0.8934999999999997
+        ],
+        [
+          21.799,
+          1.0,
+          1.0059999999999993
+        ],
+        [
+          33.766999999999996,
+          1.0,
+          1.0575000000000006
+        ],
+        [
+          45.863,
+          1.0,
+          1.0575000000000006
+        ],
+        [
+          57.959,
+          1.0,
+          1.0575000000000006
+        ],
+        [
+          69.991,
+          1.0,
+          1.1090000000000018
+        ],
+        [
+          82.023,
+          1.0,
+          1.1090000000000018
+        ],
+        [
+          94.119,
+          1.0425335639578717,
+          0.701439420057568
+        ]
+      ]
+    },
+    {
+      "source": "speech-drift-slower-1738e659.json",
+      "hypothesis": "early",
+      "firstMapping": 9.703,
+      "firstAffine": 33.766999999999996,
+      "replayedP95": 0.656423085828763,
+      "samples": 140,
+      "maps": [
+        [
+          9.703,
+          1.0,
+          0.8934999999999997
+        ],
+        [
+          21.799,
+          1.0,
+          1.0059999999999993
+        ],
+        [
+          33.766999999999996,
+          1.0374785530534982,
+          0.7825920520231235
+        ],
+        [
+          45.863,
+          1.0374785530534982,
+          0.7825920520231235
+        ],
+        [
+          57.959,
+          1.0374785530534982,
+          0.7825920520231235
+        ],
+        [
+          69.991,
+          1.0407009725447551,
+          0.7676958057504581
+        ],
+        [
+          82.023,
+          1.0407009725447551,
+          0.7676958057504581
+        ],
+        [
+          94.119,
+          1.0425335639578717,
+          0.701439420057568
+        ]
+      ]
+    },
+    {
+      "source": "speech-drift-slower-574ef060.json",
+      "hypothesis": "baseline",
+      "firstMapping": 21.863,
+      "firstAffine": 93.991,
+      "replayedP95": 2.1889365634365703,
+      "samples": 128,
+      "maps": [
+        [
+          21.863,
+          1.0,
+          1.0404999999999998
+        ],
+        [
+          33.831,
+          1.0,
+          1.093
+        ],
+        [
+          45.927,
+          1.0,
+          1.093
+        ],
+        [
+          57.895,
+          1.0,
+          1.093
+        ],
+        [
+          70.055,
+          1.0,
+          1.3744999999999994
+        ],
+        [
+          82.08699999999999,
+          1.0,
+          1.3744999999999994
+        ],
+        [
+          93.991,
+          1.0432030384554516,
+          0.6556336445640252
+        ]
+      ]
+    },
+    {
+      "source": "speech-drift-slower-574ef060.json",
+      "hypothesis": "early",
+      "firstMapping": 21.863,
+      "firstAffine": 70.055,
+      "replayedP95": 1.5283786213786215,
+      "samples": 128,
+      "maps": [
+        [
+          21.863,
+          1.0,
+          1.0404999999999998
+        ],
+        [
+          33.831,
+          1.0,
+          1.093
+        ],
+        [
+          45.927,
+          1.0,
+          1.093
+        ],
+        [
+          57.895,
+          1.0,
+          1.093
+        ],
+        [
+          70.055,
+          1.0423409669211199,
+          0.6755949109414683
+        ],
+        [
+          82.08699999999999,
+          1.0423409669211199,
+          0.6755949109414683
+        ],
+        [
+          93.991,
+          1.043480701754386,
+          0.6404315789473696
+        ]
+      ]
+    },
+    {
+      "source": "speech-drift-faster-8f2f7ac2.json",
+      "hypothesis": "baseline",
+      "firstMapping": 130.023,
+      "firstAffine": 130.023,
+      "replayedP95": 0.633054127818923,
+      "samples": 7,
+      "maps": [
+        [
+          130.023,
+          0.9589912594927638,
+          0.613882074795832
+        ]
+      ]
+    },
+    {
+      "source": "speech-drift-faster-8f2f7ac2.json",
+      "hypothesis": "early",
+      "firstMapping": 118.05499999999999,
+      "firstAffine": 118.05499999999999,
+      "replayedP95": 0.6474599359323463,
+      "samples": 19,
+      "maps": [
+        [
+          118.05499999999999,
+          0.9588657844990544,
+          0.6250374291115648
+        ],
+        [
+          130.023,
+          0.9591249761930634,
+          0.6089930579411238
+        ]
+      ]
+    },
+    {
+      "source": "speech-aligned-initial.json",
+      "hypothesis": "baseline",
+      "firstMapping": 69.991,
+      "firstAffine": null,
+      "replayedP95": 0.6380000000000052,
+      "samples": 74,
+      "maps": [
+        [
+          69.991,
+          1.0,
+          0.6345000000000018
+        ],
+        [
+          100.135,
+          1.0,
+          0.6360000000000028
+        ],
+        [
+          130.215,
+          1.0,
+          0.6380000000000017
+        ]
+      ]
+    },
+    {
+      "source": "speech-aligned-initial.json",
+      "hypothesis": "early",
+      "firstMapping": 69.991,
+      "firstAffine": null,
+      "replayedP95": 0.6380000000000052,
+      "samples": 74,
+      "maps": [
+        [
+          69.991,
+          1.0,
+          0.6345000000000018
+        ],
+        [
+          100.135,
+          1.0,
+          0.6360000000000028
+        ],
+        [
+          130.215,
+          1.0,
+          0.6380000000000017
+        ]
+      ]
+    },
+    {
+      "source": "speech-drift-faster-2be90b08.json",
+      "hypothesis": "baseline",
+      "firstMapping": 21.863,
+      "firstAffine": 94.247,
+      "replayedP95": 3.7295416666666625,
+      "samples": 115,
+      "maps": [
+        [
+          21.863,
+          1.0,
+          0.32049999999999956
+        ],
+        [
+          33.959,
+          1.0,
+          0.17300000000000004
+        ],
+        [
+          46.055,
+          1.0,
+          0.17300000000000004
+        ],
+        [
+          58.023,
+          1.0,
+          0.17300000000000004
+        ],
+        [
+          70.119,
+          1.0,
+          -0.07150000000000123
+        ],
+        [
+          94.247,
+          0.9595313138043717,
+          0.6210524288597696
+        ]
+      ]
+    },
+    {
+      "source": "speech-drift-faster-2be90b08.json",
+      "hypothesis": "early",
+      "firstMapping": 21.863,
+      "firstAffine": 70.119,
+      "replayedP95": 2.949041666666659,
+      "samples": 115,
+      "maps": [
+        [
+          21.863,
+          1.0,
+          0.32049999999999956
+        ],
+        [
+          33.959,
+          1.0,
+          0.17300000000000004
+        ],
+        [
+          46.055,
+          1.0,
+          0.17300000000000004
+        ],
+        [
+          58.023,
+          1.0,
+          0.17300000000000004
+        ],
+        [
+          70.119,
+          0.9582697201017814,
+          0.6502646310432496
+        ],
+        [
+          82.21499999999999,
+          0.9596070175438597,
+          0.6192995087719275
+        ],
+        [
+          94.247,
+          0.9596449359275294,
+          0.618421508598054
+        ]
+      ]
+    }
+  ],
+  "method": {
+    "constant": "median of cue offsets",
+    "affine": "median of eligible pair slopes and intercepts; same residual gain and 75% support checks as the exploratory script",
+    "baseline": {
+      "minimumAnchors": 6,
+      "minimumSpan": 60,
+      "minimumPairSpan": 30
+    },
+    "early": {
+      "minimumAnchors": 4,
+      "minimumSpan": 20,
+      "minimumPairSpan": 10
+    },
+    "samplePeriodSeconds": 1,
+    "assumedReceiptAfterWindowSeconds": 1,
+    "sourceTiming": "fixture utterance boundaries",
+    "limitations": [
+      "Replays do not reproduce the complete tracker, inference scheduling, inference latency, native renderer or confidence calibration.",
+      "No negative-case or independent-corpus validation; not a production proposal."
+    ]
+  },
+  "inputs": {
+    "speech-drift-faster-2be90b08.json": "928a6d5602f63bc6d7733c037d0a7d834af1997af2752819e6091fe9bfc3c166",
+    "speech-drift-slower-574ef060.json": "8eff0601a89297731b4be9f011044097612eeff73786b21e7ce6693505823080",
+    "speech-drift-faster-8f2f7ac2.json": "1703f01aa4ffb5c457781cfe8ce8470b6987c481271df7803dfb6e54223b8ba9",
+    "speech-drift-slower-1738e659.json": "7400952b2ee5677f52df132d67785c51b30a98de2a33f526517f57a955cd0345",
+    "speech-aligned-initial.json": "e1b91bbcf17431ca12809f410084f5c97f49239b5224605cfb7d025b8b285e23"
+  },
+  "scriptSha256": "46e8b4fd50853d9b83d2758ed99e0fc5e0eccb2e397d6f3373832623f0a3bfcc"
+}

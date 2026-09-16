@@ -1471,3 +1471,119 @@ causait les diagnostics de la première analyse, sans nécessiter de correction
 source. Aucun nouveau build natif n'est encore attribué à cet upstream.
 
 Le contrôle `scripts/codegen.sh --check` passe également sur le candidat.
+
+## Preuves temporelles répétées — 2026-09-16
+
+`1738e659` empêche un contexte de transcription adjacent de compter à nouveau
+les mêmes débuts de cues comme une confirmation fraîche. Une liste vide ou
+strictement identique ne réécrit plus le mapping et ne raccourcit plus la fenêtre
+suivante à 12 s. Les horodatages affinés et les observations après une rupture
+restent utilisables, notamment pour revalider une région du cache. Deux nouvelles
+régressions échouent avant le correctif ; les **134 tests LiveSync** passent après,
+ainsi que l'analyse Flutter complète sans diagnostic.
+
+Nouvel essai PCM/ASR LibriSpeech ralenti : première correction à 9,517 s, pente
+confirmée à 93,845 s, mais **échec du suivi complet** avec p95 **2,526 s** et maximum
+**2,776 s** pour une limite de 750 ms. Huit analyses complètes, aucun rejet natif.
+Rapport `speech-drift-slower-1738e659.json`. La fin est proche de la pente attendue,
+mais l'offset constant initial reste trop longtemps appliqué. La différence de
+première acquisition entre essais ne prouve pas un gain causal de ce correctif.
+Pas de preuve UI, audio audible ou Mentalist supplémentaire.
+
+## Windows après confirmation par région — 2026-09-16
+
+Le run `35076360711` à `df53e749` est **réussi**. Calibration : acquisition
+26,365 s, erreur 218 ms ; intro de 90 s : 122,787 s, erreur 277 ms. Restauration
+du cache : 2,091 s et 1,868 s. Contrôles manuel/audio, seeks connus/inconnus et
+fermeture passent. Rapports `windows-calibration-df53e749.json` et
+`windows-intro-90-df53e749.json`. Les limites PCM-vers-NUL et l'absence de preuve
+sur Mentalist ou plusieurs régions natives restent explicites.
+
+## Premier exercice upstream : dépendance native — 2026-09-16
+
+Le run initial `35078100333` a réellement détecté le nouvel upstream `7883cf8c`
+et quatre conflits ; ce n'était pas un run sans changement. Après résolution
+isolée, le parent `35078879715` a préparé et déclenché le candidat `18e50324`.
+Ses tests Dart passent. La CI générale `35078936531` signale quatre lignes de
+formatage Kotlin ajoutées par upstream et refuse l'ancien package Windows :
+le lock mpv-build a changé, mais elle recevait encore le run historique du manifeste.
+Le contrôle de provenance a donc empêché un mélange de versions natives.
+
+`0cef5ed8` place désormais la CI générale après le build natif Windows, comme le
+probe applicatif, et lui fournit ce nouveau run explicitement. Treize tests
+d'orchestration et actionlint passent. Ce correctif doit encore être inclus et
+exercé dans le prochain candidat. Les builds actifs de `18e50324` sont conservés ;
+aucune promotion ni PR de succès n'est annoncée.
+
+Build Mac Debug `0cef5ed8` (incluant `1738e659`) et signature stricte réussis.
+Copie conservée dans `build/livesync/review-builds/0cef5ed8/`, kernel SHA-256
+`540dd5eeff0fdfbcc2f3f285916c6b17c6e141b2dc931182f1d9ff501762de1d`.
+Ce build reste fondé sur upstream `e3875912` ; le candidat `7883cf8c` n'est pas
+encore promu et l'application conservée n'a pas été testée visuellement.
+
+## Conservation des horodatages affinés — 2026-09-16
+
+`0f355835` corrige la fusion des preuves d'un mapping. Une cue réobservée avec
+un horodatage affiné était utilisée pour calculer la nouvelle correction, puis
+l'ancien horodatage écrasait le nouveau dans la liste des ancres du segment.
+La fusion conserve maintenant la preuve candidate acceptée pour cette cue et
+ajoute les anciennes cues qui n'ont pas été réobservées. Les vérifications de
+compatibilité avec le mapping précédent restent en place.
+
+Deux régressions échouent avant et passent après : conservation de la nouvelle
+valeur dans le tracker, puis fusion avec des cues historiques non réobservées
+sans modification de l'ancienne map. **135 tests LiveSync passent**, analyse
+Flutter complète sans diagnostic. Cela ne démontre pas un gain sur Mentalist.
+
+## Dérive accélérée et estimation précoce non retenue — 2026-09-16
+
+Au SHA `2be90b08`, le probe PCM/ASR macOS sur LibriSpeech accéléré acquiert une
+première correction à **21,605 s**, puis une pente à **93,961 s**. Le suivi complet
+échoue : **p95 3,474 s**, maximum **3,689 s**, malgré une erreur finale de 720 ms.
+Huit analyses complètes, dont deux préfixes valides, aucun rejet natif.
+Rapport `speech-drift-faster-2be90b08.json`. Des tests Flutter tournaient pendant
+une partie de cet essai ; aucune conclusion sur les budgets de performance.
+Le code exécuté a été chargé avant le correctif de conservation des ancres.
+
+Un rejeu exploratoire des seules ancres numériques compare les seuils actuels
+(six cues, 60 s, paires espacées de 30 s) à quatre cues sur 20 s avec paires
+espacées de 10 s. Le candidat améliore un rejeu ralenti (p95 simulé 656 ms), mais
+échoue sur un autre (1,528 s) et sur le nouvel accéléré (2,949 s). Ces valeurs
+supposent les résultats disponibles une seconde après la fin des fenêtres ;
+elles ne reproduisent ni le tracker complet ni l'évolution de la cadence ASR.
+Rapport `early-slope-development-replay.json`. Aucun seuil de production n'est
+modifié sur la base de cet essai, qui ne comprend pas de corpus indépendant.
+
+## Build Mac du candidat upstream — 2026-09-16
+
+Le run `35078936569` est **réussi** à `18e50324`, avec upstream `7883cf8c` et
+mpv-build `6855ea37`. L'application Debug compile, sa signature stricte passe
+et **14 contrats natifs** liés à l'app passent sur macOS arm64 en VM. Artefacts
+`livesync-macos-app-18e50324b1b133eeab663a2c241725abf2d33661` et
+`livesync-macos-contracts-18e50324b1b133eeab663a2c241725abf2d33661`.
+Ce n'est pas une preuve UI/audio de Mentalist. Le candidat n'est pas promu :
+sa CI générale a échoué et sa compilation native Windows reste active.
+
+Build Mac `0f355835` et signature stricte vérifiés ; copie conservée dans
+`build/livesync/review-builds/0f355835/`, kernel SHA-256
+`49c468e306c1224c043d8724280ea036cbd1520ad05250bd69a2c0989a8fbcff`.
+Ce build local reste sur upstream `e3875912`, distinct du candidat CI `18e50324`.
+
+## Résultats Windows reçus — 2026-09-16
+
+À `2be90b08`, le run applicatif `35080466204` et la CI générale `35080468647`
+sont **réussis**. Calibration : acquisition 38,270 s, erreur 226 ms, cache 1,670 s.
+Introduction de 90 s : acquisition 126,641 s, erreur 232 ms, cache 1,642 s.
+Seeks connus/inconnus, délais audio/manuels, restauration du cache et arrêt du tap
+passent. Rapports `windows-{calibration,intro-90}-2be90b08.json`. Le contrôleur réel
+est exercé avec sortie PCM vers NUL ; cela ne valide ni l'audio perceptible ni
+Mentalist. Ce SHA ne contient pas le correctif ultérieur `0f355835`.
+
+Le build natif upstream `35078943474` à `18e50324` est également **réussi**, avec
+ses probes Windows PCM et sous-titres. Les échantillons vérifiés correspondent
+exactement au signal synthétique, les seeks avant/arrière, la vitesse, le
+débordement et la pause/désactivation passent. Le décodeur SRT local et HTTP
+préserve l'identité source et les délais signés/manuels. Rapport
+`upstream-native-35078943474.json`. Sorties nulles, aucun rendu visible ou audible
+validé. Le parent `35078879715` a terminé en **échec** à cause de la CI générale
+déjà documentée ; le candidat n'est pas promu et aucune PR de succès n'est créée.

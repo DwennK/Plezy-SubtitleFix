@@ -180,6 +180,31 @@ class OrchestrationTests(unittest.TestCase):
         self.assertNotIn("conclusion", checkpoints[0])
         self.assertEqual(checkpoints[-1]["conclusion"], "failure")
 
+    def test_native_consumers_receive_the_new_build_instead_of_historical_manifest_proof(self):
+        candidate = "a" * 40
+        completed = {"id": 123, "head_sha": candidate, "event": "workflow_dispatch", "status": "completed",
+                     "conclusion": "success", "display_title": f"LiveSync upstream {candidate}",
+                     "html_url": "https://github.com/example/run/123"}
+        for kind, field in (("checks", "native_run_id"), ("windows", "run_id")):
+            with self.subTest(kind=kind), patch.object(sync, "api", side_effect=[
+                    {"object": {"sha": candidate}}, {"workflow_runs": []},
+                    {"workflow_runs": [completed]}, completed]), patch.object(sync, "run") as run:
+                report = {}
+                sync.validate(candidate, kind, report, native_run="456")
+                self.assertIn(f"{field}=456", run.call_args.args)
+                self.assertIn(f"integration_id={candidate}", run.call_args.args)
+                self.assertEqual(report["conclusion"], "success")
+
+    def test_native_consumers_cannot_dispatch_without_a_native_build_identifier(self):
+        candidate = "a" * 40
+        for kind in ("checks", "windows"):
+            for native_run in (None, "", "not-a-run"):
+                with self.subTest(kind=kind, native_run=native_run), patch.object(sync, "api", side_effect=[
+                        {"object": {"sha": candidate}}, {"workflow_runs": []}]), patch.object(sync, "run") as run:
+                    with self.assertRaisesRegex(ValueError, "requires its verified native run"):
+                        sync.validate(candidate, kind, {}, native_run=native_run)
+                    run.assert_not_called()
+
 
 if __name__ == "__main__":
     unittest.main()
