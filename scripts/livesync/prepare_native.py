@@ -91,13 +91,15 @@ def prepare_mpv(manifest, destination):
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("component", choices=("whisper", "mpv-build", "models"))
+    parser.add_argument("component", choices=("whisper", "mpv-build", "models", "speech-model"))
     parser.add_argument("--dest", type=Path, required=True)
     args = parser.parse_args()
     manifest = json.loads(MANIFEST.read_text())
     if args.component == "models":
         for model in manifest["models"]:
             print(download_model(model, args.dest))
+    elif args.component == "speech-model":
+        print(download_model(manifest["speechDetector"], args.dest))
     elif args.component == "mpv-build":
         print(prepare_mpv(manifest, args.dest))
     else:
