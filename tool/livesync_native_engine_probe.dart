@@ -117,6 +117,8 @@ Future<Map<String, Object>> probe(Map<String, String> options) async {
     require(duplicateRejected, 'duplicate capture was accepted');
     runCommand(['loadfile', File(options['audio']!).absolute.path]);
     if (options['srt'] != null) {
+      require(['true', 'false'].contains(options['expect-no-lock'] ?? 'false'), 'Invalid negative-case flag');
+      final expectNoLock = options['expect-no-lock'] == 'true';
       final expectedOffset = double.parse(options['expected-offset'] ?? '-100');
       final maximumError = double.parse(options['maximum-error'] ?? '1.5');
       final analysisSeconds = int.parse(options['analysis-seconds'] ?? '75');
@@ -185,17 +187,23 @@ Future<Map<String, Object>> probe(Map<String, String> options) async {
         await Future<void>.delayed(const Duration(milliseconds: 100));
       }
       if (offset != null) property('sub-delay', offset.toString());
+      final completedAnalyses = analyses.where((entry) => entry.containsKey('match')).length;
       return {
         'kind': 'native-active-pcm-real-asr-and-domain-alignment',
         'platform': Platform.operatingSystem,
         'inferenceBackend': engine.inferenceBackend,
         'actualOffset': offset ?? 'none',
         'acquisitionMs': clock.elapsedMilliseconds,
-        'expectedOffset': expectedOffset,
-        'absoluteOffsetError': offset == null ? 'unavailable' : (offset - expectedOffset).abs(),
+        'expectedOffset': expectNoLock ? 'none' : expectedOffset,
+        'expectNoLock': expectNoLock,
+        'completedAnalyses': completedAnalyses,
+        'rejectedAnalyses': analyses.where((entry) => entry.containsKey('failure')).length,
+        'absoluteOffsetError': expectNoLock || offset == null ? 'unavailable' : (offset - expectedOffset).abs(),
         'maximumOffsetError': maximumError,
         'reference': 'authored SRT timings, not precise acoustic-onset ground truth',
-        'passed': offset != null && (offset - expectedOffset).abs() < maximumError,
+        'passed': expectNoLock
+            ? offset == null && completedAnalyses > 0
+            : offset != null && (offset - expectedOffset).abs() < maximumError,
         'analyses': analyses,
         'productionPlayerValidated': false,
         'audiblePlaybackValidated': false,
