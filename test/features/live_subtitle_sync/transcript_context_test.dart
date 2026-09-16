@@ -43,6 +43,47 @@ void main() {
     ]),
   );
 
+  test('ignored sound segments do not split independent dialogue context', () {
+    final subtitles = SubtitleIndex(
+      ParsedSubtitles(SubtitleEncoding.utf8, [
+        SubtitleCue(
+          ordinal: 0,
+          sourceId: null,
+          start: const Duration(seconds: 2),
+          end: const Duration(seconds: 4),
+          text: 'Carry the heavy lantern',
+          timingSuffix: '',
+        ),
+        SubtitleCue(
+          ordinal: 1,
+          sourceId: null,
+          start: const Duration(seconds: 10),
+          end: const Duration(seconds: 13),
+          text: 'Cross the bright bridge before sunrise',
+          timingSuffix: '',
+        ),
+      ]),
+    );
+    final earlier = window(90, 96, 'Carry the heavy lantern', 92);
+    final current = NativeTranscript(1, 2, 96.2, 115, 0.1, [
+      ...window(96.2, 115, '[music]', 97).segments,
+      ...window(96.2, 115, '[noise]', 98).segments,
+      ...window(96.2, 115, '(sighs)', 99).segments,
+      ...window(96.2, 115, 'Cross the wide bridge before sunrise', 100).segments,
+      ...window(96.2, 115, 'Astronauts explore distant planets orbiting unfamiliar stars tonight', 106).segments,
+    ]);
+    // The six-word recognition with one substitution is not enough alone.
+    expect(matchTranscriptEvidence(current, subtitles).match.status, isNot(TranscriptMatchStatus.matched));
+    final context = TranscriptContext()..add(earlier);
+    final evidence = matchTranscriptEvidence(current, subtitles, context: context.add(current));
+    expect(evidence.windowCount, 2);
+    expect(evidence.segmented, isTrue);
+    expect(evidence.match.status, TranscriptMatchStatus.matched);
+    expect(evidence.anchors.map((a) => a.cue), [0, 1]);
+    expect(evidence.anchors.map((a) => a.mediaTime), [92, 100]);
+    expect(const TimelineFitter().fit(evidence.anchors)?.offset, 90);
+  });
+
   test('two short adjacent windows identify a passage without lowering match thresholds', () {
     final context = TranscriptContext();
     final first = window(90, 96, 'Carry the lantern', 92);

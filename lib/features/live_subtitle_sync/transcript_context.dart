@@ -128,11 +128,17 @@ TranscriptEvidence _matchWindow(NativeTranscript source, SubtitleIndex index, in
     return TranscriptEvidence(whole, const [], windowCount);
   }
   const matcher = TranscriptMatcher();
+  // Sound/music annotations already contribute no matching words. They must
+  // not spend the three-dialogue-segment context budget or isolate a short
+  // useful phrase. Keep every spoken segment, its original tokens and times.
+  final dialogue = source.segments
+      .where((segment) => const DialogueNormalizer().words(segment.text).isNotEmpty)
+      .toList();
   final groups = <List<NativeTranscriptSegment>>[];
-  for (var start = 0; start < source.segments.length; start++) {
-    for (var count = 1; count <= 3 && start + count <= source.segments.length; count++) {
-      if (start == 0 && count == source.segments.length) continue;
-      final segments = source.segments.sublist(start, start + count);
+  for (var start = 0; start < dialogue.length; start++) {
+    for (var count = 1; count <= 3 && start + count <= dialogue.length; count++) {
+      if (start == 0 && count == dialogue.length && dialogue.length == source.segments.length) continue;
+      final segments = dialogue.sublist(start, start + count);
       final words = const DialogueNormalizer().words(segments.map((segment) => segment.text).join(' '));
       if (words.length < matcher.minimumWords ||
           words.length > 128 ||
