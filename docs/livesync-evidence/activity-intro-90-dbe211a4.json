@@ -1,0 +1,146 @@
+{
+  "provenance": {
+    "forkSha": "dbe211a4642814a16a7659fca2db05ac6c5443c8",
+    "scope": "Native Mac active PCM and shared VAD/cadence/timeline; not application UI. A single observation, not a latency distribution. Negative portion is a regression on an already consumed evaluation sample.",
+    "rawReportSha256": "0972d4f1ab47b83fe1d54f961797cd93f9e50d3972724d8aeb18cd4cbc67e7e3"
+  },
+  "report": {
+    "kind": "native-active-pcm-real-asr-and-domain-alignment",
+    "platform": "macos",
+    "inferenceBackend": "portable-cpu",
+    "alignmentEngine": "bounded-affine-timeline",
+    "acquiredMediaPosition": 115.625,
+    "learnedSegments": 1,
+    "activityChecks": 226,
+    "activityVoiceChecks": 50,
+    "activityTotalMicros": 170634,
+    "activityMaxMicros": 13553,
+    "actualOffset": 89.76166666666667,
+    "acquisitionMs": 115607,
+    "expectedOffset": 90.0,
+    "expectNoLock": false,
+    "completedAnalyses": 4,
+    "rejectedAnalyses": 0,
+    "absoluteOffsetError": 0.23833333333332973,
+    "maximumOffsetError": 0.75,
+    "reference": "authored SRT timings, not precise acoustic-onset ground truth",
+    "passed": true,
+    "analyses": [
+      {
+        "attempt": 1,
+        "windowStart": 0.6836666666666666,
+        "windowEnd": 8.703041666666667,
+        "match": "insufficientDialogue",
+        "contextWindows": 1,
+        "segmentedMatch": false,
+        "transcriptWords": 0,
+        "wordsInSubtitleVocabulary": 0,
+        "contextWords": 0,
+        "segmentBounds": [],
+        "similarity": null,
+        "anchors": []
+      },
+      {
+        "attempt": 2,
+        "windowStart": 75.86304166666666,
+        "windowEnd": 90.86304166666666,
+        "match": "insufficientDialogue",
+        "contextWindows": 1,
+        "segmentedMatch": false,
+        "transcriptWords": 0,
+        "wordsInSubtitleVocabulary": 0,
+        "contextWords": 0,
+        "segmentBounds": [],
+        "similarity": null,
+        "anchors": []
+      },
+      {
+        "attempt": 3,
+        "windowStart": 87.89504166666666,
+        "windowEnd": 102.89504166666666,
+        "match": "matched",
+        "contextWindows": 1,
+        "segmentedMatch": false,
+        "transcriptWords": 10,
+        "wordsInSubtitleVocabulary": 10,
+        "contextWords": 0,
+        "segmentBounds": [
+          {
+            "start": 87.89504166666666,
+            "end": 94.89504166666666,
+            "timedTokens": 7,
+            "firstToken": 97.11504166666666,
+            "lastToken": 99.91504166666665
+          },
+          {
+            "start": 94.89504166666666,
+            "end": 102.89504166666666,
+            "timedTokens": 5,
+            "firstToken": 101.59504166666666,
+            "lastToken": 102.87504166666666
+          }
+        ],
+        "similarity": 1.0,
+        "anchors": [
+          {
+            "cue": 1,
+            "offset": 89.79504166666666
+          }
+        ]
+      },
+      {
+        "attempt": 4,
+        "windowStart": 99.84166666666667,
+        "windowEnd": 114.84166666666667,
+        "match": "matched",
+        "contextWindows": 1,
+        "segmentedMatch": false,
+        "transcriptWords": 24,
+        "wordsInSubtitleVocabulary": 24,
+        "contextWords": 0,
+        "segmentBounds": [
+          {
+            "start": 99.84166666666667,
+            "end": 103.84166666666667,
+            "timedTokens": 7,
+            "firstToken": 101.60166666666667,
+            "lastToken": 106.94166666666666
+          },
+          {
+            "start": 106.84166666666667,
+            "end": 109.84166666666667,
+            "timedTokens": 11,
+            "firstToken": 107.76166666666667,
+            "lastToken": 110.66166666666666
+          },
+          {
+            "start": 110.84166666666667,
+            "end": 112.84166666666667,
+            "timedTokens": 9,
+            "firstToken": 111.46166666666667,
+            "lastToken": 112.84166666666667
+          }
+        ],
+        "similarity": 0.875,
+        "anchors": [
+          {
+            "cue": 1,
+            "offset": 89.80166666666668
+          },
+          {
+            "cue": 2,
+            "offset": 89.76166666666667
+          },
+          {
+            "cue": 3,
+            "offset": 89.71166666666667
+          }
+        ]
+      }
+    ],
+    "productionPlayerValidated": false,
+    "audiblePlaybackValidated": false,
+    "pcmOrTranscriptPersisted": false,
+    "mainIsolateHeartbeatTicks": 4631
+  }
+}

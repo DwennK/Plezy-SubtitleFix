@@ -46,7 +46,13 @@ timeline acquiert aussi le générique de 90 s (erreur 212 ms, délai total 135,
 Ces résultats ne prouvent ni la dérive réelle ni une précision statistique :
 l'extrait court de validation échoue encore, et un autre acquiert en 195,723 s.
 
-Les gaps confirmés et leur rendu, le VAD, le cache de mappings et la suppression
+Le suivi léger d'activité vocale est branché, avec un retour périodique à ASR
+pour la parole manquée et sans accorder de confiance sur ce seul indice. Il
+réagit à la reprise d'activité et aux désaccords avec les durées des cues ; il
+ne sait pas séparer fiablement musique et voix. Les premiers essais natifs Mac
+passent, sa validation applicative Windows reste en cours.
+
+Les gaps confirmés et leur rendu, le cache de mappings et la suppression
 du modèle dans les paramètres ne sont pas livrés. La dérive avec vraie parole,
 les performances, la validation native de Mentalist et les autres critères de
 livraison restent ouverts. Aucun build final annoncé. Voir les preuves exactes

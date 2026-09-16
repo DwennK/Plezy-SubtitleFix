@@ -993,3 +993,71 @@ Les contrôles finaux de code et de fichiers inutilisés passent. Le build macOS
 debug `f80d7e65` et sa signature stricte passent ; sa copie de revue et le hash
 du kernel Dart sont conservés dans `build/livesync/review-builds/f80d7e65/`.
 Cela ne valide pas l'interface verrouillée ni le recalage audible de Mentalist.
+
+### Contrôleur Windows : générique, navigation et délais confirmés
+
+Le run [35053526846](https://github.com/DwennK/Plezy-SubtitleFix/actions/runs/35053526846)
+est entièrement vert à `3e4b4229` :
+
+| Cas | Acquisition totale | Correction | Erreur / SRT |
+|---|---:|---:|---:|
+| Calibration | 38,672 s | −100,236 s | 236 ms |
+| Intro de 90 s | 120,162 s | +89,799 s | 201 ms |
+
+Dans chaque cas, le contrôleur réel vérifie le délai natif, un seek en zone
+inconnue qui retire seulement sa correction, le retour dans une zone apprise,
+les deux signes du délai audio manuel, le délai manuel des sous-titres et leur
+conservation après désactivation. Les rapports `windows-*-3e4b4229.json`
+conservent cette preuve. Sortie audio NUL et GPU logiciel : aucune validation
+audible ou sur GPU physique. Ce succès suit l'échec conservé à `785dcef2` et ne
+démontre pas une acquisition déterministe ni un p95. Il précède la nouvelle
+cadence et le VAD. La CI upstream complète
+[35054120815](https://github.com/DwennK/Plezy-SubtitleFix/actions/runs/35054120815)
+est également verte à `0d795195`.
+
+### Suivi d'activité vocale — `dbe211a4`
+
+Le VAD léger est branché au contrôleur et au probe natif, dans l'isolate existant.
+Il examine les nouveaux échantillons de snapshots PCM de deux secondes et ne
+renvoie que des agrégats temporels. La cadence réagit aux reprises d'activité et
+compare les durées avec l'union des cues de dialogue. Un désaccord déclenche une
+vérification ; il ne crée aucune confiance ni aucun décalage. Le bruit musical
+continu ne peut pas imposer indéfiniment une cadence de 12 s. Détails et limites :
+`docs/live-subtitle-sync-activity.md`.
+
+Deux essais natifs Mac du code figé, avec les mêmes bibliothèques CPU :
+
+| Cas | Résultat | Activité / analyses |
+|---|---|---|
+| Intro 90 s | +89,762 s, erreur 238 ms, acquisition 115,607 s | 226 lectures d'activité ; quatre ASR terminés, aucun rejet |
+| Négatif 650–888 s | Aucun verrouillage en 238,062 s | 464 lectures d'activité ; six ASR terminés, cinq rejets |
+
+La première ligne représente un essai de développement, la seconde une
+régression d'une portion de validation déjà consommée. Le détecteur considère
+455/464 observations du passage musical négatif comme actives : **il ne sépare
+pas fiablement musique et parole**. Le rapprochement textuel/temporel empêche
+néanmoins le verrouillage dans cet essai. Les rejets natifs restent visibles et
+ne sont pas comptés comme analyses réussies.
+
+Les appels d'activité prennent au total 170,634 ms / maximum 13,553 ms pour
+l'intro et 324,011 ms / maximum 13,920 ms pour le négatif, dans l'isolate de test.
+Ce sont des durées murales ponctuelles, pas des mesures CPU/UI ni un p95 de
+transcription. Rapports : `activity-{intro-90,negative}-dbe211a4.json`.
+La nouvelle CI applicative Windows
+[35054766606](https://github.com/DwennK/Plezy-SubtitleFix/actions/runs/35054766606)
+reste en cours ; les résultats Windows précédents ne valident pas le VAD.
+
+### Absence de PCM et build de revue — `c679fc8a`
+
+Après 30 secondes observées de lecture active sans aucun échantillon, la capture
+s'arrête avec l'état d'indisponibilité. Pause, buffering et PCM silencieux ne
+déclenchent pas ce délai. Le passthrough est vérifié pendant la lecture sans
+être désactivé. Le changement de session attend la fin d'un worker en fermeture.
+Trois tests de disponibilité et les régressions lifecycle/délai manuel passent ;
+ce n'est pas encore une preuve native d'injection de panne.
+
+**104 tests ciblés**, analyse complète et contrôles de code/fichiers inutilisés
+passent. Le build macOS debug `c679fc8a` et sa signature stricte passent ; copie
+et provenance dans `build/livesync/review-builds/c679fc8a/`. Les contrôles visuels
+sur le Mac verrouillé, la dérive réelle, les gaps et les autres critères du Goal
+restent ouverts. Aucun statut de livraison finale n'est attribué.

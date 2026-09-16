@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "product": "Plezy + LiveSync",
   "status": "in-development-not-validated",
-  "recordedAt": "2026-09-16T03:47:23.043607+00:00",
+  "recordedAt": "2026-09-16T04:26:50.598720+00:00",
   "upstream": {
     "repository": "edde746/plezy",
     "branch": "main",
@@ -659,7 +659,7 @@
       "ciRun": 35034268551,
       "forkSha": "c4e64bba647bcf424517f8fe7481b4e910819194"
     },
-    "qualityLimitations": "Whole upstream CI 35052223364 passed at 785dcef2. Later timeline/audio-delay changes require their own native CI. Native UI, physical hardware and performance budgets remain incomplete.",
+    "qualityLimitations": "Whole upstream CI 35054120815 passed at 0d795195. Later audio activity/watchdog changes require new CI. Native UI on Mentalist, physical hardware and performance budgets remain incomplete.",
     "nativeCaptureOwner": {
       "localResult": "passed real decoder PCM, forward/backward seeks, pause, exclusive capture and weak-client release on parent shutdown",
       "platform": "macOS arm64 Apple M4",
@@ -708,9 +708,9 @@
     },
     "timelineIntegration": {
       "forkSha": "55da27265cc1775e458000fc4a277e43f4a684fc",
-      "focusedLocalTestsPassed": 93,
-      "windowsCiRun": 35053833262,
-      "nativeStatus": "Retry policy application run queued at 3186f7a8. Earlier Windows intro at 785dcef2 failed; new Mac native probe passed, not application UI.",
+      "focusedLocalTestsPassed": 104,
+      "windowsCiRun": 35054766606,
+      "nativeStatus": "Timeline, intro and manual delays confirmed on Windows at 3e4b4229. Audio activity application run dbe211a4 in progress. The no-PCM watchdog c679fc8a has domain tests and a signed Mac build; native injected-failure validation remains pending.",
       "gapSuppressionImplemented": false,
       "persistentCacheImplemented": false,
       "nativeIntro90": {
@@ -720,14 +720,13 @@
         "scope": "55da2726 tracker and native media clock, zero manual audio delay; not production UI."
       },
       "macosBuild": {
-        "forkSha": "f80d7e6584187c2efe11cd8521417186517bdacb",
+        "forkSha": "c679fc8a8533c09092d2a891e081ef05f95394f9",
         "upstreamSha": "e38759127a1fb26c4cd99172ba6609fd50e355d9",
         "platform": "macos-arm64",
         "configuration": "debug",
         "strictSignatureVerified": true,
-        "dartKernelSha256": "851777da1bcb3ab470808f5dca3b2a90aa513bd22fc4f4951e988ecc9cbd04a6",
-        "focusedTestsPassed": 93,
-        "finalMigratedTestsPassed": 16,
+        "dartKernelSha256": "4d37f88cec992bcd4a33d51c411127391b7e3baf44b0bd632e86b7eb2c7b87ed",
+        "focusedTestsPassed": 104,
         "nativeUiValidated": false
       },
       "cadenceIntro90": {
@@ -737,7 +736,18 @@
         "absoluteOffsetErrorSeconds": 0.22497916666667
       },
       "finalUnusedCode": "passed at f80d7e65; no suppression",
-      "finalUnusedFiles": "passed"
+      "finalUnusedFiles": "passed",
+      "windowsNativeConfirmed": {
+        "ciRun": 35053526846,
+        "forkSha": "3e4b4229444bdd305375a9707094699e633e10e9",
+        "cases": [
+          "calibration",
+          "intro-90"
+        ],
+        "knownAndUnknownSeeks": true,
+        "manualSubtitleAndAudioDelays": true,
+        "audiblePlayback": false
+      }
     },
     "windowsIntro90": {
       "ciRun": 35052221863,
@@ -746,6 +756,19 @@
       "failure": "acquisition-timeout",
       "observedLocks": 0,
       "report": "docs/livesync-evidence/windows-intro-90-785dcef2.json"
+    },
+    "audioActivity": {
+      "forkSha": "dbe211a4642814a16a7659fca2db05ac6c5443c8",
+      "macosIntro90Report": "docs/livesync-evidence/activity-intro-90-dbe211a4.json",
+      "macosNegativeRegressionReport": "docs/livesync-evidence/activity-negative-dbe211a4.json",
+      "windowsCiRun": 35054766606,
+      "windowsStatus": "in progress",
+      "classificationAccuracyValidated": false
+    },
+    "pcmAvailability": {
+      "forkSha": "c679fc8a8533c09092d2a891e081ef05f95394f9",
+      "timeoutSeconds": 30,
+      "scope": "Active unbuffered startup with zero samples; silence with PCM is accepted. Native failure-path application validation remains pending."
     }
   }
 }

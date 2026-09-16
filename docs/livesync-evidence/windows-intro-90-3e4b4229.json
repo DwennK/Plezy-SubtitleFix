@@ -1,0 +1,37 @@
+{
+  "provenance": {
+    "ciRun": 35053526846,
+    "forkSha": "3e4b4229444bdd305375a9707094699e633e10e9",
+    "scope": "Production Windows controller with affine tracker, known/unknown paused seeks, manual subtitle and audio delays; before activity monitoring and prompt retry policy.",
+    "rawReportSha256": "9763aab0b159efe06101d14785d25dcbd4011f87d5729850a751fe4d08d48955"
+  },
+  "report": {
+    "kind": "actual-plezy-production-controller-calibration",
+    "platform": "windows",
+    "inferenceBackend": "avx2-cpu",
+    "expectedOffset": 90.0,
+    "absoluteOffsetError": 0.20097916666667004,
+    "maximumOffsetError": 0.75,
+    "modelId": "base.en",
+    "modelSha256": "a03779c86df3323075f5e796cb2ce5029f00ec8869eee3fdfb897afe36c6d002",
+    "fixtureCase": "intro-90",
+    "introSilenceSeconds": 90,
+    "actualOffset": 89.79902083333333,
+    "reference": "authored Sintel SRT, not precise acoustic-onset ground truth",
+    "acquisitionMs": 120162,
+    "nativeDelay": 89.924019,
+    "audioPartitionSeconds": [
+      100,
+      175
+    ],
+    "audioOutput": "pcm-to-NUL",
+    "audiblePlaybackValidated": false,
+    "pcmOrTranscriptPersisted": false,
+    "knownRegionRestoredAfterSeek": true,
+    "unknownSeekClearsAutomaticOnly": true,
+    "audioDelayCompositionAndPreservation": true,
+    "manualDelayDuringAndAfter": true,
+    "tapDisabledOnClose": true,
+    "passed": true
+  }
+}

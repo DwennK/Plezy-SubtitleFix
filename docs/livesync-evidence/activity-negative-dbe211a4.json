@@ -1,0 +1,187 @@
+{
+  "provenance": {
+    "forkSha": "dbe211a4642814a16a7659fca2db05ac6c5443c8",
+    "scope": "Native Mac active PCM and shared VAD/cadence/timeline; not application UI. A single observation, not a latency distribution. Negative portion is a regression on an already consumed evaluation sample.",
+    "rawReportSha256": "0597602cc2a78ea8f066220362b3d725c546dc93751692fe24a2fd903a3ef0b2"
+  },
+  "report": {
+    "kind": "native-active-pcm-real-asr-and-domain-alignment",
+    "platform": "macos",
+    "inferenceBackend": "portable-cpu",
+    "alignmentEngine": "bounded-affine-timeline",
+    "acquiredMediaPosition": "none",
+    "learnedSegments": 0,
+    "activityChecks": 464,
+    "activityVoiceChecks": 455,
+    "activityTotalMicros": 324011,
+    "activityMaxMicros": 13920,
+    "actualOffset": "none",
+    "acquisitionMs": 238062,
+    "expectedOffset": "none",
+    "expectNoLock": true,
+    "completedAnalyses": 6,
+    "rejectedAnalyses": 5,
+    "absoluteOffsetError": "unavailable",
+    "maximumOffsetError": 1.5,
+    "reference": "authored SRT timings, not precise acoustic-onset ground truth",
+    "passed": true,
+    "analyses": [
+      {
+        "attempt": 1,
+        "windowStart": 0.6836666666666668,
+        "windowEnd": 8.703041666666667,
+        "match": "insufficientDialogue",
+        "contextWindows": 1,
+        "segmentedMatch": false,
+        "transcriptWords": 2,
+        "wordsInSubtitleVocabulary": 0,
+        "contextWords": 0,
+        "segmentBounds": [
+          {
+            "start": 0.6836666666666668,
+            "end": 3.443666666666667,
+            "timedTokens": 6,
+            "firstToken": 3.423666666666667,
+            "lastToken": 3.443666666666667
+          }
+        ],
+        "similarity": null,
+        "anchors": []
+      },
+      {
+        "attempt": 2,
+        "windowStart": 5.564354166666667,
+        "windowEnd": 20.564354166666668,
+        "match": "insufficientDialogue",
+        "contextWindows": 1,
+        "segmentedMatch": false,
+        "transcriptWords": 2,
+        "wordsInSubtitleVocabulary": 0,
+        "contextWords": 4,
+        "segmentBounds": [
+          {
+            "start": 5.564354166666667,
+            "end": 8.324354166666668,
+            "timedTokens": 6,
+            "firstToken": 8.304354166666666,
+            "lastToken": 8.324354166666668
+          }
+        ],
+        "similarity": null,
+        "anchors": []
+      },
+      {
+        "attempt": 3,
+        "windowStart": 17.681666666666665,
+        "windowEnd": 32.681666666666665,
+        "match": "insufficientDialogue",
+        "contextWindows": 1,
+        "segmentedMatch": false,
+        "transcriptWords": 0,
+        "wordsInSubtitleVocabulary": 0,
+        "contextWords": 2,
+        "segmentBounds": [
+          {
+            "start": 17.681666666666665,
+            "end": 27.681666666666665,
+            "timedTokens": 5,
+            "firstToken": 19.181666666666665,
+            "lastToken": 19.881666666666664
+          }
+        ],
+        "similarity": null,
+        "anchors": []
+      },
+      {
+        "attempt": 4,
+        "windowStart": 29.713666666666665,
+        "windowEnd": 44.71366666666667,
+        "match": "insufficientDialogue",
+        "contextWindows": 1,
+        "segmentedMatch": false,
+        "transcriptWords": 1,
+        "wordsInSubtitleVocabulary": 0,
+        "contextWords": 1,
+        "segmentBounds": [
+          {
+            "start": 29.713666666666665,
+            "end": 31.713666666666665,
+            "timedTokens": 4,
+            "firstToken": 31.693666666666665,
+            "lastToken": 31.713666666666665
+          }
+        ],
+        "similarity": null,
+        "anchors": []
+      },
+      {
+        "attempt": 5,
+        "windowStart": 59.75104166666667,
+        "windowEnd": 74.75104166666668,
+        "match": "insufficientDialogue",
+        "contextWindows": 1,
+        "segmentedMatch": false,
+        "transcriptWords": 2,
+        "wordsInSubtitleVocabulary": 0,
+        "contextWords": 0,
+        "segmentBounds": [
+          {
+            "start": 59.75104166666667,
+            "end": 61.75104166666667,
+            "timedTokens": 4,
+            "firstToken": 61.271041666666676,
+            "lastToken": 61.29104166666667
+          }
+        ],
+        "similarity": null,
+        "anchors": []
+      },
+      {
+        "attempt": 6,
+        "windowStart": 89.87366666666667,
+        "windowEnd": 104.87366666666667,
+        "match": "insufficientDialogue",
+        "contextWindows": 1,
+        "segmentedMatch": false,
+        "transcriptWords": 0,
+        "wordsInSubtitleVocabulary": 0,
+        "contextWords": 0,
+        "segmentBounds": [
+          {
+            "start": 89.87366666666667,
+            "end": 96.87366666666667,
+            "timedTokens": 3,
+            "firstToken": 96.57366666666667,
+            "lastToken": 96.61366666666666
+          }
+        ],
+        "similarity": null,
+        "anchors": []
+      },
+      {
+        "attempt": 7,
+        "failure": "inferenceUnavailable"
+      },
+      {
+        "attempt": 8,
+        "failure": "invalidOutput"
+      },
+      {
+        "attempt": 9,
+        "failure": "invalidOutput"
+      },
+      {
+        "attempt": 10,
+        "failure": "invalidOutput"
+      },
+      {
+        "attempt": 11,
+        "failure": "invalidOutput"
+      }
+    ],
+    "productionPlayerValidated": false,
+    "audiblePlaybackValidated": false,
+    "pcmOrTranscriptPersisted": false,
+    "mainIsolateHeartbeatTicks": 9529
+  }
+}

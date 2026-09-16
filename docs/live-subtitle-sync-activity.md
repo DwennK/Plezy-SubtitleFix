@@ -48,3 +48,12 @@ continuous music-like input. The native probe measures the aggregate cost and
 maximum wall duration of these background calls during real PCM playback.
 Neither that maximum nor synthetic tests establish UI latency, CPU/GPU usage,
 speech-classification accuracy, audible playback or dropped-frame budgets.
+
+The controller also stops a capture that supplies no samples for 30 observed
+seconds of active, unbuffered playback. Silence is not a failure: silent PCM
+contains samples. Pauses, buffering and long polling gaps cannot consume this
+deadline at once. Passthrough is rechecked during playback and is never silently
+disabled. Teardown waits for the native worker before a new session can own the
+capture, and removes only the automatic subtitle contribution. This watchdog
+covers startup absence; it does not yet diagnose every possible stale-buffer or
+unexpected-isolate-exit failure.
