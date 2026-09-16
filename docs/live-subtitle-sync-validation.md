@@ -1864,3 +1864,28 @@ dossier complet de DLL/data conservé. Aucun lancement utilisateur, installation
 notarisation ou Mentalist n’est déduit de ces contrôles.
 [Reçu](livesync-evidence/draft-test-artifacts-0d2482fb.json).
 Upstream refetché/revérifié à 15:37:14 UTC : même `7883cf8c`, stable 2.20.0.
+
+
+### Scènes réelles et arrêt d’une prédiction contredite
+
+La reconstruction locale du natif épinglé `6855ea3776b437a922c0c7841560842e799fc152`
+est terminée. Les contrats PCM horodaté et resampler 16 kHz passent, y compris
+les seeks. Trois inférences sérielles au source `6ff7ae18` confirment les échecs
+des montages ajout/suppression/cue traversante : aucun gap appris, p95 de
+30,205 / 12,795 / 30,210 s, malgré une récupération finale de l’offset.
+[Rapports natifs et provenance](livesync-evidence/scene-edit-fixtures.md).
+Les essais sont des régressions de développement ; aucune partition intacte
+ni donnée Mentalist n’a été consommée. La PR nº 5 est intégrée dans `440ba749`.
+
+Le candidat séparé `b873ff50`, PR nº 6 brouillon, corrige un défaut de suivi
+identifié dans ces rapports : deux cues indépendantes peuvent contredire
+l’extrapolation active sans encore fournir un fit cohérent. Il retire alors
+la prédiction, conserve les domaines observés et exige une région confirmée
+pour reprendre. Huit cas de régression, 161 tests LiveSync sans skip et
+l’analyse Flutter complète passent localement. L’inférence réelle ciblée confirme
+le retrait de la prédiction entre 82,002 et 93,256 s, mais expose une régression :
+le retour au délai nul porte le p95 à 70 s. Le candidat n’est donc pas promu.
+Une règle de présentation séparée est en préparation : masquer temporairement
+les cues dont l’extrapolation est contredite, sans inventer un gap ni le cacher
+dans les métriques de suivi. Contrôleur Windows et CI restent à vérifier.
+Il ne localise aucune coupure et ne corrige pas encore Mentalist dans l’UI.

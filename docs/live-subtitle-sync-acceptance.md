@@ -107,7 +107,16 @@ fixtures réelles à coupures connues et leurs premières inférences au SHA
 Les trois cas apprennent deux régions mais aucun gap. Après ajout de 30 s,
 la récupération prend 29,634 s et le p95 de suivi vaut 30,210 s. Après suppression
 de 13 s : 11,575 s et p95 12,780 s. Le cas coupant une cue échoue également.
-Ces essais utilisent l’ancienne bibliothèque locale c734, sans UI ni audio audible ;
-ils démontrent une limite du suivi, pas une validation du bundle actuel.
-La reconstruction locale du natif upstream actuel est engagée pour poursuivre
-ce travail. Détection des coupures et rendu des cues traversantes restent requis.
+Ces premiers essais utilisent l’ancienne bibliothèque locale c734. Une deuxième
+série au SHA `6ff7ae18`, après reconstruction locale du natif épinglé courant,
+confirme les trois échecs : aucun gap, p95 de 30,205 / 12,795 / 30,210 s.
+La capture PCM et le resampler passent leurs contrats natifs ; cela ne valide
+ni le bundle CI exact, ni l’UI, ni l’audio audible. La PR nº 5 est intégrée dans
+`440ba749` : [preuves et limites](livesync-evidence/scene-edit-fixtures.md).
+Détection des coupures et rendu des cues traversantes restent requis.
+
+La [PR nº 6](https://github.com/DwennK/Plezy-SubtitleFix/pull/6), encore séparée,
+retire une extrapolation lorsque deux répliques indépendantes contredisent
+l’ancien mapping sans permettre un nouveau fit. Elle ne détecte aucun gap et
+ne constitue pas une correction complète des scènes différentes. Le build
+brouillon `0d2482fb` ne contient pas ce candidat.
