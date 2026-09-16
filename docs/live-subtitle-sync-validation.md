@@ -4,8 +4,9 @@
 
 Travail en cours, pas de livraison répondant à tous les critères. Des acquisitions
 automatiques passent dans le contrôleur Windows et dans les probes natifs Mac.
-La validation visible et audible de Mentalist, la dérive dans le lecteur réel, les gaps, le
-cache, les performances et la distribution restent incomplets. Les sections
+Le cache passe maintenant dans le contrôleur Windows. La validation visible et audible
+de Mentalist, la dérive dans le lecteur réel, les gaps, les performances et la
+distribution restent incomplets. Les sections
 datées ci-dessous distinguent les résultats historiques des avancées suivantes.
 
 ## Référence initiale (2026-09-15)
@@ -1312,3 +1313,64 @@ erreur 232 ms. L'aller-retour connu/inconnu/connu et la composition des délais
 manuel/audio passent. Rapports `windows-calibration-9b13df5b.json` et
 `windows-intro-90-9b13df5b.json`. Ce succès valide les corrections du protocole
 de test, pas le cache ajouté ensuite, la dérive, Mentalist ou une sortie audible.
+
+
+## Cache Windows confirmé et hygiène des traductions — 2026-09-16
+
+Run natif `35072088059`, SHA `16a64221`, **réussi**. Les rapports numériques
+`windows-calibration-16a64221.json` et `windows-intro-90-16a64221.json`
+confirment le chargement des mappings depuis le disque après désactivation et
+réactivation, puis les déplacements vers une région inconnue et une connue.
+La référence de correction est conservée exactement avec les délais manuel/audio.
+
+| Cas | Acquisition initiale | Erreur SRT | Restauration du cache |
+| --- | ---: | ---: | ---: |
+| Calibration | 39,024 s | 274 ms | 1,867 s |
+| Intro silencieuse de 90 s | 124,976 s | 232 ms | 1,824 s |
+
+Mesures fonctionnelles uniques, application Windows/WARP et sortie PCM vers NUL.
+Pas de sortie matérielle audible, de redémarrage complet du processus, de
+validation Mac native du cache ou de percentile statistique.
+
+La CI générale initiale `35072090450` échoue à l'hygiène des traductions : les
+huit nouvelles clés doivent exister dans les vingt autres catalogues avec la
+valeur vide prévue par `base_locale_empty_string`. Correction `302bcb22`, sans
+modification du Dart généré ; CI générale `35072506135` entièrement réussie.
+
+## Réponses d'erreur natives ignorées — 2026-09-16
+
+`3da717cc` corrige un blocage du protocole entre l'isolate d'analyse et le
+contrôleur. Les succès sont des messages à trois champs ; les échecs ont quatre
+champs, dont un statut natif optionnel. Le récepteur exigeait trois champs avant
+de traiter les deux cas. Tous les échecs à quatre champs étaient donc ignorés,
+et leur Future restait en attente. Une analyse échouée pouvait bloquer les ticks
+suivants, sans atteindre le mécanisme de nouvelle tentative du contrôleur.
+
+Le récepteur distingue maintenant explicitement les deux formes et ne transmet
+que la raison typée et le statut numérique. Le test passe par le véritable
+isolate Dart et provoque un rejet d'ABI avant toute utilisation de pointeur :
+**avant**, expiration après cinq secondes ; **après**, erreur `incompatibleAbi`,
+fermeture du worker et libération de la réservation du modèle. Les 128 tests
+LiveSync passent et l'analyse Flutter complète ne signale aucun diagnostic.
+
+Build Mac Debug compilé, signature stricte vérifiée ; copie conservée dans
+`build/livesync/review-builds/3da717cc/`, kernel SHA-256
+`a1b23b6bd5240eae3e19262fed2892c107867657a0189e508ea10c80a33c44a9`.
+Windows natif `35075644905` et CI générale `35075647742` lancés à ce SHA.
+Le correctif ne prouve pas la cause de la session Mentalist et ne supervise pas
+encore une terminaison inattendue de l'isolate. Pas de nouvelle preuve UI/audio.
+
+## Essais de reconnaissance non retenus — 2026-09-16
+
+Sur les fenêtres de développement LibriSpeech déjà consommées, base.en et
+base.en-q5_1 substituent tous deux le début de la cue 4. Sept mots exacts autour
+du mot manquant ne suffisent pas : un token de ce mot et un token du contexte
+gauche ont une reconnaissance inférieure au seuil existant de 0,35. La tentative
+de récupération reste refusée. Son code expérimental et ses tests synthétiques
+ont été retirés ; aucun seuil n'a été abaissé.
+
+Cinq essais contrôlés de fenêtres de quinze secondes aux mêmes fins de fenêtres
+n'ajoutent aucun début de cue fiable. Ils ne justifient pas une modification de
+la cadence. La dérive complète reste en échec (p95 2,490 s dans le rapport
+`speech-drift-slower-574ef060.json`). Les résultats contrôlés ne sont ni un
+benchmark de performances ni une preuve sur Mentalist.

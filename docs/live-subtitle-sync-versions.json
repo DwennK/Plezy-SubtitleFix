@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "product": "Plezy + LiveSync",
   "status": "in-development-not-validated",
-  "recordedAt": "2026-09-16T08:08:59.266288+00:00",
+  "recordedAt": "2026-09-16T08:48:02.362246+00:00",
   "upstream": {
     "repository": "edde746/plezy",
     "branch": "main",
@@ -659,7 +659,7 @@
       "ciRun": 35034268551,
       "forkSha": "c4e64bba647bcf424517f8fe7481b4e910819194"
     },
-    "qualityLimitations": "127 focused tests, whole analysis, codegen and signed Mac build passed at 16a64221. Windows 9b13df5b passed calibration, intro and post-lock controls; cache native run 35072088059 and full CI 35072090450 are in progress. Mentalist, full-playback drift, gap handling and performance budgets remain incomplete.",
+    "qualityLimitations": "128 focused tests, whole analysis and signed Mac build passed at 3da717cc. Windows 16a64221 passed calibration, intro, manual/audio controls and persistent cache restore; general CI 302bcb22 passed. Native Windows 35075644905 and general CI 35075647742 at 3da717cc are pending. Mentalist, full-playback drift, gap handling and performance budgets remain incomplete.",
     "nativeCaptureOwner": {
       "localResult": "passed real decoder PCM, forward/backward seeks, pause, exclusive capture and weak-client release on parent shutdown",
       "platform": "macOS arm64 Apple M4",
@@ -710,7 +710,7 @@
       "forkSha": "55da27265cc1775e458000fc4a277e43f4a684fc",
       "focusedLocalTestsPassed": 111,
       "windowsCiRun": 35054766606,
-      "nativeStatus": "Windows 9b13df5b passed native calibration, intro-90, exact known/unknown/known seek restoration and manual/audio delay composition. Persistent cache added at 16a64221; native validation pending.",
+      "nativeStatus": "Windows 16a64221 passed native calibration, intro-90, exact known/unknown/known seeks, manual/audio delay and persistent cache restoration. No hardware audio or Mentalist validation.",
       "gapSuppressionImplemented": false,
       "persistentCacheImplemented": true,
       "nativeIntro90": {
@@ -720,14 +720,17 @@
         "scope": "55da2726 tracker and native media clock, zero manual audio delay; not production UI."
       },
       "macosBuild": {
-        "forkSha": "16a64221de997c3a3ca621ebe653aa3ddb54a778",
+        "forkSha": "3da717cc51982cde46a278b3c13ea5f937b193f0",
+        "dartKernelSha256": "a1b23b6bd5240eae3e19262fed2892c107867657a0189e508ea10c80a33c44a9",
+        "focusedTestsPassed": 128,
+        "wholeAnalysisPassed": true,
+        "strictSignatureVerified": true,
+        "nativeUiValidated": false,
+        "nativeCacheValidated": false,
+        "scope": "Application compiled from the unchanged source files committed at this SHA during compilation. Four-field native error response regression passed through a real Dart isolate; no native UI or Mentalist replay.",
         "upstreamSha": "e38759127a1fb26c4cd99172ba6609fd50e355d9",
         "platform": "macos-arm64",
-        "configuration": "debug",
-        "strictSignatureVerified": true,
-        "dartKernelSha256": "fe4a3e8084c7a4cc3c088a32b491f2985ab02cf8cf0ea2b5a73f6dcb29ce331c",
-        "focusedTestsPassed": 127,
-        "nativeUiValidated": false
+        "configuration": "debug"
       },
       "cadenceIntro90": {
         "report": "docs/livesync-evidence/cadence-intro-90-macos-native.json",
@@ -876,12 +879,44 @@
       "macosBuildAndSignaturePassed": true,
       "settingsWidgetViewport": "1440x900",
       "nativeUiValidated": false,
-      "nativeCacheValidated": false,
+      "nativeCacheValidated": true,
       "windowsCiRun": 35072088059,
-      "windowsCiStatus": "in progress",
-      "upstreamCiRun": 35072090450,
-      "upstreamCiStatus": "in progress",
-      "limitations": "Requires complete current SRT and discriminating media metadata; no reduction of embedded Plex extraction time. Model/cache settings have Flutter widget tests, not native visual QA."
+      "windowsCiStatus": "passed",
+      "upstreamCiRun": 35072506135,
+      "upstreamCiStatus": "passed",
+      "limitations": "Requires complete current SRT and discriminating media metadata; no reduction of embedded Plex extraction time. Model/cache settings have Flutter widget tests, not native visual QA.",
+      "upstreamCiForkSha": "302bcb222443a939933e399006718c60240d0c79",
+      "nativeCacheScope": "Windows production controller, disable/enable and known/unknown seeks in one application process, WARP renderer, PCM-to-NUL. No cross-process or macOS native UI proof.",
+      "windowsReports": {
+        "calibration": {
+          "acquisitionMs": 39024,
+          "absoluteOffsetError": 0.2740000000000009,
+          "cacheRestoreMs": 1867,
+          "persistentCacheKnownAndUnknownRegions": true,
+          "passed": true,
+          "report": "docs/livesync-evidence/windows-calibration-16a64221.json"
+        },
+        "intro-90": {
+          "acquisitionMs": 124976,
+          "absoluteOffsetError": 0.23162500000000819,
+          "cacheRestoreMs": 1824,
+          "persistentCacheKnownAndUnknownRegions": true,
+          "passed": true,
+          "report": "docs/livesync-evidence/windows-intro-90-16a64221.json"
+        }
+      }
+    },
+    "workerErrorReplies": {
+      "forkSha": "3da717cc51982cde46a278b3c13ea5f937b193f0",
+      "regressionBeforeFix": "TimeoutException after five seconds awaiting actual analysis-isolate startup rejection",
+      "regressionAfterFix": "Typed incompatibleAbi failure and model lease release; 128 focused tests passed",
+      "wholeAnalysisPassed": true,
+      "macosBuildAndSignaturePassed": true,
+      "windowsCiRun": 35075644905,
+      "windowsCiStatus": "pending",
+      "upstreamCiRun": 35075647742,
+      "upstreamCiStatus": "pending",
+      "scope": "Corrects ignored four-field native error replies; unexpected isolate termination is a separate unvalidated path. No claim this caused the Mentalist session."
     }
   }
 }

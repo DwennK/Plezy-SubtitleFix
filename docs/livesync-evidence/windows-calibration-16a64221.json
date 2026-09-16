@@ -1,0 +1,32 @@
+{
+  "kind": "actual-plezy-production-controller-calibration",
+  "platform": "windows",
+  "inferenceBackend": "avx2-cpu",
+  "expectedOffset": -100.0,
+  "absoluteOffsetError": 0.2740000000000009,
+  "maximumOffsetError": 0.75,
+  "modelId": "base.en",
+  "modelSha256": "a03779c86df3323075f5e796cb2ce5029f00ec8869eee3fdfb897afe36c6d002",
+  "fixtureCase": "calibration",
+  "introSilenceSeconds": 0,
+  "actualOffset": -100.274,
+  "reference": "authored Sintel SRT, not precise acoustic-onset ground truth",
+  "acquisitionMs": 39024,
+  "nativeDelay": -100.149002,
+  "audioPartitionSeconds": [
+    100,
+    175
+  ],
+  "audioOutput": "pcm-to-NUL",
+  "audiblePlaybackValidated": false,
+  "pcmOrTranscriptPersisted": false,
+  "postConfirmationOffset": -100.274,
+  "knownRegionRestoredAfterSeek": true,
+  "unknownSeekClearsAutomaticOnly": true,
+  "audioDelayCompositionAndPreservation": true,
+  "cacheRestoreMs": 1867,
+  "persistentCacheKnownAndUnknownRegions": true,
+  "manualDelayDuringAndAfter": true,
+  "tapDisabledOnClose": true,
+  "passed": true
+}
