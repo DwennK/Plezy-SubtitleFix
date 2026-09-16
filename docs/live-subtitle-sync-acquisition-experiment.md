@@ -179,3 +179,20 @@ de trois cues sur quinze secondes peut empêcher l’acquisition sur ce film.
 Les seuils expérimentaux restent donc désactivés. La prochaine évaluation
 porte sur la partition réservée 180–360 s, figée avant toute inférence avec
 les réglages applicatifs et un offset attendu de −180 s (SRT inchangé).
+
+#### Partition réservée 180–360 s : acquisition réussie, médiane en échec
+
+Premier essai `8f99fc0a` : acquisition **21,604 s**, médiane et p95 **341 ms**,
+offset final **−179,659 s** face au −180 s attendu. Trois cues distinctes
+fournissent −179,659 / −179,759 / −179,623 s. Le délai d’acquisition et le p95
+respectent les budgets ; **la médiane <250 ms échoue**. Le verdict du probe est
+bien négatif. Rapport `elephants-dream-reserved-8f99fc0a.json`. La référence
+reste le SRT publié, dont les débuts ne sont pas des annotations acoustiques
+mot à mot. Aucun offset attendu ni seuil n’est ajusté à partir du résultat.
+
+La partition 180–360 s est maintenant consommée. **360–540 s reste non analysée**.
+Le correctif borné de matching est porté sans options expérimentales au commit
+de production `5bddabd0` : 137 tests LiveSync et analyse complète passent.
+Il ne constitue pas une résolution vérifiée de Mentalist, de la dérive ou des
+exigences de précision générales. La validation complète du candidat upstream
+est relancée par le run parent `35097858231` sur cette base maintenue.

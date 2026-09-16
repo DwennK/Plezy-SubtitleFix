@@ -1,6 +1,6 @@
 {
   "id": "elephants-dream-commons-en-reserved-180-360",
-  "status": "frozen-before-first-inference",
+  "status": "first-reserved-evaluation-failed-median",
   "frozenEngineSha": "1a02e229f6b55e4de31bf0b7478dfaa2b8e4e9d5",
   "experimentalEarlyAcquisition": false,
   "experimentalAcousticBeginnings": false,
@@ -46,5 +46,15 @@
   "maximumAcquisitionMs": 45000,
   "maximumMedianErrorSeconds": 0.25,
   "maximumP95ErrorSeconds": 0.75,
-  "reference": "Original authored English SRT remains unchanged. The selected audio begins at original media time 180 seconds, so expected offset is -180 seconds. This reserved partition has never been decoded or inferred. Same film as the consumed initial partition; not an independent film family."
+  "reference": "Original authored English SRT remains unchanged. The selected audio begins at original media time 180 seconds, so expected offset is -180 seconds. This reserved partition has never been decoded or inferred. Same film as the consumed initial partition; not an independent film family.",
+  "firstEvaluation": {
+    "sourceSha": "8f99fc0a30d5e485fe47bb1932ade914679a5f86",
+    "evidence": "docs/livesync-evidence/elephants-dream-reserved-8f99fc0a.json",
+    "partitionConsumed": true,
+    "acquired": true,
+    "acquisitionMs": 21604,
+    "medianErrorSeconds": 0.3410034179687216,
+    "p95ErrorSeconds": 0.3410034179687784,
+    "passed": false
+  }
 }
