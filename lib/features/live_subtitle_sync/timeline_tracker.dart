@@ -108,8 +108,16 @@ class TimelineTracker {
       }
     }
     if (fitted == null) return false;
+    // Prior knowledge elsewhere in the episode cannot qualify a newly visited
+    // region. Revalidation wholly inside one observed domain may reuse it;
+    // every new domain must meet the acquisition gate independently.
+    final withinObservedDomain =
+        experimentalEarlyAcquisition &&
+        _map.segments.any(
+          (segment) => fitted!.anchors.every((anchor) => segment.containsSubtitle(anchor.subtitleTime)),
+        );
     if (experimentalEarlyAcquisition &&
-        ((_map.segments.isEmpty &&
+        ((!withinObservedDomain &&
                 (fitted.anchors.length < 3 ||
                     fitted.subtitleEnd - fitted.subtitleStart < 15 ||
                     fitted.mediaEnd - fitted.mediaStart < 15 ||

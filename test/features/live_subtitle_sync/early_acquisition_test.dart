@@ -79,6 +79,30 @@ void main() {
     expect(incompatible.map.segments, isEmpty);
   });
 
+  test('an unknown region needs its own acquisition after a seek or cache restore', () {
+    for (final restored in [false, true]) {
+      final learned = TimelineTracker(experimentalEarlyAcquisition: true);
+      learned.observe([anchor(0, 5), anchor(1, 10)]);
+      expect(learned.observe([anchor(2, 25)]), isTrue);
+      final original = learned.map;
+      final tracker = restored ? (TimelineTracker(experimentalEarlyAcquisition: true)..restore(original)) : learned;
+      tracker.discontinuity();
+      expect(
+        tracker.observe(const [
+          SubtitleAnchor(10, 100, 150, .35, 'open the distant doorway'),
+          SubtitleAnchor(11, 110, 160, .35, 'follow the narrow pathway'),
+        ]),
+        isFalse,
+      );
+      expect(tracker.correctionAt(170).position.automaticDelay, isNull);
+      expect(tracker.map.segments, original.segments);
+      expect(tracker.observe(const [SubtitleAnchor(12, 125, 175, .35, 'enter the quiet courtyard')]), isTrue);
+      expect(tracker.map.segments, hasLength(2));
+      expect(tracker.correctionAt(180).position.automaticDelay, 50);
+      expect(tracker.correctionAt(15).position.automaticDelay, learned.map.atMedia(15).automaticDelay);
+    }
+  });
+
   test('default production acquisition remains unchanged', () {
     final tracker = TimelineTracker();
     expect(tracker.observe([anchor(0, 5), anchor(1, 10)]), isTrue);
