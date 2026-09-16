@@ -119,6 +119,40 @@ class PlayerNative extends PlayerBase {
   double _manualSubtitleDelay = 0;
   double _automaticSubtitleDelay = 0;
   Future<void> _subtitleDelayTail = Future<void>.value();
+  bool? _manualSubtitleVisibility;
+  bool _liveSubtitleSuppressed = false;
+  Future<void> _subtitleVisibilityTail = Future<void>.value();
+
+  /// A confirmed video-only region temporarily masks the selected subtitle
+  /// without changing its selection or the viewer's visibility preference.
+  /// Unknown regions do not qualify. The controller releases this mask on exit,
+  /// discontinuity, track changes, disable and teardown.
+  Future<void> setLiveSubtitleSuppressed(bool suppressed) => _writeSubtitleVisibility(suppressed: suppressed);
+
+  Future<void> _writeSubtitleVisibility({bool? manual, bool? suppressed}) {
+    final operation = _subtitleVisibilityTail.then((_) async {
+      final nextSuppressed = suppressed ?? _liveSubtitleSuppressed;
+      if (manual == null && nextSuppressed == _liveSubtitleSuppressed) return;
+      var nextManual = manual ?? _manualSubtitleVisibility;
+      if (nextManual == null) {
+        // Read mpv's actual initial setting, including custom configuration.
+        // Never adopt our own temporary mask as the viewer's preference.
+        final current = await getProperty('sub-visibility');
+        nextManual = switch (current?.toLowerCase()) {
+          'yes' || 'true' || '1' || 'on' => true,
+          'no' || 'false' || '0' || 'off' => false,
+          _ => null,
+        };
+        if (nextManual == null) throw StateError('Subtitle visibility unavailable');
+      }
+      await _setProperty('sub-visibility', nextManual && !nextSuppressed ? 'yes' : 'no', synchronizeRate: false);
+      // Commit only successful writes. Failure cannot poison a later release.
+      _manualSubtitleVisibility = nextManual;
+      _liveSubtitleSuppressed = nextSuppressed;
+    });
+    _subtitleVisibilityTail = operation.then<void>((_) {}, onError: (Object _) {});
+    return operation;
+  }
 
   /// Automatic delay has its own input, so native property observations and
   /// existing manual controls cannot accidentally adopt it as a manual value.
@@ -823,6 +857,14 @@ class PlayerNative extends PlayerBase {
 
   @override
   Future<void> setProperty(String name, String value) {
+    if (name == 'sub-visibility' && (Platform.isMacOS || Platform.isWindows)) {
+      final manual = switch (value.toLowerCase()) {
+        'yes' || 'true' || '1' || 'on' => true,
+        'no' || 'false' || '0' || 'off' => false,
+        _ => null,
+      };
+      if (manual != null) return _writeSubtitleVisibility(manual: manual);
+    }
     if (name == 'sub-delay' && (Platform.isMacOS || Platform.isWindows)) {
       final manual = double.tryParse(value);
       if (manual != null && manual.isFinite) return _writeSubtitleDelay(manual: manual);

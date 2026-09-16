@@ -18,6 +18,8 @@ import 'runtime_paths.dart';
 import 'subtitle_index.dart';
 import 'subtitle_parser.dart';
 import 'subtitle_source.dart';
+import 'startup.dart';
+import 'timeline_map.dart';
 import 'timeline_tracker.dart';
 import 'transcript_context.dart';
 import 'transcript_matcher.dart';
@@ -183,80 +185,124 @@ class LiveSubtitleSyncController extends ChangeNotifier {
       final resources = _shared = await _prepareResources();
       if (!current()) return;
       final abort = _sourceAbort = AbortController();
-      final document = external
-          ? await SubtitleSourceLoader(
-              client: resources.transport.inner,
-            ).load(subtitle, headers: player.liveSubtitleHeaders, abort: abort)
-          : await provider!(subtitle, resources.transport.inner, abort);
-      if (!current()) return;
-      if (document == null) {
-        _state(LiveSyncPhase.unsupported, LiveSyncReason.externalSrt);
-        return;
+      final startupClock = Stopwatch()..start();
+      var subtitlesReady = false;
+      void ensureCurrent() {
+        if (!current() || abort.isAborted) throw const ModelException(ModelFailure.cancelled);
       }
-      _index = await compute((bytes) => SubtitleIndex(const SubtitleParser().parse(bytes)), document.bytes);
-      if (!current()) return;
-      _timeline.clear();
-      _cacheKey = null;
-      _cacheGeneration = resources.mappings.generation;
-      final identity = await LiveSyncPlayerAttachment.mediaIdentities[player]?.call();
-      if (!current()) return;
-      final audio = selection.audio;
-      final key = identity != null && audio != null
-          ? MappingCacheKey.create(identity, audio, document.contentHash)
-          : null;
-      if (key != null) {
-        final restored = await resources.mappings.read(key, _index!);
-        if (!current()) return;
-        if (_cacheGeneration == resources.mappings.generation) {
-          _cacheKey = key;
-          if (restored != null) _timeline.restore(restored);
-        }
-      }
-      diagnosticObserver?.call({
-        'mappingCacheEligible': _cacheKey != null,
-        'restoredSegments': _timeline.map.segments.length,
-      });
-      _state(LiveSyncPhase.downloading);
-      final lease = await resources.models.acquire(
-        preferredModel,
-        onProgress: (progress) {
-          if (current()) {
-            modelProgress = progress;
-            notifyListeners();
-          }
+
+      final (index, worker) = await prepareLiveSyncInputs(
+        cancelPending: () {
+          abort.abort();
+          resources.models.cancel(preferredModel);
         },
-      );
-      if (!current()) {
-        lease.release();
-        return;
-      }
-      final worker = await LiveSyncAnalysisWorker.start(
-        playerChannel: player.methodChannel,
-        lease: lease,
-        captureLibrary: paths.capture,
-        inferenceLibrary: paths.inference,
-        acceleratedInferenceLibrary: paths.acceleratedInference,
-        generation: generation,
+        closeCapture: (worker) => worker.close(),
+        loadSubtitles: () async {
+          final document = external
+              ? await SubtitleSourceLoader(
+                  client: resources.transport.inner,
+                ).load(subtitle, headers: player.liveSubtitleHeaders, abort: abort)
+              : await provider!(subtitle, resources.transport.inner, abort);
+          ensureCurrent();
+          if (document == null) throw const SubtitleSourceException(SubtitleSourceFailure.unsupported);
+          final index = await compute((bytes) => SubtitleIndex(const SubtitleParser().parse(bytes)), document.bytes);
+          ensureCurrent();
+          _timeline.clear();
+          _cacheKey = null;
+          _cacheGeneration = resources.mappings.generation;
+          final identity = await LiveSyncPlayerAttachment.mediaIdentities[player]?.call();
+          ensureCurrent();
+          final audio = selection.audio;
+          final key = identity != null && audio != null
+              ? MappingCacheKey.create(identity, audio, document.contentHash)
+              : null;
+          if (key != null) {
+            final restored = await resources.mappings.read(key, index);
+            ensureCurrent();
+            if (_cacheGeneration == resources.mappings.generation) {
+              _cacheKey = key;
+              if (restored != null) _timeline.restore(restored);
+            }
+          }
+          subtitlesReady = true;
+          diagnosticObserver?.call({
+            'startupSubtitlesMs': startupClock.elapsedMilliseconds,
+            'mappingCacheEligible': _cacheKey != null,
+            'restoredSegments': _timeline.map.segments.length,
+          });
+          return index;
+        },
+        openCapture: () async {
+          final lease = await resources.models.acquire(
+            preferredModel,
+            onProgress: (progress) {
+              if (current()) {
+                modelProgress = progress;
+                _state(LiveSyncPhase.downloading);
+              }
+            },
+          );
+          if (!current() || abort.isAborted) {
+            lease.release();
+            throw const ModelException(ModelFailure.cancelled);
+          }
+          final worker = await LiveSyncAnalysisWorker.start(
+            playerChannel: player.methodChannel,
+            lease: lease,
+            captureLibrary: paths.capture,
+            inferenceLibrary: paths.inference,
+            acceleratedInferenceLibrary: paths.acceleratedInference,
+            generation: generation,
+          );
+          if (!current() || abort.isAborted) {
+            await worker.close();
+            throw const ModelException(ModelFailure.cancelled);
+          }
+          diagnosticObserver?.call({
+            'startupCaptureMs': startupClock.elapsedMilliseconds,
+            'captureReadyBeforeSubtitles': !subtitlesReady,
+          });
+          if (!subtitlesReady) _state(LiveSyncPhase.loadingSubtitles);
+          return worker;
+        },
       );
       if (!current()) {
         await worker.close();
         return;
       }
+      _index = index;
       _worker = worker;
-      diagnosticObserver?.call({'inferenceBackend': worker.inferenceBackend});
       _continuity = null;
       _pcmAvailability.clear();
       _transcriptContext.clear();
       _cadence.clear();
       _lastAnalysisMs = -90000;
+      // Own the timer before awaiting player properties. A seek may supersede
+      // this startup generation while keeping the prepared session active.
+      // Register before notifying listeners as a synchronous disable must also
+      // be able to cancel the timer immediately.
+      _timer = Timer.periodic(const Duration(milliseconds: 500), (_) => unawaited(_tick()));
       _state(LiveSyncPhase.analyzing);
+      if (!current()) return;
+      if (diagnosticObserver != null) {
+        final status = await worker.status();
+        if (!current()) return;
+        diagnosticObserver?.call({
+          'startupReadyMs': startupClock.elapsedMilliseconds,
+          'startupBufferedSamples': status.samples,
+        });
+      }
+      diagnosticObserver?.call({'inferenceBackend': worker.inferenceBackend});
       final position = double.tryParse(await player.getProperty('time-pos') ?? '');
       if (!current()) return;
       if (position != null) await _applyCorrection(position, generation);
-      if (!current()) return;
-      _timer = Timer.periodic(const Duration(milliseconds: 500), (_) => unawaited(_tick()));
-    } on SubtitleSourceException {
-      if (current()) _state(LiveSyncPhase.unsupported, LiveSyncReason.source);
+    } on SubtitleSourceException catch (error) {
+      if (current()) {
+        _state(
+          LiveSyncPhase.unsupported,
+          error.reason == SubtitleSourceFailure.unsupported ? LiveSyncReason.externalSrt : LiveSyncReason.source,
+        );
+      }
     } on SubtitleParseException {
       if (current()) _state(LiveSyncPhase.unsupported, LiveSyncReason.externalSrt);
     } on ModelException {
@@ -318,6 +364,8 @@ class LiveSubtitleSyncController extends ChangeNotifier {
           await player.setLiveSubtitleOffset(0);
           if (!enabled || generation != _generation) return;
         }
+        await player.setLiveSubtitleSuppressed(false);
+        if (!enabled || generation != _generation) return;
         _state(LiveSyncPhase.resyncing);
       }
       _continuity = status.continuity;
@@ -432,7 +480,21 @@ class LiveSubtitleSyncController extends ChangeNotifier {
           if (error is NativeSyncException && error.nativeStatus != null) 'nativeStatus': error.nativeStatus,
         });
       }
-      if (enabled && generation == _generation) _state(LiveSyncPhase.unable, LiveSyncReason.nativeRuntime);
+      if (enabled && generation == _generation) {
+        final rejectedInference =
+            error is NativeSyncException &&
+            (error.reason == NativeSyncFailure.inferenceUnavailable || error.reason == NativeSyncFailure.invalidOutput);
+        if (!rejectedInference) {
+          try {
+            // A failed capture/control path can stop clock updates. Its mask
+            // must not keep hiding dialogue after playback has left the gap.
+            await _clearAutomaticPresentation(generation: generation);
+          } catch (_) {
+            // Preserve the failure state; explicit disable may retry cleanup.
+          }
+        }
+        if (enabled && generation == _generation) _state(LiveSyncPhase.unable, LiveSyncReason.nativeRuntime);
+      }
     } finally {
       _tickBusy = false;
     }
@@ -444,10 +506,23 @@ class LiveSubtitleSyncController extends ChangeNotifier {
     final correction = _timeline.correctionAt(position, audioDelay: audioDelay);
     final offset = correction.position.automaticDelay;
     if (offset == null) {
+      final suppressed = correction.position.kind == TimelineRegionKind.videoOnly;
+      if (suppressed) {
+        // Mask first, before clearing a previous delay could expose future
+        // dialogue inside an explicitly confirmed absence of correspondence.
+        await player.setLiveSubtitleSuppressed(true);
+        if (!enabled || generation != _generation) return false;
+      }
       if (automaticOffset != null) {
         await player.setLiveSubtitleOffset(0);
         if (!enabled || generation != _generation) return false;
         automaticOffset = null;
+        _state(LiveSyncPhase.resyncing);
+      }
+      if (!suppressed) {
+        await player.setLiveSubtitleSuppressed(false);
+        if (!enabled || generation != _generation) return false;
+      } else if (phase != LiveSyncPhase.resyncing) {
         _state(LiveSyncPhase.resyncing);
       }
       return false;
@@ -457,6 +532,9 @@ class LiveSubtitleSyncController extends ChangeNotifier {
       if (!enabled || generation != _generation) return false;
       automaticOffset = offset;
     }
+    // Apply the new mapping before revealing subtitles when leaving a gap.
+    await player.setLiveSubtitleSuppressed(false);
+    if (!enabled || generation != _generation) return false;
     if (phase != LiveSyncPhase.synced) _state(LiveSyncPhase.synced);
     return correction.established;
   }
@@ -476,10 +554,21 @@ class LiveSubtitleSyncController extends ChangeNotifier {
       await player.setLiveSubtitleOffset(0);
       if (enabled && generation == _generation) {
         _state(LiveSyncPhase.resyncing);
-        if (target != null) await _applyCorrection(target.inMicroseconds / 1e6, generation);
+        if (target != null) {
+          await _applyCorrection(target.inMicroseconds / 1e6, generation);
+        } else {
+          await player.setLiveSubtitleSuppressed(false);
+        }
       }
     } catch (_) {
-      if (enabled) _state(LiveSyncPhase.unable, LiveSyncReason.nativeRuntime);
+      if (enabled && generation == _generation) {
+        try {
+          await player.setLiveSubtitleSuppressed(false);
+        } catch (_) {
+          // Keep the error state; the next tick or explicit stop can retry.
+        }
+        if (enabled && generation == _generation) _state(LiveSyncPhase.unable, LiveSyncReason.nativeRuntime);
+      }
     }
   }
 
@@ -493,25 +582,41 @@ class LiveSubtitleSyncController extends ChangeNotifier {
     _timer = null;
     final worker = _worker;
     _worker = null;
-    if (worker != null) {
-      final retirement = worker.close();
-      _retiringWorker = retirement;
-      try {
-        await retirement;
-      } finally {
-        if (identical(_retiringWorker, retirement)) _retiringWorker = null;
+    try {
+      if (worker != null) {
+        final retirement = worker.close();
+        _retiringWorker = retirement;
+        try {
+          await retirement;
+        } finally {
+          if (identical(_retiringWorker, retirement)) _retiringWorker = null;
+        }
+      }
+    } finally {
+      if (enabled && generation == _generation) {
+        await _clearAutomaticPresentation(generation: generation);
+        if (enabled && generation == _generation) {
+          _timeline.clear();
+          _transcriptContext.clear();
+          _state(phase, reason);
+        }
       }
     }
-    if (!enabled || generation != _generation) return;
-    await player.setLiveSubtitleOffset(0);
-    if (!enabled || generation != _generation) return;
-    automaticOffset = null;
-    _timeline.clear();
-    _transcriptContext.clear();
-    _state(phase, reason);
   }
 
   Future<void> _stopSession() => _stopping ??= _stop().whenComplete(() => _stopping = null);
+
+  Future<void> _clearAutomaticPresentation({int? generation}) async {
+    bool current() => generation == null || (enabled && generation == _generation);
+    try {
+      await player.setLiveSubtitleOffset(0);
+      if (current()) automaticOffset = null;
+    } finally {
+      // A failed delay write must not strand a temporary visibility mask.
+      // A superseded tick must not release a newer generation's mask either.
+      if (current()) await player.setLiveSubtitleSuppressed(false);
+    }
+  }
 
   Future<void> _stop() async {
     enabled = false;
@@ -520,17 +625,27 @@ class LiveSubtitleSyncController extends ChangeNotifier {
     _timer = null;
     _sourceAbort?.abort();
     _shared?.models.cancel(preferredModel);
-    await _loading;
-    final worker = _worker;
-    _worker = null;
-    await worker?.close();
-    await _retiringWorker;
-    await player.setLiveSubtitleOffset(0);
-    automaticOffset = null;
-    _index = null;
-    _cacheKey = null;
-    _timeline.clear();
-    _transcriptContext.clear();
-    _state(LiveSyncPhase.off);
+    try {
+      await _loading;
+      final worker = _worker;
+      _worker = null;
+      await worker?.close();
+      await _retiringWorker;
+    } finally {
+      var presentationRestored = false;
+      try {
+        await _clearAutomaticPresentation();
+        presentationRestored = true;
+      } finally {
+        _index = null;
+        _cacheKey = null;
+        _timeline.clear();
+        _transcriptContext.clear();
+        _state(
+          presentationRestored ? LiveSyncPhase.off : LiveSyncPhase.unable,
+          presentationRestored ? null : LiveSyncReason.nativeRuntime,
+        );
+      }
+    }
   }
 }

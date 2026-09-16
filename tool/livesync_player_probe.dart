@@ -9,6 +9,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 
 import 'package:plezy/mpv/mpv.dart';
+import 'package:plezy/mpv/player/player_native.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized().ensureSemantics();
@@ -130,23 +131,36 @@ class _ProbeState extends State<_Probe> {
     if (directory.isEmpty) return;
     await Directory(directory).create(recursive: true);
     final originalSid = await player.getProperty('sid');
-    final steps = <(String, String, String, String)>[
-      ('baseline', 'sub-delay', '0.125', 'FIRST PROBE CUE'),
-      ('positive', 'sub-delay', '2.125', ''),
-      ('negative', 'sub-delay', '-3', 'SECOND PROBE CUE'),
-      ('restored', 'sub-delay', '0.125', 'FIRST PROBE CUE'),
-      ('capture-on', 'livesync-enabled', 'yes', 'FIRST PROBE CUE'),
-      ('capture-off', 'livesync-enabled', 'no', 'FIRST PROBE CUE'),
+    final steps = <(String, String, String, String, String)>[
+      ('baseline', 'sub-delay', '0.125', 'FIRST PROBE CUE', 'yes'),
+      ('positive', 'sub-delay', '2.125', '', 'yes'),
+      ('negative', 'sub-delay', '-3', 'SECOND PROBE CUE', 'yes'),
+      ('restored', 'sub-delay', '0.125', 'FIRST PROBE CUE', 'yes'),
+      ('gap-hidden', 'livesync-suppression', 'yes', 'FIRST PROBE CUE', 'no'),
+      ('gap-shown-manual', 'sub-visibility', 'yes', 'FIRST PROBE CUE', 'no'),
+      ('gap-restored', 'livesync-suppression', 'no', 'FIRST PROBE CUE', 'yes'),
+      ('gap-hidden-again', 'livesync-suppression', 'yes', 'FIRST PROBE CUE', 'no'),
+      ('gap-manual-hidden', 'sub-visibility', 'no', 'FIRST PROBE CUE', 'no'),
+      ('gap-release-manual-hidden', 'livesync-suppression', 'no', 'FIRST PROBE CUE', 'no'),
+      ('manual-shown', 'sub-visibility', 'yes', 'FIRST PROBE CUE', 'yes'),
+      ('capture-on', 'livesync-enabled', 'yes', 'FIRST PROBE CUE', 'yes'),
+      ('capture-off', 'livesync-enabled', 'no', 'FIRST PROBE CUE', 'yes'),
     ];
     try {
-      for (final (name, property, value, expectedCue) in steps) {
-        await player.setProperty(property, value);
+      for (final (name, property, value, expectedCue, expectedVisibility) in steps) {
+        if (property == 'livesync-suppression') {
+          await (player as PlayerNative).setLiveSubtitleSuppressed(value == 'yes');
+        } else {
+          await player.setProperty(property, value);
+        }
         await Future<void>.delayed(const Duration(milliseconds: 800));
         final cue = (await player.getProperty('sub-text') ?? '').trim();
         final sid = await player.getProperty('sid');
         final delay = await player.getProperty('sub-delay');
+        final visibility = await player.getProperty('sub-visibility');
         if (cue != expectedCue || sid != originalSid) throw StateError('Renderer state mismatch: $name');
-        if ((name == 'restored' || name.startsWith('capture-')) && double.tryParse(delay ?? '') != 0.125) {
+        if (visibility != expectedVisibility) throw StateError('Renderer visibility mismatch: $name');
+        if ((name == 'restored' || property != 'sub-delay') && double.tryParse(delay ?? '') != 0.125) {
           throw StateError('Manual delay changed: $name');
         }
         await _describe(name);
@@ -158,6 +172,8 @@ class _ProbeState extends State<_Probe> {
             'cue': cue,
             'sid': sid,
             'delay': delay,
+            'visibility': visibility,
+            'automaticGapDetectionValidated': false,
             'syntheticFixture': true,
             'audioOutput': Platform.isWindows ? 'pcm-to-NUL' : 'null',
             'videoBackend': Platform.isWindows ? 'd3d11-warp' : 'platform-default',

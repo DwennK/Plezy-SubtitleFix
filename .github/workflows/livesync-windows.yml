@@ -13,6 +13,15 @@ on:
         description: Native build run in this fork containing the Windows x64 artifact
         required: true
         type: string
+      subtitle_load_delay_ms:
+        description: Controlled subtitle-source delay for the production probe (0 or 15000)
+        type: choice
+        options: ['0', '15000']
+        default: '0'
+      seek_during_startup:
+        description: Exercise a real seek while controller startup awaits player properties
+        type: boolean
+        default: false
       renderer_only:
         description: Run only the dedicated renderer after a completed native/application probe run
         type: boolean
@@ -206,10 +215,13 @@ jobs:
       - name: Verify actual automatic correction in the production controller
         if: ${{ !inputs.renderer_only }}
         shell: pwsh
+        env:
+          SUBTITLE_LOAD_DELAY_MS: ${{ inputs.subtitle_load_delay_ms || '0' }}
+          SEEK_DURING_STARTUP: ${{ inputs.seek_during_startup && 'true' || 'false' }}
         run: |
           New-Item -ItemType Directory -Force build/livesync/calibration-player | Out-Null
           $fixture = (Resolve-Path build/livesync/calibration-player).Path
-          flutter build windows --debug --no-pub --target tool/livesync_analysis_player_probe.dart "--dart-define=LIVESYNC_ANALYSIS_FIXTURE_DIR=$fixture"
+          flutter build windows --debug --no-pub --target tool/livesync_analysis_player_probe.dart "--dart-define=LIVESYNC_ANALYSIS_FIXTURE_DIR=$fixture" "--dart-define=LIVESYNC_SUBTITLE_LOAD_DELAY_MS=$env:SUBTITLE_LOAD_DELAY_MS" "--dart-define=LIVESYNC_SEEK_DURING_STARTUP=$env:SEEK_DURING_STARTUP"
           if ($LASTEXITCODE -ne 0) { throw 'Production controller probe build failed' }
           foreach ($case in @('calibration', 'intro-90')) {
             python scripts/livesync/create_analysis_fixture.py --source build/livesync/corpus-source --output build/livesync/calibration-player --model build/livesync/models/ggml-base.en.bin --channels 6 --case $case

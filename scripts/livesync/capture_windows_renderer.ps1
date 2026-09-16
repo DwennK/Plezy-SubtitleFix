@@ -38,7 +38,9 @@ try {
     throw 'Could not size the dedicated renderer window'
   }
   $captures = @()
-  foreach ($state in @('baseline', 'positive', 'negative', 'restored', 'capture-on', 'capture-off')) {
+  foreach ($state in @('baseline', 'positive', 'negative', 'restored',
+      'gap-hidden', 'gap-shown-manual', 'gap-restored', 'gap-hidden-again',
+      'gap-manual-hidden', 'gap-release-manual-hidden', 'manual-shown', 'capture-on', 'capture-off')) {
     $deadline = [DateTime]::UtcNow.AddSeconds(60)
     $ready = Join-Path $outputPath "$state.json"
     while (-not (Test-Path $ready)) {
