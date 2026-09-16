@@ -38,7 +38,20 @@ class TimelineTracker {
     while (_pending.length > 24) {
       _pending.remove(_pending.keys.first);
     }
-    final fitted = _fitter.fit(_pending.values.toList());
+    var fitted = _fitter.fit(_pending.values.toList());
+    if (_continuous.isNotEmpty) {
+      final observations = {..._continuous, ..._pending}.values.toList();
+      final combined = observations.length <= 128 ? _fitter.fit(observations) : null;
+      if (combined != null &&
+          // Previously isolated cue starts can establish the slope once a
+          // sufficiently long baseline exists. A rejected new observation
+          // alone must never turn old evidence into a fresh confirmation.
+          combined.anchors.any((a) => _pending.containsKey(a.cue)) &&
+          _continuous.values.every((a) => (combined.mediaFor(a.subtitleTime) - a.mediaTime).abs() <= 0.8) &&
+          _hasContinuousEvidence(combined)) {
+        fitted = combined;
+      }
+    }
     if (fitted == null) return false;
     var candidate = fitted;
 
@@ -77,7 +90,12 @@ class TimelineTracker {
       _map = next;
       // withSegment builds a new segment while preserving previous evidence.
       _prediction = next.segments.last;
-      _pending.clear();
+      // A constant cluster may exclude an early, correctly timestamped cue
+      // because the real offset is drifting. Retain it within the existing
+      // bounded pending set until later observations can test an affine fit.
+      for (final anchor in candidate.anchors) {
+        _pending.remove(anchor.cue);
+      }
       return true;
     } on ArgumentError {
       // Confirmed but contradictory evidence must not extend the old offset.
@@ -86,6 +104,14 @@ class TimelineTracker {
       _continuous.clear();
       return false;
     }
+  }
+
+  bool _hasContinuousEvidence(TimelineSegment segment) {
+    final times = segment.anchors.map((a) => a.mediaTime).toList()..sort();
+    for (var i = 1; i < times.length; i++) {
+      if (times[i] - times[i - 1] > predictionSeconds) return false;
+    }
+    return true;
   }
 
   TimelineSegment? _refine(TimelineSegment previous, TimelineSegment candidate) {

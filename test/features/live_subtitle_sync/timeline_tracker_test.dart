@@ -7,6 +7,20 @@ SubtitleAnchor anchor(int cue, double subtitle, double media) =>
     SubtitleAnchor(cue, subtitle, media, 0.35, 'distinct phrase number $cue');
 
 void main() {
+  test('a sparse early cue survives a later constant cluster to establish drift', () {
+    final tracker = TimelineTracker();
+    // Numeric observations from the initial real-speech slowdown trial. A
+    // constant fit cannot explain cue 2 together with the later cluster.
+    expect(tracker.observe([anchor(2, 10.670, 11.775)]), isFalse);
+    expect(tracker.observe([anchor(5, 62.455, 65.759)]), isFalse);
+    expect(tracker.observe([anchor(7, 77.105, 81.203), anchor(8, 86.345, 90.723)]), isTrue);
+    expect(tracker.map.segments.single.slope, 1);
+    expect(tracker.observe([anchor(10, 109.755, 114.723), anchor(11, 115.355, 120.983)]), isTrue);
+    expect(tracker.map.segments, hasLength(1));
+    expect(tracker.map.segments.single.anchors, hasLength(6));
+    expect(tracker.map.segments.single.slope, closeTo(25025 / 24000, 0.005));
+  });
+
   test('audio delay moves the valid domain and composes correctly with affine timing', () {
     const slope = 25 / 23.976;
     final tracker = TimelineTracker()
@@ -21,6 +35,14 @@ void main() {
       expect(tracker.correctionAt(slope * 99 + 4 + delay, audioDelay: delay).position.kind, TimelineRegionKind.unknown);
     }
     expect(tracker.correctionAt(150, audioDelay: double.nan).position.kind, TimelineRegionKind.unknown);
+  });
+
+  test('combined observations cannot bridge a long interval without evidence', () {
+    final tracker = TimelineTracker()..observe([anchor(0, 100, 104), anchor(1, 110, 114)]);
+    expect(tracker.observe([anchor(2, 500, 504), anchor(3, 510, 514)]), isTrue);
+    expect(tracker.map.segments, hasLength(2));
+    expect(tracker.map.atMedia(300).kind, TimelineRegionKind.unknown);
+    expect(tracker.correctionAt(300).position.kind, TimelineRegionKind.unknown);
   });
 
   test('acquisition requires independent cues; prediction stays outside the learned map', () {
