@@ -34,7 +34,7 @@ class TimelineTracker {
   final _continuous = <int, SubtitleAnchor>{};
   TimelineSegment? _prediction;
   double? _predictionBlockedUntilSubtitle;
-  double? _predictionContradictedFromMedia;
+  SubtitleAnchor? _firstContradiction;
   final _restored = <TimelineSegment>{};
   final _restoredGaps = <TimelineGap>{};
 
@@ -60,13 +60,14 @@ class TimelineTracker {
     _continuous.clear();
     _prediction = null;
     _predictionBlockedUntilSubtitle = null;
-    _predictionContradictedFromMedia = null;
+    _firstContradiction = null;
   }
 
   bool observe(List<SubtitleAnchor> anchors) {
     var changed = false;
     for (final anchor in anchors) {
-      if (_predictionBlockedUntilSubtitle != null && _agreesWithKnownDomain(anchor)) {
+      if (_predictionBlockedUntilSubtitle != null &&
+          (_agreesWithKnownDomain(anchor) || _precedesContradiction(anchor))) {
         // Old context still agrees with its known domain. It cannot validate
         // extrapolation through the later contradiction or dilute new anchors.
         continue;
@@ -183,7 +184,7 @@ class TimelineTracker {
       if (_predictionBlockedUntilSubtitle == null || learned.subtitleEnd > _predictionBlockedUntilSubtitle!) {
         _prediction = learned;
         _predictionBlockedUntilSubtitle = null;
-        _predictionContradictedFromMedia = null;
+        _firstContradiction = null;
       }
       // A constant cluster may exclude an early, correctly timestamped cue
       // because the real offset is drifting. Retain it within the existing
@@ -207,6 +208,13 @@ class TimelineTracker {
         segment.containsSubtitle(anchor.subtitleTime) &&
         (segment.mediaFor(anchor.subtitleTime) - anchor.mediaTime).abs() <= 0.8,
   );
+
+  bool _precedesContradiction(SubtitleAnchor anchor) {
+    final first = _firstContradiction;
+    return first != null &&
+        anchor.subtitleTime < first.subtitleTime &&
+        anchor.mediaTime + anchor.uncertainty < first.mediaTime - first.uncertainty;
+  }
 
   /// Two independent later cue starts can disprove extrapolation even when
   /// their timing is too inconsistent to fit a replacement. They must both
@@ -235,8 +243,12 @@ class TimelineTracker {
       // A refinement of old context must not re-enable the disproved offset.
       // Only a confirmed region extending past these observations can recover.
       _predictionBlockedUntilSubtitle = last.subtitleTime;
-      _predictionContradictedFromMedia = first.mediaTime;
-      _pending.removeWhere((_, anchor) => _agreesWithKnownDomain(anchor));
+      _firstContradiction = first;
+      // Pending observations before the discontinuity may never have fitted
+      // the old domain (e.g. a noisy cue start). Do not mix that earlier region
+      // into the new fit. Require ordering in both clocks, including timing
+      // uncertainty; this does not extend a segment or locate an exact cut.
+      _pending.removeWhere((_, anchor) => _agreesWithKnownDomain(anchor) || _precedesContradiction(anchor));
       return;
     }
   }
@@ -313,9 +325,9 @@ class TimelineTracker {
       return TimelineCorrection(
         const TimelinePosition(TimelineRegionKind.unknown),
         predictionContradicted:
-            _predictionContradictedFromMedia != null &&
-            mediaTime >= _predictionContradictedFromMedia! &&
-            mediaTime - _predictionContradictedFromMedia! <= predictionSeconds,
+            _firstContradiction != null &&
+            mediaTime >= _firstContradiction!.mediaTime &&
+            mediaTime - _firstContradiction!.mediaTime <= predictionSeconds,
       );
     }
     final subtitleTime = active.subtitleFor(mediaTime);

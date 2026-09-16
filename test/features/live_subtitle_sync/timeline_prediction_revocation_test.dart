@@ -63,6 +63,23 @@ void main() {
     expect(tracker.correctionAt(180).position.automaticDelay, 34);
   });
 
+  test('an unconfirmed pre-edit cue cannot block a corrected post-edit cluster', () {
+    final tracker = TimelineTracker()..observe([anchor(3, 121.75, 21.452375), anchor(6, 129.4, 29.332375)]);
+    // A timestamp near the old mapping, outside its observed source domain.
+    // It cannot be removed as an already-fitted interior outlier.
+    expect(tracker.observe([anchor(7, 135, 33.2896875)]), isFalse);
+    expect(tracker.observe([anchor(8, 138, 67.760375), anchor(10, 148.85, 76.000375)]), isFalse);
+    expect(tracker.correctionAt(82).predictionContradicted, isTrue);
+    // Context may replay this older, never-confirmed cue while recovering.
+    expect(tracker.observe([anchor(7, 135, 33.3)]), isFalse);
+    // Numeric timestamp recovered by the real 8-second retry at 1a5695d4.
+    expect(tracker.observe([anchor(10, 148.85, 78.975)]), isTrue);
+    expect(tracker.correctionAt(83).position.automaticDelay, closeTo(-70.0573125, 1e-8));
+    expect(tracker.correctionAt(83).predictionContradicted, isFalse);
+    expect(tracker.correctionAt(27).position.automaticDelay, closeTo(-100.182625, 1e-8));
+    expect(tracker.map.gaps, isEmpty);
+  });
+
   test('one cue, repeated words, opposite errors and invalid timestamps do not revoke', () {
     final examples = <List<SubtitleAnchor>>[
       [anchor(2, 130, 164)],

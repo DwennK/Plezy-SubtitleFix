@@ -46,3 +46,16 @@ Recovery waits for cue 11 in the next normal window: 29.497 media seconds after
 the edit; p95 remains 70 seconds and no gaps are learned. The hypothesis is
 therefore not satisfied end to end. The next correction must separate already
 chronologically obsolete pending observations, not loosen fit thresholds.
+
+## Follow-up frozen before replay
+
+After two independent anchors have contradicted every supported extrapolation,
+exclude pending observations that precede the first contradiction in both
+clocks, with disjoint timestamp-uncertainty intervals. These observations are
+not confirmed map segments. Retain the earlier observed map for backward seeks
+and leave the cut location unknown. Ignore the same old context while recovering
+so it cannot re-enter and dilute the new region. The regression reconstructed
+from the first trial fails before this separation and passes afterward; fitter
+requirements and all acceptance targets remain unchanged. Replay the same
+fixture once to test whether the corrected short-window anchor can now form
+a valid new region immediately, instead of waiting for the next normal window.
