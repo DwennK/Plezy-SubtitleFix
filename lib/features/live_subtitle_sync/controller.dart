@@ -19,7 +19,6 @@ import 'subtitle_index.dart';
 import 'subtitle_parser.dart';
 import 'subtitle_source.dart';
 import 'startup.dart';
-import 'timeline_map.dart';
 import 'timeline_tracker.dart';
 import 'transcript_context.dart';
 import 'transcript_matcher.dart';
@@ -409,6 +408,7 @@ class LiveSubtitleSyncController extends ChangeNotifier {
         _cadence.evidence(
           recognizedPassage: evidence.match.status == TranscriptMatchStatus.matched,
           learned: learnedRegion,
+          predictionContradicted: _timeline.correctionAt(transcript.windowEnd).predictionContradicted,
         );
         if (learnedRegion) {
           final learned = _timeline.map.segments.last;
@@ -517,10 +517,11 @@ class LiveSubtitleSyncController extends ChangeNotifier {
     final correction = _timeline.correctionAt(position, audioDelay: audioDelay);
     final offset = correction.position.automaticDelay;
     if (offset == null) {
-      final suppressed = correction.position.kind == TimelineRegionKind.videoOnly;
+      final suppressed = correction.suppressSubtitles;
       if (suppressed) {
-        // Mask first, before clearing a previous delay could expose future
-        // dialogue inside an explicitly confirmed absence of correspondence.
+        // Mask first: clearing a disproved delay must not expose unrelated
+        // cues while a replacement is still unknown. A contradiction is
+        // transient uncertainty; it does not become a cached video-only gap.
         await player.setLiveSubtitleSuppressed(true);
         if (!enabled || generation != _generation) return false;
       }

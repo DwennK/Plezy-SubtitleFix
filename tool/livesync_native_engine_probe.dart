@@ -184,7 +184,11 @@ Future<Map<String, Object>> probe(Map<String, String> options) async {
             final result = evidence.match;
             final anchors = evidence.anchors;
             final learned = timeline.observe(anchors);
-            cadence.evidence(recognizedPassage: result.status == TranscriptMatchStatus.matched, learned: learned);
+            cadence.evidence(
+              recognizedPassage: result.status == TranscriptMatchStatus.matched,
+              learned: learned,
+              predictionContradicted: timeline.correctionAt(transcript.windowEnd).predictionContradicted,
+            );
             final position = mediaPosition();
             if (position != null) {
               offset = timeline.correctionAt(position).position.automaticDelay;
@@ -200,6 +204,7 @@ Future<Map<String, Object>> probe(Map<String, String> options) async {
               'attempt': cadence.attempts,
               'windowStart': transcript.windowStart,
               'windowEnd': transcript.windowEnd,
+              'inferenceSeconds': transcript.elapsed,
               'validPrefixOnly': transcript.validPrefixOnly,
               'match': result.status.name,
               'contextWindows': evidence.windowCount,
@@ -276,6 +281,7 @@ Future<Map<String, Object>> probe(Map<String, String> options) async {
                 trackingSamples.add({
                   'mediaTime': position,
                   'regionKind': timeline.correctionAt(position).position.kind.name,
+                  'presentationSuppressionRequested': timeline.correctionAt(position).suppressSubtitles,
                   'automaticDelay': offset ?? 0,
                   'mappingAvailable': offset != null,
                   'nativeDelay': nativeDelay!,

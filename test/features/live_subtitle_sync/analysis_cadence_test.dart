@@ -35,6 +35,56 @@ void main() {
 
   int interval(AnalysisCadence cadence) => cadence.intervalMs(synced: false, established: false);
 
+  test('a confirmed timing contradiction allows one immediate short retry, not an inference loop', () {
+    final cadence = AnalysisCadence()..evidence(recognizedPassage: true, learned: true);
+    cadence.submitted();
+    cadence.evidence(recognizedPassage: true, learned: false, predictionContradicted: true);
+    expect(cadence.windowSeconds, 8);
+    expect(interval(cadence), 0);
+    // Timing evidence takes priority over a possibly missed quiet voice.
+    expect(cadence.intervalMs(synced: false, established: false, voicePresent: false), 0);
+    cadence.submitted();
+    expect(cadence.windowSeconds, 15);
+    for (var i = 0; i < 5; i++) {
+      cadence.evidence(recognizedPassage: true, learned: false, predictionContradicted: true);
+      expect(interval(cadence), 12000);
+      expect(cadence.windowSeconds, 15);
+      cadence.submitted();
+    }
+    cadence.rejectedInference();
+    cadence.evidence(recognizedPassage: true, learned: false, predictionContradicted: true);
+    expect(interval(cadence), 12000);
+  });
+
+  test('short retries rearm only after confirmed recovery or a new playback generation', () {
+    final cadence = AnalysisCadence();
+    for (final reset in ['learned', 'clear']) {
+      cadence.evidence(recognizedPassage: true, learned: false, predictionContradicted: true);
+      expect(interval(cadence), 0);
+      cadence.submitted();
+      cadence.evidence(recognizedPassage: false, learned: false);
+      expect(interval(cadence), isNot(0));
+      cadence.evidence(recognizedPassage: true, learned: false, predictionContradicted: true);
+      expect(interval(cadence), isNot(0));
+      reset == 'clear' ? cadence.clear() : cadence.evidence(recognizedPassage: true, learned: true);
+    }
+    cadence.evidence(recognizedPassage: true, learned: false, predictionContradicted: true);
+    expect(interval(cadence), 0);
+    cadence.clear();
+    expect(cadence.windowSeconds, 12);
+    expect(interval(cadence), 12000);
+  });
+
+  test('unconfirmed dialogue, VAD and a known mapping cannot request an immediate short retry', () {
+    final cadence = AnalysisCadence();
+    cadence.evidence(recognizedPassage: true, learned: false);
+    expect(cadence.windowSeconds, 15);
+    expect(interval(cadence), 12000);
+    cadence.evidence(recognizedPassage: true, learned: true);
+    expect(cadence.windowSeconds, 12);
+    expect(cadence.intervalMs(synced: true, established: true, voicePresent: true), 90000);
+  });
+
   test('quiet intro backs off but weak recognized dialogue promptly retries a wider window', () {
     final cadence = AnalysisCadence();
     for (var i = 0; i < 6; i++) {
