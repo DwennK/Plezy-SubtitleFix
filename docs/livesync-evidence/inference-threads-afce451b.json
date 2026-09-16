@@ -1,0 +1,178 @@
+{
+  "schema": 1,
+  "sourceSha": "afce451b9b56a1f8c55bffa1de106572383c8506",
+  "runId": 35160756952,
+  "conclusion": "success",
+  "artifacts": {
+    "macos": 10472976721,
+    "windows": 10472613806
+  },
+  "reports": {
+    "worker-avx2-2threads-base.en-q5_1.json": {
+      "sha256": "e3f137e8b39367d024317ebd12b5e2234b87fd31b697d6ec45b25aeafed544b5",
+      "data": {
+        "kind": "fixture-native-worker-abi",
+        "fixtureSha256": "59dfb9a4acb36fe2a2affc14bacbee2920ff435cb13cc314a08c13f66ba7860e",
+        "modelSha256": "4baf70dd0d7c4247ba2b81fafd9c01005ac77c2f9ef064e00dcf195d0e2fdd2f",
+        "workerSha256": "762e44b55005a917bc05a3d3f894890648817fe18e9b0106ddb22983536ff10b",
+        "capture": {
+          "samples": 176000,
+          "mediaStart": 100,
+          "generation": 1,
+          "continuity": 1
+        },
+        "threads": 2,
+        "wordErrorRate": 0.0,
+        "referenceScope": "full fixture",
+        "inferenceSecondsExcludingModelLoad": 2.8371868,
+        "segments": [
+          {
+            "mediaStart": 100.0,
+            "mediaEnd": 111.0
+          }
+        ],
+        "validPrefixOnly": false,
+        "speechSupportCounts": {
+          "0": 0,
+          "1": 25,
+          "2": 0
+        },
+        "timestampAccuracyValidated": false,
+        "srtAlignmentValidated": false,
+        "productionAppValidated": false,
+        "audiblePlaybackValidated": false,
+        "retainedCapturedAudio": false,
+        "retainedTranscript": false
+      }
+    },
+    "worker-avx2-2threads-base.en.json": {
+      "sha256": "e0da440e41e3f595978d93d58ff2adee1ac23ef908b9a3651b52df5685757144",
+      "data": {
+        "kind": "fixture-native-worker-abi",
+        "fixtureSha256": "59dfb9a4acb36fe2a2affc14bacbee2920ff435cb13cc314a08c13f66ba7860e",
+        "modelSha256": "a03779c86df3323075f5e796cb2ce5029f00ec8869eee3fdfb897afe36c6d002",
+        "workerSha256": "762e44b55005a917bc05a3d3f894890648817fe18e9b0106ddb22983536ff10b",
+        "capture": {
+          "samples": 176000,
+          "mediaStart": 100,
+          "generation": 1,
+          "continuity": 1
+        },
+        "threads": 2,
+        "wordErrorRate": 0.0,
+        "referenceScope": "full fixture",
+        "inferenceSecondsExcludingModelLoad": 2.4180479,
+        "segments": [
+          {
+            "mediaStart": 100.0,
+            "mediaEnd": 111.0
+          }
+        ],
+        "validPrefixOnly": false,
+        "speechSupportCounts": {
+          "0": 0,
+          "1": 25,
+          "2": 0
+        },
+        "timestampAccuracyValidated": false,
+        "srtAlignmentValidated": false,
+        "productionAppValidated": false,
+        "audiblePlaybackValidated": false,
+        "retainedCapturedAudio": false,
+        "retainedTranscript": false
+      }
+    },
+    "worker-avx2-base.en-q5_1.json": {
+      "sha256": "fa6b8e7dd44f7e542ddaab7d67b6d5f4fc63cf0587c791479cb4d59252749b15",
+      "data": {
+        "kind": "fixture-native-worker-abi",
+        "fixtureSha256": "59dfb9a4acb36fe2a2affc14bacbee2920ff435cb13cc314a08c13f66ba7860e",
+        "modelSha256": "4baf70dd0d7c4247ba2b81fafd9c01005ac77c2f9ef064e00dcf195d0e2fdd2f",
+        "workerSha256": "762e44b55005a917bc05a3d3f894890648817fe18e9b0106ddb22983536ff10b",
+        "capture": {
+          "samples": 176000,
+          "mediaStart": 100,
+          "generation": 1,
+          "continuity": 1
+        },
+        "threads": 4,
+        "wordErrorRate": 0.0,
+        "referenceScope": "full fixture",
+        "inferenceSecondsExcludingModelLoad": 2.6056086,
+        "segments": [
+          {
+            "mediaStart": 100.0,
+            "mediaEnd": 111.0
+          }
+        ],
+        "validPrefixOnly": false,
+        "speechSupportCounts": {
+          "0": 0,
+          "1": 25,
+          "2": 0
+        },
+        "timestampAccuracyValidated": false,
+        "srtAlignmentValidated": false,
+        "productionAppValidated": false,
+        "audiblePlaybackValidated": false,
+        "retainedCapturedAudio": false,
+        "retainedTranscript": false
+      }
+    },
+    "worker-avx2-base.en.json": {
+      "sha256": "5cdd2119391c1d6043d28a10e30b7a0483c24c363f745bdaae41e14901efe02f",
+      "data": {
+        "kind": "fixture-native-worker-abi",
+        "fixtureSha256": "59dfb9a4acb36fe2a2affc14bacbee2920ff435cb13cc314a08c13f66ba7860e",
+        "modelSha256": "a03779c86df3323075f5e796cb2ce5029f00ec8869eee3fdfb897afe36c6d002",
+        "workerSha256": "762e44b55005a917bc05a3d3f894890648817fe18e9b0106ddb22983536ff10b",
+        "capture": {
+          "samples": 176000,
+          "mediaStart": 100,
+          "generation": 1,
+          "continuity": 1
+        },
+        "threads": 4,
+        "wordErrorRate": 0.0,
+        "referenceScope": "full fixture",
+        "inferenceSecondsExcludingModelLoad": 2.0300074,
+        "segments": [
+          {
+            "mediaStart": 100.0,
+            "mediaEnd": 111.0
+          }
+        ],
+        "validPrefixOnly": false,
+        "speechSupportCounts": {
+          "0": 0,
+          "1": 25,
+          "2": 0
+        },
+        "timestampAccuracyValidated": false,
+        "srtAlignmentValidated": false,
+        "productionAppValidated": false,
+        "audiblePlaybackValidated": false,
+        "retainedCapturedAudio": false,
+        "retainedTranscript": false
+      }
+    }
+  },
+  "fullProductAcceptance": false,
+  "limitations": [
+    "Single observation per model/thread setting, in fixed order; not a percentile benchmark.",
+    "No rendering/audio output during this fixture comparison.",
+    "Thread count alone does not explain the earlier 6.98\u20139.69-second production-controller observations; those use different audio and concurrent rendering.",
+    "Production thread setting remains two."
+  ],
+  "host": {
+    "avx2EvaluationSupported": true,
+    "processors": [
+      {
+        "Name": "AMD EPYC 7763 64-Core Processor                ",
+        "NumberOfCores": 2,
+        "NumberOfLogicalProcessors": 4
+      }
+    ],
+    "physicalMemoryBytes": 17174360064
+  }
+}

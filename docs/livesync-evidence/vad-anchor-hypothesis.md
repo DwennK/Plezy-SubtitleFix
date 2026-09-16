@@ -155,3 +155,51 @@ because its accepted cue-start evidence predates voice support. The regression
 first accepts that old envelope on the previous version (test fails), then
 rejects it after the version bump; cache round-trip and controller restoration
 checks still pass. This changes no installed user data during development.
+
+### Production activity-mismatch follow-up
+
+The controller can request a recheck when mapped subtitle display activity and
+audio activity strongly disagree. The old cadence returned 30 seconds before
+considering its 12-second confirmation/native-failure retries. A regression
+reproduces that postponement; df214247 preserves faster checks and only caps
+otherwise sparse checks at 30 seconds. All 171 module tests pass with one
+existing skip; focused analysis passes. No matching threshold changes.
+
+Earlier native replays did not pass this production hint into cadence. Probe
+8718dcec now applies the same tolerances and records each requested interval.
+A new crossing replay exercises 74 mismatch observations, with 12-second
+confirmation intervals, but fails scene acceptance: cue 8 establishes one
+post-edit point while the short retry does not recover cue 10. Old context
+repeating cue 8 cannot provide a second independent confirmation. Median/p95
+remain 30.210335 seconds, with no recovery or gap. The generic probe's constant
+-100-second check exits successfully; the unchanged separate scene oracle
+correctly rejects it.
+
+Window origins differ from the earlier cb9abb2f success by about 170 ms at the
+short retry, so this failure exposes recognition fragility rather than proving
+a causal cadence regression. Keep both outcomes. The next alignment work must
+obtain independent post-edit timing reliably without accepting silence points
+or counting one utterance twice. [Numeric receipt](activity-mismatch-8718dcec.json).
+
+### Ignored sound segments and bounded dialogue context
+
+The short-window failure was traced to three ASR segments whose normalized
+text is empty. They consumed the three-segment group budget, isolating a
+six-word phrase with one substitution from the preceding independent dialogue.
+That phrase correctly fails the unchanged matcher alone. Candidate a072170a
+counts only dialogue-bearing segments for group construction, retaining raw
+input limits, candidate limits, all actual speech and original token times.
+
+The synthetic regression fails before this change and passes after it; 172
+module tests pass with one existing skip. Desktop run 35162451980 passes both
+platforms. The new active-PCM replay reacquires the post-edit offset in 18.333
+seconds. The separate unchanged scene assessment remains failed: median
+0.204956 s, p95 30.204956 s, no automatic gap.
+
+An independently re-decoded pair of the previously failed public windows now
+produces both cue-8 and cue-10 anchors. Five short-window starts spanning
+75.20–75.71 s all yield the cue-10 anchor with offset -69.895 to -69.875 s;
+one requires the repaired context path. These repeated observations of one
+utterance never count as independent confirmations. The 238-second unmatched
+control never locks (five completed analyses, six invalid-output rejections).
+[Numeric evidence and limits](dialogue-context-a072170a.json).

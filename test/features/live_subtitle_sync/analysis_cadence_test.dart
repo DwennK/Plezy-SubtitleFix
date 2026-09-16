@@ -2,6 +2,31 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:plezy/features/live_subtitle_sync/analysis_cadence.dart';
 
 void main() {
+  test('timing mismatch never postpones initial confirmation or native recovery', () {
+    final cadence = AnalysisCadence()..evidence(recognizedPassage: true, learned: true);
+    int delay({bool mismatch = false, bool established = false, bool? voice}) =>
+        cadence.intervalMs(synced: true, established: established, voicePresent: voice, timingMismatch: mismatch);
+    cadence.submitted();
+    expect(delay(voice: true), 12000);
+    expect(delay(mismatch: true, voice: true), 12000);
+    // An initial estimate still needs its bounded confirmation phase when
+    // subtitles predict speech but the activity check reports quiet audio.
+    expect(delay(mismatch: true, voice: false), 12000);
+    cadence.rejectedInference();
+    expect(delay(established: true, voice: true), 12000);
+    expect(delay(mismatch: true, established: true, voice: true), 12000);
+    cadence.evidence(recognizedPassage: true, learned: true);
+    for (var i = 0; i < 10; i++) {
+      cadence.submitted();
+      cadence.evidence(recognizedPassage: true, learned: true);
+    }
+    expect(delay(mismatch: true, voice: true), 30000);
+    expect(delay(established: true, voice: true), 90000);
+    expect(delay(mismatch: true, established: true, voice: true), 30000);
+    expect(delay(established: true, voice: false), 90000);
+    expect(delay(mismatch: true, established: true, voice: false), 30000);
+  });
+
   test('a fresh accepted anchor rearms speech retry only beyond the previously analyzed audio', () {
     final cadence = AnalysisCadence();
     void rejected(double end, double? anchor) => cadence.evidence(
