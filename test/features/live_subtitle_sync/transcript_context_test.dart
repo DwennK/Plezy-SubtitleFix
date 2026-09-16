@@ -194,6 +194,31 @@ void main() {
     expect(const TimelineFitter().fit(evidence.anchors)?.offset, isNull);
   });
 
+  test('many short noise segments cannot hide a bounded set of dialogue groups', () {
+    for (final before in [0, 5, 10]) {
+      final source = NativeTranscript(1, 2, 90, 110, 0.1, [
+        for (var i = 0; i < before; i++) ...window(90, 110, 'Noise', 90.2 + i * 0.1).segments,
+        ...window(90, 110, 'Carry the lantern', 92).segments,
+        ...window(90, 110, 'Cross the bridge', 97).segments,
+        for (var i = 0; i < 10 - before; i++) ...window(90, 110, 'Noise', 100 + i * 0.5).segments,
+      ]);
+      final evidence = matchTranscriptEvidence(source, index);
+      expect(evidence.segmented, isTrue);
+      expect(evidence.anchors.map((anchor) => anchor.cue), [0, 1]);
+      expect(const TimelineFitter().fit(evidence.anchors)?.offset, 90);
+    }
+  });
+
+  test('too many viable groups stay unknown instead of omitting competitors', () {
+    final source = NativeTranscript(1, 2, 90, 130, 0.1, [
+      for (var i = 0; i < 12; i++)
+        ...window(90, 130, i.isEven ? 'Carry the lantern' : 'Cross the bridge', 92 + i * 2).segments,
+    ]);
+    final evidence = matchTranscriptEvidence(source, index);
+    expect(evidence.anchors, isEmpty);
+    expect(evidence.match.status, isNot(TranscriptMatchStatus.matched));
+  });
+
   test('an individually valid match stays preferred over unrelated context', () {
     final current = window(90, 105, 'Carry the lantern Cross the bridge', 92);
     final evidence = matchTranscriptEvidence(current, index, context: window(80, 105, 'Entirely unrelated speech', 85));

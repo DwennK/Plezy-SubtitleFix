@@ -1,6 +1,7 @@
 import 'native_bindings.dart';
 import 'subtitle_index.dart';
 import 'temporal_aligner.dart';
+import 'text_normalization.dart';
 import 'transcript_matcher.dart';
 
 /// Two recent windows, in memory only. Matching may use their combined text,
@@ -117,43 +118,56 @@ TranscriptEvidence _matchWindow(
       anchorRejections: rejected ?? const {},
     );
   }
-  // At most 21 groups per source, avoiding an unbounded search that also
-  // multiplies opportunities for false matches. Long windows remain unknown.
-  if (source.segments.length > 8) return TranscriptEvidence(whole, const [], windowCount);
-  TranscriptMatchResult? best;
-  final anchors = <int, SubtitleAnchor>{};
+  // Budget viable groups, not raw segments: short noise fragments must not
+  // hide useful dialogue. These filters are necessary conditions of the
+  // unchanged matcher (six words and at least 60% exact correspondences).
+  // Enumerate all candidates before matching; never truncate competitors.
+  if (source.segments.length > 128 ||
+      source.segments.fold<int>(0, (size, segment) => size + segment.text.length) > 32768) {
+    return TranscriptEvidence(whole, const [], windowCount);
+  }
+  const matcher = TranscriptMatcher();
+  final groups = <List<NativeTranscriptSegment>>[];
   for (var start = 0; start < source.segments.length; start++) {
     for (var count = 1; count <= 3 && start + count <= source.segments.length; count++) {
       if (start == 0 && count == source.segments.length) continue;
       final segments = source.segments.sublist(start, start + count);
-      final match = const TranscriptMatcher().find(segments.map((segment) => segment.text).join(' '), index);
-      if (match.status != TranscriptMatchStatus.matched) continue;
-      final selected = NativeTranscript(
-        source.generation,
-        source.continuity,
-        source.windowStart,
-        source.windowEnd,
-        source.elapsed,
-        segments,
-        validPrefixOnly: source.validPrefixOnly,
-        voiceOnsets: source.voiceOnsets,
-      );
-      final matched = TemporalAligner(
-        experimentalAcousticBeginnings: experimentalAcousticBeginnings,
-      ).anchors(selected, index, match.passage!, rejectionCounts: rejected);
-      for (final anchor in matched) {
-        final previous = anchors[anchor.cue];
-        if (previous != null && (previous.mediaTime - anchor.mediaTime).abs() > 0.8) {
-          return TranscriptEvidence(
-            const TranscriptMatchResult(TranscriptMatchStatus.ambiguous),
-            const [],
-            windowCount,
-          );
-        }
-        anchors.putIfAbsent(anchor.cue, () => anchor);
+      final words = const DialogueNormalizer().words(segments.map((segment) => segment.text).join(' '));
+      if (words.length < matcher.minimumWords ||
+          words.length > 128 ||
+          words.where((word) => index.positionsOf(word).isNotEmpty).length / words.length < 0.6) {
+        continue;
       }
-      if (matched.isNotEmpty && (best == null || match.passage!.similarity > best.passage!.similarity)) best = match;
+      groups.add(segments);
+      if (groups.length > 21) return TranscriptEvidence(whole, const [], windowCount);
     }
+  }
+  TranscriptMatchResult? best;
+  final anchors = <int, SubtitleAnchor>{};
+  for (final segments in groups) {
+    final match = matcher.find(segments.map((segment) => segment.text).join(' '), index);
+    if (match.status != TranscriptMatchStatus.matched) continue;
+    final selected = NativeTranscript(
+      source.generation,
+      source.continuity,
+      source.windowStart,
+      source.windowEnd,
+      source.elapsed,
+      segments,
+      validPrefixOnly: source.validPrefixOnly,
+      voiceOnsets: source.voiceOnsets,
+    );
+    final matched = TemporalAligner(
+      experimentalAcousticBeginnings: experimentalAcousticBeginnings,
+    ).anchors(selected, index, match.passage!, rejectionCounts: rejected);
+    for (final anchor in matched) {
+      final previous = anchors[anchor.cue];
+      if (previous != null && (previous.mediaTime - anchor.mediaTime).abs() > 0.8) {
+        return TranscriptEvidence(const TranscriptMatchResult(TranscriptMatchStatus.ambiguous), const [], windowCount);
+      }
+      anchors.putIfAbsent(anchor.cue, () => anchor);
+    }
+    if (matched.isNotEmpty && (best == null || match.passage!.similarity > best.passage!.similarity)) best = match;
   }
   return best == null
       ? TranscriptEvidence(whole, const [], windowCount, anchorRejections: rejected ?? const {})
