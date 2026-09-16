@@ -659,7 +659,7 @@
       "ciRun": 35034268551,
       "forkSha": "c4e64bba647bcf424517f8fe7481b4e910819194"
     },
-    "qualityLimitations": "Whole upstream CI 35049528726 passed at a9d34645. Later controller/timeline changes require their own CI; native UI, physical hardware and performance budgets remain incomplete.",
+    "qualityLimitations": "Whole upstream CI 35052223364 passed at 785dcef2. Later timeline/audio-delay changes require their own native CI. Native UI, physical hardware and performance budgets remain incomplete.",
     "nativeCaptureOwner": {
       "localResult": "passed real decoder PCM, forward/backward seeks, pause, exclusive capture and weak-client release on parent shutdown",
       "platform": "macOS arm64 Apple M4",
@@ -712,7 +712,13 @@
       "windowsCiRun": 35053063463,
       "nativeStatus": "pending",
       "gapSuppressionImplemented": false,
-      "persistentCacheImplemented": false
+      "persistentCacheImplemented": false,
+      "nativeIntro90": {
+        "report": "docs/livesync-evidence/timeline-intro-90-macos-native.json",
+        "acquisitionMs": 135856,
+        "absoluteOffsetErrorSeconds": 0.21166666666666,
+        "scope": "55da2726 tracker and native media clock, zero manual audio delay; not production UI."
+      }
     }
   }
 }

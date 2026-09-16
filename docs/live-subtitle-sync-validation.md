@@ -936,3 +936,20 @@ Le build macOS debug de `55da2726` compile et sa signature passe la vérificatio
 stricte. Une copie identifiée et son manifeste sont conservés dans
 `build/livesync/review-builds/55da2726/`. L'analyse complète du dépôt passe aussi.
 L'application n'a pas été contrôlée visuellement : le bureau Mac reste verrouillé.
+
+Le probe natif utilisant cette timeline et la vraie horloge mpv retrouve ensuite
+le générique de 90 s : **+89,788 s, erreur 212 ms, acquisition totale 135,856 s**,
+sept analyses terminées et aucune rejetée. La première fenêtre de dialogue ne
+fournit qu'une ancre ; la suivante permet la confirmation. Ce délai plus long
+que le premier essai reste dans le bilan. Le rapport
+`timeline-intro-90-macos-native.json` identifie le tracker `55da2726` et le blob
+du probe ajouté dans `b32c5be1`. Il ne prouve pas la dérive ni le rendu applicatif.
+
+Le correctif suivant `1a0f82e5` compose le délai audio manuel dans la timeline
+audio avant de reconvertir vers l'horloge vidéo. Sept tests du suivi passent,
+y compris les deux signes et une pente différente de un ; l'analyse complète
+reste verte. Le banc applicatif contrôle désormais aussi cette composition et
+la conservation du délai audio après désactivation. Sa preuve native est en
+attente. La CI upstream complète de `785dcef2`,
+[35052223364](https://github.com/DwennK/Plezy-SubtitleFix/actions/runs/35052223364),
+est verte ; elle précède ces changements de timeline et de délai audio.
