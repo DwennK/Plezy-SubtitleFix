@@ -52,8 +52,33 @@ class _ProbeState extends State<_Probe> {
     const directory = String.fromEnvironment('LIVESYNC_ANALYSIS_FIXTURE_DIR');
     final output = File('$directory/result.json');
     final diagnostics = <Map<String, Object?>>[];
+    HttpServer? subtitleServer;
+    const sourceDelayMs = int.fromEnvironment('LIVESYNC_SUBTITLE_LOAD_DELAY_MS');
+    var delayNextSourceRead = false;
+    var delayedSourceReads = 0;
     try {
       check(directory.isNotEmpty, 'fixture');
+      check(sourceDelayMs == 0 || sourceDelayMs == 15000, 'source-delay-fixture');
+      var subtitleLocation = '$directory/fixture.srt';
+      if (sourceDelayMs > 0) {
+        subtitleServer = await HttpServer.bind(InternetAddress.loopbackIPv4, 0);
+        subtitleLocation = 'http://127.0.0.1:${subtitleServer.port}/fixture.srt';
+        final bytes = await File('$directory/fixture.srt').readAsBytes();
+        subtitleServer.listen((request) async {
+          if (request.uri.path != '/fixture.srt') {
+            request.response.statusCode = HttpStatus.notFound;
+          } else {
+            if (delayNextSourceRead) {
+              delayNextSourceRead = false;
+              delayedSourceReads++;
+              await Future<void>.delayed(const Duration(milliseconds: sourceDelayMs));
+            }
+            request.response.headers.contentType = ContentType('application', 'x-subrip');
+            request.response.add(bytes);
+          }
+          await request.response.close();
+        });
+      }
       final provenance = jsonDecode(await File('$directory/fixture-provenance.json').readAsString()) as Map;
       final expectedOffset = (provenance['expectedOffsetSeconds'] as num).toDouble();
       final introSilence = (provenance['introSilenceSeconds'] as num?)?.toInt() ?? 0;
@@ -95,7 +120,7 @@ class _ProbeState extends State<_Probe> {
       await player.open(
         Media('$directory/fixture.mkv'),
         play: false,
-        externalSubtitles: [SubtitleTrack.uri('$directory/fixture.srt', language: 'eng', codec: 'srt')],
+        externalSubtitles: [SubtitleTrack.uri(subtitleLocation, language: 'eng', codec: 'srt')],
       );
       final tracks = await tracksReady.timeout(const Duration(seconds: 15));
       final audio = tracks.audio.firstWhere((track) => track.language == 'eng');
@@ -115,7 +140,7 @@ class _ProbeState extends State<_Probe> {
         'selectedSubtitleLanguage': player.state.track.subtitle?.language,
         'subtitleExternal': player.state.track.subtitle?.isExternal,
         'subtitleSourceMatchesFixture':
-            p.normalize(player.state.track.subtitle?.uri ?? '') == p.normalize('$directory/fixture.srt'),
+            p.normalize(player.state.track.subtitle?.uri ?? '') == p.normalize(subtitleLocation),
       });
       await player.setProperty('sub-delay', '0.125');
       final sync = controller = LiveSubtitleSyncController.forPlayer(player);
@@ -124,8 +149,19 @@ class _ProbeState extends State<_Probe> {
         setState(() => status = 'Sintel calibration; expected offset $expectedOffset s; added silence $introSilence s');
       }
       await player.play();
+      delayNextSourceRead = sourceDelayMs > 0;
       final started = Stopwatch()..start();
       await sync.enable();
+      if (sourceDelayMs > 0) {
+        final capture = diagnostics.firstWhere((event) => event.containsKey('startupCaptureMs'));
+        final source = diagnostics.firstWhere((event) => event.containsKey('startupSubtitlesMs'));
+        final ready = diagnostics.firstWhere((event) => event.containsKey('startupBufferedSamples'));
+        check(delayedSourceReads == 1, 'source-delay-not-exercised');
+        check(capture['captureReadyBeforeSubtitles'] == true, 'capture-did-not-overlap-source');
+        check((source['startupSubtitlesMs'] as int) >= sourceDelayMs, 'incomplete-subtitles-used');
+        check((capture['startupCaptureMs'] as int) < (source['startupSubtitlesMs'] as int), 'capture-started-late');
+        check((ready['startupBufferedSamples'] as int) >= 128000, 'capture-did-not-fill-during-source-load');
+      }
       while (sync.phase != LiveSyncPhase.synced) {
         await output.writeAsString(
           jsonEncode({
@@ -148,6 +184,9 @@ class _ProbeState extends State<_Probe> {
       check((nativeDelay - automatic - 0.125).abs() < 0.0001, 'native-delay');
       final report = <String, Object>{
         'kind': 'actual-plezy-production-controller-calibration',
+        'subtitleLoadDelayMs': sourceDelayMs,
+        'startupDiagnostics': diagnostics.where((event) => event.keys.any((key) => key.startsWith('startup'))).toList(),
+        'captureDuringSubtitleLoadValidated': sourceDelayMs > 0,
         'platform': Platform.operatingSystem,
         'inferenceBackend':
             diagnostics.firstWhere((entry) => entry.containsKey('inferenceBackend'))['inferenceBackend']! as String,
@@ -271,6 +310,8 @@ class _ProbeState extends State<_Probe> {
         }),
       );
       if (mounted) setState(() => status = 'Calibration check failed; inspect result.json');
+    } finally {
+      await subtitleServer?.close(force: true);
     }
   }
 
