@@ -9,6 +9,30 @@ second flux réseau du média ou analyse préalable intégrale. Sources inchang�
 Le fork et ses artefacts de test peuvent être poussés ; les releases restent en
 brouillon. Aucun changement ni PR au dépôt officiel.
 
+## État de la chaîne intégrée — 16 septembre 2026
+
+Le contrôle « Live subtitle sync » est branché dans les menus de sous-titres
+et de réglages vidéo sur les plateformes ciblées. Il charge le SRT externe
+anglais sélectionné avec les en-têtes du média, vérifie/télécharge le modèle
+quantifié (~60 Mo), prélève le PCM du lecteur et applique un décalage constant
+après plusieurs ancres concordantes. La lecture continue pendant l'analyse.
+Le délai manuel est additionné séparément ; désactiver retire seulement la
+contribution automatique. Les seeks, changements de vitesse et discontinuités
+PCM invalident l'analyse ; un changement de piste relance une session demandée.
+
+La première preuve native macOS sur audio réel de calibration a appliqué
+−100,16 s pour −100 s attendues, en 47,49 s, puis vérifié le délai manuel et
+l'arrêt du prélèvement. C'est une preuve intermédiaire sur un extrait,
+avec sortie audio nulle. Le premier test multicanal a révélé des ancres
+imprécises. L'alignement DTW suivant donne −100,23 s en 33,62 s dans le banc
+natif sans UI ; le cas utilisateur Mentalist S2 E16 n'est pas validé.
+Le Mac verrouillé empêche actuellement la suite des contrôles d'interface.
+
+Le moteur actuel ne livre pas encore la timeline segmentée, la dérive, les
+gaps, le VAD, le cache de mappings ou la suppression du modèle dans les
+paramètres. Les performances Windows, la validation séparée du corpus et les
+autres critères de livraison restent ouverts. Aucun build final annoncé.
+
 ## Plan d'exécution et portes de validation
 
 | Phase | Livrable | Preuve nécessaire avant la suite |

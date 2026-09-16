@@ -1,0 +1,17 @@
+{
+  "kind": "dart-isolate-real-native-capture-and-inference",
+  "platform": "macos",
+  "generationReset": true,
+  "duplicateCaptureRejected": true,
+  "singleInferenceEnforced": true,
+  "fixtureDialogueRecognized": true,
+  "windowStart": 0.5439370039682538,
+  "windowEnd": 9.109937003968255,
+  "segments": 1,
+  "tokens": 19,
+  "inferenceSeconds": 0.372841209,
+  "productionPlayerValidated": false,
+  "audiblePlaybackValidated": false,
+  "pcmOrTranscriptPersisted": false,
+  "mainIsolateHeartbeatTicks": 376
+}

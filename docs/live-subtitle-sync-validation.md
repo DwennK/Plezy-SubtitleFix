@@ -18,7 +18,7 @@ restent explicitement non réalisées, y compris sur Windows et dans l'UI native
   engine `5d531788691ec3404cac0cee66ead4007b177363`.
 - whisper.cpp candidat : v1.9.4 ; révision/checksum à figer après examen.
 
-## Matrice de preuves
+## Matrice de preuves initiale (historique ; avancées détaillées ci-dessous)
 
 | Niveau | État | Limite |
 |---|---|---|
@@ -641,3 +641,65 @@ les répétitions adjacentes ou éloignées. La marge inclut les concurrents sou
 le seuil d'acceptation. Les scores restent heuristiques, sans calibration réelle
 ni déduction d'une ancre temporelle précise. Neuf nouveaux tests passent ; les
 36 tests des composants LiveSync passent localement, analyse Dart sans remarque.
+
+### Chaîne intégrée et premier test réel de correction
+
+Les bindings FFI contrôlent l'ABI et les bornes, transfèrent le client faible
+du mpv déjà chargé dans l'application et effectuent la capture, l'inférence,
+la purge et les joins dans un isolate dédié. Le modèle reste protégé jusqu'à
+la fin du teardown. Le runtime CPU épinglé est inclus dans l'app, avec empreintes
+d'entrée/sortie et signature locale des dylibs Mac ; le packaging Windows
+revérifie les fichiers à l'installation et force leur recopie.
+
+Preuves locales nouvelles, sans sortie audible :
+
+- `2026-09-16-dart-native-{base,q5}-macos.json` : vraie capture/inférence depuis
+  Dart, annulation, exclusion d'un second propriétaire et heartbeat de l'isolate
+  principal. Inférences individuelles de 0,356/0,373 s, pas une mesure p95.
+- `2026-09-16-production-controller-stereo-macos.json` : vrai contrôleur et mpv
+  applicatif, audio Sintel de la partition de calibration 100–175 s, SRT entier
+  inchangé. Décalage −100,157656 s pour −100 s attendues, acquisition 47,494 s.
+  Délai manuel avant/pendant/après vérifié, tap désactivé à l'arrêt. Une seule
+  exécution avant les modifications multicanales suivantes ; aucune preuve
+  Mentalist, de sortie audible ou de précision statistique. Budget 45 s dépassé.
+- Conversion mono d'analyse par moyenne de tous les canaux (1–8), sans matrice
+  de positions supposée. Tests PCM sur chaque canal, packed/planar, échantillons
+  sources inchangés. Le dialogue réel placé artificiellement au centre d'une
+  piste 5.1 passe dans le banc natif sans interface : −100,944 s en 45,604 s,
+  rapport `2026-09-16-domain-alignment-six-channel-macos.json`. Des ancres
+  individuelles errent de plusieurs secondes : ce test ne valide pas la
+  précision ni une véritable bande-son surround. Les essais dans l'app 5.1
+  n'ont pas confirmé l'acquisition ; le Mac s'est ensuite verrouillé.
+- 108 tests Dart ciblés passent, dont composition des délais, concurrence,
+  arrêt utilisateur pendant un changement de piste et annulation du worker.
+  Contrôle d'analyse upstream, code/fichiers inutilisés, formatage Dart, tests
+  PCM natifs, build Mac normal et `git diff --check` passent localement.
+- Le nouveau contrat Swift du client faible passe après initialisation
+  explicite de `pause=yes` ; le test ne suppose plus la valeur par défaut.
+  L'ancien échec iOS du run `35035257410` passe à sa relance ciblée (tentative 2).
+
+La partition de validation séparée 200–650 s n'a pas été utilisée pour ajuster
+les seuils. Les horodatages SRT sont une référence éditoriale, pas une annotation
+indépendante des débuts de parole. Les nouvelles bibliothèques et le contrôleur
+Windows doivent encore passer leur CI ; le workflow ajoute cette preuve et
+échoue si l'offset attendu n'est pas acquis. Le projet reste en cours.
+
+### Affinement des horodatages par DTW
+
+La calibration montre qu'une phrase parfaitement reconnue peut avoir une ancre
+legacy à −104,08 s pour −100 s attendues. Le worker active maintenant les têtes
+d'alignement `WHISPER_AHEADS_BASE_EN`, communes aux deux modèles épinglés, et
+désactive explicitement flash attention : cette version de whisper.cpp désactive
+sinon silencieusement DTW. Le budget d'espace de travail DTW est fixé à 128 Mio.
+Les tokens exposent des intervalles de point d'alignement de 20 ms, et non une
+durée de mot prétendument mesurée. L'incertitude de l'aligner reste distincte.
+
+`2026-09-16-domain-alignment-six-channel-dtw-macos.json` : vraie capture active,
+modèle quantifié, même partition de calibration, offset −100,229 s en 33,616 s.
+Trois ancres dans deux fenêtres distinctes : −100,229 / −100,302 / −100,072 s.
+Les contrats natifs avec les deux modèles passent (horloge, inférence unique,
+annulation et reprise). Cette amélioration n'est pas une validation statistique,
+une preuve Windows ou une preuve du contrôleur applicatif après modification.
+Le build normal macOS est reconstruit ; vérification visuelle bloquée par le
+verrouillage du Mac. Les performances mémoire/lecture et la validation séparée
+restent nécessaires.

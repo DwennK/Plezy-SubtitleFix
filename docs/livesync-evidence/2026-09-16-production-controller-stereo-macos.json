@@ -1,0 +1,19 @@
+{
+  "kind": "actual-plezy-production-controller-calibration",
+  "platform": "macos",
+  "expectedOffset": -100,
+  "actualOffset": -100.15765625,
+  "reference": "authored Sintel SRT, not precise acoustic-onset ground truth",
+  "acquisitionMs": 47494,
+  "nativeDelay": -100.032654,
+  "audioPartitionSeconds": [
+    100,
+    175
+  ],
+  "audioOutput": "null",
+  "audiblePlaybackValidated": false,
+  "pcmOrTranscriptPersisted": false,
+  "manualDelayDuringAndAfter": true,
+  "tapDisabledOnClose": true,
+  "passed": true
+}

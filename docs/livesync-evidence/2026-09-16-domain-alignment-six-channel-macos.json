@@ -1,0 +1,64 @@
+{
+  "kind": "native-active-pcm-real-asr-and-domain-alignment",
+  "platform": "macos",
+  "actualOffset": -100.94429166666666,
+  "acquisitionMs": 45604,
+  "passed": true,
+  "analyses": [
+    {
+      "attempt": 1,
+      "windowStart": 0.6943333333333334,
+      "windowEnd": 8.799020833333334,
+      "match": "noCandidate",
+      "similarity": null,
+      "anchors": []
+    },
+    {
+      "attempt": 2,
+      "windowStart": 8.916333333333334,
+      "windowEnd": 20.916333333333334,
+      "match": "matched",
+      "similarity": 1.0,
+      "anchors": [
+        {
+          "cue": 2,
+          "offset": -104.08366666666666
+        }
+      ]
+    },
+    {
+      "attempt": 3,
+      "windowStart": 20.94833333333333,
+      "windowEnd": 32.94833333333333,
+      "match": "matched",
+      "similarity": 0.85,
+      "anchors": [
+        {
+          "cue": 6,
+          "offset": -101.18166666666667
+        }
+      ]
+    },
+    {
+      "attempt": 4,
+      "windowStart": 33.06570833333333,
+      "windowEnd": 45.06570833333333,
+      "match": "matched",
+      "similarity": 0.8666666666666667,
+      "anchors": [
+        {
+          "cue": 7,
+          "offset": -100.94429166666666
+        },
+        {
+          "cue": 8,
+          "offset": -100.93429166666667
+        }
+      ]
+    }
+  ],
+  "productionPlayerValidated": false,
+  "audiblePlaybackValidated": false,
+  "pcmOrTranscriptPersisted": false,
+  "mainIsolateHeartbeatTicks": 1840
+}
