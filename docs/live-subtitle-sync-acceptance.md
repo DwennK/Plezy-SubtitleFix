@@ -166,3 +166,27 @@ Le crash Windows précédent ne se reproduit pas ; sa cause reste inconnue.
 Ces résultats n’établissent ni la précision indépendante ni les budgets de
 performance (les inférences Windows observées dépassent 3 s), et ne résolvent
 pas le refus Plex dans l’application installée.
+
+
+### Correctif utilisateur installé — candidat `b18c9891`
+
+Le branchement est déplacé après l’ouverture native et ses replis. Le nouveau
+test de l’écran reproduit la perte du fournisseur sur l’ancien code et passe
+avec le correctif. 189 tests ciblés passent, avec une exclusion préexistante ;
+analyse Flutter, build Mac Release et signature stricte passent.
+
+Le candidat est installé dans `/Applications/PlezyLiveSync.app`, ancien bundle
+conservé et Plezy officiel inchangé. Sur **Mentalist S2 E16**, l’activation
+atteint effectivement **Synced / +3,04 s**, observé à 16,977 s. Cet état est
+encore présent à 44,299 s. La désactivation affiche Off, puis une nouvelle
+activation atteint **Synced / +2,83 s**, observé à 30,348 s. Ce sont des bornes
+d’observation de l’UI ; l’extraction Plex venait d’être sollicitée, donc aucune
+mesure de serveur à froid n’est revendiquée. L’épisode est mis en pause vers
+10:51 ; le Mac se verrouille ensuite.
+
+[Preuve numérique sans média privé](livesync-evidence/mentalist-native-b18c9891.json).
+[PR interne nº 9](https://github.com/DwennK/Plezy-SubtitleFix/pull/9), non promue.
+La branche maintenue conserve `0d2482fb` jusqu’à validation du candidat.
+La correction automatique dans le lecteur est désormais observée ; **la
+précision à l’écoute, la précision indépendante et l’épisode entier restent
+non validés**. Ce candidat ne contient ni PR6 ni l’expérience VAD.
