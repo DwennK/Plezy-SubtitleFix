@@ -1814,3 +1814,53 @@ Le code cache+protection passe 162 tests locaux et l’analyse ; actionlint et
 utilisent un hôte Release avec testabilité Swift ; l’application ordinaire
 est archivée avant cette instrumentation. Les nouvelles CI sont en cours,
 sans promotion de ce candidat ni attribution des résultats de `7267abfc`.
+
+
+### Candidat Mac Release et échecs de scènes — 16 septembre
+
+Le candidat `0d2482fb` passe le build Mac Release `35113276812`, ses 14 contrats
+natifs et la vérification stricte du bundle téléchargé. L’archive ordinaire
+précède le rebuild XCTest avec testabilité Swift. Le lanceur et App.framework
+sont universels ; les bibliothèques LiveSync restent arm64 et le code exclut
+explicitement Intel. Aucune validation de LiveSync Intel n’est déduite du build.
+[Reçu et empreintes](livesync-evidence/release-0d2482fb-macos.json).
+
+La branche `codex/livesync-scene-evidence`, PR nº 5, prépare trois cas réels
+d’ajout/suppression/cue traversante. Sept contrôles ciblés, 13 tests de fixtures,
+analyse Flutter et actionlint passent. Les trois MKV restituent exactement le
+PCM édité et conservent le hash du SRT original. Aucun oracle ne va au moteur.
+Les inférences au SHA `f3621f5c` acquièrent vers 21,4 s puis retrouvent le nouvel
+offset, mais ne produisent aucun gap. Les erreurs pendant la transition font
+échouer le suivi complet : p95 30,210 s / 12,780 s / 30,205 s.
+
+Le périmètre natif est l’ancien développement c734, déclaré avec empreintes ;
+ni le bundle courant, ni un renderer, ni Mentalist audible ne sont ainsi validés.
+Une reconstruction locale depuis le lock upstream courant est lancée. Ces échecs
+sont conservés pour guider l’apprentissage des coupures et leurs frontières,
+sans réduire l’objectif à la seule récupération d’un offset final.
+
+
+### Promotion du candidat Release combiné — 16 septembre
+
+Les quatre workflows du source `0d2482fb` sont réussis. Windows `35113273599`
+confirme le mode Release, le faux gap restauré, puis sa correction PCM/Whisper
+avec retour de la visibilité et remplacement du cache sur disque. Acquisition
+35,037 s / 125,158 s ; erreurs face au SRT 231,6 / 245 ms. Les deux cibles
+45/135 s et les contrôles manuel/audio, seek, cache et arrêt passent.
+La PR nº 4 est intégrée dans `6ea456cd` avec code identique au candidat testé.
+[Rapports complets](livesync-evidence/release-0d2482fb-comparison.json).
+Les scènes réelles, Mentalist, la précision indépendante et la lecture audible
+restent explicitement non validés. Le brouillon a5838cbe est encore antérieur
+au code courant ; de nouvelles archives Release sont préparées séparément.
+
+
+### Archives Release vérifiées — 16 septembre
+
+Le brouillon `livesync-test-20260916-0d2482fb` contient les deux archives
+Release, SHA256SUMS, provenance et validation. Les cinq tailles et SHA-256
+distants correspondent aux fichiers locaux ; le statut brouillon est vérifié.
+Mac : signature ad hoc stricte et identité distincte ; Windows : PE x64 et
+dossier complet de DLL/data conservé. Aucun lancement utilisateur, installation,
+notarisation ou Mentalist n’est déduit de ces contrôles.
+[Reçu](livesync-evidence/draft-test-artifacts-0d2482fb.json).
+Upstream refetché/revérifié à 15:37:14 UTC : même `7883cf8c`, stable 2.20.0.

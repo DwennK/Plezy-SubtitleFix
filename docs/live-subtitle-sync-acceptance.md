@@ -7,11 +7,11 @@ Les limites ne sont pas des validations. Les preuves historiques gardent leur SH
 ## Code et artefacts de référence
 
 - Upstream intégré : `7883cf8c88d31e9b81e574c6949031a1c46de0b4`.
-- Code courant construit/testé : `f04d8e295baf49483e46fa5b03cee7393d66dfc4`.
-- Promotion : `7a68ca094c5fc17477dd2343a53b684d6dbdadd0`, code identique ; seuls des documents de preuve supplémentaires diffèrent.
+- Code courant construit/testé : `0d2482fb6dcc00b5411e20ec382b88b2466de70f` (Release).
+- Promotion : `6ea456cd4a0486a05defec7d4c876fc1a26ae633`, code identique ; seuls des documents de preuve supplémentaires diffèrent.
 - Base d’intégration upstream validée : `10ace9fc6d93c59a2f577e1d2a2d9e7245087f52`.
 - [Chaîne complète, PR #1, promotion et no-op](livesync-evidence/upstream-10ace9fc-full-workflow.json).
-- [Archives brouillon courantes vérifiées](livesync-evidence/draft-test-artifacts-a5838cbe.json), pour `a5838cbe` ; elles ne contiennent pas le nouveau cache v2.
+- [Archives Release brouillon courantes vérifiées](livesync-evidence/draft-test-artifacts-0d2482fb.json), pour `0d2482fb`, cache v2 inclus.
 - [Archives historiques de la base upstream](livesync-evidence/draft-test-artifacts-10ace9fc.json).
 - [Manifestes et outils](live-subtitle-sync-versions.json).
 
@@ -93,5 +93,21 @@ accusés de soumission arrivant après un seek, et les builds Release Windows/Ma
 La protection a passé 162 tests locaux et l’analyse sur le code cache combiné ;
 la course elle-même n’a pas été reproduite dans un probe natif. Le bundle Mac
 ordinaire est archivé avant qu’XCTest active la testabilité de son hôte Release.
-Les quatre workflows du candidat sont lancés ; aucun résultat antérieur ne
-lui est attribué. La branche maintenue reste au candidat validé `f04d8e29`.
+La CI Dart, la CI générale et le [build Mac Release avec 14 contrats](livesync-evidence/release-0d2482fb-macos.json)
+passent. Le contrôleur Windows Release passe également : 35,037 / 125,158 s,
+erreurs face au SRT 231,6 / 245 ms, récupération du mauvais cache et contrôles
+usuels réussis. [Preuve combinée](livesync-evidence/release-0d2482fb-comparison.json).
+La PR nº 4 est intégrée dans `6ea456cd`, code identique au candidat testé.
+
+## Scènes ajoutées/supprimées : référence native en échec
+
+La [PR nº 5](https://github.com/DwennK/Plezy-SubtitleFix/pull/5) conserve trois
+fixtures réelles à coupures connues et leurs premières inférences au SHA
+`f3621f5c`. Le SRT complet reste identique ; le moteur ne reçoit pas l’oracle.
+Les trois cas apprennent deux régions mais aucun gap. Après ajout de 30 s,
+la récupération prend 29,634 s et le p95 de suivi vaut 30,210 s. Après suppression
+de 13 s : 11,575 s et p95 12,780 s. Le cas coupant une cue échoue également.
+Ces essais utilisent l’ancienne bibliothèque locale c734, sans UI ni audio audible ;
+ils démontrent une limite du suivi, pas une validation du bundle actuel.
+La reconstruction locale du natif upstream actuel est engagée pour poursuivre
+ce travail. Détection des coupures et rendu des cues traversantes restent requis.
