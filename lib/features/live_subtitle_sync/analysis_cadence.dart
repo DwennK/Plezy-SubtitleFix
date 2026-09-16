@@ -8,6 +8,8 @@ class AnalysisCadence {
   bool? _previousVoicePresent;
   bool _activityWake = false;
   int? _confirmationRequests;
+  bool _tightRetryPending = false;
+  bool _tightRetryUsed = false;
   double windowSeconds = 12;
 
   void clear() {
@@ -17,24 +19,37 @@ class AnalysisCadence {
     _previousVoicePresent = null;
     _activityWake = false;
     _confirmationRequests = null;
+    _tightRetryPending = false;
+    _tightRetryUsed = false;
     windowSeconds = 12;
   }
 
   void submitted() {
     attempts++;
     _activityWake = false;
+    if (_tightRetryPending) {
+      _tightRetryPending = false;
+      _tightRetryUsed = true;
+      windowSeconds = 15;
+    }
     if (_confirmationRequests != null) _confirmationRequests = _confirmationRequests! + 1;
   }
 
-  void evidence({required bool recognizedPassage, required bool learned}) {
+  void evidence({required bool recognizedPassage, required bool learned, bool predictionContradicted = false}) {
     _nativeFailures = 0;
     _retrySoon = recognizedPassage && !learned;
     windowSeconds = learned ? 12 : 15;
-    if (learned) _confirmationRequests ??= 0;
+    if (learned) {
+      _confirmationRequests ??= 0;
+      if (!predictionContradicted) _tightRetryUsed = false;
+    }
+    _tightRetryPending = predictionContradicted && !learned && !_tightRetryUsed;
+    if (_tightRetryPending) windowSeconds = 8;
   }
 
   void rejectedInference() {
     _nativeFailures++;
+    _tightRetryPending = false;
     // Give transient failures two prompt recovery attempts, then return to
     // sparse acquisition. Never loop continuously on a broken native runtime.
     _retrySoon = _nativeFailures <= 2;
@@ -47,6 +62,10 @@ class AnalysisCadence {
       if (!voicePresent) _activityWake = false;
       _previousVoicePresent = voicePresent;
     }
+    // A confirmed contradiction may be caused by a badly placed token in a
+    // long window. Reanalyze the recent tail once, after the previous result
+    // has released its native slot. Repeated failures cannot create a loop.
+    if (_tightRetryPending && !synced) return 0;
     // Keep one initial analysis and a periodic fallback: the heuristic can
     // miss quiet speech. Activity never changes a mapping or grants a lock.
     if (synced && timingMismatch) return 30000;

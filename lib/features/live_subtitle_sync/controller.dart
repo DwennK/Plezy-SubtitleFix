@@ -408,6 +408,7 @@ class LiveSubtitleSyncController extends ChangeNotifier {
         _cadence.evidence(
           recognizedPassage: evidence.match.status == TranscriptMatchStatus.matched,
           learned: learnedRegion,
+          predictionContradicted: _timeline.correctionAt(transcript.windowEnd).predictionContradicted,
         );
         if (learnedRegion) {
           final learned = _timeline.map.segments.last;
