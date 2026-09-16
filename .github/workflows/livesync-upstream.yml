@@ -64,7 +64,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        kind: [checks, dart, native, macos]
+        kind: [dart, native, macos]
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
         with:
@@ -91,6 +91,10 @@ jobs:
     if: needs.prepare.outputs.changed == 'true'
     runs-on: ubuntu-latest
     timeout-minutes: 90
+    strategy:
+      fail-fast: false
+      matrix:
+        kind: [checks, windows]
     permissions:
       contents: read
       actions: write
@@ -102,18 +106,19 @@ jobs:
         with:
           name: livesync-upstream-native-${{ github.run_id }}
           path: ${{ runner.temp }}/upstream-native
-      - name: Build and exercise the Windows application
+      - name: Validate with the completed candidate native build
         env:
           GH_TOKEN: ${{ github.token }}
           CANDIDATE_SHA: ${{ needs.prepare.outputs.sha }}
+          VALIDATION_KIND: ${{ matrix.kind }}
         run: |
           native_run=$(python3 -c 'import json,os; p=os.path.join(os.environ["RUNNER_TEMP"],"upstream-native/native.json"); print(json.load(open(p))["runId"])')
-          python3 scripts/livesync/upstream_sync.py validate --sha "$CANDIDATE_SHA" --kind windows --native-run "$native_run" --report "$RUNNER_TEMP/upstream/windows.json"
-      - name: Preserve Windows run identity and outcome
+          python3 scripts/livesync/upstream_sync.py validate --sha "$CANDIDATE_SHA" --kind "$VALIDATION_KIND" --native-run "$native_run" --report "$RUNNER_TEMP/upstream/$VALIDATION_KIND.json"
+      - name: Preserve dependent run identity and outcome
         if: always()
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7
         with:
-          name: livesync-upstream-windows-${{ github.run_id }}
+          name: livesync-upstream-${{ matrix.kind }}-${{ github.run_id }}
           path: ${{ runner.temp }}/upstream/
           if-no-files-found: error
           retention-days: 30

@@ -229,10 +229,11 @@ def validate(candidate, kind, report, native_run=None, checkpoint=None):
                 "-f", f"integration_id={candidate}"]
         if kind == "native":
             args += ["-f", "windows=true", "-f", "macos=false"]
-        if kind == "windows":
+        if kind in ("checks", "windows"):
             if native_run is None or not re.fullmatch(r"[0-9]+", native_run):
-                raise ValueError("Windows validation requires its verified native run")
-            args += ["-f", f"run_id={native_run}"]
+                raise ValueError(f"{kind} validation requires its verified native run")
+            field = "native_run_id" if kind == "checks" else "run_id"
+            args += ["-f", f"{field}={native_run}"]
         run(*args)
         previous_ids = {r["id"] for r in previous}
         deadline = time.monotonic() + 120

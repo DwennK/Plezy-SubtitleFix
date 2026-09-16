@@ -32,8 +32,13 @@ gh workflow run livesync-upstream.yml --repo DwennK/Plezy-SubtitleFix -f validat
    Les modèles Whisper et patches LiveSync restent explicitement épinglés.
    Un nouveau format de pins ou dépôt natif exige une revue ; aucun ancien pin
    ne remplace silencieusement une nouvelle version upstream.
-6. Exécution de la CI upstream et des tests LiveSync, build natif Windows,
-   build Mac et contrats natifs, puis build et probes applicatifs Windows.
+6. Tests LiveSync, build natif Windows, build Mac et contrats natifs. Après leur
+   succès, exécution de la CI upstream et du build/probes applicatifs Windows.
+   Ces deux derniers contrôles reçoivent l'identifiant du nouveau build natif :
+   la CI upstream contient elle aussi des tests Windows x64 utilisant ce package.
+   Un candidat d'intégration ne peut pas utiliser implicitement l'ancien run
+   conservé dans les preuves historiques du manifeste. Le staging vérifie
+   toujours les pins, patches et artefacts du run fourni.
 7. Conservation des applications, contrats et provenances dans les artefacts
    des runs enfants. Publication ou actualisation d'une unique PR **brouillon**
    après succès de tous les contrôles sur le même SHA immuable.
