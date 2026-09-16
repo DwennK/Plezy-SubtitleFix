@@ -122,3 +122,27 @@ uncertainty, fitter and scene acceptance thresholds unchanged.
 The short retry result itself cannot rearm an immediate retry. Its final window
 end extends the covered-audio bound before subsequent ordinary results may
 rearm the slot. A failed inference clears only the awaiting-result marker.
+
+### Follow-up outcome
+
+The cb9abb2f active-PCM replay reacquires 18.875 media seconds after the edit,
+versus 28.5 seconds in the first integrated candidate. The unsupported cue-10
+point is rejected; its fresh eight-second retry supplies a supported point and
+two credible post-edit cues fit an offset of -70.032 seconds. This run does not
+beat the pre-VAD e85fd4bd recovery observation of 17.114 seconds; window positions
+also differ. Initial acquisition takes 21.533 seconds. Aligned median is 0.214
+seconds, p95 is still 30.214 seconds, and no gap is learned: full scene checks
+remain failed. The short result cannot request an immediate retry chain.
+
+The frozen 4fc16a06 ordinary control acquires in 21.650 seconds with 0.209-second
+p95, and its 238-second unmatched control never locks. Neither produces any
+speech rejection; these are retained as 4fc16a06 controls, not reruns at cb9abb2f.
+Native inference/ABI smoke passes on both desktops at 4fc16a06; desktop Dart
+component CI passes at cb9abb2f. A separate build without the embedded detector
+recognizes the fixture while all token support remains unknown. This exercises
+the unknown fallback, not an injected operating-system allocation failure.
+
+Numeric evidence: [integration controls](speech-support-integrated-4fc16a06.json)
+and [bounded retry follow-up](speech-support-retry-cb9abb2f.json). The installed
+Mentalist fix remains b18c9891. No production installation, acoustic-precision,
+full-app packaging or performance-budget acceptance follows from this candidate.

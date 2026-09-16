@@ -1,0 +1,1778 @@
+{
+  "schema": 1,
+  "sourceSha": "4fc16a065e641d57072a36e5b97db21357c914f8",
+  "runtimeProvenance": {
+    "inputs": {
+      "schema": 1,
+      "target": "macos-arm64",
+      "profile": "portable-cpu",
+      "captureAbi": 1,
+      "inferenceAbi": 2,
+      "speechDetectorSha256": "2aa269b785eeb53a82983a20501ddf7c1d9c48e33ab63a41391ac6c9f7fb6987",
+      "whisperRevision": "927cfce34f31707e17f2bff35c349632fb9e2c3a",
+      "mpvRevision": "6855ea3776b437a922c0c7841560842e799fc152",
+      "mpvHeaderSha256": "3c073236a09cb456c6e80587d5523c8771c32fb22ca014e0f99cc3d43905b75c",
+      "sourceSha256": "b85c6138c1f5f719024b05242bd2fe87754a97e80519583c795873b86be32c5d"
+    },
+    "files": {
+      "liblivesync_capture_bridge.dylib": "331a34571115074a28bdb41734a424ff977b7b33b984b272ed4ea83e8fe90e07",
+      "liblivesync_inference_bridge.dylib": "366cb2ac8c34cc38a59ac5ae99ec57f8334af7c74b78aaef507b33badefeb3e6",
+      "whisper-ggml-LICENSE": "94f29bbed6a22c35b992c5c6ebf0e7c92f13b836b90f36f461c9cf2f0f1d010d",
+      "SILERO-LICENSE": "2e63e9a38b6e8fc0c7bc37ce174caca1862870856c6daf5697cfb785e925520b"
+    },
+    "cmakeVersion": "cmake version 3.31.6",
+    "configureArguments": [
+      "-DCMAKE_BUILD_TYPE=Release",
+      "-DGGML_METAL=OFF",
+      "-DGGML_VULKAN=OFF",
+      "-DGGML_CUDA=OFF",
+      "-DGGML_BLAS=OFF",
+      "-DGGML_OPENMP=OFF",
+      "-DLIVESYNC_CPU_PROFILE=portable",
+      "-DLIVESYNC_WHISPER_SOURCE=/Users/dwenn/.codex/worktrees/plezy-livesync-timeline/build/livesync/whisper-source",
+      "-DLIVESYNC_MPV_INCLUDE=/Users/dwenn/.codex/worktrees/plezy-livesync-vad-refinement/macos/LiveSyncMPV/Artifacts/Libmpv.xcframework/macos-arm64_x86_64/Libmpv.framework/Headers",
+      "-DLIVESYNC_SPEECH_MODEL=/Users/dwenn/.codex/worktrees/plezy-livesync-vad-refinement/build/livesync/models/ggml-silero-v6.2.0.bin",
+      "-DCMAKE_OSX_ARCHITECTURES=arm64",
+      "-DCMAKE_OSX_DEPLOYMENT_TARGET=11.0"
+    ],
+    "acceleratedConfigureArguments": null
+  },
+  "reports": {
+    "worker-vad-jfk.json": {
+      "sha256": "92cbb5209ec15e23609a6bed7d610e33f69bd8217636f4e144d8ac5cc56ba8d8",
+      "data": {
+        "kind": "fixture-native-worker-abi",
+        "fixtureSha256": "59dfb9a4acb36fe2a2affc14bacbee2920ff435cb13cc314a08c13f66ba7860e",
+        "modelSha256": "4baf70dd0d7c4247ba2b81fafd9c01005ac77c2f9ef064e00dcf195d0e2fdd2f",
+        "workerSha256": "996b05e8586714f6494dbdeb4bd493362d9feed160194a9305a5c2dfb6f96b20",
+        "capture": {
+          "samples": 176000,
+          "mediaStart": 100,
+          "generation": 1,
+          "continuity": 1
+        },
+        "wordErrorRate": 0.0,
+        "referenceScope": "full fixture",
+        "inferenceSecondsExcludingModelLoad": 0.809687333,
+        "segments": [
+          {
+            "mediaStart": 100.0,
+            "mediaEnd": 111.0
+          }
+        ],
+        "validPrefixOnly": false,
+        "speechSupportCounts": {
+          "0": 0,
+          "1": 25,
+          "2": 0
+        },
+        "timestampAccuracyValidated": false,
+        "srtAlignmentValidated": false,
+        "productionAppValidated": false,
+        "audiblePlaybackValidated": false,
+        "retainedCapturedAudio": false,
+        "retainedTranscript": false
+      }
+    },
+    "dart-vad-jfk.json": {
+      "sha256": "e301a375866571821e62372ee312ca4a3b52a34e62ae27d494abaddb5477c255",
+      "data": {
+        "kind": "dart-isolate-real-native-capture-and-inference",
+        "inferenceBackend": "portable-cpu",
+        "platform": "macos",
+        "generationReset": true,
+        "duplicateCaptureRejected": true,
+        "singleInferenceEnforced": true,
+        "fixtureDialogueRecognized": true,
+        "windowStart": 0.7050000000000002,
+        "windowEnd": 9.215,
+        "segments": 1,
+        "tokens": 21,
+        "inferenceSeconds": 1.043120125,
+        "productionPlayerValidated": false,
+        "audiblePlaybackValidated": false,
+        "pcmOrTranscriptPersisted": false,
+        "mainIsolateHeartbeatTicks": 422
+      }
+    },
+    "calibration-vad-4fc16a06.json": {
+      "sha256": "d7f1163f2c70bac603450c4604885b5caa865d8f420f3cf99dce79dc4b0bce22",
+      "data": {
+        "kind": "native-active-pcm-real-asr-and-domain-alignment",
+        "platform": "macos",
+        "inferenceBackend": "portable-cpu",
+        "alignmentEngine": "bounded-affine-timeline",
+        "acquiredMediaPosition": 21.666999999999998,
+        "learnedSegments": 1,
+        "learnedGaps": [],
+        "activityChecks": 147,
+        "activityVoiceChecks": 138,
+        "activityTotalMicros": 72462,
+        "activityMaxMicros": 740,
+        "actualOffset": -100.20400000000001,
+        "acquisitionMs": 21650,
+        "evaluationMs": 75101,
+        "expectedOffset": -100.0,
+        "expectNoLock": false,
+        "completedAnalyses": 6,
+        "validPrefixAnalyses": 0,
+        "rejectedAnalyses": 0,
+        "absoluteOffsetError": 0.20400238037109375,
+        "maximumOffsetError": 0.75,
+        "reference": "fixture SRT timings, not precise acoustic-onset ground truth",
+        "passed": true,
+        "expectedSlope": 1.0,
+        "slopeConfirmed": true,
+        "affineAcquisitionMs": "none",
+        "trackingErrorP95": 0.2089996337890625,
+        "trackingErrorMaximum": 0.2089996337890625,
+        "trackingSamples": [
+          {
+            "mediaTime": 22.083,
+            "regionKind": "aligned",
+            "presentationSuppressionRequested": false,
+            "automaticDelay": -100.209,
+            "mappingAvailable": true,
+            "nativeDelay": -100.20899963378906,
+            "expectedDelay": -100.0,
+            "error": 0.2089996337890625
+          },
+          {
+            "mediaTime": 23.125,
+            "regionKind": "aligned",
+            "presentationSuppressionRequested": false,
+            "automaticDelay": -100.209,
+            "mappingAvailable": true,
+            "nativeDelay": -100.20899963378906,
+            "expectedDelay": -100.0,
+            "error": 0.2089996337890625
+          },
+          {
+            "mediaTime": 24.125,
+            "regionKind": "aligned",
+            "presentationSuppressionRequested": false,
+            "automaticDelay": -100.209,
+            "mappingAvailable": true,
+            "nativeDelay": -100.20899963378906,
+            "expectedDelay": -100.0,
+            "error": 0.2089996337890625
+          },
+          {
+            "mediaTime": 25.166999999999998,
+            "regionKind": "aligned",
+            "presentationSuppressionRequested": false,
+            "automaticDelay": -100.209,
+            "mappingAvailable": true,
+            "nativeDelay": -100.20899963378906,
+            "expectedDelay": -100.0,
+            "error": 0.2089996337890625
+          },
+          {
+            "mediaTime": 26.166999999999998,
+            "regionKind": "aligned",
+            "presentationSuppressionRequested": false,
+            "automaticDelay": -100.209,
+            "mappingAvailable": true,
+            "nativeDelay": -100.20899963378906,
+            "expectedDelay": -100.0,
+            "error": 0.2089996337890625
+          },
+          {
+            "mediaTime": 27.208,
+            "regionKind": "aligned",
+            "presentationSuppressionRequested": false,
+            "automaticDelay": -100.209,
+            "mappingAvailable": true,
+            "nativeDelay": -100.20899963378906,
+            "expectedDelay": -100.0,
+            "error": 0.2089996337890625
+          },
+          {
+            "mediaTime": 28.25,
+            "regionKind": "aligned",
+            "presentationSuppressionRequested": false,
+            "automaticDelay": -100.209,
+            "mappingAvailable": true,
+            "nativeDelay": -100.20899963378906,
+            "expectedDelay": -100.0,
+            "error": 0.2089996337890625
+          },
+          {
+            "mediaTime": 29.25,
+            "regionKind": "aligned",
+            "presentationSuppressionRequested": false,
+            "automaticDelay": -100.209,
+            "mappingAvailable": true,
+            "nativeDelay": -100.20899963378906,
+            "expectedDelay": -100.0,
+            "error": 0.2089996337890625
+          },
+          {
+            "mediaTime": 30.291999999999998,
+            "regionKind": "aligned",
+            "presentationSuppressionRequested": false,
+            "automaticDelay": -100.209,
+            "mappingAvailable": true,
+            "nativeDelay": -100.20899963378906,
+            "expectedDelay": -100.0,
+            "error": 0.2089996337890625
+          },
+          {
+            "mediaTime": 31.291999999999998,
+            "regionKind": "aligned",
+            "presentationSuppressionRequested": false,
+            "automaticDelay": -100.209,
+            "mappingAvailable": true,
+            "nativeDelay": -100.20899963378906,
+            "expectedDelay": -100.0,
+            "error": 0.2089996337890625
+          },
+          {
+            "mediaTime": 32.333,
+            "regionKind": "aligned",
+            "presentationSuppressionRequested": false,
+            "automaticDelay": -100.209,
+            "mappingAvailable": true,
+            "nativeDelay": -100.20899963378906,
+            "expectedDelay": -100.0,
+            "error": 0.2089996337890625
+          },
+          {
+            "mediaTime": 33.375,
+            "regionKind": "aligned",
+            "presentationSuppressionRequested": false,
+            "automaticDelay": -100.209,
+            "mappingAvailable": true,
+            "nativeDelay": -100.20899963378906,
+            "expectedDelay": -100.0,
+            "error": 0.2089996337890625
+          },
+          {
+            "mediaTime": 34.375,
+            "regionKind": "aligned",
+            "presentationSuppressionRequested": false,
+            "automaticDelay": -100.209,
+            "mappingAvailable": true,
+            "nativeDelay": -100.20899963378906,
+            "expectedDelay": -100.0,
+            "error": 0.2089996337890625
+          },
+          {
+            "mediaTime": 35.417,
+            "regionKind": "aligned",
+            "presentationSuppressionRequested": false,
+            "automaticDelay": -100.209,
+            "mappingAvailable": true,
+            "nativeDelay": -100.20899963378906,
+            "expectedDelay": -100.0,
+            "error": 0.2089996337890625
+          },
+          {
+            "mediaTime": 36.458,
+            "regionKind": "aligned",
+            "presentationSuppressionRequested": false,
+            "automaticDelay": -100.209,
+            "mappingAvailable": true,
+            "nativeDelay": -100.20899963378906,
+            "expectedDelay": -100.0,
+            "error": 0.2089996337890625
+          },
+          {
+            "mediaTime": 37.458,
+            "regionKind": "aligned",
+            "presentationSuppressionRequested": false,
+            "automaticDelay": -100.209,
+            "mappingAvailable": true,
+            "nativeDelay": -100.20899963378906,
+            "expectedDelay": -100.0,
+            "error": 0.2089996337890625
+          },
+          {
+            "mediaTime": 38.5,
+            "regionKind": "aligned",
+            "presentationSuppressionRequested": false,
+            "automaticDelay": -100.209,
+            "mappingAvailable": true,
+            "nativeDelay": -100.20899963378906,
+            "expectedDelay": -100.0,
+            "error": 0.2089996337890625
+          },
+          {
+            "mediaTime": 39.5,
+            "regionKind": "aligned",
+            "presentationSuppressionRequested": false,
+            "automaticDelay": -100.209,
+            "mappingAvailable": true,
+            "nativeDelay": -100.20899963378906,
+            "expectedDelay": -100.0,
+            "error": 0.2089996337890625
+          },
+          {
+            "mediaTime": 40.542,
+            "regionKind": "aligned",
+            "presentationSuppressionRequested": false,
+            "automaticDelay": -100.209,
+            "mappingAvailable": true,
+            "nativeDelay": -100.20899963378906,
+            "expectedDelay": -100.0,
+            "error": 0.2089996337890625
+          },
+          {
+            "mediaTime": 41.583,
+            "regionKind": "aligned",
+            "presentationSuppressionRequested": false,
+            "automaticDelay": -100.209,
+            "mappingAvailable": true,
+            "nativeDelay": -100.20899963378906,
+            "expectedDelay": -100.0,
+            "error": 0.2089996337890625
+          },
+          {
+            "mediaTime": 42.583,
+            "regionKind": "aligned",
+            "presentationSuppressionRequested": false,
+            "automaticDelay": -100.209,
+            "mappingAvailable": true,
+            "nativeDelay": -100.20899963378906,
+            "expectedDelay": -100.0,
+            "error": 0.2089996337890625
+          },
+          {
+            "mediaTime": 43.625,
+            "regionKind": "aligned",
+            "presentationSuppressionRequested": false,
+            "automaticDelay": -100.209,
+            "mappingAvailable": true,
+            "nativeDelay": -100.20899963378906,
+            "expectedDelay": -100.0,
+            "error": 0.2089996337890625
+          },
+          {
+            "mediaTime": 44.666999999999994,
+            "regionKind": "aligned",
+            "presentationSuppressionRequested": false,
+            "automaticDelay": -100.209,
+            "mappingAvailable": true,
+            "nativeDelay": -100.20899963378906,
+            "expectedDelay": -100.0,
+            "error": 0.2089996337890625
+          },
+          {
+            "mediaTime": 45.666999999999994,
+            "regionKind": "aligned",
+            "presentationSuppressionRequested": false,
+            "automaticDelay": -100.209,
+            "mappingAvailable": true,
+            "nativeDelay": -100.20899963378906,
+            "expectedDelay": -100.0,
+            "error": 0.2089996337890625
+          },
+          {
+            "mediaTime": 46.708,
+            "regionKind": "aligned",
+            "presentationSuppressionRequested": false,
+            "automaticDelay": -100.209,
+            "mappingAvailable": true,
+            "nativeDelay": -100.20899963378906,
+            "expectedDelay": -100.0,
+            "error": 0.2089996337890625
+          },
+          {
+            "mediaTime": 47.75,
+            "regionKind": "aligned",
+            "presentationSuppressionRequested": false,
+            "automaticDelay": -100.209,
+            "mappingAvailable": true,
+            "nativeDelay": -100.20899963378906,
+            "expectedDelay": -100.0,
+            "error": 0.2089996337890625
+          },
+          {
+            "mediaTime": 48.75,
+            "regionKind": "aligned",
+            "presentationSuppressionRequested": false,
+            "automaticDelay": -100.209,
+            "mappingAvailable": true,
+            "nativeDelay": -100.20899963378906,
+            "expectedDelay": -100.0,
+            "error": 0.2089996337890625
+          },
+          {
+            "mediaTime": 49.791999999999994,
+            "regionKind": "aligned",
+            "presentationSuppressionRequested": false,
+            "automaticDelay": -100.209,
+            "mappingAvailable": true,
+            "nativeDelay": -100.20899963378906,
+            "expectedDelay": -100.0,
+            "error": 0.2089996337890625
+          },
+          {
+            "mediaTime": 50.791999999999994,
+            "regionKind": "aligned",
+            "presentationSuppressionRequested": false,
+            "automaticDelay": -100.209,
+            "mappingAvailable": true,
+            "nativeDelay": -100.20899963378906,
+            "expectedDelay": -100.0,
+            "error": 0.2089996337890625
+          },
+          {
+            "mediaTime": 51.833,
+            "regionKind": "aligned",
+            "presentationSuppressionRequested": false,
+            "automaticDelay": -100.209,
+            "mappingAvailable": true,
+            "nativeDelay": -100.20899963378906,
+            "expectedDelay": -100.0,
+            "error": 0.2089996337890625
+          },
+          {
+            "mediaTime": 52.833,
+            "regionKind": "aligned",
+            "presentationSuppressionRequested": false,
+            "automaticDelay": -100.209,
+            "mappingAvailable": true,
+            "nativeDelay": -100.20899963378906,
+            "expectedDelay": -100.0,
+            "error": 0.2089996337890625
+          },
+          {
+            "mediaTime": 53.875,
+            "regionKind": "aligned",
+            "presentationSuppressionRequested": false,
+            "automaticDelay": -100.209,
+            "mappingAvailable": true,
+            "nativeDelay": -100.20899963378906,
+            "expectedDelay": -100.0,
+            "error": 0.2089996337890625
+          },
+          {
+            "mediaTime": 54.916999999999994,
+            "regionKind": "aligned",
+            "presentationSuppressionRequested": false,
+            "automaticDelay": -100.209,
+            "mappingAvailable": true,
+            "nativeDelay": -100.20899963378906,
+            "expectedDelay": -100.0,
+            "error": 0.2089996337890625
+          },
+          {
+            "mediaTime": 55.916999999999994,
+            "regionKind": "aligned",
+            "presentationSuppressionRequested": false,
+            "automaticDelay": -100.209,
+            "mappingAvailable": true,
+            "nativeDelay": -100.20899963378906,
+            "expectedDelay": -100.0,
+            "error": 0.2089996337890625
+          },
+          {
+            "mediaTime": 56.958,
+            "regionKind": "aligned",
+            "presentationSuppressionRequested": false,
+            "automaticDelay": -100.209,
+            "mappingAvailable": true,
+            "nativeDelay": -100.20899963378906,
+            "expectedDelay": -100.0,
+            "error": 0.2089996337890625
+          },
+          {
+            "mediaTime": 58.0,
+            "regionKind": "aligned",
+            "presentationSuppressionRequested": false,
+            "automaticDelay": -100.20400000000001,
+            "mappingAvailable": true,
+            "nativeDelay": -100.2040023803711,
+            "expectedDelay": -100.0,
+            "error": 0.20400238037109375
+          },
+          {
+            "mediaTime": 59.0,
+            "regionKind": "aligned",
+            "presentationSuppressionRequested": false,
+            "automaticDelay": -100.20400000000001,
+            "mappingAvailable": true,
+            "nativeDelay": -100.2040023803711,
+            "expectedDelay": -100.0,
+            "error": 0.20400238037109375
+          },
+          {
+            "mediaTime": 60.041999999999994,
+            "regionKind": "aligned",
+            "presentationSuppressionRequested": false,
+            "automaticDelay": -100.20400000000001,
+            "mappingAvailable": true,
+            "nativeDelay": -100.2040023803711,
+            "expectedDelay": -100.0,
+            "error": 0.20400238037109375
+          },
+          {
+            "mediaTime": 61.083,
+            "regionKind": "aligned",
+            "presentationSuppressionRequested": false,
+            "automaticDelay": -100.20400000000001,
+            "mappingAvailable": true,
+            "nativeDelay": -100.2040023803711,
+            "expectedDelay": -100.0,
+            "error": 0.20400238037109375
+          },
+          {
+            "mediaTime": 62.083,
+            "regionKind": "aligned",
+            "presentationSuppressionRequested": false,
+            "automaticDelay": -100.20400000000001,
+            "mappingAvailable": true,
+            "nativeDelay": -100.2040023803711,
+            "expectedDelay": -100.0,
+            "error": 0.20400238037109375
+          },
+          {
+            "mediaTime": 63.125,
+            "regionKind": "aligned",
+            "presentationSuppressionRequested": false,
+            "automaticDelay": -100.20400000000001,
+            "mappingAvailable": true,
+            "nativeDelay": -100.2040023803711,
+            "expectedDelay": -100.0,
+            "error": 0.20400238037109375
+          },
+          {
+            "mediaTime": 64.167,
+            "regionKind": "aligned",
+            "presentationSuppressionRequested": false,
+            "automaticDelay": -100.20400000000001,
+            "mappingAvailable": true,
+            "nativeDelay": -100.2040023803711,
+            "expectedDelay": -100.0,
+            "error": 0.20400238037109375
+          },
+          {
+            "mediaTime": 65.167,
+            "regionKind": "aligned",
+            "presentationSuppressionRequested": false,
+            "automaticDelay": -100.20400000000001,
+            "mappingAvailable": true,
+            "nativeDelay": -100.2040023803711,
+            "expectedDelay": -100.0,
+            "error": 0.20400238037109375
+          },
+          {
+            "mediaTime": 66.208,
+            "regionKind": "aligned",
+            "presentationSuppressionRequested": false,
+            "automaticDelay": -100.20400000000001,
+            "mappingAvailable": true,
+            "nativeDelay": -100.2040023803711,
+            "expectedDelay": -100.0,
+            "error": 0.20400238037109375
+          },
+          {
+            "mediaTime": 67.208,
+            "regionKind": "aligned",
+            "presentationSuppressionRequested": false,
+            "automaticDelay": -100.20400000000001,
+            "mappingAvailable": true,
+            "nativeDelay": -100.2040023803711,
+            "expectedDelay": -100.0,
+            "error": 0.20400238037109375
+          },
+          {
+            "mediaTime": 68.25,
+            "regionKind": "aligned",
+            "presentationSuppressionRequested": false,
+            "automaticDelay": -100.20400000000001,
+            "mappingAvailable": true,
+            "nativeDelay": -100.2040023803711,
+            "expectedDelay": -100.0,
+            "error": 0.20400238037109375
+          },
+          {
+            "mediaTime": 69.25,
+            "regionKind": "aligned",
+            "presentationSuppressionRequested": false,
+            "automaticDelay": -100.20400000000001,
+            "mappingAvailable": true,
+            "nativeDelay": -100.2040023803711,
+            "expectedDelay": -100.0,
+            "error": 0.20400238037109375
+          },
+          {
+            "mediaTime": 70.292,
+            "regionKind": "aligned",
+            "presentationSuppressionRequested": false,
+            "automaticDelay": -100.20400000000001,
+            "mappingAvailable": true,
+            "nativeDelay": -100.2040023803711,
+            "expectedDelay": -100.0,
+            "error": 0.20400238037109375
+          },
+          {
+            "mediaTime": 71.333,
+            "regionKind": "aligned",
+            "presentationSuppressionRequested": false,
+            "automaticDelay": -100.20400000000001,
+            "mappingAvailable": true,
+            "nativeDelay": -100.2040023803711,
+            "expectedDelay": -100.0,
+            "error": 0.20400238037109375
+          },
+          {
+            "mediaTime": 72.333,
+            "regionKind": "aligned",
+            "presentationSuppressionRequested": false,
+            "automaticDelay": -100.20400000000001,
+            "mappingAvailable": true,
+            "nativeDelay": -100.2040023803711,
+            "expectedDelay": -100.0,
+            "error": 0.20400238037109375
+          },
+          {
+            "mediaTime": 73.375,
+            "regionKind": "aligned",
+            "presentationSuppressionRequested": false,
+            "automaticDelay": -100.20400000000001,
+            "mappingAvailable": true,
+            "nativeDelay": -100.2040023803711,
+            "expectedDelay": -100.0,
+            "error": 0.20400238037109375
+          },
+          {
+            "mediaTime": 74.375,
+            "regionKind": "aligned",
+            "presentationSuppressionRequested": false,
+            "automaticDelay": -100.20400000000001,
+            "mappingAvailable": true,
+            "nativeDelay": -100.2040023803711,
+            "expectedDelay": -100.0,
+            "error": 0.20400238037109375
+          }
+        ],
+        "trackingReference": "Correlated playback-time samples after first lock, including unknown regions at zero automatic delay. Ideal fixture transform, not independent acoustic annotations.",
+        "analyses": [
+          {
+            "attempt": 1,
+            "windowStart": 0.8650000000000001,
+            "windowEnd": 8.969687500000001,
+            "inferenceSeconds": 0.985390833,
+            "validPrefixOnly": false,
+            "match": "noCandidate",
+            "contextWindows": 1,
+            "segmentedMatch": false,
+            "transcriptWords": 6,
+            "wordsInSubtitleVocabulary": 5,
+            "contextWords": 0,
+            "segmentBounds": [
+              {
+                "start": 0.8650000000000001,
+                "end": 8.865,
+                "timedTokens": 7,
+                "firstToken": 7.085,
+                "lastToken": 8.865
+              }
+            ],
+            "similarity": null,
+            "anchors": [],
+            "anchorRejections": {},
+            "speechTimingRejected": false,
+            "speechSupportCounts": {
+              "unknown": 0,
+              "supported": 7,
+              "unsupported": 0
+            },
+            "regions": []
+          },
+          {
+            "attempt": 2,
+            "windowStart": 5.8309999999999995,
+            "windowEnd": 20.831,
+            "inferenceSeconds": 1.0724825,
+            "validPrefixOnly": false,
+            "match": "matched",
+            "contextWindows": 1,
+            "segmentedMatch": false,
+            "transcriptWords": 22,
+            "wordsInSubtitleVocabulary": 22,
+            "contextWords": 0,
+            "segmentBounds": [
+              {
+                "start": 5.8309999999999995,
+                "end": 8.831,
+                "timedTokens": 7,
+                "firstToken": 7.050999999999999,
+                "lastToken": 10.071
+              },
+              {
+                "start": 10.831,
+                "end": 13.831,
+                "timedTokens": 7,
+                "firstToken": 11.591,
+                "lastToken": 15.731
+              },
+              {
+                "start": 16.831,
+                "end": 19.831,
+                "timedTokens": 11,
+                "firstToken": 17.771,
+                "lastToken": 19.831
+              }
+            ],
+            "similarity": 1.0,
+            "anchors": [
+              {
+                "cue": 0,
+                "offset": -100.199
+              },
+              {
+                "cue": 1,
+                "offset": -100.209
+              },
+              {
+                "cue": 2,
+                "offset": -100.229
+              }
+            ],
+            "anchorRejections": {},
+            "speechTimingRejected": false,
+            "speechSupportCounts": {
+              "unknown": 0,
+              "supported": 23,
+              "unsupported": 2
+            },
+            "cueBeginningMatches": [
+              {
+                "cue": 0,
+                "wordInCue": 0,
+                "transcriptWord": 0,
+                "exact": true
+              },
+              {
+                "cue": 0,
+                "wordInCue": 1,
+                "transcriptWord": 1,
+                "exact": true
+              },
+              {
+                "cue": 0,
+                "wordInCue": 2,
+                "transcriptWord": 2,
+                "exact": true
+              },
+              {
+                "cue": 0,
+                "wordInCue": 3,
+                "transcriptWord": 3,
+                "exact": true
+              },
+              {
+                "cue": 0,
+                "wordInCue": 4,
+                "transcriptWord": 4,
+                "exact": true
+              },
+              {
+                "cue": 1,
+                "wordInCue": 0,
+                "transcriptWord": 6,
+                "exact": true
+              },
+              {
+                "cue": 1,
+                "wordInCue": 1,
+                "transcriptWord": 7,
+                "exact": true
+              },
+              {
+                "cue": 1,
+                "wordInCue": 2,
+                "transcriptWord": 8,
+                "exact": true
+              },
+              {
+                "cue": 1,
+                "wordInCue": 3,
+                "transcriptWord": 9,
+                "exact": true
+              },
+              {
+                "cue": 1,
+                "wordInCue": 4,
+                "transcriptWord": 10,
+                "exact": true
+              },
+              {
+                "cue": 2,
+                "wordInCue": 0,
+                "transcriptWord": 12,
+                "exact": true
+              },
+              {
+                "cue": 2,
+                "wordInCue": 1,
+                "transcriptWord": 13,
+                "exact": true
+              },
+              {
+                "cue": 2,
+                "wordInCue": 2,
+                "transcriptWord": 14,
+                "exact": true
+              },
+              {
+                "cue": 2,
+                "wordInCue": 3,
+                "transcriptWord": 15,
+                "exact": true
+              },
+              {
+                "cue": 2,
+                "wordInCue": 4,
+                "transcriptWord": 16,
+                "exact": true
+              }
+            ],
+            "regions": [
+              {
+                "start": 7.040999999999997,
+                "end": 17.791000999999994,
+                "slope": 1.0,
+                "offset": -100.209,
+                "anchors": 3
+              }
+            ]
+          },
+          {
+            "attempt": 3,
+            "windowStart": 20.948375000000002,
+            "windowEnd": 32.948375,
+            "inferenceSeconds": 1.078145792,
+            "validPrefixOnly": false,
+            "match": "matched",
+            "contextWindows": 1,
+            "segmentedMatch": false,
+            "transcriptWords": 20,
+            "wordsInSubtitleVocabulary": 20,
+            "contextWords": 42,
+            "segmentBounds": [
+              {
+                "start": 20.948375000000002,
+                "end": 22.948375000000002,
+                "timedTokens": 9,
+                "firstToken": 21.448375000000002,
+                "lastToken": 24.188375
+              },
+              {
+                "start": 24.668375,
+                "end": 25.668375,
+                "timedTokens": 3,
+                "firstToken": 25.108375000000002,
+                "lastToken": 26.828375
+              },
+              {
+                "start": 26.948375000000002,
+                "end": 31.348375000000004,
+                "timedTokens": 13,
+                "firstToken": 27.548375000000004,
+                "lastToken": 31.348375000000004
+              }
+            ],
+            "similarity": 0.85,
+            "anchors": [
+              {
+                "cue": 3,
+                "offset": -100.301625
+              },
+              {
+                "cue": 6,
+                "offset": -100.07162500000001
+              }
+            ],
+            "anchorRejections": {
+              "phraseNotMatched": 2
+            },
+            "speechTimingRejected": false,
+            "speechSupportCounts": {
+              "unknown": 0,
+              "supported": 23,
+              "unsupported": 2
+            },
+            "cueBeginningMatches": [
+              {
+                "cue": 3,
+                "wordInCue": 0,
+                "transcriptWord": 0,
+                "exact": true
+              },
+              {
+                "cue": 3,
+                "wordInCue": 1,
+                "transcriptWord": 1,
+                "exact": true
+              },
+              {
+                "cue": 3,
+                "wordInCue": 2,
+                "transcriptWord": 2,
+                "exact": true
+              },
+              {
+                "cue": 4,
+                "wordInCue": 0,
+                "transcriptWord": 8,
+                "exact": true
+              },
+              {
+                "cue": 4,
+                "wordInCue": 1,
+                "transcriptWord": 9,
+                "exact": true
+              },
+              {
+                "cue": 5,
+                "wordInCue": 0,
+                "transcriptWord": 10,
+                "exact": true
+              },
+              {
+                "cue": 6,
+                "wordInCue": 0,
+                "transcriptWord": 11,
+                "exact": true
+              },
+              {
+                "cue": 6,
+                "wordInCue": 1,
+                "transcriptWord": 12,
+                "exact": true
+              },
+              {
+                "cue": 6,
+                "wordInCue": 2,
+                "transcriptWord": 13,
+                "exact": true
+              },
+              {
+                "cue": 6,
+                "wordInCue": 3,
+                "transcriptWord": 14,
+                "exact": true
+              },
+              {
+                "cue": 6,
+                "wordInCue": 4,
+                "transcriptWord": 15,
+                "exact": true
+              }
+            ],
+            "regions": [
+              {
+                "start": 7.040999999999997,
+                "end": 29.191001,
+                "slope": 1.0,
+                "offset": -100.209,
+                "anchors": 5
+              }
+            ]
+          },
+          {
+            "attempt": 4,
+            "windowStart": 33.150999999999996,
+            "windowEnd": 45.150999999999996,
+            "inferenceSeconds": 1.056317333,
+            "validPrefixOnly": false,
+            "match": "matched",
+            "contextWindows": 1,
+            "segmentedMatch": false,
+            "transcriptWords": 15,
+            "wordsInSubtitleVocabulary": 15,
+            "contextWords": 35,
+            "segmentBounds": [
+              {
+                "start": 33.150999999999996,
+                "end": 37.150999999999996,
+                "timedTokens": 9,
+                "firstToken": 33.291,
+                "lastToken": 36.991
+              },
+              {
+                "start": 37.150999999999996,
+                "end": 41.150999999999996,
+                "timedTokens": 8,
+                "firstToken": 37.751,
+                "lastToken": 41.910999999999994
+              },
+              {
+                "start": 43.150999999999996,
+                "end": 45.150999999999996,
+                "timedTokens": 3,
+                "firstToken": 43.330999999999996,
+                "lastToken": 44.351
+              }
+            ],
+            "similarity": 0.8666666666666667,
+            "anchors": [
+              {
+                "cue": 7,
+                "offset": -99.909
+              },
+              {
+                "cue": 8,
+                "offset": -100.249
+              }
+            ],
+            "anchorRejections": {
+              "phraseNotMatched": 1
+            },
+            "speechTimingRejected": false,
+            "speechSupportCounts": {
+              "unknown": 0,
+              "supported": 15,
+              "unsupported": 5
+            },
+            "cueBeginningMatches": [
+              {
+                "cue": 7,
+                "wordInCue": 0,
+                "transcriptWord": 2,
+                "exact": true
+              },
+              {
+                "cue": 7,
+                "wordInCue": 1,
+                "transcriptWord": 3,
+                "exact": true
+              },
+              {
+                "cue": 7,
+                "wordInCue": 2,
+                "transcriptWord": 4,
+                "exact": true
+              },
+              {
+                "cue": 7,
+                "wordInCue": 3,
+                "transcriptWord": 5,
+                "exact": true
+              },
+              {
+                "cue": 7,
+                "wordInCue": 4,
+                "transcriptWord": 6,
+                "exact": true
+              },
+              {
+                "cue": 8,
+                "wordInCue": 0,
+                "transcriptWord": 7,
+                "exact": true
+              },
+              {
+                "cue": 8,
+                "wordInCue": 1,
+                "transcriptWord": 8,
+                "exact": true
+              },
+              {
+                "cue": 8,
+                "wordInCue": 2,
+                "transcriptWord": 9,
+                "exact": true
+              },
+              {
+                "cue": 8,
+                "wordInCue": 3,
+                "transcriptWord": 10,
+                "exact": true
+              },
+              {
+                "cue": 8,
+                "wordInCue": 4,
+                "transcriptWord": 11,
+                "exact": true
+              },
+              {
+                "cue": 9,
+                "wordInCue": 0,
+                "transcriptWord": 13,
+                "exact": true
+              },
+              {
+                "cue": 9,
+                "wordInCue": 1,
+                "transcriptWord": 14,
+                "exact": true
+              }
+            ],
+            "regions": [
+              {
+                "start": 7.040999999999997,
+                "end": 37.791000999999994,
+                "slope": 1.0,
+                "offset": -100.209,
+                "anchors": 7
+              }
+            ]
+          },
+          {
+            "attempt": 5,
+            "windowStart": 45.183,
+            "windowEnd": 57.183,
+            "inferenceSeconds": 1.060282542,
+            "validPrefixOnly": false,
+            "match": "matched",
+            "contextWindows": 1,
+            "segmentedMatch": false,
+            "transcriptWords": 18,
+            "wordsInSubtitleVocabulary": 18,
+            "contextWords": 33,
+            "segmentBounds": [
+              {
+                "start": 45.183,
+                "end": 50.183,
+                "timedTokens": 8,
+                "firstToken": 48.963,
+                "lastToken": 51.583
+              },
+              {
+                "start": 50.183,
+                "end": 55.183,
+                "timedTokens": 12,
+                "firstToken": 53.123,
+                "lastToken": 55.183
+              }
+            ],
+            "similarity": 1.0,
+            "anchors": [
+              {
+                "cue": 11,
+                "offset": -99.827
+              }
+            ],
+            "anchorRejections": {
+              "beginningLowConfidence": 1
+            },
+            "speechTimingRejected": false,
+            "speechSupportCounts": {
+              "unknown": 0,
+              "supported": 19,
+              "unsupported": 1
+            },
+            "cueBeginningMatches": [
+              {
+                "cue": 10,
+                "wordInCue": 0,
+                "transcriptWord": 0,
+                "exact": true
+              },
+              {
+                "cue": 10,
+                "wordInCue": 1,
+                "transcriptWord": 1,
+                "exact": true
+              },
+              {
+                "cue": 10,
+                "wordInCue": 2,
+                "transcriptWord": 2,
+                "exact": true
+              },
+              {
+                "cue": 10,
+                "wordInCue": 3,
+                "transcriptWord": 3,
+                "exact": true
+              },
+              {
+                "cue": 10,
+                "wordInCue": 4,
+                "transcriptWord": 4,
+                "exact": true
+              },
+              {
+                "cue": 11,
+                "wordInCue": 0,
+                "transcriptWord": 7,
+                "exact": true
+              },
+              {
+                "cue": 11,
+                "wordInCue": 1,
+                "transcriptWord": 8,
+                "exact": true
+              },
+              {
+                "cue": 11,
+                "wordInCue": 2,
+                "transcriptWord": 9,
+                "exact": true
+              },
+              {
+                "cue": 11,
+                "wordInCue": 3,
+                "transcriptWord": 10,
+                "exact": true
+              },
+              {
+                "cue": 11,
+                "wordInCue": 4,
+                "transcriptWord": 11,
+                "exact": true
+              }
+            ],
+            "regions": [
+              {
+                "start": 7.045999999999992,
+                "end": 52.74600099999998,
+                "slope": 1.0,
+                "offset": -100.20400000000001,
+                "anchors": 8
+              }
+            ]
+          },
+          {
+            "attempt": 6,
+            "windowStart": 57.044374999999995,
+            "windowEnd": 69.044375,
+            "inferenceSeconds": 0.994759709,
+            "validPrefixOnly": false,
+            "match": "insufficientDialogue",
+            "contextWindows": 1,
+            "segmentedMatch": false,
+            "transcriptWords": 0,
+            "wordsInSubtitleVocabulary": 0,
+            "contextWords": 0,
+            "segmentBounds": [],
+            "similarity": null,
+            "anchors": [],
+            "anchorRejections": {},
+            "speechTimingRejected": false,
+            "speechSupportCounts": {
+              "unknown": 0,
+              "supported": 0,
+              "unsupported": 0
+            },
+            "regions": [
+              {
+                "start": 7.045999999999992,
+                "end": 52.74600099999998,
+                "slope": 1.0,
+                "offset": -100.20400000000001,
+                "anchors": 8
+              }
+            ]
+          }
+        ],
+        "productionPlayerValidated": false,
+        "audiblePlaybackValidated": false,
+        "pcmOrTranscriptPersisted": false,
+        "mainIsolateHeartbeatTicks": 3005
+      }
+    },
+    "negative-vad-4fc16a06.json": {
+      "sha256": "f4b0e9444a7d315db71446f1d158f2428efc9300a5d8ae257126176345ed32ca",
+      "data": {
+        "kind": "native-active-pcm-real-asr-and-domain-alignment",
+        "platform": "macos",
+        "inferenceBackend": "portable-cpu",
+        "alignmentEngine": "bounded-affine-timeline",
+        "acquiredMediaPosition": "none",
+        "learnedSegments": 0,
+        "learnedGaps": [],
+        "activityChecks": 465,
+        "activityVoiceChecks": 456,
+        "activityTotalMicros": 237918,
+        "activityMaxMicros": 2576,
+        "actualOffset": "none",
+        "acquisitionMs": 238051,
+        "evaluationMs": 238051,
+        "expectedOffset": "none",
+        "expectNoLock": true,
+        "completedAnalyses": 6,
+        "validPrefixAnalyses": 0,
+        "rejectedAnalyses": 5,
+        "absoluteOffsetError": "unavailable",
+        "maximumOffsetError": 1.5,
+        "reference": "fixture SRT timings, not precise acoustic-onset ground truth",
+        "passed": true,
+        "analyses": [
+          {
+            "attempt": 1,
+            "windowStart": 0.7690000000000001,
+            "windowEnd": 8.788375,
+            "inferenceSeconds": 0.968871167,
+            "validPrefixOnly": false,
+            "match": "insufficientDialogue",
+            "contextWindows": 1,
+            "segmentedMatch": false,
+            "transcriptWords": 0,
+            "wordsInSubtitleVocabulary": 0,
+            "contextWords": 0,
+            "segmentBounds": [],
+            "similarity": null,
+            "anchors": [],
+            "anchorRejections": {},
+            "speechTimingRejected": false,
+            "speechSupportCounts": {
+              "unknown": 0,
+              "supported": 0,
+              "unsupported": 0
+            }
+          },
+          {
+            "attempt": 2,
+            "windowStart": 5.564375,
+            "windowEnd": 20.564375,
+            "inferenceSeconds": 1.021832083,
+            "validPrefixOnly": false,
+            "match": "insufficientDialogue",
+            "contextWindows": 1,
+            "segmentedMatch": false,
+            "transcriptWords": 2,
+            "wordsInSubtitleVocabulary": 0,
+            "contextWords": 0,
+            "segmentBounds": [
+              {
+                "start": 5.564375,
+                "end": 8.324375,
+                "timedTokens": 6,
+                "firstToken": 8.304375,
+                "lastToken": 8.324375
+              }
+            ],
+            "similarity": null,
+            "anchors": [],
+            "anchorRejections": {},
+            "speechTimingRejected": false,
+            "speechSupportCounts": {
+              "unknown": 0,
+              "supported": 0,
+              "unsupported": 6
+            }
+          },
+          {
+            "attempt": 3,
+            "windowStart": 17.852375000000002,
+            "windowEnd": 32.852375,
+            "inferenceSeconds": 1.017429334,
+            "validPrefixOnly": false,
+            "match": "insufficientDialogue",
+            "contextWindows": 1,
+            "segmentedMatch": false,
+            "transcriptWords": 0,
+            "wordsInSubtitleVocabulary": 0,
+            "contextWords": 2,
+            "segmentBounds": [
+              {
+                "start": 17.852375000000002,
+                "end": 27.852375000000002,
+                "timedTokens": 5,
+                "firstToken": 20.532375000000002,
+                "lastToken": 20.552375
+              }
+            ],
+            "similarity": null,
+            "anchors": [],
+            "anchorRejections": {},
+            "speechTimingRejected": false,
+            "speechSupportCounts": {
+              "unknown": 0,
+              "supported": 0,
+              "unsupported": 5
+            }
+          },
+          {
+            "attempt": 4,
+            "windowStart": 29.799,
+            "windowEnd": 44.799,
+            "inferenceSeconds": 1.062663291,
+            "validPrefixOnly": false,
+            "match": "insufficientDialogue",
+            "contextWindows": 1,
+            "segmentedMatch": false,
+            "transcriptWords": 1,
+            "wordsInSubtitleVocabulary": 0,
+            "contextWords": 1,
+            "segmentBounds": [
+              {
+                "start": 29.799,
+                "end": 31.799,
+                "timedTokens": 4,
+                "firstToken": 31.779,
+                "lastToken": 31.799
+              }
+            ],
+            "similarity": null,
+            "anchors": [],
+            "anchorRejections": {},
+            "speechTimingRejected": false,
+            "speechSupportCounts": {
+              "unknown": 0,
+              "supported": 0,
+              "unsupported": 4
+            }
+          },
+          {
+            "attempt": 5,
+            "windowStart": 59.836375000000004,
+            "windowEnd": 74.836375,
+            "inferenceSeconds": 1.114589084,
+            "validPrefixOnly": false,
+            "match": "noCandidate",
+            "contextWindows": 1,
+            "segmentedMatch": false,
+            "transcriptWords": 12,
+            "wordsInSubtitleVocabulary": 0,
+            "contextWords": 0,
+            "segmentBounds": [
+              {
+                "start": 59.836375000000004,
+                "end": 61.836375000000004,
+                "timedTokens": 4,
+                "firstToken": 61.35637500000001,
+                "lastToken": 61.376375
+              },
+              {
+                "start": 61.836375000000004,
+                "end": 63.836375000000004,
+                "timedTokens": 4,
+                "firstToken": 67.556375,
+                "lastToken": 67.576375
+              },
+              {
+                "start": 63.836375000000004,
+                "end": 65.836375,
+                "timedTokens": 4,
+                "firstToken": 67.756375,
+                "lastToken": 67.776375
+              },
+              {
+                "start": 65.836375,
+                "end": 67.836375,
+                "timedTokens": 4,
+                "firstToken": 70.256375,
+                "lastToken": 70.276375
+              },
+              {
+                "start": 67.836375,
+                "end": 69.836375,
+                "timedTokens": 4,
+                "firstToken": 70.256375,
+                "lastToken": 70.276375
+              },
+              {
+                "start": 69.836375,
+                "end": 73.836375,
+                "timedTokens": 4,
+                "firstToken": 71.636375,
+                "lastToken": 71.696375
+              }
+            ],
+            "similarity": null,
+            "anchors": [],
+            "anchorRejections": {},
+            "speechTimingRejected": false,
+            "speechSupportCounts": {
+              "unknown": 0,
+              "supported": 0,
+              "unsupported": 24
+            }
+          },
+          {
+            "attempt": 6,
+            "windowStart": 89.8736875,
+            "windowEnd": 104.8736875,
+            "inferenceSeconds": 2.272157792,
+            "validPrefixOnly": false,
+            "match": "insufficientDialogue",
+            "contextWindows": 1,
+            "segmentedMatch": false,
+            "transcriptWords": 0,
+            "wordsInSubtitleVocabulary": 0,
+            "contextWords": 0,
+            "segmentBounds": [
+              {
+                "start": 89.8736875,
+                "end": 96.8736875,
+                "timedTokens": 3,
+                "firstToken": 96.5736875,
+                "lastToken": 96.6136875
+              }
+            ],
+            "similarity": null,
+            "anchors": [],
+            "anchorRejections": {},
+            "speechTimingRejected": false,
+            "speechSupportCounts": {
+              "unknown": 0,
+              "supported": 0,
+              "unsupported": 3
+            }
+          },
+          {
+            "attempt": 7,
+            "failure": "inferenceUnavailable",
+            "nativeStatus": 4
+          },
+          {
+            "attempt": 8,
+            "failure": "invalidOutput"
+          },
+          {
+            "attempt": 9,
+            "failure": "invalidOutput"
+          },
+          {
+            "attempt": 10,
+            "failure": "invalidOutput"
+          },
+          {
+            "attempt": 11,
+            "failure": "invalidOutput"
+          }
+        ],
+        "productionPlayerValidated": false,
+        "audiblePlaybackValidated": false,
+        "pcmOrTranscriptPersisted": false,
+        "mainIsolateHeartbeatTicks": 9521
+      }
+    }
+  },
+  "nativeCi": {
+    "runId": 35157714737,
+    "conclusion": "success",
+    "reports": {
+      "mac": {
+        "worker-abi-base.en-q5_1.json": {
+          "sha256": "1f4bb43944dd24556a479a418a2111cce5ebd1895b9c17919072dee59b1b904b",
+          "data": {
+            "kind": "fixture-native-worker-abi",
+            "fixtureSha256": "59dfb9a4acb36fe2a2affc14bacbee2920ff435cb13cc314a08c13f66ba7860e",
+            "modelSha256": "4baf70dd0d7c4247ba2b81fafd9c01005ac77c2f9ef064e00dcf195d0e2fdd2f",
+            "workerSha256": "13550e2c553c609e50a64ebf0b0279ed6b67acdc091b598bdf53169cac6a5034",
+            "capture": {
+              "samples": 176000,
+              "mediaStart": 100,
+              "generation": 1,
+              "continuity": 1
+            },
+            "wordErrorRate": 0.0,
+            "referenceScope": "full fixture",
+            "inferenceSecondsExcludingModelLoad": 20.643667083,
+            "segments": [
+              {
+                "mediaStart": 100.0,
+                "mediaEnd": 111.0
+              }
+            ],
+            "validPrefixOnly": false,
+            "speechSupportCounts": {
+              "0": 0,
+              "1": 25,
+              "2": 0
+            },
+            "timestampAccuracyValidated": false,
+            "srtAlignmentValidated": false,
+            "productionAppValidated": false,
+            "audiblePlaybackValidated": false,
+            "retainedCapturedAudio": false,
+            "retainedTranscript": false
+          }
+        },
+        "worker-abi-base.en.json": {
+          "sha256": "25a2d916e3860b99aec8d80c23b924276b90455e9caed17084d0d56cc3a83550",
+          "data": {
+            "kind": "fixture-native-worker-abi",
+            "fixtureSha256": "59dfb9a4acb36fe2a2affc14bacbee2920ff435cb13cc314a08c13f66ba7860e",
+            "modelSha256": "a03779c86df3323075f5e796cb2ce5029f00ec8869eee3fdfb897afe36c6d002",
+            "workerSha256": "13550e2c553c609e50a64ebf0b0279ed6b67acdc091b598bdf53169cac6a5034",
+            "capture": {
+              "samples": 176000,
+              "mediaStart": 100,
+              "generation": 1,
+              "continuity": 1
+            },
+            "wordErrorRate": 0.0,
+            "referenceScope": "full fixture",
+            "inferenceSecondsExcludingModelLoad": 21.400554541,
+            "segments": [
+              {
+                "mediaStart": 100.0,
+                "mediaEnd": 111.0
+              }
+            ],
+            "validPrefixOnly": false,
+            "speechSupportCounts": {
+              "0": 0,
+              "1": 25,
+              "2": 0
+            },
+            "timestampAccuracyValidated": false,
+            "srtAlignmentValidated": false,
+            "productionAppValidated": false,
+            "audiblePlaybackValidated": false,
+            "retainedCapturedAudio": false,
+            "retainedTranscript": false
+          }
+        }
+      },
+      "windows": {
+        "worker-abi-base.en-q5_1.json": {
+          "sha256": "18e28bf40d005f077c476898faf5c44401574f3ed1b43ea5e587ebc506ee1767",
+          "data": {
+            "kind": "fixture-native-worker-abi",
+            "fixtureSha256": "59dfb9a4acb36fe2a2affc14bacbee2920ff435cb13cc314a08c13f66ba7860e",
+            "modelSha256": "4baf70dd0d7c4247ba2b81fafd9c01005ac77c2f9ef064e00dcf195d0e2fdd2f",
+            "workerSha256": "accfff1047020dc45c03eefd44b2b6a9b26e8b628ec493602f1f55fd7f2ebc0d",
+            "capture": {
+              "samples": 176000,
+              "mediaStart": 100,
+              "generation": 1,
+              "continuity": 1
+            },
+            "wordErrorRate": 0.0,
+            "referenceScope": "full fixture",
+            "inferenceSecondsExcludingModelLoad": 23.1480124,
+            "segments": [
+              {
+                "mediaStart": 100.0,
+                "mediaEnd": 111.0
+              }
+            ],
+            "validPrefixOnly": false,
+            "speechSupportCounts": {
+              "0": 0,
+              "1": 25,
+              "2": 0
+            },
+            "timestampAccuracyValidated": false,
+            "srtAlignmentValidated": false,
+            "productionAppValidated": false,
+            "audiblePlaybackValidated": false,
+            "retainedCapturedAudio": false,
+            "retainedTranscript": false
+          }
+        },
+        "worker-abi-base.en.json": {
+          "sha256": "4f88d40af51cbcdfe620961d16e7d44e0e6aa42646022645c54f927bbeade83a",
+          "data": {
+            "kind": "fixture-native-worker-abi",
+            "fixtureSha256": "59dfb9a4acb36fe2a2affc14bacbee2920ff435cb13cc314a08c13f66ba7860e",
+            "modelSha256": "a03779c86df3323075f5e796cb2ce5029f00ec8869eee3fdfb897afe36c6d002",
+            "workerSha256": "accfff1047020dc45c03eefd44b2b6a9b26e8b628ec493602f1f55fd7f2ebc0d",
+            "capture": {
+              "samples": 176000,
+              "mediaStart": 100,
+              "generation": 1,
+              "continuity": 1
+            },
+            "wordErrorRate": 0.0,
+            "referenceScope": "full fixture",
+            "inferenceSecondsExcludingModelLoad": 24.6118924,
+            "segments": [
+              {
+                "mediaStart": 100.0,
+                "mediaEnd": 111.0
+              }
+            ],
+            "validPrefixOnly": false,
+            "speechSupportCounts": {
+              "0": 0,
+              "1": 25,
+              "2": 0
+            },
+            "timestampAccuracyValidated": false,
+            "srtAlignmentValidated": false,
+            "productionAppValidated": false,
+            "audiblePlaybackValidated": false,
+            "retainedCapturedAudio": false,
+            "retainedTranscript": false
+          }
+        },
+        "worker-avx2-base.en-q5_1.json": {
+          "sha256": "e88b86abe1c9c11ec9b746f50384e7305c9a0edbfb13c723a96ce1d4f46088e3",
+          "data": {
+            "kind": "fixture-native-worker-abi",
+            "fixtureSha256": "59dfb9a4acb36fe2a2affc14bacbee2920ff435cb13cc314a08c13f66ba7860e",
+            "modelSha256": "4baf70dd0d7c4247ba2b81fafd9c01005ac77c2f9ef064e00dcf195d0e2fdd2f",
+            "workerSha256": "7383bcc38fd1d790d563bddb6b9f67f471868ee7bfda6aa81b952dbbff1628d3",
+            "capture": {
+              "samples": 176000,
+              "mediaStart": 100,
+              "generation": 1,
+              "continuity": 1
+            },
+            "wordErrorRate": 0.0,
+            "referenceScope": "full fixture",
+            "inferenceSecondsExcludingModelLoad": 2.5891599,
+            "segments": [
+              {
+                "mediaStart": 100.0,
+                "mediaEnd": 111.0
+              }
+            ],
+            "validPrefixOnly": false,
+            "speechSupportCounts": {
+              "0": 0,
+              "1": 25,
+              "2": 0
+            },
+            "timestampAccuracyValidated": false,
+            "srtAlignmentValidated": false,
+            "productionAppValidated": false,
+            "audiblePlaybackValidated": false,
+            "retainedCapturedAudio": false,
+            "retainedTranscript": false
+          }
+        },
+        "worker-avx2-base.en.json": {
+          "sha256": "5f15e25a3533cf0c9f63420e5d122a552aaa7c0dcd3126379f81c8081a8f9a66",
+          "data": {
+            "kind": "fixture-native-worker-abi",
+            "fixtureSha256": "59dfb9a4acb36fe2a2affc14bacbee2920ff435cb13cc314a08c13f66ba7860e",
+            "modelSha256": "a03779c86df3323075f5e796cb2ce5029f00ec8869eee3fdfb897afe36c6d002",
+            "workerSha256": "7383bcc38fd1d790d563bddb6b9f67f471868ee7bfda6aa81b952dbbff1628d3",
+            "capture": {
+              "samples": 176000,
+              "mediaStart": 100,
+              "generation": 1,
+              "continuity": 1
+            },
+            "wordErrorRate": 0.0,
+            "referenceScope": "full fixture",
+            "inferenceSecondsExcludingModelLoad": 2.0588717,
+            "segments": [
+              {
+                "mediaStart": 100.0,
+                "mediaEnd": 111.0
+              }
+            ],
+            "validPrefixOnly": false,
+            "speechSupportCounts": {
+              "0": 0,
+              "1": 25,
+              "2": 0
+            },
+            "timestampAccuracyValidated": false,
+            "srtAlignmentValidated": false,
+            "productionAppValidated": false,
+            "audiblePlaybackValidated": false,
+            "retainedCapturedAudio": false,
+            "retainedTranscript": false
+          }
+        }
+      }
+    }
+  },
+  "dartCi": {
+    "runId": 35157716981,
+    "conclusion": "success"
+  },
+  "fullProductAcceptance": false,
+  "limitations": [
+    "Public development fixture controls only; no independent acoustic onset truth.",
+    "The first crossing-cue recovery regresses; see speech-support-first-4fc16a06.json.",
+    "Windows native smoke timing is a single observation, not a performance percentile or full app validation.",
+    "Installed app remains the Plex lifecycle candidate b18c9891 and does not contain speech-support integration."
+  ],
+  "frozenProbeBinarySha256": "1dc878809faa3ba63edc0e1e17ec931554a44e3fae6954cbef05827e8fb5d467"
+}
