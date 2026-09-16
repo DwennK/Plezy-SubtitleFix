@@ -116,6 +116,12 @@ Future<Map<String, Object>> probe(Map<String, String> options) async {
     require(duplicateRejected, 'duplicate capture was accepted');
     runCommand(['loadfile', File(options['audio']!).absolute.path]);
     if (options['srt'] != null) {
+      final expectedOffset = double.parse(options['expected-offset'] ?? '-100');
+      final maximumError = double.parse(options['maximum-error'] ?? '1.5');
+      final analysisSeconds = int.parse(options['analysis-seconds'] ?? '75');
+      require(expectedOffset.isFinite && expectedOffset.abs() <= 600, 'Invalid expected offset');
+      require(maximumError.isFinite && maximumError > 0 && maximumError <= 1.5, 'Invalid error bound');
+      require(analysisSeconds >= 15 && analysisSeconds <= 900, 'Invalid analysis duration');
       final index = SubtitleIndex(const SubtitleParser().parse(await File(options['srt']!).readAsBytes()));
       final estimator = ConstantOffsetEstimator();
       final clock = Stopwatch()..start();
@@ -123,7 +129,7 @@ Future<Map<String, Object>> probe(Map<String, String> options) async {
       var attempts = 0;
       final analyses = <Map<String, Object?>>[];
       double? offset;
-      while (clock.elapsedMilliseconds < 75000 && offset == null) {
+      while (clock.elapsedMilliseconds < analysisSeconds * 1000 && offset == null) {
         final capture = engine.status();
         try {
           final transcript = engine.takeResult();
@@ -162,7 +168,11 @@ Future<Map<String, Object>> probe(Map<String, String> options) async {
         'inferenceBackend': engine.inferenceBackend,
         'actualOffset': offset ?? 'none',
         'acquisitionMs': clock.elapsedMilliseconds,
-        'passed': offset != null && (offset + 100).abs() < 1.5,
+        'expectedOffset': expectedOffset,
+        'absoluteOffsetError': offset == null ? 'unavailable' : (offset - expectedOffset).abs(),
+        'maximumOffsetError': maximumError,
+        'reference': 'authored SRT timings, not precise acoustic-onset ground truth',
+        'passed': offset != null && (offset - expectedOffset).abs() < maximumError,
         'analyses': analyses,
         'productionPlayerValidated': false,
         'audiblePlaybackValidated': false,
@@ -240,7 +250,7 @@ Future<void> main(List<String> arguments) async {
     final file = File(options['output']!);
     await file.parent.create(recursive: true);
     await file.writeAsString('${const JsonEncoder.withIndent('  ').convert(report)}\n');
-    require(report['passed'] != false, 'Calibration did not acquire the expected offset; inspect the summary');
+    require(report['passed'] != false, 'Alignment did not acquire the expected offset; inspect the summary');
     stdout.writeln('Native Dart integration passed; no dialogue or PCM retained.');
   } finally {
     heartbeat.cancel();
