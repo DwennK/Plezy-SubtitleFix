@@ -81,6 +81,7 @@ class Translations with BaseTranslations<AppLocale, Translations> {
 	late final Translations$downloads$en downloads = Translations$downloads$en.internal(_root);
 	late final Translations$shaders$en shaders = Translations$shaders$en.internal(_root);
 	late final Translations$companionRemote$en companionRemote = Translations$companionRemote$en.internal(_root);
+	late final Translations$liveSubtitleSync$en liveSubtitleSync = Translations$liveSubtitleSync$en.internal(_root);
 	late final Translations$videoSettings$en videoSettings = Translations$videoSettings$en.internal(_root);
 	late final Translations$performanceOverlay$en performanceOverlay = Translations$performanceOverlay$en.internal(_root);
 	late final Translations$externalPlayer$en externalPlayer = Translations$externalPlayer$en.internal(_root);
@@ -4593,6 +4594,72 @@ class Translations$companionRemote$en {
 	String get closedBeforeAuth => 'The connection closed before authentication';
 }
 
+// Path: liveSubtitleSync
+class Translations$liveSubtitleSync$en {
+	Translations$liveSubtitleSync$en.internal(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// en: 'Live subtitle sync'
+	String get title => 'Live subtitle sync';
+
+	/// en: 'Off · English SRT · local analysis'
+	String get off => 'Off · English SRT · local analysis';
+
+	/// en: 'Downloading model'
+	String get downloading => 'Downloading model';
+
+	/// en: 'Analyzing dialogue…'
+	String get analyzing => 'Analyzing dialogue…';
+
+	/// en: 'Synced'
+	String get synced => 'Synced';
+
+	/// en: 'Re-syncing…'
+	String get resyncing => 'Re-syncing…';
+
+	/// en: 'Unable to sync'
+	String get unable => 'Unable to sync';
+
+	/// en: 'Unsupported'
+	String get unsupported => 'Unsupported';
+
+	/// en: 'First activation downloads a 60 MB model. Audio stays on this device.'
+	String get modelSize => 'First activation downloads a 60 MB model. Audio stays on this device.';
+
+	/// en: 'Requires macOS Apple Silicon or Windows x64.'
+	String get platform => 'Requires macOS Apple Silicon or Windows x64.';
+
+	/// en: 'Select English audio and English subtitles.'
+	String get englishTracks => 'Select English audio and English subtitles.';
+
+	/// en: 'Select an external SRT subtitle track.'
+	String get externalSrt => 'Select an external SRT subtitle track.';
+
+	/// en: 'PCM audio is unavailable with passthrough.'
+	String get passthrough => 'PCM audio is unavailable with passthrough.';
+
+	/// en: 'This audio channel layout is not supported yet.'
+	String get surround => 'This audio channel layout is not supported yet.';
+
+	/// en: 'The complete subtitle file could not be loaded.'
+	String get source => 'The complete subtitle file could not be loaded.';
+
+	/// en: 'Model preparation failed. Turn off and try again.'
+	String get model => 'Model preparation failed. Turn off and try again.';
+
+	/// en: 'Local analysis is unavailable. Turn off and try again.'
+	String get nativeRuntime => 'Local analysis is unavailable. Turn off and try again.';
+
+	/// en: 'No reliable dialogue match yet.'
+	String get noMatch => 'No reliable dialogue match yet.';
+
+	/// en: 'Automatic: $seconds s'
+	String offset({required Object seconds}) => 'Automatic: ${seconds} s';
+}
+
 // Path: videoSettings
 class Translations$videoSettings$en {
 	Translations$videoSettings$en.internal(this._root);
@@ -8752,6 +8819,25 @@ extension on Translations {
 			'companionRemote.errors.connectionLostAfterAttempts' => ({required Object attempts}) => 'Connection lost after ${attempts} attempts',
 			'companionRemote.errors.connectionLost' => 'Connection lost',
 			'companionRemote.closedBeforeAuth' => 'The connection closed before authentication',
+			'liveSubtitleSync.title' => 'Live subtitle sync',
+			'liveSubtitleSync.off' => 'Off · English SRT · local analysis',
+			'liveSubtitleSync.downloading' => 'Downloading model',
+			'liveSubtitleSync.analyzing' => 'Analyzing dialogue…',
+			'liveSubtitleSync.synced' => 'Synced',
+			'liveSubtitleSync.resyncing' => 'Re-syncing…',
+			'liveSubtitleSync.unable' => 'Unable to sync',
+			'liveSubtitleSync.unsupported' => 'Unsupported',
+			'liveSubtitleSync.modelSize' => 'First activation downloads a 60 MB model. Audio stays on this device.',
+			'liveSubtitleSync.platform' => 'Requires macOS Apple Silicon or Windows x64.',
+			'liveSubtitleSync.englishTracks' => 'Select English audio and English subtitles.',
+			'liveSubtitleSync.externalSrt' => 'Select an external SRT subtitle track.',
+			'liveSubtitleSync.passthrough' => 'PCM audio is unavailable with passthrough.',
+			'liveSubtitleSync.surround' => 'This audio channel layout is not supported yet.',
+			'liveSubtitleSync.source' => 'The complete subtitle file could not be loaded.',
+			'liveSubtitleSync.model' => 'Model preparation failed. Turn off and try again.',
+			'liveSubtitleSync.nativeRuntime' => 'Local analysis is unavailable. Turn off and try again.',
+			'liveSubtitleSync.noMatch' => 'No reliable dialogue match yet.',
+			'liveSubtitleSync.offset' => ({required Object seconds}) => 'Automatic: ${seconds} s',
 			'videoSettings.playbackSpeed' => 'Playback Speed',
 			'videoSettings.normalSpeed' => 'Normal',
 			'videoSettings.sleepTimerActive' => ({required Object duration}) => 'Active (${duration})',

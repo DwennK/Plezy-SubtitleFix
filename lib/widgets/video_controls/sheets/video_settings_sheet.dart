@@ -12,6 +12,7 @@ import 'package:path/path.dart' as path;
 import 'package:provider/provider.dart';
 
 import '../../../models/shader_preset.dart';
+import '../../../features/live_subtitle_sync/control.dart';
 import '../../../media/playback_rate.dart';
 import '../../../mpv/mpv.dart';
 import '../../../mpv/player/player_native.dart';
@@ -784,6 +785,8 @@ class _VideoSettingsSheetState extends State<VideoSettingsSheet> {
           isHighlighted: _subtitleSyncOffset != 0,
           onTap: () => _openSyncBar(isSubtitle: true),
         ),
+
+        if (widget.player is PlayerNative) LiveSubtitleSyncControl(player: widget.player as PlayerNative),
 
         if (_supportsHdrControl)
           _SettingsToggleItem(

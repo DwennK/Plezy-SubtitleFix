@@ -8,6 +8,10 @@ import 'dart:isolate';
 
 import 'package:ffi/ffi.dart';
 import 'package:plezy/features/live_subtitle_sync/native_bindings.dart';
+import 'package:plezy/features/live_subtitle_sync/subtitle_index.dart';
+import 'package:plezy/features/live_subtitle_sync/subtitle_parser.dart';
+import 'package:plezy/features/live_subtitle_sync/temporal_aligner.dart';
+import 'package:plezy/features/live_subtitle_sync/transcript_matcher.dart';
 
 void require(bool value, String reason) {
   if (!value) throw StateError(reason);
@@ -109,6 +113,59 @@ Future<Map<String, Object>> probe(Map<String, String> options) async {
     }
     require(duplicateRejected, 'duplicate capture was accepted');
     runCommand(['loadfile', File(options['audio']!).absolute.path]);
+    if (options['srt'] != null) {
+      final index = SubtitleIndex(const SubtitleParser().parse(await File(options['srt']!).readAsBytes()));
+      final estimator = ConstantOffsetEstimator();
+      final clock = Stopwatch()..start();
+      var last = -60000;
+      var attempts = 0;
+      final analyses = <Map<String, Object?>>[];
+      double? offset;
+      while (clock.elapsedMilliseconds < 75000 && offset == null) {
+        final capture = engine.status();
+        try {
+          final transcript = engine.takeResult();
+          if (transcript != null) {
+            final result = const TranscriptMatcher().find(
+              transcript.segments.map((segment) => segment.text).join(' '),
+              index,
+            );
+            final anchors = result.passage == null
+                ? <SubtitleAnchor>[]
+                : const TemporalAligner().anchors(transcript, index, result.passage!);
+            offset = estimator.add(anchors);
+            analyses.add({
+              'attempt': attempts,
+              'windowStart': transcript.windowStart,
+              'windowEnd': transcript.windowEnd,
+              'match': result.status.name,
+              'similarity': result.passage?.similarity,
+              'anchors': anchors.map((anchor) => {'cue': anchor.cue, 'offset': anchor.offset}).toList(),
+            });
+          }
+        } on NativeSyncException catch (error) {
+          analyses.add({'attempt': attempts, 'failure': error.reason.name});
+        }
+        final interval = attempts > 3 ? 30000 : 12000;
+        if (capture.samples >= 128000 && clock.elapsedMilliseconds - last >= interval && engine.submitRecent()) {
+          last = clock.elapsedMilliseconds;
+          attempts++;
+        }
+        await Future<void>.delayed(const Duration(milliseconds: 100));
+      }
+      if (offset != null) property('sub-delay', offset.toString());
+      return {
+        'kind': 'native-active-pcm-real-asr-and-domain-alignment',
+        'platform': Platform.operatingSystem,
+        'actualOffset': offset ?? 'none',
+        'acquisitionMs': clock.elapsedMilliseconds,
+        'passed': offset != null && (offset + 100).abs() < 1.5,
+        'analyses': analyses,
+        'productionPlayerValidated': false,
+        'audiblePlaybackValidated': false,
+        'pcmOrTranscriptPersisted': false,
+      };
+    }
     final deadline = DateTime.now().add(const Duration(seconds: 25));
     while (engine.status().samples < 136000) {
       require(DateTime.now().isBefore(deadline), 'PCM capture timed out');
@@ -179,6 +236,7 @@ Future<void> main(List<String> arguments) async {
     final file = File(options['output']!);
     await file.parent.create(recursive: true);
     await file.writeAsString('${const JsonEncoder.withIndent('  ').convert(report)}\n');
+    require(report['passed'] != false, 'Calibration did not acquire the expected offset; inspect the summary');
     stdout.writeln('Native Dart integration passed; no dialogue or PCM retained.');
   } finally {
     heartbeat.cancel();

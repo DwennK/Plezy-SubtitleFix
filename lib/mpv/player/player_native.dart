@@ -6,6 +6,7 @@ import 'package:flutter/foundation.dart' show visibleForTesting;
 import 'package:flutter/services.dart';
 
 import '../../services/device_performance.dart';
+import '../../features/live_subtitle_sync/player_attachment.dart';
 import '../../services/settings_service.dart';
 import '../../utils/app_logger.dart';
 import '../models.dart';
@@ -112,6 +113,29 @@ class PlayerNative extends PlayerBase {
 
   /// Whether this instance drives the audio-only core.
   final bool audioOnly;
+
+  Map<String, String> get liveSubtitleHeaders => _liveSubtitleHeaders;
+  Map<String, String> _liveSubtitleHeaders = const {};
+  double _manualSubtitleDelay = 0;
+  double _automaticSubtitleDelay = 0;
+  Future<void> _subtitleDelayTail = Future<void>.value();
+
+  /// Automatic delay has its own input, so native property observations and
+  /// existing manual controls cannot accidentally adopt it as a manual value.
+  Future<void> setLiveSubtitleOffset(double seconds) => _writeSubtitleDelay(automatic: seconds);
+
+  Future<void> _writeSubtitleDelay({double? manual, double? automatic}) {
+    final operation = _subtitleDelayTail.then((_) async {
+      final nextManual = manual ?? _manualSubtitleDelay;
+      final nextAutomatic = automatic ?? _automaticSubtitleDelay;
+      if (!nextManual.isFinite || !nextAutomatic.isFinite) throw ArgumentError('Invalid subtitle delay');
+      await _setProperty('sub-delay', (nextManual + nextAutomatic).toString(), synchronizeRate: false);
+      _manualSubtitleDelay = nextManual;
+      _automaticSubtitleDelay = nextAutomatic;
+    });
+    _subtitleDelayTail = operation.then<void>((_) {}, onError: (Object _) {});
+    return operation;
+  }
 
   @override
   final MethodChannel methodChannel;
@@ -366,6 +390,8 @@ class PlayerNative extends PlayerBase {
     bool startLivePlaylistFromBeginning = false,
   }) async {
     if (_nativeCoreUnavailable) return null;
+    await LiveSyncPlayerAttachment.sessions[this]?.stop();
+    _liveSubtitleHeaders = Map.unmodifiable(media.headers ?? const <String, String>{});
     await _ensureInitialized();
     if (_nativeCoreUnavailable) return null;
     // `loadfile replace` (below) clears the native playlist, dropping any
@@ -705,6 +731,7 @@ class PlayerNative extends PlayerBase {
 
   Future<void> _disposeNative({required bool preserveDisplayMode}) async {
     if (disposed) return;
+    await LiveSyncPlayerAttachment.sessions[this]?.stop();
     // Settle an armed-but-unconsumed content fd before the base teardown
     // disables invoke() — the playlist is torn down without mpv ever opening
     // the entry.
@@ -792,7 +819,13 @@ class PlayerNative extends PlayerBase {
   }
 
   @override
-  Future<void> setProperty(String name, String value) => _setProperty(name, value, synchronizeRate: true);
+  Future<void> setProperty(String name, String value) {
+    if (name == 'sub-delay' && (Platform.isMacOS || Platform.isWindows)) {
+      final manual = double.tryParse(value);
+      if (manual != null && manual.isFinite) return _writeSubtitleDelay(manual: manual);
+    }
+    return _setProperty(name, value, synchronizeRate: true);
+  }
 
   Future<void> _setProperty(String name, String value, {required bool synchronizeRate}) async {
     if (_nativeCoreUnavailable) return;

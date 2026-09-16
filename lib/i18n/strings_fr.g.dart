@@ -80,6 +80,7 @@ class TranslationsFr extends Translations with BaseTranslations<AppLocale, Trans
 	@override late final _Translations$downloads$fr downloads = _Translations$downloads$fr._(_root);
 	@override late final _Translations$shaders$fr shaders = _Translations$shaders$fr._(_root);
 	@override late final _Translations$companionRemote$fr companionRemote = _Translations$companionRemote$fr._(_root);
+	@override late final _Translations$liveSubtitleSync$fr liveSubtitleSync = _Translations$liveSubtitleSync$fr._(_root);
 	@override late final _Translations$videoSettings$fr videoSettings = _Translations$videoSettings$fr._(_root);
 	@override late final _Translations$performanceOverlay$fr performanceOverlay = _Translations$performanceOverlay$fr._(_root);
 	@override late final _Translations$externalPlayer$fr externalPlayer = _Translations$externalPlayer$fr._(_root);
@@ -1829,6 +1830,34 @@ class _Translations$companionRemote$fr extends Translations$companionRemote$en {
 	@override late final _Translations$companionRemote$remote$fr remote = _Translations$companionRemote$remote$fr._(_root);
 	@override late final _Translations$companionRemote$errors$fr errors = _Translations$companionRemote$errors$fr._(_root);
 	@override String get closedBeforeAuth => 'La connexion a été fermée avant l’authentification';
+}
+
+// Path: liveSubtitleSync
+class _Translations$liveSubtitleSync$fr extends Translations$liveSubtitleSync$en {
+	_Translations$liveSubtitleSync$fr._(TranslationsFr root) : this._root = root, super.internal(root);
+
+	final TranslationsFr _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Live subtitle sync';
+	@override String get off => 'Désactivé · SRT anglais · analyse locale';
+	@override String get downloading => 'Téléchargement du modèle';
+	@override String get analyzing => 'Analyse des dialogues…';
+	@override String get synced => 'Synchronisé';
+	@override String get resyncing => 'Resynchronisation…';
+	@override String get unable => 'Synchronisation impossible';
+	@override String get unsupported => 'Non pris en charge';
+	@override String get modelSize => 'La première activation télécharge un modèle de 60 Mo. L’audio reste sur cet appareil.';
+	@override String get platform => 'Nécessite un Mac Apple Silicon ou Windows x64.';
+	@override String get englishTracks => 'Sélectionnez un audio et des sous-titres en anglais.';
+	@override String get externalSrt => 'Sélectionnez une piste de sous-titres SRT externe.';
+	@override String get passthrough => 'L’audio PCM est indisponible en passthrough.';
+	@override String get surround => 'Cette configuration de canaux audio n’est pas encore prise en charge.';
+	@override String get source => 'Impossible de charger le fichier complet des sous-titres.';
+	@override String get model => 'Échec de préparation du modèle. Désactivez puis réessayez.';
+	@override String get nativeRuntime => 'Analyse locale indisponible. Désactivez puis réessayez.';
+	@override String get noMatch => 'Aucune correspondance fiable pour le moment.';
+	@override String offset({required Object seconds}) => 'Correction automatique : ${seconds} s';
 }
 
 // Path: videoSettings
@@ -4601,6 +4630,25 @@ extension on TranslationsFr {
 			'companionRemote.errors.connectionLostAfterAttempts' => ({required Object attempts}) => 'Connexion perdue après ${attempts} tentatives',
 			'companionRemote.errors.connectionLost' => 'Connexion perdue',
 			'companionRemote.closedBeforeAuth' => 'La connexion a été fermée avant l’authentification',
+			'liveSubtitleSync.title' => 'Live subtitle sync',
+			'liveSubtitleSync.off' => 'Désactivé · SRT anglais · analyse locale',
+			'liveSubtitleSync.downloading' => 'Téléchargement du modèle',
+			'liveSubtitleSync.analyzing' => 'Analyse des dialogues…',
+			'liveSubtitleSync.synced' => 'Synchronisé',
+			'liveSubtitleSync.resyncing' => 'Resynchronisation…',
+			'liveSubtitleSync.unable' => 'Synchronisation impossible',
+			'liveSubtitleSync.unsupported' => 'Non pris en charge',
+			'liveSubtitleSync.modelSize' => 'La première activation télécharge un modèle de 60 Mo. L’audio reste sur cet appareil.',
+			'liveSubtitleSync.platform' => 'Nécessite un Mac Apple Silicon ou Windows x64.',
+			'liveSubtitleSync.englishTracks' => 'Sélectionnez un audio et des sous-titres en anglais.',
+			'liveSubtitleSync.externalSrt' => 'Sélectionnez une piste de sous-titres SRT externe.',
+			'liveSubtitleSync.passthrough' => 'L’audio PCM est indisponible en passthrough.',
+			'liveSubtitleSync.surround' => 'Cette configuration de canaux audio n’est pas encore prise en charge.',
+			'liveSubtitleSync.source' => 'Impossible de charger le fichier complet des sous-titres.',
+			'liveSubtitleSync.model' => 'Échec de préparation du modèle. Désactivez puis réessayez.',
+			'liveSubtitleSync.nativeRuntime' => 'Analyse locale indisponible. Désactivez puis réessayez.',
+			'liveSubtitleSync.noMatch' => 'Aucune correspondance fiable pour le moment.',
+			'liveSubtitleSync.offset' => ({required Object seconds}) => 'Correction automatique : ${seconds} s',
 			'videoSettings.playbackSpeed' => 'Vitesse de lecture',
 			'videoSettings.normalSpeed' => 'Normale',
 			'videoSettings.sleepTimerActive' => ({required Object duration}) => 'Actif (${duration})',

@@ -1879,6 +1879,27 @@
     },
     "closedBeforeAuth": "The connection closed before authentication"
   },
+  "liveSubtitleSync": {
+    "title": "Live subtitle sync",
+    "off": "Off · English SRT · local analysis",
+    "downloading": "Downloading model",
+    "analyzing": "Analyzing dialogue…",
+    "synced": "Synced",
+    "resyncing": "Re-syncing…",
+    "unable": "Unable to sync",
+    "unsupported": "Unsupported",
+    "modelSize": "First activation downloads a 60 MB model. Audio stays on this device.",
+    "platform": "Requires macOS Apple Silicon or Windows x64.",
+    "englishTracks": "Select English audio and English subtitles.",
+    "externalSrt": "Select an external SRT subtitle track.",
+    "passthrough": "PCM audio is unavailable with passthrough.",
+    "surround": "This audio channel layout is not supported yet.",
+    "source": "The complete subtitle file could not be loaded.",
+    "model": "Model preparation failed. Turn off and try again.",
+    "nativeRuntime": "Local analysis is unavailable. Turn off and try again.",
+    "noMatch": "No reliable dialogue match yet.",
+    "offset": "Automatic: $seconds s"
+  },
   "videoSettings": {
     "playbackSpeed": "Playback Speed",
     "normalSpeed": "Normal",

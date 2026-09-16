@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:material_symbols_icons/symbols.dart';
 
 import '../../../media/media_source_info.dart';
+import '../../../features/live_subtitle_sync/control.dart';
+import '../../../mpv/player/player_native.dart';
 import '../../../mpv/mpv.dart';
 import '../../../services/playback_subtitle_resolver.dart';
 import '../../../services/track_selection_service.dart';
@@ -96,6 +98,7 @@ class TrackSheet extends StatelessWidget {
               Widget subtitleColumnFor(TrackSelection sel, bool showHeader) {
                 if (useSourceSubtitles) {
                   return _SourceSubtitleColumn(
+                    player: player,
                     tracks: state.sourceSubtitleTracks,
                     trackControlsState: state,
                     selection: sel,
@@ -203,6 +206,7 @@ class _SourceAudioColumn extends StatelessWidget {
 }
 
 class _SourceSubtitleColumn extends StatelessWidget {
+  final Player player;
   final List<MediaSubtitleTrack> tracks;
   final TrackControlsState trackControlsState;
 
@@ -212,6 +216,7 @@ class _SourceSubtitleColumn extends StatelessWidget {
   final bool showHeader;
 
   const _SourceSubtitleColumn({
+    required this.player,
     required this.tracks,
     required this.trackControlsState,
     required this.selection,
@@ -228,7 +233,7 @@ class _SourceSubtitleColumn extends StatelessWidget {
       headerLabel: showHeader ? t.videoControls.subtitlesLabel : null,
       itemCount: tracks.length + 1,
       initialIndex: selectedIndex,
-      footer: _buildSubtitleSearchFooter(context, trackControlsState),
+      footer: _buildSubtitleSearchFooter(context, trackControlsState, player),
       itemBuilder: (context, index, scope) {
         if (index == 0) {
           return TrackSelectionHelper.buildOffTile(
@@ -378,7 +383,7 @@ class _SubtitleColumn extends StatelessWidget {
       headerLabel: showHeader ? t.videoControls.subtitlesLabel : null,
       itemCount: itemCount,
       initialIndex: selectedIndex,
-      footer: _buildSubtitleSearchFooter(context, trackControlsState),
+      footer: _buildSubtitleSearchFooter(context, trackControlsState, player),
       itemBuilder: (context, index, scope) {
         if (index == 0) {
           return TrackSelectionHelper.buildOffTile(
@@ -489,24 +494,25 @@ class _SubtitleColumn extends StatelessWidget {
   }
 }
 
-List<Widget> _buildSubtitleSearchFooter(BuildContext context, TrackControlsState state) {
-  if (!state.canSearchSubtitles) return const [];
-
+List<Widget> _buildSubtitleSearchFooter(BuildContext context, TrackControlsState state, Player player) {
   return [
-    Divider(height: 1, color: Theme.of(context).dividerColor),
-    FocusableListTile(
-      leading: const AppIcon(Symbols.search_rounded),
-      title: Text(t.videoControls.searchSubtitles),
-      onTap: () {
-        OverlaySheetController.of(context).push(
-          builder: (_) => SubtitleSearchSheet(
-            ratingKey: state.ratingKey,
-            serverId: state.serverId!,
-            mediaTitle: state.mediaTitle,
-            onSubtitleDownloaded: state.onSubtitleDownloaded,
-          ),
-        );
-      },
-    ),
+    if (player is PlayerNative) LiveSubtitleSyncControl(player: player),
+    if (state.canSearchSubtitles) ...[
+      Divider(height: 1, color: Theme.of(context).dividerColor),
+      FocusableListTile(
+        leading: const AppIcon(Symbols.search_rounded),
+        title: Text(t.videoControls.searchSubtitles),
+        onTap: () {
+          OverlaySheetController.of(context).push(
+            builder: (_) => SubtitleSearchSheet(
+              ratingKey: state.ratingKey,
+              serverId: state.serverId!,
+              mediaTitle: state.mediaTitle,
+              onSubtitleDownloaded: state.onSubtitleDownloaded,
+            ),
+          );
+        },
+      ),
+    ],
   ];
 }
