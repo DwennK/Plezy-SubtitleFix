@@ -14,12 +14,18 @@ brouillon. Aucun changement ni PR au dépôt officiel.
 Le contrôle « Live subtitle sync » est branché dans les menus de sous-titres
 et de réglages vidéo sur les plateformes ciblées. Il charge le SRT externe
 anglais sélectionné avec les en-têtes du média, ou le SRT intégré sélectionné
-sur Plex en lecture directe après vérification des décisions de copie. Il vérifie/télécharge le modèle
-quantifié (~60 Mo), prélève le PCM du lecteur et applique un décalage constant
-après plusieurs ancres concordantes. La lecture continue pendant l'analyse.
+sur Plex en lecture directe après vérification des décisions de copie. Il vérifie/télécharge
+base.en sur Windows (~148 Mo), le modèle quantifié sur Mac (~60 Mo), puis prélève
+le PCM du lecteur. Plusieurs ancres concordantes établissent le décalage initial.
+Le suivi par zones est maintenant raccordé : il conserve les domaines observés
+et peut estimer une pente après six ancres espacées sur au moins une minute.
+Les prédictions restent séparées et bornées à 120 s. Leur précision réelle et le
+rendu des frontières restent à valider. La lecture continue pendant l'analyse.
 Le délai manuel est additionné séparément ; désactiver retire seulement la
 contribution automatique. Les seeks, changements de vitesse et discontinuités
-PCM invalident l'analyse ; un changement de piste relance une session demandée.
+PCM invalident l'analyse et les prédictions, en conservant les régions connues ;
+un changement de piste relance une session demandée. Le délai audio manuel est
+composé dans la timeline audio ; sa vérification dans le banc natif est en cours.
 
 La première preuve native macOS sur audio réel de calibration a appliqué
 −100,16 s pour −100 s attendues, en 47,49 s, puis vérifié le délai manuel et
@@ -34,10 +40,17 @@ sans UI. La correction estimée (+3,75 s) reste à confirmer visuellement et
 Ces temps dépassent le budget utilisateur ; ce n'est pas une livraison finale.
 Le Mac verrouillé empêche actuellement la suite des contrôles d'interface.
 
-Le moteur actuel ne livre pas encore la timeline segmentée, la dérive, les
-gaps, le VAD, le cache de mappings ou la suppression du modèle dans les
-paramètres. Les performances Windows, la validation séparée du corpus et les
-autres critères de livraison restent ouverts. Aucun build final annoncé.
+Le contrôleur Windows acquiert le cas de calibration en 24,261 s avec base.en
+(erreur 199 ms) et préserve le délai manuel après arrêt. Le probe natif Mac avec
+timeline acquiert aussi le générique de 90 s (erreur 212 ms, délai total 135,856 s).
+Ces résultats ne prouvent ni la dérive réelle ni une précision statistique :
+l'extrait court de validation échoue encore, et un autre acquiert en 195,723 s.
+
+Les gaps confirmés et leur rendu, le VAD, le cache de mappings et la suppression
+du modèle dans les paramètres ne sont pas livrés. La dérive avec vraie parole,
+les performances, la validation native de Mentalist et les autres critères de
+livraison restent ouverts. Aucun build final annoncé. Voir les preuves exactes
+et leur provenance dans `live-subtitle-sync-validation.md`.
 
 ## Plan d'exécution et portes de validation
 

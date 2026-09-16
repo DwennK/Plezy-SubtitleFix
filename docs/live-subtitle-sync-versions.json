@@ -708,9 +708,9 @@
     },
     "timelineIntegration": {
       "forkSha": "55da27265cc1775e458000fc4a277e43f4a684fc",
-      "focusedLocalTestsPassed": 90,
-      "windowsCiRun": 35053063463,
-      "nativeStatus": "pending",
+      "focusedLocalTestsPassed": 91,
+      "windowsCiRun": 35053526846,
+      "nativeStatus": "Latest timeline, seek and audio-delay application run queued; previous pending run 35053063463 superseded by GitHub concurrency. Native zero-audio-delay intro probe passed separately.",
       "gapSuppressionImplemented": false,
       "persistentCacheImplemented": false,
       "nativeIntro90": {
@@ -718,6 +718,13 @@
         "acquisitionMs": 135856,
         "absoluteOffsetErrorSeconds": 0.21166666666666,
         "scope": "55da2726 tracker and native media clock, zero manual audio delay; not production UI."
+      },
+      "macosBuild": {
+        "forkSha": "b32c5be1b797cda09888b22df06d37dbee0c82f1",
+        "configuration": "debug",
+        "strictSignatureVerified": true,
+        "dartKernelSha256": "74edb00a0ef0a9511d628b091f4abd631b1646ecdd34afbf89781176d7fda51b",
+        "nativeUiValidated": false
       }
     }
   }
