@@ -25,7 +25,14 @@ Validation:
 - An initial concurrent suite attempt timed out before loadfile while compiling
   the native app. The unchanged test passes in the serial focused suite; no
   product timing or test timeout was enlarged.
-- Full Flutter analysis passes. Native Mac build/UI validation is pending.
+- 189 focused tests pass with one existing skip. Full Flutter analysis passes.
+- Local Mac Release and strict signing pass; installed bundle integrity matches.
+- Actual episode activation reaches Synced (+3.04 s), first observed at 16.977 s.
+  Disable shows Off; re-enable reaches Synced (+2.83 s), first observed at
+  30.348 s. These are UI observation upper bounds with a recently exercised
+  Plex extraction, not cold-start or precision measurements.
+- Native UI receipt: `mentalist-native-b18c9891.json`. Pause observed around
+  10:51 before the Mac locked. Audible precision remains unvalidated.
 
 No private PCM, transcript, subtitle text, token, or server URL is retained in
 this report. Extraction alone is not synchronization or an acoustic reference.

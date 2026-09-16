@@ -1,0 +1,41 @@
+{
+  "schema": 1,
+  "sourceSha": "b18c9891c406fdd49fd96738dbc259cd4588504a",
+  "installedAt": "2026-09-16T21:53:45.098742+00:00",
+  "path": "/Applications/PlezyLiveSync.app",
+  "sourceAndInstalledTree": {
+    "entries": 331,
+    "sha256": "975d1220ca5f6c38edde432d748fd503228f9efed3050acc8eb0719fb7db2170"
+  },
+  "strictSignaturePassed": true,
+  "previousBundleRetained": true,
+  "officialUnchanged": true,
+  "officialTree": {
+    "entries": 328,
+    "sha256": "ea23b4ed35869401b7fc30ea53dce7ef6d585b86c92de6532a8aa06ead71fe84"
+  },
+  "nativeUiValidationPending": false,
+  "fullProductAcceptance": false,
+  "checkedAt": "2026-09-16T21:58:10.474783+00:00",
+  "episode": "Mentalist S2 E16",
+  "baselineState": "unsupported-accessible-srt",
+  "patchedActivationFirstObservedSyncedMs": 16977,
+  "patchedFirstObservedOffsetSeconds": 3.04,
+  "firstSyncedStillObservedAtMs": 44299,
+  "disableOffObserved": true,
+  "reenableFirstObservedSyncedMs": 30348,
+  "reenableObservedOffsetSeconds": 2.83,
+  "pausedAtSeconds": 651,
+  "playbackVideoAndSubtitleRendered": true,
+  "audibleSyncValidated": false,
+  "independentPrecisionValidated": false,
+  "privateMediaPersisted": false,
+  "screenInspectionInterruptedByLock": true,
+  "limitations": [
+    "UI observations are upper bounds, not exact acquisition timestamps.",
+    "Plex extraction was exercised immediately beforehand; this is not a cold-server extraction benchmark.",
+    "Numeric cache anchors were observed; no dialogue, audio, token, URL or video file retained in repository.",
+    "Synced state and automatic offsets prove the pipeline reached correction; they do not establish acoustic precision or full-episode accuracy.",
+    "Installed candidate predates PR6 timing-recovery and VAD experiments; CI still running."
+  ]
+}
