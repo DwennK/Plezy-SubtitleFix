@@ -35,3 +35,14 @@ If the hypothesis is supported, check ordinary acquisition and negative inputs
 before considering promotion. Independent validation partitions remain untouched.
 The full goal still requires native controller/UI, scene boundaries, drift,
 precision and performance evidence.
+
+## First outcome, 1a5695d4
+
+The [actual native report](tight-recovery-1a5695d4.json) contains exactly one
+8-second retry. It corrects cue 10 from −72.850 to −69.875 seconds, but the
+pending set also retains pre-discontinuity cue 7 (−101.710). Two new consistent
+anchors cannot fit that mixed set at the unchanged 75% inlier requirement.
+Recovery waits for cue 11 in the next normal window: 29.497 media seconds after
+the edit; p95 remains 70 seconds and no gaps are learned. The hypothesis is
+therefore not satisfied end to end. The next correction must separate already
+chronologically obsolete pending observations, not loosen fit thresholds.
