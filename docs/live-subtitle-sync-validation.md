@@ -1659,3 +1659,27 @@ vérifiés contre GitHub. Le bundle macOS est arm64 et passe localement
 [`draft-test-artifacts-10ace9fc.json`](livesync-evidence/draft-test-artifacts-10ace9fc.json).
 Ces apps Debug n'ont pas été installées/lancées sur le Mac utilisateur ; la
 notarisation et l'installation/désinstallation restent à valider.
+
+
+### 2026-09-16 — masquage temporaire : preuve Windows terminée
+
+Le run `35100887451`, source `c205484a247682ef038dd013fb3e1852a5d14465`, réussit.
+Les 13 états du renderer passent les assertions de piste, délai et visibilité.
+Cinq captures ont été inspectées : masque actif, demande manuelle d'affichage
+pendant le masque, restauration, libération avec choix manuel masqué et nouvel
+affichage manuel. Les pixels montrent les disparitions/restaurations attendues.
+Les images originales 1024 × 720 et leurs hashes sont conservés dans
+[`scene-c205484a-windows.json`](livesync-evidence/scene-c205484a-windows.json)
+et le répertoire `livesync-evidence/scene-c205484a/`.
+
+La calibration du contrôleur passe également : 36,735 s / 268,6 ms ; intro de
+90 s : 124,933 s / 246,3 ms. Les contrôles manuels, seeks, cache et arrêt passent.
+Le masquage est déclenché explicitement dans le banc ; ces résultats ne valident
+**pas** un apprentissage automatique des scènes absentes. Ce code reste isolé
+avant validation du candidat combiné.
+
+Le candidat combiné `114301c0` passe 153 tests et l'analyse locale. Son essai
+Windows `35103325258` ajoute un seek réel pendant le démarrage afin de reproduire
+un risque d'arrêt prématuré de l'initialisation. Il n'inclut pas encore de
+correctif spécifique à cette hypothèse. L'essai du chargement SRT retardé
+`35101753081` reste attribué à sa source indépendante `41dba5c5`.
