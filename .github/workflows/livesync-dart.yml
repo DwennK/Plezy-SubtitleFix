@@ -9,6 +9,8 @@ on:
       - 'lib/features/live_subtitle_sync/**'
       - 'test/features/live_subtitle_sync/**'
       - 'docs/live-subtitle-sync-versions.json'
+      - 'scripts/livesync/create_analysis_fixture.py'
+      - 'scripts/livesync/test_analysis_fixture.py'
 
 permissions:
   contents: read
@@ -45,6 +47,9 @@ jobs:
           python3 -c 'import json; actual=json.load(open("build/livesync/evidence/flutter-version.json")); expected=json.load(open("docs/live-subtitle-sync-versions.json"))["flutter"]; assert actual["frameworkRevision"] == expected["revision"]; assert actual["engineRevision"] == expected["engine"]'
           flutter pub get --enforce-lockfile --no-example
           git rev-parse HEAD > build/livesync/evidence/fork-sha.txt
+      - name: Verify fixture timing transforms
+        shell: bash
+        run: python3 -m unittest discover -s scripts/livesync -p test_analysis_fixture.py > build/livesync/evidence/fixture-tests.txt 2>&1
       - name: Analyze and test the feature components
         shell: bash
         run: |
