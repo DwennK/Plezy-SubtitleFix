@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "product": "Plezy + LiveSync",
   "status": "in-development-not-validated",
-  "recordedAt": "2026-09-16T08:48:02.362246+00:00",
+  "recordedAt": "2026-09-16T08:55:33.077877+00:00",
   "upstream": {
     "repository": "edde746/plezy",
     "branch": "main",
@@ -659,7 +659,7 @@
       "ciRun": 35034268551,
       "forkSha": "c4e64bba647bcf424517f8fe7481b4e910819194"
     },
-    "qualityLimitations": "128 focused tests, whole analysis and signed Mac build passed at 3da717cc. Windows 16a64221 passed calibration, intro, manual/audio controls and persistent cache restore; general CI 302bcb22 passed. Native Windows 35075644905 and general CI 35075647742 at 3da717cc are pending. Mentalist, full-playback drift, gap handling and performance budgets remain incomplete.",
+    "qualityLimitations": "131 focused tests, whole analysis and signed Mac build passed at df53e749. Windows 16a64221 passed calibration, intro, manual/audio controls and persistent cache restore; general CI 302bcb22 passed. Native Windows and general CI are pending at 3da717cc and df53e749. Mentalist, full-playback drift, gap handling and performance budgets remain incomplete.",
     "nativeCaptureOwner": {
       "localResult": "passed real decoder PCM, forward/backward seeks, pause, exclusive capture and weak-client release on parent shutdown",
       "platform": "macOS arm64 Apple M4",
@@ -720,14 +720,13 @@
         "scope": "55da2726 tracker and native media clock, zero manual audio delay; not production UI."
       },
       "macosBuild": {
-        "forkSha": "3da717cc51982cde46a278b3c13ea5f937b193f0",
-        "dartKernelSha256": "a1b23b6bd5240eae3e19262fed2892c107867657a0189e508ea10c80a33c44a9",
-        "focusedTestsPassed": 128,
+        "forkSha": "df53e74936943f69d519b63437290d2952066763",
+        "dartKernelSha256": "8cd13bd1381e1d5619094d73736e7d37c9f33a3955afecd4e6ffbcb27ad49407",
+        "focusedTestsPassed": 131,
         "wholeAnalysisPassed": true,
         "strictSignatureVerified": true,
         "nativeUiValidated": false,
-        "nativeCacheValidated": false,
-        "scope": "Application compiled from the unchanged source files committed at this SHA during compilation. Four-field native error response regression passed through a real Dart isolate; no native UI or Mentalist replay.",
+        "scope": "App built from unchanged implementation committed at this SHA during compilation. Multi-region confirmation is covered by domain and cadence tests; no new native multi-region or Mentalist validation.",
         "upstreamSha": "e38759127a1fb26c4cd99172ba6609fd50e355d9",
         "platform": "macos-arm64",
         "configuration": "debug"
@@ -917,6 +916,17 @@
       "upstreamCiRun": 35075647742,
       "upstreamCiStatus": "pending",
       "scope": "Corrects ignored four-field native error replies; unexpected isolate termination is a separate unvalidated path. No claim this caused the Mentalist session."
+    },
+    "regionConfirmation": {
+      "forkSha": "df53e74936943f69d519b63437290d2952066763",
+      "focusedTestsPassed": 131,
+      "wholeAnalysisPassed": true,
+      "macosBuildAndSignaturePassed": true,
+      "windowsCiRun": 35076360711,
+      "windowsCiStatus": "queued",
+      "upstreamCiRun": 35076363135,
+      "upstreamCiStatus": "pending",
+      "scope": "Steady-state cadence requires evidence in the current audio-adjusted observed or predicted region. Other learned/cached scenes neither establish nor block it. Regression tests cover seeking, multiple restored regions, audio delay and prediction expiry. Native multi-region behavior and Mentalist remain unvalidated."
     }
   }
 }

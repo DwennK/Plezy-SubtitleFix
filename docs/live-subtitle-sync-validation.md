@@ -1374,3 +1374,32 @@ n'ajoutent aucun début de cue fiable. Ils ne justifient pas une modification de
 la cadence. La dérive complète reste en échec (p95 2,490 s dans le rapport
 `speech-drift-slower-574ef060.json`). Les résultats contrôlés ne sont ni un
 benchmark de performances ni une preuve sur Mentalist.
+
+
+## Confirmation propre à la zone de lecture — 2026-09-16
+
+`df53e749` corrige la décision de ralentir les analyses : elle utilisait la
+présence de six ancres sur une minute dans **n'importe quel** segment appris.
+Après un seek vers une nouvelle scène, deux nouvelles ancres pouvaient donc
+suffire pour passer à des vérifications espacées de 90 s grâce aux preuves
+d'une ancienne scène. À l'inverse, une région restaurée non visitée empêchait
+le ralentissement dans une région déjà revalidée.
+
+`TimelineCorrection.established` dépend maintenant du segment qui produit la
+correction courante, de ses propres ancres et de sa validation après restauration.
+Il suit le décalage audio et expire avec la prédiction. Le contrôleur et le
+probe natif utilisent cette même décision. Les limites de six ancres, une minute
+et de domaine prédit restent inchangées ; le format du cache ne change pas.
+
+Les trois nouvelles régressions vérifient l'ancienne scène fiable suivie d'une
+nouvelle scène (12 s pour la confirmation), deux régions du cache dont une seule
+revalidée, et les frontières avec délai audio/expiration/seek. **131 tests
+LiveSync réussis**, puis 23 tests tracker/cache revérifiés après remplacement
+du getter global. Analyse Flutter complète sans diagnostic. Ces tests ne
+constituent pas une preuve de précision sur une séquence vidéo à plusieurs scènes.
+
+Build Mac Debug et signature stricte réussis, copie dans
+`build/livesync/review-builds/df53e749/`, kernel SHA-256
+`8cd13bd1381e1d5619094d73736e7d37c9f33a3955afecd4e6ffbcb27ad49407`.
+Windows `35076360711` est mis en file après le run natif `3da717cc` ; CI générale
+`35076363135` lancée. Mentalist et la dérive complète restent non validés.
