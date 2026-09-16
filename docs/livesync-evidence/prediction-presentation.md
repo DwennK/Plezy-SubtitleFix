@@ -58,4 +58,10 @@ Windows native tests. The analogous incorrectly dispatched `22d57de3` run
 `35146112848` was intentionally cancelled, not counted as a timeout or success.
 The corrected general dispatch `35146373296` supplies verified native build
 `35097915052`. Current-source Dart `35146106705` and Windows renderer
-`35146109893` are separate validations still pending at this record.
+`35146109893` subsequently passed, as did corrected general CI `35146373296`.
+The [Windows renderer receipt](prediction-renderer-22d57de3-windows.json)
+preserves all 16 successful states and hashes of the three inspected screenshots:
+contradiction and manual-show remain masked, then confirmed recovery is visible.
+Manual delay and selected subtitle track remain intact. The actual native window
+captures are 1024×720 on the hosted desktop. These injected-anchor rendering
+checks do not establish real-ASR controller behavior or audible playback.
