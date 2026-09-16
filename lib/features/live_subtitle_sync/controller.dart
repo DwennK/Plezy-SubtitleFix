@@ -229,6 +229,7 @@ class LiveSubtitleSyncController extends ChangeNotifier {
             'startupSubtitlesMs': startupClock.elapsedMilliseconds,
             'mappingCacheEligible': _cacheKey != null,
             'restoredSegments': _timeline.map.segments.length,
+            'restoredGaps': _timeline.map.gaps.length,
           });
           return index;
         },
