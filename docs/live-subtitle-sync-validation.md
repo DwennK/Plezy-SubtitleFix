@@ -1438,3 +1438,52 @@ Actions à créer les PRs est activé ; les permissions par défaut restent en l
 Aucun token personnel n'est ajouté. Aucun workflow n'approuve ou ne fusionne une PR.
 Le run sans changement et l'exercice complet restent à vérifier ; installation
 et tests locaux ne sont pas présentés comme une intégration native réussie.
+
+## Preuves temporelles répétées — 2026-09-16
+
+`1738e659` empêche un contexte de transcription adjacent de compter à nouveau
+les mêmes débuts de cues comme une confirmation fraîche. Une liste vide ou
+strictement identique ne réécrit plus le mapping et ne raccourcit plus la fenêtre
+suivante à 12 s. Les horodatages affinés et les observations après une rupture
+restent utilisables, notamment pour revalider une région du cache. Deux nouvelles
+régressions échouent avant le correctif ; les **134 tests LiveSync** passent après,
+ainsi que l'analyse Flutter complète sans diagnostic.
+
+Nouvel essai PCM/ASR LibriSpeech ralenti : première correction à 9,517 s, pente
+confirmée à 93,845 s, mais **échec du suivi complet** avec p95 **2,526 s** et maximum
+**2,776 s** pour une limite de 750 ms. Huit analyses complètes, aucun rejet natif.
+Rapport `speech-drift-slower-1738e659.json`. La fin est proche de la pente attendue,
+mais l'offset constant initial reste trop longtemps appliqué. La différence de
+première acquisition entre essais ne prouve pas un gain causal de ce correctif.
+Pas de preuve UI, audio audible ou Mentalist supplémentaire.
+
+## Windows après confirmation par région — 2026-09-16
+
+Le run `35076360711` à `df53e749` est **réussi**. Calibration : acquisition
+26,365 s, erreur 218 ms ; intro de 90 s : 122,787 s, erreur 277 ms. Restauration
+du cache : 2,091 s et 1,868 s. Contrôles manuel/audio, seeks connus/inconnus et
+fermeture passent. Rapports `windows-calibration-df53e749.json` et
+`windows-intro-90-df53e749.json`. Les limites PCM-vers-NUL et l'absence de preuve
+sur Mentalist ou plusieurs régions natives restent explicites.
+
+## Premier exercice upstream : dépendance native — 2026-09-16
+
+Le run initial `35078100333` a réellement détecté le nouvel upstream `7883cf8c`
+et quatre conflits ; ce n'était pas un run sans changement. Après résolution
+isolée, le parent `35078879715` a préparé et déclenché le candidat `18e50324`.
+Ses tests Dart passent. La CI générale `35078936531` signale quatre lignes de
+formatage Kotlin ajoutées par upstream et refuse l'ancien package Windows :
+le lock mpv-build a changé, mais elle recevait encore le run historique du manifeste.
+Le contrôle de provenance a donc empêché un mélange de versions natives.
+
+`0cef5ed8` place désormais la CI générale après le build natif Windows, comme le
+probe applicatif, et lui fournit ce nouveau run explicitement. Treize tests
+d'orchestration et actionlint passent. Ce correctif doit encore être inclus et
+exercé dans le prochain candidat. Les builds actifs de `18e50324` sont conservés ;
+aucune promotion ni PR de succès n'est annoncée.
+
+Build Mac Debug `0cef5ed8` (incluant `1738e659`) et signature stricte réussis.
+Copie conservée dans `build/livesync/review-builds/0cef5ed8/`, kernel SHA-256
+`540dd5eeff0fdfbcc2f3f285916c6b17c6e141b2dc931182f1d9ff501762de1d`.
+Ce build reste fondé sur upstream `e3875912` ; le candidat `7883cf8c` n'est pas
+encore promu et l'application conservée n'a pas été testée visuellement.

@@ -659,7 +659,7 @@
       "ciRun": 35034268551,
       "forkSha": "c4e64bba647bcf424517f8fe7481b4e910819194"
     },
-    "qualityLimitations": "131 focused tests, whole analysis and signed Mac build passed at df53e749. Windows 3da717cc passed calibration, intro, manual/audio controls and persistent cache restore; general CI passed at 3da717cc and df53e749. Native Windows at df53e749 remains pending. Upstream workflow installed; live exercise pending. Mentalist, full-playback drift, gap handling and performance budgets remain incomplete.",
+    "qualityLimitations": "134 focused tests and whole Flutter analysis passed at 1738e659; full-playback slower-drift regression still fails (p95 2.526 s). Windows application and general CI passed at df53e749. Upstream 7883 integration is unpromoted; its first candidate exposes Kotlin formatting and native-job ordering failures. Mentalist, gap handling and performance budgets remain incomplete.",
     "nativeCaptureOwner": {
       "localResult": "passed real decoder PCM, forward/backward seeks, pause, exclusive capture and weak-client release on parent shutdown",
       "platform": "macOS arm64 Apple M4",
@@ -720,13 +720,13 @@
         "scope": "55da2726 tracker and native media clock, zero manual audio delay; not production UI."
       },
       "macosBuild": {
-        "forkSha": "df53e74936943f69d519b63437290d2952066763",
-        "dartKernelSha256": "8cd13bd1381e1d5619094d73736e7d37c9f33a3955afecd4e6ffbcb27ad49407",
-        "focusedTestsPassed": 131,
+        "forkSha": "0cef5ed87e82e1c9e3d0cb357ada9c50897b2cc1",
+        "dartKernelSha256": "540dd5eeff0fdfbcc2f3f285916c6b17c6e141b2dc931182f1d9ff501762de1d",
+        "focusedTestsPassed": 134,
         "wholeAnalysisPassed": true,
         "strictSignatureVerified": true,
         "nativeUiValidated": false,
-        "scope": "App built from unchanged implementation committed at this SHA during compilation. Multi-region confirmation is covered by domain and cadence tests; no new native multi-region or Mentalist validation.",
+        "scope": "Includes fresh-anchor fix 1738e659. Build, analysis and signature pass; full-playback slower-drift probe fails and Mentalist remains unvalidated.",
         "upstreamSha": "e38759127a1fb26c4cd99172ba6609fd50e355d9",
         "platform": "macos-arm64",
         "configuration": "debug"
@@ -927,10 +927,14 @@
       "wholeAnalysisPassed": true,
       "macosBuildAndSignaturePassed": true,
       "windowsCiRun": 35076360711,
-      "windowsCiStatus": "queued",
+      "windowsCiStatus": "passed",
       "upstreamCiRun": 35076363135,
       "upstreamCiStatus": "passed",
-      "scope": "Steady-state cadence requires evidence in the current audio-adjusted observed or predicted region. Other learned/cached scenes neither establish nor block it. Regression tests cover seeking, multiple restored regions, audio delay and prediction expiry. Native multi-region behavior and Mentalist remain unvalidated."
+      "scope": "Steady-state cadence requires evidence in the current audio-adjusted observed or predicted region. Other learned/cached scenes neither establish nor block it. Regression tests cover seeking, multiple restored regions, audio delay and prediction expiry. Native multi-region behavior and Mentalist remain unvalidated.",
+      "windowsReports": {
+        "calibration": "docs/livesync-evidence/windows-calibration-df53e749.json",
+        "intro-90": "docs/livesync-evidence/windows-intro-90-df53e749.json"
+      }
     },
     "upstreamAutomation": {
       "forkSha": "1df536eddd67bd36f48371752c519b84adce643e",
@@ -938,13 +942,36 @@
       "workflowId": 359481988,
       "workflowState": "active",
       "scheduleUtc": "05:23 daily",
-      "localTestsPassed": 10,
+      "localTestsPassed": 13,
       "actionlintVersion": "1.7.12",
       "actionlintPassed": true,
-      "noChangeRun": 35078100333,
-      "noChangeStatus": "queued",
+      "noChangeStatus": "not exercised",
       "fullIntegrationExercised": false,
-      "scope": "Separate integration branch and draft PR, preserving histories and exact-SHA child validation. No automatic merge or public release."
+      "scope": "Separate integration branch and draft PR, preserving histories and exact-SHA child validation. No automatic merge or public release.",
+      "firstRun": {
+        "ciRun": 35078100333,
+        "result": "failed with four real merge conflicts",
+        "upstreamSha": "7883cf8c88d31e9b81e574c6949031a1c46de0b4"
+      },
+      "candidateExercise": {
+        "ciRun": 35078879715,
+        "candidateSha": "18e50324b1b133eeab663a2c241725abf2d33661",
+        "state": "Dart passed; general CI failed on Kotlin formatting and stale native build. Native and Mac builds still running.",
+        "nativeCiRun": 35078943474,
+        "macosCiRun": 35078936569,
+        "generalCiRun": 35078936531,
+        "dartCiRun": 35078940204,
+        "promoted": false
+      },
+      "nativeOrderingFixSha": "0cef5ed87e82e1c9e3d0cb357ada9c50897b2cc1"
+    },
+    "freshTimingEvidence": {
+      "forkSha": "1738e659663134af07307b9634988740f3f43666",
+      "focusedTestsPassed": 134,
+      "wholeAnalysisPassed": true,
+      "driftReport": "docs/livesync-evidence/speech-drift-slower-1738e659.json",
+      "fullPlaybackDriftPassed": false,
+      "scope": "Exact repeated anchors and empty results do not reconfirm a mapping. Refined timestamps and revalidation after discontinuity remain accepted. Native full-playback drift still fails; Mentalist is not validated."
     }
   }
 }
