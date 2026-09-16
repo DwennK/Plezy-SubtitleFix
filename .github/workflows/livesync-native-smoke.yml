@@ -41,7 +41,7 @@ jobs:
         run: |
           python3 scripts/livesync/prepare_native.py whisper --dest build/livesync/source
           python3 scripts/livesync/prepare_native.py models --dest build/livesync/models
-          python3 scripts/livesync/prepare_native.py speech-model --dest build/livesync/models
+          python3 scripts/livesync/prepare_speech_model.py --dest build/livesync/models
       - name: Build and test the bounded PCM consumer
         shell: bash
         run: |
