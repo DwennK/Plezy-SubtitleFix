@@ -64,3 +64,59 @@ rejetée (0,780 s de calme observé, 0,500 s d'activité effective). Quatre anal
 un préfixe valide, aucun rejet natif. Le suivi temporel reste en échec (p95
 2,223 s) car ces repères ne sont pas encore utilisés pour apprendre un mapping.
 Ce résultat prouve le transport des métadonnées, pas leur aptitude à recaler le SRT.
+
+## Règle expérimentale explicite — `bbcee30d`
+
+Le probe accepte désormais `--experimental-acoustic-beginnings true` ; la valeur
+par défaut reste `false`, notamment dans le contrôleur applicatif. Le rapport
+inscrit cette option pour éviter de confondre les deux comportements.
+
+La récupération se limite à **un mot substitué**, avec un emplacement ASR encore
+horodaté. Elle demande la dernière parole exacte de la cue précédente, exactement
+un mot entre cette parole et cinq mots exacts consécutifs de la nouvelle cue,
+des temps valides et ordonnés, puis un seul début acoustique à moins de 250 ms
+du mot substitué. Ce début doit suivre la cue précédente, précéder le deuxième
+mot, montrer au moins 400 ms de calme observé et 300 ms d'activité effective,
+et rester dans la fenêtre capturée. L'ancre emploie le début acoustique avec une
+incertitude heuristique de 500 ms. Les seuils restent à calibrer indépendamment.
+
+Un mot absent, une insertion, un mot droit peu fiable, un début tronqué, un bruit
+bref, plusieurs départs proches ou un calme non observé entraînent un rejet.
+Même les départs faibles comptent dans le test d'ambiguïté. Cette règle ne joint
+pas les textes rejetés d'un préfixe ASR et ne récupère pas une cue dont le début
+se trouve dans une autre fenêtre. Elle ne modifie ni la cadence ni la régression.
+
+**142 tests LiveSync passent**, analyse Flutter complète sans diagnostic. Les
+cas acoustiques de ces nouveaux tests sont synthétiques : ils vérifient les
+conditions logiques, pas la discrimination voix/musique ni la précision réelle.
+
+### Lecture native ralentie — résultat insuffisant
+
+Le probe natif de 150 secondes à `bbcee30d`, option activée et modèle q5, récupère
+la cue 4 à **35,011 s** dans la fenêtre 32,991–44,991 s, incertitude 500 ms. Il
+acquiert la première correction à 9,577 s puis la pente à **69,752 s**. Six
+analyses complètes, aucun préfixe ni rejet natif. L'erreur p95 est **1,528 s**,
+maximum **1,780 s**, erreur finale **432 ms** : **échec**, limite inchangée 750 ms.
+
+La cue récupérée rend six ancres disponibles plus tôt. Le précédent essai ralenti
+atteignait la pente à 93,845 s et p95 2,526 s, mais les phases des fenêtres diffèrent
+entre les lectures : ce n'est pas une comparaison contrôlée ni une mesure de gain
+généralisable. Le rapport `onset-rule-slower-bbcee30d.json` conserve les fenêtres,
+les instants de réception, les repères et les erreurs. Les seuils de régression
+sont restés inchangés ; aucune application utilisateur n'est mise à jour.
+
+### Lecture native accélérée — absence de gain démontré
+
+L'essai de 137 secondes à `bbcee30d` ne récupère aucune nouvelle ancre acoustique.
+Première correction **21,651 s**, pente **94,017 s**, p95 **3,441 s**, maximum
+**3,660 s**, erreur finale **720 ms** : **échec**. Huit analyses complètes, un
+préfixe valide et aucun rejet natif. La cue 4 reste coupée entre les fenêtres ;
+la règle ne peut pas inventer le premier mot ou reprendre un texte rejeté.
+Rapport `onset-rule-faster-bbcee30d.json`.
+
+**Décision : ne pas promouvoir cette expérience.** La récupération bornée a un
+effet mesurable sur les ancres du cas ralenti, mais aucune des deux lectures ne
+respecte la précision visée. Elle ne résout ni la perte de débuts aux frontières
+ASR ni le retard de l'estimation initiale. Les essais négatifs natifs, la musique,
+le corpus indépendant et le contrôleur applicatif restent à vérifier avant toute
+intégration éventuelle. Les 142 tests ne remplacent pas ces preuves manquantes.
