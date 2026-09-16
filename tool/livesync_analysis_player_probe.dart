@@ -7,6 +7,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:crypto/crypto.dart' as crypto;
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:path/path.dart' as p;
 import 'package:path_provider/path_provider.dart';
@@ -269,6 +270,7 @@ class _ProbeState extends State<_Probe> {
         'acquisitionDiagnostics': acquisitionDiagnostics,
         'captureDuringSubtitleLoadValidated': sourceDelayMs > 0,
         'platform': Platform.operatingSystem,
+        'flutterBuildMode': kReleaseMode ? 'release' : (kProfileMode ? 'profile' : 'debug'),
         'inferenceBackend':
             diagnostics.firstWhere((entry) => entry.containsKey('inferenceBackend'))['inferenceBackend']! as String,
         'expectedOffset': expectedOffset,
