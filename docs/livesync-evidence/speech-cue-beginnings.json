@@ -1,0 +1,450 @@
+{
+  "provenance": {
+    "forkSha": "eaa672b21235c157bf39ad06ceb63a26b9876689",
+    "rawReportSha256": "fbb92844f40b446f36c718c3534fbcad6b1a99d29191281c38ace76f97cb1efe",
+    "scope": "Word indices only expose one third-word substitution; one valid-prefix result used. No acquisition improvement yet.",
+    "fixtureReference": "docs/livesync-evidence/speech-aligned-initial.json",
+    "modelSha256": "4baf70dd0d7c4247ba2b81fafd9c01005ac77c2f9ef064e00dcf195d0e2fdd2f"
+  },
+  "report": {
+    "kind": "native-active-pcm-real-asr-and-domain-alignment",
+    "platform": "macos",
+    "inferenceBackend": "portable-cpu",
+    "alignmentEngine": "bounded-affine-timeline",
+    "acquiredMediaPosition": 69.6903852844232,
+    "learnedSegments": 1,
+    "activityChecks": 136,
+    "activityVoiceChecks": 128,
+    "activityTotalMicros": 123275,
+    "activityMaxMicros": 13158,
+    "actualOffset": 0.6325000000000074,
+    "acquisitionMs": 69568,
+    "evaluationMs": 69671,
+    "expectedOffset": 0.0,
+    "expectNoLock": false,
+    "completedAnalyses": 6,
+    "validPrefixAnalyses": 1,
+    "rejectedAnalyses": 0,
+    "absoluteOffsetError": 0.6325000000000074,
+    "maximumOffsetError": 0.75,
+    "reference": "fixture SRT timings, not precise acoustic-onset ground truth",
+    "passed": true,
+    "analyses": [
+      {
+        "attempt": 1,
+        "windowStart": 0.6410000000000001,
+        "windowEnd": 8.895,
+        "validPrefixOnly": true,
+        "match": "matched",
+        "contextWindows": 1,
+        "segmentedMatch": false,
+        "transcriptWords": 17,
+        "wordsInSubtitleVocabulary": 16,
+        "contextWords": 0,
+        "segmentBounds": [
+          {
+            "start": 0.6410000000000001,
+            "end": 6.561,
+            "timedTokens": 22,
+            "firstToken": 0.7610000000000001,
+            "lastToken": 6.121
+          }
+        ],
+        "similarity": 0.9411764705882353,
+        "anchors": [],
+        "anchorRejections": {
+          "cueBeginningAbsent": 1
+        },
+        "cueBeginningMatches": [
+          {
+            "cue": 0,
+            "wordInCue": 1,
+            "transcriptWord": 1,
+            "exact": true
+          },
+          {
+            "cue": 0,
+            "wordInCue": 2,
+            "transcriptWord": 2,
+            "exact": true
+          },
+          {
+            "cue": 0,
+            "wordInCue": 3,
+            "transcriptWord": 3,
+            "exact": true
+          },
+          {
+            "cue": 0,
+            "wordInCue": 4,
+            "transcriptWord": 4,
+            "exact": true
+          }
+        ]
+      },
+      {
+        "attempt": 2,
+        "windowStart": 5.8629999999999995,
+        "windowEnd": 20.863,
+        "validPrefixOnly": false,
+        "match": "matched",
+        "contextWindows": 1,
+        "segmentedMatch": false,
+        "transcriptWords": 37,
+        "wordsInSubtitleVocabulary": 36,
+        "contextWords": 0,
+        "segmentBounds": [
+          {
+            "start": 5.8629999999999995,
+            "end": 11.303,
+            "timedTokens": 15,
+            "firstToken": 6.563,
+            "lastToken": 10.902999999999999
+          },
+          {
+            "start": 11.303,
+            "end": 16.863,
+            "timedTokens": 18,
+            "firstToken": 11.303,
+            "lastToken": 16.743000000000002
+          },
+          {
+            "start": 16.863,
+            "end": 20.863,
+            "timedTokens": 12,
+            "firstToken": 17.163,
+            "lastToken": 20.843
+          }
+        ],
+        "similarity": 0.9459459459459459,
+        "anchors": [
+          {
+            "cue": 2,
+            "offset": 0.6330000000000009
+          }
+        ],
+        "anchorRejections": {
+          "phraseNotMatched": 1
+        },
+        "cueBeginningMatches": [
+          {
+            "cue": 1,
+            "wordInCue": 0,
+            "transcriptWord": 0,
+            "exact": true
+          },
+          {
+            "cue": 1,
+            "wordInCue": 1,
+            "transcriptWord": 1,
+            "exact": true
+          },
+          {
+            "cue": 1,
+            "wordInCue": 3,
+            "transcriptWord": 3,
+            "exact": true
+          },
+          {
+            "cue": 1,
+            "wordInCue": 4,
+            "transcriptWord": 4,
+            "exact": true
+          },
+          {
+            "cue": 2,
+            "wordInCue": 0,
+            "transcriptWord": 10,
+            "exact": true
+          },
+          {
+            "cue": 2,
+            "wordInCue": 1,
+            "transcriptWord": 11,
+            "exact": true
+          },
+          {
+            "cue": 2,
+            "wordInCue": 2,
+            "transcriptWord": 12,
+            "exact": true
+          },
+          {
+            "cue": 2,
+            "wordInCue": 3,
+            "transcriptWord": 13,
+            "exact": true
+          },
+          {
+            "cue": 2,
+            "wordInCue": 4,
+            "transcriptWord": 14,
+            "exact": true
+          }
+        ]
+      },
+      {
+        "attempt": 3,
+        "windowStart": 17.831,
+        "windowEnd": 32.831,
+        "validPrefixOnly": false,
+        "match": "matched",
+        "contextWindows": 1,
+        "segmentedMatch": false,
+        "transcriptWords": 37,
+        "wordsInSubtitleVocabulary": 35,
+        "contextWords": 64,
+        "segmentBounds": [
+          {
+            "start": 17.831,
+            "end": 22.831,
+            "timedTokens": 15,
+            "firstToken": 18.570999999999998,
+            "lastToken": 23.651
+          },
+          {
+            "start": 22.831,
+            "end": 27.831,
+            "timedTokens": 15,
+            "firstToken": 23.811,
+            "lastToken": 27.671
+          },
+          {
+            "start": 27.831,
+            "end": 32.831,
+            "timedTokens": 15,
+            "firstToken": 28.211,
+            "lastToken": 32.811
+          }
+        ],
+        "similarity": 0.9459459459459459,
+        "anchors": [],
+        "anchorRejections": {
+          "cueBeginningAbsent": 1,
+          "phraseNotMatched": 1
+        },
+        "cueBeginningMatches": [
+          {
+            "cue": 3,
+            "wordInCue": 0,
+            "transcriptWord": 13,
+            "exact": true
+          },
+          {
+            "cue": 3,
+            "wordInCue": 1,
+            "transcriptWord": 14,
+            "exact": true
+          },
+          {
+            "cue": 3,
+            "wordInCue": 3,
+            "transcriptWord": 16,
+            "exact": true
+          },
+          {
+            "cue": 3,
+            "wordInCue": 4,
+            "transcriptWord": 17,
+            "exact": true
+          }
+        ]
+      },
+      {
+        "attempt": 4,
+        "windowStart": 29.991,
+        "windowEnd": 44.991,
+        "validPrefixOnly": false,
+        "match": "matched",
+        "contextWindows": 1,
+        "segmentedMatch": false,
+        "transcriptWords": 29,
+        "wordsInSubtitleVocabulary": 26,
+        "contextWords": 54,
+        "segmentBounds": [
+          {
+            "start": 29.991,
+            "end": 33.751,
+            "timedTokens": 10,
+            "firstToken": 30.251,
+            "lastToken": 33.291
+          },
+          {
+            "start": 33.751,
+            "end": 39.811,
+            "timedTokens": 19,
+            "firstToken": 33.771,
+            "lastToken": 39.491
+          },
+          {
+            "start": 39.811,
+            "end": 44.631,
+            "timedTokens": 11,
+            "firstToken": 39.951,
+            "lastToken": 44.531
+          }
+        ],
+        "similarity": 0.8620689655172413,
+        "anchors": [],
+        "anchorRejections": {
+          "cueBeginningAbsent": 2
+        },
+        "cueBeginningMatches": [
+          {
+            "cue": 4,
+            "wordInCue": 1,
+            "transcriptWord": 8,
+            "exact": true
+          },
+          {
+            "cue": 4,
+            "wordInCue": 2,
+            "transcriptWord": 9,
+            "exact": true
+          },
+          {
+            "cue": 4,
+            "wordInCue": 3,
+            "transcriptWord": 10,
+            "exact": true
+          },
+          {
+            "cue": 4,
+            "wordInCue": 4,
+            "transcriptWord": 11,
+            "exact": true
+          }
+        ]
+      },
+      {
+        "attempt": 5,
+        "windowStart": 42.023,
+        "windowEnd": 57.023,
+        "validPrefixOnly": false,
+        "match": "matched",
+        "contextWindows": 1,
+        "segmentedMatch": false,
+        "transcriptWords": 35,
+        "wordsInSubtitleVocabulary": 30,
+        "contextWords": 56,
+        "segmentBounds": [
+          {
+            "start": 42.023,
+            "end": 44.703,
+            "timedTokens": 3,
+            "firstToken": 42.283,
+            "lastToken": 44.043000000000006
+          },
+          {
+            "start": 44.703,
+            "end": 50.343,
+            "timedTokens": 22,
+            "firstToken": 44.763000000000005,
+            "lastToken": 50.263000000000005
+          },
+          {
+            "start": 50.343,
+            "end": 52.943000000000005,
+            "timedTokens": 5,
+            "firstToken": 50.463,
+            "lastToken": 52.623000000000005
+          },
+          {
+            "start": 52.943000000000005,
+            "end": 57.023,
+            "timedTokens": 17,
+            "firstToken": 52.903000000000006,
+            "lastToken": 57.003
+          }
+        ],
+        "similarity": 0.8714285714285714,
+        "anchors": [],
+        "anchorRejections": {
+          "cueBeginningAbsent": 1
+        },
+        "cueBeginningMatches": []
+      },
+      {
+        "attempt": 6,
+        "windowStart": 53.927,
+        "windowEnd": 68.92699999999999,
+        "validPrefixOnly": false,
+        "match": "matched",
+        "contextWindows": 1,
+        "segmentedMatch": false,
+        "transcriptWords": 36,
+        "wordsInSubtitleVocabulary": 33,
+        "contextWords": 58,
+        "segmentBounds": [
+          {
+            "start": 53.927,
+            "end": 57.687,
+            "timedTokens": 12,
+            "firstToken": 54.086999999999996,
+            "lastToken": 57.687
+          },
+          {
+            "start": 57.687,
+            "end": 63.087,
+            "timedTokens": 17,
+            "firstToken": 57.747,
+            "lastToken": 62.707
+          },
+          {
+            "start": 63.087,
+            "end": 68.92699999999999,
+            "timedTokens": 16,
+            "firstToken": 63.087,
+            "lastToken": 68.907
+          }
+        ],
+        "similarity": 0.9166666666666666,
+        "anchors": [
+          {
+            "cue": 5,
+            "offset": 0.632000000000005
+          }
+        ],
+        "anchorRejections": {
+          "cueBeginningAbsent": 1
+        },
+        "cueBeginningMatches": [
+          {
+            "cue": 5,
+            "wordInCue": 0,
+            "transcriptWord": 22,
+            "exact": true
+          },
+          {
+            "cue": 5,
+            "wordInCue": 1,
+            "transcriptWord": 23,
+            "exact": true
+          },
+          {
+            "cue": 5,
+            "wordInCue": 2,
+            "transcriptWord": 24,
+            "exact": true
+          },
+          {
+            "cue": 5,
+            "wordInCue": 3,
+            "transcriptWord": 25,
+            "exact": true
+          },
+          {
+            "cue": 5,
+            "wordInCue": 4,
+            "transcriptWord": 26,
+            "exact": true
+          }
+        ]
+      }
+    ],
+    "productionPlayerValidated": false,
+    "audiblePlaybackValidated": false,
+    "pcmOrTranscriptPersisted": false,
+    "mainIsolateHeartbeatTicks": 2793
+  }
+}

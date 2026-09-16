@@ -1,0 +1,50 @@
+{
+  "provenance": {
+    "forkSha": "56f3e9ff018c03999bac040a492dc6735b733039",
+    "rawReportSha256": "5a8da6599dd35cc819c72fa44c1deef1f0b0fbe8bb34178affb943b1fd33453c",
+    "scope": "Pinned development WAV slices, direct native ABI; not active playback. The 29.671-second window previously returned status 4 with zero segments.",
+    "before": [
+      {
+        "start": 17.703,
+        "status": 0,
+        "segments": 3,
+        "elapsedSeconds": 0.690680667
+      },
+      {
+        "start": 29.671,
+        "status": 4,
+        "segments": 0,
+        "elapsedSeconds": 0.682581625
+      },
+      {
+        "start": 17.7,
+        "status": 0,
+        "segments": 3,
+        "elapsedSeconds": 0.684490625
+      }
+    ]
+  },
+  "report": {
+    "passed": true,
+    "scope": "development native ABI regression",
+    "fixtureSha256": "e8215f367e38a67a84828fc6b547752ca0b19e4d22670ef9cefdd9eeff628e99",
+    "modelSha256": "4baf70dd0d7c4247ba2b81fafd9c01005ac77c2f9ef064e00dcf195d0e2fdd2f",
+    "librarySha256": "49e5d83dc20f7690c73f8a9e10bdeec67b00a5e2175c6b53a118abaafbdc9096",
+    "cases": [
+      {
+        "windowStart": 17.703,
+        "status": 0,
+        "segments": 3,
+        "lastSegmentEnd": 32.583,
+        "elapsedSeconds": 0.695285375
+      },
+      {
+        "windowStart": 29.671,
+        "status": 5,
+        "segments": 3,
+        "lastSegmentEnd": 44.551,
+        "elapsedSeconds": 0.684699625
+      }
+    ]
+  }
+}

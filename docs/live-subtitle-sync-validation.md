@@ -1122,3 +1122,82 @@ ciblés** et l'analyse complète sans diagnostic. Copie et provenance dans
 `fb63267c8de1fd4b64b123c308c99f8a5a18f82148df576952df5f2fea458981`.
 La CI Windows `35056961286` et la CI upstream `35056963159` sont en cours.
 Aucune conclusion de réussite n'est attribuée avant leur fin.
+
+
+### Acquisition, horodatages partiels et outliers — `503d81b0`
+
+Trois causes sont maintenant distinguées et corrigées :
+
+1. **Horodatage natif invalide en fin de résultat.** Les diagnostics `2e550fd9`
+   établissent que les rejets observés portent le statut 4 (temps de segment
+   invalides), et non une erreur de décodage générique. Sur la fenêtre publique
+   29,671–44,671 s, ce rejet supprimait trois segments corrects. `56f3e9ff`
+   renvoie uniquement le préfixe précédant le premier segment invalide, avec
+   statut 5 explicite. Dernier temps conservé : 44,551 s. Aucun timestamp n'est
+   borné artificiellement ; un premier segment invalide reste rejeté. Le contexte
+   ne raccorde pas une fenêtre suivante à la fin rejetée. Le layout ABI reste
+   inchangé ; seuls les clients qui acceptent explicitement le statut 5 utilisent
+   le texte partiel. Le test natif reproductible est
+   `scripts/livesync/probe_valid_prefix.py`, sur le WAV de développement figé.
+2. **Repère intérieur déjà réfuté.** La CI Windows `35056961286`, à `8f2f7ac2`,
+   acquiert la calibration puis échoue à `manual-during`. Un outlier conservé
+   dans la zone déjà validée s'associe à un second mauvais temps, et le tracker
+   retire sa prédiction. Le test ajouté reproduit ce retrait avant correction.
+   `ede025cf` écarte les repères rejetés à l'intérieur du domaine confirmé, tout
+   en conservant les observations extérieures utiles à une future pente.
+3. **Une substitution lexicale au troisième mot.** Les diagnostics d'indices
+   `eaa672b2` montrent, pour les cues 1 et 3, des mots exacts aux positions
+   0, 1, 3 et 4. `503d81b0` accepte ce cas borné si les cinq temps sont valides,
+   monotones et rapprochés, avec les quatre mots exacts aux mêmes positions.
+   Un début absent, un déplacement, deux substitutions, une répétition du début
+   ou des temps invalides restent rejetés. Le chemin des trois mots exacts et
+   les seuils globaux du passage sont conservés. L'identité de déduplication
+   vient des trois premiers mots du SRT, quel que soit le chemin utilisé.
+
+Sur le chapitre aligné, le probe natif `503d81b0` acquiert en **21,607 s**, avec
+un offset de +0,6745 s face aux limites de fichiers, contre environ 70 s dans les
+essais précédents. Deux analyses sont terminées, dont un préfixe valide. Cette
+observation satisfait le délai de 45 s sur cette fixture ; ce n'est pas une
+statistique indépendante ni une preuve de précision acoustique. Le biais des
+limites de fichiers subsiste. Le préfixe seul n'avait pas amélioré l'acquisition
+(69,547 s, aucun résultat partiel rencontré dans cet essai).
+
+**111 tests ciblés**, analyse complète, format natif et tests CPU natifs passent.
+Build macOS debug `503d81b0` et signature stricte vérifiés ; copie et provenance :
+`build/livesync/review-builds/503d81b0/`. Kernel Dart SHA-256 :
+`204a32ab20ae0b67912b251d1615f47e7d3a04cbca6d7f181d9f09db60948a69`.
+
+La CI générale `35056963159` (`8f2f7ac2`) passe après relance du seul job macOS,
+initialement arrêté par un dépôt SPM Sentry absent du cache du runner. Ce succès
+ne valide pas les derniers changements. Les nouvelles CI Windows `35058910946`
+et générale `35058912671` concernent `503d81b0`. La CI Windows intermédiaire
+`35058268463` concerne `30b73ce9`, avant le correctif d'outlier intérieur.
+
+Les régressions longues de dérive et de musique sont lancées séparément, sur le
+même hôte et en parallèle du build. Elles serviront à vérifier le comportement,
+pas à mesurer une latence ou une charge CPU dans des conditions contrôlées.
+
+
+Résultats longs à `503d81b0` : le négatif 650–888 s passe sans verrouillage en
+238,067 s (cinq analyses terminées, six rejets). **La dérive régresse** : premier
+verrouillage à 21,656 s, aucune pente apprise, p95 4,770 s et maximum 6,124 s
+après expiration de la prédiction. Les cinq confirmations sont consommées avant
+les cues nécessaires ; la cadence espacée manque ensuite ces débuts de réplique.
+Ces deux rapports sont conservés. Le gain d'acquisition ne valide donc pas ce
+build pour le suivi de dérive. `574ef060` conserve jusqu'à dix confirmations
+rapides, toujours bornées et interrompues dès que la carte est établie ; son
+nouvel essai natif retrouve une pente à 93,625 s, après acquisition initiale
+à 21,506 s. Il échoue néanmoins : p95 2,490 s, maximum 2,743 s pendant la
+phase où la correction reste constante. Rapport `speech-drift-slower-574ef060.json`. Le garde-fou des six ancres sur une minute et
+les critères d'erreur ne sont pas réduits pour faire passer l'essai.
+
+
+Le build macOS `574ef060` et sa signature stricte passent également, avec
+111 tests ciblés et l'analyse complète sans diagnostic. Il est conservé dans
+`build/livesync/review-builds/574ef060/` ; kernel Dart SHA-256
+`f585fef25fa0603f640734bf3fdca43d2120efdbc1b8e4fa1e0a8d0dfbcd3e4c`. La précision durant l'apprentissage
+de la dérive reste un échec explicite, et le lecteur Mentalist n'est pas validé.
+
+Upstream refetché à `2026-09-16T05:29:56Z` : toujours
+`e38759127a1fb26c4cd99172ba6609fd50e355d9`, aucun commit supplémentaire.
+Cette actualité du code de base ne constitue pas une validation finale LiveSync.

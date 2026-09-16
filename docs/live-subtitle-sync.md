@@ -51,7 +51,9 @@ pour la parole manquée et sans accorder de confiance sur ce seul indice. Il
 réagit à la reprise d'activité et aux désaccords avec les durées des cues ; il
 ne sait pas séparer fiablement musique et voix. Les premiers essais natifs Mac
 passent, mais la validation applicative Windows `dbe211a4` échoue sur
-l'acquisition de calibration. Une nouvelle exécution `8f2f7ac2` est en cours.
+l'acquisition de calibration. `8f2f7ac2` acquiert puis retire sa prédiction à tort
+avant le contrôle manuel. Le repère intérieur déjà rejeté qui provoquait ce
+retrait est maintenant écarté ; une validation Windows `503d81b0` est en cours.
 
 Sur un chapitre de développement LibriSpeech, le probe natif Mac `8f2f7ac2`
 apprend la dérive `25025/24000` après 117,647 s : erreur p95 637 ms, maximum
@@ -62,6 +64,19 @@ sur cette fixture, sans précision acoustique indépendante ni validation UI ;
 le délai d'acquisition dépasse encore le budget utilisateur. Le sens inverse
 apprend sa pente seulement à 130,563 s : trop peu de suivi avant la fin du clip,
 donc ce test reste en échec.
+
+Les diagnostics suivants ont isolé des segments finaux invalides et une seule
+substitution lexicale qui éliminaient des repères pourtant exploitables.
+Le préfixe valide est maintenant conservé explicitement ; une substitution au
+troisième mot exige quatre mots exacts aux positions inchangées et des temps
+valides. Sur le chapitre aligné, `503d81b0` acquiert en 21,607 s contre environ
+70 s précédemment. C'est un seul essai de développement, avec un biais de
+675 ms par rapport aux limites de fichiers ; la précision indépendante et le
+comportement de Mentalist ne sont pas établis. Le test de dérive de ce build
+régresse (p95 4,770 s) : la phase de confirmation est épuisée trop tôt après
+l’acquisition rapide. `574ef060` retrouve la pente à 93,625 s, mais
+l’erreur avant cette acquisition reste excessive (p95 2,490 s). Le passage
+négatif reste sans faux verrouillage.
 
 Les gaps confirmés et leur rendu, le cache de mappings et la suppression
 du modèle dans les paramètres ne sont pas livrés. La dérive dans le lecteur réel,

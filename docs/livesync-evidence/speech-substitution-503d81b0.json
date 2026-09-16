@@ -1,0 +1,194 @@
+{
+  "provenance": {
+    "forkSha": "503d81b06829394870450c74433aa1130041b298",
+    "rawReportSha256": "96863af92a344e829a37daf9cdeda52f0532abacf1519aca4410e99347ed75d9",
+    "scope": "Development active-PCM acquisition after guarded third-word substitution recovery; initial acquisition only, not drift, UI or independent acoustic accuracy.",
+    "fixtureReference": "docs/livesync-evidence/speech-aligned-initial.json",
+    "modelSha256": "4baf70dd0d7c4247ba2b81fafd9c01005ac77c2f9ef064e00dcf195d0e2fdd2f"
+  },
+  "report": {
+    "kind": "native-active-pcm-real-asr-and-domain-alignment",
+    "platform": "macos",
+    "inferenceBackend": "portable-cpu",
+    "alignmentEngine": "bounded-affine-timeline",
+    "acquiredMediaPosition": 21.68337149047853,
+    "learnedSegments": 1,
+    "activityChecks": 43,
+    "activityVoiceChecks": 34,
+    "activityTotalMicros": 50846,
+    "activityMaxMicros": 11424,
+    "actualOffset": 0.6744999999999983,
+    "acquisitionMs": 21607,
+    "evaluationMs": 21711,
+    "expectedOffset": 0.0,
+    "expectNoLock": false,
+    "completedAnalyses": 2,
+    "validPrefixAnalyses": 1,
+    "rejectedAnalyses": 0,
+    "absoluteOffsetError": 0.6744999999999983,
+    "maximumOffsetError": 0.75,
+    "reference": "fixture SRT timings, not precise acoustic-onset ground truth",
+    "passed": true,
+    "analyses": [
+      {
+        "attempt": 1,
+        "windowStart": 0.8330000000000003,
+        "windowEnd": 9.023,
+        "validPrefixOnly": true,
+        "match": "matched",
+        "contextWindows": 1,
+        "segmentedMatch": false,
+        "transcriptWords": 16,
+        "wordsInSubtitleVocabulary": 16,
+        "contextWords": 0,
+        "segmentBounds": [
+          {
+            "start": 0.8330000000000003,
+            "end": 6.513,
+            "timedTokens": 19,
+            "firstToken": 0.8930000000000002,
+            "lastToken": 6.133
+          }
+        ],
+        "similarity": 1.0,
+        "anchors": [],
+        "anchorRejections": {
+          "cueBeginningAbsent": 1
+        },
+        "cueBeginningMatches": [
+          {
+            "cue": 0,
+            "wordInCue": 1,
+            "transcriptWord": 0,
+            "exact": true
+          },
+          {
+            "cue": 0,
+            "wordInCue": 2,
+            "transcriptWord": 1,
+            "exact": true
+          },
+          {
+            "cue": 0,
+            "wordInCue": 3,
+            "transcriptWord": 2,
+            "exact": true
+          },
+          {
+            "cue": 0,
+            "wordInCue": 4,
+            "transcriptWord": 3,
+            "exact": true
+          }
+        ]
+      },
+      {
+        "attempt": 2,
+        "windowStart": 5.927,
+        "windowEnd": 20.927,
+        "validPrefixOnly": false,
+        "match": "matched",
+        "contextWindows": 1,
+        "segmentedMatch": false,
+        "transcriptWords": 37,
+        "wordsInSubtitleVocabulary": 36,
+        "contextWords": 0,
+        "segmentBounds": [
+          {
+            "start": 5.927,
+            "end": 11.306999999999999,
+            "timedTokens": 15,
+            "firstToken": 6.566999999999999,
+            "lastToken": 10.786999999999999
+          },
+          {
+            "start": 11.306999999999999,
+            "end": 16.866999999999997,
+            "timedTokens": 18,
+            "firstToken": 11.306999999999999,
+            "lastToken": 16.747
+          },
+          {
+            "start": 16.866999999999997,
+            "end": 20.866999999999997,
+            "timedTokens": 12,
+            "firstToken": 17.167,
+            "lastToken": 20.866999999999997
+          }
+        ],
+        "similarity": 0.9459459459459459,
+        "anchors": [
+          {
+            "cue": 1,
+            "offset": 0.7119999999999989
+          },
+          {
+            "cue": 2,
+            "offset": 0.6369999999999987
+          }
+        ],
+        "anchorRejections": {},
+        "cueBeginningMatches": [
+          {
+            "cue": 1,
+            "wordInCue": 0,
+            "transcriptWord": 0,
+            "exact": true
+          },
+          {
+            "cue": 1,
+            "wordInCue": 1,
+            "transcriptWord": 1,
+            "exact": true
+          },
+          {
+            "cue": 1,
+            "wordInCue": 3,
+            "transcriptWord": 3,
+            "exact": true
+          },
+          {
+            "cue": 1,
+            "wordInCue": 4,
+            "transcriptWord": 4,
+            "exact": true
+          },
+          {
+            "cue": 2,
+            "wordInCue": 0,
+            "transcriptWord": 10,
+            "exact": true
+          },
+          {
+            "cue": 2,
+            "wordInCue": 1,
+            "transcriptWord": 11,
+            "exact": true
+          },
+          {
+            "cue": 2,
+            "wordInCue": 2,
+            "transcriptWord": 12,
+            "exact": true
+          },
+          {
+            "cue": 2,
+            "wordInCue": 3,
+            "transcriptWord": 13,
+            "exact": true
+          },
+          {
+            "cue": 2,
+            "wordInCue": 4,
+            "transcriptWord": 14,
+            "exact": true
+          }
+        ]
+      }
+    ],
+    "productionPlayerValidated": false,
+    "audiblePlaybackValidated": false,
+    "pcmOrTranscriptPersisted": false,
+    "mainIsolateHeartbeatTicks": 874
+  }
+}

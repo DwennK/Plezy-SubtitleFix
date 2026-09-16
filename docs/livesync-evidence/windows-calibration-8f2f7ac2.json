@@ -1,0 +1,125 @@
+{
+  "provenance": {
+    "ciRun": 35056961286,
+    "forkSha": "8f2f7ac29ee5d7c92cde45bad234309d57933529",
+    "rawReportSha256": "eec60eaa2b3ccb0ae9930a097b507907df00734f425b50c26336c5580cf11b7a",
+    "scope": "Calibration acquired then automatic correction was revoked before manual-during check. Interior pending outlier combined with new contradictory evidence; regression reproduced and fixed at ede025cf. No Windows retest success yet."
+  },
+  "report": {
+    "passed": false,
+    "phase": "manual-during",
+    "analyses": [
+      {
+        "selectedAudioLanguage": "eng",
+        "selectedSubtitleLanguage": "eng",
+        "subtitleExternal": true,
+        "subtitleSourceMatchesFixture": true
+      },
+      {
+        "inferenceBackend": "avx2-cpu"
+      },
+      {
+        "analysisRequest": 1,
+        "activityVoicePresent": null,
+        "activityTimingMismatch": false,
+        "analysisIntervalMs": 12000,
+        "analysisWindowSeconds": 12.0
+      },
+      {
+        "attempt": 1,
+        "windowStart": 8.715666666666676,
+        "windowEnd": 17.247041666666675,
+        "match": "matched",
+        "similarity": 1.0,
+        "competitor": null,
+        "contextWindows": 1,
+        "segmentedMatch": false,
+        "anchors": []
+      },
+      {
+        "analysisRequest": 2,
+        "activityVoicePresent": true,
+        "activityTimingMismatch": false,
+        "analysisIntervalMs": 12000,
+        "analysisWindowSeconds": 15.0
+      },
+      {
+        "attempt": 2,
+        "windowStart": 14.449666666666676,
+        "windowEnd": 29.449666666666676,
+        "match": "matched",
+        "similarity": 0.8461538461538461,
+        "competitor": null,
+        "contextWindows": 1,
+        "segmentedMatch": false,
+        "anchors": [
+          {
+            "cue": 3,
+            "offset": -100.30033333333333
+          }
+        ]
+      },
+      {
+        "analysisRequest": 3,
+        "activityVoicePresent": true,
+        "activityTimingMismatch": false,
+        "analysisIntervalMs": 12000,
+        "analysisWindowSeconds": 15.0
+      },
+      {
+        "attempt": 3,
+        "windowStart": 26.396354166666676,
+        "windowEnd": 41.396354166666676,
+        "match": "matched",
+        "similarity": 1.0,
+        "competitor": null,
+        "contextWindows": 1,
+        "segmentedMatch": false,
+        "anchors": [
+          {
+            "cue": 6,
+            "offset": -100.06364583333333
+          },
+          {
+            "cue": 7,
+            "offset": -101.72364583333332
+          },
+          {
+            "cue": 8,
+            "offset": -100.20364583333333
+          }
+        ]
+      },
+      {
+        "learnedMediaStart": 21.546354166666674,
+        "learnedMediaEnd": 37.79635516666667,
+        "learnedSlope": 1.0,
+        "learnedSegments": 1
+      },
+      {
+        "analysisRequest": 4,
+        "activityVoicePresent": true,
+        "activityTimingMismatch": false,
+        "analysisIntervalMs": 12000,
+        "analysisWindowSeconds": 12.0
+      },
+      {
+        "attempt": 4,
+        "windowStart": 40.66035416666668,
+        "windowEnd": 52.66035416666668,
+        "match": "matched",
+        "similarity": 1.0,
+        "competitor": null,
+        "contextWindows": 1,
+        "segmentedMatch": false,
+        "anchors": [
+          {
+            "cue": 10,
+            "offset": -102.84964583333331
+          }
+        ]
+      }
+    ],
+    "failureCode": null
+  }
+}

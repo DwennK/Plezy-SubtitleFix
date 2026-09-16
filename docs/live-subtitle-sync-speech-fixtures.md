@@ -89,3 +89,11 @@ It **failed** the minimum 10-sample requirement. Its 633 ms p95 on that short
 interval is not sufficient tracking evidence. The local application build and
 analyzer overlapped this trial; it is not a controlled acquisition benchmark.
 The clip/end condition was not extended to manufacture more successful samples.
+
+
+Later acquisition diagnostics and the native prefix regression are documented in
+`live-subtitle-sync-validation.md` under `503d81b0`. Initial aligned acquisition
+improves to 21.607 s, but earlier locking exposes a longer inaccurate constant
+phase during drift. `574ef060` learns slope at 93.625 s while the full-tracking
+p95 remains 2.490 s: the regression still fails. Do not replace that full result
+with statistics taken only after slope acquisition.
