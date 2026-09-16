@@ -1,4 +1,5 @@
 import 'temporal_aligner.dart';
+import 'text_normalization.dart';
 import 'timeline_map.dart';
 
 class TimelineCorrection {
@@ -16,7 +17,15 @@ class TimelineCorrection {
 /// a seek, rate change or capture discontinuity.
 class TimelineTracker {
   static const predictionSeconds = 120.0;
-  static const _fitter = TimelineFitter();
+  TimelineTracker({this.experimentalEarlyAcquisition = false})
+    : _fitter = experimentalEarlyAcquisition
+          ? const TimelineFitter.earlyAcquisitionExperiment()
+          : const TimelineFitter();
+
+  final bool experimentalEarlyAcquisition;
+  final TimelineFitter _fitter;
+  final _firstObservedBatch = <int, int>{};
+  int _batch = 0;
   TimelineMap _map = TimelineMap();
   final _pending = <int, SubtitleAnchor>{};
   final _continuous = <int, SubtitleAnchor>{};
@@ -40,12 +49,15 @@ class TimelineTracker {
 
   void discontinuity() {
     _pending.clear();
+    _firstObservedBatch.clear();
+    _batch = 0;
     _continuous.clear();
     _prediction = null;
   }
 
   bool observe(List<SubtitleAnchor> anchors) {
     var changed = false;
+    final batch = ++_batch;
     for (final anchor in anchors) {
       final previous = _pending[anchor.cue] ?? _continuous[anchor.cue];
       if (previous != null &&
@@ -54,6 +66,18 @@ class TimelineTracker {
           previous.uncertainty == anchor.uncertainty &&
           previous.phrase == anchor.phrase) {
         continue;
+      }
+      if (experimentalEarlyAcquisition &&
+          anchor.subtitleTime.isFinite &&
+          anchor.subtitleTime >= 0 &&
+          anchor.mediaTime.isFinite &&
+          anchor.mediaTime >= 0 &&
+          anchor.uncertainty.isFinite &&
+          anchor.uncertainty >= 0 &&
+          anchor.uncertainty <= 1 &&
+          anchor.offset.abs() <= 600 &&
+          const DialogueNormalizer().words(anchor.phrase).length >= 3) {
+        _firstObservedBatch.putIfAbsent(anchor.cue, () => batch);
       }
       _pending[anchor.cue] = anchor;
       changed = true;
@@ -65,6 +89,9 @@ class TimelineTracker {
     if (!changed) return false;
     while (_pending.length > 24) {
       _pending.remove(_pending.keys.first);
+    }
+    while (_firstObservedBatch.length > 256) {
+      _firstObservedBatch.remove(_firstObservedBatch.keys.first);
     }
     var fitted = _fitter.fit(_pending.values.toList());
     if (_continuous.isNotEmpty) {
@@ -81,6 +108,15 @@ class TimelineTracker {
       }
     }
     if (fitted == null) return false;
+    if (experimentalEarlyAcquisition &&
+        ((_map.segments.isEmpty &&
+                (fitted.anchors.length < 3 ||
+                    fitted.subtitleEnd - fitted.subtitleStart < 15 ||
+                    fitted.mediaEnd - fitted.mediaStart < 15 ||
+                    !_multipleBatches(fitted))) ||
+            (fitted.slope != 1 && !_multipleBatches(fitted)))) {
+      return false;
+    }
     var candidate = fitted;
 
     // A cached region is provisional. Two independently confirmed new cue
@@ -150,6 +186,16 @@ class TimelineTracker {
       _continuous.clear();
       return false;
     }
+  }
+
+  bool _multipleBatches(TimelineSegment segment) {
+    final batches = <int>{};
+    for (final anchor in segment.anchors) {
+      final batch = _firstObservedBatch[anchor.cue];
+      if (batch == null) return false;
+      batches.add(batch);
+    }
+    return batches.length >= 2;
   }
 
   bool _hasContinuousEvidence(TimelineSegment segment) {

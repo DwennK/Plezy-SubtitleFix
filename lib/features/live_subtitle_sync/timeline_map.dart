@@ -182,7 +182,18 @@ class TimelineMap {
 /// phrases spanning a minute of both timelines. Thresholds are heuristics;
 /// corpus validation, not this class, establishes their real accuracy.
 class TimelineFitter {
-  const TimelineFitter();
+  const TimelineFitter() : _minimumSlopeAnchors = 6, _minimumSlopeSpan = 60, _minimumPairSpan = 30;
+
+  /// Development-only early fit. The tracker must additionally require fresh
+  /// independent cue evidence from at least two observation batches.
+  const TimelineFitter.earlyAcquisitionExperiment()
+    : _minimumSlopeAnchors = 3,
+      _minimumSlopeSpan = 15,
+      _minimumPairSpan = 8;
+
+  final int _minimumSlopeAnchors;
+  final double _minimumSlopeSpan;
+  final double _minimumPairSpan;
 
   /// The fitted domain ends at the last observed anchor (inclusive to one
   /// microsecond). Prediction outside that domain requires a separate policy.
@@ -217,12 +228,14 @@ class TimelineFitter {
     var offset = _median(independent.map((a) => a.offset));
     final sourceSpan = independent.last.subtitleTime - independent.first.subtitleTime;
     final mediaTimes = independent.map((a) => a.mediaTime).toList()..sort();
-    if (independent.length >= 6 && sourceSpan >= 60 && mediaTimes.last - mediaTimes.first >= 60) {
+    if (independent.length >= _minimumSlopeAnchors &&
+        sourceSpan >= _minimumSlopeSpan &&
+        mediaTimes.last - mediaTimes.first >= _minimumSlopeSpan) {
       final slopes = <double>[];
       for (var i = 0; i < independent.length; i++) {
         for (var j = i + 1; j < independent.length; j++) {
           final span = independent[j].subtitleTime - independent[i].subtitleTime;
-          if (span < 30) continue;
+          if (span < _minimumPairSpan) continue;
           final candidate = (independent[j].mediaTime - independent[i].mediaTime) / span;
           if (candidate >= 0.9 && candidate <= 1.1) slopes.add(candidate);
         }

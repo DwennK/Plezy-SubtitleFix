@@ -135,6 +135,13 @@ Future<Map<String, Object>> probe(Map<String, String> options) async {
       require(['true', 'false'].contains(options['track-timeline'] ?? 'false'), 'Invalid tracking flag');
       final tracking = options['track-timeline'] == 'true';
       require(
+        ['true', 'false'].contains(options['experimental-early-acquisition'] ?? 'false'),
+        'Invalid acquisition experiment flag',
+      );
+      final experimentalEarlyAcquisition = options['experimental-early-acquisition'] == 'true';
+      final maximumAcquisitionMs = int.parse(options['maximum-acquisition-ms'] ?? '45000');
+      require(maximumAcquisitionMs > 0 && maximumAcquisitionMs <= 900000, 'Invalid acquisition budget');
+      require(
         ['true', 'false'].contains(options['experimental-acoustic-beginnings'] ?? 'false'),
         'Invalid onset experiment flag',
       );
@@ -150,7 +157,7 @@ Future<Map<String, Object>> probe(Map<String, String> options) async {
       require(maximumError.isFinite && maximumError > 0 && maximumError <= 1.5, 'Invalid error bound');
       require(analysisSeconds >= 15 && analysisSeconds <= 900, 'Invalid analysis duration');
       final index = SubtitleIndex(const SubtitleParser().parse(await File(options['srt']!).readAsBytes()));
-      final timeline = TimelineTracker();
+      final timeline = TimelineTracker(experimentalEarlyAcquisition: experimentalEarlyAcquisition);
       final context = TranscriptContext();
       final clock = Stopwatch()..start();
       var last = -60000;
@@ -162,6 +169,7 @@ Future<Map<String, Object>> probe(Map<String, String> options) async {
       int? affineAcquisitionMs;
       var lastTrackingSample = -1000;
       final trackingSamples = <Map<String, Object>>[];
+      final activationSamples = <Map<String, Object>>[];
       int? continuity;
       bool? voicePresent;
       var lastActivityMs = -500;
@@ -303,16 +311,19 @@ Future<Map<String, Object>> probe(Map<String, String> options) async {
               property('sub-delay', (offset ?? 0).toString());
               final nativeDelay = numberProperty('sub-delay');
               require(nativeDelay != null && (nativeDelay - (offset ?? 0)).abs() < 0.001, 'Native delay mismatch');
-              if (acquisitionMs != null && clock.elapsedMilliseconds - lastTrackingSample >= 1000) {
+              if (clock.elapsedMilliseconds - lastTrackingSample >= 1000) {
                 final expected = position - (position - expectedOffset) / expectedSlope;
-                trackingSamples.add({
+                final sample = <String, Object>{
+                  'elapsedMs': clock.elapsedMilliseconds,
                   'mediaTime': position,
                   'automaticDelay': offset ?? 0,
                   'mappingAvailable': offset != null,
                   'nativeDelay': nativeDelay!,
                   'expectedDelay': expected,
                   'error': (nativeDelay - expected).abs(),
-                });
+                };
+                activationSamples.add(sample);
+                if (acquisitionMs != null) trackingSamples.add(sample);
                 lastTrackingSample = clock.elapsedMilliseconds;
               }
             }
@@ -337,6 +348,7 @@ Future<Map<String, Object>> probe(Map<String, String> options) async {
       final completedAnalyses = analyses.where((entry) => entry.containsKey('match')).length;
       final errors = trackingSamples.map((sample) => sample['error']! as double).toList()..sort();
       final p95 = errors.isEmpty ? null : errors[(errors.length * 0.95).ceil() - 1];
+      final acquisitionWithinBudget = acquisitionMs != null && acquisitionMs <= maximumAcquisitionMs;
       final slopeConfirmed =
           expectedSlope == 1 ||
           timeline.map.segments.any(
@@ -348,6 +360,9 @@ Future<Map<String, Object>> probe(Map<String, String> options) async {
         'inferenceBackend': engine.inferenceBackend,
         'alignmentEngine': 'bounded-affine-timeline',
         'experimentalAcousticBeginnings': experimentalAcousticBeginnings,
+        'experimentalEarlyAcquisition': experimentalEarlyAcquisition,
+        'maximumAcquisitionMs': maximumAcquisitionMs,
+        'acquisitionWithinBudget': acquisitionWithinBudget,
         'acquiredMediaPosition': acquiredPosition ?? 'none',
         'learnedSegments': timeline.map.segments.length,
         'activityChecks': activityChecks,
@@ -368,11 +383,15 @@ Future<Map<String, Object>> probe(Map<String, String> options) async {
         'maximumOffsetError': maximumError,
         'reference': 'fixture SRT timings, not precise acoustic-onset ground truth',
         'passed': tracking
-            ? errors.length >= 10 && p95! < maximumError && slopeConfirmed && offset != null
+            ? acquisitionWithinBudget && errors.length >= 10 && p95! < maximumError && slopeConfirmed && offset != null
             : expectNoLock
             ? offset == null && completedAnalyses > 0
             : offset != null && (offset - expectedOffset).abs() < maximumError,
         if (tracking) ...{
+          'activationSamples': activationSamples,
+          'activationUnknownSamples': activationSamples.where((sample) => sample['mappingAvailable'] == false).length,
+          'activationReference':
+              'Every sampled playback position from activation, including the acquisition interval. Accuracy after acquisition and acquisition latency are separate gates.',
           'expectedSlope': expectedSlope,
           'slopeConfirmed': slopeConfirmed,
           'affineAcquisitionMs': affineAcquisitionMs ?? 'none',
