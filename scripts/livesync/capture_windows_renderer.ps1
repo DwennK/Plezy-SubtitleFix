@@ -104,18 +104,36 @@ try {
   # A native crash may leave neither a Dart exception nor a live window. Keep
   # the OS fault record for this executable on the disposable hosted runner.
   # Missing event-log access is not evidence that no native crash occurred.
-  try {
-    $namePattern = [Regex]::Escape((Split-Path $executablePath -Leaf))
-    $events = @(Get-WinEvent -FilterHashtable @{
-        LogName = 'Application'; StartTime = $startedAt; Id = @(1000, 1001)
-      } -ErrorAction Stop | Where-Object { $_.Message -match $namePattern } |
-      Select-Object -First 10 TimeCreated, Id, ProviderName, Message)
-    @{ available = $true; events = $events } | ConvertTo-Json -Depth 5 |
-      Set-Content (Join-Path $outputPath 'process-fault-events.json')
-  } catch {
-    @{ available = $false; events = @() } | ConvertTo-Json |
-      Set-Content (Join-Path $outputPath 'process-fault-events.json')
-  }
+  $events = @()
+  $faultLogAvailable = $true
+  $faultQueryError = $null
+  $faultDeadline = [DateTime]::UtcNow.AddSeconds(5)
+  $namePattern = [Regex]::Escape((Split-Path $executablePath -Leaf))
+  do {
+    try {
+      $events = @(Get-WinEvent -FilterHashtable @{
+          LogName = 'Application'; StartTime = $startedAt; Id = @(1000, 1001)
+        } -ErrorAction Stop | Where-Object { $_.Message -match $namePattern } |
+        Select-Object -First 10 TimeCreated, Id, ProviderName, Message)
+    } catch {
+      # Windows may publish the fault after process exit. An empty first
+      # query is not a permissions failure and must not discard later events.
+      if ($_.FullyQualifiedErrorId -notlike 'NoMatchingEventsFound*') {
+        $faultLogAvailable = $false
+        $faultQueryError = $_.FullyQualifiedErrorId
+        break
+      }
+    }
+    if (-not $exited) { break }
+    Start-Sleep -Milliseconds 500
+  } while ([DateTime]::UtcNow -lt $faultDeadline)
+  @{
+    available = $faultLogAvailable
+    queryErrorId = $faultQueryError
+    events = $events
+    waitedForExitedProcess = $exited
+  } | ConvertTo-Json -Depth 5 |
+    Set-Content (Join-Path $outputPath 'process-fault-events.json')
   # Preserve the real window on failure too, so a UI initialization error is
   # distinguishable from a video/clock failure. This runner contains no user data.
   $process.Refresh()
