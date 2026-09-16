@@ -761,3 +761,23 @@ LiveSync avant la confirmation des pistes. Le banc attend désormais cet
 CPU quantifiée : aucun résultat applicatif Windows n'est déclaré acquis.
 Les vérifications de traduction et le format du pont Windows ont été
 corrigés dans `b07bfad3`; attente des pistes dans `a9fef9b9`.
+
+
+### Sélection CPU Windows et actualisation upstream
+
+Le nouvel upstream `e38759127a1fb26c4cd99172ba6609fd50e355d9` a été vérifié le
+16 septembre à 02:09:21 UTC, puis intégré sans conflit dans `146a41a1`.
+64 tests ciblés et l'analyse complète passent ; les builds conservés avant
+cette intégration restent identifiés par leur ancien SHA.
+
+Le runtime Windows empaquette maintenant deux DLL d'inférence : CPU portable
+et AVX2. Le pont portable vérifie SSE4.2, AVX, AVX2, BMI2, FMA, F16C, XSAVE,
+OSXSAVE et l'état XMM/YMM avant tout chargement accéléré. Une bibliothèque
+absente ou incompatible revient au CPU portable. Les 55 tests Dart ciblés,
+le test natif des capacités et une véritable inférence sur Mac passent.
+Le choix réel et le secours Windows restent à vérifier dans la nouvelle CI.
+
+Le délai du probe de compatibilité CPU portable Windows passe explicitement
+à 90 s, car son précédent délai total de 35 s incluait neuf secondes de
+capture et masquait le résultat lent. Cela ne change pas le budget de
+performance de 3 s p95 et ne constitue pas une validation de ce budget.

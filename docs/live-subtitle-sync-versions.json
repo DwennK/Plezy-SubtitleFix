@@ -6,16 +6,16 @@
   "upstream": {
     "repository": "edde746/plezy",
     "branch": "main",
-    "sha": "9babe6814a0f8bea13ee25904431d809af1e5d08",
-    "commitDate": "2026-09-16T00:06:50+02:00",
+    "sha": "e38759127a1fb26c4cd99172ba6609fd50e355d9",
+    "commitDate": "2026-09-16T02:06:46+02:00",
     "plezyVersion": "2.20.0+150",
     "stableRelease": "2.20.0",
     "latestCheck": {
-      "checkedAt": "2026-09-15T22:58:10.509093+00:00",
-      "latestSha": "9babe6814a0f8bea13ee25904431d809af1e5d08",
-      "integratedSha": "9babe6814a0f8bea13ee25904431d809af1e5d08",
+      "checkedAt": "2026-09-16T02:09:21Z",
+      "latestSha": "e38759127a1fb26c4cd99172ba6609fd50e355d9",
+      "integratedSha": "e38759127a1fb26c4cd99172ba6609fd50e355d9",
       "unintegratedCommits": 0,
-      "scope": "Integrated via merge 71cec7d8. Locked pub resolution, whole Dart analysis, codegen and 7267 tests (6 skipped) passed. Mac application and 13 native contracts passed at b77dd811. Windows latest renderer and final connected application remain pending."
+      "scope": "Integrated via merge 146a41a1. 64 focused tests and whole Dart analysis passed. Full-suite and app rebuild validation pending; previous artifacts remain pinned to 9babe681."
     }
   },
   "flutter": {
@@ -667,6 +667,14 @@
       "windowsCiRun": 35036347229,
       "windowsForkSha": "8af77dc371433650d59d26df697bba4bb2b4aa8e",
       "windowsResult": "passed real decoder PCM, generation changes, forward/backward seeks, pause, exclusive capture and weak-client release on parent shutdown"
+    },
+    "guardedCpuDispatch": {
+      "state": "implemented-windows-validation-pending",
+      "dartTests": 55,
+      "cpuCapabilityLogic": "missing CPU or OS requirements rejected in native unit tests",
+      "macosNativeProbe": "actual PCM recognition and portable selection passed; one q5 DTW inference 1.011 s, not p95",
+      "windows": "application run pending for CPU dispatch, fallback and automatic correction",
+      "portableFunctionalTimeout": "90 seconds in Windows compatibility probe; performance budget remains 3 seconds p95"
     }
   }
 }
