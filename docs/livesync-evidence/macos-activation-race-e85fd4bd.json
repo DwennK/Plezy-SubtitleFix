@@ -1,0 +1,103 @@
+{
+  "schema": 1,
+  "sourceSha": "e85fd4bdb62856956d1b98e1b89d32ff6b8d5fb7",
+  "runId": 35148927428,
+  "runUrl": "https://github.com/DwennK/Plezy-SubtitleFix/actions/runs/35148927428",
+  "conclusion": "failure",
+  "summary": {
+    "devicesAndConfigurations": [
+      {
+        "device": {
+          "architecture": "arm64",
+          "deviceId": "617b758038fdd8a9c7b9818a00a3e53388a9962e",
+          "deviceName": "My Mac",
+          "modelName": "Apple Virtual Machine 1",
+          "osBuildNumber": "25G83",
+          "osVersion": "26.6.2",
+          "platform": "macOS"
+        },
+        "expectedFailures": 0,
+        "failedTests": 1,
+        "passedTests": 13,
+        "skippedTests": 0,
+        "testPlanConfiguration": {
+          "configurationId": "1",
+          "configurationName": "Test Scheme Action"
+        }
+      }
+    ],
+    "environmentDescription": "Runner \u00b7 Built with macOS 26.6.2",
+    "expectedFailures": 0,
+    "failedTests": 1,
+    "finishTime": 1789592625.899,
+    "passedTests": 13,
+    "result": "Failed",
+    "runtimeWarnings": [],
+    "skippedTests": 0,
+    "startTime": 1789592554.351,
+    "statistics": [],
+    "testFailures": [
+      {
+        "failureText": "XCTAssertGreaterThanOrEqual failed: (\"-10\") is less than (\"0\")",
+        "targetName": "RunnerTests",
+        "testIdentifier": 1,
+        "testIdentifierString": "MpvPlayerContractTests/testBundledLibmpvCapturesOnlyAfterActivation()",
+        "testIdentifierURL": "test://com.apple.xcode/Runner/RunnerTests/MpvPlayerContractTests/testBundledLibmpvCapturesOnlyAfterActivation",
+        "testName": "testBundledLibmpvCapturesOnlyAfterActivation()"
+      }
+    ],
+    "title": "Test - Runner",
+    "topInsights": [
+      {
+        "category": "Common Failures",
+        "impact": "100% of failures",
+        "text": "159 runs of 1 test failed with XCTAssertGreaterThanOrEqual failed: (\"-10\") is less than (\"0\")"
+      },
+      {
+        "category": "Longest Test Runs",
+        "impact": "95% of duration",
+        "text": "1 longest test run with outlier durations exceeding 4.25s (three standard deviations)"
+      }
+    ],
+    "totalTestCount": 14
+  },
+  "summarySha256": "b6443c8ec777ba19eaf8f93c4166ff26879ec2ffbeb235dc78ebe87e955dd5e3",
+  "failureDetailsSha256": "350174902a31a5c44703d1d03e88cc750535c138a82db65db9ecf14179184770",
+  "failureLocations": [
+    {
+      "line": 141,
+      "message": "XCTAssertGreaterThanOrEqual failed: (\"-10\") is less than (\"0\")",
+      "count": 1
+    },
+    {
+      "line": 147,
+      "message": "XCTAssertGreaterThanOrEqual failed: (\"-10\") is less than (\"0\")",
+      "count": 156
+    },
+    {
+      "line": 154,
+      "message": "XCTAssertFalse failed - The app-linked decoder must deliver timestamped PCM",
+      "count": 1
+    },
+    {
+      "line": 160,
+      "message": "XCTAssertGreaterThanOrEqual failed: (\"-10\") is less than (\"0\")",
+      "count": 1
+    },
+    {
+      "line": 161,
+      "message": "XCTAssertGreaterThanOrEqual failed: (\"-10\") is less than (\"0\")",
+      "count": 1
+    }
+  ],
+  "archive": {
+    "artifactId": 10468952833,
+    "sha256": "f0b55d100c4671ec343685da223097dbee9b41d1b90d54e9e7c2f48af5e8cc99",
+    "bytes": 94757237,
+    "codesignDeepStrictPassed": true,
+    "installedOrLaunched": false
+  },
+  "fullProductAcceptance": false,
+  "finding": "The first assertion fails at activation (RunnerTests.swift:141), after disabled-state lookup succeeds. PCM reads then fail because activation was not acknowledged. The native setter permits activation only once the input format is PCM; merely having an audio chain is insufficient.",
+  "followUp": "Wait only for property-unavailable activation within the original five-second deadline, then require acknowledged enabled state and real PCM. Do not retry the test process or change accuracy/acquisition budgets."
+}
