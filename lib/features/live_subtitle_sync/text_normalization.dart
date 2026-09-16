@@ -37,7 +37,11 @@ class DialogueNormalizer {
     final result = <String>[];
     for (final match in _words.allMatches(text)) {
       final word = match[0]!;
-      if (word == "can't" || word == 'cannot') {
+      if (word == 'mr' || word == 'dr') {
+        // Whisper often emits abbreviated titles where the SRT spells them
+        // out. Preserve one word and the original timing correspondence.
+        result.add(word == 'mr' ? 'mister' : 'doctor');
+      } else if (word == "can't" || word == 'cannot') {
         result.addAll(['can', 'not']);
       } else if (word == "won't") {
         result.addAll(['will', 'not']);

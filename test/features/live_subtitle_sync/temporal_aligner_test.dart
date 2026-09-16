@@ -67,6 +67,33 @@ void main() {
     expect(anchors.first.phrase, const TemporalAligner().anchors(transcript(90), index, passage).first.phrase);
   });
 
+  test('an abbreviated title retains the original cue-start token timestamp', () {
+    final subtitles = SubtitleIndex(
+      ParsedSubtitles(SubtitleEncoding.utf8, [
+        const SubtitleCue(
+          ordinal: 0,
+          sourceId: null,
+          start: Duration(seconds: 2),
+          end: Duration(seconds: 6),
+          text: 'Mister Brown carried the silver lantern',
+          timingSuffix: '',
+        ),
+      ]),
+    );
+    const text = 'Mr. Brown carried the silver lantern';
+    final source = NativeTranscript(1, 1, 90, 105, 0.1, [
+      NativeTranscriptSegment(text, 92, 96, [
+        for (var i = 0; i < text.split(' ').length; i++)
+          NativeTranscriptToken(' ${text.split(' ')[i]}', 92 + i * 0.5, 92.2 + i * 0.5, 0.95, true),
+      ]),
+    ]);
+    final passage = const TranscriptMatcher().find(text, subtitles).passage!;
+    final anchors = const TemporalAligner().anchors(source, subtitles, passage);
+    expect(anchors, hasLength(1));
+    expect(anchors.single.offset, 90);
+    expect(anchors.single.phrase, 'mister brown carried');
+  });
+
   test('substitution recovery cannot accept missing beginnings, shifted words or bad times', () {
     for (final source in [
       alteredFirst(['Kindly', 'bring', 'the', 'silver', 'lantern']),

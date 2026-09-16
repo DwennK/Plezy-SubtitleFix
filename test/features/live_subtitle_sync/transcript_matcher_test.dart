@@ -66,6 +66,18 @@ void main() {
     expect(index.toString(), isNot(contains('lantern')));
   });
 
+  test('spelled and abbreviated titles match exactly without changing source text', () {
+    const source = 'Mister Brown carried the silver lantern to Doctor Green';
+    final original = document([source]);
+    final result = matcher.find('Mr. Brown carried the silver lantern to Dr. Green', SubtitleIndex(original));
+    expect(result.status, TranscriptMatchStatus.matched);
+    expect(result.passage!.similarity, 1);
+    expect(result.passage!.words.every((word) => word.exact), isTrue);
+    expect(original.cues.single.text, source);
+    expect(normalizer.words('MR. Dr. mister doctor'), ['mister', 'doctor', 'mister', 'doctor']);
+    expect(normalizer.words('Ms. Mrs. drive doctorate misterious'), ['ms', 'mrs', 'drive', 'doctorate', 'misterious']);
+  });
+
   test('identifies a passage across cues without inventing a timing anchor', () {
     final index = SubtitleIndex(
       document([
