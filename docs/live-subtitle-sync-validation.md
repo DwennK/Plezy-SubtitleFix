@@ -1439,6 +1439,39 @@ Aucun token personnel n'est ajouté. Aucun workflow n'approuve ou ne fusionne un
 Le run sans changement et l'exercice complet restent à vérifier ; installation
 et tests locaux ne sont pas présentés comme une intégration native réussie.
 
+
+## Premier contrôle quotidien : vraie évolution upstream et conflits — 2026-09-16
+
+Le run `35078100333` ne rencontre pas un upstream inchangé : quatre nouveaux
+commits sont présents, jusqu'à `7883cf8c88d31e9b81e574c6949031a1c46de0b4`.
+Il **échoue comme prévu** sur quatre conflits et publie leur liste, sans modifier
+la branche maintenue ni pousser de candidat incomplet. Rapport numérique :
+`upstream-conflicts-35078100333.json`. Ce run exerce le chemin de conflit réel ;
+il ne prouve pas encore le no-op ou toute la chaîne de builds/PR.
+
+La résolution est préparée dans le worktree isolé `plezy-upstream-integration`,
+branche `codex/upstream-sync`, depuis le fork `2b301c41` :
+
+- `player_native.dart` : retrait upstream de `DevicePerformance`, conservation
+  des raccordements et identités LiveSync ; changements de lifecycle conservés.
+- Projet et verrous Mac : maintien du paquet **local** `LiveSyncMPV`, sans
+  réintroduire simultanément le binaire officiel non patché. Le lock et le
+  manifeste sélectionnent désormais le mpv-build upstream
+  `6855ea3776b437a922c0c7841560842e799fc152` pour reconstruire ce paquet.
+- Les changements Android et les pins iOS/tvOS sont conservés. Les composants
+  internes de `versions.json` du nouveau mpv-build n'ont pas changé ; ses patches
+  upstream évoluent. La préparation vérifiée des patches LiveSync passe.
+
+Résultats locaux : **133 tests réussis et un corpus initialement ignoré**, puis
+les huit tests du parseur passent après mise à disposition du SRT Sintel dont
+le hash est imposé. Analyse complète sans diagnostic après installation des
+dépendances de développement du sous-paquet `wakelock_plus` dans ce nouveau
+worktree ; verrous SwiftPM cohérents. L'absence initiale de ces dépendances
+causait les diagnostics de la première analyse, sans nécessiter de correction
+source. Aucun nouveau build natif n'est encore attribué à cet upstream.
+
+Le contrôle `scripts/codegen.sh --check` passe également sur le candidat.
+
 ## Preuves temporelles répétées — 2026-09-16
 
 `1738e659` empêche un contexte de transcription adjacent de compter à nouveau
@@ -1554,3 +1587,24 @@ préserve l'identité source et les délais signés/manuels. Rapport
 `upstream-native-35078943474.json`. Sorties nulles, aucun rendu visible ou audible
 validé. Le parent `35078879715` a terminé en **échec** à cause de la CI générale
 déjà documentée ; le candidat n'est pas promu et aucune PR de succès n'est créée.
+
+### Candidat upstream `fe4fc52c` : contrôles ciblés terminés
+
+Le candidat contenant upstream `7883cf8c` et native `6855ea37` passe la CI
+générale (`35093713202`), Dart (`35093840651`), Windows (`35093718839`) et
+macOS (`35093715981`, tentative 2). La première tentative Mac a échoué sur
+un HTTP 500 du téléchargement SwiftPM libuchardet ; seul le job échoué a
+été relancé au même SHA. Quatorze contrats natifs de l’app Mac passent.
+
+Dans le contrôleur de production Windows, la calibration acquiert en
+**33,922 s**, erreur **218 ms** ; intro +90 s en **124,361 s**, erreur **237 ms**.
+Navigation connue/inconnue, composition du délai audio, délai manuel,
+restauration du cache et fermeture du prélèvement passent. Sortie audio
+`pcm-to-NUL` : aucune validation audible. Ce sont des cas de développement
+connus, pas une précision généralisée sur corpus indépendant.
+
+Les rapports et hashes sont dans `livesync-evidence/upstream-fe4fc52c-validation.json`.
+Le natif Windows provient du run `35078943474` au SHA `18e50324`, avec identité
+des quatre entrées natives contrôlée avant réutilisation. Les options
+expérimentales d’acquisition sont absentes du candidat. Ces dispatchs manuels
+ne valident pas encore l’enchaînement quotidien complet, sa PR et son no-op.
