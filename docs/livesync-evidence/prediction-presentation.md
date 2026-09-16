@@ -40,3 +40,22 @@ recovery. No passing timing or full scene-handling claim follows from this
 presentation policy. The new native Windows renderer sequence and actual-PCM
 follow-up must be checked before promotion; Mentalist, exact scene boundaries,
 crossing-cue splitting and audible UI remain unvalidated.
+
+## Actual-PCM follow-up at 22d57de3
+
+The [current-native follow-up](prediction-presentation-22d57de3.json) completes
+with 21.411 s initial acquisition and 27.426 media seconds of post-edit recovery.
+Eleven tracking samples request suppression from media 82.359 to 92.578 seconds;
+the final sample has a confirmed mapping and no suppression request. This
+validates the domain decision using actual Whisper results, not rendered video.
+The unchanged scene scorer still fails: median 0.205 s, p95 70 s and zero gaps.
+The numeric error includes zero-delay samples; requested masking does not erase
+this failure or establish correct-caption coverage.
+
+Dart CI for the earlier `b873ff50` passes at run `35145139413`. Its general CI
+`35145226047` rejects the historical default native build (lock mismatch) before
+Windows native tests. The analogous incorrectly dispatched `22d57de3` run
+`35146112848` was intentionally cancelled, not counted as a timeout or success.
+The corrected general dispatch `35146373296` supplies verified native build
+`35097915052`. Current-source Dart `35146106705` and Windows renderer
+`35146109893` are separate validations still pending at this record.
