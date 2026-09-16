@@ -59,3 +59,19 @@ from the first trial fails before this separation and passes afterward; fitter
 requirements and all acceptance targets remain unchanged. Replay the same
 fixture once to test whether the corrected short-window anchor can now form
 a valid new region immediately, instead of waiting for the next normal window.
+
+## Follow-up outcome, e85fd4bd
+
+The [complete native report and controls](tight-recovery-e85fd4bd.json) support
+this narrow hypothesis: the one 8-second retry corrects cue 10 and immediately
+confirms the new region, 17.114 media seconds after the edit instead of 29.497.
+The 75-second six-channel ordinary control acquires in 21.318 seconds with
+0.214-second tracking p95; the 238-second unmatched control never locks. Neither
+control requests a subsequent short window. All 174 feature and player tests
+and full Flutter analysis pass locally.
+
+Full scene acceptance still fails: aligned median 0.220 seconds, p95 30.220
+seconds, zero learned gaps. These are consumed development fixtures against
+caption timings, not independent annotated acoustic onsets. Native Windows
+controller and renderer, Mac Release contracts and general CI are running on
+the exact code source e85fd4bd; their completion must be recorded separately.
