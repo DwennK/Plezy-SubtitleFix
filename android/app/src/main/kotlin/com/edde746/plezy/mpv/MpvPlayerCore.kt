@@ -236,8 +236,7 @@ class MpvPlayerCore private constructor(
     )
 
     /** The `vd-lavc-o` entries every video core starts with; see [DecoderOptions]. */
-    internal fun initialDecoderEntries(sdkInt: Int): List<Pair<String, String>> =
-      initialDecoderOptions(sdkInt).split(',').map { it.substringBefore('=') to it.substringAfter('=') }
+    internal fun initialDecoderEntries(sdkInt: Int): List<Pair<String, String>> = initialDecoderOptions(sdkInt).split(',').map { it.substringBefore('=') to it.substringAfter('=') }
 
     /**
      * Whether content with this transfer is worth an HDR (BT.2020 PQ) GL

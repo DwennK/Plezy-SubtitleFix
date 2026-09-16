@@ -35,12 +35,10 @@ internal object DecoderOperatingRate {
   const val CEILING_FPS = 240
 
   /** The rate a file is declared with when its decoder is created, and re-declared on a speed change. */
-  fun declared(containerFps: Double, playbackSpeed: Double, codecMaxFps: Int?): Int =
-    rate(1.0, containerFps, playbackSpeed, codecMaxFps)
+  fun declared(containerFps: Double, playbackSpeed: Double, codecMaxFps: Int?): Int = rate(1.0, containerFps, playbackSpeed, codecMaxFps)
 
   /** The single raise for a decoder measured behind at the declared rate. */
-  fun boosted(containerFps: Double, playbackSpeed: Double, codecMaxFps: Int?): Int =
-    rate(2.0, containerFps, playbackSpeed, codecMaxFps)
+  fun boosted(containerFps: Double, playbackSpeed: Double, codecMaxFps: Int?): Int = rate(2.0, containerFps, playbackSpeed, codecMaxFps)
 
   /**
    * [multiple] times the content rate with headroom, floored at the display
