@@ -12,10 +12,15 @@ import 'package:path/path.dart' as p;
 import 'package:path_provider/path_provider.dart';
 import 'package:plezy/features/live_subtitle_sync/control.dart';
 import 'package:plezy/features/live_subtitle_sync/controller.dart';
+import 'package:plezy/features/live_subtitle_sync/mapping_cache.dart';
+import 'package:plezy/features/live_subtitle_sync/subtitle_index.dart';
+import 'package:plezy/features/live_subtitle_sync/subtitle_parser.dart';
 import 'package:plezy/mpv/mpv.dart';
 import 'package:plezy/mpv/player/player_native.dart';
 import 'package:plezy/services/settings_service.dart';
 import 'package:window_manager/window_manager.dart';
+
+import 'livesync_wrong_gap_fixture.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -52,15 +57,22 @@ class _ProbeState extends State<_Probe> {
     const directory = String.fromEnvironment('LIVESYNC_ANALYSIS_FIXTURE_DIR');
     final output = File('$directory/result.json');
     final diagnostics = <Map<String, Object?>>[];
+    final started = Stopwatch();
     HttpServer? subtitleServer;
     const sourceDelayMs = int.fromEnvironment('LIVESYNC_SUBTITLE_LOAD_DELAY_MS');
     const seekDuringStartup = bool.fromEnvironment('LIVESYNC_SEEK_DURING_STARTUP');
+    const seedWrongGap = bool.fromEnvironment('LIVESYNC_SEED_WRONG_GAP');
+    MappingCache? injectedCache;
+    MappingCacheKey? injectedKey;
+    SubtitleIndex? injectedIndex;
+    double? seededFutureStart;
     Future<void>? startupSeek;
     var delayNextSourceRead = false;
     var delayedSourceReads = 0;
     try {
       check(directory.isNotEmpty, 'fixture');
       check(sourceDelayMs == 0 || sourceDelayMs == 15000, 'source-delay-fixture');
+      check(!seedWrongGap || (!seekDuringStartup && sourceDelayMs == 0), 'combined-cache-fixture-unsupported');
       var subtitleLocation = '$directory/fixture.srt';
       if (sourceDelayMs > 0) {
         subtitleServer = await HttpServer.bind(InternetAddress.loopbackIPv4, 0);
@@ -145,9 +157,33 @@ class _ProbeState extends State<_Probe> {
             p.normalize(player.state.track.subtitle?.uri ?? '') == p.normalize(subtitleLocation),
       });
       await player.setProperty('sub-delay', '0.125');
+      if (seedWrongGap) {
+        // Seed a checksum-valid but semantically false cache through the same
+        // writer/reader used in production. This fixture deliberately claims
+        // that the entire played excerpt has no matching subtitles.
+        final bytes = await File('$directory/fixture.srt').readAsBytes();
+        final index = injectedIndex = SubtitleIndex(const SubtitleParser().parse(bytes));
+        final identity = await LiveSyncMediaIdentity.local('$directory/fixture.mkv');
+        check(identity != null, 'cache-fixture-identity');
+        final key = injectedKey = MappingCacheKey.create(
+          identity!,
+          player.state.track.audio!,
+          crypto.sha256.convert(bytes).toString(),
+        );
+        check(key != null, 'cache-fixture-key');
+        final mappings = injectedCache = MappingCache(
+          Directory(p.join((await getApplicationSupportDirectory()).path, 'live-subtitle-sync', 'mappings')),
+        );
+        final wrong = wrongGapCacheFixture(index, offset: expectedOffset, gapEnd: 75.0 + introSilence);
+        seededFutureStart = wrong.segments.single.mediaStart;
+        await mappings.write(key!, wrong, generation: mappings.generation);
+        final restored = await mappings.read(key, index);
+        check(restored?.gaps.length == 1 && restored?.segments.length == 1, 'cache-fixture-not-written');
+        await player.setProperty('sub-visibility', 'yes');
+      }
       final sync = controller = LiveSubtitleSyncController.forPlayer(player);
       sync.diagnosticObserver = (event) {
-        diagnostics.add(event);
+        diagnostics.add({'observedElapsedMs': started.elapsedMilliseconds, ...event});
         if (seekDuringStartup && startupSeek == null && event.containsKey('startupReadyMs')) {
           // A real seek announces its intent before the native reply. Issue it
           // while the controller owns capture but startup is still awaiting
@@ -160,11 +196,16 @@ class _ProbeState extends State<_Probe> {
       }
       await player.play();
       delayNextSourceRead = sourceDelayMs > 0;
-      final started = Stopwatch()..start();
+      started.start();
       await sync.enable();
       if (seekDuringStartup) {
         check(startupSeek != null, 'startup-seek-not-issued');
         await startupSeek;
+      }
+      if (seedWrongGap) {
+        final restored = diagnostics.firstWhere((event) => event.containsKey('restoredGaps'));
+        check(restored['restoredGaps'] == 1 && restored['restoredSegments'] == 1, 'wrong-gap-not-restored');
+        check(await player.getProperty('sub-visibility') == 'no', 'wrong-gap-not-masked');
       }
       if (sourceDelayMs > 0) {
         final capture = diagnostics.firstWhere((event) => event.containsKey('startupCaptureMs'));
@@ -192,15 +233,40 @@ class _ProbeState extends State<_Probe> {
         await Future<void>.delayed(const Duration(milliseconds: 500));
       }
       final automatic = sync.automaticOffset!;
+      final acquisitionMs = started.elapsedMilliseconds;
+      final acquisitionDiagnostics = List<Map<String, Object?>>.of(diagnostics);
       const maximumOffsetError = 0.75;
       check((automatic - expectedOffset).abs() < maximumOffsetError, 'incorrect-offset');
       final nativeDelay = double.parse((await player.getProperty('sub-delay'))!);
       check((nativeDelay - automatic - 0.125).abs() < 0.0001, 'native-delay');
+      if (seedWrongGap) {
+        check(await player.getProperty('sub-visibility') == 'yes', 'corrected-gap-still-masked');
+        final waiting = Stopwatch()..start();
+        while (true) {
+          final corrected = await injectedCache!.read(injectedKey!, injectedIndex!);
+          if (corrected != null && corrected.gaps.isEmpty) {
+            check(
+              corrected.segments.any((segment) => (segment.mediaStart - seededFutureStart!).abs() < 1e-6),
+              'unrelated-cache-segment-lost',
+            );
+            break;
+          }
+          check(waiting.elapsed < const Duration(seconds: 5), 'wrong-gap-not-replaced-on-disk');
+          await Future<void>.delayed(const Duration(milliseconds: 100));
+        }
+      }
       final report = <String, Object>{
         'kind': 'actual-plezy-production-controller-calibration',
         'subtitleLoadDelayMs': sourceDelayMs,
         'seekDuringStartupValidated': seekDuringStartup,
+        'wrongCachedGapRecoveryValidated': seedWrongGap,
+        if (seedWrongGap) 'cacheAlgorithm': MappingCacheKey.algorithm,
+        if (seedWrongGap) 'cacheFixtureIsSynthetic': true,
+        if (seedWrongGap) 'seededGapEndSeconds': 75 + introSilence,
         'startupDiagnostics': diagnostics.where((event) => event.keys.any((key) => key.startsWith('startup'))).toList(),
+        // Freeze the numeric acquisition trace before manual/cache checks add
+        // events from later generations. Never persist PCM or dialogue text.
+        'acquisitionDiagnostics': acquisitionDiagnostics,
         'captureDuringSubtitleLoadValidated': sourceDelayMs > 0,
         'platform': Platform.operatingSystem,
         'inferenceBackend':
@@ -214,7 +280,9 @@ class _ProbeState extends State<_Probe> {
         'introSilenceSeconds': introSilence,
         'actualOffset': automatic,
         'reference': 'authored Sintel SRT, not precise acoustic-onset ground truth',
-        'acquisitionMs': started.elapsedMilliseconds,
+        'acquisitionMs': acquisitionMs,
+        'acquisitionTargetMs': 45000 + introSilence * 1000,
+        'acquisitionTargetPassed': acquisitionMs <= 45000 + introSilence * 1000,
         'nativeDelay': nativeDelay,
         'audioPartitionSeconds': provenance['partition'] as List,
         'audioOutput': Platform.isWindows ? 'pcm-to-NUL' : 'null',

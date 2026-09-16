@@ -156,6 +156,9 @@ void main() {
       (p) => p['key'] = 'different',
       (p) => p['schema'] = 999,
       (p) => p['algorithm'] = 'old',
+      // Timings learned before bounded segmented matching and gap revalidation
+      // must not immediately become trusted corrections after the upgrade.
+      (p) => p['algorithm'] = 'bounded-affine-titles-v1',
       (p) => p['segments'][0]['end'] = 900.0,
       (p) => p['segments'][0]['anchors'][0]['cue'] = 999,
       (p) => p['segments'][0]['anchors'][0]['subtitle'] = 3.0,

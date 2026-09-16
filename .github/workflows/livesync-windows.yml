@@ -26,6 +26,10 @@ on:
         description: Run only the dedicated renderer after a completed native/application probe run
         type: boolean
         default: false
+      seed_wrong_gap:
+        description: Seed a wrong cached video-only region and verify recovery (use with immediate subtitles and no startup seek)
+        type: boolean
+        default: false
 
 permissions:
   contents: read
@@ -218,10 +222,11 @@ jobs:
         env:
           SUBTITLE_LOAD_DELAY_MS: ${{ inputs.subtitle_load_delay_ms || '0' }}
           SEEK_DURING_STARTUP: ${{ inputs.seek_during_startup && 'true' || 'false' }}
+          SEED_WRONG_GAP: ${{ inputs.seed_wrong_gap && 'true' || 'false' }}
         run: |
           New-Item -ItemType Directory -Force build/livesync/calibration-player | Out-Null
           $fixture = (Resolve-Path build/livesync/calibration-player).Path
-          flutter build windows --debug --no-pub --target tool/livesync_analysis_player_probe.dart "--dart-define=LIVESYNC_ANALYSIS_FIXTURE_DIR=$fixture" "--dart-define=LIVESYNC_SUBTITLE_LOAD_DELAY_MS=$env:SUBTITLE_LOAD_DELAY_MS" "--dart-define=LIVESYNC_SEEK_DURING_STARTUP=$env:SEEK_DURING_STARTUP"
+          flutter build windows --debug --no-pub --target tool/livesync_analysis_player_probe.dart "--dart-define=LIVESYNC_ANALYSIS_FIXTURE_DIR=$fixture" "--dart-define=LIVESYNC_SUBTITLE_LOAD_DELAY_MS=$env:SUBTITLE_LOAD_DELAY_MS" "--dart-define=LIVESYNC_SEEK_DURING_STARTUP=$env:SEEK_DURING_STARTUP" "--dart-define=LIVESYNC_SEED_WRONG_GAP=$env:SEED_WRONG_GAP"
           if ($LASTEXITCODE -ne 0) { throw 'Production controller probe build failed' }
           foreach ($case in @('calibration', 'intro-90')) {
             python scripts/livesync/create_analysis_fixture.py --source build/livesync/corpus-source --output build/livesync/calibration-player --model build/livesync/models/ggml-base.en.bin --channels 6 --case $case
