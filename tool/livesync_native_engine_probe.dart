@@ -10,7 +10,7 @@ import 'package:ffi/ffi.dart';
 import 'package:plezy/features/live_subtitle_sync/native_bindings.dart';
 import 'package:plezy/features/live_subtitle_sync/subtitle_index.dart';
 import 'package:plezy/features/live_subtitle_sync/subtitle_parser.dart';
-import 'package:plezy/features/live_subtitle_sync/temporal_aligner.dart';
+import 'package:plezy/features/live_subtitle_sync/timeline_tracker.dart';
 import 'package:plezy/features/live_subtitle_sync/transcript_context.dart';
 import 'package:plezy/features/live_subtitle_sync/text_normalization.dart';
 
@@ -32,6 +32,11 @@ Future<Map<String, Object>> probe(Map<String, String> options) async {
         Int32 Function(Pointer<Void>, Pointer<Utf8>, Pointer<Utf8>),
         int Function(Pointer<Void>, Pointer<Utf8>, Pointer<Utf8>)
       >('mpv_set_option_string');
+  final get = mpv
+      .lookupFunction<
+        Int32 Function(Pointer<Void>, Pointer<Utf8>, Int32, Pointer<Void>),
+        int Function(Pointer<Void>, Pointer<Utf8>, int, Pointer<Void>)
+      >('mpv_get_property');
   final command = mpv
       .lookupFunction<
         Int32 Function(Pointer<Void>, Pointer<Pointer<Utf8>>),
@@ -48,6 +53,11 @@ Future<Map<String, Object>> probe(Map<String, String> options) async {
   final player = create();
   require(player != nullptr, 'mpv creation failed');
   NativeLiveSyncEngine? engine;
+  double? mediaPosition() => using((arena) {
+    final value = arena<Double>();
+    // MPV_FORMAT_DOUBLE from the pinned public client.h.
+    return get(player, 'time-pos'.toNativeUtf8(allocator: arena), 5, value.cast()) >= 0 ? value.value : null;
+  });
   void property(String name, String value, {bool option = false}) {
     using(
       (arena) => require(
@@ -126,7 +136,7 @@ Future<Map<String, Object>> probe(Map<String, String> options) async {
       require(maximumError.isFinite && maximumError > 0 && maximumError <= 1.5, 'Invalid error bound');
       require(analysisSeconds >= 15 && analysisSeconds <= 900, 'Invalid analysis duration');
       final index = SubtitleIndex(const SubtitleParser().parse(await File(options['srt']!).readAsBytes()));
-      final estimator = ConstantOffsetEstimator();
+      final timeline = TimelineTracker();
       final context = TranscriptContext();
       final clock = Stopwatch()..start();
       var last = -60000;
@@ -134,11 +144,18 @@ Future<Map<String, Object>> probe(Map<String, String> options) async {
       var windowSeconds = 12.0;
       final analyses = <Map<String, Object?>>[];
       double? offset;
+      double? acquiredPosition;
+      int? continuity;
       while (clock.elapsedMilliseconds < analysisSeconds * 1000 && offset == null) {
         final capture = engine.status();
+        if (continuity != null && capture.continuity != continuity) {
+          timeline.discontinuity();
+          context.clear();
+        }
+        continuity = capture.continuity;
         try {
           final transcript = engine.takeResult();
-          if (transcript != null) {
+          if (transcript != null && transcript.generation == 1 && transcript.continuity == continuity) {
             final adjacent = context.add(transcript);
             final evidence = matchTranscriptEvidence(transcript, index, context: adjacent);
             final words = const DialogueNormalizer().words(
@@ -147,7 +164,12 @@ Future<Map<String, Object>> probe(Map<String, String> options) async {
             final result = evidence.match;
             final anchors = evidence.anchors;
             windowSeconds = anchors.isEmpty ? 15 : 12;
-            offset = estimator.add(anchors);
+            timeline.observe(anchors);
+            final position = mediaPosition();
+            if (position != null) {
+              offset = timeline.correctionAt(position).position.automaticDelay;
+              if (offset != null) acquiredPosition = position;
+            }
             analyses.add({
               'attempt': attempts,
               'windowStart': transcript.windowStart,
@@ -192,6 +214,9 @@ Future<Map<String, Object>> probe(Map<String, String> options) async {
         'kind': 'native-active-pcm-real-asr-and-domain-alignment',
         'platform': Platform.operatingSystem,
         'inferenceBackend': engine.inferenceBackend,
+        'alignmentEngine': 'bounded-affine-timeline',
+        'acquiredMediaPosition': acquiredPosition ?? 'none',
+        'learnedSegments': timeline.map.segments.length,
         'actualOffset': offset ?? 'none',
         'acquisitionMs': clock.elapsedMilliseconds,
         'expectedOffset': expectNoLock ? 'none' : expectedOffset,
