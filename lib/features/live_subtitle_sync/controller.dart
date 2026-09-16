@@ -18,6 +18,7 @@ import 'runtime_paths.dart';
 import 'subtitle_index.dart';
 import 'subtitle_parser.dart';
 import 'subtitle_source.dart';
+import 'startup.dart';
 import 'timeline_map.dart';
 import 'timeline_tracker.dart';
 import 'transcript_context.dart';
@@ -184,66 +185,101 @@ class LiveSubtitleSyncController extends ChangeNotifier {
       final resources = _shared = await _prepareResources();
       if (!current()) return;
       final abort = _sourceAbort = AbortController();
-      final document = external
-          ? await SubtitleSourceLoader(
-              client: resources.transport.inner,
-            ).load(subtitle, headers: player.liveSubtitleHeaders, abort: abort)
-          : await provider!(subtitle, resources.transport.inner, abort);
-      if (!current()) return;
-      if (document == null) {
-        _state(LiveSyncPhase.unsupported, LiveSyncReason.externalSrt);
-        return;
+      final startupClock = Stopwatch()..start();
+      var subtitlesReady = false;
+      void ensureCurrent() {
+        if (!current() || abort.isAborted) throw const ModelException(ModelFailure.cancelled);
       }
-      _index = await compute((bytes) => SubtitleIndex(const SubtitleParser().parse(bytes)), document.bytes);
-      if (!current()) return;
-      _timeline.clear();
-      _cacheKey = null;
-      _cacheGeneration = resources.mappings.generation;
-      final identity = await LiveSyncPlayerAttachment.mediaIdentities[player]?.call();
-      if (!current()) return;
-      final audio = selection.audio;
-      final key = identity != null && audio != null
-          ? MappingCacheKey.create(identity, audio, document.contentHash)
-          : null;
-      if (key != null) {
-        final restored = await resources.mappings.read(key, _index!);
-        if (!current()) return;
-        if (_cacheGeneration == resources.mappings.generation) {
-          _cacheKey = key;
-          if (restored != null) _timeline.restore(restored);
-        }
-      }
-      diagnosticObserver?.call({
-        'mappingCacheEligible': _cacheKey != null,
-        'restoredSegments': _timeline.map.segments.length,
-      });
-      _state(LiveSyncPhase.downloading);
-      final lease = await resources.models.acquire(
-        preferredModel,
-        onProgress: (progress) {
-          if (current()) {
-            modelProgress = progress;
-            notifyListeners();
-          }
+
+      final (index, worker) = await prepareLiveSyncInputs(
+        cancelPending: () {
+          abort.abort();
+          resources.models.cancel(preferredModel);
         },
-      );
-      if (!current()) {
-        lease.release();
-        return;
-      }
-      final worker = await LiveSyncAnalysisWorker.start(
-        playerChannel: player.methodChannel,
-        lease: lease,
-        captureLibrary: paths.capture,
-        inferenceLibrary: paths.inference,
-        acceleratedInferenceLibrary: paths.acceleratedInference,
-        generation: generation,
+        closeCapture: (worker) => worker.close(),
+        loadSubtitles: () async {
+          final document = external
+              ? await SubtitleSourceLoader(
+                  client: resources.transport.inner,
+                ).load(subtitle, headers: player.liveSubtitleHeaders, abort: abort)
+              : await provider!(subtitle, resources.transport.inner, abort);
+          ensureCurrent();
+          if (document == null) throw const SubtitleSourceException(SubtitleSourceFailure.unsupported);
+          final index = await compute((bytes) => SubtitleIndex(const SubtitleParser().parse(bytes)), document.bytes);
+          ensureCurrent();
+          _timeline.clear();
+          _cacheKey = null;
+          _cacheGeneration = resources.mappings.generation;
+          final identity = await LiveSyncPlayerAttachment.mediaIdentities[player]?.call();
+          ensureCurrent();
+          final audio = selection.audio;
+          final key = identity != null && audio != null
+              ? MappingCacheKey.create(identity, audio, document.contentHash)
+              : null;
+          if (key != null) {
+            final restored = await resources.mappings.read(key, index);
+            ensureCurrent();
+            if (_cacheGeneration == resources.mappings.generation) {
+              _cacheKey = key;
+              if (restored != null) _timeline.restore(restored);
+            }
+          }
+          subtitlesReady = true;
+          diagnosticObserver?.call({
+            'startupSubtitlesMs': startupClock.elapsedMilliseconds,
+            'mappingCacheEligible': _cacheKey != null,
+            'restoredSegments': _timeline.map.segments.length,
+          });
+          return index;
+        },
+        openCapture: () async {
+          final lease = await resources.models.acquire(
+            preferredModel,
+            onProgress: (progress) {
+              if (current()) {
+                modelProgress = progress;
+                _state(LiveSyncPhase.downloading);
+              }
+            },
+          );
+          if (!current() || abort.isAborted) {
+            lease.release();
+            throw const ModelException(ModelFailure.cancelled);
+          }
+          final worker = await LiveSyncAnalysisWorker.start(
+            playerChannel: player.methodChannel,
+            lease: lease,
+            captureLibrary: paths.capture,
+            inferenceLibrary: paths.inference,
+            acceleratedInferenceLibrary: paths.acceleratedInference,
+            generation: generation,
+          );
+          if (!current() || abort.isAborted) {
+            await worker.close();
+            throw const ModelException(ModelFailure.cancelled);
+          }
+          diagnosticObserver?.call({
+            'startupCaptureMs': startupClock.elapsedMilliseconds,
+            'captureReadyBeforeSubtitles': !subtitlesReady,
+          });
+          if (!subtitlesReady) _state(LiveSyncPhase.loadingSubtitles);
+          return worker;
+        },
       );
       if (!current()) {
         await worker.close();
         return;
       }
+      _index = index;
       _worker = worker;
+      if (diagnosticObserver != null) {
+        final status = await worker.status();
+        if (!current()) return;
+        diagnosticObserver?.call({
+          'startupReadyMs': startupClock.elapsedMilliseconds,
+          'startupBufferedSamples': status.samples,
+        });
+      }
       diagnosticObserver?.call({'inferenceBackend': worker.inferenceBackend});
       _continuity = null;
       _pcmAvailability.clear();
@@ -256,8 +292,13 @@ class LiveSubtitleSyncController extends ChangeNotifier {
       if (position != null) await _applyCorrection(position, generation);
       if (!current()) return;
       _timer = Timer.periodic(const Duration(milliseconds: 500), (_) => unawaited(_tick()));
-    } on SubtitleSourceException {
-      if (current()) _state(LiveSyncPhase.unsupported, LiveSyncReason.source);
+    } on SubtitleSourceException catch (error) {
+      if (current()) {
+        _state(
+          LiveSyncPhase.unsupported,
+          error.reason == SubtitleSourceFailure.unsupported ? LiveSyncReason.externalSrt : LiveSyncReason.source,
+        );
+      }
     } on SubtitleParseException {
       if (current()) _state(LiveSyncPhase.unsupported, LiveSyncReason.externalSrt);
     } on ModelException {
