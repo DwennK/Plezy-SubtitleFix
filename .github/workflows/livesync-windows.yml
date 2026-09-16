@@ -176,6 +176,7 @@ jobs:
           if-no-files-found: error
           retention-days: 14
       - name: Verify the Dart isolate against the bundled native runtime
+        id: native_isolate
         if: ${{ !inputs.renderer_only }}
         shell: pwsh
         run: |
@@ -229,7 +230,9 @@ jobs:
           if ($LASTEXITCODE -ne 0) { throw 'Dedicated renderer build failed' }
           ./scripts/livesync/capture_windows_renderer.ps1 -Executable "$env:APP_BUNDLE/plezy_livesync.exe" -OutputDirectory $evidence
       - name: Verify actual automatic correction in the production controller
-        if: ${{ !inputs.renderer_only }}
+        # Renderer failure still fails the job, but must not discard an
+        # independent controller observation when its native runtime passed.
+        if: ${{ !cancelled() && !inputs.renderer_only && steps.native_isolate.conclusion == 'success' }}
         shell: pwsh
         env:
           SUBTITLE_LOAD_DELAY_MS: ${{ inputs.subtitle_load_delay_ms || '0' }}
