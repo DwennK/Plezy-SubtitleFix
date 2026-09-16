@@ -1295,3 +1295,20 @@ prouver la restauration depuis le disque, puis vérifier les seeks connus et
 inconnus avec les délais manuel et audio déjà appliqués. Cette nouvelle preuve
 native n'est pas encore obtenue. Mentalist, la dérive complète, les gaps et les
 budgets de performances restent ouverts.
+
+Commit du cache et des paramètres : `16a64221de997c3a3ca621ebe653aa3ddb54a778`,
+poussé. Codegen vérifié après indexation des traductions générées (le premier
+contrôle signale volontairement les fichiers générés non indexés). Build Mac
+et signature stricte réussis, kernel SHA-256
+`fe4a3e8084c7a4cc3c088a32b491f2985ab02cf8cf0ea2b5a73f6dcb29ce331c`.
+Copie conservée dans `build/livesync/review-builds/16a64221/`, avec provenance.
+La compilation portait sur les sources inchangées ensuite enregistrées dans
+ce commit. Les validations natives Windows `35072088059` et la CI générale
+`35072090450` sont démarrées, sans résultat final à ce stade.
+
+Le run Windows précédent `35070113686` à `9b13df5b` est maintenant **réussi**.
+Calibration : acquisition 40,147 s, erreur 215 ms. Intro de 90 s : 125,576 s,
+erreur 232 ms. L'aller-retour connu/inconnu/connu et la composition des délais
+manuel/audio passent. Rapports `windows-calibration-9b13df5b.json` et
+`windows-intro-90-9b13df5b.json`. Ce succès valide les corrections du protocole
+de test, pas le cache ajouté ensuite, la dérive, Mentalist ou une sortie audible.

@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "product": "Plezy + LiveSync",
   "status": "in-development-not-validated",
-  "recordedAt": "2026-09-16T07:47:16.102395+00:00",
+  "recordedAt": "2026-09-16T08:08:59.266288+00:00",
   "upstream": {
     "repository": "edde746/plezy",
     "branch": "main",
@@ -659,7 +659,7 @@
       "ciRun": 35034268551,
       "forkSha": "c4e64bba647bcf424517f8fe7481b4e910819194"
     },
-    "qualityLimitations": "113 focused Flutter tests and whole analysis passed at 2056ccc6; signed Mac application built at 08ae0e6e. Windows 30b73ce9 passed calibration, intro and post-lock controls. 503d81b0 failed an asynchronous-seek probe assertion; 08ae0e6e passed PCM then failed a stale initial-offset assertion after valid 25 ms refinement. Both probe issues fixed; 9b13df5b native Windows run pending. Full-playback drift, Mentalist UI/audible behavior, independent accuracy, gaps/cache and performance remain incomplete.",
+    "qualityLimitations": "127 focused tests, whole analysis, codegen and signed Mac build passed at 16a64221. Windows 9b13df5b passed calibration, intro and post-lock controls; cache native run 35072088059 and full CI 35072090450 are in progress. Mentalist, full-playback drift, gap handling and performance budgets remain incomplete.",
     "nativeCaptureOwner": {
       "localResult": "passed real decoder PCM, forward/backward seeks, pause, exclusive capture and weak-client release on parent shutdown",
       "platform": "macOS arm64 Apple M4",
@@ -710,9 +710,9 @@
       "forkSha": "55da27265cc1775e458000fc4a277e43f4a684fc",
       "focusedLocalTestsPassed": 111,
       "windowsCiRun": 35054766606,
-      "nativeStatus": "Production controller calibration, intro-90, known/unknown seeks and manual/audio delays passed on Windows at 30b73ce9. Later 08ae0e6e has successful native PCM but a stale-reference test failure after valid refinement; corrected test at 9b13df5b is awaiting native validation. No audible hardware or Mentalist proof.",
+      "nativeStatus": "Windows 9b13df5b passed native calibration, intro-90, exact known/unknown/known seek restoration and manual/audio delay composition. Persistent cache added at 16a64221; native validation pending.",
       "gapSuppressionImplemented": false,
-      "persistentCacheImplemented": false,
+      "persistentCacheImplemented": true,
       "nativeIntro90": {
         "report": "docs/livesync-evidence/timeline-intro-90-macos-native.json",
         "acquisitionMs": 135856,
@@ -720,13 +720,13 @@
         "scope": "55da2726 tracker and native media clock, zero manual audio delay; not production UI."
       },
       "macosBuild": {
-        "forkSha": "08ae0e6ee6fc25466979f2cb626ed60db3c78bbb",
+        "forkSha": "16a64221de997c3a3ca621ebe653aa3ddb54a778",
         "upstreamSha": "e38759127a1fb26c4cd99172ba6609fd50e355d9",
         "platform": "macos-arm64",
         "configuration": "debug",
         "strictSignatureVerified": true,
-        "dartKernelSha256": "549d241fde4f7d2484f2ca522f3478619ac2847d45765a99502c6cfe64e6b864",
-        "focusedTestsPassed": 113,
+        "dartKernelSha256": "fe4a3e8084c7a4cc3c088a32b491f2985ab02cf8cf0ea2b5a73f6dcb29ce331c",
+        "focusedTestsPassed": 127,
         "nativeUiValidated": false
       },
       "cadenceIntro90": {
@@ -738,8 +738,8 @@
       "finalUnusedCode": "passed at f80d7e65; no suppression",
       "finalUnusedFiles": "passed",
       "windowsNativeConfirmed": {
-        "ciRun": 35058268463,
-        "forkSha": "30b73ce98eccb496b383435f9bf8816bcbdc524d",
+        "ciRun": 35070113686,
+        "forkSha": "9b13df5b789fde5fe318a54f0dc659bc2c695330",
         "cases": [
           "calibration",
           "intro-90"
@@ -748,8 +748,8 @@
         "manualSubtitleAndAudioDelays": true,
         "audiblePlayback": false,
         "reports": [
-          "docs/livesync-evidence/windows-calibration-30b73ce9.json",
-          "docs/livesync-evidence/windows-intro-90-30b73ce9.json"
+          "docs/livesync-evidence/windows-calibration-9b13df5b.json",
+          "docs/livesync-evidence/windows-intro-90-9b13df5b.json"
         ]
       }
     },
@@ -860,8 +860,28 @@
         "pcmProbePassed": true,
         "correctedProbeSha": "9b13df5b789fde5fe318a54f0dc659bc2c695330",
         "correctedProbeCiRun": 35070113686,
-        "correctedProbeStatus": "in progress"
+        "correctedProbeStatus": "passed"
       }
+    },
+    "mappingCache": {
+      "forkSha": "16a64221de997c3a3ca621ebe653aa3ddb54a778",
+      "schema": 1,
+      "algorithm": "bounded-affine-titles-v1",
+      "maximumEntries": 100,
+      "maximumEntryBytes": 1048576,
+      "maximumAgeDays": 90,
+      "focusedTestsPassed": 127,
+      "wholeAnalysisPassed": true,
+      "codegenCheckPassed": true,
+      "macosBuildAndSignaturePassed": true,
+      "settingsWidgetViewport": "1440x900",
+      "nativeUiValidated": false,
+      "nativeCacheValidated": false,
+      "windowsCiRun": 35072088059,
+      "windowsCiStatus": "in progress",
+      "upstreamCiRun": 35072090450,
+      "upstreamCiStatus": "in progress",
+      "limitations": "Requires complete current SRT and discriminating media metadata; no reduction of embedded Plex extraction time. Model/cache settings have Flutter widget tests, not native visual QA."
     }
   }
 }
