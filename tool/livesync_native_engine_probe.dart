@@ -276,6 +276,7 @@ Future<Map<String, Object>> probe(Map<String, String> options) async {
                 trackingSamples.add({
                   'mediaTime': position,
                   'regionKind': timeline.correctionAt(position).position.kind.name,
+                  'presentationSuppressionRequested': timeline.correctionAt(position).suppressSubtitles,
                   'automaticDelay': offset ?? 0,
                   'mappingAvailable': offset != null,
                   'nativeDelay': nativeDelay!,

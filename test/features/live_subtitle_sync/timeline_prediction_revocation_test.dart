@@ -102,4 +102,43 @@ void main() {
       expect(tracker.map.segments.length, clear ? 0 : 1);
     }
   });
+
+  test('contradiction presentation is local to the audio-adjusted domain and resets on recovery', () {
+    final tracker = learned();
+    expect(tracker.correctionAt(180).predictionContradicted, isFalse);
+    tracker.observe([anchor(2, 130, 164), anchor(3, 140, 172)]);
+    expect(tracker.correctionAt(180).predictionContradicted, isTrue);
+    expect(tracker.correctionAt(180).suppressSubtitles, isTrue);
+    expect(tracker.correctionAt(300).suppressSubtitles, isFalse);
+    expect(tracker.correctionAt(108).predictionContradicted, isFalse);
+    expect(tracker.correctionAt(150).predictionContradicted, isFalse);
+    expect(tracker.correctionAt(166, audioDelay: 3).predictionContradicted, isFalse);
+    expect(tracker.correctionAt(168, audioDelay: 3).predictionContradicted, isTrue);
+    expect(tracker.correctionAt(163, audioDelay: -2).predictionContradicted, isTrue);
+    expect(tracker.correctionAt(double.infinity).predictionContradicted, isFalse);
+    expect(tracker.correctionAt(180, audioDelay: double.nan).predictionContradicted, isFalse);
+    tracker.observe([anchor(3, 140, 174)]);
+    expect(tracker.correctionAt(180).predictionContradicted, isFalse);
+    expect(tracker.correctionAt(180).position.automaticDelay, 34);
+    expect(tracker.map.gaps, isEmpty);
+  });
+
+  test('seek, stop and cache restore discard transient contradiction presentation', () {
+    for (final reset in ['seek', 'clear', 'restore']) {
+      final tracker = learned();
+      final known = tracker.map;
+      tracker.observe([anchor(2, 130, 164), anchor(3, 140, 172)]);
+      expect(tracker.correctionAt(180).predictionContradicted, isTrue);
+      switch (reset) {
+        case 'seek':
+          tracker.discontinuity();
+        case 'clear':
+          tracker.clear();
+        case 'restore':
+          tracker.restore(known);
+      }
+      expect(tracker.correctionAt(180).predictionContradicted, isFalse);
+      expect(tracker.map.gaps, isEmpty);
+    }
+  });
 }

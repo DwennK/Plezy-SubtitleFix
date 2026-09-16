@@ -10,6 +10,8 @@ import 'package:flutter/material.dart';
 
 import 'package:plezy/mpv/mpv.dart';
 import 'package:plezy/mpv/player/player_native.dart';
+import 'package:plezy/features/live_subtitle_sync/temporal_aligner.dart';
+import 'package:plezy/features/live_subtitle_sync/timeline_tracker.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized().ensureSemantics();
@@ -131,6 +133,11 @@ class _ProbeState extends State<_Probe> {
     if (directory.isEmpty) return;
     await Directory(directory).create(recursive: true);
     final originalSid = await player.getProperty('sid');
+    final timeline = TimelineTracker()
+      ..observe([
+        const SubtitleAnchor(0, 100, 104, 0.35, 'first independent calibration phrase'),
+        const SubtitleAnchor(1, 110, 114, 0.35, 'second independent calibration phrase'),
+      ]);
     final steps = <(String, String, String, String, String)>[
       ('baseline', 'sub-delay', '0.125', 'FIRST PROBE CUE', 'yes'),
       ('positive', 'sub-delay', '2.125', '', 'yes'),
@@ -143,12 +150,27 @@ class _ProbeState extends State<_Probe> {
       ('gap-manual-hidden', 'sub-visibility', 'no', 'FIRST PROBE CUE', 'no'),
       ('gap-release-manual-hidden', 'livesync-suppression', 'no', 'FIRST PROBE CUE', 'no'),
       ('manual-shown', 'sub-visibility', 'yes', 'FIRST PROBE CUE', 'yes'),
+      ('prediction-contradicted', 'prediction-evidence', 'contradicted', 'FIRST PROBE CUE', 'no'),
+      ('prediction-manual-shown', 'sub-visibility', 'yes', 'FIRST PROBE CUE', 'no'),
+      ('prediction-recovered', 'prediction-evidence', 'recovered', 'FIRST PROBE CUE', 'yes'),
       ('capture-on', 'livesync-enabled', 'yes', 'FIRST PROBE CUE', 'yes'),
       ('capture-off', 'livesync-enabled', 'no', 'FIRST PROBE CUE', 'yes'),
     ];
     try {
       for (final (name, property, value, expectedCue, expectedVisibility) in steps) {
-        if (property == 'livesync-suppression') {
+        if (property == 'prediction-evidence') {
+          timeline.observe([
+            if (value == 'contradicted') const SubtitleAnchor(2, 130, 164, 0.35, 'third independent fixture phrase'),
+            SubtitleAnchor(3, 140, value == 'contradicted' ? 172 : 174, 0.35, 'fourth independent fixture phrase'),
+          ]);
+          final correction = timeline.correctionAt(180);
+          if (correction.predictionContradicted != (value == 'contradicted') || timeline.map.gaps.isNotEmpty) {
+            throw StateError('Prediction presentation policy mismatch');
+          }
+          // Exercise the domain decision and actual native visibility without
+          // pretending these injected anchors came from the renderer fixture.
+          await (player as PlayerNative).setLiveSubtitleSuppressed(correction.suppressSubtitles);
+        } else if (property == 'livesync-suppression') {
           await (player as PlayerNative).setLiveSubtitleSuppressed(value == 'yes');
         } else {
           await player.setProperty(property, value);
@@ -174,6 +196,8 @@ class _ProbeState extends State<_Probe> {
             'delay': delay,
             'visibility': visibility,
             'automaticGapDetectionValidated': false,
+            'predictionContradicted': timeline.correctionAt(180).predictionContradicted,
+            'timingAnchorsInjected': true,
             'syntheticFixture': true,
             'audioOutput': Platform.isWindows ? 'pcm-to-NUL' : 'null',
             'videoBackend': Platform.isWindows ? 'd3d11-warp' : 'platform-default',

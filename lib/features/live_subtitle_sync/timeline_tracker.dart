@@ -2,13 +2,25 @@ import 'temporal_aligner.dart';
 import 'timeline_map.dart';
 
 class TimelineCorrection {
-  const TimelineCorrection(this.position, {this.predicted = false, this.established = false});
+  const TimelineCorrection(
+    this.position, {
+    this.predicted = false,
+    this.established = false,
+    this.predictionContradicted = false,
+  });
   final TimelinePosition position;
   final bool predicted;
 
   /// This correction's own region has enough validated, spaced observations
   /// for sparse checks. Evidence elsewhere in the media does not qualify it.
   final bool established;
+
+  /// Later independent dialogue disproved extrapolation here, but no
+  /// replacement is confirmed yet. Bounded to the prediction horizon, this
+  /// is transient uncertainty, not a gap or a persistent visibility setting.
+  final bool predictionContradicted;
+
+  bool get suppressSubtitles => position.kind == TimelineRegionKind.videoOnly || predictionContradicted;
 }
 
 /// Learns only from accepted, timestamped dialogue anchors. Predictions are
@@ -22,6 +34,7 @@ class TimelineTracker {
   final _continuous = <int, SubtitleAnchor>{};
   TimelineSegment? _prediction;
   double? _predictionBlockedUntilSubtitle;
+  double? _predictionContradictedFromMedia;
   final _restored = <TimelineSegment>{};
   final _restoredGaps = <TimelineGap>{};
 
@@ -47,6 +60,7 @@ class TimelineTracker {
     _continuous.clear();
     _prediction = null;
     _predictionBlockedUntilSubtitle = null;
+    _predictionContradictedFromMedia = null;
   }
 
   bool observe(List<SubtitleAnchor> anchors) {
@@ -169,6 +183,7 @@ class TimelineTracker {
       if (_predictionBlockedUntilSubtitle == null || learned.subtitleEnd > _predictionBlockedUntilSubtitle!) {
         _prediction = learned;
         _predictionBlockedUntilSubtitle = null;
+        _predictionContradictedFromMedia = null;
       }
       // A constant cluster may exclude an early, correctly timestamped cue
       // because the real offset is drifting. Retain it within the existing
@@ -220,6 +235,7 @@ class TimelineTracker {
       // A refinement of old context must not re-enable the disproved offset.
       // Only a confirmed region extending past these observations can recover.
       _predictionBlockedUntilSubtitle = last.subtitleTime;
+      _predictionContradictedFromMedia = first.mediaTime;
       _pending.removeWhere((_, anchor) => _agreesWithKnownDomain(anchor));
       return;
     }
@@ -294,7 +310,13 @@ class TimelineTracker {
                   g.start >= active.subtitleEnd &&
                   g.start <= active.subtitleFor(mediaTime),
         )) {
-      return const TimelineCorrection(TimelinePosition(TimelineRegionKind.unknown));
+      return TimelineCorrection(
+        const TimelinePosition(TimelineRegionKind.unknown),
+        predictionContradicted:
+            _predictionContradictedFromMedia != null &&
+            mediaTime >= _predictionContradictedFromMedia! &&
+            mediaTime - _predictionContradictedFromMedia! <= predictionSeconds,
+      );
     }
     final subtitleTime = active.subtitleFor(mediaTime);
     return TimelineCorrection(
