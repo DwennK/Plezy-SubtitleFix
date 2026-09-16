@@ -163,3 +163,19 @@ il reste sans résultat ; il ne tronque pas les concurrents. Seuils de similarit
 ambiguïté, précision et estimation inchangés. Régression rouge avant correction,
 **156 tests** après, analyse Flutter sans diagnostic. Le nouvel essai natif
 utilise les options expérimentales **désactivées**, comme l’app actuelle.
+
+#### Politique applicative actuelle sur le passage consommé
+
+`1a02e229`, q5, options expérimentales désactivées : première correction en
+**33,671 s**, médiane **19 ms**, p95 **94 ms**, offset final +0,019 s sur 179 s.
+Le nouveau verdict complet passe. L’acquisition utilise deux cues distinctes
+aux offsets +0,169 s et +0,019 s ; le point initial erroné −1,939 s est affiné
+avant application. Le premier événement est un rejet natif ; voir rapport brut.
+
+Ce résultat n’isole pas l’effet du nouveau budget de groupes : les fenêtres
+qui acquièrent ont au plus huit segments, et la politique d’acquisition a aussi
+changé depuis le premier essai. Il montre surtout que l’attente expérimentale
+de trois cues sur quinze secondes peut empêcher l’acquisition sur ce film.
+Les seuils expérimentaux restent donc désactivés. La prochaine évaluation
+porte sur la partition réservée 180–360 s, figée avant toute inférence avec
+les réglages applicatifs et un offset attendu de −180 s (SRT inchangé).

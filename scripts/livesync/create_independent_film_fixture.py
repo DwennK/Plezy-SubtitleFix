@@ -20,8 +20,10 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--source', type=Path, required=True)
     parser.add_argument('--output', type=Path, required=True)
+    parser.add_argument('--manifest', type=Path,
+                        default=ROOT / 'test/fixtures/livesync/elephants-dream-validation.json')
     args = parser.parse_args()
-    manifest = json.loads((ROOT / 'test/fixtures/livesync/elephants-dream-validation.json').read_text())
+    manifest = json.loads(args.manifest.read_text())
     for kind in ['media', 'subtitles']:
         entry = manifest[kind]
         if Path(entry['name']).name != entry['name']:
@@ -55,6 +57,7 @@ def main():
     ]) + '\n')
     record = {
         'source': manifest, 'expectedOffsetSeconds': -start, 'expectedSlope': 1,
+        'sourceManifestSha256': digest(args.manifest),
         'sourcePcmConvertedOfflineForFixtureOnly': True,
         'fullFilmDecoded': False, 'inferencePerformed': False,
         'ffmpeg': subprocess.check_output(['ffmpeg', '-version'], text=True).splitlines()[0],
