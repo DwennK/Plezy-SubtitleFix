@@ -100,3 +100,25 @@ new playback generation rearms it. No continuous short-window loop is allowed.
 Local module contracts, native worker recognition and embedding-integrity checks
 precede the active-playback scene replay. They do not establish full precision,
 scene coverage, independent onset accuracy, or the Windows performance budget.
+
+### First integration result and scheduling follow-up
+
+The frozen 4fc16a06 replay rejects the known early cue 7 and cue 10 timestamps,
+but spends the shared short retry at 44.714 seconds, before the inserted scene
+ends. At 81.748 seconds, cue 8 supplies a new credible anchor while cue 10 loses
+its unsupported timing. The global spent flag prevents the needed retry.
+Recovery regresses to 28.5 seconds; median/p95 both reach 30.210 seconds and
+scene acceptance fails. The full numeric failure is retained in
+[speech-support-first-4fc16a06.json](speech-support-first-4fc16a06.json).
+
+Freeze the following scheduling correction before replay: a spent retry can be
+rearmed by an accepted cue-start anchor strictly later than the end of the
+window that requested the previous short retry. That anchor must be inside the
+current window's upper bound. Repeated evidence from the same or overlapping
+past audio cannot rearm it. This permits progress after new dialogue without
+creating a repeated-analysis loop on the same PCM. Keep all VAD, matcher,
+uncertainty, fitter and scene acceptance thresholds unchanged.
+
+The short retry result itself cannot rearm an immediate retry. Its final window
+end extends the covered-audio bound before subsequent ordinary results may
+rearm the slot. A failed inference clears only the awaiting-result marker.

@@ -410,6 +410,8 @@ class LiveSubtitleSyncController extends ChangeNotifier {
           learned: learnedRegion,
           predictionContradicted: _timeline.correctionAt(transcript.windowEnd).predictionContradicted,
           speechTimingRejected: evidence.speechTimingRejected,
+          windowEnd: transcript.windowEnd,
+          latestAnchorMediaTime: evidence.latestAnchorMediaTime,
         );
         if (learnedRegion) {
           final learned = _timeline.map.segments.last;

@@ -88,6 +88,10 @@ class TranscriptEvidence {
   });
   final TranscriptMatchResult match;
   final List<SubtitleAnchor> anchors;
+  double? get latestAnchorMediaTime => anchors.fold<double?>(
+    null,
+    (latest, anchor) => latest == null || anchor.mediaTime > latest ? anchor.mediaTime : latest,
+  );
   final int windowCount;
   final bool segmented;
 

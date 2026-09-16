@@ -189,6 +189,8 @@ Future<Map<String, Object>> probe(Map<String, String> options) async {
               learned: learned,
               predictionContradicted: timeline.correctionAt(transcript.windowEnd).predictionContradicted,
               speechTimingRejected: evidence.speechTimingRejected,
+              windowEnd: transcript.windowEnd,
+              latestAnchorMediaTime: evidence.latestAnchorMediaTime,
             );
             final position = mediaPosition();
             if (position != null) {

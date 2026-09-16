@@ -2,6 +2,43 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:plezy/features/live_subtitle_sync/analysis_cadence.dart';
 
 void main() {
+  test('a fresh accepted anchor rearms speech retry only beyond the previously analyzed audio', () {
+    final cadence = AnalysisCadence();
+    void rejected(double end, double? anchor) => cadence.evidence(
+      recognizedPassage: true,
+      learned: false,
+      speechTimingRejected: true,
+      windowEnd: end,
+      latestAnchorMediaTime: anchor,
+    );
+    int delay() => cadence.intervalMs(synced: true, established: true);
+    rejected(45, 29);
+    expect(delay(), 0);
+    cadence.submitted();
+    // The short result itself cannot start another immediate retry, even if
+    // its tiny new tail contains a later cue. Extend the covered-audio bound.
+    rejected(46, 45.5);
+    expect(delay(), isNot(0));
+    for (final anchor in <double?>[null, 29, 46, 83, double.nan]) {
+      rejected(82, anchor);
+      expect(delay(), isNot(0));
+    }
+    rejected(82, 68);
+    expect(delay(), 0);
+    cadence.submitted();
+    for (var i = 0; i < 10; i++) {
+      rejected(83 + i.toDouble(), 78);
+      expect(delay(), isNot(0));
+      cadence.submitted();
+    }
+    rejected(95, 84);
+    expect(delay(), 0);
+    cadence.submitted();
+    cadence.clear();
+    rejected(20, 12);
+    expect(delay(), 0);
+  });
+
   test('a speech-rejected timestamp permits only one short retry while an old mapping remains active', () {
     final cadence = AnalysisCadence()..evidence(recognizedPassage: true, learned: true);
     cadence.submitted();
