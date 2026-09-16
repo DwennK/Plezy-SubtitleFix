@@ -1,0 +1,41 @@
+{
+  "id": "elephants-dream-commons-en",
+  "status": "frozen-before-first-inference",
+  "frozenEngineSha": "8699a49e44ecab55861b95c71dbf49af5e595190",
+  "experimentalEarlyAcquisition": true,
+  "experimentalAcousticBeginnings": true,
+  "modelSha256": "4baf70dd0d7c4247ba2b81fafd9c01005ac77c2f9ef064e00dcf195d0e2fdd2f",
+  "media": {
+    "name": "Elephants_Dream.ogv",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/d/d5/Elephants_Dream.ogv",
+    "sourcePage": "https://commons.wikimedia.org/wiki/File:Elephants_Dream.ogv",
+    "publishedAt": "2009-12-24T02:08:36Z",
+    "bytes": 35614993,
+    "sha256": "a4b7c7888645d54255a2eeb0d509146b83761b1ac03dd0eff546994832fa3a18",
+    "publishedSha1": "9a6272dc01919e2b891f0dadb8cbabf9a61d23ad",
+    "license": "CC-BY-SA-2.5",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.5/",
+    "attribution": "(c) copyright 2006, Blender Foundation / Netherlands Media Art Institute / www.elephantsdream.org; Commons Ogg encoding by Mdale"
+  },
+  "subtitles": {
+    "name": "english.srt",
+    "url": "https://commons.wikimedia.org/w/index.php?title=TimedText:Elephants_Dream.ogv.en.srt&oldid=1204466026&action=raw",
+    "sourcePage": "https://commons.wikimedia.org/w/index.php?title=TimedText:Elephants_Dream.ogv.en.srt&oldid=1204466026",
+    "historyUrl": "https://commons.wikimedia.org/w/index.php?title=TimedText:Elephants_Dream.ogv.en.srt&action=history",
+    "revision": 1204466026,
+    "bytes": 4947,
+    "sha256": "7d3f512795e58c83710d3867b853d6e6ec8c9f01d616c594ba65599c5856cd01",
+    "license": "CC-BY-SA-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+    "attribution": "English TimedText contributors on Wikimedia Commons; see pinned revision and history",
+    "cueCount": 85
+  },
+  "partition": {"role": "first-held-out-validation", "startSeconds": 0, "endSeconds": 180},
+  "reservedUnanalyzedPartitions": [[180, 360], [360, 540]],
+  "expectedSlope": 1,
+  "expectedOffsetSeconds": 0,
+  "maximumAcquisitionMs": 45000,
+  "maximumMedianErrorSeconds": 0.25,
+  "maximumP95ErrorSeconds": 0.75,
+  "reference": "Authored English TimedText paired with its exact Commons media file. This tests the distributed caption timeline, not manually annotated word onsets. No reference offset may be fitted from this run."
+}
