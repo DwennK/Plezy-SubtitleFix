@@ -56,3 +56,17 @@ anchors and record uncertainty. Known synthetic timeline transformations will
 provide relative mapping expectations, separately from cue authoring lead/lag.
 This prepared source does not yet validate automatic alignment or any transformed
 scenario. It supplements, rather than upgrades, the JFK feasibility evidence.
+
+## Scene edits: development regressions
+
+`scene-edits-development.json` freezes insertion, removal and crossing-cue
+fixtures using already consumed Sintel 100–175 s and Elephants Dream 14–44 s.
+The full original Sintel SRT is retained; sample-domain edits define the expected
+piecewise transform. These are not held-out acoustic-onset annotations.
+Use `scripts/livesync/create_scene_fixture.py` with verified local source
+directories, then score a completed native report with `evaluate_scene_probe.py`.
+The expected timeline is never passed into matching or fitting.
+
+[Fixture semantics and failing native baselines](../../../docs/livesync-evidence/scene-edit-fixtures.md).
+Every output includes source attributions, license URLs, edit provenance and
+checksums. No private episode audio or transcription is part of these files.
