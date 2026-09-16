@@ -1838,3 +1838,29 @@ ni le bundle courant, ni un renderer, ni Mentalist audible ne sont ainsi validé
 Une reconstruction locale depuis le lock upstream courant est lancée. Ces échecs
 sont conservés pour guider l’apprentissage des coupures et leurs frontières,
 sans réduire l’objectif à la seule récupération d’un offset final.
+
+
+### Promotion du candidat Release combiné — 16 septembre
+
+Les quatre workflows du source `0d2482fb` sont réussis. Windows `35113273599`
+confirme le mode Release, le faux gap restauré, puis sa correction PCM/Whisper
+avec retour de la visibilité et remplacement du cache sur disque. Acquisition
+35,037 s / 125,158 s ; erreurs face au SRT 231,6 / 245 ms. Les deux cibles
+45/135 s et les contrôles manuel/audio, seek, cache et arrêt passent.
+La PR nº 4 est intégrée dans `6ea456cd` avec code identique au candidat testé.
+[Rapports complets](livesync-evidence/release-0d2482fb-comparison.json).
+Les scènes réelles, Mentalist, la précision indépendante et la lecture audible
+restent explicitement non validés. Le brouillon a5838cbe est encore antérieur
+au code courant ; de nouvelles archives Release sont préparées séparément.
+
+
+### Archives Release vérifiées — 16 septembre
+
+Le brouillon `livesync-test-20260916-0d2482fb` contient les deux archives
+Release, SHA256SUMS, provenance et validation. Les cinq tailles et SHA-256
+distants correspondent aux fichiers locaux ; le statut brouillon est vérifié.
+Mac : signature ad hoc stricte et identité distincte ; Windows : PE x64 et
+dossier complet de DLL/data conservé. Aucun lancement utilisateur, installation,
+notarisation ou Mentalist n’est déduit de ces contrôles.
+[Reçu](livesync-evidence/draft-test-artifacts-0d2482fb.json).
+Upstream refetché/revérifié à 15:37:14 UTC : même `7883cf8c`, stable 2.20.0.

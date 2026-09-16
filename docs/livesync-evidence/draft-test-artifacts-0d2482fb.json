@@ -1,0 +1,86 @@
+{
+  "schema": 1,
+  "releaseUrl": "https://github.com/DwennK/Plezy-SubtitleFix/releases/tag/untagged-9f8a07ced13cb25760f3",
+  "releaseTag": "livesync-test-20260916-0d2482fb",
+  "isDraft": true,
+  "isPrerelease": true,
+  "targetCommitish": "0d2482fb6dcc00b5411e20ec382b88b2466de70f",
+  "remoteAssetsVerifiedBySizeAndSha256": true,
+  "assets": [
+    {
+      "name": "candidate-validation.json",
+      "bytes": 14616,
+      "digest": "sha256:a4339049b73134f44b76ffd81f652c8863609ed1b561d4785d34a1db0f1a66f1"
+    },
+    {
+      "name": "PlezyLiveSync-macos-AppleSilicon-release-test-0d2482fb.zip",
+      "bytes": 94740422,
+      "digest": "sha256:dbf7a0e47765ae6f130ab4fe50bece621e0b1f0fc9c19d656045fef6c44c47c0"
+    },
+    {
+      "name": "PlezyLiveSync-windows-x64-release-test-0d2482fb.zip",
+      "bytes": 79699642,
+      "digest": "sha256:69641addcd9f6ed74f538f9553e030a98b0fcef2f4a275e9aaf9c37ba5a17e0d"
+    },
+    {
+      "name": "SHA256SUMS.txt",
+      "bytes": 243,
+      "digest": "sha256:735d2cd46981c0df0bfe4dd91580a5ca619c75a75b5ff2447204024c406b76b5"
+    },
+    {
+      "name": "test-artifacts-provenance.json",
+      "bytes": 1465,
+      "digest": "sha256:a4e35205849fcaa00bec4f90363fdc465d726e4bf64f89ba0b7ed98cd5fb8918"
+    }
+  ],
+  "provenance": {
+    "candidateSha": "0d2482fb6dcc00b5411e20ec382b88b2466de70f",
+    "promotionSha": "6ea456cd4a0486a05defec7d4c876fc1a26ae633",
+    "upstreamSha": "7883cf8c88d31e9b81e574c6949031a1c46de0b4",
+    "plezyVersion": "2.20.0",
+    "plezyBuild": "150",
+    "flutterBuildMode": "release",
+    "macBundleId": "com.dwennk.plezy.livesync",
+    "macStrictSignatureVerified": true,
+    "macSignatureKind": "adhoc",
+    "macApplicationArchitectures": [
+      "arm64",
+      "x86_64"
+    ],
+    "macLiveSyncSupportedArchitectures": [
+      "arm64"
+    ],
+    "macArchivePrecedesXCTestTestabilityRebuild": true,
+    "windowsPEArchitecture": "x86_64",
+    "installed": false,
+    "macUILaunchVerified": false,
+    "MentalistValidated": false,
+    "fullProductAcceptance": false,
+    "cacheAlgorithm": "bounded-affine-titles-v2",
+    "calibrationAcquisitionMs": 35037,
+    "intro90AcquisitionMs": 125158,
+    "initialAcquisitionBudgetMs": 45000,
+    "initialAcquisitionBudgetPassedForThisRun": true,
+    "runs": {
+      "windows": 35113273599,
+      "macos": 35113276812,
+      "dart": 35113280331,
+      "upstreamCI": 35113283543
+    },
+    "artifacts": [
+      {
+        "file": "PlezyLiveSync-macos-AppleSilicon-release-test-0d2482fb.zip",
+        "bytes": 94740422,
+        "sha256": "dbf7a0e47765ae6f130ab4fe50bece621e0b1f0fc9c19d656045fef6c44c47c0"
+      },
+      {
+        "file": "PlezyLiveSync-windows-x64-release-test-0d2482fb.zip",
+        "bytes": 79699642,
+        "sha256": "69641addcd9f6ed74f538f9553e030a98b0fcef2f4a275e9aaf9c37ba5a17e0d"
+      }
+    ]
+  },
+  "upstreamCheckedAt": "2026-09-16T15:37:14Z",
+  "upstreamSha": "7883cf8c88d31e9b81e574c6949031a1c46de0b4",
+  "fullProductAcceptance": false
+}

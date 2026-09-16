@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "product": "Plezy + LiveSync",
   "status": "upstream-validated-feature-acceptance-incomplete",
-  "recordedAt": "2026-09-16T14:38:56.315147+00:00",
+  "recordedAt": "2026-09-16T15:37:14Z",
   "upstream": {
     "repository": "edde746/plezy",
     "branch": "main",
@@ -11,11 +11,11 @@
     "plezyVersion": "2.20.0+150",
     "stableRelease": "2.20.0",
     "latestCheck": {
-      "checkedAt": "2026-09-16T14:38:56.315147+00:00",
+      "checkedAt": "2026-09-16T15:37:14Z",
       "latestSha": "7883cf8c88d31e9b81e574c6949031a1c46de0b4",
       "integratedSha": "7883cf8c88d31e9b81e574c6949031a1c46de0b4",
       "unintegratedCommits": 0,
-      "scope": "Official main and latest stable release checked again while preserving test artifacts. Maintained feature code is a5838cbe, promoted through PR #2; full product acceptance remains incomplete."
+      "scope": "Official main and latest stable release checked again before Release test archives. Maintained code 0d2482fb promoted through PR #4; full product acceptance remains incomplete."
     }
   },
   "flutter": {
@@ -1039,6 +1039,28 @@
     ]
   },
   "maintainedFeatureValidation": {
+    "sourceSha": "0d2482fb6dcc00b5411e20ec382b88b2466de70f",
+    "promotionSha": "6ea456cd4a0486a05defec7d4c876fc1a26ae633",
+    "codeIdenticalToSource": true,
+    "flutterMode": "release",
+    "evidence": "docs/livesync-evidence/release-0d2482fb-comparison.json",
+    "runs": {
+      "windows": 35113273599,
+      "macos": 35113276812,
+      "dart": 35113280331,
+      "upstreamCI": 35113283543
+    },
+    "allRunsPassed": true,
+    "initialAcquisitionBudgetPassedForThisRun": true,
+    "initialAcquisitionBudgetEstablishedAcrossRuns": false,
+    "fullProductAcceptance": false,
+    "latestDraftArtifacts": {
+      "sourceSha": "0d2482fb6dcc00b5411e20ec382b88b2466de70f",
+      "includesCurrentCacheFix": true,
+      "evidence": "docs/livesync-evidence/draft-test-artifacts-0d2482fb.json"
+    }
+  },
+  "previousMaintainedFeatureValidation": {
     "sourceSha": "f04d8e295baf49483e46fa5b03cee7393d66dfc4",
     "promotionSha": "7a68ca094c5fc17477dd2343a53b684d6dbdadd0",
     "codeIdenticalToSource": true,
@@ -1058,21 +1080,5 @@
       "includesCurrentCacheFix": false,
       "evidence": "docs/livesync-evidence/draft-test-artifacts-a5838cbe.json"
     }
-  },
-  "previousMaintainedFeatureValidation": {
-    "sourceSha": "a5838cbe26be02e3a19f259661e48c10c0994d7e",
-    "promotionSha": "893b247fe3bc6e99bf763ff80e48f37f20c684f8",
-    "codeIdenticalToSource": true,
-    "evidence": "docs/livesync-evidence/startup-seek-a5838cbe-comparison.json",
-    "runs": {
-      "windows": 35104648989,
-      "macos": 35104652372,
-      "dart": 35104721069,
-      "upstreamCI": 35104724035
-    },
-    "allRunsPassed": true,
-    "initialAcquisitionBudgetPassed": false,
-    "fullProductAcceptance": false,
-    "draftArtifactEvidence": "docs/livesync-evidence/draft-test-artifacts-a5838cbe.json"
   }
 }

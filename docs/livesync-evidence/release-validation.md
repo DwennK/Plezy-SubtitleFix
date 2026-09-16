@@ -38,3 +38,18 @@ host. This does not prove native UI interaction or audible playback on a Mac.
 
 Local actionlint and existing upstream orchestration checks pass. The first
 macOS Release build and contract run remain pending until actually completed.
+
+## Completed combined Release candidate
+
+Candidate `0d2482fb` passes Windows run `35113273599`, Mac run `35113276812`,
+Dart `35113280331` and upstream CI `35113283543`; PR #4 is promoted at `6ea456cd`.
+Both controller reports independently confirm Release mode and actual recovery
+from a restored synthetic wrong gap. Acquisition: 35.037 / 125.158 s; authored-SRT
+error: 231.6 / 245 ms. Manual/audio delay, seeks, cache reload and shutdown pass.
+Mac has 14 passing native contracts; the downloaded ordinary Release archive
+passes strict signature verification. The submit-generation race itself is not
+reproduced in this scenario.
+[Reports and limitations](release-0d2482fb-comparison.json).
+
+This does not resolve the separately failing real scene-edit cases, establish
+independent acoustic accuracy, validate Mentalist or show a causal Release speedup.

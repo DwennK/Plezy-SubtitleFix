@@ -7,11 +7,11 @@ Les limites ne sont pas des validations. Les preuves historiques gardent leur SH
 ## Code et artefacts de référence
 
 - Upstream intégré : `7883cf8c88d31e9b81e574c6949031a1c46de0b4`.
-- Code courant construit/testé : `f04d8e295baf49483e46fa5b03cee7393d66dfc4`.
-- Promotion : `7a68ca094c5fc17477dd2343a53b684d6dbdadd0`, code identique ; seuls des documents de preuve supplémentaires diffèrent.
+- Code courant construit/testé : `0d2482fb6dcc00b5411e20ec382b88b2466de70f` (Release).
+- Promotion : `6ea456cd4a0486a05defec7d4c876fc1a26ae633`, code identique ; seuls des documents de preuve supplémentaires diffèrent.
 - Base d’intégration upstream validée : `10ace9fc6d93c59a2f577e1d2a2d9e7245087f52`.
 - [Chaîne complète, PR #1, promotion et no-op](livesync-evidence/upstream-10ace9fc-full-workflow.json).
-- [Archives brouillon courantes vérifiées](livesync-evidence/draft-test-artifacts-a5838cbe.json), pour `a5838cbe` ; elles ne contiennent pas le nouveau cache v2.
+- [Archives Release brouillon courantes vérifiées](livesync-evidence/draft-test-artifacts-0d2482fb.json), pour `0d2482fb`, cache v2 inclus.
 - [Archives historiques de la base upstream](livesync-evidence/draft-test-artifacts-10ace9fc.json).
 - [Manifestes et outils](live-subtitle-sync-versions.json).
 
@@ -94,7 +94,10 @@ La protection a passé 162 tests locaux et l’analyse sur le code cache combin�
 la course elle-même n’a pas été reproduite dans un probe natif. Le bundle Mac
 ordinaire est archivé avant qu’XCTest active la testabilité de son hôte Release.
 La CI Dart, la CI générale et le [build Mac Release avec 14 contrats](livesync-evidence/release-0d2482fb-macos.json)
-passent. Le contrôleur Windows Release reste en cours au relevé ; aucun résultat antérieur ne lui est attribué. La branche maintenue reste au candidat validé `f04d8e29`.
+passent. Le contrôleur Windows Release passe également : 35,037 / 125,158 s,
+erreurs face au SRT 231,6 / 245 ms, récupération du mauvais cache et contrôles
+usuels réussis. [Preuve combinée](livesync-evidence/release-0d2482fb-comparison.json).
+La PR nº 4 est intégrée dans `6ea456cd`, code identique au candidat testé.
 
 ## Scènes ajoutées/supprimées : référence native en échec
 
