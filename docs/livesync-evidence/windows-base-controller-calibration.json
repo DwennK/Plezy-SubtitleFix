@@ -1,0 +1,28 @@
+{
+  "provenance": {
+    "forkSha": "a9d34645fc4362cd75cca35b8db3df0b351c881e",
+    "scope": "Actual Windows application controller, full base.en, CI 35049530583. Null PCM output and software rendering; no audible or physical GPU validation.",
+    "nativeSourceSha": "bac639f9424ea59ac801a4ff4bc0fba8a8fa5f71",
+    "rawReportSha256": "5bcc007d5a06ae6c6c7bdc912fabf3d36c4c70fa63984f8f7935f67f2f4f4056"
+  },
+  "report": {
+    "kind": "actual-plezy-production-controller-calibration",
+    "platform": "windows",
+    "inferenceBackend": "avx2-cpu",
+    "expectedOffset": -100,
+    "actualOffset": -100.19866666666665,
+    "reference": "authored Sintel SRT, not precise acoustic-onset ground truth",
+    "acquisitionMs": 24261,
+    "nativeDelay": -100.073669,
+    "audioPartitionSeconds": [
+      100,
+      175
+    ],
+    "audioOutput": "pcm-to-NUL",
+    "audiblePlaybackValidated": false,
+    "pcmOrTranscriptPersisted": false,
+    "manualDelayDuringAndAfter": true,
+    "tapDisabledOnClose": true,
+    "passed": true
+  }
+}

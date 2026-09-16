@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "product": "Plezy + LiveSync",
   "status": "in-development-not-validated",
-  "recordedAt": "2026-09-15T22:58:10.509093+00:00",
+  "recordedAt": "2026-09-16T03:47:23.043607+00:00",
   "upstream": {
     "repository": "edde746/plezy",
     "branch": "main",
@@ -659,7 +659,7 @@
       "ciRun": 35034268551,
       "forkSha": "c4e64bba647bcf424517f8fe7481b4e910819194"
     },
-    "qualityLimitations": "Whole Dart analyzer and codegen passed. CI 35035257410 passed unit tests, Windows x64/arm64, macOS, tvOS, Linux sanitizers, Android and native formatting. Unused-code/file checks still fail until prepared LiveSync components are connected to the app; no suppression added. iOS native real-property test failed and remains under investigation.",
+    "qualityLimitations": "Whole upstream CI 35049528726 passed at a9d34645. Later controller/timeline changes require their own CI; native UI, physical hardware and performance budgets remain incomplete.",
     "nativeCaptureOwner": {
       "localResult": "passed real decoder PCM, forward/backward seeks, pause, exclusive capture and weak-client release on parent shutdown",
       "platform": "macOS arm64 Apple M4",
@@ -669,12 +669,50 @@
       "windowsResult": "passed real decoder PCM, generation changes, forward/backward seeks, pause, exclusive capture and weak-client release on parent shutdown"
     },
     "guardedCpuDispatch": {
-      "state": "implemented-windows-validation-pending",
+      "state": "verified-in-windows-ci",
       "dartTests": 55,
       "cpuCapabilityLogic": "missing CPU or OS requirements rejected in native unit tests",
       "macosNativeProbe": "actual PCM recognition and portable selection passed; one q5 DTW inference 1.011 s, not p95",
-      "windows": "application run pending for CPU dispatch, fallback and automatic correction",
+      "windows": "Runs 35049057261 and 35049530583 passed AVX2 selection, portable fallback, PCM, reversible rendering, and automatic controller calibration. Audio output was PCM-to-NUL.",
       "portableFunctionalTimeout": "90 seconds in Windows compatibility probe; performance budget remains 3 seconds p95"
+    },
+    "productionControllerCalibration": {
+      "baseEnglish": {
+        "ciRun": 35049530583,
+        "forkSha": "a9d34645fc4362cd75cca35b8db3df0b351c881e",
+        "acquisitionMs": 24261,
+        "absoluteOffsetErrorSeconds": 0.19866666666665
+      },
+      "quantizedEnglish": {
+        "ciRun": 35049057261,
+        "forkSha": "beb7416e8fe30dfee733ca3fc9b6d6b8f2affc1d",
+        "acquisitionMs": 58487,
+        "absoluteOffsetErrorSeconds": 0.125
+      },
+      "statisticalPerformanceValidated": false
+    },
+    "independentAcquisition": {
+      "report": "docs/livesync-evidence/heldout-275-650-initial.json",
+      "forkSha": "370d95d50d7c8826dd01636d10b6148ad7dae118",
+      "acquisitionMs": 195723,
+      "absoluteOffsetErrorSeconds": 0.27933333333334,
+      "scope": "One acquired lock; evaluation stops at lock. Prior 200-275 s evaluation still failed. No median/p95 claim."
+    },
+    "negativeAudio": {
+      "report": "docs/livesync-evidence/negative-650-888-initial.json",
+      "forkSha": "785dcef22078144bdb88033898a589f70eafdea0",
+      "durationSeconds": 238,
+      "completedAnalyses": 7,
+      "rejectedAnalyses": 3,
+      "observedLocks": 0
+    },
+    "timelineIntegration": {
+      "forkSha": "55da27265cc1775e458000fc4a277e43f4a684fc",
+      "focusedLocalTestsPassed": 90,
+      "windowsCiRun": 35053063463,
+      "nativeStatus": "pending",
+      "gapSuppressionImplemented": false,
+      "persistentCacheImplemented": false
     }
   }
 }

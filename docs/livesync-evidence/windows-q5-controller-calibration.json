@@ -1,0 +1,28 @@
+{
+  "provenance": {
+    "forkSha": "beb7416e8fe30dfee733ca3fc9b6d6b8f2affc1d",
+    "scope": "Actual Windows application controller, base.en-q5_1, CI 35049057261. Separate runner/run from base.en measurement; not a controlled statistical comparison.",
+    "nativeSourceSha": "bac639f9424ea59ac801a4ff4bc0fba8a8fa5f71",
+    "rawReportSha256": "c7305d5aad48bb4c6161d3a8e65c7b73210e8408338a5e01161d7b70b1510018"
+  },
+  "report": {
+    "kind": "actual-plezy-production-controller-calibration",
+    "platform": "windows",
+    "inferenceBackend": "avx2-cpu",
+    "expectedOffset": -100,
+    "actualOffset": -100.125,
+    "reference": "authored Sintel SRT, not precise acoustic-onset ground truth",
+    "acquisitionMs": 58487,
+    "nativeDelay": -100.0,
+    "audioPartitionSeconds": [
+      100,
+      175
+    ],
+    "audioOutput": "pcm-to-NUL",
+    "audiblePlaybackValidated": false,
+    "pcmOrTranscriptPersisted": false,
+    "manualDelayDuringAndAfter": true,
+    "tapDisabledOnClose": true,
+    "passed": true
+  }
+}

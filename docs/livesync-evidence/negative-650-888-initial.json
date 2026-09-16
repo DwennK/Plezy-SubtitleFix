@@ -1,0 +1,224 @@
+{
+  "provenance": {
+    "forkSha": "785dcef22078144bdb88033898a589f70eafdea0",
+    "scope": "Independent negative evaluation over 238 s, periodic sampled windows only. Seven completed analyses; three rejected analyses are retained, not counted as successful recognition.",
+    "nativeSourceSha": "bac639f9424ea59ac801a4ff4bc0fba8a8fa5f71",
+    "rawReportSha256": "84547bc16130493b72b3a3bfdf4e16862cf5c148eae17d2e5fa20532c700ff90",
+    "fixtureSha256": "623a984f555825dcb306af04bab0c933a99180e91c34861a8b2e1a1059ef4246",
+    "modelSha256": "4baf70dd0d7c4247ba2b81fafd9c01005ac77c2f9ef064e00dcf195d0e2fdd2f"
+  },
+  "report": {
+    "kind": "native-active-pcm-real-asr-and-domain-alignment",
+    "platform": "macos",
+    "inferenceBackend": "portable-cpu",
+    "actualOffset": "none",
+    "acquisitionMs": 238033,
+    "expectedOffset": "none",
+    "expectNoLock": true,
+    "completedAnalyses": 7,
+    "rejectedAnalyses": 3,
+    "absoluteOffsetError": "unavailable",
+    "maximumOffsetError": 1.5,
+    "reference": "authored SRT timings, not precise acoustic-onset ground truth",
+    "passed": true,
+    "analyses": [
+      {
+        "attempt": 1,
+        "windowStart": 0.7690000000000001,
+        "windowEnd": 8.788375,
+        "match": "insufficientDialogue",
+        "contextWindows": 1,
+        "segmentedMatch": false,
+        "transcriptWords": 0,
+        "wordsInSubtitleVocabulary": 0,
+        "contextWords": 0,
+        "segmentBounds": [],
+        "similarity": null,
+        "anchors": []
+      },
+      {
+        "attempt": 2,
+        "windowStart": 5.9056875,
+        "windowEnd": 20.9056875,
+        "match": "insufficientDialogue",
+        "contextWindows": 1,
+        "segmentedMatch": false,
+        "transcriptWords": 2,
+        "wordsInSubtitleVocabulary": 0,
+        "contextWords": 0,
+        "segmentBounds": [
+          {
+            "start": 5.9056875,
+            "end": 8.6656875,
+            "timedTokens": 6,
+            "firstToken": 8.645687500000001,
+            "lastToken": 8.6656875
+          }
+        ],
+        "similarity": null,
+        "anchors": []
+      },
+      {
+        "attempt": 3,
+        "windowStart": 18.023,
+        "windowEnd": 33.022999999999996,
+        "match": "insufficientDialogue",
+        "contextWindows": 1,
+        "segmentedMatch": false,
+        "transcriptWords": 0,
+        "wordsInSubtitleVocabulary": 0,
+        "contextWords": 2,
+        "segmentBounds": [
+          {
+            "start": 18.023,
+            "end": 28.023,
+            "timedTokens": 5,
+            "firstToken": 20.503,
+            "lastToken": 20.523
+          }
+        ],
+        "similarity": null,
+        "anchors": []
+      },
+      {
+        "attempt": 4,
+        "windowStart": 30.055,
+        "windowEnd": 45.055,
+        "match": "insufficientDialogue",
+        "contextWindows": 1,
+        "segmentedMatch": false,
+        "transcriptWords": 2,
+        "wordsInSubtitleVocabulary": 0,
+        "contextWords": 2,
+        "segmentBounds": [
+          {
+            "start": 30.055,
+            "end": 33.055,
+            "timedTokens": 8,
+            "firstToken": 33.035,
+            "lastToken": 33.055
+          }
+        ],
+        "similarity": null,
+        "anchors": []
+      },
+      {
+        "attempt": 5,
+        "windowStart": 60.007,
+        "windowEnd": 75.007,
+        "match": "noCandidate",
+        "contextWindows": 1,
+        "segmentedMatch": false,
+        "transcriptWords": 12,
+        "wordsInSubtitleVocabulary": 0,
+        "contextWords": 0,
+        "segmentBounds": [
+          {
+            "start": 60.007,
+            "end": 62.007,
+            "timedTokens": 4,
+            "firstToken": 61.407,
+            "lastToken": 61.427
+          },
+          {
+            "start": 62.007,
+            "end": 64.007,
+            "timedTokens": 4,
+            "firstToken": 67.687,
+            "lastToken": 67.707
+          },
+          {
+            "start": 64.007,
+            "end": 66.007,
+            "timedTokens": 4,
+            "firstToken": 67.987,
+            "lastToken": 68.007
+          },
+          {
+            "start": 66.007,
+            "end": 68.007,
+            "timedTokens": 4,
+            "firstToken": 70.507,
+            "lastToken": 70.527
+          },
+          {
+            "start": 68.007,
+            "end": 70.007,
+            "timedTokens": 4,
+            "firstToken": 70.507,
+            "lastToken": 70.527
+          },
+          {
+            "start": 70.007,
+            "end": 74.007,
+            "timedTokens": 4,
+            "firstToken": 71.627,
+            "lastToken": 71.86699999999999
+          }
+        ],
+        "similarity": null,
+        "anchors": []
+      },
+      {
+        "attempt": 6,
+        "windowStart": 90.1296875,
+        "windowEnd": 105.1296875,
+        "match": "insufficientDialogue",
+        "contextWindows": 1,
+        "segmentedMatch": false,
+        "transcriptWords": 0,
+        "wordsInSubtitleVocabulary": 0,
+        "contextWords": 0,
+        "segmentBounds": [
+          {
+            "start": 90.1296875,
+            "end": 97.1296875,
+            "timedTokens": 3,
+            "firstToken": 96.38968750000001,
+            "lastToken": 96.4096875
+          }
+        ],
+        "similarity": null,
+        "anchors": []
+      },
+      {
+        "attempt": 7,
+        "windowStart": 120.167,
+        "windowEnd": 135.167,
+        "match": "noCandidate",
+        "contextWindows": 1,
+        "segmentedMatch": false,
+        "transcriptWords": 14,
+        "wordsInSubtitleVocabulary": 7,
+        "contextWords": 0,
+        "segmentBounds": [
+          {
+            "start": 120.167,
+            "end": 135.167,
+            "timedTokens": 14,
+            "firstToken": 124.467,
+            "lastToken": 135.147
+          }
+        ],
+        "similarity": null,
+        "anchors": []
+      },
+      {
+        "attempt": 8,
+        "failure": "inferenceUnavailable"
+      },
+      {
+        "attempt": 9,
+        "failure": "inferenceUnavailable"
+      },
+      {
+        "attempt": 10,
+        "failure": "invalidOutput"
+      }
+    ],
+    "productionPlayerValidated": false,
+    "audiblePlaybackValidated": false,
+    "pcmOrTranscriptPersisted": false,
+    "mainIsolateHeartbeatTicks": 9528
+  }
+}

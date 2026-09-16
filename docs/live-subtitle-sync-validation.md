@@ -2,8 +2,11 @@
 
 ## Statut
 
-Travail en cours, aucune livraison fonctionnelle. Les validations manquantes
-restent explicitement non réalisées, y compris sur Windows et dans l'UI native.
+Travail en cours, pas de livraison répondant à tous les critères. Des acquisitions
+automatiques passent dans le contrôleur Windows et dans les probes natifs Mac.
+La validation visible et audible de Mentalist, la dérive réelle, les gaps, le
+cache, les performances et la distribution restent incomplets. Les sections
+datées ci-dessous distinguent les résultats historiques des avancées suivantes.
 
 ## Référence initiale (2026-09-15)
 
@@ -830,8 +833,8 @@ sur cet unique essai. Les dialogues courts et les fenêtres de capture sont
 à étudier sur les fixtures de développement. Le rapport initial est conservé
 dans `docs/livesync-evidence/heldout-200-275-initial.json` sans PCM ni dialogue.
 Cette portion ne pourra plus servir de validation indépendante après un
-ajustement motivé par cet échec. Les portions 275–650 s et 650–888 s restent
-non évaluées. Ne pas présenter l'ensemble du corpus comme validé.
+ajustement motivé par cet échec. À ce stade, les portions 275–650 s et 650–888 s
+étaient encore non évaluées ; leurs premiers résultats figurent plus bas.
 
 Le modèle de timeline affine et ses 17 tests d'ancres injectées restent
 isolés sur `codex/livesync-timeline` (`05a71c55`). Ils couvrent domaines bornés,
@@ -859,3 +862,77 @@ dart run tool/livesync_native_engine_probe.dart \
 
 Ce WAV est une fixture redistribuable préparée explicitement pour le test ;
 le prélèvement PCM effectué pendant sa lecture n'est pas conservé.
+
+### Contrôleur Windows confirmé et nouveaux essais audio — 16 septembre
+
+La CI upstream complète [35049528726](https://github.com/DwennK/Plezy-SubtitleFix/actions/runs/35049528726)
+passe à `a9d34645`. La canonicalisation des chemins est désormais confirmée
+dans le contrôleur de production Windows, avec capture PCM et vraie inférence :
+
+| Modèle | Acquisition | Erreur / SRT authored | Run applicatif |
+|---|---:|---:|---|
+| Q5_1 | 58,487 s | 125 ms | [35049057261](https://github.com/DwennK/Plezy-SubtitleFix/actions/runs/35049057261) |
+| base.en | 24,261 s | 199 ms | [35049530583](https://github.com/DwennK/Plezy-SubtitleFix/actions/runs/35049530583) |
+
+Les deux vérifient la somme avec le délai manuel et son maintien après arrêt,
+ainsi que la désactivation du prélèvement. Les rapports publics sont
+`windows-q5-controller-calibration.json` et `windows-base-controller-calibration.json`
+sous `docs/livesync-evidence`. Les runs utilisent des VM différentes : ce n'est
+pas une comparaison statistique contrôlée. Sortie PCM vers NUL et rendu logiciel,
+donc aucune preuve d'audio audible ni de performance GPU physique.
+
+Le matching de `4f492eb2` conserve au plus deux fenêtres adjacentes, sans déplacer
+les timestamps des tokens. Il peut tester des groupes contigus de 1 à 3 segments
+ASR parmi au plus huit segments. Les seuils textuels ne baissent pas et les
+ancres contradictoires restent soumises au filtre temporel. Une tentative sans
+ancre élargit la fenêtre suivante de 12 à 15 s. Les quatre nouveaux essais sur
+200–275 s, dont un avec base.en, **échouent encore à acquérir en 75 s**. Il ne
+faut pas présenter ce cas comme corrigé par l'ajout de contexte.
+
+La fixture `intro-90` ajoute 90 s de silence à la portion de calibration
+100–175 s et adapte les timestamps du SRT sans modifier son texte. Le probe
+natif Mac acquiert **+89,828 s**, pour +90 attendu, en **105,532 s au total**
+(erreur 172 ms). Les cinq premières analyses ne produisent aucune ancre. Ce
+résultat précède le dernier garde-fou conservateur sur les tokens chevauchants ;
+le chemin de correspondance complète utilisé n'a pas changé. Le rapport
+`intro-90-macos-native.json` précise cette limite de provenance. Ce n'est pas
+encore une validation du contrôleur ou du rendu natif du générique sur Mac.
+
+Deux nouvelles évaluations indépendantes, sans retoucher les seuils après lecture :
+
+| Portion Sintel | Résultat | Limite |
+|---|---|---|
+| 275–650 s, code `370d95d5` | −275,279 s acquis en 195,723 s ; erreur 279 ms | Le probe s'arrête au premier verrouillage, vers 470,7 s de la source. Le reste du clip n'est pas évalué. |
+| 650–888 s, code `785dcef2` | Aucun verrouillage en 238,033 s | Sept analyses terminées, trois échecs natifs ; observations périodiques, pas couverture continue. |
+
+Les rapports `heldout-275-650-initial.json` et `negative-650-888-initial.json`
+contiennent uniquement métriques, temps et identifiants de cues, avec hashes
+des fixtures. Le premier cas comporte huit analyses sans dialogue suffisant
+avant acquisition. **Une acquisition indépendante ne valide ni la médiane de
+250 ms, ni le p95 de 750 ms**, et son délai total ne respecte pas le budget
+de 45 s. L'échec initial 200–275 s reste dans le bilan. Aucun résultat de cette
+série ne constitue une annotation précise des attaques acoustiques.
+
+### Raccordement de la timeline — `55da2726`
+
+Le modèle auparavant isolé (`05a71c55`, repris par `1a5587af`) est raccordé au
+contrôleur. Les régions observées restent disponibles après seek ; les
+prédictions sont séparées, limitées à 120 s et révoquées à toute discontinuité.
+La correction affine utilise l'horloge mpv et s'ajoute au délai manuel. Un saut
+d'offset confirmé conserve les anciennes régions mais ne prétend pas connaître
+la frontière de scène. Les intervalles intermédiaires restent inconnus.
+
+**90 tests ciblés** passent localement et l'analyse ciblée ne signale aucun
+diagnostic. Ils comprennent 17 tests du domaine et six du suivi incrémental.
+Ce sont des preuves avec ancres injectées, pas une preuve acoustique de dérive.
+Le nouveau banc Windows teste en plus un seek en zone inconnue puis un retour
+dans une zone apprise avec contrôle du délai natif et de la contribution manuelle.
+Run [35053063463](https://github.com/DwennK/Plezy-SubtitleFix/actions/runs/35053063463)
+déclenché, résultat en attente au moment de cette note. Les détails et limites
+figurent dans `docs/live-subtitle-sync-timeline.md`. Les performances, le lissage,
+le délai audio manuel, les gaps confirmés et leur rendu restent à traiter.
+
+Le build macOS debug de `55da2726` compile et sa signature passe la vérification
+stricte. Une copie identifiée et son manifeste sont conservés dans
+`build/livesync/review-builds/55da2726/`. L'analyse complète du dépôt passe aussi.
+L'application n'a pas été contrôlée visuellement : le bureau Mac reste verrouillé.
