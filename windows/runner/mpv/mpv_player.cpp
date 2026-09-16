@@ -728,6 +728,11 @@ void MpvPlayer::GetPropertyAsync(const std::string& name, GetPropertyCallback ca
   plezy::mpv_common::SubmitGetPropertyAsync(mpv_, pending_requests_, name, std::move(callback));
 }
 
+mpv_handle* MpvPlayer::CreateLiveSyncClient() {
+  if (!mpv_ || audio_only_) return nullptr;
+  return mpv_create_weak_client(mpv_, "plezy_livesync");
+}
+
 void MpvPlayer::ObserveProperty(const std::string& name, const std::string& format, int id) {
   if (!mpv_) return;
 

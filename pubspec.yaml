@@ -47,6 +47,7 @@ dependencies:
   universal_gamepad: ^1.5.7
   drift: ^2.31.0
   crypto: ^3.0.7
+  ffi: ^2.2.0
   cryptography: ^2.9.0
   file_picker: ^11.0.2
   saf_util:

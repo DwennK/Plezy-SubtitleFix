@@ -49,6 +49,10 @@ class MpvPlayer {
   // Returns true if mpv is initialized.
   bool IsInitialized() const { return mpv_ != nullptr; }
 
+  // Platform-thread only, serialized with Dispose. Ownership goes to the
+  // LiveSync background isolate, which must release even on initialization failure.
+  mpv_handle* CreateLiveSyncClient();
+
   // Queues an mpv command without waiting for completion.
   void Command(const std::vector<std::string>& args);
 

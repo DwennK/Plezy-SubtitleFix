@@ -257,6 +257,28 @@ void MpvPlayerPlugin::HandleMethodCall(
       });
     });
     return;  // Response will be sent asynchronously
+  } else if (method == "createLiveSyncClient") {
+#if defined(_M_X64) || defined(__x86_64__)
+    auto* client = player_ ? player_->CreateLiveSyncClient() : nullptr;
+    if (!client) {
+      result->Error("NOT_INITIALIZED", "Player not initialized");
+      return;
+    }
+    // All addresses belong to the mpv already used by this player. Dart owns
+    // the weak client after this reply and hands it to its prepared isolate.
+    result->Success(
+        flutter::EncodableValue(
+            flutter::EncodableList{
+                flutter::EncodableValue(reinterpret_cast<int64_t>(client)),
+                flutter::EncodableValue(reinterpret_cast<int64_t>(&mpv_get_property)),
+                flutter::EncodableValue(reinterpret_cast<int64_t>(&mpv_set_property_string)),
+                flutter::EncodableValue(reinterpret_cast<int64_t>(&mpv_free_node_contents)),
+                flutter::EncodableValue(reinterpret_cast<int64_t>(&mpv_wait_event)),
+                flutter::EncodableValue(reinterpret_cast<int64_t>(&mpv_destroy)),
+            }));
+#else
+    result->Error("UNSUPPORTED", "Live subtitle sync requires Windows x64");
+#endif
   } else if (method == "setProperty") {
     if (!player_ || !player_->IsInitialized()) {
       result->Error(plezy::mpv_common::kSetPropertyNotInitializedCode, "Player not initialized");

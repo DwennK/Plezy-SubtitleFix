@@ -83,6 +83,19 @@ class MpvPlayerPlugin: NSObject, FlutterPlugin, FlutterStreamHandler, MpvPluginS
     case "getProperty":
       handleGetProperty(call: call, result: result)
 
+    case "createLiveSyncClient":
+      guard let playerCore else {
+        result(FlutterError(code: "NOT_INITIALIZED", message: "Player not initialized", details: nil))
+        return
+      }
+      playerCore.createLiveSyncClient { addresses in
+        if let addresses {
+          result(addresses)
+        } else {
+          result(FlutterError(code: "NOT_INITIALIZED", message: "Player not initialized", details: nil))
+        }
+      }
+
     case "observeProperty":
       handleObserveProperty(call: call, result: result)
 

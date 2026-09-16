@@ -301,6 +301,34 @@ class MpvPlayerCoreBase: NSObject {
 
   func configurePlatformMpvOptions(mpv: OpaquePointer) {}
 
+  #if os(macOS)
+    /// Transfer one weak client to the background LiveSync isolate. Addresses
+    /// refer to this linked static mpv image, never a second loaded copy.
+    /// Creation and parent destruction are serialized on the same owner queue.
+    func createLiveSyncClient(completion: @escaping ([Int64]?) -> Void) {
+      queue.async { [weak self] in
+        guard let self, let parent = self.withActiveMpv({ $0 }),
+          let client = mpv_create_weak_client(parent, "plezy_livesync")
+        else {
+          DispatchQueue.main.async { completion(nil) }
+          return
+        }
+        let get: @convention(c) (OpaquePointer?, UnsafePointer<CChar>?, mpv_format, UnsafeMutableRawPointer?) -> Int32 =
+          mpv_get_property
+        let set: @convention(c) (OpaquePointer?, UnsafePointer<CChar>?, UnsafePointer<CChar>?) -> Int32 =
+          mpv_set_property_string
+        let free: @convention(c) (UnsafeMutablePointer<mpv_node>?) -> Void = mpv_free_node_contents
+        let wait: @convention(c) (OpaquePointer?, Double) -> UnsafeMutablePointer<mpv_event>? = mpv_wait_event
+        let destroy: @convention(c) (OpaquePointer?) -> Void = mpv_destroy
+        let addresses = [
+          UInt(bitPattern: client), unsafeBitCast(get, to: UInt.self), unsafeBitCast(set, to: UInt.self),
+          unsafeBitCast(free, to: UInt.self), unsafeBitCast(wait, to: UInt.self), unsafeBitCast(destroy, to: UInt.self),
+        ].map { Int64(bitPattern: UInt64($0)) }
+        DispatchQueue.main.async { completion(addresses) }
+      }
+    }
+  #endif
+
   func updateEDRMode(sigPeak: Double) {}
 
   /// Platform hook fed by `scheduleDisplayCriteriaUpdate` with the decoded

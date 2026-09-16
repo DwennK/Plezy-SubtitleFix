@@ -57,6 +57,44 @@ final class RecordingLifecycleDelegate: MpvPlayerDelegate {
 }
 
 final class MpvPlayerContractTests: XCTestCase {
+  func testLiveSyncClientUsesTheActiveLinkedMpvAndRejectsDisposedCore() throws {
+    let core = MpvAudioPlayerCore()
+    XCTAssertTrue(core.initialize())
+    defer {
+      core.dispose()
+      core.queue.sync {}
+    }
+    XCTAssertSuccess(awaitProperty(core, name: "pause", value: "yes"))
+    let created = expectation(description: "weak client transferred")
+    var addresses: [Int64]?
+    core.createLiveSyncClient {
+      addresses = $0
+      created.fulfill()
+    }
+    wait(for: [created], timeout: 3)
+    let values = try XCTUnwrap(addresses)
+    XCTAssertEqual(values.count, 6)
+    let client = try XCTUnwrap(OpaquePointer(bitPattern: UInt(values[0])))
+    let get = unsafeBitCast(
+      UInt(values[1]),
+      to: (@convention(c) (OpaquePointer?, UnsafePointer<CChar>?, mpv_format, UnsafeMutableRawPointer?) -> Int32).self
+    )
+    let destroy = unsafeBitCast(UInt(values[5]), to: (@convention(c) (OpaquePointer?) -> Void).self)
+    core.queue.sync {
+      var paused: Int32 = -1
+      XCTAssertEqual(get(client, "pause", MPV_FORMAT_FLAG, &paused), 0)
+      XCTAssertEqual(paused, 1)
+      destroy(client)
+    }
+    core.dispose()
+    let rejected = expectation(description: "disposed core refuses client")
+    core.createLiveSyncClient {
+      XCTAssertNil($0)
+      rejected.fulfill()
+    }
+    wait(for: [rejected], timeout: 3)
+  }
+
   func testBundledLibmpvCapturesOnlyAfterActivation() throws {
     // Generated local WAV; no media server, microphone or network is involved.
     var wav = Data()
