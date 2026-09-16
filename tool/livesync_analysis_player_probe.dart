@@ -207,9 +207,20 @@ class _ProbeState extends State<_Probe> {
         'known-seek-manual',
       );
       report.addAll({'knownRegionRestoredAfterSeek': true, 'unknownSeekClearsAutomaticOnly': true});
+      for (final audioDelay in [-0.5, 0.5]) {
+        await player.setProperty('audio-delay', audioDelay.toString());
+        await Future<void>.delayed(const Duration(milliseconds: 1100));
+        check((sync.automaticOffset! - automatic - audioDelay).abs() < 0.0001, 'audio-delay-composition');
+        check(
+          (double.parse((await player.getProperty('sub-delay'))!) - automatic - audioDelay + 0.25).abs() < 0.0001,
+          'audio-and-manual-subtitle-delay',
+        );
+      }
       await sync.disable();
       check((double.parse((await player.getProperty('sub-delay'))!) + 0.25).abs() < 0.0001, 'manual-after');
       check(await player.getProperty('livesync-enabled') == 'no', 'capture-after');
+      check(double.parse((await player.getProperty('audio-delay'))!) == 0.5, 'audio-delay-after');
+      report['audioDelayCompositionAndPreservation'] = true;
       report.addAll({'manualDelayDuringAndAfter': true, 'tapDisabledOnClose': true, 'passed': true});
       await output.writeAsString('${const JsonEncoder.withIndent('  ').convert(report)}\n');
       if (mounted) setState(() => status = 'PASS — automatic offset, manual adjustment and disable verified');

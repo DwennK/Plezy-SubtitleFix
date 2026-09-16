@@ -7,6 +7,22 @@ SubtitleAnchor anchor(int cue, double subtitle, double media) =>
     SubtitleAnchor(cue, subtitle, media, 0.35, 'distinct phrase number $cue');
 
 void main() {
+  test('audio delay moves the valid domain and composes correctly with affine timing', () {
+    const slope = 25 / 23.976;
+    final tracker = TimelineTracker()
+      ..observe([for (var i = 0; i < 8; i++) anchor(i, 100 + i * 20, slope * (100 + i * 20) + 4)]);
+    tracker.discontinuity();
+    for (final delay in [-2.0, 0.0, 3.0]) {
+      final videoTime = slope * 150 + 4 + delay;
+      final correction = tracker.correctionAt(videoTime, audioDelay: delay);
+      expect(correction.position.subtitleTime, closeTo(150, 1e-9));
+      expect(correction.position.automaticDelay, closeTo(videoTime - 150, 1e-9));
+      expect(correction.predicted, isFalse);
+      expect(tracker.correctionAt(slope * 99 + 4 + delay, audioDelay: delay).position.kind, TimelineRegionKind.unknown);
+    }
+    expect(tracker.correctionAt(150, audioDelay: double.nan).position.kind, TimelineRegionKind.unknown);
+  });
+
   test('acquisition requires independent cues; prediction stays outside the learned map', () {
     final tracker = TimelineTracker();
     expect(tracker.observe([anchor(0, 100, 104)]), isFalse);

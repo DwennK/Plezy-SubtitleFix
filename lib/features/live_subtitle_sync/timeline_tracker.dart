@@ -106,7 +106,26 @@ class TimelineTracker {
     return merged;
   }
 
-  TimelineCorrection correctionAt(double mediaTime) {
+  TimelineCorrection correctionAt(double mediaTime, {double audioDelay = 0}) {
+    if (!mediaTime.isFinite || !audioDelay.isFinite) {
+      return const TimelineCorrection(TimelinePosition(TimelineRegionKind.unknown));
+    }
+    // Capture anchors use decoded audio PTS, before mpv's manual audio delay.
+    // A delayed voice reaches video time M at audio-source time M - delay.
+    final audio = _atAudioTime(mediaTime - audioDelay);
+    final position = audio.position;
+    if (position.automaticDelay == null) return audio;
+    return TimelineCorrection(
+      TimelinePosition(
+        position.kind,
+        subtitleTime: position.subtitleTime,
+        automaticDelay: position.automaticDelay! + audioDelay,
+      ),
+      predicted: audio.predicted,
+    );
+  }
+
+  TimelineCorrection _atAudioTime(double mediaTime) {
     final observed = _map.atMedia(mediaTime);
     if (observed.kind != TimelineRegionKind.unknown) return TimelineCorrection(observed);
     final active = _prediction;

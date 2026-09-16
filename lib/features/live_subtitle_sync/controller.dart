@@ -327,7 +327,9 @@ class LiveSubtitleSyncController extends ChangeNotifier {
   }
 
   Future<void> _applyCorrection(double position, int generation) async {
-    final correction = _timeline.correctionAt(position);
+    final audioDelay = double.tryParse(await player.getProperty('audio-delay') ?? '');
+    if (!enabled || generation != _generation || audioDelay == null) return;
+    final correction = _timeline.correctionAt(position, audioDelay: audioDelay);
     final offset = correction.position.automaticDelay;
     if (offset == null) {
       if (automaticOffset != null) {

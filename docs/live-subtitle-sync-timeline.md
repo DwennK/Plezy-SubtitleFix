@@ -52,7 +52,16 @@ The Windows application probe now checks native delay after a paused seek to an
 unknown region and back into the learned domain, including the manual delay.
 Its success must be checked in CI before claiming the native behavior is proven.
 
+Audio delay is composed in the audio source timeline: at video time `M` and
+manual audio delay `d`, lookup uses `M - d`, and the final automatic subtitle
+delay is `M - subtitleFor(M - d)`. The separately owned manual subtitle delay
+is added by the player. This avoids a sign/scale error when the slope differs
+from one. A seventh learner test covers positive/negative audio delays, affine
+timing and shifted domain boundaries. The application probe also checks both
+audio-delay signs, then confirms that disabling LiveSync preserves the user's
+audio and subtitle controls. Audible synchronization still needs native proof.
+
 Remaining work: explicit gap learning and subtitle suppression, cues crossing
-boundaries, audio-delay composition, smoothing, renderer proof, persistent cache,
+boundaries, audio-delay native validation, smoothing, renderer proof, persistent cache,
 performance and independent real-audio drift validation. A changed offset alone
 does not locate a cut: the interval between incompatible regions stays unknown.
