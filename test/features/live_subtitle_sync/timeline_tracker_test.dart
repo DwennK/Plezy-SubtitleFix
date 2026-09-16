@@ -1,4 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
+import 'package:plezy/features/live_subtitle_sync/analysis_cadence.dart';
 import 'package:plezy/features/live_subtitle_sync/temporal_aligner.dart';
 import 'package:plezy/features/live_subtitle_sync/timeline_map.dart';
 import 'package:plezy/features/live_subtitle_sync/timeline_tracker.dart';
@@ -7,6 +8,50 @@ SubtitleAnchor anchor(int cue, double subtitle, double media) =>
     SubtitleAnchor(cue, subtitle, media, 0.35, 'distinct phrase number $cue');
 
 void main() {
+  test('an established old scene cannot slow confirmation in a newly learned scene', () {
+    final tracker = TimelineTracker()
+      ..observe([for (var i = 0; i < 6; i++) anchor(i, 100 + i * 20, 104 + i * 20)])
+      ..discontinuity();
+    expect(tracker.observe([anchor(6, 500, 504), anchor(7, 510, 514)]), isTrue);
+    final cadence = AnalysisCadence()..evidence(recognizedPassage: true, learned: true);
+    int interval(double time) => cadence.intervalMs(synced: true, established: tracker.correctionAt(time).established);
+    expect(interval(508), 12000);
+    expect(interval(530), 12000);
+    expect(interval(180), 90000);
+    expect(tracker.correctionAt(350).established, isFalse);
+  });
+
+  test('fresh validation belongs to its cached scene, without being blocked by other cached scenes', () {
+    const fitter = TimelineFitter();
+    final tracker = TimelineTracker()
+      ..restore(
+        TimelineMap(
+          segments: [
+            fitter.fit([for (var i = 0; i < 6; i++) anchor(i, 100 + i * 20, 104 + i * 20)])!,
+            fitter.fit([for (var i = 0; i < 6; i++) anchor(i + 6, 500 + i * 20, 504 + i * 20)])!,
+          ],
+        ),
+      );
+    expect(tracker.correctionAt(150).established, isFalse);
+    expect(tracker.correctionAt(550).established, isFalse);
+    expect(tracker.observe([anchor(0, 100, 104), anchor(1, 120, 124)]), isTrue);
+    expect(tracker.correctionAt(150).established, isTrue);
+    expect(tracker.correctionAt(230).established, isTrue);
+    expect(tracker.correctionAt(550).established, isFalse);
+  });
+
+  test('established status follows audio delay and expires with its prediction', () {
+    final tracker = TimelineTracker()..observe([for (var i = 0; i < 6; i++) anchor(i, 100 + i * 20, 104 + i * 20)]);
+    expect(tracker.correctionAt(230).established, isTrue);
+    expect(tracker.correctionAt(350).established, isFalse);
+    tracker.discontinuity();
+    expect(tracker.correctionAt(230).established, isFalse);
+    expect(tracker.correctionAt(190).established, isTrue);
+    expect(tracker.correctionAt(270).established, isFalse);
+    expect(tracker.correctionAt(270, audioDelay: 80).established, isTrue);
+    expect(tracker.correctionAt(190, audioDelay: double.nan).established, isFalse);
+  });
+
   test('an interior rejected timestamp cannot combine with a later outlier to revoke a valid prediction', () {
     final tracker = TimelineTracker();
     expect(

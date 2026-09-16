@@ -373,7 +373,7 @@ class LiveSubtitleSyncController extends ChangeNotifier {
       // lag behind a seek. Affine correction changes with playback position.
       final position = double.tryParse(await player.getProperty('time-pos') ?? '');
       if (!enabled || generation != _generation) return;
-      if (position != null) await _applyCorrection(position, generation);
+      final established = position != null && await _applyCorrection(position, generation);
       if (!player.state.playing || player.state.buffering || status.samples < 128000) return;
       final activity = await worker.activity();
       if (!enabled || generation != _generation) return;
@@ -399,11 +399,6 @@ class LiveSubtitleSyncController extends ChangeNotifier {
       }
       // Collect spaced confirmation windows before slowing to steady-state
       // checks, so a cadence difference can actually accumulate six anchors.
-      final established =
-          !_timeline.hasUnvalidatedCache &&
-          _timeline.map.segments.any(
-            (segment) => segment.anchors.length >= 6 && segment.subtitleEnd - segment.subtitleStart >= 60,
-          );
       final intervalMs = _cadence.intervalMs(
         synced: phase == LiveSyncPhase.synced,
         established: established,
@@ -443,26 +438,27 @@ class LiveSubtitleSyncController extends ChangeNotifier {
     }
   }
 
-  Future<void> _applyCorrection(double position, int generation) async {
+  Future<bool> _applyCorrection(double position, int generation) async {
     final audioDelay = double.tryParse(await player.getProperty('audio-delay') ?? '');
-    if (!enabled || generation != _generation || audioDelay == null) return;
+    if (!enabled || generation != _generation || audioDelay == null) return false;
     final correction = _timeline.correctionAt(position, audioDelay: audioDelay);
     final offset = correction.position.automaticDelay;
     if (offset == null) {
       if (automaticOffset != null) {
         await player.setLiveSubtitleOffset(0);
-        if (!enabled || generation != _generation) return;
+        if (!enabled || generation != _generation) return false;
         automaticOffset = null;
         _state(LiveSyncPhase.resyncing);
       }
-      return;
+      return false;
     }
     if (automaticOffset == null || (offset - automaticOffset!).abs() >= 0.01) {
       await player.setLiveSubtitleOffset(offset);
-      if (!enabled || generation != _generation) return;
+      if (!enabled || generation != _generation) return false;
       automaticOffset = offset;
     }
     if (phase != LiveSyncPhase.synced) _state(LiveSyncPhase.synced);
+    return correction.established;
   }
 
   Future<void> _reset({Duration? target}) async {

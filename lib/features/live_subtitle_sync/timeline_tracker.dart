@@ -2,9 +2,13 @@ import 'temporal_aligner.dart';
 import 'timeline_map.dart';
 
 class TimelineCorrection {
-  const TimelineCorrection(this.position, {this.predicted = false});
+  const TimelineCorrection(this.position, {this.predicted = false, this.established = false});
   final TimelinePosition position;
   final bool predicted;
+
+  /// This correction's own region has enough validated, spaced observations
+  /// for sparse checks. Evidence elsewhere in the media does not qualify it.
+  final bool established;
 }
 
 /// Learns only from accepted, timestamped dialogue anchors. Predictions are
@@ -20,7 +24,6 @@ class TimelineTracker {
   final _restored = <TimelineSegment>{};
 
   TimelineMap get map => _map;
-  bool get hasUnvalidatedCache => _restored.isNotEmpty;
 
   void restore(TimelineMap map) {
     clear();
@@ -176,12 +179,20 @@ class TimelineTracker {
         automaticDelay: position.automaticDelay! + audioDelay,
       ),
       predicted: audio.predicted,
+      established: audio.established,
     );
   }
 
   TimelineCorrection _atAudioTime(double mediaTime) {
     final observed = _map.atMedia(mediaTime);
-    if (observed.kind != TimelineRegionKind.unknown) return TimelineCorrection(observed);
+    if (observed.kind != TimelineRegionKind.unknown) {
+      return TimelineCorrection(
+        observed,
+        established:
+            observed.kind == TimelineRegionKind.aligned &&
+            _isEstablished(_map.segments.firstWhere((segment) => segment.containsMedia(mediaTime))),
+      );
+    }
     final active = _prediction;
     if (active == null ||
         !mediaTime.isFinite ||
@@ -205,6 +216,13 @@ class TimelineTracker {
         automaticDelay: mediaTime - subtitleTime,
       ),
       predicted: true,
+      established: _isEstablished(active),
     );
   }
+
+  bool _isEstablished(TimelineSegment segment) =>
+      !_restored.contains(segment) &&
+      segment.anchors.length >= 6 &&
+      segment.subtitleEnd - segment.subtitleStart >= 60 &&
+      segment.mediaEnd - segment.mediaStart >= 60;
 }

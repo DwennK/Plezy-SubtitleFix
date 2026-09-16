@@ -130,7 +130,7 @@ void main() {
       final restored = (await cache.read(key(), index))!;
       expect(restored.segments.single.slope, closeTo(slope, 1e-8));
       final tracker = TimelineTracker()..restore(restored);
-      expect(tracker.hasUnvalidatedCache, isTrue);
+      expect(tracker.correctionAt(40).established, isFalse);
       expect(tracker.correctionAt(40).position.automaticDelay, closeTo(original.atMedia(40).automaticDelay!, 1e-8));
       expect(tracker.correctionAt(140).position.kind, TimelineRegionKind.unknown);
       final text = await (await stored()).readAsString();
@@ -204,14 +204,14 @@ void main() {
     expect(tracker.correctionAt(20).position.automaticDelay, 3);
     expect(tracker.observe([anchors(offset: 9).last]), isTrue);
     expect(tracker.correctionAt(20).position.automaticDelay, 9);
-    expect(tracker.hasUnvalidatedCache, isFalse);
     expect(tracker.map.segments, hasLength(1));
   });
 
   test('matching fresh evidence validates the restored region', () {
-    final tracker = TimelineTracker()..restore(map());
+    final tracker = TimelineTracker()..restore(map(count: 6));
+    expect(tracker.correctionAt(20).established, isFalse);
     expect(tracker.observe(anchors(offset: 3.1)), isTrue);
-    expect(tracker.hasUnvalidatedCache, isFalse);
+    expect(tracker.correctionAt(20).established, isTrue);
     expect(tracker.correctionAt(20).position.automaticDelay, closeTo(3.1, 0.2));
   });
 

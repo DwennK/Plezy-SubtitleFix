@@ -286,9 +286,8 @@ Future<Map<String, Object>> probe(Map<String, String> options) async {
             }
           }
         }
-        final established = timeline.map.segments.any(
-          (segment) => segment.anchors.length >= 6 && segment.subtitleEnd - segment.subtitleStart >= 60,
-        );
+        final currentPosition = mediaPosition();
+        final established = currentPosition != null && timeline.correctionAt(currentPosition).established;
         final interval = cadence.intervalMs(
           synced: tracking && offset != null,
           established: established,
