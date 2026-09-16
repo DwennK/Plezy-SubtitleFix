@@ -953,3 +953,43 @@ la conservation du délai audio après désactivation. Sa preuve native est en
 attente. La CI upstream complète de `785dcef2`,
 [35052223364](https://github.com/DwennK/Plezy-SubtitleFix/actions/runs/35052223364),
 est verte ; elle précède ces changements de timeline et de délai audio.
+
+### Échec conservé : générique dans le contrôleur Windows
+
+Le run [35052221863](https://github.com/DwennK/Plezy-SubtitleFix/actions/runs/35052221863)
+à `785dcef2` passe le cas simple en **24,819 s, erreur 167 ms**, avec le nouveau
+seuil de 750 ms et les vérifications manuelles. Son cas **intro-90 échoue par
+expiration du délai d'acquisition**. Cinq analyses silencieuses ne produisent
+aucune ancre, une analyse native est rejetée, puis un rapprochement fournit
+une seule ancre à +85,677 s. Elle ne suffit pas à confirmer un mapping et aucune
+correction n'est appliquée. Les rapports complets des deux cas sont conservés
+dans `docs/livesync-evidence/windows-{calibration,intro-90}-785dcef2.json`.
+
+Cet échec expose aussi une attente inutile : après une erreur native ou un
+dialogue retrouvé avec une seule ancre, l'acquisition restait au rythme de 30 s
+hérité du silence. `3186f7a8` partage une politique de cadence entre contrôleur
+et probe : passage reconnu sans mapping fiable → prochaine fenêtre de 15 s
+après 12 s minimum ; deux erreurs natives consécutives bénéficient aussi de ce
+retry, puis retour au rythme lent. Aucun seuil d'acceptation n'est abaissé et
+la cause du rejet natif lui-même n'est pas présentée comme corrigée.
+
+**93 tests ciblés passent** avec l'analyse complète sans diagnostic. Le nouvel
+essai Windows est déclenché ; ce correctif de cadence ne transforme pas l'échec
+précédent en succès. Le rendu natif et la précision de la dérive restent ouverts.
+
+L'essai natif Mac du nouveau code `3186f7a8` retrouve **+89,775 s**, soit 225 ms
+d'erreur, en **117,830 s au total**. Sept analyses terminées, aucune rejetée.
+Le rapport `cadence-intro-90-macos-native.json` conserve ce résultat ponctuel ;
+des contrôles/builds locaux tournaient en parallèle, donc aucune distribution
+de latence ni comparaison contrôlée n'en est déduite. Le nouveau run applicatif
+Windows est [35053833262](https://github.com/DwennK/Plezy-SubtitleFix/actions/runs/35053833262).
+
+Le contrôle du code inutilisé a repéré l'ancien `ConstantOffsetEstimator`,
+remplacé par la timeline. `f80d7e65` le retire et migre les 16 tests d'alignement
+et de contexte vers le fitter/tracker de production ; ils passent, ainsi que
+l'analyse complète. Aucun garde upstream n'est désactivé.
+
+Les contrôles finaux de code et de fichiers inutilisés passent. Le build macOS
+debug `f80d7e65` et sa signature stricte passent ; sa copie de revue et le hash
+du kernel Dart sont conservés dans `build/livesync/review-builds/f80d7e65/`.
+Cela ne valide pas l'interface verrouillée ni le recalage audible de Mentalist.

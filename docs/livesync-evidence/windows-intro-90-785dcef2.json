@@ -1,0 +1,114 @@
+{
+  "provenance": {
+    "ciRun": 35052221863,
+    "forkSha": "785dcef22078144bdb88033898a589f70eafdea0",
+    "fixture": {
+      "source": "sintel-stereo-en",
+      "attribution": "Copyright (c) Blender Foundation | durian.blender.org",
+      "license": "CC-BY-3.0",
+      "partition": [
+        100,
+        175
+      ],
+      "role": "calibration",
+      "case": "intro-90",
+      "introSilenceSeconds": 90,
+      "subtitleShiftSeconds": -100,
+      "expectedOffsetSeconds": 90,
+      "channels": 6,
+      "syntheticChannelRouting": true,
+      "files": {
+        "fixture.mkv": "b3edfebd0db59d5557746d589b1a9b9150f4f84a266955f75e95940f8aa743cb",
+        "fixture.srt": "9e97de827922d82cea40142d42f0e29fcbcf6af956147a8286378ee35d2c4edd"
+      }
+    },
+    "scope": "Actual Windows controller before the affine timeline and prompt retry changes."
+  },
+  "report": {
+    "passed": false,
+    "phase": "acquisition-timeout",
+    "analyses": [
+      {
+        "selectedAudioLanguage": "eng",
+        "selectedSubtitleLanguage": "eng",
+        "subtitleExternal": true,
+        "subtitleSourceMatchesFixture": true
+      },
+      {
+        "inferenceBackend": "avx2-cpu"
+      },
+      {
+        "attempt": 1,
+        "windowStart": 6.528999999999993,
+        "windowEnd": 14.548374999999993,
+        "match": "insufficientDialogue",
+        "similarity": null,
+        "competitor": null,
+        "contextWindows": 1,
+        "segmentedMatch": false,
+        "anchors": []
+      },
+      {
+        "attempt": 2,
+        "windowStart": 12.006999999999993,
+        "windowEnd": 27.00699999999999,
+        "match": "insufficientDialogue",
+        "similarity": null,
+        "competitor": null,
+        "contextWindows": 1,
+        "segmentedMatch": false,
+        "anchors": []
+      },
+      {
+        "attempt": 3,
+        "windowStart": 24.50837499999999,
+        "windowEnd": 39.50837499999999,
+        "match": "insufficientDialogue",
+        "similarity": null,
+        "competitor": null,
+        "contextWindows": 1,
+        "segmentedMatch": false,
+        "anchors": []
+      },
+      {
+        "attempt": 4,
+        "windowStart": 37.05237499999999,
+        "windowEnd": 52.05237499999999,
+        "match": "insufficientDialogue",
+        "similarity": null,
+        "competitor": null,
+        "contextWindows": 1,
+        "segmentedMatch": false,
+        "anchors": []
+      },
+      {
+        "attempt": 5,
+        "windowStart": 67.516375,
+        "windowEnd": 82.516375,
+        "match": "insufficientDialogue",
+        "similarity": null,
+        "competitor": null,
+        "contextWindows": 1,
+        "segmentedMatch": false,
+        "anchors": []
+      },
+      {
+        "attempt": 7,
+        "windowStart": 128.087,
+        "windowEnd": 143.087,
+        "match": "matched",
+        "similarity": 0.9285714285714286,
+        "competitor": null,
+        "contextWindows": 1,
+        "segmentedMatch": false,
+        "anchors": [
+          {
+            "cue": 10,
+            "offset": 85.67699999999999
+          }
+        ]
+      }
+    ],
+    "failureCode": "inferenceUnavailable"
+  }
+}

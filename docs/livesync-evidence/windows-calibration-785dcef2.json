@@ -1,0 +1,53 @@
+{
+  "provenance": {
+    "ciRun": 35052221863,
+    "forkSha": "785dcef22078144bdb88033898a589f70eafdea0",
+    "fixture": {
+      "source": "sintel-stereo-en",
+      "attribution": "Copyright (c) Blender Foundation | durian.blender.org",
+      "license": "CC-BY-3.0",
+      "partition": [
+        100,
+        175
+      ],
+      "role": "calibration",
+      "case": "calibration",
+      "introSilenceSeconds": 0,
+      "subtitleShiftSeconds": 0,
+      "expectedOffsetSeconds": -100,
+      "channels": 6,
+      "syntheticChannelRouting": true,
+      "files": {
+        "fixture.mkv": "080c1fe242ee003dc210d27c1f890c8203df980b9cc2bec9f8c8ff5f1c44db88",
+        "fixture.srt": "4ed7e1f1bc5ff69fe33606960e4c048ba6766237bf33b132fef76e1a92cb64b2"
+      }
+    },
+    "scope": "Actual Windows controller before the affine timeline and prompt retry changes."
+  },
+  "report": {
+    "kind": "actual-plezy-production-controller-calibration",
+    "platform": "windows",
+    "inferenceBackend": "avx2-cpu",
+    "expectedOffset": -100.0,
+    "absoluteOffsetError": 0.16733333333331757,
+    "maximumOffsetError": 0.75,
+    "modelId": "base.en",
+    "modelSha256": "a03779c86df3323075f5e796cb2ce5029f00ec8869eee3fdfb897afe36c6d002",
+    "fixtureCase": "calibration",
+    "introSilenceSeconds": 0,
+    "actualOffset": -100.16733333333332,
+    "reference": "authored Sintel SRT, not precise acoustic-onset ground truth",
+    "acquisitionMs": 24819,
+    "nativeDelay": -100.042336,
+    "audioPartitionSeconds": [
+      100,
+      175
+    ],
+    "audioOutput": "pcm-to-NUL",
+    "audiblePlaybackValidated": false,
+    "pcmOrTranscriptPersisted": false,
+    "manualDelayDuringAndAfter": true,
+    "tapDisabledOnClose": true,
+    "passed": true
+  }
+}
