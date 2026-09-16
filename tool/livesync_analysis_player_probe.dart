@@ -52,6 +52,7 @@ class _ProbeState extends State<_Probe> {
   Future<void> _run() async {
     const directory = String.fromEnvironment('LIVESYNC_ANALYSIS_FIXTURE_DIR');
     final output = File('$directory/result.json');
+    final diagnostics = <Map<String, Object?>>[];
     try {
       check(directory.isNotEmpty, 'fixture');
       final spec = LiveSyncModel.quantizedEnglish;
@@ -90,11 +91,20 @@ class _ProbeState extends State<_Probe> {
         externalSubtitles: [SubtitleTrack.uri('$directory/fixture.srt', language: 'eng', codec: 'srt')],
       );
       final tracks = await tracksReady.timeout(const Duration(seconds: 15));
-      await player.selectAudioTrack(tracks.audio.firstWhere((track) => track.language == 'eng'));
-      await player.selectSubtitleTrack(tracks.subtitle.firstWhere((track) => track.isExternal));
+      final audio = tracks.audio.firstWhere((track) => track.language == 'eng');
+      final subtitle = tracks.subtitle.firstWhere((track) => track.isExternal);
+      // A property command acknowledgement precedes the selected-track event,
+      // especially on Windows. Start only once the production state confirms
+      // both identities and their metadata.
+      await player.selectAudioTrack(audio);
+      await player.selectSubtitleTrack(subtitle);
+      if (player.state.track.audio?.id != audio.id || player.state.track.subtitle?.id != subtitle.id) {
+        await player.streams.track
+            .firstWhere((selection) => selection.audio?.id == audio.id && selection.subtitle?.id == subtitle.id)
+            .timeout(const Duration(seconds: 10));
+      }
       await player.setProperty('sub-delay', '0.125');
       final sync = controller = LiveSubtitleSyncController.forPlayer(player);
-      final diagnostics = <Map<String, Object?>>[];
       sync.diagnosticObserver = diagnostics.add;
       if (mounted) setState(() => status = 'Sintel calibration audio 100–175 s; expected offset −100 s');
       await player.play();
@@ -150,7 +160,12 @@ class _ProbeState extends State<_Probe> {
     } catch (error) {
       await controller?.disable();
       await output.writeAsString(
-        jsonEncode({'passed': false, 'phase': error is StateError ? error.message : 'native-probe-error'}),
+        jsonEncode({
+          'passed': false,
+          'phase': error is StateError ? error.message : 'native-probe-error',
+          'analyses': diagnostics,
+          'failureCode': controller?.diagnosticFailure,
+        }),
       );
       if (mounted) setState(() => status = 'Calibration check failed; inspect result.json');
     }
