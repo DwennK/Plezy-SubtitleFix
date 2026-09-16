@@ -71,9 +71,12 @@ Les limites ne sont pas des validations. Les preuves historiques gardent leur SH
   37 et 57 ms. L'ancien échec à 52,022 s demeure, sans trace permettant de le
   décomposer. Ce nouvel essai ne prouve pas une accélération.
 - **Validation Release**, `7267abfc` : même scénario, modèle et seuils ; mode de
-  compilation et archives identifiés séparément. Run Windows `35110773889`
-  en cours. Aucun gain ni respect général des budgets n'est encore attribué au
-  mode Release.
+  compilation et archives identifiés séparément. [Run Windows `35110773889` réussi](livesync-evidence/release-7267abfc-windows.json) :
+  acquisition 26,826 s / 121,450 s ; erreur face au SRT 214 / 239,6 ms.
+  Capture prête à 2,284 s sur la calibration, inférences 3,72 et 4,21 s,
+  matching 3 et 2 ms. Comparaison de runners distincts, sans preuve causale
+  d’accélération ni validation générale des budgets. Ce source ne contient
+  pas le cache v2 ni la protection ultérieure après soumission native.
 
 ## Point utilisateur prioritaire
 
@@ -82,3 +85,13 @@ analyse PCM a proposé +3,749 s, sans référence annotée ni validation visible
 audible dans le lecteur. **Ni cette estimation ni les acquisitions Sintel ne
 prouvent que l'épisode utilisateur est correctement synchronisé.** Les nouveaux
 correctifs n'ont pas été installés sur son Mac durant ces vérifications.
+
+## Candidat Release combiné
+
+`0d2482fb` regroupe le code maintenu du cache v2, une protection contre les
+accusés de soumission arrivant après un seek, et les builds Release Windows/Mac.
+La protection a passé 162 tests locaux et l’analyse sur le code cache combiné ;
+la course elle-même n’a pas été reproduite dans un probe natif. Le bundle Mac
+ordinaire est archivé avant qu’XCTest active la testabilité de son hôte Release.
+Les quatre workflows du candidat sont lancés ; aucun résultat antérieur ne
+lui est attribué. La branche maintenue reste au candidat validé `f04d8e29`.

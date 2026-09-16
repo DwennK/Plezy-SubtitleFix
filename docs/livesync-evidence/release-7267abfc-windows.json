@@ -1,0 +1,399 @@
+{
+  "schema": 1,
+  "sourceSha": "7267abfc9f461e95ed6e6b92a0cce34da1440f9e",
+  "runId": 35110773889,
+  "runUrl": "https://github.com/DwennK/Plezy-SubtitleFix/actions/runs/35110773889",
+  "conclusion": "success",
+  "buildMode": {
+    "flutterMode": "release",
+    "nativeConfiguration": "Release"
+  },
+  "reports": {
+    "calibration-player-calibration.json": {
+      "sha256": "566ccdf566d9ee033f3d2926fe2e8b27ae3ecff2a61c461de0e176227d6d1e28",
+      "report": {
+        "kind": "actual-plezy-production-controller-calibration",
+        "subtitleLoadDelayMs": 0,
+        "seekDuringStartupValidated": true,
+        "startupDiagnostics": [
+          {
+            "observedElapsedMs": 16,
+            "startupSubtitlesMs": 11,
+            "mappingCacheEligible": true,
+            "restoredSegments": 0
+          },
+          {
+            "observedElapsedMs": 2284,
+            "startupCaptureMs": 2279,
+            "captureReadyBeforeSubtitles": false
+          },
+          {
+            "observedElapsedMs": 2284,
+            "startupReadyMs": 2279,
+            "startupBufferedSamples": 0
+          }
+        ],
+        "acquisitionDiagnostics": [
+          {
+            "selectedAudioLanguage": "eng",
+            "selectedSubtitleLanguage": "eng",
+            "subtitleExternal": true,
+            "subtitleSourceMatchesFixture": true
+          },
+          {
+            "observedElapsedMs": 16,
+            "startupSubtitlesMs": 11,
+            "mappingCacheEligible": true,
+            "restoredSegments": 0
+          },
+          {
+            "observedElapsedMs": 2284,
+            "startupCaptureMs": 2279,
+            "captureReadyBeforeSubtitles": false
+          },
+          {
+            "observedElapsedMs": 2284,
+            "startupReadyMs": 2279,
+            "startupBufferedSamples": 0
+          },
+          {
+            "observedElapsedMs": 2284,
+            "inferenceBackend": "avx2-cpu"
+          },
+          {
+            "observedElapsedMs": 10293,
+            "analysisRequest": 1,
+            "generation": 2,
+            "continuity": 6,
+            "activityVoicePresent": null,
+            "activityTimingMismatch": false,
+            "analysisIntervalMs": 12000,
+            "analysisWindowSeconds": 12.0
+          },
+          {
+            "observedElapsedMs": 14288,
+            "attempt": 1,
+            "generation": 2,
+            "continuity": 6,
+            "inferenceSeconds": 3.722644,
+            "matchingMs": 3,
+            "windowStart": 2.0599999999999996,
+            "windowEnd": 10.079374999999999,
+            "validPrefixOnly": false,
+            "match": "matched",
+            "similarity": 1.0,
+            "competitor": null,
+            "contextWindows": 1,
+            "segmentedMatch": false,
+            "anchors": [
+              {
+                "cue": 0,
+                "offset": -100.15
+              }
+            ]
+          },
+          {
+            "observedElapsedMs": 22295,
+            "analysisRequest": 2,
+            "generation": 2,
+            "continuity": 6,
+            "activityVoicePresent": true,
+            "activityTimingMismatch": false,
+            "analysisIntervalMs": 12000,
+            "analysisWindowSeconds": 15.0
+          },
+          {
+            "observedElapsedMs": 26790,
+            "attempt": 2,
+            "generation": 2,
+            "continuity": 6,
+            "inferenceSeconds": 4.2134114,
+            "matchingMs": 2,
+            "windowStart": 7.026,
+            "windowEnd": 22.026,
+            "validPrefixOnly": true,
+            "match": "matched",
+            "similarity": 1.0,
+            "competitor": null,
+            "contextWindows": 1,
+            "segmentedMatch": false,
+            "anchors": [
+              {
+                "cue": 1,
+                "offset": -100.214
+              },
+              {
+                "cue": 2,
+                "offset": -100.23400000000001
+              }
+            ]
+          },
+          {
+            "observedElapsedMs": 26790,
+            "learnedMediaStart": 7.036000000000001,
+            "learnedMediaEnd": 17.786001,
+            "learnedSlope": 1.0,
+            "learnedSegments": 1
+          }
+        ],
+        "captureDuringSubtitleLoadValidated": false,
+        "platform": "windows",
+        "flutterBuildMode": "release",
+        "inferenceBackend": "avx2-cpu",
+        "expectedOffset": -100.0,
+        "absoluteOffsetError": 0.21399999999999864,
+        "maximumOffsetError": 0.75,
+        "modelId": "base.en",
+        "modelSha256": "a03779c86df3323075f5e796cb2ce5029f00ec8869eee3fdfb897afe36c6d002",
+        "fixtureCase": "calibration",
+        "introSilenceSeconds": 0,
+        "actualOffset": -100.214,
+        "reference": "authored Sintel SRT, not precise acoustic-onset ground truth",
+        "acquisitionMs": 26826,
+        "acquisitionTargetMs": 45000,
+        "acquisitionTargetPassed": true,
+        "nativeDelay": -100.088997,
+        "audioPartitionSeconds": [
+          100,
+          175
+        ],
+        "audioOutput": "pcm-to-NUL",
+        "audiblePlaybackValidated": false,
+        "pcmOrTranscriptPersisted": false,
+        "postConfirmationOffset": -100.18199999999999,
+        "knownRegionRestoredAfterSeek": true,
+        "unknownSeekClearsAutomaticOnly": true,
+        "audioDelayCompositionAndPreservation": true,
+        "cacheRestoreMs": 845,
+        "persistentCacheKnownAndUnknownRegions": true,
+        "manualDelayDuringAndAfter": true,
+        "tapDisabledOnClose": true,
+        "passed": true
+      }
+    },
+    "calibration-player-intro-90.json": {
+      "sha256": "dc3ab6cb01149722d19417c2d2f82844679eccefb61fae3efd891d00d8375147",
+      "report": {
+        "kind": "actual-plezy-production-controller-calibration",
+        "subtitleLoadDelayMs": 0,
+        "seekDuringStartupValidated": true,
+        "startupDiagnostics": [
+          {
+            "observedElapsedMs": 68,
+            "startupSubtitlesMs": 63,
+            "mappingCacheEligible": true,
+            "restoredSegments": 0
+          },
+          {
+            "observedElapsedMs": 2132,
+            "startupCaptureMs": 2127,
+            "captureReadyBeforeSubtitles": false
+          },
+          {
+            "observedElapsedMs": 2132,
+            "startupReadyMs": 2127,
+            "startupBufferedSamples": 0
+          }
+        ],
+        "acquisitionDiagnostics": [
+          {
+            "selectedAudioLanguage": "eng",
+            "selectedSubtitleLanguage": "eng",
+            "subtitleExternal": true,
+            "subtitleSourceMatchesFixture": true
+          },
+          {
+            "observedElapsedMs": 68,
+            "startupSubtitlesMs": 63,
+            "mappingCacheEligible": true,
+            "restoredSegments": 0
+          },
+          {
+            "observedElapsedMs": 2132,
+            "startupCaptureMs": 2127,
+            "captureReadyBeforeSubtitles": false
+          },
+          {
+            "observedElapsedMs": 2132,
+            "startupReadyMs": 2127,
+            "startupBufferedSamples": 0
+          },
+          {
+            "observedElapsedMs": 2132,
+            "inferenceBackend": "avx2-cpu"
+          },
+          {
+            "observedElapsedMs": 10139,
+            "analysisRequest": 1,
+            "generation": 2,
+            "continuity": 6,
+            "activityVoicePresent": null,
+            "activityTimingMismatch": false,
+            "analysisIntervalMs": 12000,
+            "analysisWindowSeconds": 12.0
+          },
+          {
+            "observedElapsedMs": 14144,
+            "attempt": 1,
+            "generation": 2,
+            "continuity": 6,
+            "inferenceSeconds": 3.6518179,
+            "matchingMs": 5,
+            "windowStart": 1.537,
+            "windowEnd": 9.684375,
+            "validPrefixOnly": false,
+            "match": "insufficientDialogue",
+            "similarity": null,
+            "competitor": null,
+            "contextWindows": 1,
+            "segmentedMatch": false,
+            "anchors": []
+          },
+          {
+            "observedElapsedMs": 91147,
+            "analysisRequest": 2,
+            "generation": 2,
+            "continuity": 6,
+            "activityVoicePresent": true,
+            "activityTimingMismatch": false,
+            "analysisIntervalMs": 12000,
+            "analysisWindowSeconds": 15.0
+          },
+          {
+            "observedElapsedMs": 95140,
+            "attempt": 2,
+            "generation": 2,
+            "continuity": 6,
+            "inferenceSeconds": 3.624553,
+            "matchingMs": 1,
+            "windowStart": 75.7776875,
+            "windowEnd": 90.7776875,
+            "validPrefixOnly": false,
+            "match": "insufficientDialogue",
+            "similarity": null,
+            "competitor": null,
+            "contextWindows": 1,
+            "segmentedMatch": false,
+            "anchors": []
+          },
+          {
+            "observedElapsedMs": 103647,
+            "analysisRequest": 3,
+            "generation": 2,
+            "continuity": 6,
+            "activityVoicePresent": true,
+            "activityTimingMismatch": false,
+            "analysisIntervalMs": 12000,
+            "analysisWindowSeconds": 15.0
+          },
+          {
+            "observedElapsedMs": 108139,
+            "attempt": 3,
+            "generation": 2,
+            "continuity": 6,
+            "inferenceSeconds": 4.010766,
+            "matchingMs": 5,
+            "windowStart": 88.236375,
+            "windowEnd": 103.236375,
+            "validPrefixOnly": false,
+            "match": "noCandidate",
+            "similarity": null,
+            "competitor": null,
+            "contextWindows": 1,
+            "segmentedMatch": false,
+            "anchors": []
+          },
+          {
+            "observedElapsedMs": 116142,
+            "analysisRequest": 4,
+            "generation": 2,
+            "continuity": 6,
+            "activityVoicePresent": true,
+            "activityTimingMismatch": false,
+            "analysisIntervalMs": 12000,
+            "analysisWindowSeconds": 15.0
+          },
+          {
+            "observedElapsedMs": 121141,
+            "attempt": 4,
+            "generation": 2,
+            "continuity": 6,
+            "inferenceSeconds": 4.5230788,
+            "matchingMs": 4,
+            "windowStart": 100.780375,
+            "windowEnd": 115.780375,
+            "validPrefixOnly": false,
+            "match": "matched",
+            "similarity": 1.0,
+            "competitor": null,
+            "contextWindows": 1,
+            "segmentedMatch": false,
+            "anchors": [
+              {
+                "cue": 1,
+                "offset": 89.800375
+              },
+              {
+                "cue": 2,
+                "offset": 89.76037500000001
+              },
+              {
+                "cue": 3,
+                "offset": 89.690375
+              }
+            ]
+          },
+          {
+            "observedElapsedMs": 121142,
+            "learnedMediaStart": 101.56037500000001,
+            "learnedMediaEnd": 111.51037600000001,
+            "learnedSlope": 1.0,
+            "learnedSegments": 1
+          }
+        ],
+        "captureDuringSubtitleLoadValidated": false,
+        "platform": "windows",
+        "flutterBuildMode": "release",
+        "inferenceBackend": "avx2-cpu",
+        "expectedOffset": 90.0,
+        "absoluteOffsetError": 0.23962499999998954,
+        "maximumOffsetError": 0.75,
+        "modelId": "base.en",
+        "modelSha256": "a03779c86df3323075f5e796cb2ce5029f00ec8869eee3fdfb897afe36c6d002",
+        "fixtureCase": "intro-90",
+        "introSilenceSeconds": 90,
+        "actualOffset": 89.76037500000001,
+        "reference": "authored Sintel SRT, not precise acoustic-onset ground truth",
+        "acquisitionMs": 121450,
+        "acquisitionTargetMs": 135000,
+        "acquisitionTargetPassed": true,
+        "nativeDelay": 89.885376,
+        "audioPartitionSeconds": [
+          100,
+          175
+        ],
+        "audioOutput": "pcm-to-NUL",
+        "audiblePlaybackValidated": false,
+        "pcmOrTranscriptPersisted": false,
+        "postConfirmationOffset": 89.780375,
+        "knownRegionRestoredAfterSeek": true,
+        "unknownSeekClearsAutomaticOnly": true,
+        "audioDelayCompositionAndPreservation": true,
+        "cacheRestoreMs": 942,
+        "persistentCacheKnownAndUnknownRegions": true,
+        "manualDelayDuringAndAfter": true,
+        "tapDisabledOnClose": true,
+        "passed": true
+      }
+    }
+  },
+  "fullProductAcceptance": false,
+  "limitations": [
+    "This source has the a5838cbe production algorithm and trace diagnostics, not cache v2 or the later submit-generation guard.",
+    "A separate hosted Release run is not a paired benchmark against the Debug run.",
+    "The native inference helper was already Release in both runs; native speed differences are not attributed to Flutter build mode.",
+    "Authored Sintel SRT timing is not independent acoustic onset ground truth.",
+    "PCM-to-NUL output; no audible playback or Mentalist validation.",
+    "The previous 52.022 s Debug acquisition failure remains recorded."
+  ]
+}

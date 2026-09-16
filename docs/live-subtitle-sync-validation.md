@@ -1790,3 +1790,27 @@ La PR nº 3 est intégrée dans `7a68ca09`, code identique au candidat.
 Le gap injecté est un scénario de corruption, pas une scène apprise ; ni la
 précision acoustique indépendante ni Mentalist audible ne sont validés.
 Les archives brouillon a5838cbe restent antérieures à ce correctif.
+
+
+### Premier contrôleur Windows en Release — 16 septembre
+
+Le run `35110773889`, source `7267abfc`, réussit. Le reçu workflow et les
+rapports du contrôleur confirment tous le mode Release. Calibration : 26,826 s,
+erreur 214 ms ; intro-90 : 121,450 s, erreur 239,6 ms. Les cibles 45/135 s et
+les contrôles de seek au démarrage, réglages manuel/audio, cache et arrêt passent.
+Sur la calibration : capture prête à 2,284 s ; demandes à 10,293 / 22,295 s ;
+inférences 3,723 / 4,213 s ; matching 3 / 2 ms.
+
+[Rapports complets et empreintes](livesync-evidence/release-7267abfc-windows.json).
+Ce ne sont ni des repères acoustiques indépendants ni une comparaison appariée
+du même matériel. L’inférence native était déjà compilée en Release dans les
+anciens essais Debug ; son gain observé ici ne peut être attribué au mode Flutter.
+Mentalist et la sortie audible restent non validés.
+
+Le candidat séparé `0d2482fb` combine le cache v2, une protection de génération
+après l’accusé natif de soumission et les workflows Release Windows/macOS.
+Le code cache+protection passe 162 tests locaux et l’analyse ; actionlint et
+13 contrôles d’orchestration passent après ajout du mode Mac. Les contrats Mac
+utilisent un hôte Release avec testabilité Swift ; l’application ordinaire
+est archivée avant cette instrumentation. Les nouvelles CI sont en cours,
+sans promotion de ce candidat ni attribution des résultats de `7267abfc`.
