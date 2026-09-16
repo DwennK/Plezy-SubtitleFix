@@ -1,0 +1,53 @@
+{
+  "schema": 1,
+  "checkedAt": "2026-09-16T21:35:21.760236+00:00",
+  "sourceSha": "0d2482fb6dcc00b5411e20ec382b88b2466de70f",
+  "upstreamSha": "7883cf8c88d31e9b81e574c6949031a1c46de0b4",
+  "upstreamCheckedAt": "2026-09-16T21:34:23Z",
+  "archiveSha256": "dbf7a0e47765ae6f130ab4fe50bece621e0b1f0fc9c19d656045fef6c44c47c0",
+  "installedPath": "/Applications/PlezyLiveSync.app",
+  "bundleId": "com.dwennk.plezy.livesync",
+  "version": "2.20.0",
+  "build": "150",
+  "sourceTree": {
+    "entries": 588,
+    "sha256": "72e8d20ba3993f710574665d99bfb5828dd45c0e54991d2c382c2c955af9121e"
+  },
+  "installedTree": {
+    "entries": 588,
+    "sha256": "72e8d20ba3993f710574665d99bfb5828dd45c0e54991d2c382c2c955af9121e"
+  },
+  "officialApplication": {
+    "path": "/Applications/Plezy.app",
+    "tree": {
+      "entries": 584,
+      "sha256": "6acfbdf3e6a09abb9387207437877d9c9d9a60559034241aea9e003f4d3dd85e"
+    },
+    "unchanged": true
+  },
+  "strictCodeSignaturePassed": true,
+  "signatureKind": "adhoc",
+  "notarized": false,
+  "quarantineAttributePresent": false,
+  "securityAttributesRemoved": false,
+  "launched": true,
+  "nativeUserPlaybackValidated": false,
+  "MentalistValidated": false,
+  "userDataMigrationPerformed": false,
+  "uninstallValidated": false,
+  "fullProductAcceptance": false,
+  "limitations": [
+    "Native home, episode video, English SRT selection and LiveSync refusal inspected; no audible sync or precision validation.",
+    "This maintained test build predates the unpromoted timing recovery and new Mac controller validation candidates.",
+    "Distinct bundle identity and preserved official app are verified; runtime preferences/coexistence and uninstallation remain unvalidated."
+  ],
+  "launchCheckedAt": "2026-09-16T21:51:30.102049+00:00",
+  "launchMechanism": "Computer Use, exact installed application path",
+  "runningExecutableVerified": true,
+  "homeScreenRendered": true,
+  "userEpisodeVideoRendered": true,
+  "englishSrtSelectedInNativeUI": true,
+  "liveSyncActivationState": "unsupported",
+  "liveSyncActivationReason": "Select an accessible SRT subtitle track.",
+  "privateAudioOrTranscriptSaved": false
+}

@@ -140,3 +140,29 @@ Le run Windows `35148901282` échoue par arrêt du renderer avant son premier é
 la PR nº 8 ajoute son diagnostic et conserve le contrôle de synchronisation
 indépendant. Aucun de ces candidats n'est présenté comme un nouveau build validé
 sur les deux plateformes ; les archives brouillon `0d2482fb` restent distinctes.
+
+
+## Contrôle utilisateur et derniers candidats — 16 septembre, 21:50 UTC
+
+Le bundle maintenu `0d2482fb` est installé dans `/Applications/PlezyLiveSync.app`.
+Son inventaire correspond à l’archive vérifiée ; Plezy officiel est intact.
+L’accueil, la lecture vidéo de Mentalist S2 E16 et le SRT anglais sélectionné
+ont été inspectés par Computer Use. **LiveSync refuse cependant l’activation** :
+« Unsupported — Select an accessible SRT subtitle track. »
+[Installation et constat UI](livesync-evidence/macos-install-0d2482fb.json).
+Une extraction séparée par le chargeur de production réussit en 48,983 s,
+57 067 octets en RAM ; aucune donnée audio ni dialogue n’est enregistrée.
+Le branchement Plex est installé avant `PlayerNative.open`, puis effacé par cet
+open. Le correctif est isolé dans `codex/livesync-source-lifecycle` ; la preuve
+native du recalage utilisateur reste à obtenir.
+
+Les candidats de contrôleur distincts passent désormais :
+[Mac `18c16d19`](livesync-evidence/macos-controller-18c16d19.json),
+24,023 s / 117,127 s avec intro-90, et
+[Windows `b31d9b2e`](livesync-evidence/windows-controller-b31d9b2e.json),
+21,682 s / 125,371 s. Erreurs face au SRT de calibration : respectivement
+199,7 / 223,6 ms et 189,3 / 227,7 ms. Mac passe ses 14 contrats natifs.
+Le crash Windows précédent ne se reproduit pas ; sa cause reste inconnue.
+Ces résultats n’établissent ni la précision indépendante ni les budgets de
+performance (les inférences Windows observées dépassent 3 s), et ne résolvent
+pas le refus Plex dans l’application installée.
