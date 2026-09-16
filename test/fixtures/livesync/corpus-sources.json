@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "status": "prepared-not-evaluated",
+  "status": "calibration-in-progress-heldout-not-evaluated",
   "sources": [
     {
       "id": "sintel-stereo-en",

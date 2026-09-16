@@ -703,3 +703,21 @@ une preuve Windows ou une preuve du contrôleur applicatif après modification.
 Le build normal macOS est reconstruit ; vérification visuelle bloquée par le
 verrouillage du Mac. Les performances mémoire/lecture et la validation séparée
 restent nécessaires.
+
+### Contrôles de l'intégration poussée
+
+Au fork `fd658da8`, les composants Dart passent sur macOS et Windows dans
+`35043203123`. L'inférence native et ses contrats passent sur les deux plateformes
+dans `35043203122`. Le build et le contrôleur applicatif Windows sont encore
+en cours dans `35043215939` : ces succès ne prouvent pas cet autre parcours.
+Le contrôle local complet de génération de code passe également.
+
+Une reconstruction incrémentale Mac a révélé un sceau de signature périmé pour
+le runtime remplacé. Les fichiers embarqués sont désormais déclarés comme
+sorties Xcode (`6e7c6fc3`) ; le bundle reconstruit passe `codesign --verify --deep
+--strict`. La CI vérifie aussi ce sceau avant de créer son archive.
+
+La suite complète locale a exposé une course dans le serveur HTTP du test de
+délai total du modèle (écriture pendant un flush). Le test sérialise maintenant
+les écritures et vérifie qu'un timeout d'inactivité prématuré ne satisfait pas
+l'assertion ; ses 11 tests passent. Aucun changement au téléchargeur de production.
