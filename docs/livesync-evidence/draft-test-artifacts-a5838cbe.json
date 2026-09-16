@@ -1,0 +1,70 @@
+{
+  "isDraft": true,
+  "isPrerelease": true,
+  "tagName": "livesync-test-20260916-a5838cbe",
+  "targetCommitish": "a5838cbe26be02e3a19f259661e48c10c0994d7e",
+  "url": "https://github.com/DwennK/Plezy-SubtitleFix/releases/tag/untagged-d485715a669abd9dffe1",
+  "allUploadedDigestsMatchLocal": true,
+  "assets": [
+    {
+      "name": "candidate-validation.json",
+      "size": 9429,
+      "digest": "sha256:ebb19f12c8b984d55f91798091a67b8f95eafac858678dc2ada6faca97b3250f"
+    },
+    {
+      "name": "PlezyLiveSync-macos-arm64-test-a5838cbe.zip",
+      "size": 125633218,
+      "digest": "sha256:8ad73e21bf3e9678335e5ffc627d4815b30bb925af5effb183c986bfeeb49e78"
+    },
+    {
+      "name": "PlezyLiveSync-windows-x64-test-a5838cbe.zip",
+      "size": 145209895,
+      "digest": "sha256:f70aa69dd7799bbad08a07483d8435af8cea332343315d3d1bce6168ae5d66bf"
+    },
+    {
+      "name": "SHA256SUMS.txt",
+      "size": 220,
+      "digest": "sha256:7b68280978e99e93bb9a27eac058c099891ad8334c0c6f85a7299eba72b3842f"
+    },
+    {
+      "name": "test-artifacts-provenance.json",
+      "size": 1111,
+      "digest": "sha256:589091a2c7a5acca857478bf7734b09db11e463e10aa0e2b6e97700e216a47e8"
+    }
+  ],
+  "localVerification": {
+    "candidateSha": "a5838cbe26be02e3a19f259661e48c10c0994d7e",
+    "promotionSha": "893b247fe3bc6e99bf763ff80e48f37f20c684f8",
+    "upstreamSha": "7883cf8c88d31e9b81e574c6949031a1c46de0b4",
+    "plezyVersion": "2.20.0",
+    "plezyBuild": "150",
+    "macBundleId": "com.dwennk.plezy.livesync",
+    "macStrictSignatureVerified": true,
+    "windowsPEArchitecture": "x86_64",
+    "installed": false,
+    "macUILaunchVerified": false,
+    "MentalistValidated": false,
+    "fullProductAcceptance": false,
+    "calibrationAcquisitionMs": 52022,
+    "initialAcquisitionBudgetMs": 45000,
+    "initialAcquisitionBudgetPassed": false,
+    "runs": {
+      "windows": 35104648989,
+      "macos": 35104652372,
+      "dart": 35104721069,
+      "upstreamCI": 35104724035
+    },
+    "artifacts": [
+      {
+        "file": "PlezyLiveSync-macos-arm64-test-a5838cbe.zip",
+        "bytes": 125633218,
+        "sha256": "8ad73e21bf3e9678335e5ffc627d4815b30bb925af5effb183c986bfeeb49e78"
+      },
+      {
+        "file": "PlezyLiveSync-windows-x64-test-a5838cbe.zip",
+        "bytes": 145209895,
+        "sha256": "f70aa69dd7799bbad08a07483d8435af8cea332343315d3d1bce6168ae5d66bf"
+      }
+    ]
+  }
+}

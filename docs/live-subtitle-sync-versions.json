@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "product": "Plezy + LiveSync",
   "status": "upstream-validated-feature-acceptance-incomplete",
-  "recordedAt": "2026-09-16T13:27:42.660192+00:00",
+  "recordedAt": "2026-09-16T14:38:56.315147+00:00",
   "upstream": {
     "repository": "edde746/plezy",
     "branch": "main",
@@ -11,11 +11,11 @@
     "plezyVersion": "2.20.0+150",
     "stableRelease": "2.20.0",
     "latestCheck": {
-      "checkedAt": "2026-09-16T13:27:42.660192+00:00",
+      "checkedAt": "2026-09-16T14:38:56.315147+00:00",
       "latestSha": "7883cf8c88d31e9b81e574c6949031a1c46de0b4",
       "integratedSha": "7883cf8c88d31e9b81e574c6949031a1c46de0b4",
       "unintegratedCommits": 0,
-      "scope": "Candidate 10ace9fc validated by all five exact-SHA workflows, promoted without tree changes in 4d06568f. Full feature acceptance remains incomplete."
+      "scope": "Official main and latest stable release checked again while preserving test artifacts. Maintained feature code is a5838cbe, promoted through PR #2; full product acceptance remains incomplete."
     }
   },
   "flutter": {
@@ -1051,6 +1051,7 @@
     },
     "allRunsPassed": true,
     "initialAcquisitionBudgetPassed": false,
-    "fullProductAcceptance": false
+    "fullProductAcceptance": false,
+    "draftArtifactEvidence": "docs/livesync-evidence/draft-test-artifacts-a5838cbe.json"
   }
 }

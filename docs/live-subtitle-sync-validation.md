@@ -1728,3 +1728,24 @@ repères frais internes. Sept nouveaux cas couvrent les deux timelines, les
 frontières incertaines, les répétitions et les seeks ; 51 tests ciblés passent,
 ainsi que l'analyse et la CI Dart `35106046085`. Ce correctif n'est pas dans le
 build applicatif ci-dessus. Mentalist S2 E16 reste non validé dans le lecteur.
+
+
+### Artefacts du correctif intégré — 2026-09-16T14:38:56.315147+00:00
+
+Le brouillon `livesync-test-20260916-a5838cbe` conserve les applications de test
+Windows x64 et macOS arm64 du SHA testé `a5838cbe`. Les deux archives, les
+empreintes, la provenance et le rapport de validation ont été téléversés ; les
+cinq tailles et SHA-256 distants correspondent aux fichiers locaux. Le statut
+brouillon est vérifié. Voir la [preuve](livesync-evidence/draft-test-artifacts-a5838cbe.json).
+
+L'archive Mac conserve la signature stricte vérifiée ; le binaire Windows est
+PE x86_64 et le dossier complet de dépendances est inclus. Ces vérifications ne
+prouvent ni installation/désinstallation ni lecture visible et audible sur le
+matériel utilisateur. Les notes du brouillon maintiennent explicitement l'échec
+du budget initial de 45 s et l'absence de validation sur Mentalist.
+
+L'upstream officiel est revérifié : `7883cf8c88d31e9b81e574c6949031a1c46de0b4`, release stable `2.20.0`,
+sans nouveau commit à intégrer. Les branches ultérieures du cache v2 et de
+mesure d'acquisition restent exclues de ces archives. Les tests natifs encore
+actifs sont référencés dans la matrice d'acceptation ; aucun succès n'est déduit
+du seul lancement des workflows.

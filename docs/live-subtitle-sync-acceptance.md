@@ -11,7 +11,8 @@ Les limites ne sont pas des validations. Les preuves historiques gardent leur SH
 - Promotion : `893b247fe3bc6e99bf763ff80e48f37f20c684f8`, code identique ; seuls des documents de preuve supplémentaires diffèrent.
 - Base d’intégration upstream validée : `10ace9fc6d93c59a2f577e1d2a2d9e7245087f52`.
 - [Chaîne complète, PR #1, promotion et no-op](livesync-evidence/upstream-10ace9fc-full-workflow.json).
-- [Archives brouillon vérifiées](livesync-evidence/draft-test-artifacts-10ace9fc.json).
+- [Archives brouillon courantes vérifiées](livesync-evidence/draft-test-artifacts-a5838cbe.json), pour `a5838cbe`.
+- [Archives historiques de la base upstream](livesync-evidence/draft-test-artifacts-10ace9fc.json).
 - [Manifestes et outils](live-subtitle-sync-versions.json).
 
 ## Matrice
@@ -55,6 +56,14 @@ Les limites ne sont pas des validations. Les preuves historiques gardent leur SH
   puis sept nouveaux cas et les contrôles existants passent ; analyse locale et
   CI Dart `35106046085` réussissent. Cette branche séparée n'est pas dans le
   build `a5838cbe` et n'ajoute pas la détection automatique des gaps.
+  La suite `be6f431d` versionne également le cache en v2 ; 160 tests locaux,
+  analyse et CI Dart `35108485431` passent. Le candidat `f04d8e29` ajoute un essai
+  natif de cache volontairement erroné : 162 tests locaux passent, Windows
+  `35109362139` et macOS `35109400288` sont en cours au relevé.
+- **Mesure de l'acquisition**, `902d7701` : le probe conserve maintenant les
+  instants des demandes/résultats, le coût natif et le coût du matching, sans
+  dialogue ni PCM. Run Windows `35108145786` en cours ; aucune accélération
+  n'est encore déduite de cette instrumentation.
 
 ## Point utilisateur prioritaire
 
