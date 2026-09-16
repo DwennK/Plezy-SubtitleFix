@@ -1,0 +1,436 @@
+{
+  "schema": 1,
+  "sourceSha": "8718dcece49b5c8048ee32c1eca427d13a3b17dc",
+  "productionCadenceSha": "df214247",
+  "probeExecutableSha256": "da90934ab091fe1acfe1e2269f5a4385cbc616fc71f373573c9f6d8ef8c90c50",
+  "probeReportSha256": "805239db66f9bde7274a4b9fcd8fd425e417d9be5de91312440a96ca1a67f542",
+  "assessmentSha256": "5c2383080140fa385d4d4b62f746de72bd67055c60422152a3db064bc52a3bc4",
+  "scope": "real active-playback PCM, ASR and domain tracking with production activity-mismatch scheduling; no rendered or audible playback proof",
+  "observations": {
+    "acquisitionMs": 21528,
+    "evaluationMs": 105011,
+    "activityTimingMismatchChecks": 74,
+    "completedAnalyses": 10,
+    "learnedSegments": 1,
+    "learnedGaps": [],
+    "actualOffset": -100.21033333333332,
+    "analysisRequests": [
+      {
+        "elapsedMs": 8297,
+        "mediaTime": 8.292,
+        "intervalMs": 12000,
+        "windowSeconds": 12.0,
+        "voicePresent": true,
+        "timingMismatch": false,
+        "established": false
+      },
+      {
+        "elapsedMs": 20400,
+        "mediaTime": 20.375,
+        "intervalMs": 12000,
+        "windowSeconds": 15.0,
+        "voicePresent": true,
+        "timingMismatch": false,
+        "established": false
+      },
+      {
+        "elapsedMs": 32500,
+        "mediaTime": 32.458,
+        "intervalMs": 12000,
+        "windowSeconds": 12.0,
+        "voicePresent": true,
+        "timingMismatch": false,
+        "established": false
+      },
+      {
+        "elapsedMs": 44597,
+        "mediaTime": 44.583,
+        "intervalMs": 12000,
+        "windowSeconds": 12.0,
+        "voicePresent": true,
+        "timingMismatch": false,
+        "established": false
+      },
+      {
+        "elapsedMs": 45726,
+        "mediaTime": 45.708,
+        "intervalMs": 0,
+        "windowSeconds": 8.0,
+        "voicePresent": true,
+        "timingMismatch": false,
+        "established": false
+      },
+      {
+        "elapsedMs": 57737,
+        "mediaTime": 57.708,
+        "intervalMs": 12000,
+        "windowSeconds": 15.0,
+        "voicePresent": true,
+        "timingMismatch": false,
+        "established": false
+      },
+      {
+        "elapsedMs": 69829,
+        "mediaTime": 69.792,
+        "intervalMs": 12000,
+        "windowSeconds": 15.0,
+        "voicePresent": true,
+        "timingMismatch": true,
+        "established": false
+      },
+      {
+        "elapsedMs": 81929,
+        "mediaTime": 81.917,
+        "intervalMs": 12000,
+        "windowSeconds": 15.0,
+        "voicePresent": true,
+        "timingMismatch": true,
+        "established": false
+      },
+      {
+        "elapsedMs": 83059,
+        "mediaTime": 83.042,
+        "intervalMs": 0,
+        "windowSeconds": 8.0,
+        "voicePresent": true,
+        "timingMismatch": true,
+        "established": false
+      },
+      {
+        "elapsedMs": 95156,
+        "mediaTime": 95.125,
+        "intervalMs": 12000,
+        "windowSeconds": 15.0,
+        "voicePresent": true,
+        "timingMismatch": true,
+        "established": false
+      }
+    ]
+  },
+  "postEditAnalyses": [
+    {
+      "attempt": 8,
+      "windowStart": 67.34566666666666,
+      "windowEnd": 82.34566666666666,
+      "inferenceSeconds": 1.068694583,
+      "validPrefixOnly": false,
+      "match": "matched",
+      "contextWindows": 1,
+      "segmentedMatch": false,
+      "transcriptWords": 15,
+      "wordsInSubtitleVocabulary": 15,
+      "contextWords": 0,
+      "segmentBounds": [
+        {
+          "start": 67.34566666666666,
+          "end": 69.14566666666666,
+          "timedTokens": 4,
+          "firstToken": 67.82566666666666,
+          "lastToken": 69.42566666666666
+        },
+        {
+          "start": 69.14566666666666,
+          "end": 70.98566666666666,
+          "timedTokens": 4,
+          "firstToken": 69.90566666666666,
+          "lastToken": 72.22566666666665
+        },
+        {
+          "start": 72.98566666666666,
+          "end": 74.14566666666666,
+          "timedTokens": 3,
+          "firstToken": 73.32566666666666,
+          "lastToken": 75.26566666666666
+        },
+        {
+          "start": 78.58566666666665,
+          "end": 81.14566666666666,
+          "timedTokens": 8,
+          "firstToken": 76.00566666666666,
+          "lastToken": 81.12566666666666
+        }
+      ],
+      "similarity": 1.0,
+      "anchors": [
+        {
+          "cue": 8,
+          "offset": -70.17433333333334
+        }
+      ],
+      "anchorRejections": {
+        "phraseNotMatched": 1,
+        "beginningUnsupportedSpeech": 1
+      },
+      "speechTimingRejected": true,
+      "speechSupportCounts": {
+        "unknown": 0,
+        "supported": 15,
+        "unsupported": 4
+      },
+      "cueBeginningMatches": [
+        {
+          "cue": 8,
+          "wordInCue": 0,
+          "transcriptWord": 0,
+          "exact": true
+        },
+        {
+          "cue": 8,
+          "wordInCue": 1,
+          "transcriptWord": 1,
+          "exact": true
+        },
+        {
+          "cue": 8,
+          "wordInCue": 2,
+          "transcriptWord": 2,
+          "exact": true
+        },
+        {
+          "cue": 8,
+          "wordInCue": 3,
+          "transcriptWord": 3,
+          "exact": true
+        },
+        {
+          "cue": 8,
+          "wordInCue": 4,
+          "transcriptWord": 4,
+          "exact": true
+        },
+        {
+          "cue": 9,
+          "wordInCue": 0,
+          "transcriptWord": 6,
+          "exact": true
+        },
+        {
+          "cue": 9,
+          "wordInCue": 1,
+          "transcriptWord": 7,
+          "exact": true
+        },
+        {
+          "cue": 10,
+          "wordInCue": 0,
+          "transcriptWord": 8,
+          "exact": true
+        },
+        {
+          "cue": 10,
+          "wordInCue": 1,
+          "transcriptWord": 9,
+          "exact": true
+        },
+        {
+          "cue": 10,
+          "wordInCue": 2,
+          "transcriptWord": 10,
+          "exact": true
+        },
+        {
+          "cue": 10,
+          "wordInCue": 3,
+          "transcriptWord": 11,
+          "exact": true
+        },
+        {
+          "cue": 10,
+          "wordInCue": 4,
+          "transcriptWord": 12,
+          "exact": true
+        }
+      ],
+      "regions": [
+        {
+          "start": 7.039666666666676,
+          "end": 29.18966766666668,
+          "slope": 1.0,
+          "offset": -100.21033333333332,
+          "anchors": 5
+        }
+      ]
+    },
+    {
+      "attempt": 9,
+      "windowStart": 75.36966666666666,
+      "windowEnd": 83.36966666666666,
+      "inferenceSeconds": 1.265584667,
+      "validPrefixOnly": false,
+      "match": "matched",
+      "contextWindows": 2,
+      "segmentedMatch": true,
+      "transcriptWords": 16,
+      "wordsInSubtitleVocabulary": 13,
+      "contextWords": 24,
+      "segmentBounds": [
+        {
+          "start": 75.36966666666666,
+          "end": 76.36966666666666,
+          "timedTokens": 4,
+          "firstToken": 76.50966666666666,
+          "lastToken": 76.90966666666667
+        },
+        {
+          "start": 76.36966666666666,
+          "end": 77.36966666666666,
+          "timedTokens": 4,
+          "firstToken": 77.10966666666666,
+          "lastToken": 77.22966666666666
+        },
+        {
+          "start": 77.36966666666666,
+          "end": 80.36966666666666,
+          "timedTokens": 7,
+          "firstToken": 78.96966666666665,
+          "lastToken": 81.48966666666666
+        },
+        {
+          "start": 80.36966666666666,
+          "end": 82.36966666666666,
+          "timedTokens": 5,
+          "firstToken": 82.26966666666667,
+          "lastToken": 82.52966666666666
+        },
+        {
+          "start": 82.36966666666666,
+          "end": 83.36966666666666,
+          "timedTokens": 11,
+          "firstToken": 83.14966666666666,
+          "lastToken": 83.34966666666666
+        }
+      ],
+      "similarity": 1.0,
+      "anchors": [
+        {
+          "cue": 8,
+          "offset": -70.17433333333334
+        }
+      ],
+      "anchorRejections": {
+        "phraseNotMatched": 1
+      },
+      "speechTimingRejected": false,
+      "speechSupportCounts": {
+        "unknown": 0,
+        "supported": 6,
+        "unsupported": 25
+      },
+      "regions": [
+        {
+          "start": 7.039666666666676,
+          "end": 29.18966766666668,
+          "slope": 1.0,
+          "offset": -100.21033333333332,
+          "anchors": 5
+        }
+      ]
+    },
+    {
+      "attempt": 10,
+      "windowStart": 80.57235416666666,
+      "windowEnd": 95.57235416666666,
+      "inferenceSeconds": 1.036335291,
+      "validPrefixOnly": false,
+      "match": "matched",
+      "contextWindows": 1,
+      "segmentedMatch": false,
+      "transcriptWords": 11,
+      "wordsInSubtitleVocabulary": 11,
+      "contextWords": 11,
+      "segmentBounds": [
+        {
+          "start": 80.57235416666666,
+          "end": 84.57235416666666,
+          "timedTokens": 12,
+          "firstToken": 81.73235416666665,
+          "lastToken": 84.57235416666666
+        }
+      ],
+      "similarity": 1.0,
+      "anchors": [],
+      "anchorRejections": {
+        "beginningUnsupportedSpeech": 1
+      },
+      "speechTimingRejected": true,
+      "speechSupportCounts": {
+        "unknown": 0,
+        "supported": 11,
+        "unsupported": 1
+      },
+      "cueBeginningMatches": [
+        {
+          "cue": 11,
+          "wordInCue": 0,
+          "transcriptWord": 0,
+          "exact": true
+        },
+        {
+          "cue": 11,
+          "wordInCue": 1,
+          "transcriptWord": 1,
+          "exact": true
+        },
+        {
+          "cue": 11,
+          "wordInCue": 2,
+          "transcriptWord": 2,
+          "exact": true
+        },
+        {
+          "cue": 11,
+          "wordInCue": 3,
+          "transcriptWord": 3,
+          "exact": true
+        },
+        {
+          "cue": 11,
+          "wordInCue": 4,
+          "transcriptWord": 4,
+          "exact": true
+        }
+      ],
+      "regions": [
+        {
+          "start": 7.039666666666676,
+          "end": 29.18966766666668,
+          "slope": 1.0,
+          "offset": -100.21033333333332,
+          "anchors": 5
+        }
+      ]
+    }
+  ],
+  "sceneAssessment": {
+    "scope": "native PCM/ASR and domain tracking only; no production controller or renderer claim",
+    "initialAcquisitionBeforeEdit": true,
+    "postEditRecoveryMediaSeconds": null,
+    "alignedTrackingMedianErrorSeconds": 30.21033477783203,
+    "alignedTrackingP95ErrorSeconds": 30.21033477783203,
+    "alignedSampleCount": 53,
+    "gapChecks": [
+      {
+        "expected": {
+          "kind": "videoOnly",
+          "start": 36.25,
+          "end": 66.25
+        },
+        "matched": false
+      }
+    ],
+    "unexpectedGapCount": 0,
+    "cueBoundaryRenderingValidated": false,
+    "backwardSeekValidated": false,
+    "satisfiesSceneDomainChecks": false,
+    "probeSha256": "805239db66f9bde7274a4b9fcd8fd425e417d9be5de91312440a96ca1a67f542",
+    "expectedTimelineSha256": "c9a8a41feef99bd7d069d10111678a3d210a7d269b1bd0401025333095d9e70f"
+  },
+  "fullProductAcceptance": false,
+  "limitations": [
+    "Scene acceptance fails: no recovered offset or learned gap; median/p95 30.210335 seconds.",
+    "The probe exit is successful only for its supplied constant -100-second reference. The separate scene oracle rejects the unchanged offset after the edit.",
+    "A 170-millisecond shift of the short-window start relative to the preceding development replay changes recognition enough to lose cue 10; this is not a controlled attribution of failure to the cadence fix.",
+    "Two independent contradictory anchors remain required. Only cue 8 supplies supported post-edit timing here; its contextual repetition does not count twice.",
+    "The new probe exercises an activity-mismatch path omitted by earlier native replays. Earlier observations are not relabeled as comparable production scheduling evidence."
+  ]
+}
