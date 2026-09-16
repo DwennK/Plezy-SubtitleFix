@@ -39,5 +39,73 @@
     "Wrapper is not yet connected to the production inference worker.",
     "Reference equality is not independent acoustic onset truth.",
     "Contract replay timing includes multiple analyses and cannot be used as an inference performance benchmark."
-  ]
+  ],
+  "desktopCi": {
+    "runId": 35156267371,
+    "conclusion": "success",
+    "platforms": {
+      "mac": {
+        "contract": {
+          "name": "livesync_speech_support_test",
+          "classname": "livesync_speech_support_test",
+          "time": "0.055445",
+          "status": "run"
+        },
+        "contractSha256": "51b293455aa98c06e0924e62145afbf937c24f516a47961694f22547837565df",
+        "speechReplay": {
+          "intervals": [
+            [
+              0.32,
+              2.27
+            ],
+            [
+              3.27,
+              4.41
+            ],
+            [
+              5.38,
+              7.68
+            ],
+            [
+              8.16,
+              10.62
+            ]
+          ],
+          "resetAndReusePassed": true
+        },
+        "speechReplaySha256": "989cfa4872d8ad2ae457a5d16acefa91dfd967e71d9696371c0314a17d9a9943"
+      },
+      "windows": {
+        "contract": {
+          "name": "livesync_speech_support_test",
+          "classname": "livesync_speech_support_test",
+          "time": "0.198636",
+          "status": "run"
+        },
+        "contractSha256": "7816ad08b63e5ffb574d54a77cfee310ab37c91497d76bba9c90fb9f030b2662",
+        "speechReplay": {
+          "intervals": [
+            [
+              0.32,
+              2.27
+            ],
+            [
+              3.27,
+              4.41
+            ],
+            [
+              5.38,
+              7.68
+            ],
+            [
+              8.16,
+              10.62
+            ]
+          ],
+          "resetAndReusePassed": true
+        },
+        "speechReplaySha256": "e1a5dd29011ec2d7039d2afbfb5d43ffce2f871635a3a6fada72daa3f36654f2"
+      }
+    }
+  }
 }
