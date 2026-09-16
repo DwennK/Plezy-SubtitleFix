@@ -22,6 +22,7 @@ class TimelineTracker {
   final _continuous = <int, SubtitleAnchor>{};
   TimelineSegment? _prediction;
   final _restored = <TimelineSegment>{};
+  final _restoredGaps = <TimelineGap>{};
 
   TimelineMap get map => _map;
 
@@ -29,12 +30,14 @@ class TimelineTracker {
     clear();
     _map = map;
     _restored.addAll(map.segments);
+    _restoredGaps.addAll(map.gaps);
     // Deliberately no prediction: a partial cache proves only its own domains.
   }
 
   void clear() {
     _map = TimelineMap();
     _restored.clear();
+    _restoredGaps.clear();
     discontinuity();
   }
 
@@ -92,9 +95,29 @@ class TimelineTracker {
       return confirmed != null &&
           confirmed.anchors.every((a) => (previous.mediaFor(a.subtitleTime) - a.mediaTime).abs() > 0.8);
     }).toSet();
-    if (invalidated.isNotEmpty) {
-      _map = TimelineMap(segments: _map.segments.where((s) => !invalidated.contains(s)).toList());
+    // Cached absence is provisional too. Otherwise withSegment would reject
+    // every observed match inside an old gap and the visibility mask could
+    // survive indefinitely, despite confirmed dialogue in that interval.
+    final invalidatedGaps = _restoredGaps.where((gap) {
+      final inside = candidate.anchors.where((anchor) {
+        if (gap.kind == TimelineRegionKind.videoOnly) {
+          // Boundary noise is not evidence of dialogue inside the gap.
+          return anchor.mediaTime - anchor.uncertainty >= gap.start && anchor.mediaTime + anchor.uncertainty < gap.end;
+        }
+        return anchor.subtitleTime >= gap.start && anchor.subtitleTime < gap.end;
+      }).toList();
+      return _fitter.fit(inside) != null;
+    }).toSet();
+    if (invalidated.isNotEmpty || invalidatedGaps.isNotEmpty) {
+      _map = TimelineMap(
+        segments: _map.segments.where((s) => !invalidated.contains(s)).toList(),
+        // Gap-to-segment provenance is not stored yet. As before, discard gaps
+        // conservatively when a restored segment is invalidated. A directly
+        // disproved gap alone does not erase unrelated cached gaps/segments.
+        gaps: invalidated.isNotEmpty ? [] : _map.gaps.where((gap) => !invalidatedGaps.contains(gap)).toList(),
+      );
       _restored.removeAll(invalidated);
+      _restoredGaps.removeWhere((gap) => !_map.gaps.contains(gap));
       _prediction = null;
       _continuous.clear();
     }
