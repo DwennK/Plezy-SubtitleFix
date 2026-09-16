@@ -29,9 +29,10 @@ time including model load, model/binary/input hashes and window bounds. CLI VAD
 timestamps are centiseconds and must be converted to seconds before adding the
 media-window origin.
 
-The narrow hypothesis requires the known early cue-10 timestamp to lie outside
-speech while its correction lies inside, without rejecting ordinary control
-anchors. Failure is retained rather than fixed by moving VAD thresholds. Caption
+The narrow hypothesis requires the known early cue-10 timestamp to have no voice
+within the existing 350 ms anchor uncertainty, while its correction and ordinary
+control anchors do. Both exact membership and distance are recorded. No anchor
+is moved to a VAD onset. Failure is retained rather than fixed by moving VAD thresholds. Caption
 times remain caption references, not independently annotated acoustic onsets.
 No full precision, gap, native-player, audible-output or performance-budget claim
 can follow from this probe. Production PCM ownership and scheduling stay intact.
