@@ -24,3 +24,16 @@ quantized base.en yields zero fixture WER with both settings. Two threads take
 1.039707 seconds, four take 0.655667 seconds (inference only). Both report 25
 speech-supported tokens. These single Mac observations do not predict Windows
 performance or establish timestamp accuracy.
+
+## Windows outcome
+
+Native smoke run 35160756952 passes both platforms at afce451b. On the same
+Windows AVX2 binary, base.en takes 2.418048 s with two threads and 2.030007 s
+with four. Quantized base.en takes 2.837187 s and 2.605609 s respectively. All
+four checks retain zero fixture WER. The host reports two AMD EPYC 7763 cores
+and four logical processors.
+
+This modest difference does not establish the cause of the earlier 7–10 s
+controller measurements. Retain the two-thread production setting; a larger
+thread count has not demonstrated acceptable simultaneous rendering/audio
+impact. [Exact numeric reports](inference-threads-afce451b.json).

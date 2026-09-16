@@ -28,7 +28,7 @@
   "followUp": {
     "sourceSha": "d177926f",
     "runId": 35160217253,
-    "status": "pending",
+    "status": "success",
     "change": "Move speech model CLI to an independent entry point. Preserve exact comparison of all native build inputs.",
     "localValidation": [
       "All four native input files byte-identical to build source 10ace9fc6d93c59a2f577e1d2a2d9e7245087f52",
@@ -36,7 +36,8 @@
       "Windows package tests: 6 pass, 1 existing skip",
       "Pinned speech model download/checksum passes",
       "actionlint and git diff --check pass"
-    ]
+    ],
+    "scope": "All required general CI jobs pass; Linux package smoke intentionally skipped by workflow input."
   },
   "fullProductAcceptance": false
 }
