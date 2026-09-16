@@ -1438,3 +1438,36 @@ Actions à créer les PRs est activé ; les permissions par défaut restent en l
 Aucun token personnel n'est ajouté. Aucun workflow n'approuve ou ne fusionne une PR.
 Le run sans changement et l'exercice complet restent à vérifier ; installation
 et tests locaux ne sont pas présentés comme une intégration native réussie.
+
+
+## Premier contrôle quotidien : vraie évolution upstream et conflits — 2026-09-16
+
+Le run `35078100333` ne rencontre pas un upstream inchangé : quatre nouveaux
+commits sont présents, jusqu'à `7883cf8c88d31e9b81e574c6949031a1c46de0b4`.
+Il **échoue comme prévu** sur quatre conflits et publie leur liste, sans modifier
+la branche maintenue ni pousser de candidat incomplet. Rapport numérique :
+`upstream-conflicts-35078100333.json`. Ce run exerce le chemin de conflit réel ;
+il ne prouve pas encore le no-op ou toute la chaîne de builds/PR.
+
+La résolution est préparée dans le worktree isolé `plezy-upstream-integration`,
+branche `codex/upstream-sync`, depuis le fork `2b301c41` :
+
+- `player_native.dart` : retrait upstream de `DevicePerformance`, conservation
+  des raccordements et identités LiveSync ; changements de lifecycle conservés.
+- Projet et verrous Mac : maintien du paquet **local** `LiveSyncMPV`, sans
+  réintroduire simultanément le binaire officiel non patché. Le lock et le
+  manifeste sélectionnent désormais le mpv-build upstream
+  `6855ea3776b437a922c0c7841560842e799fc152` pour reconstruire ce paquet.
+- Les changements Android et les pins iOS/tvOS sont conservés. Les composants
+  internes de `versions.json` du nouveau mpv-build n'ont pas changé ; ses patches
+  upstream évoluent. La préparation vérifiée des patches LiveSync passe.
+
+Résultats locaux : **133 tests réussis et un corpus initialement ignoré**, puis
+les huit tests du parseur passent après mise à disposition du SRT Sintel dont
+le hash est imposé. Analyse complète sans diagnostic après installation des
+dépendances de développement du sous-paquet `wakelock_plus` dans ce nouveau
+worktree ; verrous SwiftPM cohérents. L'absence initiale de ces dépendances
+causait les diagnostics de la première analyse, sans nécessiter de correction
+source. Aucun nouveau build natif n'est encore attribué à cet upstream.
+
+Le contrôle `scripts/codegen.sh --check` passe également sur le candidat.

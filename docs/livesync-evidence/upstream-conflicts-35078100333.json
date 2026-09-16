@@ -1,0 +1,13 @@
+{
+  "checkedAt": "2026-09-16T09:12:46.299081+00:00",
+  "maintainedBaseSha": "1df536eddd67bd36f48371752c519b84adce643e",
+  "upstreamSha": "7883cf8c88d31e9b81e574c6949031a1c46de0b4",
+  "stableRelease": "2.20.0",
+  "state": "conflict",
+  "files": [
+    "lib/mpv/player/player_native.dart",
+    "macos/Runner.xcodeproj/project.pbxproj",
+    "macos/Runner.xcodeproj/project.xcworkspace/xcshareddata/swiftpm/Package.resolved",
+    "macos/Runner.xcworkspace/xcshareddata/swiftpm/Package.resolved"
+  ]
+}

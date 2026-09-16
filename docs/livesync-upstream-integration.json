@@ -1,0 +1,9 @@
+{
+  "schema": 1,
+  "maintainedBranch": "feature/live-subtitle-sync",
+  "maintainedBaseSha": "2b301c4147bc443ac2c01d23306d0f4ece785b91",
+  "upstreamSha": "7883cf8c88d31e9b81e574c6949031a1c46de0b4",
+  "stableRelease": "2.20.0",
+  "createdAt": "2026-09-16T09:16:46.460813+00:00",
+  "promotion": "Review successful exact-SHA runs, then merge this branch without squashing or rebasing."
+}
