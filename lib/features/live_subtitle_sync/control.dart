@@ -57,7 +57,7 @@ class LiveSubtitleSyncControl extends StatelessWidget {
           title: Text(t.liveSubtitleSync.title),
           subtitle: Text('$label\n$detail'),
           trailing: Icon(
-            controller.enabled ? Icons.toggle_on : Icons.toggle_off,
+            controller.enabled ? Symbols.toggle_on_rounded : Symbols.toggle_off_rounded,
             color: controller.enabled ? Theme.of(context).colorScheme.primary : null,
             size: 36,
           ),
