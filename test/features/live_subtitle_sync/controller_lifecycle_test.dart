@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:io';
 
+import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:plezy/features/live_subtitle_sync/controller.dart';
 import 'package:plezy/mpv/player/player_native.dart';
@@ -64,4 +65,54 @@ void main() {
       },
     );
   }, skip: !Platform.isMacOS);
+
+  test('disable retries failed presentation cleanup without losing the manual visibility', () async {
+    for (final (manual, failedProperty) in [
+      ('yes', 'sub-delay'),
+      ('no', 'sub-delay'),
+      ('yes', 'sub-visibility'),
+      ('no', 'sub-visibility'),
+    ]) {
+      var nativeVisibility = 'yes';
+      var rejectCleanup = false;
+      await withMockPlayerChannels(
+        methodChannelName: 'com.plezy/mpv_player',
+        eventChannelName: 'com.plezy/mpv_player/events',
+        methodHandler: (call) async {
+          if (call.method == 'initialize') return true;
+          if (call.method == 'getProperty' && (call.arguments as Map)['name'] == 'sub-visibility') {
+            return nativeVisibility;
+          }
+          if (call.method == 'setProperty') {
+            final arguments = call.arguments as Map;
+            if (arguments['name'] == failedProperty && rejectCleanup) throw PlatformException(code: 'PROPERTY_ERROR');
+            if (arguments['name'] == 'sub-visibility') nativeVisibility = arguments['value'] as String;
+          }
+          return null;
+        },
+        testBody: () async {
+          final player = PlayerNative();
+          final sync = LiveSubtitleSyncController.forPlayer(player);
+          try {
+            await sync.enable();
+            await player.setLiveSubtitleSuppressed(true);
+            await player.setProperty('sub-visibility', manual);
+            expect(nativeVisibility, 'no');
+            rejectCleanup = true;
+            await expectLater(sync.disable(), throwsA(isA<PlatformException>()));
+            expect(nativeVisibility, failedProperty == 'sub-visibility' ? 'no' : manual);
+            expect(sync.enabled, isFalse);
+            expect(sync.phase, LiveSyncPhase.unable);
+            rejectCleanup = false;
+            await sync.disable();
+            expect(nativeVisibility, manual);
+            expect(sync.phase, LiveSyncPhase.off);
+          } finally {
+            rejectCleanup = false;
+            await player.dispose();
+          }
+        },
+      );
+    }
+  }, skip: !Platform.isMacOS && !Platform.isWindows);
 }
