@@ -1,0 +1,122 @@
+{
+  "schema": 1,
+  "sourceSha": "41dba5c5d79f534ed08ba462aa3ff70159610e36",
+  "runId": 35101753081,
+  "runUrl": "https://github.com/DwennK/Plezy-SubtitleFix/actions/runs/35101753081",
+  "conclusion": "success",
+  "reports": {
+    "calibration-player-calibration.json": {
+      "sha256": "9cb96d051d106333646965b17e45fc7d43edd059732b18dafdd320abb0d2f468",
+      "bufferedSecondsAtSourceReady": 9.043375,
+      "report": {
+        "kind": "actual-plezy-production-controller-calibration",
+        "subtitleLoadDelayMs": 15000,
+        "startupDiagnostics": [
+          {
+            "startupCaptureMs": 6419,
+            "captureReadyBeforeSubtitles": true
+          },
+          {
+            "startupSubtitlesMs": 15543,
+            "mappingCacheEligible": true,
+            "restoredSegments": 0
+          },
+          {
+            "startupReadyMs": 15545,
+            "startupBufferedSamples": 144694
+          }
+        ],
+        "captureDuringSubtitleLoadValidated": true,
+        "platform": "windows",
+        "inferenceBackend": "avx2-cpu",
+        "expectedOffset": -100.0,
+        "absoluteOffsetError": 0.18266666666664833,
+        "maximumOffsetError": 0.75,
+        "modelId": "base.en",
+        "modelSha256": "a03779c86df3323075f5e796cb2ce5029f00ec8869eee3fdfb897afe36c6d002",
+        "fixtureCase": "calibration",
+        "introSilenceSeconds": 0,
+        "actualOffset": -100.18266666666665,
+        "reference": "authored Sintel SRT, not precise acoustic-onset ground truth",
+        "acquisitionMs": 23373,
+        "nativeDelay": -100.057663,
+        "audioPartitionSeconds": [
+          100,
+          175
+        ],
+        "audioOutput": "pcm-to-NUL",
+        "audiblePlaybackValidated": false,
+        "pcmOrTranscriptPersisted": false,
+        "postConfirmationOffset": -100.18266666666665,
+        "knownRegionRestoredAfterSeek": true,
+        "unknownSeekClearsAutomaticOnly": true,
+        "audioDelayCompositionAndPreservation": true,
+        "cacheRestoreMs": 1759,
+        "persistentCacheKnownAndUnknownRegions": true,
+        "manualDelayDuringAndAfter": true,
+        "tapDisabledOnClose": true,
+        "passed": true
+      }
+    },
+    "calibration-player-intro-90.json": {
+      "sha256": "8f48dd5d4dd02bed46b9832f1ae35508472743fd49485831fa65dc0bd4df4987",
+      "bufferedSecondsAtSourceReady": 11.603375,
+      "report": {
+        "kind": "actual-plezy-production-controller-calibration",
+        "subtitleLoadDelayMs": 15000,
+        "startupDiagnostics": [
+          {
+            "startupCaptureMs": 3911,
+            "captureReadyBeforeSubtitles": true
+          },
+          {
+            "startupSubtitlesMs": 15457,
+            "mappingCacheEligible": true,
+            "restoredSegments": 0
+          },
+          {
+            "startupReadyMs": 15459,
+            "startupBufferedSamples": 185654
+          }
+        ],
+        "captureDuringSubtitleLoadValidated": true,
+        "platform": "windows",
+        "inferenceBackend": "avx2-cpu",
+        "expectedOffset": 90.0,
+        "absoluteOffsetError": 0.23962499999998954,
+        "maximumOffsetError": 0.75,
+        "modelId": "base.en",
+        "modelSha256": "a03779c86df3323075f5e796cb2ce5029f00ec8869eee3fdfb897afe36c6d002",
+        "fixtureCase": "intro-90",
+        "introSilenceSeconds": 90,
+        "actualOffset": 89.76037500000001,
+        "reference": "authored Sintel SRT, not precise acoustic-onset ground truth",
+        "acquisitionMs": 122605,
+        "nativeDelay": 89.885376,
+        "audioPartitionSeconds": [
+          100,
+          175
+        ],
+        "audioOutput": "pcm-to-NUL",
+        "audiblePlaybackValidated": false,
+        "pcmOrTranscriptPersisted": false,
+        "postConfirmationOffset": 89.780375,
+        "knownRegionRestoredAfterSeek": true,
+        "unknownSeekClearsAutomaticOnly": true,
+        "audioDelayCompositionAndPreservation": true,
+        "cacheRestoreMs": 1541,
+        "persistentCacheKnownAndUnknownRegions": true,
+        "manualDelayDuringAndAfter": true,
+        "tapDisabledOnClose": true,
+        "passed": true
+      }
+    }
+  },
+  "limits": [
+    "Controlled 15-second loopback subtitle delay, not Plex extraction or Mentalist.",
+    "Sintel calibration captions are not manually annotated word-onset ground truth.",
+    "No paired hardware performance benchmark or audible playback proof.",
+    "The startup-seek scenario is a separate run and is not validated by these results.",
+    "This source is not installed on the user Mac or promoted to the maintained code."
+  ]
+}

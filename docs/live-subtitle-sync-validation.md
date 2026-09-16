@@ -1683,3 +1683,20 @@ Windows `35103325258` ajoute un seek réel pendant le démarrage afin de reprodu
 un risque d'arrêt prématuré de l'initialisation. Il n'inclut pas encore de
 correctif spécifique à cette hypothèse. L'essai du chargement SRT retardé
 `35101753081` reste attribué à sa source indépendante `41dba5c5`.
+
+
+### 2026-09-16 — capture pendant le chargement SRT : preuve native Windows
+
+Run `35101753081` réussi au commit `41dba5c5d79f534ed08ba462aa3ff70159610e36`.
+Le serveur de test local retarde volontairement la lecture du SRT de 15 s.
+Sur calibration, la capture est prête à 6,419 s, le texte/index à 15,543 s ;
+144 694 échantillons réels (9,04 s) sont déjà disponibles. Acquisition totale
+23,373 s, erreur 182,7 ms. Sur intro-90, capture prête à 3,911 s, texte à
+15,457 s, 185 654 échantillons (11,60 s) ; acquisition 122,605 s, erreur 239,6 ms.
+Les contrôles de seek, délais manuels/audio, cache et désactivation passent.
+
+Preuve : [`startup-41dba5c5-windows.json`](livesync-evidence/startup-41dba5c5-windows.json).
+Il s'agit de lectures PCM natives et du contrôleur de production avec une source
+SRT locale contrôlée, sans sortie audible. Cela valide le recouvrement des deux
+préparations, pas un gain chronométré sur Plex, une précision indépendante ou
+Mentalist. L'essai de seek pendant l'initialisation reste distinct.

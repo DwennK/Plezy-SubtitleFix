@@ -9,6 +9,18 @@ second flux réseau du média ou analyse préalable intégrale. Sources inchang�
 Le fork et ses artefacts de test peuvent être poussés ; les releases restent en
 brouillon. Aucun changement ni PR au dépôt officiel.
 
+## État courant vérifiable
+
+La [matrice d'acceptation](live-subtitle-sync-acceptance.md) distingue les preuves
+acquises des critères encore ouverts. Le code promu et construit est `10ace9fc`
+(merge `4d06568f`), basé sur upstream `7883cf8c`. Le suivi upstream complet, sa PR,
+sa promotion et un passage sans changement sont désormais exercés. Les archives
+sont conservées en release brouillon. Les expériences de démarrage et masquage
+restent séparées de ce build. **Mentalist n'est pas validé comme corrigé.**
+
+Les sections suivantes conservent la chronologie des essais ; un ancien statut
+« en cours » ne remplace pas une preuve plus récente identifiée dans la matrice.
+
 ## État de la chaîne intégrée — 16 septembre 2026
 
 Le contrôle « Live subtitle sync » est branché dans les menus de sous-titres
