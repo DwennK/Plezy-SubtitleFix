@@ -1037,5 +1037,20 @@
       "hardware playback/performance budgets",
       "installation and native settings UI"
     ]
+  },
+  "maintainedFeatureValidation": {
+    "sourceSha": "a5838cbe26be02e3a19f259661e48c10c0994d7e",
+    "promotionSha": "893b247fe3bc6e99bf763ff80e48f37f20c684f8",
+    "codeIdenticalToSource": true,
+    "evidence": "docs/livesync-evidence/startup-seek-a5838cbe-comparison.json",
+    "runs": {
+      "windows": 35104648989,
+      "macos": 35104652372,
+      "dart": 35104721069,
+      "upstreamCI": 35104724035
+    },
+    "allRunsPassed": true,
+    "initialAcquisitionBudgetPassed": false,
+    "fullProductAcceptance": false
   }
 }

@@ -7,8 +7,9 @@ Les limites ne sont pas des validations. Les preuves historiques gardent leur SH
 ## Code et artefacts de référence
 
 - Upstream intégré : `7883cf8c88d31e9b81e574c6949031a1c46de0b4`.
-- Code construit/testé : `10ace9fc6d93c59a2f577e1d2a2d9e7245087f52`.
-- Promotion : `4d06568f8d633c606d498804ccd0bbeab9fa99bc`, arbre identique.
+- Code courant construit/testé : `a5838cbe26be02e3a19f259661e48c10c0994d7e`.
+- Promotion : `893b247fe3bc6e99bf763ff80e48f37f20c684f8`, code identique ; seuls des documents de preuve supplémentaires diffèrent.
+- Base d’intégration upstream validée : `10ace9fc6d93c59a2f577e1d2a2d9e7245087f52`.
 - [Chaîne complète, PR #1, promotion et no-op](livesync-evidence/upstream-10ace9fc-full-workflow.json).
 - [Archives brouillon vérifiées](livesync-evidence/draft-test-artifacts-10ace9fc.json).
 - [Manifestes et outils](live-subtitle-sync-versions.json).
@@ -32,7 +33,7 @@ Les limites ne sont pas des validations. Les preuves historiques gardent leur SH
 | 13. Exécution jusqu'au bout | Plan, implémentation, preuves et poursuite des échecs conservés | Continuer les étapes E–J qui restent incomplètes ; un build n'est pas le produit final |
 | 14. Fin et compte rendu | Aucun état « terminé » annoncé | Prouver chaque critère précédent sur l'état finalement livré avant clôture |
 
-## Correctifs isolés en validation
+## Correctifs et portée des preuves
 
 - **Présentation d'un gap déjà confirmé**, `c205484a` : [13 états Windows,
   cinq captures inspectées et contrôleur](livesync-evidence/scene-c205484a-windows.json).
@@ -43,8 +44,17 @@ Les limites ne sont pas des validations. Les preuves historiques gardent leur SH
   acquisition en 23,373 s et erreur de calibration 182,7 ms. Le coût d'extraction
   Plex lui-même demeure.
 - **Candidat combiné**, `114301c0` : 153 tests locaux et analyse passent ;
-  run `35103325258` vérifie un seek réel au milieu de l'initialisation. Il s'agit
-  d'une investigation de concurrence, pas d'un correctif déjà prouvé.
+  run `35103325258` échoue après un seek pendant l'initialisation, sans analyse.
+  Le correctif `a5838cbe` acquiert ensuite le décalage et passe les contrôles de
+  seek, délai manuel/audio, cache et arrêt dans le run Windows `35104648989`.
+  [Comparaison native et build Mac](livesync-evidence/startup-seek-a5838cbe-comparison.json).
+  L'acquisition de calibration prend **52,022 s**, au-delà du budget initial de
+  **45 s** ; l'intro-90 prend 125,266 s. Les quatre workflows du candidat
+  passent ; la PR interne nº 2 est intégrée dans `893b247f`.
+- **Revalidation des gaps en cache**, `ccde2f31` : trois régressions reproduites,
+  puis sept nouveaux cas et les contrôles existants passent ; analyse locale et
+  CI Dart `35106046085` réussissent. Cette branche séparée n'est pas dans le
+  build `a5838cbe` et n'ajoute pas la détection automatique des gaps.
 
 ## Point utilisateur prioritaire
 
