@@ -2,12 +2,24 @@
 
 ## Statut
 
-Travail en cours, pas de livraison répondant à tous les critères. Des acquisitions
-automatiques passent dans le contrôleur Windows et dans les probes natifs Mac.
-Le cache passe maintenant dans le contrôleur Windows. La validation visible et audible
-de Mentalist, la dérive dans le lecteur réel, les gaps, les performances et la
-distribution restent incomplets. Les sections
-datées ci-dessous distinguent les résultats historiques des avancées suivantes.
+Travail en cours, pas de livraison répondant à tous les critères.
+
+- **Mentalist S2 E16 / Plex sur le Mac local** : le candidat installé
+  `b18c9891` rétablit la source SRT après l'ouverture native. L'état Synchronisé
+  et une correction de +3,04 s ont été observés après 16,977 s ; la désactivation
+  puis réactivation ont également été vérifiées. Il s'agit de bornes
+  d'observation UI après une extraction Plex récente, pas de mesures acoustiques.
+  [Preuve numérique](livesync-evidence/mentalist-native-b18c9891.json).
+- **Contrôleurs natifs** : les acquisitions et les interactions passent sur
+  Windows et macOS aux révisions détaillées ci-dessous. Cela ne prouve ni une
+  précision audible sur l'épisode complet, ni le respect du budget d'inférence.
+- **Encore incomplet** : précision acoustique indépendante, dérive dans le
+  lecteur réel, apprentissage des gaps de scènes, performances et distribution.
+  Le candidat expérimental VAD reste distinct de l'application installée.
+
+Les sections datées ci-dessous distinguent les résultats historiques des
+avancées suivantes. La branche maintenue n'a pas encore intégré les candidats
+ouverts en PR ; les SHA des preuves ne sont pas interchangeables.
 
 ## Référence initiale (2026-09-15)
 
