@@ -198,7 +198,7 @@ seconds. The separate unchanged scene assessment remains failed: median
 
 An independently re-decoded pair of the previously failed public windows now
 produces both cue-8 and cue-10 anchors. Five short-window starts spanning
-75.20–75.71 s all yield the cue-10 anchor with offset -69.895 to -69.875 s;
+75.20–75.71 s all yield the cue-10 anchor with offset -69.890 to -69.875 s;
 one requires the repaired context path. These repeated observations of one
 utterance never count as independent confirmations. The 238-second unmatched
 control never locks (five completed analyses, six invalid-output rejections).
