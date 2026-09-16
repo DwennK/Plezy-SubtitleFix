@@ -56,3 +56,25 @@ The generated MKV audio was independently decoded and compared byte-for-byte
 against each edited WAV. Sources and the unused ED 360–540 s partition remain
 unchanged. Next work must address automatic edit learning and boundary rendering,
 not merely a final offset that happens to be correct after the scene.
+
+## Current native baseline at 6ff7ae18
+
+The same three fixtures were replayed serially after building the current pinned
+mpv revision `6855ea3776b437a922c0c7841560842e799fc152` locally. The
+[build receipt](current-native-6ff7ae18-build.json) includes native hashes and
+passing real-decoder PCM and resampler contracts (pause, seeks and speed).
+This is not the byte-identical CI application or a production UI test.
+
+| Case | Recovery after edit, media seconds | Aligned median / p95 error | Evidence |
+|---|---:|---:|---|
+| Added scene | 5.226 | 0.103 / 30.205 s | [report](scene-added-scene-6ff7ae18.json) |
+| Removed scene | 11.677 | 0.205 / 12.795 s | [report](scene-removed-scene-6ff7ae18.json) |
+| Crossing cue | 27.951 | 30.210 / 30.210 s | [report](scene-added-scene-crossing-cue-6ff7ae18.json) |
+
+All three still fail, with zero learned gaps. Variation in recognition changes
+reacquisition time, but does not establish a native-library performance benefit.
+The crossing-cue case recognizes two different post-edit cue starts before it
+can fit their timing: both contradict the old mapping by about 30 seconds, yet
+its prediction remains active. This is distinct from locating exact scene
+boundaries; a safe next step can revoke unsupported extrapolation without
+claiming a precise gap or applying an unconfirmed replacement offset.

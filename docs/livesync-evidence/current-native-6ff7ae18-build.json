@@ -1,0 +1,341 @@
+{
+  "sourceSha": "6ff7ae18f89e29d4981747bbd29651cd7c87e8e3",
+  "nativePackage": {
+    "nativeRevision": "6855ea3776b437a922c0c7841560842e799fc152",
+    "xcframeworkSha256": "f9ac77d01fe2b8596012bff7d8c98146f8e642793bc4a2efaa4d699e4343a885",
+    "liveSyncPatchSha256": "6a2e0e12b3e61c6f846127c90e75361a20cbfef9c822d56a0ecac55b6803a977",
+    "packageSource": "Pinned upstream Package.swift; only Libmpv target uses a local path"
+  },
+  "nativeInputs": {
+    "schema": 1,
+    "target": "macos-arm64",
+    "profile": "portable-cpu",
+    "captureAbi": 1,
+    "inferenceAbi": 1,
+    "whisperRevision": "927cfce34f31707e17f2bff35c349632fb9e2c3a",
+    "mpvRevision": "6855ea3776b437a922c0c7841560842e799fc152",
+    "mpvHeaderSha256": "3c073236a09cb456c6e80587d5523c8771c32fb22ca014e0f99cc3d43905b75c",
+    "sourceSha256": "ab47cc53c66588e5bbe3bb13f89d36f384045db20f7121f765a662847545327c"
+  },
+  "files": {
+    "libmpv-current-probe.dylib": {
+      "bytes": 51638040,
+      "sha256": "5e8c9610775f9e41db8fc18d5e178ecc24396bebc249bbe3b95a494cb18e2aa5"
+    },
+    "runtime/macos-arm64/liblivesync_capture_bridge.dylib": {
+      "bytes": 73552,
+      "sha256": "331a34571115074a28bdb41734a424ff977b7b33b984b272ed4ea83e8fe90e07"
+    },
+    "runtime/macos-arm64/liblivesync_inference_bridge.dylib": {
+      "bytes": 1860576,
+      "sha256": "eae243c8ebf04b046020a29f8d1011742cc747c2e5dd87213d61e460afc32ded"
+    }
+  },
+  "reports": {
+    "pcm/pcm-probe.json": {
+      "sha256": "e65a722830b9257eace40011b747a5aab6626688d6d7161d5e61d5043d47aac0",
+      "report": {
+        "kind": "real-native-decode-null-output",
+        "audiblePlaybackValidated": false,
+        "initial": {
+          "epochs": [
+            0
+          ],
+          "frames": [
+            {
+              "pts": 0.512,
+              "samples": 4096,
+              "maximumSampleError": 0
+            },
+            {
+              "pts": 0.5973333333333334,
+              "samples": 4096,
+              "maximumSampleError": 0
+            },
+            {
+              "pts": 0.6826666666666668,
+              "samples": 4096,
+              "maximumSampleError": 0
+            },
+            {
+              "pts": 0.7680000000000001,
+              "samples": 4096,
+              "maximumSampleError": 0
+            },
+            {
+              "pts": 0.8533333333333335,
+              "samples": 4096,
+              "maximumSampleError": 0
+            },
+            {
+              "pts": 0.9386666666666669,
+              "samples": 4096,
+              "maximumSampleError": 0
+            },
+            {
+              "pts": 1.0240000000000002,
+              "samples": 4096,
+              "maximumSampleError": 0
+            }
+          ],
+          "seekTransition": {
+            "epochs": [],
+            "validatedFrames": 0
+          }
+        },
+        "forwardSeek": {
+          "epochs": [
+            1
+          ],
+          "frames": [
+            {
+              "pts": 6.997333333333333,
+              "samples": 4096,
+              "maximumSampleError": 0
+            },
+            {
+              "pts": 7.082666666666666,
+              "samples": 4096,
+              "maximumSampleError": 0
+            },
+            {
+              "pts": 7.168,
+              "samples": 4096,
+              "maximumSampleError": 0
+            },
+            {
+              "pts": 7.253333333333334,
+              "samples": 4096,
+              "maximumSampleError": 0
+            },
+            {
+              "pts": 7.338666666666668,
+              "samples": 4096,
+              "maximumSampleError": 0
+            },
+            {
+              "pts": 7.424000000000001,
+              "samples": 4096,
+              "maximumSampleError": 0
+            },
+            {
+              "pts": 7.509333333333335,
+              "samples": 4096,
+              "maximumSampleError": 0
+            },
+            {
+              "pts": 7.594666666666669,
+              "samples": 4096,
+              "maximumSampleError": 0
+            },
+            {
+              "pts": 7.680000000000002,
+              "samples": 4096,
+              "maximumSampleError": 0
+            },
+            {
+              "pts": 7.765333333333336,
+              "samples": 4096,
+              "maximumSampleError": 0
+            },
+            {
+              "pts": 7.85066666666667,
+              "samples": 4096,
+              "maximumSampleError": 0
+            },
+            {
+              "pts": 7.9360000000000035,
+              "samples": 4096,
+              "maximumSampleError": 0
+            }
+          ],
+          "seekTransition": {
+            "epochs": [],
+            "validatedFrames": 0
+          }
+        },
+        "backwardSeek": {
+          "epochs": [
+            2
+          ],
+          "frames": [
+            {
+              "pts": 1.9626666666666666,
+              "samples": 4096,
+              "maximumSampleError": 0
+            },
+            {
+              "pts": 2.048,
+              "samples": 4096,
+              "maximumSampleError": 0
+            },
+            {
+              "pts": 2.1333333333333333,
+              "samples": 4096,
+              "maximumSampleError": 0
+            },
+            {
+              "pts": 2.2186666666666666,
+              "samples": 4096,
+              "maximumSampleError": 0
+            },
+            {
+              "pts": 2.304,
+              "samples": 4096,
+              "maximumSampleError": 0
+            },
+            {
+              "pts": 2.389333333333333,
+              "samples": 4096,
+              "maximumSampleError": 0
+            },
+            {
+              "pts": 2.4746666666666663,
+              "samples": 4096,
+              "maximumSampleError": 0
+            },
+            {
+              "pts": 2.5599999999999996,
+              "samples": 4096,
+              "maximumSampleError": 0
+            },
+            {
+              "pts": 2.645333333333333,
+              "samples": 4096,
+              "maximumSampleError": 0
+            },
+            {
+              "pts": 2.730666666666666,
+              "samples": 4096,
+              "maximumSampleError": 0
+            },
+            {
+              "pts": 2.8159999999999994,
+              "samples": 4096,
+              "maximumSampleError": 0
+            },
+            {
+              "pts": 2.9013333333333327,
+              "samples": 4096,
+              "maximumSampleError": 0
+            }
+          ],
+          "seekTransition": {
+            "epochs": [],
+            "validatedFrames": 0
+          }
+        },
+        "speed1_5": {
+          "epochs": [
+            2
+          ],
+          "frames": [
+            {
+              "pts": 2.986666666666666,
+              "samples": 4096,
+              "maximumSampleError": 0
+            },
+            {
+              "pts": 3.071999999999999,
+              "samples": 4096,
+              "maximumSampleError": 0
+            },
+            {
+              "pts": 3.1573333333333324,
+              "samples": 4096,
+              "maximumSampleError": 0
+            },
+            {
+              "pts": 3.2426666666666657,
+              "samples": 4096,
+              "maximumSampleError": 0
+            },
+            {
+              "pts": 3.327999999999999,
+              "samples": 4096,
+              "maximumSampleError": 0
+            },
+            {
+              "pts": 3.413333333333332,
+              "samples": 4096,
+              "maximumSampleError": 0
+            },
+            {
+              "pts": 3.4986666666666655,
+              "samples": 4096,
+              "maximumSampleError": 0
+            },
+            {
+              "pts": 3.5839999999999987,
+              "samples": 4096,
+              "maximumSampleError": 0
+            },
+            {
+              "pts": 3.669333333333332,
+              "samples": 4096,
+              "maximumSampleError": 0
+            },
+            {
+              "pts": 3.7546666666666653,
+              "samples": 4096,
+              "maximumSampleError": 0
+            },
+            {
+              "pts": 3.8399999999999985,
+              "samples": 4096,
+              "maximumSampleError": 0
+            }
+          ],
+          "seekTransition": {
+            "epochs": [],
+            "validatedFrames": 0
+          }
+        },
+        "overflow": {
+          "epoch": 4,
+          "dropped": 1,
+          "returnedFrames": 16,
+          "transferBoundBytes": 262144
+        },
+        "pauseAndDisable": "passed"
+      }
+    },
+    "consumer/consumer-probe.json": {
+      "sha256": "431862cd98cedc806277e9366cc667f37ec2a2ee2d28bdea12f82f0e99239073",
+      "report": {
+        "kind": "real-decoder-native-resampler-null-output",
+        "audiblePlaybackValidated": false,
+        "windows": [
+          {
+            "generation": 1,
+            "continuity": 2,
+            "mediaStart": 0.513,
+            "samples": 10891,
+            "maximumSampleError": 2.651442988343966e-05,
+            "frames": 8,
+            "conversionSeconds": 0.0014166239780024625
+          },
+          {
+            "generation": 2,
+            "continuity": 4,
+            "mediaStart": 6.998333333333333,
+            "samples": 19083,
+            "maximumSampleError": 2.6414109641215155e-05,
+            "frames": 14,
+            "conversionSeconds": 0.002426458027912304
+          },
+          {
+            "generation": 3,
+            "continuity": 6,
+            "mediaStart": 1.9636666666666664,
+            "samples": 19083,
+            "maximumSampleError": 2.927166913313517e-05,
+            "frames": 14,
+            "conversionSeconds": 0.0024213760043494403
+          }
+        ]
+      }
+    }
+  },
+  "scope": "Local current-upstream native build and synthetic PCM contracts; not the exact downloaded CI application binary and not audible/UI validation."
+}
