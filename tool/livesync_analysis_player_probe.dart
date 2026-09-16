@@ -172,10 +172,28 @@ class _ProbeState extends State<_Probe> {
       await Future<void>.delayed(const Duration(seconds: 12));
       await player.pause();
       await player.setProperty('sub-delay', '-0.25');
-      check(
-        (double.parse((await player.getProperty('sub-delay'))!) - automatic + 0.25).abs() < 0.0001,
-        'manual-during',
-      );
+      Future<double> checkComposition(String stage, {double audioDelay = 0, double? fixedAutomatic}) async {
+        final deadline = Stopwatch()..start();
+        while (true) {
+          final before = sync.automaticOffset;
+          final native = double.parse((await player.getProperty('sub-delay'))!);
+          final after = sync.automaticOffset;
+          // A confirmation may refine the first lock while the film plays.
+          // Observe a coherent current value, retaining the strict manual
+          // composition and fixture accuracy checks. A lost lock still fails.
+          if (before != null && before == after && (native - before + 0.25).abs() < 0.0001) {
+            check((before - expectedOffset - audioDelay).abs() < maximumOffsetError, '$stage-accuracy');
+            if (fixedAutomatic != null) {
+              check((before - fixedAutomatic).abs() < 0.0001, '$stage-mapping');
+            }
+            return before;
+          }
+          check(deadline.elapsed < const Duration(seconds: 2), stage);
+          await Future<void>.delayed(const Duration(milliseconds: 50));
+        }
+      }
+
+      report['postConfirmationOffset'] = await checkComposition('manual-during');
       final learned = diagnostics.lastWhere((entry) => entry.containsKey('learnedMediaStart'));
       final learnedStart = (learned['learnedMediaStart'] as num).toDouble();
       final learnedEnd = (learned['learnedMediaEnd'] as num).toDouble();
@@ -197,23 +215,24 @@ class _ProbeState extends State<_Probe> {
         await Future<void>.delayed(const Duration(milliseconds: 600));
       }
 
+      // Land in the learned domain first. This cancels in-flight recognition
+      // and establishes the exact reference for the subsequent round trip.
+      // The initial lock is not that reference: it may have been refined.
+      await seekAndWait(knownPosition, true);
+      final knownAutomatic = await checkComposition('known-before-seek');
       await seekAndWait(unknownPosition, false);
       check(sync.automaticOffset == null, 'unknown-seek-retained-prediction');
       check((double.parse((await player.getProperty('sub-delay'))!) + 0.25).abs() < 0.0001, 'unknown-seek-manual');
       await seekAndWait(knownPosition, true);
-      check((sync.automaticOffset! - automatic).abs() < 0.0001, 'known-seek-mapping');
-      check(
-        (double.parse((await player.getProperty('sub-delay'))!) - automatic + 0.25).abs() < 0.0001,
-        'known-seek-manual',
-      );
+      await checkComposition('known-seek-manual', fixedAutomatic: knownAutomatic);
       report.addAll({'knownRegionRestoredAfterSeek': true, 'unknownSeekClearsAutomaticOnly': true});
       for (final audioDelay in [-0.5, 0.5]) {
         await player.setProperty('audio-delay', audioDelay.toString());
         await Future<void>.delayed(const Duration(milliseconds: 1100));
-        check((sync.automaticOffset! - automatic - audioDelay).abs() < 0.0001, 'audio-delay-composition');
-        check(
-          (double.parse((await player.getProperty('sub-delay'))!) - automatic - audioDelay + 0.25).abs() < 0.0001,
+        await checkComposition(
           'audio-and-manual-subtitle-delay',
+          audioDelay: audioDelay,
+          fixedAutomatic: knownAutomatic + audioDelay,
         );
       }
       await sync.disable();
