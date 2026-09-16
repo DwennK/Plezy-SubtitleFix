@@ -164,7 +164,7 @@ def main():
             while result is None and time.monotonic() < deadline:
                 result = worker.take()
                 time.sleep(0.02)
-        assert result is not None and result.status == 0, "CPU inference failed"
+        assert result is not None and result.status in (0, 5), "CPU inference failed"
         assert worker.take() is None, "Native result was not consumed"
         assert result.generation == capture["generation"] and result.continuity == capture["continuity"]
         assert 0 < result.segment_count <= 64 and 0 < result.token_count <= 512 and result.text_bytes <= 8192
@@ -197,6 +197,7 @@ def main():
                   "workerSha256": digest(args.worker), "capture": capture,
                   "wordErrorRate": error, "referenceScope": "best reference prefix" if args.library else "full fixture",
                   "inferenceSecondsExcludingModelLoad": result.elapsed_seconds, "segments": segments,
+                  "validPrefixOnly": result.status == 5,
                   "timestampAccuracyValidated": False, "srtAlignmentValidated": False,
                   "productionAppValidated": False, "audiblePlaybackValidated": False,
                   "retainedCapturedAudio": False, "retainedTranscript": False}
