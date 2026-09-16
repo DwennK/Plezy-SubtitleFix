@@ -1,0 +1,839 @@
+{
+  "provenance": {
+    "forkSha": "90581ff51fce2fc7f593451af88f3cbc64265379",
+    "baseSha": "4edf46d490dd702751e7a52450d1c3633e3bd467",
+    "rawReportSha256": "d6a2a288fdebcb9e6035e6035b623631ffdbe6eadfbe18dcf4e35b989cc42b30",
+    "scope": "Experimental numeric-onset transport in real active-playback PCM/ASR. Alignment does not consume the hints; tracking still fails. No performance, independent corpus or production-player claim.",
+    "modelSha256": "4baf70dd0d7c4247ba2b81fafd9c01005ac77c2f9ef064e00dcf195d0e2fdd2f"
+  },
+  "report": {
+    "kind": "native-active-pcm-real-asr-and-domain-alignment",
+    "platform": "macos",
+    "inferenceBackend": "portable-cpu",
+    "alignmentEngine": "bounded-affine-timeline",
+    "acquiredMediaPosition": 9.785359558105476,
+    "learnedSegments": 1,
+    "activityChecks": 90,
+    "activityVoiceChecks": 81,
+    "activityTotalMicros": 69244,
+    "activityMaxMicros": 13336,
+    "actualOffset": 0.3194999999999979,
+    "acquisitionMs": 9694,
+    "evaluationMs": 46092,
+    "expectedOffset": 0.0,
+    "expectNoLock": false,
+    "completedAnalyses": 4,
+    "validPrefixAnalyses": 1,
+    "rejectedAnalyses": 0,
+    "absoluteOffsetError": 2.2693778399626368,
+    "maximumOffsetError": 0.75,
+    "reference": "fixture SRT timings, not precise acoustic-onset ground truth",
+    "passed": false,
+    "expectedSlope": 0.9590409590409591,
+    "slopeConfirmed": false,
+    "affineAcquisitionMs": "none",
+    "trackingErrorP95": 2.2228359267075817,
+    "trackingErrorMaximum": 2.2693778399626368,
+    "trackingSamples": [
+      {
+        "mediaTime": 9.891673553466804,
+        "automaticDelay": 0.6035000000000004,
+        "mappingAvailable": true,
+        "nativeDelay": 0.6035000085830688,
+        "expectedDelay": -0.42245689134597697,
+        "error": 1.0259568999290458
+      },
+      {
+        "mediaTime": 10.925053100585945,
+        "automaticDelay": 0.6035000000000004,
+        "mappingAvailable": true,
+        "nativeDelay": 0.6035000085830688,
+        "expectedDelay": -0.46659080950418996,
+        "error": 1.0700908180872588
+      },
+      {
+        "mediaTime": 11.947447189331063,
+        "automaticDelay": 0.6035000000000004,
+        "mappingAvailable": true,
+        "nativeDelay": 0.6035000085830688,
+        "expectedDelay": -0.5102555570443474,
+        "error": 1.1137555656274163
+      },
+      {
+        "mediaTime": 12.963072387695323,
+        "automaticDelay": 0.6035000000000004,
+        "mappingAvailable": true,
+        "nativeDelay": 0.6035000085830688,
+        "expectedDelay": -0.5536312165578199,
+        "error": 1.1571312251408887
+      },
+      {
+        "mediaTime": 13.950104202270518,
+        "automaticDelay": 0.6035000000000004,
+        "mappingAvailable": true,
+        "nativeDelay": 0.6035000085830688,
+        "expectedDelay": -0.5957857003053029,
+        "error": 1.1992857088883717
+      },
+      {
+        "mediaTime": 14.973334426879894,
+        "automaticDelay": 0.6035000000000004,
+        "mappingAvailable": true,
+        "nativeDelay": 0.6035000085830688,
+        "expectedDelay": -0.6394861578146607,
+        "error": 1.2429861663977295
+      },
+      {
+        "mediaTime": 15.992481170654308,
+        "automaticDelay": 0.6035000000000004,
+        "mappingAvailable": true,
+        "nativeDelay": 0.6035000085830688,
+        "expectedDelay": -0.6830122166633608,
+        "error": 1.2865122252464296
+      },
+      {
+        "mediaTime": 17.023051223754894,
+        "automaticDelay": 0.6035000000000004,
+        "mappingAvailable": true,
+        "nativeDelay": 0.6035000085830688,
+        "expectedDelay": -0.7270261460145306,
+        "error": 1.3305261545975995
+      },
+      {
+        "mediaTime": 18.0035535888672,
+        "automaticDelay": 0.6035000000000004,
+        "mappingAvailable": true,
+        "nativeDelay": 0.6035000085830688,
+        "expectedDelay": -0.7689017678578693,
+        "error": 1.3724017764409382
+      },
+      {
+        "mediaTime": 19.029672027587903,
+        "automaticDelay": 0.6035000000000004,
+        "mappingAvailable": true,
+        "nativeDelay": 0.6035000085830688,
+        "expectedDelay": -0.8127255761782308,
+        "error": 1.4162255847612997
+      },
+      {
+        "mediaTime": 20.124499511718764,
+        "automaticDelay": 0.6035000000000004,
+        "mappingAvailable": true,
+        "nativeDelay": 0.6035000085830688,
+        "expectedDelay": -0.8594838333129893,
+        "error": 1.4629838418960581
+      },
+      {
+        "mediaTime": 21.10819244384767,
+        "automaticDelay": 0.6035000000000004,
+        "mappingAvailable": true,
+        "nativeDelay": 0.6035000085830688,
+        "expectedDelay": -0.9014957189559922,
+        "error": 1.504995727539061
+      },
+      {
+        "mediaTime": 22.177845718383807,
+        "automaticDelay": 0.4660000000000011,
+        "mappingAvailable": true,
+        "nativeDelay": 0.4659999907016754,
+        "expectedDelay": -0.9471788275559732,
+        "error": 1.4131788182576486
+      },
+      {
+        "mediaTime": 23.161126800537126,
+        "automaticDelay": 0.4660000000000011,
+        "mappingAvailable": true,
+        "nativeDelay": 0.4659999907016754,
+        "expectedDelay": -0.9891731237729395,
+        "error": 1.455173114474615
+      },
+      {
+        "mediaTime": 24.151293563842792,
+        "automaticDelay": 0.4660000000000011,
+        "mappingAvailable": true,
+        "nativeDelay": 0.4659999907016754,
+        "expectedDelay": -1.031461495955785,
+        "error": 1.4974614866574605
+      },
+      {
+        "mediaTime": 25.195125122070333,
+        "automaticDelay": 0.4659999999999975,
+        "mappingAvailable": true,
+        "nativeDelay": 0.4659999907016754,
+        "expectedDelay": -1.0760418020884188,
+        "error": 1.5420417927900942
+      },
+      {
+        "mediaTime": 26.227359909057636,
+        "automaticDelay": 0.4659999999999975,
+        "mappingAvailable": true,
+        "nativeDelay": 0.4659999907016754,
+        "expectedDelay": -1.1201268294493367,
+        "error": 1.5861268201510121
+      },
+      {
+        "mediaTime": 27.250150527954123,
+        "automaticDelay": 0.4659999999999975,
+        "mappingAvailable": true,
+        "nativeDelay": 0.4659999907016754,
+        "expectedDelay": -1.1638085121313715,
+        "error": 1.629808502833047
+      },
+      {
+        "mediaTime": 28.28269033813479,
+        "automaticDelay": 0.4659999999999975,
+        "mappingAvailable": true,
+        "nativeDelay": 0.4659999907016754,
+        "expectedDelay": -1.2079065665245032,
+        "error": 1.6739065572261786
+      },
+      {
+        "mediaTime": 29.310585220336936,
+        "automaticDelay": 0.4659999999999975,
+        "mappingAvailable": true,
+        "nativeDelay": 0.4659999907016754,
+        "expectedDelay": -1.2518062437852215,
+        "error": 1.717806234486897
+      },
+      {
+        "mediaTime": 30.34414294433596,
+        "automaticDelay": 0.4659999999999975,
+        "mappingAvailable": true,
+        "nativeDelay": 0.4659999907016754,
+        "expectedDelay": -1.2959477715810124,
+        "error": 1.7619477622826878
+      },
+      {
+        "mediaTime": 31.326525161743188,
+        "automaticDelay": 0.4659999999999975,
+        "mappingAvailable": true,
+        "nativeDelay": 0.4659999907016754,
+        "expectedDelay": -1.3379036787827836,
+        "error": 1.803903669484459
+      },
+      {
+        "mediaTime": 32.35699354553225,
+        "automaticDelay": 0.4660000000000011,
+        "mappingAvailable": true,
+        "nativeDelay": 0.4659999907016754,
+        "expectedDelay": -1.3819132660071034,
+        "error": 1.8479132567087788
+      },
+      {
+        "mediaTime": 33.38720530700686,
+        "automaticDelay": 0.4660000000000011,
+        "mappingAvailable": true,
+        "nativeDelay": 0.4659999907016754,
+        "expectedDelay": -1.4259118933200838,
+        "error": 1.8919118840217592
+      },
+      {
+        "mediaTime": 34.41357186889651,
+        "automaticDelay": 0.4660000000000011,
+        "mappingAvailable": true,
+        "nativeDelay": 0.4659999907016754,
+        "expectedDelay": -1.4697462985674505,
+        "error": 1.935746289269126
+      },
+      {
+        "mediaTime": 35.4594294433594,
+        "automaticDelay": 0.3194999999999979,
+        "mappingAvailable": true,
+        "nativeDelay": 0.31949999928474426,
+        "expectedDelay": -1.514413132476804,
+        "error": 1.8339131317615482
+      },
+      {
+        "mediaTime": 36.443938858032254,
+        "automaticDelay": 0.3194999999999979,
+        "mappingAvailable": true,
+        "nativeDelay": 0.31949999928474426,
+        "expectedDelay": -1.5564598887284617,
+        "error": 1.875959888013206
+      },
+      {
+        "mediaTime": 37.478560913085964,
+        "automaticDelay": 0.3194999999999979,
+        "mappingAvailable": true,
+        "nativeDelay": 0.31949999928474426,
+        "expectedDelay": -1.6006468723297118,
+        "error": 1.920146871614456
+      },
+      {
+        "mediaTime": 38.51062597656253,
+        "automaticDelay": 0.3194999999999979,
+        "mappingAvailable": true,
+        "nativeDelay": 0.31949999928474426,
+        "expectedDelay": -1.644724651082356,
+        "error": 1.9642246503671004
+      },
+      {
+        "mediaTime": 39.536173675537135,
+        "automaticDelay": 0.3194999999999979,
+        "mappingAvailable": true,
+        "nativeDelay": 0.31949999928474426,
+        "expectedDelay": -1.6885240840593951,
+        "error": 2.0080240833441394
+      },
+      {
+        "mediaTime": 40.55840415954593,
+        "automaticDelay": 0.3194999999999979,
+        "mappingAvailable": true,
+        "nativeDelay": 0.31949999928474426,
+        "expectedDelay": -1.732181844313935,
+        "error": 2.0516818435986792
+      },
+      {
+        "mediaTime": 41.58854341125491,
+        "automaticDelay": 0.3194999999999979,
+        "mappingAvailable": true,
+        "nativeDelay": 0.31949999928474426,
+        "expectedDelay": -1.7761773748556777,
+        "error": 2.095677374140422
+      },
+      {
+        "mediaTime": 42.5574000091553,
+        "automaticDelay": 0.3194999999999979,
+        "mappingAvailable": true,
+        "nativeDelay": 0.31949999928474426,
+        "expectedDelay": -1.8175556253910017,
+        "error": 2.137055624675746
+      },
+      {
+        "mediaTime": 43.59605667114261,
+        "automaticDelay": 0.3194999999999979,
+        "mappingAvailable": true,
+        "nativeDelay": 0.31949999928474426,
+        "expectedDelay": -1.8619149203300438,
+        "error": 2.181414919614788
+      },
+      {
+        "mediaTime": 44.56591439819339,
+        "automaticDelay": 0.3194999999999979,
+        "mappingAvailable": true,
+        "nativeDelay": 0.31949999928474426,
+        "expectedDelay": -1.9033359274228374,
+        "error": 2.2228359267075817
+      },
+      {
+        "mediaTime": 45.655676269531284,
+        "automaticDelay": 0.3194999999999979,
+        "mappingAvailable": true,
+        "nativeDelay": 0.31949999928474426,
+        "expectedDelay": -1.9498778406778925,
+        "error": 2.2693778399626368
+      }
+    ],
+    "trackingReference": "Correlated playback-time samples after first lock, including unknown regions at zero automatic delay. Ideal fixture transform, not independent acoustic annotations.",
+    "analyses": [
+      {
+        "attempt": 1,
+        "receivedAtMs": 9694,
+        "receivedMediaTime": 9.785359558105476,
+        "windowStart": 0.6410000000000001,
+        "windowEnd": 8.703,
+        "validPrefixOnly": false,
+        "match": "matched",
+        "contextWindows": 1,
+        "segmentedMatch": false,
+        "transcriptWords": 24,
+        "wordsInSubtitleVocabulary": 24,
+        "contextWords": 0,
+        "segmentBounds": [
+          {
+            "start": 0.6410000000000001,
+            "end": 6.321,
+            "timedTokens": 22,
+            "firstToken": 0.7410000000000001,
+            "lastToken": 5.901
+          },
+          {
+            "start": 6.321,
+            "end": 8.681000000000001,
+            "timedTokens": 11,
+            "firstToken": 6.321,
+            "lastToken": 8.281
+          }
+        ],
+        "similarity": 1.0,
+        "anchors": [
+          {
+            "cue": 0,
+            "offset": 0.7410000000000001,
+            "subtitleTime": 0.0,
+            "mediaTime": 0.7410000000000001,
+            "uncertainty": 0.35
+          },
+          {
+            "cue": 1,
+            "offset": 0.4659999999999993,
+            "subtitleTime": 5.855,
+            "mediaTime": 6.321,
+            "uncertainty": 0.35
+          }
+        ],
+        "voiceOnsets": [
+          {
+            "start": 0.7210000000000001,
+            "end": 3.1809999999999996,
+            "precedingQuietSeconds": 0.07999999999999985,
+            "activeSeconds": 1.6799999999999957
+          },
+          {
+            "start": 3.201,
+            "end": 5.361000000000001,
+            "precedingQuietSeconds": 0.020000000000000018,
+            "activeSeconds": 1.6400000000000068
+          },
+          {
+            "start": 6.141,
+            "end": 8.701,
+            "precedingQuietSeconds": 0.78000000000001,
+            "activeSeconds": 2.020000000000028
+          }
+        ],
+        "anchorRejections": {},
+        "cueBeginningMatches": [
+          {
+            "cue": 0,
+            "wordInCue": 0,
+            "transcriptWord": 0,
+            "exact": true
+          },
+          {
+            "cue": 0,
+            "wordInCue": 1,
+            "transcriptWord": 1,
+            "exact": true
+          },
+          {
+            "cue": 0,
+            "wordInCue": 2,
+            "transcriptWord": 2,
+            "exact": true
+          },
+          {
+            "cue": 0,
+            "wordInCue": 3,
+            "transcriptWord": 3,
+            "exact": true
+          },
+          {
+            "cue": 0,
+            "wordInCue": 4,
+            "transcriptWord": 4,
+            "exact": true
+          },
+          {
+            "cue": 1,
+            "wordInCue": 0,
+            "transcriptWord": 17,
+            "exact": true
+          },
+          {
+            "cue": 1,
+            "wordInCue": 1,
+            "transcriptWord": 18,
+            "exact": true
+          },
+          {
+            "cue": 1,
+            "wordInCue": 2,
+            "transcriptWord": 19,
+            "exact": true
+          },
+          {
+            "cue": 1,
+            "wordInCue": 3,
+            "transcriptWord": 20,
+            "exact": true
+          },
+          {
+            "cue": 1,
+            "wordInCue": 4,
+            "transcriptWord": 21,
+            "exact": true
+          }
+        ],
+        "regions": [
+          {
+            "start": 0.6034999999999997,
+            "end": 6.458501,
+            "slope": 1.0,
+            "offset": 0.6034999999999997,
+            "anchors": 2
+          }
+        ]
+      },
+      {
+        "attempt": 2,
+        "receivedAtMs": 21458,
+        "receivedMediaTime": 21.56471089172365,
+        "windowStart": 8.863000000000001,
+        "windowEnd": 20.863,
+        "validPrefixOnly": true,
+        "match": "matched",
+        "contextWindows": 1,
+        "segmentedMatch": false,
+        "transcriptWords": 18,
+        "wordsInSubtitleVocabulary": 18,
+        "contextWords": 42,
+        "segmentBounds": [
+          {
+            "start": 8.863000000000001,
+            "end": 15.543000000000001,
+            "timedTokens": 20,
+            "firstToken": 8.983,
+            "lastToken": 15.363000000000001
+          }
+        ],
+        "similarity": 0.9444444444444444,
+        "anchors": [
+          {
+            "cue": 2,
+            "offset": 0.17300000000000182,
+            "subtitleTime": 10.67,
+            "mediaTime": 10.843000000000002,
+            "uncertainty": 0.35
+          }
+        ],
+        "voiceOnsets": [
+          {
+            "start": 8.863000000000001,
+            "end": 10.043000000000001,
+            "precedingQuietSeconds": 0.0,
+            "activeSeconds": 0.7400000000000162
+          },
+          {
+            "start": 10.823,
+            "end": 12.263000000000002,
+            "precedingQuietSeconds": 0.7800000000000153,
+            "activeSeconds": 0.7800000000000118
+          },
+          {
+            "start": 12.303,
+            "end": 14.243000000000002,
+            "precedingQuietSeconds": 0.040000000000000924,
+            "activeSeconds": 1.2600000000000229
+          },
+          {
+            "start": 14.263000000000002,
+            "end": 16.923,
+            "precedingQuietSeconds": 0.019999999999999574,
+            "activeSeconds": 1.8599999999999657
+          },
+          {
+            "start": 17.783,
+            "end": 20.863,
+            "precedingQuietSeconds": 0.8599999999999426,
+            "activeSeconds": 2.299999999999816
+          }
+        ],
+        "anchorRejections": {
+          "cueBeginningAbsent": 1
+        },
+        "cueBeginningMatches": [
+          {
+            "cue": 2,
+            "wordInCue": 0,
+            "transcriptWord": 3,
+            "exact": true
+          },
+          {
+            "cue": 2,
+            "wordInCue": 1,
+            "transcriptWord": 4,
+            "exact": true
+          },
+          {
+            "cue": 2,
+            "wordInCue": 2,
+            "transcriptWord": 5,
+            "exact": true
+          },
+          {
+            "cue": 2,
+            "wordInCue": 3,
+            "transcriptWord": 6,
+            "exact": true
+          },
+          {
+            "cue": 2,
+            "wordInCue": 4,
+            "transcriptWord": 7,
+            "exact": true
+          }
+        ],
+        "regions": [
+          {
+            "start": 0.4659999999999993,
+            "end": 11.136000999999998,
+            "slope": 1.0,
+            "offset": 0.4659999999999993,
+            "anchors": 3
+          }
+        ]
+      },
+      {
+        "attempt": 3,
+        "receivedAtMs": 34640,
+        "receivedMediaTime": 34.72718696594241,
+        "windowStart": 20.895,
+        "windowEnd": 32.894999999999996,
+        "validPrefixOnly": false,
+        "match": "matched",
+        "contextWindows": 1,
+        "segmentedMatch": false,
+        "transcriptWords": 28,
+        "wordsInSubtitleVocabulary": 25,
+        "contextWords": 0,
+        "segmentBounds": [
+          {
+            "start": 20.895,
+            "end": 26.695,
+            "timedTokens": 19,
+            "firstToken": 21.155,
+            "lastToken": 26.535
+          },
+          {
+            "start": 26.695,
+            "end": 32.175,
+            "timedTokens": 15,
+            "firstToken": 27.055,
+            "lastToken": 31.975
+          },
+          {
+            "start": 32.175,
+            "end": 32.815,
+            "timedTokens": 3,
+            "firstToken": 32.394999999999996,
+            "lastToken": 32.715
+          }
+        ],
+        "similarity": 0.8928571428571429,
+        "anchors": [
+          {
+            "cue": 3,
+            "offset": -0.3000000000000007,
+            "subtitleTime": 23.155,
+            "mediaTime": 22.855,
+            "uncertainty": 0.35
+          }
+        ],
+        "voiceOnsets": [
+          {
+            "start": 20.895,
+            "end": 21.915,
+            "precedingQuietSeconds": 0.0,
+            "activeSeconds": 0.7999999999999403
+          },
+          {
+            "start": 22.515,
+            "end": 22.714999999999996,
+            "precedingQuietSeconds": 0.5999999999999552,
+            "activeSeconds": 0.01999999999999602
+          },
+          {
+            "start": 22.814999999999998,
+            "end": 26.395,
+            "precedingQuietSeconds": 0.09999999999999787,
+            "activeSeconds": 2.6999999999998003
+          },
+          {
+            "start": 26.415,
+            "end": 27.974999999999998,
+            "precedingQuietSeconds": 0.019999999999999574,
+            "activeSeconds": 1.0799999999999166
+          },
+          {
+            "start": 28.095,
+            "end": 31.455,
+            "precedingQuietSeconds": 0.11999999999998678,
+            "activeSeconds": 2.379999999999839
+          },
+          {
+            "start": 32.235,
+            "end": 32.894999999999996,
+            "precedingQuietSeconds": 0.7799999999999407,
+            "activeSeconds": 0.4999999999999645
+          }
+        ],
+        "anchorRejections": {
+          "cueBeginningAbsent": 1
+        },
+        "cueBeginningMatches": [
+          {
+            "cue": 3,
+            "wordInCue": 0,
+            "transcriptWord": 3,
+            "exact": true
+          },
+          {
+            "cue": 3,
+            "wordInCue": 1,
+            "transcriptWord": 4,
+            "exact": true
+          },
+          {
+            "cue": 3,
+            "wordInCue": 3,
+            "transcriptWord": 6,
+            "exact": true
+          },
+          {
+            "cue": 3,
+            "wordInCue": 4,
+            "transcriptWord": 7,
+            "exact": true
+          }
+        ],
+        "regions": [
+          {
+            "start": 0.31950000000000056,
+            "end": 23.474501000000004,
+            "slope": 1.0,
+            "offset": 0.31950000000000056,
+            "anchors": 4
+          }
+        ]
+      },
+      {
+        "attempt": 4,
+        "receivedAtMs": 45681,
+        "receivedMediaTime": 45.76141555786136,
+        "windowStart": 32.991,
+        "windowEnd": 44.991,
+        "validPrefixOnly": false,
+        "match": "matched",
+        "contextWindows": 1,
+        "segmentedMatch": false,
+        "transcriptWords": 26,
+        "wordsInSubtitleVocabulary": 21,
+        "contextWords": 54,
+        "segmentBounds": [
+          {
+            "start": 32.991,
+            "end": 38.751,
+            "timedTokens": 19,
+            "firstToken": 33.211,
+            "lastToken": 38.791
+          },
+          {
+            "start": 38.751,
+            "end": 42.851,
+            "timedTokens": 8,
+            "firstToken": 39.111,
+            "lastToken": 42.271
+          },
+          {
+            "start": 42.851,
+            "end": 44.991,
+            "timedTokens": 10,
+            "firstToken": 42.931,
+            "lastToken": 44.971000000000004
+          }
+        ],
+        "similarity": 0.7884615384615384,
+        "anchors": [],
+        "voiceOnsets": [
+          {
+            "start": 33.051,
+            "end": 33.391,
+            "precedingQuietSeconds": 0.05999999999998806,
+            "activeSeconds": 0.15999999999998948
+          },
+          {
+            "start": 33.431,
+            "end": 34.391,
+            "precedingQuietSeconds": 0.03999999999999915,
+            "activeSeconds": 0.5799999999999486
+          },
+          {
+            "start": 34.571,
+            "end": 35.870999999999995,
+            "precedingQuietSeconds": 0.1799999999999855,
+            "activeSeconds": 0.8799999999999386
+          },
+          {
+            "start": 35.911,
+            "end": 36.510999999999996,
+            "precedingQuietSeconds": 0.03999999999999915,
+            "activeSeconds": 0.3599999999999852
+          },
+          {
+            "start": 36.891,
+            "end": 39.231,
+            "precedingQuietSeconds": 0.37999999999996703,
+            "activeSeconds": 1.399999999999885
+          },
+          {
+            "start": 39.371,
+            "end": 41.431,
+            "precedingQuietSeconds": 0.13999999999998636,
+            "activeSeconds": 1.6599999999998758
+          },
+          {
+            "start": 42.131,
+            "end": 42.611,
+            "precedingQuietSeconds": 0.6999999999999531,
+            "activeSeconds": 0.21999999999997755
+          },
+          {
+            "start": 42.751,
+            "end": 44.631,
+            "precedingQuietSeconds": 0.13999999999999346,
+            "activeSeconds": 1.1599999999999326
+          },
+          {
+            "start": 44.871,
+            "end": 44.991,
+            "precedingQuietSeconds": 0.23999999999998067,
+            "activeSeconds": 0.07999999999999119
+          }
+        ],
+        "anchorRejections": {
+          "cueBeginningAbsent": 1
+        },
+        "cueBeginningMatches": [
+          {
+            "cue": 4,
+            "wordInCue": 1,
+            "transcriptWord": 0,
+            "exact": true
+          },
+          {
+            "cue": 4,
+            "wordInCue": 2,
+            "transcriptWord": 1,
+            "exact": true
+          },
+          {
+            "cue": 4,
+            "wordInCue": 3,
+            "transcriptWord": 2,
+            "exact": true
+          },
+          {
+            "cue": 4,
+            "wordInCue": 4,
+            "transcriptWord": 3,
+            "exact": true
+          }
+        ],
+        "regions": [
+          {
+            "start": 0.31950000000000056,
+            "end": 23.474501000000004,
+            "slope": 1.0,
+            "offset": 0.31950000000000056,
+            "anchors": 4
+          }
+        ]
+      }
+    ],
+    "productionPlayerValidated": false,
+    "audiblePlaybackValidated": false,
+    "pcmOrTranscriptPersisted": false,
+    "mainIsolateHeartbeatTicks": 1853
+  }
+}
