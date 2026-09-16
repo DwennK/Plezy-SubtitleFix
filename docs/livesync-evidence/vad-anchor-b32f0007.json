@@ -1,0 +1,584 @@
+{
+  "schema": 1,
+  "sourceSha": "b32f0007a3e1e283acf300227074e6307c6dcdb1",
+  "model": {
+    "repository": "ggml-org/whisper-vad",
+    "revision": "9ffd54a1e1ee413ddf265af9913beaf518d1639b",
+    "name": "ggml-silero-v6.2.0.bin",
+    "sha256": "2aa269b785eeb53a82983a20501ddf7c1d9c48e33ab63a41391ac6c9f7fb6987",
+    "bytes": 885098,
+    "license": "MIT"
+  },
+  "reports": {
+    "crossing-cue": {
+      "sha256": "63f125a75a54467cbcb0e4b679229f4e6376b92d0c38f398f287a8d920bae12a",
+      "data": {
+        "schema": 1,
+        "scope": "offline VAD on recorded public development windows, not native player validation",
+        "whisperRevision": "927cfce34f31707e17f2bff35c349632fb9e2c3a",
+        "parameters": {
+          "threads": 2,
+          "backend": "cpu",
+          "threshold": 0.5,
+          "minimumSpeechMs": 250,
+          "minimumSilenceMs": 100,
+          "paddingMs": 30,
+          "existingAnchorUncertaintySeconds": 0.35
+        },
+        "hashes": {
+          "probe": "171b516547a1afa10847c18d79302d00fa1924c43c7baa43f5464aa941082d4c",
+          "fixture": "8c8a1be4f19c666fe3509cf38e704f27f0134302363b775a378d8b98faf27098",
+          "srt": "4ed7e1f1bc5ff69fe33606960e4c048ba6766237bf33b132fef76e1a92cb64b2",
+          "binary": "312727dd5f0e5cdb4746d7c2f334d252d0cb1bf517a7f01b862f178d0c0e003a",
+          "model": "2aa269b785eeb53a82983a20501ddf7c1d9c48e33ab63a41391ac6c9f7fb6987"
+        },
+        "observations": [
+          {
+            "attempt": 1,
+            "windowStart": 0.6836666666666668,
+            "windowEnd": 8.703041666666667,
+            "decodedSampleOrigin": 0.6836875,
+            "decodedSamples": 128310,
+            "windowWavSha256": "29b9db50d2541f5339e7c9b36504ef9539c366de3b89954403a6d9c2a0237fdb",
+            "speechIntervals": [
+              [
+                6.9236875,
+                8.7030625
+              ]
+            ],
+            "elapsedSecondsIncludingModelLoad": 0.021417208001366816,
+            "anchors": []
+          },
+          {
+            "attempt": 2,
+            "windowStart": 5.820354166666667,
+            "windowEnd": 20.820354166666668,
+            "decodedSampleOrigin": 5.820375,
+            "decodedSamples": 240000,
+            "windowWavSha256": "c9548b87111b8a6538f8a51a11abdcbdebfbad675680b0a24216867fa852c93c",
+            "speechIntervals": [
+              [
+                6.940375,
+                9.340375
+              ],
+              [
+                11.490375,
+                14.270375
+              ],
+              [
+                17.690375,
+                20.570375
+              ]
+            ],
+            "elapsedSecondsIncludingModelLoad": 0.030998082998848986,
+            "anchors": [
+              {
+                "cue": 0,
+                "offset": -100.20964583333333,
+                "mediaTime": 7.040354166666674,
+                "insideCurrentWindow": true,
+                "distanceToVoiceSeconds": 0,
+                "voiceWithinExistingUncertainty": true
+              },
+              {
+                "cue": 1,
+                "offset": -100.21964583333333,
+                "mediaTime": 11.580354166666666,
+                "insideCurrentWindow": true,
+                "distanceToVoiceSeconds": 0,
+                "voiceWithinExistingUncertainty": true
+              },
+              {
+                "cue": 2,
+                "offset": -100.21964583333333,
+                "mediaTime": 17.78035416666667,
+                "insideCurrentWindow": true,
+                "distanceToVoiceSeconds": 0,
+                "voiceWithinExistingUncertainty": true
+              }
+            ]
+          },
+          {
+            "attempt": 3,
+            "windowStart": 20.767041666666668,
+            "windowEnd": 32.76704166666667,
+            "decodedSampleOrigin": 20.7670625,
+            "decodedSamples": 192000,
+            "windowWavSha256": "5cbcd598d53f15f6dec740e44c1e86c5d18de29aa20afdf83df40c6e5e94f1dc",
+            "speechIntervals": [
+              [
+                21.277062500000003,
+                23.007062500000004
+              ],
+              [
+                25.0570625,
+                25.437062500000003
+              ],
+              [
+                27.3570625,
+                27.997062500000002
+              ],
+              [
+                29.2170625,
+                31.4870625
+              ]
+            ],
+            "elapsedSecondsIncludingModelLoad": 0.026242916996125132,
+            "anchors": [
+              {
+                "cue": 3,
+                "offset": -100.30295833333334,
+                "mediaTime": 21.447041666666664,
+                "insideCurrentWindow": true,
+                "distanceToVoiceSeconds": 0,
+                "voiceWithinExistingUncertainty": true
+              },
+              {
+                "cue": 6,
+                "offset": -100.07295833333333,
+                "mediaTime": 29.327041666666673,
+                "insideCurrentWindow": true,
+                "distanceToVoiceSeconds": 0,
+                "voiceWithinExistingUncertainty": true
+              }
+            ]
+          },
+          {
+            "attempt": 4,
+            "windowStart": 32.79904166666667,
+            "windowEnd": 44.79904166666667,
+            "decodedSampleOrigin": 32.7990625,
+            "decodedSamples": 192000,
+            "windowWavSha256": "939f793a88d7f32feaea26d22a1f90b833717fc8ce85dc53932edc85822a55ee",
+            "speechIntervals": [
+              [
+                35.0390625,
+                36.349062499999995
+              ],
+              [
+                38.0790625,
+                44.7990625
+              ]
+            ],
+            "elapsedSecondsIncludingModelLoad": 0.026121209004486445,
+            "anchors": [
+              {
+                "cue": 3,
+                "offset": -100.30295833333334,
+                "mediaTime": 21.447041666666664,
+                "insideCurrentWindow": false,
+                "distanceToVoiceSeconds": null,
+                "voiceWithinExistingUncertainty": false
+              },
+              {
+                "cue": 6,
+                "offset": -100.07295833333333,
+                "mediaTime": 29.327041666666673,
+                "insideCurrentWindow": false,
+                "distanceToVoiceSeconds": null,
+                "voiceWithinExistingUncertainty": false
+              },
+              {
+                "cue": 7,
+                "offset": -101.72095833333333,
+                "mediaTime": 33.27904166666667,
+                "insideCurrentWindow": true,
+                "distanceToVoiceSeconds": 1.7600208333333285,
+                "voiceWithinExistingUncertainty": false
+              }
+            ]
+          },
+          {
+            "attempt": 5,
+            "windowStart": 41.91635416666667,
+            "windowEnd": 56.91635416666667,
+            "decodedSampleOrigin": 41.916375,
+            "decodedSamples": 240000,
+            "windowWavSha256": "75ec72d2bd1eef56ed55592e98b401597e317d2cb879a168a8e836d95e67e96c",
+            "speechIntervals": [
+              [
+                41.986375,
+                49.246375
+              ],
+              [
+                49.666375,
+                54.686375
+              ]
+            ],
+            "elapsedSecondsIncludingModelLoad": 0.031126000001677312,
+            "anchors": []
+          },
+          {
+            "attempt": 6,
+            "windowStart": 53.86304166666667,
+            "windowEnd": 68.86304166666667,
+            "decodedSampleOrigin": 53.8630625,
+            "decodedSamples": 240000,
+            "windowWavSha256": "b3a19ea55e0a73702d2dcb31394649bb0278495256a89396eaf2644662149c4b",
+            "speechIntervals": [
+              [
+                68.1030625,
+                68.8630625
+              ]
+            ],
+            "elapsedSecondsIncludingModelLoad": 0.031316500004322734,
+            "anchors": []
+          },
+          {
+            "attempt": 7,
+            "windowStart": 65.89504166666666,
+            "windowEnd": 80.89504166666666,
+            "decodedSampleOrigin": 65.8950625,
+            "decodedSamples": 240000,
+            "windowWavSha256": "53d05bc063472beaf5032d31501108f1617b64f69724ca354dc6aac3cdb88644",
+            "speechIntervals": [
+              [
+                67.6250625,
+                68.80506249999999
+              ],
+              [
+                69.99506249999999,
+                70.8250625
+              ],
+              [
+                73.5750625,
+                74.1150625
+              ],
+              [
+                79.0450625,
+                80.8950625
+              ]
+            ],
+            "elapsedSecondsIncludingModelLoad": 0.032992375003232155,
+            "anchors": [
+              {
+                "cue": 8,
+                "offset": -70.22495833333335,
+                "mediaTime": 67.77504166666665,
+                "insideCurrentWindow": true,
+                "distanceToVoiceSeconds": 0,
+                "voiceWithinExistingUncertainty": true
+              },
+              {
+                "cue": 10,
+                "offset": -72.77495833333333,
+                "mediaTime": 76.07504166666666,
+                "insideCurrentWindow": true,
+                "distanceToVoiceSeconds": 1.9599791666666704,
+                "voiceWithinExistingUncertainty": false
+              }
+            ]
+          },
+          {
+            "attempt": 8,
+            "windowStart": 74.00435416666666,
+            "windowEnd": 82.00435416666666,
+            "decodedSampleOrigin": 74.004375,
+            "decodedSamples": 128000,
+            "windowWavSha256": "c3bd4d0d6993b6024ab5d5aeb7f3d9256e646d1658f1ee739dae6635751b53ad",
+            "speechIntervals": [
+              [
+                79.064375,
+                81.014375
+              ]
+            ],
+            "elapsedSecondsIncludingModelLoad": 0.02166025000042282,
+            "anchors": [
+              {
+                "cue": 10,
+                "offset": -69.88564583333334,
+                "mediaTime": 78.96435416666665,
+                "insideCurrentWindow": true,
+                "distanceToVoiceSeconds": 0.1000208333333461,
+                "voiceWithinExistingUncertainty": true
+              }
+            ]
+          },
+          {
+            "attempt": 9,
+            "windowStart": 82.03635416666667,
+            "windowEnd": 94.03635416666667,
+            "decodedSampleOrigin": 82.036375,
+            "decodedSamples": 192000,
+            "windowWavSha256": "5396cb36e1c26feee4d4f7c0304dc1fbd0844cda1f8765bcb5e6924aaa89d727",
+            "speechIntervals": [
+              [
+                83.09637500000001,
+                85.166375
+              ]
+            ],
+            "elapsedSecondsIncludingModelLoad": 0.027285125004709698,
+            "anchors": [
+              {
+                "cue": 11,
+                "offset": -69.81364583333333,
+                "mediaTime": 83.13635416666666,
+                "insideCurrentWindow": true,
+                "distanceToVoiceSeconds": 0,
+                "voiceWithinExistingUncertainty": true
+              }
+            ]
+          }
+        ],
+        "pcmPersisted": false,
+        "transcriptPersisted": false,
+        "limitation": "Independent FFmpeg window re-decode, not a retained copy of the original mpv PCM. VAD membership is not precise acoustic-onset truth and never grants a text match."
+      }
+    },
+    "calibration-6ch": {
+      "sha256": "035d586b6379a44f2a91c51722758b103f8b577b5d5cec795147d0ab6566c9b7",
+      "data": {
+        "schema": 1,
+        "scope": "offline VAD on recorded public development windows, not native player validation",
+        "whisperRevision": "927cfce34f31707e17f2bff35c349632fb9e2c3a",
+        "parameters": {
+          "threads": 2,
+          "backend": "cpu",
+          "threshold": 0.5,
+          "minimumSpeechMs": 250,
+          "minimumSilenceMs": 100,
+          "paddingMs": 30,
+          "existingAnchorUncertaintySeconds": 0.35
+        },
+        "hashes": {
+          "probe": "66e1c1540611b6ebee7089c2a8bd360d10039b0a9f9d65248c4a98c6d1011c1e",
+          "fixture": "23c7b58e8237f4c2d0e12e6a04e4150ece1c04cb3cf25425b2dbbfc4cdb0fd2b",
+          "srt": "4ed7e1f1bc5ff69fe33606960e4c048ba6766237bf33b132fef76e1a92cb64b2",
+          "binary": "312727dd5f0e5cdb4746d7c2f334d252d0cb1bf517a7f01b862f178d0c0e003a",
+          "model": "2aa269b785eeb53a82983a20501ddf7c1d9c48e33ab63a41391ac6c9f7fb6987"
+        },
+        "observations": [
+          {
+            "attempt": 1,
+            "windowStart": 0.609,
+            "windowEnd": 8.628375,
+            "decodedSampleOrigin": 0.609,
+            "decodedSamples": 128310,
+            "windowWavSha256": "d749c246cd066e67445c0c1960f596363e604002d917af701a2e7e2e7b0c97e9",
+            "speechIntervals": [
+              [
+                6.949,
+                8.628375
+              ]
+            ],
+            "elapsedSecondsIncludingModelLoad": 0.020292417000746354,
+            "anchors": []
+          },
+          {
+            "attempt": 2,
+            "windowStart": 5.7456875,
+            "windowEnd": 20.7456875,
+            "decodedSampleOrigin": 5.7456875,
+            "decodedSamples": 240000,
+            "windowWavSha256": "2714886dd3b14d59f83e35de26377f2f5cce7e09aa62327a5251f839e3a9349e",
+            "speechIntervals": [
+              [
+                6.9356875,
+                9.3556875
+              ],
+              [
+                11.5056875,
+                14.195687499999998
+              ],
+              [
+                17.7156875,
+                20.5256875
+              ]
+            ],
+            "elapsedSecondsIncludingModelLoad": 0.03142683300393401,
+            "anchors": [
+              {
+                "cue": 0,
+                "offset": -100.2043125,
+                "mediaTime": 7.0456875,
+                "insideCurrentWindow": true,
+                "distanceToVoiceSeconds": 0,
+                "voiceWithinExistingUncertainty": true
+              },
+              {
+                "cue": 1,
+                "offset": -100.2143125,
+                "mediaTime": 11.585687499999992,
+                "insideCurrentWindow": true,
+                "distanceToVoiceSeconds": 0,
+                "voiceWithinExistingUncertainty": true
+              },
+              {
+                "cue": 2,
+                "offset": -100.2343125,
+                "mediaTime": 17.7656875,
+                "insideCurrentWindow": true,
+                "distanceToVoiceSeconds": 0,
+                "voiceWithinExistingUncertainty": true
+              }
+            ]
+          },
+          {
+            "attempt": 3,
+            "windowStart": 20.692375000000002,
+            "windowEnd": 32.692375,
+            "decodedSampleOrigin": 20.692375,
+            "decodedSamples": 192000,
+            "windowWavSha256": "dfe07c0cc814e5c86be6ec6532fce80e4d07f9744c0c8934f55e68f5fb77d258",
+            "speechIntervals": [
+              [
+                21.402375,
+                23.022374999999997
+              ],
+              [
+                25.042375,
+                25.422375
+              ],
+              [
+                27.412374999999997,
+                28.022374999999997
+              ],
+              [
+                29.202374999999996,
+                31.472375
+              ]
+            ],
+            "elapsedSecondsIncludingModelLoad": 0.027722750004613772,
+            "anchors": [
+              {
+                "cue": 3,
+                "offset": -100.297625,
+                "mediaTime": 21.452375000000004,
+                "insideCurrentWindow": true,
+                "distanceToVoiceSeconds": 0,
+                "voiceWithinExistingUncertainty": true
+              },
+              {
+                "cue": 6,
+                "offset": -100.067625,
+                "mediaTime": 29.332375,
+                "insideCurrentWindow": true,
+                "distanceToVoiceSeconds": 0,
+                "voiceWithinExistingUncertainty": true
+              }
+            ]
+          },
+          {
+            "attempt": 4,
+            "windowStart": 32.809687499999995,
+            "windowEnd": 44.809687499999995,
+            "decodedSampleOrigin": 32.8096875,
+            "decodedSamples": 192000,
+            "windowWavSha256": "2bb92a03240c2ef7983e172e97457f7cd7faae917c30dcb4b5be3e08faa605c8",
+            "speechIntervals": [
+              [
+                35.0196875,
+                36.3896875
+              ],
+              [
+                37.6396875,
+                38.7896875
+              ],
+              [
+                39.8196875,
+                40.8096875
+              ],
+              [
+                43.5296875,
+                44.0996875
+              ]
+            ],
+            "elapsedSecondsIncludingModelLoad": 0.02637870800390374,
+            "anchors": [
+              {
+                "cue": 7,
+                "offset": -99.9103125,
+                "mediaTime": 35.0896875,
+                "insideCurrentWindow": true,
+                "distanceToVoiceSeconds": 0,
+                "voiceWithinExistingUncertainty": true
+              },
+              {
+                "cue": 8,
+                "offset": -100.2503125,
+                "mediaTime": 37.74968749999999,
+                "insideCurrentWindow": true,
+                "distanceToVoiceSeconds": 0,
+                "voiceWithinExistingUncertainty": true
+              }
+            ]
+          },
+          {
+            "attempt": 5,
+            "windowStart": 44.8416875,
+            "windowEnd": 56.8416875,
+            "decodedSampleOrigin": 44.8416875,
+            "decodedSamples": 192000,
+            "windowWavSha256": "27242fbdb827e473a8584ec51f88b07d1af1f06b9bb6e081ef98a3a0ad8e8806",
+            "speechIntervals": [
+              [
+                49.071687499999996,
+                51.0116875
+              ],
+              [
+                53.2616875,
+                55.1416875
+              ]
+            ],
+            "elapsedSecondsIncludingModelLoad": 0.02564091699605342,
+            "anchors": [
+              {
+                "cue": 10,
+                "offset": -99.8883125,
+                "mediaTime": 48.9616875,
+                "insideCurrentWindow": true,
+                "distanceToVoiceSeconds": 0.10999999999999943,
+                "voiceWithinExistingUncertainty": true
+              },
+              {
+                "cue": 11,
+                "offset": -99.82831249999998,
+                "mediaTime": 53.12168750000001,
+                "insideCurrentWindow": true,
+                "distanceToVoiceSeconds": 0.13999999999999346,
+                "voiceWithinExistingUncertainty": true
+              }
+            ]
+          },
+          {
+            "attempt": 6,
+            "windowStart": 56.788374999999995,
+            "windowEnd": 68.788375,
+            "decodedSampleOrigin": 56.788375,
+            "decodedSamples": 192000,
+            "windowWavSha256": "9ed27d950a96f9f1dd1ce22ecc72fe83005924daf7a2659635b8c611527b717a",
+            "speechIntervals": [],
+            "elapsedSecondsIncludingModelLoad": 0.026671749998058658,
+            "anchors": []
+          }
+        ],
+        "pcmPersisted": false,
+        "transcriptPersisted": false,
+        "limitation": "Independent FFmpeg window re-decode, not a retained copy of the original mpv PCM. VAD membership is not precise acoustic-onset truth and never grants a text match."
+      }
+    }
+  },
+  "hypothesisSupportedOnConsumedDevelopmentWindows": true,
+  "fullProductAcceptance": false,
+  "observedControlAnchors": 9,
+  "controlAnchorsUnsupported": 0,
+  "badCue10DistanceSeconds": 1.9599791666666704,
+  "correctedCue10DistanceSeconds": 0.1000208333333461,
+  "processSecondsIncludingLoadRange": [
+    0.020292417000746354,
+    0.032992375003232155
+  ],
+  "nativeLibraries": {
+    "bin/libggml-base.0.23.0.dylib": "5afc14c0fd164a911bf62d5d381fdc48a10fe0770311d293dc24e1c6d710cbab",
+    "bin/libggml-cpu.0.23.0.dylib": "d5b65a3e936be24a21d1bd02a60bba91e545305c9834dff35ff13939626bcceb",
+    "bin/libggml.0.23.0.dylib": "be2e6fb852579f1e85865246ea4dc8e4a86f653c76932dd8e46d6e0a2d4d161d",
+    "bin/libwhisper.1.9.4.dylib": "1b945878d1bd5bdcf5859048265b80b76b4e96aaa3db4a35c0076cac02c27ed9"
+  },
+  "limitations": [
+    "Offline FFmpeg replay of public fixtures, not live-player PCM integration.",
+    "VAD support does not establish precise word onset or corpus-wide accuracy.",
+    "A simple anchor filter alone could postpone the existing two-anchor contradiction trigger; native integration must preserve prompt recovery without granting confidence from VAD alone.",
+    "No new held-out partition, no GPU/Windows evaluation and no full performance-budget claim.",
+    "The harness first rejected padded VAD output and a 65 ms container-seek truncation; final reports clip only documented probability-frame padding and enforce exact decoded sample bounds."
+  ]
+}
