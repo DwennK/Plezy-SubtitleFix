@@ -101,8 +101,7 @@ class AnalysisCadence {
     if (_tightRetryPending) return 0;
     // Keep one initial analysis and a periodic fallback: the heuristic can
     // miss quiet speech. Activity never changes a mapping or grants a lock.
-    if (synced && timingMismatch) return 30000;
-    if (attempts > 0 && voicePresent == false) return 90000;
+    if (attempts > 0 && voicePresent == false && !(synced && timingMismatch)) return 90000;
     if (synced) {
       // An initial constant correction still needs a longer baseline to rule
       // out drift. Bound the extra work even if the source stays too sparse.
@@ -114,7 +113,9 @@ class AnalysisCadence {
           (_confirmationRequests ?? confirmationRequests) < confirmationRequests) {
         return 12000;
       }
-      return established ? 90000 : 30000;
+      // A mismatch shortens sparse checks, but must never postpone an
+      // already faster confirmation or native-failure retry above.
+      return established && !timingMismatch ? 90000 : 30000;
     }
     if (_activityWake && _nativeFailures <= 2) return 12000;
     return attempts > 3 && !_retrySoon ? 30000 : 12000;
