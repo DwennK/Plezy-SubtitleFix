@@ -196,3 +196,19 @@ de production `5bddabd0` : 137 tests LiveSync et analyse complète passent.
 Il ne constitue pas une résolution vérifiée de Mentalist, de la dérive ou des
 exigences de précision générales. La validation complète du candidat upstream
 est relancée par le run parent `35097858231` sur cette base maintenue.
+
+### Régression native de la correction portée en production
+
+Le probe lancé depuis la branche maintenue exacte `5bddabd0` termine le passage
+Sintel négatif 650–888 s en **238,094 s sans correction** : huit analyses
+complètes, quatre rejets. Aucun faux verrouillage observé sur ce passage de
+développement déjà consommé. Rapport `production-bounded-groups-negative-5bddabd0.json`.
+Cette vérification n’établit ni la précision générale ni une validation UI.
+
+La chaîne upstream complète `35097858231` prépare `10ace9fc` à partir de
+`5bddabd0` et de l’upstream `7883cf8c`, vérifié de nouveau ce jour par fetch.
+Dart `35097914160` réussit ; natif Windows `35097915052` et macOS `35097912981`
+restent en cours. Aucun run relancé pendant son exécution. Les branches maintenue
+et candidate restent figées pendant cette validation. Le build Mac historique
+`fe4fc52c` est téléchargé localement et sa signature strict/deep vérifiée, mais
+il ne contient pas la correction `5bddabd0`, n’est pas lancé ni installé.
