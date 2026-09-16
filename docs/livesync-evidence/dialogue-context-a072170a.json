@@ -1,0 +1,862 @@
+{
+  "schema": 1,
+  "sourceSha": "a072170ade52285bd5d69e7802ac2bc7ecf4cf38",
+  "probeExecutableSha256": "ce42778669610dff362de7f6f6634baf9726b7dcbfe929890f2b60037cb94496",
+  "change": "Only normalized-empty segments are excluded from the three-dialogue-segment grouping budget. All lexical, timing, ambiguity, candidate and input bounds remain unchanged.",
+  "checks": {
+    "localFeatureTestsPassed": 172,
+    "existingSkip": 1,
+    "regressionFailsOnBaseline": true,
+    "focusedAnalysisPassed": true,
+    "desktopRunId": 35162451980,
+    "desktopConclusion": "success"
+  },
+  "reports": {
+    "crossing-dialogue-context-a072170a.json": {
+      "sha256": "57be61dc75d94f8da5c02ef2d26799aa185d51c443a345687fa962c3e56b060a",
+      "data": {
+        "kind": "native-active-pcm-real-asr-and-domain-alignment",
+        "platform": "macos",
+        "inferenceBackend": "portable-cpu",
+        "alignmentEngine": "bounded-affine-timeline",
+        "acquiredMediaPosition": 21.625,
+        "learnedSegments": 2,
+        "learnedGaps": [],
+        "activityChecks": 205,
+        "activityVoiceChecks": 196,
+        "activityTimingMismatchChecks": 49,
+        "analysisRequests": [
+          {
+            "elapsedMs": 8408,
+            "mediaTime": 8.375,
+            "intervalMs": 12000,
+            "windowSeconds": 12.0,
+            "voicePresent": true,
+            "timingMismatch": false,
+            "established": false
+          },
+          {
+            "elapsedMs": 20507,
+            "mediaTime": 20.458,
+            "intervalMs": 12000,
+            "windowSeconds": 15.0,
+            "voicePresent": true,
+            "timingMismatch": false,
+            "established": false
+          },
+          {
+            "elapsedMs": 32609,
+            "mediaTime": 32.583,
+            "intervalMs": 12000,
+            "windowSeconds": 12.0,
+            "voicePresent": true,
+            "timingMismatch": false,
+            "established": false
+          },
+          {
+            "elapsedMs": 44613,
+            "mediaTime": 44.583,
+            "intervalMs": 12000,
+            "windowSeconds": 12.0,
+            "voicePresent": true,
+            "timingMismatch": false,
+            "established": false
+          },
+          {
+            "elapsedMs": 45742,
+            "mediaTime": 45.708,
+            "intervalMs": 0,
+            "windowSeconds": 8.0,
+            "voicePresent": true,
+            "timingMismatch": false,
+            "established": false
+          },
+          {
+            "elapsedMs": 57748,
+            "mediaTime": 57.708,
+            "intervalMs": 12000,
+            "windowSeconds": 15.0,
+            "voicePresent": true,
+            "timingMismatch": false,
+            "established": false
+          },
+          {
+            "elapsedMs": 69842,
+            "mediaTime": 69.833,
+            "intervalMs": 12000,
+            "windowSeconds": 15.0,
+            "voicePresent": true,
+            "timingMismatch": true,
+            "established": false
+          },
+          {
+            "elapsedMs": 81938,
+            "mediaTime": 81.917,
+            "intervalMs": 12000,
+            "windowSeconds": 15.0,
+            "voicePresent": true,
+            "timingMismatch": true,
+            "established": false
+          },
+          {
+            "elapsedMs": 83065,
+            "mediaTime": 83.042,
+            "intervalMs": 0,
+            "windowSeconds": 8.0,
+            "voicePresent": true,
+            "timingMismatch": true,
+            "established": false
+          },
+          {
+            "elapsedMs": 95157,
+            "mediaTime": 95.125,
+            "intervalMs": 12000,
+            "windowSeconds": 12.0,
+            "voicePresent": true,
+            "timingMismatch": false,
+            "established": false
+          },
+          {
+            "elapsedMs": 96183,
+            "mediaTime": 96.167,
+            "intervalMs": 0,
+            "windowSeconds": 8.0,
+            "voicePresent": true,
+            "timingMismatch": false,
+            "established": false
+          }
+        ],
+        "activityTotalMicros": 109572,
+        "activityMaxMicros": 994,
+        "actualOffset": -70.03464583333334,
+        "acquisitionMs": 21633,
+        "evaluationMs": 105097,
+        "expectedOffset": -100.0,
+        "expectNoLock": false,
+        "completedAnalyses": 11,
+        "validPrefixAnalyses": 0,
+        "rejectedAnalyses": 0,
+        "absoluteOffsetError": 29.965354919433594,
+        "maximumOffsetError": 0.75,
+        "reference": "fixture SRT timings, not precise acoustic-onset ground truth",
+        "passed": false,
+        "expectedSlope": 1.0,
+        "slopeConfirmed": true,
+        "affineAcquisitionMs": "none",
+        "trackingErrorP95": 29.965354919433594,
+        "trackingErrorMaximum": 29.965354919433594,
+        "trackingReference": "Correlated playback-time samples after first lock, including unknown regions at zero automatic delay. Ideal fixture transform, not independent acoustic annotations.",
+        "productionPlayerValidated": false,
+        "audiblePlaybackValidated": false,
+        "pcmOrTranscriptPersisted": false,
+        "mainIsolateHeartbeatTicks": 4206
+      }
+    },
+    "crossing-dialogue-context-assessment-a072170a.json": {
+      "sha256": "bd9cc6551731eec84c98bc538687ccc98dbd1bfb031be9da67541f629c4526f4",
+      "data": {
+        "scope": "native PCM/ASR and domain tracking only; no production controller or renderer claim",
+        "initialAcquisitionBeforeEdit": true,
+        "postEditRecoveryMediaSeconds": 18.333,
+        "alignedTrackingMedianErrorSeconds": 0.2049560546875,
+        "alignedTrackingP95ErrorSeconds": 30.2049560546875,
+        "alignedSampleCount": 51,
+        "gapChecks": [
+          {
+            "expected": {
+              "kind": "videoOnly",
+              "start": 36.25,
+              "end": 66.25
+            },
+            "matched": false
+          }
+        ],
+        "unexpectedGapCount": 0,
+        "gapPlaybackSamples": [
+          {
+            "mediaTime": 36.375,
+            "actualRegion": "aligned"
+          },
+          {
+            "mediaTime": 37.417,
+            "actualRegion": "aligned"
+          },
+          {
+            "mediaTime": 38.417,
+            "actualRegion": "aligned"
+          },
+          {
+            "mediaTime": 39.458,
+            "actualRegion": "aligned"
+          },
+          {
+            "mediaTime": 40.5,
+            "actualRegion": "aligned"
+          },
+          {
+            "mediaTime": 41.5,
+            "actualRegion": "aligned"
+          },
+          {
+            "mediaTime": 42.542,
+            "actualRegion": "aligned"
+          },
+          {
+            "mediaTime": 43.583,
+            "actualRegion": "aligned"
+          },
+          {
+            "mediaTime": 44.583,
+            "actualRegion": "aligned"
+          },
+          {
+            "mediaTime": 45.625,
+            "actualRegion": "aligned"
+          },
+          {
+            "mediaTime": 46.625,
+            "actualRegion": "aligned"
+          },
+          {
+            "mediaTime": 47.666999999999994,
+            "actualRegion": "aligned"
+          },
+          {
+            "mediaTime": 48.708,
+            "actualRegion": "aligned"
+          },
+          {
+            "mediaTime": 49.708,
+            "actualRegion": "aligned"
+          },
+          {
+            "mediaTime": 50.75,
+            "actualRegion": "aligned"
+          },
+          {
+            "mediaTime": 51.791999999999994,
+            "actualRegion": "aligned"
+          },
+          {
+            "mediaTime": 52.791999999999994,
+            "actualRegion": "aligned"
+          },
+          {
+            "mediaTime": 53.833,
+            "actualRegion": "aligned"
+          },
+          {
+            "mediaTime": 54.833,
+            "actualRegion": "aligned"
+          },
+          {
+            "mediaTime": 55.875,
+            "actualRegion": "aligned"
+          },
+          {
+            "mediaTime": 56.916999999999994,
+            "actualRegion": "aligned"
+          },
+          {
+            "mediaTime": 57.916999999999994,
+            "actualRegion": "aligned"
+          },
+          {
+            "mediaTime": 58.958,
+            "actualRegion": "aligned"
+          },
+          {
+            "mediaTime": 59.958,
+            "actualRegion": "aligned"
+          },
+          {
+            "mediaTime": 61.0,
+            "actualRegion": "aligned"
+          },
+          {
+            "mediaTime": 62.041999999999994,
+            "actualRegion": "aligned"
+          },
+          {
+            "mediaTime": 63.041999999999994,
+            "actualRegion": "aligned"
+          },
+          {
+            "mediaTime": 64.083,
+            "actualRegion": "aligned"
+          },
+          {
+            "mediaTime": 65.083,
+            "actualRegion": "aligned"
+          },
+          {
+            "mediaTime": 66.125,
+            "actualRegion": "aligned"
+          }
+        ],
+        "alignedPlaybackSamples": [
+          {
+            "mediaTime": 22.0,
+            "expectedDelay": -100.0,
+            "actualDelay": -100.2049560546875,
+            "actualRegion": "aligned",
+            "mappingAvailable": true,
+            "error": 0.2049560546875
+          },
+          {
+            "mediaTime": 23.041999999999998,
+            "expectedDelay": -100.0,
+            "actualDelay": -100.2049560546875,
+            "actualRegion": "aligned",
+            "mappingAvailable": true,
+            "error": 0.2049560546875
+          },
+          {
+            "mediaTime": 24.041999999999998,
+            "expectedDelay": -100.0,
+            "actualDelay": -100.2049560546875,
+            "actualRegion": "aligned",
+            "mappingAvailable": true,
+            "error": 0.2049560546875
+          },
+          {
+            "mediaTime": 25.083,
+            "expectedDelay": -100.0,
+            "actualDelay": -100.2049560546875,
+            "actualRegion": "aligned",
+            "mappingAvailable": true,
+            "error": 0.2049560546875
+          },
+          {
+            "mediaTime": 26.125,
+            "expectedDelay": -100.0,
+            "actualDelay": -100.2049560546875,
+            "actualRegion": "aligned",
+            "mappingAvailable": true,
+            "error": 0.2049560546875
+          },
+          {
+            "mediaTime": 27.125,
+            "expectedDelay": -100.0,
+            "actualDelay": -100.2049560546875,
+            "actualRegion": "aligned",
+            "mappingAvailable": true,
+            "error": 0.2049560546875
+          },
+          {
+            "mediaTime": 28.166999999999998,
+            "expectedDelay": -100.0,
+            "actualDelay": -100.2049560546875,
+            "actualRegion": "aligned",
+            "mappingAvailable": true,
+            "error": 0.2049560546875
+          },
+          {
+            "mediaTime": 29.208,
+            "expectedDelay": -100.0,
+            "actualDelay": -100.2049560546875,
+            "actualRegion": "aligned",
+            "mappingAvailable": true,
+            "error": 0.2049560546875
+          },
+          {
+            "mediaTime": 30.25,
+            "expectedDelay": -100.0,
+            "actualDelay": -100.2049560546875,
+            "actualRegion": "aligned",
+            "mappingAvailable": true,
+            "error": 0.2049560546875
+          },
+          {
+            "mediaTime": 31.25,
+            "expectedDelay": -100.0,
+            "actualDelay": -100.2049560546875,
+            "actualRegion": "aligned",
+            "mappingAvailable": true,
+            "error": 0.2049560546875
+          },
+          {
+            "mediaTime": 32.292,
+            "expectedDelay": -100.0,
+            "actualDelay": -100.2049560546875,
+            "actualRegion": "aligned",
+            "mappingAvailable": true,
+            "error": 0.2049560546875
+          },
+          {
+            "mediaTime": 33.333,
+            "expectedDelay": -100.0,
+            "actualDelay": -100.2049560546875,
+            "actualRegion": "aligned",
+            "mappingAvailable": true,
+            "error": 0.2049560546875
+          },
+          {
+            "mediaTime": 34.333,
+            "expectedDelay": -100.0,
+            "actualDelay": -100.2049560546875,
+            "actualRegion": "aligned",
+            "mappingAvailable": true,
+            "error": 0.2049560546875
+          },
+          {
+            "mediaTime": 35.375,
+            "expectedDelay": -100.0,
+            "actualDelay": -100.2049560546875,
+            "actualRegion": "aligned",
+            "mappingAvailable": true,
+            "error": 0.2049560546875
+          },
+          {
+            "mediaTime": 67.167,
+            "expectedDelay": -70.0,
+            "actualDelay": -100.2049560546875,
+            "actualRegion": "aligned",
+            "mappingAvailable": true,
+            "error": 30.2049560546875
+          },
+          {
+            "mediaTime": 68.167,
+            "expectedDelay": -70.0,
+            "actualDelay": -100.2049560546875,
+            "actualRegion": "aligned",
+            "mappingAvailable": true,
+            "error": 30.2049560546875
+          },
+          {
+            "mediaTime": 69.208,
+            "expectedDelay": -70.0,
+            "actualDelay": -100.2049560546875,
+            "actualRegion": "aligned",
+            "mappingAvailable": true,
+            "error": 30.2049560546875
+          },
+          {
+            "mediaTime": 70.208,
+            "expectedDelay": -70.0,
+            "actualDelay": -100.2049560546875,
+            "actualRegion": "aligned",
+            "mappingAvailable": true,
+            "error": 30.2049560546875
+          },
+          {
+            "mediaTime": 71.25,
+            "expectedDelay": -70.0,
+            "actualDelay": -100.2049560546875,
+            "actualRegion": "aligned",
+            "mappingAvailable": true,
+            "error": 30.2049560546875
+          },
+          {
+            "mediaTime": 72.292,
+            "expectedDelay": -70.0,
+            "actualDelay": -100.2049560546875,
+            "actualRegion": "aligned",
+            "mappingAvailable": true,
+            "error": 30.2049560546875
+          },
+          {
+            "mediaTime": 73.292,
+            "expectedDelay": -70.0,
+            "actualDelay": -100.2049560546875,
+            "actualRegion": "aligned",
+            "mappingAvailable": true,
+            "error": 30.2049560546875
+          },
+          {
+            "mediaTime": 74.333,
+            "expectedDelay": -70.0,
+            "actualDelay": -100.2049560546875,
+            "actualRegion": "aligned",
+            "mappingAvailable": true,
+            "error": 30.2049560546875
+          },
+          {
+            "mediaTime": 75.333,
+            "expectedDelay": -70.0,
+            "actualDelay": -100.2049560546875,
+            "actualRegion": "aligned",
+            "mappingAvailable": true,
+            "error": 30.2049560546875
+          },
+          {
+            "mediaTime": 76.375,
+            "expectedDelay": -70.0,
+            "actualDelay": -100.2049560546875,
+            "actualRegion": "aligned",
+            "mappingAvailable": true,
+            "error": 30.2049560546875
+          },
+          {
+            "mediaTime": 77.417,
+            "expectedDelay": -70.0,
+            "actualDelay": -100.2049560546875,
+            "actualRegion": "aligned",
+            "mappingAvailable": true,
+            "error": 30.2049560546875
+          },
+          {
+            "mediaTime": 78.458,
+            "expectedDelay": -70.0,
+            "actualDelay": -100.2049560546875,
+            "actualRegion": "aligned",
+            "mappingAvailable": true,
+            "error": 30.2049560546875
+          },
+          {
+            "mediaTime": 79.458,
+            "expectedDelay": -70.0,
+            "actualDelay": -100.2049560546875,
+            "actualRegion": "aligned",
+            "mappingAvailable": true,
+            "error": 30.2049560546875
+          },
+          {
+            "mediaTime": 80.5,
+            "expectedDelay": -70.0,
+            "actualDelay": -100.2049560546875,
+            "actualRegion": "aligned",
+            "mappingAvailable": true,
+            "error": 30.2049560546875
+          },
+          {
+            "mediaTime": 81.5,
+            "expectedDelay": -70.0,
+            "actualDelay": -100.2049560546875,
+            "actualRegion": "aligned",
+            "mappingAvailable": true,
+            "error": 30.2049560546875
+          },
+          {
+            "mediaTime": 82.542,
+            "expectedDelay": -70.0,
+            "actualDelay": -100.2049560546875,
+            "actualRegion": "aligned",
+            "mappingAvailable": true,
+            "error": 30.2049560546875
+          },
+          {
+            "mediaTime": 83.542,
+            "expectedDelay": -70.0,
+            "actualDelay": -100.2049560546875,
+            "actualRegion": "aligned",
+            "mappingAvailable": true,
+            "error": 30.2049560546875
+          },
+          {
+            "mediaTime": 84.583,
+            "expectedDelay": -70.0,
+            "actualDelay": -70.0346450805664,
+            "actualRegion": "aligned",
+            "mappingAvailable": true,
+            "error": 0.03464508056640625
+          },
+          {
+            "mediaTime": 85.583,
+            "expectedDelay": -70.0,
+            "actualDelay": -70.0346450805664,
+            "actualRegion": "aligned",
+            "mappingAvailable": true,
+            "error": 0.03464508056640625
+          },
+          {
+            "mediaTime": 86.625,
+            "expectedDelay": -70.0,
+            "actualDelay": -70.0346450805664,
+            "actualRegion": "aligned",
+            "mappingAvailable": true,
+            "error": 0.03464508056640625
+          },
+          {
+            "mediaTime": 87.667,
+            "expectedDelay": -70.0,
+            "actualDelay": -70.0346450805664,
+            "actualRegion": "aligned",
+            "mappingAvailable": true,
+            "error": 0.03464508056640625
+          },
+          {
+            "mediaTime": 88.667,
+            "expectedDelay": -70.0,
+            "actualDelay": -70.0346450805664,
+            "actualRegion": "aligned",
+            "mappingAvailable": true,
+            "error": 0.03464508056640625
+          },
+          {
+            "mediaTime": 89.708,
+            "expectedDelay": -70.0,
+            "actualDelay": -70.0346450805664,
+            "actualRegion": "aligned",
+            "mappingAvailable": true,
+            "error": 0.03464508056640625
+          },
+          {
+            "mediaTime": 90.708,
+            "expectedDelay": -70.0,
+            "actualDelay": -70.0346450805664,
+            "actualRegion": "aligned",
+            "mappingAvailable": true,
+            "error": 0.03464508056640625
+          },
+          {
+            "mediaTime": 91.75,
+            "expectedDelay": -70.0,
+            "actualDelay": -70.0346450805664,
+            "actualRegion": "aligned",
+            "mappingAvailable": true,
+            "error": 0.03464508056640625
+          },
+          {
+            "mediaTime": 92.792,
+            "expectedDelay": -70.0,
+            "actualDelay": -70.0346450805664,
+            "actualRegion": "aligned",
+            "mappingAvailable": true,
+            "error": 0.03464508056640625
+          },
+          {
+            "mediaTime": 93.792,
+            "expectedDelay": -70.0,
+            "actualDelay": -70.0346450805664,
+            "actualRegion": "aligned",
+            "mappingAvailable": true,
+            "error": 0.03464508056640625
+          },
+          {
+            "mediaTime": 94.833,
+            "expectedDelay": -70.0,
+            "actualDelay": -70.0346450805664,
+            "actualRegion": "aligned",
+            "mappingAvailable": true,
+            "error": 0.03464508056640625
+          },
+          {
+            "mediaTime": 95.875,
+            "expectedDelay": -70.0,
+            "actualDelay": -70.0346450805664,
+            "actualRegion": "aligned",
+            "mappingAvailable": true,
+            "error": 0.03464508056640625
+          },
+          {
+            "mediaTime": 96.875,
+            "expectedDelay": -70.0,
+            "actualDelay": -70.0346450805664,
+            "actualRegion": "aligned",
+            "mappingAvailable": true,
+            "error": 0.03464508056640625
+          },
+          {
+            "mediaTime": 97.917,
+            "expectedDelay": -70.0,
+            "actualDelay": -70.0346450805664,
+            "actualRegion": "aligned",
+            "mappingAvailable": true,
+            "error": 0.03464508056640625
+          },
+          {
+            "mediaTime": 98.917,
+            "expectedDelay": -70.0,
+            "actualDelay": -70.0346450805664,
+            "actualRegion": "aligned",
+            "mappingAvailable": true,
+            "error": 0.03464508056640625
+          },
+          {
+            "mediaTime": 99.917,
+            "expectedDelay": -70.0,
+            "actualDelay": -70.0346450805664,
+            "actualRegion": "aligned",
+            "mappingAvailable": true,
+            "error": 0.03464508056640625
+          },
+          {
+            "mediaTime": 100.958,
+            "expectedDelay": -70.0,
+            "actualDelay": -70.0346450805664,
+            "actualRegion": "aligned",
+            "mappingAvailable": true,
+            "error": 0.03464508056640625
+          },
+          {
+            "mediaTime": 102.0,
+            "expectedDelay": -70.0,
+            "actualDelay": -70.0346450805664,
+            "actualRegion": "aligned",
+            "mappingAvailable": true,
+            "error": 0.03464508056640625
+          },
+          {
+            "mediaTime": 103.0,
+            "expectedDelay": -70.0,
+            "actualDelay": -70.0346450805664,
+            "actualRegion": "aligned",
+            "mappingAvailable": true,
+            "error": 0.03464508056640625
+          },
+          {
+            "mediaTime": 104.042,
+            "expectedDelay": -70.0,
+            "actualDelay": -70.0346450805664,
+            "actualRegion": "aligned",
+            "mappingAvailable": true,
+            "error": 0.03464508056640625
+          }
+        ],
+        "cueBoundaryRenderingValidated": false,
+        "backwardSeekValidated": false,
+        "satisfiesSceneDomainChecks": false,
+        "probeSha256": "57be61dc75d94f8da5c02ef2d26799aa185d51c443a345687fa962c3e56b060a",
+        "expectedTimelineSha256": "c9a8a41feef99bd7d069d10111678a3d210a7d269b1bd0401025333095d9e70f"
+      }
+    },
+    "negative-dialogue-context-a072170a.json": {
+      "sha256": "8db7a55eb7e78a51a2a0952d0ae06709a9e2111f0ecaef8c95ddeeecbfd0f943",
+      "data": {
+        "kind": "native-active-pcm-real-asr-and-domain-alignment",
+        "platform": "macos",
+        "inferenceBackend": "portable-cpu",
+        "alignmentEngine": "bounded-affine-timeline",
+        "acquiredMediaPosition": "none",
+        "learnedSegments": 0,
+        "learnedGaps": [],
+        "activityChecks": 465,
+        "activityVoiceChecks": 456,
+        "activityTimingMismatchChecks": 0,
+        "activityTotalMicros": 247041,
+        "activityMaxMicros": 840,
+        "actualOffset": "none",
+        "acquisitionMs": 238037,
+        "evaluationMs": 238037,
+        "expectedOffset": "none",
+        "expectNoLock": true,
+        "completedAnalyses": 5,
+        "validPrefixAnalyses": 0,
+        "rejectedAnalyses": 6,
+        "absoluteOffsetError": "unavailable",
+        "maximumOffsetError": 1.5,
+        "reference": "fixture SRT timings, not precise acoustic-onset ground truth",
+        "passed": true,
+        "productionPlayerValidated": false,
+        "audiblePlaybackValidated": false,
+        "pcmOrTranscriptPersisted": false,
+        "mainIsolateHeartbeatTicks": 9522
+      }
+    },
+    "short-window-context-stability.json": {
+      "sha256": "e268f81be5731c76c34b64c5f8a2ec5b9b9da974581264a1013885e065b1fd84",
+      "data": {
+        "sourceSha": "a072170ade52285bd5d69e7802ac2bc7ecf4cf38",
+        "scope": "same consumed public passage, independently re-decoded PCM; repeated windows are not independent timing confirmations",
+        "windows": [
+          {
+            "start": 75.2,
+            "end": 83.2,
+            "reportSha256": "af7e977a89c6e8154f3c0f39a2afe27729b543a4a75edd6bbb7ccbc457afde1d",
+            "evidence": {
+              "status": "matched",
+              "windowCount": 1,
+              "segmented": true,
+              "rejections": {},
+              "anchors": [
+                {
+                  "cue": 10,
+                  "offset": -69.88999999999999
+                }
+              ]
+            }
+          },
+          {
+            "start": 75.3696875,
+            "end": 83.3696875,
+            "reportSha256": "c425999887da3b984f417c4a2f719c0379f079acfa818fbdedbe8aeb7bdf8915",
+            "evidence": {
+              "status": "matched",
+              "windowCount": 2,
+              "segmented": true,
+              "rejections": {
+                "phraseNotMatched": 2,
+                "cueBeginningAbsent": 1
+              },
+              "anchors": [
+                {
+                  "cue": 8,
+                  "offset": -70.1743125
+                },
+                {
+                  "cue": 10,
+                  "offset": -69.8803125
+                }
+              ]
+            }
+          },
+          {
+            "start": 75.4550625,
+            "end": 83.4550625,
+            "reportSha256": "15898ec7efafcd7ddbd43b97c736a2211ac38b9a1b18a9418dd41241dc62a82b",
+            "evidence": {
+              "status": "matched",
+              "windowCount": 1,
+              "segmented": false,
+              "rejections": {},
+              "anchors": [
+                {
+                  "cue": 10,
+                  "offset": -69.8749375
+                }
+              ]
+            }
+          },
+          {
+            "start": 75.54,
+            "end": 83.54,
+            "reportSha256": "499952fb66854df7606a77cfc24ca234683d79498a5b9ab657656e7a96477726",
+            "evidence": {
+              "status": "matched",
+              "windowCount": 1,
+              "segmented": false,
+              "rejections": {},
+              "anchors": [
+                {
+                  "cue": 10,
+                  "offset": -69.88999999999999
+                },
+                {
+                  "cue": 11,
+                  "offset": -69.80999999999999
+                }
+              ]
+            }
+          },
+          {
+            "start": 75.71,
+            "end": 83.71,
+            "reportSha256": "2dc42fa7ecac8659ce17fe81b17be42c322eb339b0863207086d324ac11bc57c",
+            "evidence": {
+              "status": "matched",
+              "windowCount": 1,
+              "segmented": false,
+              "rejections": {
+                "beginningUnsupportedSpeech": 1
+              },
+              "anchors": [
+                {
+                  "cue": 10,
+                  "offset": -69.88
+                }
+              ]
+            }
+          }
+        ]
+      }
+    }
+  },
+  "fullProductAcceptance": false,
+  "limitations": [
+    "Active scene recovery is 18.333 seconds, but unchanged p95 is 30.204956 seconds and no gap is learned; full scene acceptance fails.",
+    "The five nearby short-window checks reuse one consumed public passage. They are neither held-out validation nor independent timing confirmations.",
+    "Negative control observes no lock in 238 seconds, with five completed analyses and six native invalid-output rejections.",
+    "Authored SRT timing is not independent acoustic-onset truth. No native UI, audible playback or performance-budget conclusion follows."
+  ]
+}
