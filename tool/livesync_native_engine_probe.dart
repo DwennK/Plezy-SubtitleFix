@@ -222,6 +222,17 @@ Future<Map<String, Object>> probe(Map<String, String> options) async {
               'similarity': result.passage?.similarity,
               'anchors': anchors.map((anchor) => {'cue': anchor.cue, 'offset': anchor.offset}).toList(),
               'anchorRejections': evidence.anchorRejections,
+              if (!evidence.segmented && evidence.windowCount == 1 && result.passage != null)
+                'cueBeginningMatches': [
+                  for (final pair in result.passage!.words)
+                    if (index.words[pair.subtitleWord].wordInCue < 5)
+                      {
+                        'cue': index.words[pair.subtitleWord].cueOrdinal,
+                        'wordInCue': index.words[pair.subtitleWord].wordInCue,
+                        'transcriptWord': pair.transcriptWord,
+                        'exact': pair.exact,
+                      },
+                ],
               if (tracking)
                 'regions': [
                   for (final segment in timeline.map.segments)
