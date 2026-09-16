@@ -1,0 +1,59 @@
+{
+  "isDraft": true,
+  "isPrerelease": true,
+  "tagName": "livesync-test-20260916-10ace9fc",
+  "targetCommitish": "10ace9fc6d93c59a2f577e1d2a2d9e7245087f52",
+  "url": "https://github.com/DwennK/Plezy-SubtitleFix/releases/tag/untagged-2d56fbd71e50827086f2",
+  "allUploadedDigestsMatchLocal": true,
+  "assets": [
+    {
+      "name": "PlezyLiveSync-macos-arm64-test-10ace9fc.zip",
+      "size": 125629089,
+      "digest": "sha256:5ccdbe86e26bf5309fea0fe54e67f018eb900f8670ca496dd4b0b05a0d5b3ea2"
+    },
+    {
+      "name": "PlezyLiveSync-windows-x64-test-10ace9fc.zip",
+      "size": 145215947,
+      "digest": "sha256:802c3c94143f1534ce17d412b36ab1040cebd2c75a9eaae80c79449a8503d5dc"
+    },
+    {
+      "name": "SHA256SUMS.txt",
+      "size": 220,
+      "digest": "sha256:f8dae58a66385f49d4b297c88983f9e5ab7afacf9c93b255424a4f0b1046f039"
+    },
+    {
+      "name": "test-artifacts-provenance.json",
+      "size": 770,
+      "digest": "sha256:286125be648b660fbe0dd833644e73054c118b1f05bbaf0e773a637c6153469e"
+    },
+    {
+      "name": "upstream-validation.json",
+      "size": 8025,
+      "digest": "sha256:29a5fa44992b32419da42a5affac319c9977d7d221afccfd173a567a75cdd814"
+    }
+  ],
+  "localVerification": {
+    "candidateSha": "10ace9fc6d93c59a2f577e1d2a2d9e7245087f52",
+    "upstreamSha": "7883cf8c88d31e9b81e574c6949031a1c46de0b4",
+    "plezyVersion": "2.20.0",
+    "plezyBuild": "150",
+    "macBundleId": "com.dwennk.plezy.livesync",
+    "macStrictSignatureVerified": true,
+    "windowsPEArchitecture": "x86_64",
+    "installed": false,
+    "macUILaunchVerified": false,
+    "MentalistValidated": false,
+    "artifacts": [
+      {
+        "file": "PlezyLiveSync-macos-arm64-test-10ace9fc.zip",
+        "bytes": 125629089,
+        "sha256": "5ccdbe86e26bf5309fea0fe54e67f018eb900f8670ca496dd4b0b05a0d5b3ea2"
+      },
+      {
+        "file": "PlezyLiveSync-windows-x64-test-10ace9fc.zip",
+        "bytes": 145215947,
+        "sha256": "802c3c94143f1534ce17d412b36ab1040cebd2c75a9eaae80c79449a8503d5dc"
+      }
+    ]
+  }
+}

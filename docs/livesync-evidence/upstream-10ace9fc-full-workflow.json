@@ -1,0 +1,203 @@
+{
+  "schema": 1,
+  "kind": "completed-upstream-integration-and-noop",
+  "candidateSha": "10ace9fc6d93c59a2f577e1d2a2d9e7245087f52",
+  "promotedMergeSha": "4d06568f8d633c606d498804ccd0bbeab9fa99bc",
+  "promotedTreeEqualsCandidate": true,
+  "upstreamSha": "7883cf8c88d31e9b81e574c6949031a1c46de0b4",
+  "upstreamVerifiedAt": "2026-09-16T13:27:42.660192+00:00",
+  "internalPullRequest": "https://github.com/DwennK/Plezy-SubtitleFix/pull/1",
+  "workflows": {
+    "orchestrator": {
+      "id": 35097858231,
+      "head_sha": "5bddabd0a0e947b4ab90ae1148b8e3e5a672fde2",
+      "status": "completed",
+      "conclusion": "success",
+      "html_url": "https://github.com/DwennK/Plezy-SubtitleFix/actions/runs/35097858231",
+      "created_at": "2026-09-16T12:47:11Z",
+      "updated_at": "2026-09-16T13:24:57Z"
+    },
+    "checks": {
+      "id": 35099281103,
+      "head_sha": "10ace9fc6d93c59a2f577e1d2a2d9e7245087f52",
+      "status": "completed",
+      "conclusion": "success",
+      "html_url": "https://github.com/DwennK/Plezy-SubtitleFix/actions/runs/35099281103",
+      "created_at": "2026-09-16T13:01:17Z",
+      "updated_at": "2026-09-16T13:16:01Z"
+    },
+    "dart": {
+      "id": 35097914160,
+      "head_sha": "10ace9fc6d93c59a2f577e1d2a2d9e7245087f52",
+      "status": "completed",
+      "conclusion": "success",
+      "html_url": "https://github.com/DwennK/Plezy-SubtitleFix/actions/runs/35097914160",
+      "created_at": "2026-09-16T12:47:47Z",
+      "updated_at": "2026-09-16T12:52:10Z"
+    },
+    "native": {
+      "id": 35097915052,
+      "head_sha": "10ace9fc6d93c59a2f577e1d2a2d9e7245087f52",
+      "status": "completed",
+      "conclusion": "success",
+      "html_url": "https://github.com/DwennK/Plezy-SubtitleFix/actions/runs/35097915052",
+      "created_at": "2026-09-16T12:47:48Z",
+      "updated_at": "2026-09-16T12:54:59Z"
+    },
+    "macos": {
+      "id": 35097912981,
+      "head_sha": "10ace9fc6d93c59a2f577e1d2a2d9e7245087f52",
+      "status": "completed",
+      "conclusion": "success",
+      "html_url": "https://github.com/DwennK/Plezy-SubtitleFix/actions/runs/35097912981",
+      "created_at": "2026-09-16T12:47:46Z",
+      "updated_at": "2026-09-16T13:00:44Z"
+    },
+    "windows": {
+      "id": 35099278748,
+      "head_sha": "10ace9fc6d93c59a2f577e1d2a2d9e7245087f52",
+      "status": "completed",
+      "conclusion": "success",
+      "html_url": "https://github.com/DwennK/Plezy-SubtitleFix/actions/runs/35099278748",
+      "created_at": "2026-09-16T13:01:15Z",
+      "updated_at": "2026-09-16T13:24:20Z"
+    },
+    "noop": {
+      "id": 35101893525,
+      "head_sha": "4d06568f8d633c606d498804ccd0bbeab9fa99bc",
+      "status": "completed",
+      "conclusion": "success",
+      "html_url": "https://github.com/DwennK/Plezy-SubtitleFix/actions/runs/35101893525",
+      "created_at": "2026-09-16T13:26:11Z",
+      "updated_at": "2026-09-16T13:26:35Z"
+    }
+  },
+  "reports": {
+    "calibration-player-calibration.json": {
+      "sha256": "52d6d521a7b003c884d9f0f2090e25962950e7682cd33df12e057fba091208a3",
+      "report": {
+        "kind": "actual-plezy-production-controller-calibration",
+        "platform": "windows",
+        "inferenceBackend": "avx2-cpu",
+        "expectedOffset": -100.0,
+        "absoluteOffsetError": 0.2603229166666381,
+        "maximumOffsetError": 0.75,
+        "modelId": "base.en",
+        "modelSha256": "a03779c86df3323075f5e796cb2ce5029f00ec8869eee3fdfb897afe36c6d002",
+        "fixtureCase": "calibration",
+        "introSilenceSeconds": 0,
+        "actualOffset": -100.26032291666664,
+        "reference": "authored Sintel SRT, not precise acoustic-onset ground truth",
+        "acquisitionMs": 36012,
+        "nativeDelay": -100.135323,
+        "audioPartitionSeconds": [
+          100,
+          175
+        ],
+        "audioOutput": "pcm-to-NUL",
+        "audiblePlaybackValidated": false,
+        "pcmOrTranscriptPersisted": false,
+        "postConfirmationOffset": -100.26032291666664,
+        "knownRegionRestoredAfterSeek": true,
+        "unknownSeekClearsAutomaticOnly": true,
+        "audioDelayCompositionAndPreservation": true,
+        "cacheRestoreMs": 1906,
+        "persistentCacheKnownAndUnknownRegions": true,
+        "manualDelayDuringAndAfter": true,
+        "tapDisabledOnClose": true,
+        "passed": true
+      }
+    },
+    "calibration-player-intro-90.json": {
+      "sha256": "df4fcb5d8cee87aec3c39d047d52f00ff55274e118f6bdc7d9cf19c15cc83011",
+      "report": {
+        "kind": "actual-plezy-production-controller-calibration",
+        "platform": "windows",
+        "inferenceBackend": "avx2-cpu",
+        "expectedOffset": 90.0,
+        "absoluteOffsetError": 0.23297916666666652,
+        "maximumOffsetError": 0.75,
+        "modelId": "base.en",
+        "modelSha256": "a03779c86df3323075f5e796cb2ce5029f00ec8869eee3fdfb897afe36c6d002",
+        "fixtureCase": "intro-90",
+        "introSilenceSeconds": 90,
+        "actualOffset": 89.76702083333333,
+        "reference": "authored Sintel SRT, not precise acoustic-onset ground truth",
+        "acquisitionMs": 124216,
+        "nativeDelay": 89.892021,
+        "audioPartitionSeconds": [
+          100,
+          175
+        ],
+        "audioOutput": "pcm-to-NUL",
+        "audiblePlaybackValidated": false,
+        "pcmOrTranscriptPersisted": false,
+        "postConfirmationOffset": 89.76702083333333,
+        "knownRegionRestoredAfterSeek": true,
+        "unknownSeekClearsAutomaticOnly": true,
+        "audioDelayCompositionAndPreservation": true,
+        "cacheRestoreMs": 1820,
+        "persistentCacheKnownAndUnknownRegions": true,
+        "manualDelayDuringAndAfter": true,
+        "tapDisabledOnClose": true,
+        "passed": true
+      }
+    },
+    "livesync-provenance.json": {
+      "sha256": "6d0c6ead8baa6aff771101bccf0cda595d70a321e6443609e634e8c2e0012441",
+      "report": {
+        "nativeRevision": "6855ea3776b437a922c0c7841560842e799fc152",
+        "liveSyncPatchSha256": "6a2e0e12b3e61c6f846127c90e75361a20cbfef9c822d56a0ecac55b6803a977",
+        "windowsCompatibilityPatchSha256": "ff63249eb0118550f3d37923a05dca9992c1f2bae66baee303992d7dcb1c5ca3",
+        "buildRepository": "DwennK/Plezy-SubtitleFix",
+        "buildRun": 35097915052,
+        "buildSourceSha": "10ace9fc6d93c59a2f577e1d2a2d9e7245087f52",
+        "buildUrl": "https://github.com/DwennK/Plezy-SubtitleFix/actions/runs/35097915052",
+        "artifactId": 10446984028,
+        "artifactDigest": "sha256:16ed14b9ebf3c5ea9c4cd43b1d088da426f50c1f1df6321dd719f7f99fa4db50",
+        "architecture": "x86_64",
+        "archiveSha256": "ea631b41d57646778c22ea39101496ba27953027e494a26d50b0f58c8a9dc33b",
+        "dllSha256": "e0abf158f4ab736843bf9fd3002955b44c2e8f43f5dadfefc0d4e69627e182ec"
+      }
+    },
+    "noop": {
+      "sha256": "c0d42b17fac3a3c2079b2d6d5d9e7cb39dec51f13408bd46a26a27bf08e56352",
+      "report": {
+        "checkedAt": "2026-09-16T13:26:29.198262+00:00",
+        "maintainedBaseSha": "4d06568f8d633c606d498804ccd0bbeab9fa99bc",
+        "upstreamSha": "7883cf8c88d31e9b81e574c6949031a1c46de0b4",
+        "stableRelease": "2.20.0",
+        "state": "unchanged"
+      }
+    }
+  },
+  "macosNativeContracts": {
+    "passed": 14,
+    "failed": 0,
+    "skipped": 0,
+    "architecture": "arm64",
+    "machine": "Apple Virtual Machine 1",
+    "osVersion": "26.6.2"
+  },
+  "rendererReview": {
+    "states": [
+      "baseline",
+      "positive",
+      "negative",
+      "restored"
+    ],
+    "selectedTrackPreserved": true,
+    "syntheticFixture": true,
+    "dimensions": [
+      1024,
+      720
+    ],
+    "backend": "d3d11-warp"
+  },
+  "limitations": [
+    "Sintel calibration timestamps are authored captions, not manual acoustic word-onset annotations.",
+    "Windows audio output is PCM-to-NUL; audible playback and physical GPU performance remain unvalidated.",
+    "Mentalist, independent median precision, drift, automatic scene gaps, native macOS UI and distribution acceptance remain open.",
+    "Scene visibility and startup overlap changes are not part of this candidate."
+  ]
+}

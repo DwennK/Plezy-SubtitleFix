@@ -1608,3 +1608,54 @@ Le natif Windows provient du run `35078943474` au SHA `18e50324`, avec identité
 des quatre entrées natives contrôlée avant réutilisation. Les options
 expérimentales d’acquisition sont absentes du candidat. Ces dispatchs manuels
 ne valident pas encore l’enchaînement quotidien complet, sa PR et son no-op.
+
+
+### 2026-09-16 — intégration upstream complète, promotion et passage sans changement
+
+Le candidat `10ace9fc6d93c59a2f577e1d2a2d9e7245087f52`, fondé sur l'upstream
+`7883cf8c88d31e9b81e574c6949031a1c46de0b4`, passe les cinq validations lancées par
+l'orchestrateur `35097858231` : contrôles upstream `35099281103`, Dart
+`35097914160`, natif `35097915052`, macOS `35097912981` et Windows `35099278748`.
+Le workflow a ouvert la PR interne #1, revue puis fusionnée sans squash ni rebase
+au commit `4d06568f8d633c606d498804ccd0bbeab9fa99bc`. Son arbre est identique au
+candidat testé. Le SHA testé reste `10ace9fc` ; le merge n'est pas un nouveau build.
+
+Le passage normal suivant `35101893525` retourne `state: unchanged` et saute les
+builds et la publication de PR. La branche `main` du fork est avancée uniquement
+jusqu'au SHA officiel. Le calendrier quotidien reste 05:23 UTC. Les échecs
+historiques de conflit/format sont conservés ; ce passage prouve désormais la
+chaîne complète avec dépendance native Windows et un véritable no-op après
+promotion. Preuve structurée :
+[`upstream-10ace9fc-full-workflow.json`](livesync-evidence/upstream-10ace9fc-full-workflow.json).
+
+Windows, contrôleur de production, calibration Sintel : acquisition 36,012 s,
+erreur absolue 260,3 ms ; introduction de 90 s : acquisition 124,216 s, erreur
+233,0 ms. Cache restauré en 1,906 / 1,820 s ; seeks connus/inconnus, délais audio
+et sous-titres manuels, cache et arrêt passent. Ces mesures de calibration ne
+valident pas le budget médian sur corpus indépendant. Le renderer synthétique
+montre les cues attendus pour les délais positif/négatif et la restauration ;
+images inspectées à la résolution disponible 1024 × 720, D3D11 WARP, PCM-to-NUL.
+macOS : 14 contrats natifs passent sur une VM arm64. Mentalist et l'audio audible
+ne sont pas validés par ces résultats.
+
+Deux changements restent isolés et absents du candidat promu :
+
+- `codex/livesync-scene-boundaries`, commit `c205484a` : masque temporaire dans
+  un intervalle vidéo seul **déjà confirmé**, préservation du choix manuel et
+  récupération après erreur. 145 tests locaux et analyse passent. Vérification
+  des 13 états du renderer Windows lancée dans `35100887451`. Le détecteur
+  automatique de gaps n'est pas implémenté par ce changement.
+- `codex/livesync-startup-overlap`, commit `41dba5c5` : capture et préparation du
+  SRT complet en parallèle, sans inférence avant le texte complet. 146 tests
+  locaux, analyse et actionlint passent. Essai natif avec SRT retardé de 15 s
+  lancé dans `35101753081`. Cela ne réduit pas le coût d'extraction Plex lui-même
+  et n'est pas encore une preuve de réduction du délai sur Mentalist.
+
+Les archives normales de test de ce candidat sont conservées dans la release
+brouillon `livesync-test-20260916-10ace9fc`, sans publication publique. Les cinq
+assets téléchargés depuis la CI puis envoyés ont leurs tailles et SHA-256
+vérifiés contre GitHub. Le bundle macOS est arm64 et passe localement
+`codesign --verify --deep --strict`; l'exécutable Windows est x64. Preuve :
+[`draft-test-artifacts-10ace9fc.json`](livesync-evidence/draft-test-artifacts-10ace9fc.json).
+Ces apps Debug n'ont pas été installées/lancées sur le Mac utilisateur ; la
+notarisation et l'installation/désinstallation restent à valider.
