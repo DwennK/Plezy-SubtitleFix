@@ -41,3 +41,16 @@ The explicit v1-envelope regression failed before the version change.
 After the version change, all 160 feature/player tests (including the downloaded
 Sintel parser case), 51 focused map/cache tests, full Flutter analysis, and
 `git diff --check` pass. Native app validation of this follow-up remains pending.
+
+## Subsequent native result and promotion
+
+The final candidate `f04d8e29` passes Windows recovery run `35109362139`,
+macOS run `35109400288` (14 native contracts), Dart and upstream CI.
+Both false-cache cases restore the seeded gap, hide subtitles, recover through
+actual PCM/Whisper, restore visibility and remove the false interval from disk
+while retaining the unrelated segment. Acquisition: 20.946 s / 122.224 s;
+authored-SRT error: 198.7 / 227.6 ms. All ordinary controller checks pass.
+PR #3 is promoted in `7a68ca09`; production code is identical to tested source.
+[Numeric reports and remaining limits](cache-recovery-f04d8e29-windows.json).
+This does not establish automatic scene discovery, independent acoustic accuracy
+or Mentalist playback. The a5838cbe draft archives predate this change.

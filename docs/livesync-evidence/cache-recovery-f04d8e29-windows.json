@@ -1,0 +1,447 @@
+{
+  "schema": 1,
+  "sourceSha": "f04d8e295baf49483e46fa5b03cee7393d66dfc4",
+  "promotionSha": "7a68ca094c5fc17477dd2343a53b684d6dbdadd0",
+  "prUrl": "https://github.com/DwennK/Plezy-SubtitleFix/pull/3",
+  "codeIdenticalToSource": true,
+  "runs": {
+    "windows": {
+      "id": 35109362139,
+      "url": "https://github.com/DwennK/Plezy-SubtitleFix/actions/runs/35109362139",
+      "conclusion": "success",
+      "sourceSha": "f04d8e295baf49483e46fa5b03cee7393d66dfc4"
+    },
+    "macos": {
+      "id": 35109400288,
+      "url": "https://github.com/DwennK/Plezy-SubtitleFix/actions/runs/35109400288",
+      "conclusion": "success",
+      "sourceSha": "f04d8e295baf49483e46fa5b03cee7393d66dfc4"
+    },
+    "dart": {
+      "id": 35109404025,
+      "url": "https://github.com/DwennK/Plezy-SubtitleFix/actions/runs/35109404025",
+      "conclusion": "success",
+      "sourceSha": "f04d8e295baf49483e46fa5b03cee7393d66dfc4"
+    },
+    "upstreamCI": {
+      "id": 35109408127,
+      "url": "https://github.com/DwennK/Plezy-SubtitleFix/actions/runs/35109408127",
+      "conclusion": "success",
+      "sourceSha": "f04d8e295baf49483e46fa5b03cee7393d66dfc4"
+    }
+  },
+  "flutterMode": "debug",
+  "reports": {
+    "calibration-player-calibration.json": {
+      "sha256": "567b5250210c3640d541a5d61c065820bbf4d0149a724b2991098f9492505c9b",
+      "report": {
+        "kind": "actual-plezy-production-controller-calibration",
+        "subtitleLoadDelayMs": 0,
+        "seekDuringStartupValidated": false,
+        "wrongCachedGapRecoveryValidated": true,
+        "cacheAlgorithm": "bounded-affine-titles-v2",
+        "cacheFixtureIsSynthetic": true,
+        "seededGapEndSeconds": 75,
+        "startupDiagnostics": [
+          {
+            "observedElapsedMs": 183,
+            "startupSubtitlesMs": 160,
+            "mappingCacheEligible": true,
+            "restoredSegments": 1,
+            "restoredGaps": 1
+          },
+          {
+            "observedElapsedMs": 6225,
+            "startupCaptureMs": 6203,
+            "captureReadyBeforeSubtitles": false
+          },
+          {
+            "observedElapsedMs": 6228,
+            "startupReadyMs": 6206,
+            "startupBufferedSamples": 0
+          }
+        ],
+        "acquisitionDiagnostics": [
+          {
+            "selectedAudioLanguage": "eng",
+            "selectedSubtitleLanguage": "eng",
+            "subtitleExternal": true,
+            "subtitleSourceMatchesFixture": true
+          },
+          {
+            "observedElapsedMs": 183,
+            "startupSubtitlesMs": 160,
+            "mappingCacheEligible": true,
+            "restoredSegments": 1,
+            "restoredGaps": 1
+          },
+          {
+            "observedElapsedMs": 6225,
+            "startupCaptureMs": 6203,
+            "captureReadyBeforeSubtitles": false
+          },
+          {
+            "observedElapsedMs": 6228,
+            "startupReadyMs": 6206,
+            "startupBufferedSamples": 0
+          },
+          {
+            "observedElapsedMs": 6229,
+            "inferenceBackend": "avx2-cpu"
+          },
+          {
+            "observedElapsedMs": 14814,
+            "analysisRequest": 1,
+            "generation": 1,
+            "continuity": 3,
+            "activityVoicePresent": null,
+            "activityTimingMismatch": false,
+            "analysisIntervalMs": 12000,
+            "analysisWindowSeconds": 12.0
+          },
+          {
+            "observedElapsedMs": 20850,
+            "attempt": 1,
+            "generation": 1,
+            "continuity": 3,
+            "inferenceSeconds": 5.017944,
+            "matchingMs": 86,
+            "windowStart": 6.326333333333341,
+            "windowEnd": 14.94302083333334,
+            "validPrefixOnly": false,
+            "match": "matched",
+            "similarity": 1.0,
+            "competitor": null,
+            "contextWindows": 1,
+            "segmentedMatch": false,
+            "anchors": [
+              {
+                "cue": 0,
+                "offset": -100.18366666666665
+              },
+              {
+                "cue": 1,
+                "offset": -100.21366666666665
+              }
+            ]
+          },
+          {
+            "observedElapsedMs": 20856,
+            "learnedMediaStart": 7.051333333333346,
+            "learnedMediaEnd": 11.601334333333341,
+            "learnedSlope": 1.0,
+            "learnedSegments": 2
+          }
+        ],
+        "captureDuringSubtitleLoadValidated": false,
+        "platform": "windows",
+        "inferenceBackend": "avx2-cpu",
+        "expectedOffset": -100.0,
+        "absoluteOffsetError": 0.19866666666665367,
+        "maximumOffsetError": 0.75,
+        "modelId": "base.en",
+        "modelSha256": "a03779c86df3323075f5e796cb2ce5029f00ec8869eee3fdfb897afe36c6d002",
+        "fixtureCase": "calibration",
+        "introSilenceSeconds": 0,
+        "actualOffset": -100.19866666666665,
+        "reference": "authored Sintel SRT, not precise acoustic-onset ground truth",
+        "acquisitionMs": 20946,
+        "acquisitionTargetMs": 45000,
+        "acquisitionTargetPassed": true,
+        "nativeDelay": -100.073669,
+        "audioPartitionSeconds": [
+          100,
+          175
+        ],
+        "audioOutput": "pcm-to-NUL",
+        "audiblePlaybackValidated": false,
+        "pcmOrTranscriptPersisted": false,
+        "postConfirmationOffset": -100.21732291666666,
+        "knownRegionRestoredAfterSeek": true,
+        "unknownSeekClearsAutomaticOnly": true,
+        "audioDelayCompositionAndPreservation": true,
+        "cacheRestoreMs": 1540,
+        "persistentCacheKnownAndUnknownRegions": true,
+        "manualDelayDuringAndAfter": true,
+        "tapDisabledOnClose": true,
+        "passed": true
+      }
+    },
+    "calibration-player-intro-90.json": {
+      "sha256": "b93261dcb58a3aeb802d293f9333cc48dafa4144cfcc4bfaf0d49bc85b6edc0b",
+      "report": {
+        "kind": "actual-plezy-production-controller-calibration",
+        "subtitleLoadDelayMs": 0,
+        "seekDuringStartupValidated": false,
+        "wrongCachedGapRecoveryValidated": true,
+        "cacheAlgorithm": "bounded-affine-titles-v2",
+        "cacheFixtureIsSynthetic": true,
+        "seededGapEndSeconds": 165,
+        "startupDiagnostics": [
+          {
+            "observedElapsedMs": 281,
+            "startupSubtitlesMs": 257,
+            "mappingCacheEligible": true,
+            "restoredSegments": 1,
+            "restoredGaps": 1
+          },
+          {
+            "observedElapsedMs": 5496,
+            "startupCaptureMs": 5472,
+            "captureReadyBeforeSubtitles": false
+          },
+          {
+            "observedElapsedMs": 5525,
+            "startupReadyMs": 5501,
+            "startupBufferedSamples": 0
+          }
+        ],
+        "acquisitionDiagnostics": [
+          {
+            "selectedAudioLanguage": "eng",
+            "selectedSubtitleLanguage": "eng",
+            "subtitleExternal": true,
+            "subtitleSourceMatchesFixture": true
+          },
+          {
+            "observedElapsedMs": 281,
+            "startupSubtitlesMs": 257,
+            "mappingCacheEligible": true,
+            "restoredSegments": 1,
+            "restoredGaps": 1
+          },
+          {
+            "observedElapsedMs": 5496,
+            "startupCaptureMs": 5472,
+            "captureReadyBeforeSubtitles": false
+          },
+          {
+            "observedElapsedMs": 5525,
+            "startupReadyMs": 5501,
+            "startupBufferedSamples": 0
+          },
+          {
+            "observedElapsedMs": 5525,
+            "inferenceBackend": "avx2-cpu"
+          },
+          {
+            "observedElapsedMs": 13526,
+            "analysisRequest": 1,
+            "generation": 1,
+            "continuity": 3,
+            "activityVoicePresent": null,
+            "activityTimingMismatch": false,
+            "analysisIntervalMs": 12000,
+            "analysisWindowSeconds": 12.0
+          },
+          {
+            "observedElapsedMs": 20511,
+            "attempt": 1,
+            "generation": 1,
+            "continuity": 3,
+            "inferenceSeconds": 6.2799872,
+            "matchingMs": 7,
+            "windowStart": 5.504999999999999,
+            "windowEnd": 13.566999999999998,
+            "validPrefixOnly": false,
+            "match": "insufficientDialogue",
+            "similarity": null,
+            "competitor": null,
+            "contextWindows": 1,
+            "segmentedMatch": false,
+            "anchors": []
+          },
+          {
+            "observedElapsedMs": 90512,
+            "analysisRequest": 2,
+            "generation": 1,
+            "continuity": 3,
+            "activityVoicePresent": true,
+            "activityTimingMismatch": false,
+            "analysisIntervalMs": 12000,
+            "analysisWindowSeconds": 15.0
+          },
+          {
+            "observedElapsedMs": 96003,
+            "attempt": 2,
+            "generation": 1,
+            "continuity": 3,
+            "inferenceSeconds": 5.4493943,
+            "matchingMs": 1,
+            "windowStart": 75.607,
+            "windowEnd": 90.607,
+            "validPrefixOnly": false,
+            "match": "insufficientDialogue",
+            "similarity": null,
+            "competitor": null,
+            "contextWindows": 1,
+            "segmentedMatch": false,
+            "anchors": []
+          },
+          {
+            "observedElapsedMs": 103004,
+            "analysisRequest": 3,
+            "generation": 1,
+            "continuity": 3,
+            "activityVoicePresent": true,
+            "activityTimingMismatch": false,
+            "analysisIntervalMs": 12000,
+            "analysisWindowSeconds": 15.0
+          },
+          {
+            "observedElapsedMs": 109518,
+            "attempt": 3,
+            "generation": 1,
+            "continuity": 3,
+            "inferenceSeconds": 6.4194573,
+            "matchingMs": 12,
+            "windowStart": 87.98037500000001,
+            "windowEnd": 102.98037500000001,
+            "validPrefixOnly": false,
+            "match": "matched",
+            "similarity": 1.0,
+            "competitor": null,
+            "contextWindows": 1,
+            "segmentedMatch": false,
+            "anchors": [
+              {
+                "cue": 1,
+                "offset": 89.780375
+              }
+            ]
+          },
+          {
+            "observedElapsedMs": 115013,
+            "analysisRequest": 4,
+            "generation": 1,
+            "continuity": 3,
+            "activityVoicePresent": true,
+            "activityTimingMismatch": false,
+            "analysisIntervalMs": 12000,
+            "analysisWindowSeconds": 15.0
+          },
+          {
+            "observedElapsedMs": 122011,
+            "attempt": 4,
+            "generation": 1,
+            "continuity": 3,
+            "inferenceSeconds": 6.6341367,
+            "matchingMs": 8,
+            "windowStart": 100.012375,
+            "windowEnd": 115.012375,
+            "validPrefixOnly": false,
+            "match": "matched",
+            "similarity": 1.0,
+            "competitor": null,
+            "contextWindows": 1,
+            "segmentedMatch": false,
+            "anchors": [
+              {
+                "cue": 1,
+                "offset": 89.792375
+              },
+              {
+                "cue": 2,
+                "offset": 89.77237500000001
+              },
+              {
+                "cue": 3,
+                "offset": 89.68237500000001
+              }
+            ]
+          },
+          {
+            "observedElapsedMs": 122014,
+            "learnedMediaStart": 101.57237500000001,
+            "learnedMediaEnd": 111.52237600000001,
+            "learnedSlope": 1.0,
+            "learnedSegments": 2
+          }
+        ],
+        "captureDuringSubtitleLoadValidated": false,
+        "platform": "windows",
+        "inferenceBackend": "avx2-cpu",
+        "expectedOffset": 90.0,
+        "absoluteOffsetError": 0.22762499999998909,
+        "maximumOffsetError": 0.75,
+        "modelId": "base.en",
+        "modelSha256": "a03779c86df3323075f5e796cb2ce5029f00ec8869eee3fdfb897afe36c6d002",
+        "fixtureCase": "intro-90",
+        "introSilenceSeconds": 90,
+        "actualOffset": 89.77237500000001,
+        "reference": "authored Sintel SRT, not precise acoustic-onset ground truth",
+        "acquisitionMs": 122224,
+        "acquisitionTargetMs": 135000,
+        "acquisitionTargetPassed": true,
+        "nativeDelay": 89.897377,
+        "audioPartitionSeconds": [
+          100,
+          175
+        ],
+        "audioOutput": "pcm-to-NUL",
+        "audiblePlaybackValidated": false,
+        "pcmOrTranscriptPersisted": false,
+        "postConfirmationOffset": 89.77237500000001,
+        "knownRegionRestoredAfterSeek": true,
+        "unknownSeekClearsAutomaticOnly": true,
+        "audioDelayCompositionAndPreservation": true,
+        "cacheRestoreMs": 1509,
+        "persistentCacheKnownAndUnknownRegions": true,
+        "manualDelayDuringAndAfter": true,
+        "tapDisabledOnClose": true,
+        "passed": true
+      }
+    }
+  },
+  "macosNativeContracts": {
+    "devicesAndConfigurations": [
+      {
+        "device": {
+          "architecture": "arm64",
+          "deviceId": "0187209bb7580c4c1536d4aac217a4857cd78298",
+          "deviceName": "My Mac",
+          "modelName": "Apple Virtual Machine 1",
+          "osBuildNumber": "25G83",
+          "osVersion": "26.6.2",
+          "platform": "macOS"
+        },
+        "expectedFailures": 0,
+        "failedTests": 0,
+        "passedTests": 14,
+        "skippedTests": 0,
+        "testPlanConfiguration": {
+          "configurationId": "1",
+          "configurationName": "Test Scheme Action"
+        }
+      }
+    ],
+    "environmentDescription": "Runner \u00b7 Built with macOS 26.6.2",
+    "expectedFailures": 0,
+    "failedTests": 0,
+    "finishTime": 1789570036.278,
+    "passedTests": 14,
+    "result": "Passed",
+    "skippedTests": 0,
+    "startTime": 1789569972.523,
+    "statistics": [],
+    "testFailures": [],
+    "title": "Test - Runner",
+    "topInsights": [
+      {
+        "category": "Longest Test Runs",
+        "impact": "44% of duration",
+        "text": "1 longest test run with outlier durations exceeding 0.18s (three standard deviations)"
+      }
+    ],
+    "totalTestCount": 14
+  },
+  "macosStrictBundleSignatureVerified": true,
+  "fullProductAcceptance": false,
+  "limitations": [
+    "The false cached gap and future supporting segment are synthetic corruption records; this does not prove automatic scene-gap discovery.",
+    "Authored SRT timings are not manually annotated acoustic onsets.",
+    "Audio output was PCM-to-NUL; no audible playback or Mentalist test.",
+    "Passing acquisition targets on this run does not erase the earlier 52.022 s failure.",
+    "Existing draft a5838cbe archives do not contain this cache update."
+  ]
+}

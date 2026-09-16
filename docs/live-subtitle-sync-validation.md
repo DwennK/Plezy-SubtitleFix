@@ -1772,3 +1772,21 @@ Le scénario Release `35110773889` est lancé au SHA `7267abfc`, sans changement
 de l’algorithme ou des seuils. Les archives Release sont distinguées et le probe
 rapporte son mode de compilation. Résultat encore attendu ; cela ne remplace
 pas les mesures matérielles de lecture audible ni la validation de Mentalist.
+
+
+### Récupération native du cache erroné — 16 septembre
+
+Le candidat `f04d8e29` passe les quatre workflows : Windows `35109362139`,
+macOS `35109400288`, Dart `35109404025` et CI upstream `35109408127`.
+Les deux rapports Windows confirment le chargement du faux gap et du segment
+indépendant, le masquage natif, puis la récupération PCM/Whisper, le retour
+de la visibilité et la correction persistée sans perdre le segment indépendant.
+Acquisition : 20,946 s / 122,224 s ; erreur face au SRT : 198,7 / 227,6 ms.
+Les cibles 45/135 s de cet essai passent, sans effacer l'ancien échec à 52,022 s.
+macOS passe 14 contrats et la vérification stricte de signature du bundle arm64.
+
+La PR nº 3 est intégrée dans `7a68ca09`, code identique au candidat.
+[Rapports et empreintes](livesync-evidence/cache-recovery-f04d8e29-windows.json).
+Le gap injecté est un scénario de corruption, pas une scène apprise ; ni la
+précision acoustique indépendante ni Mentalist audible ne sont validés.
+Les archives brouillon a5838cbe restent antérieures à ce correctif.
