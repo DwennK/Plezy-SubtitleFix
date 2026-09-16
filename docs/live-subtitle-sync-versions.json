@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "product": "Plezy + LiveSync",
   "status": "integration-candidate-not-validated",
-  "recordedAt": "2026-09-16T09:16:46.460813+00:00",
+  "recordedAt": "2026-09-16T09:21:05.114908+00:00",
   "upstream": {
     "repository": "edde746/plezy",
     "branch": "main",
@@ -11,7 +11,7 @@
     "plezyVersion": "2.20.0+150",
     "stableRelease": "2.20.0",
     "latestCheck": {
-      "checkedAt": "2026-09-16T09:16:46.460813+00:00",
+      "checkedAt": "2026-09-16T09:21:05.114908+00:00",
       "latestSha": "7883cf8c88d31e9b81e574c6949031a1c46de0b4",
       "integratedSha": "7883cf8c88d31e9b81e574c6949031a1c46de0b4",
       "unintegratedCommits": 0,
