@@ -1535,3 +1535,22 @@ Build Mac `0f355835` et signature stricte vérifiés ; copie conservée dans
 `build/livesync/review-builds/0f355835/`, kernel SHA-256
 `49c468e306c1224c043d8724280ea036cbd1520ad05250bd69a2c0989a8fbcff`.
 Ce build local reste sur upstream `e3875912`, distinct du candidat CI `18e50324`.
+
+## Résultats Windows reçus — 2026-09-16
+
+À `2be90b08`, le run applicatif `35080466204` et la CI générale `35080468647`
+sont **réussis**. Calibration : acquisition 38,270 s, erreur 226 ms, cache 1,670 s.
+Introduction de 90 s : acquisition 126,641 s, erreur 232 ms, cache 1,642 s.
+Seeks connus/inconnus, délais audio/manuels, restauration du cache et arrêt du tap
+passent. Rapports `windows-{calibration,intro-90}-2be90b08.json`. Le contrôleur réel
+est exercé avec sortie PCM vers NUL ; cela ne valide ni l'audio perceptible ni
+Mentalist. Ce SHA ne contient pas le correctif ultérieur `0f355835`.
+
+Le build natif upstream `35078943474` à `18e50324` est également **réussi**, avec
+ses probes Windows PCM et sous-titres. Les échantillons vérifiés correspondent
+exactement au signal synthétique, les seeks avant/arrière, la vitesse, le
+débordement et la pause/désactivation passent. Le décodeur SRT local et HTTP
+préserve l'identité source et les délais signés/manuels. Rapport
+`upstream-native-35078943474.json`. Sorties nulles, aucun rendu visible ou audible
+validé. Le parent `35078879715` a terminé en **échec** à cause de la CI générale
+déjà documentée ; le candidat n'est pas promu et aucune PR de succès n'est créée.

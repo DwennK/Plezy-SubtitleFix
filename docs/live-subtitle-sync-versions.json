@@ -659,7 +659,7 @@
       "ciRun": 35034268551,
       "forkSha": "c4e64bba647bcf424517f8fe7481b4e910819194"
     },
-    "qualityLimitations": "135 focused tests and whole Flutter analysis passed at 0f355835. Full-playback drift still fails: slower p95 2.526 s at 1738e659, faster p95 3.474 s at 2be90b08. Windows and general CI passed at df53e749; 2be90b08 validation is running. Upstream 7883 Mac application and 14 native contracts passed at 18e50324, but general integration CI failed and the native Windows build is still running. Mentalist, gap handling and performance budgets remain incomplete.",
+    "qualityLimitations": "135 focused tests and whole Flutter analysis passed at 0f355835. Full-playback drift still fails: slower p95 2.526 s at 1738e659, faster p95 3.474 s at 2be90b08. Windows and general CI passed at 2be90b08. Upstream 7883 Mac application and 14 native contracts passed at 18e50324, and native Windows build/probes passed in run 35078943474, but general integration CI failed and the candidate is not promoted. Mentalist, gap handling and performance budgets remain incomplete.",
     "nativeCaptureOwner": {
       "localResult": "passed real decoder PCM, forward/backward seeks, pause, exclusive capture and weak-client release on parent shutdown",
       "platform": "macOS arm64 Apple M4",
@@ -956,7 +956,7 @@
       "candidateExercise": {
         "ciRun": 35078879715,
         "candidateSha": "18e50324b1b133eeab663a2c241725abf2d33661",
-        "state": "Dart and Mac application/native contracts passed; general CI failed on Kotlin formatting and stale native build. Native Windows build is still running.",
+        "state": "Dart, Mac application/native contracts and native Windows build/probes passed. General CI and parent run failed on Kotlin formatting and stale native build; candidate not promoted.",
         "nativeCiRun": 35078943474,
         "macosCiRun": 35078936569,
         "generalCiRun": 35078936531,
