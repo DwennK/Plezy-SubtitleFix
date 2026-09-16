@@ -1,6 +1,6 @@
 {
   "id": "elephants-dream-commons-en",
-  "status": "frozen-before-first-inference",
+  "status": "first-independent-evaluation-failed-no-acquisition",
   "frozenEngineSha": "8699a49e44ecab55861b95c71dbf49af5e595190",
   "experimentalEarlyAcquisition": true,
   "experimentalAcousticBeginnings": true,
@@ -30,12 +30,32 @@
     "attribution": "English TimedText contributors on Wikimedia Commons; see pinned revision and history",
     "cueCount": 85
   },
-  "partition": {"role": "first-held-out-validation", "startSeconds": 0, "endSeconds": 180},
-  "reservedUnanalyzedPartitions": [[180, 360], [360, 540]],
+  "partition": {
+    "role": "first-held-out-validation",
+    "startSeconds": 0,
+    "endSeconds": 180
+  },
+  "reservedUnanalyzedPartitions": [
+    [
+      180,
+      360
+    ],
+    [
+      360,
+      540
+    ]
+  ],
   "expectedSlope": 1,
   "expectedOffsetSeconds": 0,
   "maximumAcquisitionMs": 45000,
   "maximumMedianErrorSeconds": 0.25,
   "maximumP95ErrorSeconds": 0.75,
-  "reference": "Authored English TimedText paired with its exact Commons media file. This tests the distributed caption timeline, not manually annotated word onsets. No reference offset may be fitted from this run."
+  "reference": "Authored English TimedText paired with its exact Commons media file. This tests the distributed caption timeline, not manually annotated word onsets. No reference offset may be fitted from this run.",
+  "firstEvaluation": {
+    "sourceSha": "bb66513c92d59e8e8713844e73fbf1270006638f",
+    "evidence": "docs/livesync-evidence/elephants-dream-initial-bb66513c.json",
+    "partitionConsumed": true,
+    "acquired": false,
+    "elapsedMs": 179016
+  }
 }

@@ -88,3 +88,51 @@ chapitre de développement, mais pas la précision médiane, la non-dégradation
 le corpus indépendant ni le comportement réel sur Mentalist. Un essai négatif
 natif sur Sintel 650–888 s est lancé avec le même SHA ; son résultat n'est pas
 encore attribué à cette étape.
+
+### Essai négatif et nouvelle région
+
+Le probe `dcfe7e34` sur Sintel 650–888 s termine après **238,054 s**, sans aucune
+correction. Six analyses complètes, cinq sorties rejetées (`invalidOutput`) :
+aucun faux verrouillage sur ce passage déjà utilisé dans le développement.
+Rapport `early-acquisition-negative-dcfe7e34.json`. Des tests Dart ont tourné
+pendant une partie de la lecture ; ce n'est pas une mesure de performance.
+
+`8699a49e` corrige ensuite un défaut de l'option expérimentale : une région
+anciennement apprise autorisait une nouvelle région inconnue à contourner le
+seuil d'acquisition. Le contrôle porte maintenant sur le domaine des ancres,
+aussi après restauration d'un cache. La régression échoue avant et passe après ;
+**150 tests LiveSync** passent et l'analyse Flutter est sans diagnostic. Les
+lectures précédentes ne sont pas réattribuées à ce nouveau SHA.
+
+### Premier corpus de film indépendant
+
+Les sources et la partition 0–180 s d'Elephants Dream sont figées dans
+`test/fixtures/livesync/elephants-dream-validation.json` avant la première
+inférence, au commit `bb66513c`. Les seuils restent ceux de `8699a49e` ; les
+partitions 180–360 s et 360–540 s sont réservées et non analysées.
+
+Le fichier média choisi est celui auquel la piste TimedText est attachée :
+[Commons, fichier original](https://commons.wikimedia.org/wiki/File:Elephants_Dream.ogv)
+et [sous-titres anglais à la révision 1204466026](https://commons.wikimedia.org/w/index.php?title=TimedText:Elephants_Dream.ogv.en.srt&oldid=1204466026).
+Le SHA-1 publié du média et les SHA-256 des deux sources sont vérifiés. Les
+licences et attributions sont conservées séparément (média CC BY-SA 2.5,
+texte Commons CC BY-SA 4.0). Le générateur extrait seulement les 180 secondes
+prévues en PCM mono 16 kHz et copie les octets SRT sans correction de timing.
+Ce SRT reste une référence d'affichage publiée, pas une annotation acoustique
+mot à mot. Aucun décalage attendu n'est ajusté à partir des inférences.
+
+#### Résultat indépendant : échec d’acquisition
+
+Le premier essai natif `bb66513c` termine après **179,016 s sans correction**.
+Neuf analyses complètes, aucun rejet natif, 174 positions toutes inconnues.
+Une seule cue fournit des ancres : −1,935 s puis +0,161 s lors d’une autre
+fenêtre. Cette variation de 2,096 s interdit de considérer la seule similarité
+textuelle comme une preuve de précision. Le champ historique `acquisitionMs`
+du probe est ici le temps écoulé, pas une acquisition réelle. Les erreurs nulles
+avant verrouillage ne valident rien sur ce fichier déjà aligné.
+
+Rapport : `elephants-dream-initial-bb66513c.json`. **Aucune précision ni
+non-dégradation validée.** La partition 0–180 s est désormais consommée ; toute
+modification et réévaluation qui s’y appuie relève du développement. Les deux
+partitions réservées restent non analysées. Les limites de matching/timing
+restent à diagnostiquer avant de généraliser les améliorations LibriSpeech.
