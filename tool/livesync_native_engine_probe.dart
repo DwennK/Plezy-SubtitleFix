@@ -134,6 +134,11 @@ Future<Map<String, Object>> probe(Map<String, String> options) async {
       final expectNoLock = options['expect-no-lock'] == 'true';
       require(['true', 'false'].contains(options['track-timeline'] ?? 'false'), 'Invalid tracking flag');
       final tracking = options['track-timeline'] == 'true';
+      require(
+        ['true', 'false'].contains(options['experimental-acoustic-beginnings'] ?? 'false'),
+        'Invalid onset experiment flag',
+      );
+      final experimentalAcousticBeginnings = options['experimental-acoustic-beginnings'] == 'true';
       final expectedOffset = double.parse(options['expected-offset'] ?? '-100');
       final expectedSlope = double.parse(options['expected-slope'] ?? '1');
       final maximumError = double.parse(options['maximum-error'] ?? '1.5');
@@ -177,7 +182,13 @@ Future<Map<String, Object>> probe(Map<String, String> options) async {
           final transcript = engine.takeResult();
           if (transcript != null && transcript.generation == 1 && transcript.continuity == continuity) {
             final adjacent = context.add(transcript);
-            final evidence = matchTranscriptEvidence(transcript, index, context: adjacent, diagnostics: true);
+            final evidence = matchTranscriptEvidence(
+              transcript,
+              index,
+              context: adjacent,
+              diagnostics: true,
+              experimentalAcousticBeginnings: experimentalAcousticBeginnings,
+            );
             final words = const DialogueNormalizer().words(
               transcript.segments.map((segment) => segment.text).join(' '),
             );
@@ -336,6 +347,7 @@ Future<Map<String, Object>> probe(Map<String, String> options) async {
         'platform': Platform.operatingSystem,
         'inferenceBackend': engine.inferenceBackend,
         'alignmentEngine': 'bounded-affine-timeline',
+        'experimentalAcousticBeginnings': experimentalAcousticBeginnings,
         'acquiredMediaPosition': acquiredPosition ?? 'none',
         'learnedSegments': timeline.map.segments.length,
         'activityChecks': activityChecks,

@@ -18,19 +18,23 @@ class SubtitleAnchor {
 }
 
 class _TimedWord {
-  const _TimedWord(this.text, this.start, this.end, this.score, this.valid);
+  const _TimedWord(this.text, this.start, this.end, this.score, this.valid, this.timestampValid);
   final String text;
   final double start;
   final double end;
   final double score;
   final bool valid;
+  final bool timestampValid;
 }
 
 /// Convert token pieces into words without assigning uniform cue word timing.
 /// Initial uncertainty is conservative and heuristic; real-corpus calibration
 /// must establish accuracy before treating these as precise timing evidence.
 class TemporalAligner {
-  const TemporalAligner();
+  const TemporalAligner({this.experimentalAcousticBeginnings = false});
+
+  /// Development-only hypothesis; production keeps exact cue beginnings.
+  final bool experimentalAcousticBeginnings;
 
   List<SubtitleAnchor> anchors(
     NativeTranscript transcript,
@@ -66,7 +70,17 @@ class TemporalAligner {
         final end = contributors.map((token) => token.end).reduce(math.max);
         final score = contributors.map((token) => token.score).reduce(math.min);
         for (final word in normalizer.words(span[0]!)) {
-          segmentWords.add(_TimedWord(word, start, end, score, valid && end > start));
+          segmentWords.add(
+            _TimedWord(
+              word,
+              start,
+              end,
+              score,
+              valid && end > start,
+              contributors.every((token) => token.hasTimestamp && token.start.isFinite && token.end.isFinite) &&
+                  end > start,
+            ),
+          );
         }
       }
       // Normalization can remove entire sound/music lines. Do not use an index
@@ -162,6 +176,104 @@ class TemporalAligner {
         ),
       );
     }
+    if (experimentalAcousticBeginnings) {
+      final accepted = result.map((anchor) => anchor.cue).toSet();
+      for (final pair in passage.words) {
+        final source = index.words[pair.subtitleWord];
+        if (source.wordInCue != 1 || accepted.contains(source.cueOrdinal)) continue;
+        final recovered = _acousticBeginning(transcript, index, passage, words, pairs, pair);
+        if (recovered == null) {
+          rejected('acousticBeginningUnproven');
+        } else {
+          result.add(recovered);
+          accepted.add(recovered.cue);
+        }
+      }
+    }
     return result;
+  }
+
+  SubtitleAnchor? _acousticBeginning(
+    NativeTranscript transcript,
+    SubtitleIndex index,
+    PassageMatch passage,
+    List<_TimedWord> words,
+    Map<int, WordCorrespondence> pairs,
+    WordCorrespondence second,
+  ) {
+    final firstSource = second.subtitleWord - 1;
+    final firstQuery = second.transcriptWord - 1;
+    // Require a real preceding cue and exactly one unassigned ASR word between
+    // its last word and five exact words in the new cue. A missing word, an
+    // insertion, or a clipped start cannot be reconstructed from VAD alone.
+    if (firstSource < 1 || firstQuery < 1 || firstQuery + 5 >= words.length) return null;
+    final cue = index.words[firstSource];
+    final left = pairs[firstSource - 1];
+    if (left == null ||
+        !left.exact ||
+        left.transcriptWord != firstQuery - 1 ||
+        index.words[firstSource - 1].cueOrdinal == cue.cueOrdinal) {
+      return null;
+    }
+    final firstPair = pairs[firstSource];
+    if (firstPair != null && (firstPair.exact || firstPair.transcriptWord != firstQuery)) return null;
+    if (passage.words.any((pair) => pair.transcriptWord == firstQuery && pair.subtitleWord != firstSource)) return null;
+    final preceding = words[firstQuery - 1];
+    final beginning = words[firstQuery];
+    if (!preceding.valid ||
+        !beginning.timestampValid ||
+        beginning.text == cue.text ||
+        beginning.start < transcript.windowStart + 0.1 ||
+        beginning.end > transcript.windowEnd ||
+        beginning.end - beginning.start > 2 ||
+        preceding.end > beginning.start) {
+      return null;
+    }
+    var previousStart = beginning.start;
+    for (var i = 1; i <= 5; i++) {
+      final pair = pairs[firstSource + i];
+      if (pair == null ||
+          !pair.exact ||
+          pair.transcriptWord != firstQuery + i ||
+          index.words[pair.subtitleWord].cueOrdinal != cue.cueOrdinal) {
+        return null;
+      }
+      final word = words[pair.transcriptWord];
+      if (!word.valid ||
+          word.start < previousStart ||
+          word.end > transcript.windowEnd ||
+          word.start - beginning.start > 5) {
+        return null;
+      }
+      previousStart = word.start;
+    }
+    // Count every nearby activity start, including weak ones. Filtering weak
+    // candidates first would turn ambiguous noise into a unique speech onset.
+    final nearby = transcript.voiceOnsets
+        .where((onset) => onset.start.isFinite && (onset.start - beginning.start).abs() <= 0.25)
+        .toList();
+    if (nearby.length != 1) return null;
+    final onset = nearby.single;
+    if (!onset.end.isFinite ||
+        !onset.precedingQuietSeconds.isFinite ||
+        !onset.activeSeconds.isFinite ||
+        onset.start < transcript.windowStart + 0.1 ||
+        onset.end > transcript.windowEnd ||
+        onset.start < preceding.end ||
+        onset.start >= words[firstQuery + 1].start ||
+        onset.precedingQuietSeconds < 0.4 ||
+        onset.activeSeconds < 0.3 ||
+        onset.activeSeconds > onset.end - onset.start + 1e-6 ||
+        onset.start - onset.precedingQuietSeconds < transcript.windowStart ||
+        onset.end < beginning.end) {
+      return null;
+    }
+    return SubtitleAnchor(
+      cue.cueOrdinal,
+      cue.cueStart.inMicroseconds / 1e6,
+      onset.start,
+      0.5,
+      index.words.sublist(firstSource, firstSource + 3).map((word) => word.text).join(' '),
+    );
   }
 }

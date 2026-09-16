@@ -98,13 +98,21 @@ class TranscriptEvidence {
 /// segments. This bounded search keeps the same textual quality thresholds.
 /// All accepted anchors reach the estimator, including conflicting groups;
 /// choosing only the strongest group could hide a contradictory edition.
-TranscriptEvidence _matchWindow(NativeTranscript source, SubtitleIndex index, int windowCount, bool diagnostics) {
+TranscriptEvidence _matchWindow(
+  NativeTranscript source,
+  SubtitleIndex index,
+  int windowCount,
+  bool diagnostics,
+  bool experimentalAcousticBeginnings,
+) {
   final rejected = diagnostics ? <String, int>{} : null;
   final whole = const TranscriptMatcher().find(source.segments.map((segment) => segment.text).join(' '), index);
   if (whole.status == TranscriptMatchStatus.matched) {
     return TranscriptEvidence(
       whole,
-      const TemporalAligner().anchors(source, index, whole.passage!, rejectionCounts: rejected),
+      TemporalAligner(
+        experimentalAcousticBeginnings: experimentalAcousticBeginnings,
+      ).anchors(source, index, whole.passage!, rejectionCounts: rejected),
       windowCount,
       anchorRejections: rejected ?? const {},
     );
@@ -130,7 +138,9 @@ TranscriptEvidence _matchWindow(NativeTranscript source, SubtitleIndex index, in
         validPrefixOnly: source.validPrefixOnly,
         voiceOnsets: source.voiceOnsets,
       );
-      final matched = const TemporalAligner().anchors(selected, index, match.passage!, rejectionCounts: rejected);
+      final matched = TemporalAligner(
+        experimentalAcousticBeginnings: experimentalAcousticBeginnings,
+      ).anchors(selected, index, match.passage!, rejectionCounts: rejected);
       for (final anchor in matched) {
         final previous = anchors[anchor.cue];
         if (previous != null && (previous.mediaTime - anchor.mediaTime).abs() > 0.8) {
@@ -163,9 +173,10 @@ TranscriptEvidence matchTranscriptEvidence(
   SubtitleIndex index, {
   NativeTranscript? context,
   bool diagnostics = false,
+  bool experimentalAcousticBeginnings = false,
 }) {
-  final current = _matchWindow(transcript, index, 1, diagnostics);
+  final current = _matchWindow(transcript, index, 1, diagnostics, experimentalAcousticBeginnings);
   if (current.match.status == TranscriptMatchStatus.matched || context == null) return current;
-  final combined = _matchWindow(context, index, 2, diagnostics);
+  final combined = _matchWindow(context, index, 2, diagnostics, experimentalAcousticBeginnings);
   return combined.match.status == TranscriptMatchStatus.matched ? combined : current;
 }
