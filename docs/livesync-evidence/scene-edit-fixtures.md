@@ -28,6 +28,31 @@ and 750 ms p95 targets; post-edit recovery uses the same 30 s target as an
 unknown seek. These targets are frozen before running the edited audio. Its result covers domain tracking only. Actual native
 rendering, backward seeks and production-controller integration remain separate.
 
-Six unit checks cover sample-pair preservation, half-open cuts, offset signs,
+Seven unit checks cover sample-pair preservation, half-open cuts, offset signs,
 removed cues, crossing fragments and invalid edits. Generator completion alone
 proves fixture preparation, not automatic gap learning or synchronization.
+
+## Native baseline at f3621f5c
+
+All three baseline cases fail the complete domain checks. Initial acquisition
+is about 21.4 s; the engine later learns two offset regions but **zero gaps**.
+
+| Case | Recovery after edit, media seconds | Aligned median / p95 error | Evidence |
+|---|---:|---:|---|
+| Added scene | 29.634 | 30.210 / 30.210 s | [report](scene-added-scene-f3621f5c.json) |
+| Removed scene | 11.575 | 0.220 / 12.780 s | [report](scene-removed-scene-f3621f5c.json) |
+| Crossing cue | 27.965 | 30.205 / 30.205 s | [report](scene-added-scene-crossing-cue-f3621f5c.json) |
+
+Tracking includes the transition after the first lock. It exposes continued
+application of the old offset before reacquisition. The matched text after an
+insertion first supplies one accurate cue, then another cue with a bad timestamp;
+only a later window provides mutually consistent anchors. No thresholds are
+relaxed and no missing interval is classified as learned from these results.
+
+This uses the local c734 mpv development library, whose hashes and native inputs
+are retained, and actual active PCM with base.en-q5_1. It is not a current-bundle
+acceptance run. Audio is null output; no production UI or audible claim follows.
+The generated MKV audio was independently decoded and compared byte-for-byte
+against each edited WAV. Sources and the unused ED 360–540 s partition remain
+unchanged. Next work must address automatic edit learning and boundary rendering,
+not merely a final offset that happens to be correct after the scene.
