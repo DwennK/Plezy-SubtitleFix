@@ -275,6 +275,7 @@ Future<Map<String, Object>> probe(Map<String, String> options) async {
                 final expected = position - (position - expectedOffset) / expectedSlope;
                 trackingSamples.add({
                   'mediaTime': position,
+                  'regionKind': timeline.correctionAt(position).position.kind.name,
                   'automaticDelay': offset ?? 0,
                   'mappingAvailable': offset != null,
                   'nativeDelay': nativeDelay!,
@@ -317,6 +318,9 @@ Future<Map<String, Object>> probe(Map<String, String> options) async {
         'alignmentEngine': 'bounded-affine-timeline',
         'acquiredMediaPosition': acquiredPosition ?? 'none',
         'learnedSegments': timeline.map.segments.length,
+        'learnedGaps': [
+          for (final gap in timeline.map.gaps) {'kind': gap.kind.name, 'start': gap.start, 'end': gap.end},
+        ],
         'activityChecks': activityChecks,
         'activityVoiceChecks': voiceChecks,
         'activityTotalMicros': activityMicros,
