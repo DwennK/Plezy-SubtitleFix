@@ -16,6 +16,12 @@ class VadAnchorTests(unittest.TestCase):
                 speech_intervals(text, 8)
         self.assertEqual(speech_intervals('Detected 0 speech segments:\n', 8), [])
 
+    def test_final_probability_frame_does_not_invent_audio_after_the_window(self):
+        text = 'Detected 1 speech segments:\nSpeech segment 0: start = 624.00, end = 803.00\n'
+        self.assertEqual(speech_intervals(text, 8.019375), [[6.24, 8.019375]])
+        with self.assertRaises(ValueError):
+            speech_intervals(text.replace('803.00', '808.00'), 8.019375)
+
     def test_anchor_support_preserves_absolute_media_origin(self):
         self.assertEqual(distance_to_voice(76, [[79, 82]]), 3)
         self.assertEqual(distance_to_voice(80, [[79, 82]]), 0)

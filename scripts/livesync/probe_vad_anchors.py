@@ -28,8 +28,15 @@ def speech_intervals(text, duration):
     intervals = []
     for expected, (ordinal, start, end) in enumerate(rows):
         start, end = float(start) / 100, float(end) / 100
-        if int(ordinal) != expected or not 0 <= start < end <= duration + 0.01:
-            raise ValueError('Invalid VAD interval or timestamp units')
+        # The pinned VAD derives audio_length_samples from whole 512-sample
+        # probability frames, then rounds to centiseconds. Clamp this final
+        # padded frame to the actual input; it is not observed extra audio.
+        padded_end = math.ceil(duration * 16000 / 512) * 512 / 16000 + 0.005
+        if int(ordinal) != expected or not 0 <= start < end <= padded_end:
+            raise ValueError(f'Invalid VAD interval {ordinal}: {start}..{end}; duration {duration}')
+        end = min(end, duration)
+        if start >= end:
+            continue
         if intervals and start < intervals[-1][1]:
             raise ValueError('Overlapping VAD intervals')
         intervals.append([start, end])
