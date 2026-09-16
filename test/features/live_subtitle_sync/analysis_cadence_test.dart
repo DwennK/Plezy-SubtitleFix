@@ -2,6 +2,26 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:plezy/features/live_subtitle_sync/analysis_cadence.dart';
 
 void main() {
+  test('a speech-rejected timestamp permits only one short retry while an old mapping remains active', () {
+    final cadence = AnalysisCadence()..evidence(recognizedPassage: true, learned: true);
+    cadence.submitted();
+    cadence.evidence(recognizedPassage: true, learned: false, speechTimingRejected: true);
+    expect(cadence.windowSeconds, 8);
+    expect(cadence.intervalMs(synced: true, established: true, voicePresent: false), 0);
+    cadence.submitted();
+    for (var i = 0; i < 5; i++) {
+      cadence.evidence(recognizedPassage: true, learned: false, speechTimingRejected: true);
+      expect(cadence.windowSeconds, 15);
+      expect(cadence.intervalMs(synced: true, established: true), isNot(0));
+      cadence.submitted();
+    }
+    cadence.evidence(recognizedPassage: true, learned: true, speechTimingRejected: true);
+    expect(cadence.windowSeconds, 12);
+    expect(cadence.intervalMs(synced: true, established: true), isNot(0));
+    cadence.evidence(recognizedPassage: true, learned: false, speechTimingRejected: true);
+    expect(cadence.intervalMs(synced: true, established: true), 0);
+  });
+
   test('continuous music-like activity cannot force fast transcription forever', () {
     final cadence = AnalysisCadence();
     for (var i = 0; i < 5; i++) {

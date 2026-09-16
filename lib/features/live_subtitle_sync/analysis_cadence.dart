@@ -35,7 +35,12 @@ class AnalysisCadence {
     if (_confirmationRequests != null) _confirmationRequests = _confirmationRequests! + 1;
   }
 
-  void evidence({required bool recognizedPassage, required bool learned, bool predictionContradicted = false}) {
+  void evidence({
+    required bool recognizedPassage,
+    required bool learned,
+    bool predictionContradicted = false,
+    bool speechTimingRejected = false,
+  }) {
     _nativeFailures = 0;
     _retrySoon = recognizedPassage && !learned;
     windowSeconds = learned ? 12 : 15;
@@ -43,7 +48,7 @@ class AnalysisCadence {
       _confirmationRequests ??= 0;
       if (!predictionContradicted) _tightRetryUsed = false;
     }
-    _tightRetryPending = predictionContradicted && !learned && !_tightRetryUsed;
+    _tightRetryPending = (predictionContradicted || speechTimingRejected) && !learned && !_tightRetryUsed;
     if (_tightRetryPending) windowSeconds = 8;
   }
 
@@ -62,10 +67,10 @@ class AnalysisCadence {
       if (!voicePresent) _activityWake = false;
       _previousVoicePresent = voicePresent;
     }
-    // A confirmed contradiction may be caused by a badly placed token in a
+    // A contradiction or a speech-rejected cue start can reflect a bad token in a
     // long window. Reanalyze the recent tail once, after the previous result
     // has released its native slot. Repeated failures cannot create a loop.
-    if (_tightRetryPending && !synced) return 0;
+    if (_tightRetryPending) return 0;
     // Keep one initial analysis and a periodic fallback: the heuristic can
     // miss quiet speech. Activity never changes a mapping or grants a lock.
     if (synced && timingMismatch) return 30000;

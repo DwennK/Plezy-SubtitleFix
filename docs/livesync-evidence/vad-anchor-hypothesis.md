@@ -75,3 +75,28 @@ keeping fitter, uncertainty and scene-score thresholds unchanged. Model size,
 checksum, license, packaging, fallback and teardown must be covered before this
 can become part of the distributed runtime. None of that integration is claimed
 by this offline result.
+
+## Candidate integration frozen before active-playback replay
+
+The candidate embeds the verified 885,098-byte model in the inference library,
+with its MIT notice included in both desktop packages. The existing background
+worker loads one CPU detector and reuses it, resetting recurrent state for each
+8–15 second PCM window. VAD and ASR consume the same owned samples. Cancellation
+is checked before and after detection; a failed detector supplies unknown
+support and leaves ASR available.
+
+Inference ABI v2 carries explicit unknown/supported/unsupported token evidence.
+The media-clock scale converts the existing 350 ms uncertainty into PCM seconds.
+Dart preserves this evidence through adjacent-window context. The aligner keeps
+the text, scores and matcher thresholds, rejecting only an otherwise eligible
+cue beginning whose earliest token lies outside detected voice. No timestamp is
+moved to a speech boundary and no VAD result authorizes a mapping or gap.
+
+A recognized phrase rejected for that timing reason may request one immediate
+8-second retry even while an older mapping remains active. The same bounded
+retry slot serves confirmed timing contradictions; only a learned region or a
+new playback generation rearms it. No continuous short-window loop is allowed.
+
+Local module contracts, native worker recognition and embedding-integrity checks
+precede the active-playback scene replay. They do not establish full precision,
+scene coverage, independent onset accuracy, or the Windows performance budget.

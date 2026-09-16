@@ -18,12 +18,13 @@ class SubtitleAnchor {
 }
 
 class _TimedWord {
-  const _TimedWord(this.text, this.start, this.end, this.score, this.valid);
+  const _TimedWord(this.text, this.start, this.end, this.score, this.valid, this.speechUnsupported);
   final String text;
   final double start;
   final double end;
   final double score;
   final bool valid;
+  final bool speechUnsupported;
 }
 
 /// Convert token pieces into words without assigning uniform cue word timing.
@@ -65,8 +66,11 @@ class TemporalAligner {
         final start = contributors.map((token) => token.start).reduce(math.min);
         final end = contributors.map((token) => token.end).reduce(math.max);
         final score = contributors.map((token) => token.score).reduce(math.min);
+        final speechUnsupported = contributors.any(
+          (token) => token.start == start && token.speechSupport == NativeSpeechSupport.unsupported,
+        );
         for (final word in normalizer.words(span[0]!)) {
-          segmentWords.add(_TimedWord(word, start, end, score, valid && end > start));
+          segmentWords.add(_TimedWord(word, start, end, score, valid && end > start, speechUnsupported));
         }
       }
       // Normalization can remove entire sound/music lines. Do not use an index
@@ -149,6 +153,12 @@ class TemporalAligner {
           rejected(failure ?? 'phraseNotMatched');
           continue;
         }
+      }
+      // Retain recognized text; reject only its unsupported cue-start timing.
+      // Never snap an anchor to a voice edge or alter the recognition gates.
+      if (beginning.speechUnsupported) {
+        rejected('beginningUnsupportedSpeech');
+        continue;
       }
       result.add(
         SubtitleAnchor(

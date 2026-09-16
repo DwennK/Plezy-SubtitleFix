@@ -23,7 +23,7 @@ from probe_pcm_consumer import NativeConsumer
 
 class Token(C.Structure):
     _fields_ = [("media_start", C.c_double), ("media_end", C.c_double),
-                ("recognition_score", C.c_float), ("has_timestamp", C.c_uint32),
+                ("recognition_score", C.c_float), ("has_timestamp", C.c_uint32), ("speech_support", C.c_uint32),
                 ("text_offset", C.c_uint32), ("text_length", C.c_uint32)]
 
 
@@ -46,7 +46,7 @@ class NativeInference:
         self.lib = lib = C.CDLL(str(Path(library).resolve()))
         lib.ls_inference_abi_version.restype = C.c_uint32
         lib.ls_inference_result_size.restype = C.c_size_t
-        assert lib.ls_inference_abi_version() == 1
+        assert lib.ls_inference_abi_version() == 2
         assert lib.ls_inference_result_size() == C.sizeof(Result), "Unexpected native ABI layout"
         lib.ls_inference_create.argtypes = [C.c_char_p, C.c_int]
         lib.ls_inference_create.restype = C.c_void_p
@@ -140,6 +140,7 @@ def main():
     parser.add_argument("--library", type=Path)
     parser.add_argument("--consumer", type=Path)
     parser.add_argument("--output", type=Path, required=True)
+    parser.add_argument("--require-speech-support", action="store_true")
     parser.add_argument("--active-timeout-seconds", type=int, default=35,
                         help="Functional active-playback deadline, not a performance budget")
     args = parser.parse_args()
@@ -180,9 +181,12 @@ def main():
         for token in result.tokens[:result.token_count]:
             assert token.text_offset + token.text_length <= len(text)
             assert math.isfinite(token.recognition_score) and 0 <= token.recognition_score <= 1
+            assert token.has_timestamp in (0, 1) and token.speech_support in (0, 1, 2)
             if token.has_timestamp:
                 assert capture["mediaStart"] <= token.media_start <= token.media_end
                 assert token.media_end <= capture["mediaStart"] + capture["samples"] / 16000 + 0.03
+        if args.require_speech_support:
+            assert any(t.speech_support == 1 for t in result.tokens[:result.token_count]), "No embedded speech evidence"
         words = re.findall(r"[a-z]+", " ".join(transcript).lower())
         expected = REFERENCE.split()
         if args.library:
@@ -198,6 +202,7 @@ def main():
                   "wordErrorRate": error, "referenceScope": "best reference prefix" if args.library else "full fixture",
                   "inferenceSecondsExcludingModelLoad": result.elapsed_seconds, "segments": segments,
                   "validPrefixOnly": result.status == 5,
+                  "speechSupportCounts": {str(value): sum(t.speech_support == value for t in result.tokens[:result.token_count]) for value in (0, 1, 2)},
                   "timestampAccuracyValidated": False, "srtAlignmentValidated": False,
                   "productionAppValidated": False, "audiblePlaybackValidated": False,
                   "retainedCapturedAudio": False, "retainedTranscript": False}

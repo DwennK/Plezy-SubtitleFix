@@ -45,7 +45,7 @@ jobs:
       - name: Build and test the bounded PCM consumer
         shell: bash
         run: |
-          cmake -S native/live_subtitle_sync -B build/livesync/pcm-consumer -DCMAKE_BUILD_TYPE=Release -DGGML_METAL=OFF -DLIVESYNC_WHISPER_SOURCE="$GITHUB_WORKSPACE/build/livesync/source" -DLIVESYNC_VAD_TEST_MODEL="$GITHUB_WORKSPACE/build/livesync/models/ggml-silero-v6.2.0.bin"
+          cmake -S native/live_subtitle_sync -B build/livesync/pcm-consumer -DCMAKE_BUILD_TYPE=Release -DGGML_METAL=OFF -DLIVESYNC_WHISPER_SOURCE="$GITHUB_WORKSPACE/build/livesync/source" -DLIVESYNC_SPEECH_MODEL="$GITHUB_WORKSPACE/build/livesync/models/ggml-silero-v6.2.0.bin" -DLIVESYNC_VAD_TEST_MODEL="$GITHUB_WORKSPACE/build/livesync/models/ggml-silero-v6.2.0.bin"
           cmake --build build/livesync/pcm-consumer --config Release --parallel 3
           mkdir -p build/livesync/evidence
           ctest --test-dir build/livesync/pcm-consumer -C Release --output-on-failure --output-junit "$GITHUB_WORKSPACE/build/livesync/evidence/pcm-consumer.xml"
@@ -59,7 +59,7 @@ jobs:
           if [[ "$RUNNER_OS" == Windows ]]; then bridge=build/livesync/pcm-consumer/Release/livesync_inference_bridge.dll; fi
           for model in base.en base.en-q5_1; do
             "$exe" "build/livesync/models/ggml-$model.bin" build/livesync/fixtures/jfk.f32 > "build/livesync/evidence/worker-$model.txt" 2>&1
-            python3 scripts/livesync/probe_inference_worker.py --worker "$bridge" --model "build/livesync/models/ggml-$model.bin" --fixture build/livesync/source/samples/jfk.wav --output "build/livesync/evidence/worker-abi-$model.json"
+            python3 scripts/livesync/probe_inference_worker.py --require-speech-support --worker "$bridge" --model "build/livesync/models/ggml-$model.bin" --fixture build/livesync/source/samples/jfk.wav --output "build/livesync/evidence/worker-abi-$model.json"
           done
       - name: Verify bounded speech detector and fresh state between windows
         shell: bash
@@ -94,10 +94,10 @@ jobs:
         if: runner.os == 'Windows' && steps.cpu-capabilities.outputs.supported == 'true'
         shell: bash
         run: |
-          cmake -S native/live_subtitle_sync -B build/livesync/worker-avx2 -DGGML_METAL=OFF -DLIVESYNC_CPU_PROFILE=avx2-evaluation -DLIVESYNC_WHISPER_SOURCE="$GITHUB_WORKSPACE/build/livesync/source"
+          cmake -S native/live_subtitle_sync -B build/livesync/worker-avx2 -DGGML_METAL=OFF -DLIVESYNC_CPU_PROFILE=avx2-evaluation -DLIVESYNC_WHISPER_SOURCE="$GITHUB_WORKSPACE/build/livesync/source" -DLIVESYNC_SPEECH_MODEL="$GITHUB_WORKSPACE/build/livesync/models/ggml-silero-v6.2.0.bin"
           cmake --build build/livesync/worker-avx2 --config Release --parallel 3 --target livesync_inference_bridge
           for model in base.en base.en-q5_1; do
-            python3 scripts/livesync/probe_inference_worker.py --worker build/livesync/worker-avx2/Release/livesync_inference_bridge.dll --model "build/livesync/models/ggml-$model.bin" --fixture build/livesync/source/samples/jfk.wav --output "build/livesync/evidence/worker-avx2-$model.json"
+            python3 scripts/livesync/probe_inference_worker.py --require-speech-support --worker build/livesync/worker-avx2/Release/livesync_inference_bridge.dll --model "build/livesync/models/ggml-$model.bin" --fixture build/livesync/source/samples/jfk.wav --output "build/livesync/evidence/worker-avx2-$model.json"
           done
       - name: Compile native inference
         shell: bash

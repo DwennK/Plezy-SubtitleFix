@@ -1089,6 +1089,7 @@
     "license": "MIT",
     "file": "ggml-silero-v6.2.0.bin",
     "url": "https://huggingface.co/ggml-org/whisper-vad/resolve/9ffd54a1e1ee413ddf265af9913beaf518d1639b/ggml-silero-v6.2.0.bin",
-    "integration": "native speech-support contracts only; not used by production inference worker"
+    "integration": "embedded in ABI v2 inference worker; candidate pending native player validation",
+    "licenseSource": "https://github.com/snakers4/silero-vad/blob/41f03a954b841327835dea1ddb7bb28ae23ddc2c/LICENSE"
   }
 }

@@ -11,6 +11,10 @@
 #include <thread>
 #include <utility>
 
+#ifdef LIVESYNC_EMBEDDED_SPEECH_MODEL
+#include "speech_model_data.h"
+#endif
+
 #if defined(__APPLE__)
 #include <pthread.h>
 #elif defined(_WIN32)
@@ -76,7 +80,7 @@ class InferenceWorker::Impl {
     owner.compare_exchange_strong(expected, nullptr);
   }
 
-  InferenceResult transcribe(whisper_context* context, const PcmWindow& window) {
+  InferenceResult transcribe(whisper_context* context, SpeechDetector* detector, const PcmWindow& window) {
     InferenceResult out{window.generation, window.continuity, InferenceStatus::inference_failed, 0, {}};
     auto parameters = whisper_full_default_params(WHISPER_SAMPLING_GREEDY);
     parameters.n_threads = threads;
@@ -95,6 +99,20 @@ class InferenceWorker::Impl {
     parameters.encoder_begin_callback_user_data = this;
     const auto started = std::chrono::steady_clock::now();
     decoding.store(true);
+    // The same owned PCM feeds both analyses. Failure is unknown evidence,
+    // never silence; neither this detector nor its intervals move a timestamp.
+    SpeechEvidence speech;
+    if (detector && !cancelled()) {
+      try {
+        speech = detector->analyze(window.samples.data(), window.samples.size());
+      } catch (...) {
+        speech = {};
+      }
+    }
+    if (cancelled()) {
+      decoding.store(false);
+      return out;
+    }
     const int code = whisper_full(context, parameters, window.samples.data(), static_cast<int>(window.samples.size()));
     decoding.store(false);
     out.elapsed_seconds = std::chrono::duration<double>(std::chrono::steady_clock::now() - started).count();
@@ -146,6 +164,8 @@ class InferenceWorker::Impl {
         if (item.has_timestamp) {
           item.media_start = media_time(token.t_dtw);
           item.media_end = std::min(media_time(token.t_dtw + 2), window.media_start + duration * scale);
+          // The aligner's existing 350 ms uncertainty is in media seconds.
+          item.speech_support = speech.support(static_cast<double>(token.t_dtw) * 0.01, 0.35 / scale);
         }
         segment.tokens.push_back(std::move(item));
       }
@@ -158,6 +178,8 @@ class InferenceWorker::Impl {
   void run() {
     lower_priority();
     whisper_context* context = nullptr;
+    std::unique_ptr<SpeechDetector> detector;
+    bool detector_attempted = false;
     while (true) {
       std::optional<PcmWindow> window;
       {
@@ -183,7 +205,19 @@ class InferenceWorker::Impl {
             options.dtw_mem_size = 128 * 1024 * 1024;
             context = whisper_init_from_file_with_params(model_path.c_str(), options);
           }
-          if (context && !cancelled()) next = transcribe(context, *window);
+          if (context && !cancelled()) {
+            if (!detector_attempted) {
+              detector_attempted = true;
+#ifdef LIVESYNC_EMBEDDED_SPEECH_MODEL
+              try {
+                detector = std::make_unique<SpeechDetector>(kSpeechModelBytes, sizeof(kSpeechModelBytes), 2);
+              } catch (...) {
+                // ASR remains available when the optional detector cannot load.
+              }
+#endif
+            }
+            next = transcribe(context, detector.get(), *window);
+          }
         }
       } catch (...) {
         next.status = InferenceStatus::inference_failed;

@@ -188,6 +188,7 @@ Future<Map<String, Object>> probe(Map<String, String> options) async {
               recognizedPassage: result.status == TranscriptMatchStatus.matched,
               learned: learned,
               predictionContradicted: timeline.correctionAt(transcript.windowEnd).predictionContradicted,
+              speechTimingRejected: evidence.speechTimingRejected,
             );
             final position = mediaPosition();
             if (position != null) {
@@ -227,6 +228,14 @@ Future<Map<String, Object>> probe(Map<String, String> options) async {
               'similarity': result.passage?.similarity,
               'anchors': anchors.map((anchor) => {'cue': anchor.cue, 'offset': anchor.offset}).toList(),
               'anchorRejections': evidence.anchorRejections,
+              'speechTimingRejected': evidence.speechTimingRejected,
+              'speechSupportCounts': {
+                for (final support in NativeSpeechSupport.values)
+                  support.name: transcript.segments
+                      .expand((s) => s.tokens)
+                      .where((t) => t.speechSupport == support)
+                      .length,
+              },
               if (!evidence.segmented && evidence.windowCount == 1 && result.passage != null)
                 'cueBeginningMatches': [
                   for (final pair in result.passage!.words)

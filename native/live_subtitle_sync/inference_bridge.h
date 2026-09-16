@@ -17,13 +17,15 @@
 extern "C" {
 #endif
 
-// ABI v1. Text is UTF-8, indexed by byte offset/length, not NUL terminated.
+// ABI v2. Text is UTF-8, indexed by byte offset/length, not NUL terminated.
 // All storage belongs to the caller; no native result allocation escapes.
 typedef struct ls_transcript_token {
   double media_start;
   double media_end;
   float recognition_score;
   uint32_t has_timestamp;
+  // 0 unknown, 1 voice supports the timestamp, 2 timestamp outside voice.
+  uint32_t speech_support;
   uint32_t text_offset;
   uint32_t text_length;
 } ls_transcript_token;
