@@ -266,16 +266,15 @@ void MpvPlayerPlugin::HandleMethodCall(
     }
     // All addresses belong to the mpv already used by this player. Dart owns
     // the weak client after this reply and hands it to its prepared isolate.
-    result->Success(
-        flutter::EncodableValue(
-            flutter::EncodableList{
-                flutter::EncodableValue(reinterpret_cast<int64_t>(client)),
-                flutter::EncodableValue(reinterpret_cast<int64_t>(&mpv_get_property)),
-                flutter::EncodableValue(reinterpret_cast<int64_t>(&mpv_set_property_string)),
-                flutter::EncodableValue(reinterpret_cast<int64_t>(&mpv_free_node_contents)),
-                flutter::EncodableValue(reinterpret_cast<int64_t>(&mpv_wait_event)),
-                flutter::EncodableValue(reinterpret_cast<int64_t>(&mpv_destroy)),
-            }));
+    const flutter::EncodableList addresses{
+        flutter::EncodableValue(reinterpret_cast<int64_t>(client)),
+        flutter::EncodableValue(reinterpret_cast<int64_t>(&mpv_get_property)),
+        flutter::EncodableValue(reinterpret_cast<int64_t>(&mpv_set_property_string)),
+        flutter::EncodableValue(reinterpret_cast<int64_t>(&mpv_free_node_contents)),
+        flutter::EncodableValue(reinterpret_cast<int64_t>(&mpv_wait_event)),
+        flutter::EncodableValue(reinterpret_cast<int64_t>(&mpv_destroy)),
+    };
+    result->Success(flutter::EncodableValue(addresses));
 #else
     result->Error("UNSUPPORTED", "Live subtitle sync requires Windows x64");
 #endif
