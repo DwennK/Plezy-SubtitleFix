@@ -1,0 +1,553 @@
+{
+  "schema": 1,
+  "kind": "rejected-offline-audio-context-experiment",
+  "productionSource": "a072170ade52285bd5d69e7802ac2bc7ecf4cf38",
+  "platform": "macos-arm64 Apple M4",
+  "change": "Only parameters.audio_ctx = 768 in an isolated copy; default remains 0 (model context 1500)",
+  "threads": 2,
+  "scratchWorkerSha256": "24e23ce7bf91644e161200d113eefc5bc3b433d68aa56ca7f860ebf3ede708d4",
+  "scratchSourceSha256": "fae668835636906bf317126d00d911033939e756aa250122054ca752ef275ab4",
+  "jfkOrderPerModel": [
+    "default",
+    "context768",
+    "context768",
+    "default"
+  ],
+  "jfk": [
+    {
+      "file": "jfk-base.en-0-default.json",
+      "sha256": "8331f02c58585e468f079033cc9651e09cc0eaacd5c77ea0bfd747248080d410",
+      "data": {
+        "kind": "fixture-native-worker-abi",
+        "fixtureSha256": "59dfb9a4acb36fe2a2affc14bacbee2920ff435cb13cc314a08c13f66ba7860e",
+        "modelSha256": "a03779c86df3323075f5e796cb2ce5029f00ec8869eee3fdfb897afe36c6d002",
+        "workerSha256": "366cb2ac8c34cc38a59ac5ae99ec57f8334af7c74b78aaef507b33badefeb3e6",
+        "capture": {
+          "samples": 176000,
+          "mediaStart": 100,
+          "generation": 1,
+          "continuity": 1
+        },
+        "threads": 2,
+        "wordErrorRate": 0.0,
+        "referenceScope": "full fixture",
+        "inferenceSecondsExcludingModelLoad": 0.890827167,
+        "segments": [
+          {
+            "mediaStart": 100.0,
+            "mediaEnd": 111.0
+          }
+        ],
+        "validPrefixOnly": false,
+        "speechSupportCounts": {
+          "0": 0,
+          "1": 25,
+          "2": 0
+        },
+        "timestampAccuracyValidated": false,
+        "srtAlignmentValidated": false,
+        "productionAppValidated": false,
+        "audiblePlaybackValidated": false,
+        "retainedCapturedAudio": false,
+        "retainedTranscript": false
+      }
+    },
+    {
+      "file": "jfk-base.en-1-context768.json",
+      "sha256": "1e3367ba119d08a013c69b04e636c5f2435a8e6be0955db643588e50f6eae6b5",
+      "data": {
+        "kind": "fixture-native-worker-abi",
+        "fixtureSha256": "59dfb9a4acb36fe2a2affc14bacbee2920ff435cb13cc314a08c13f66ba7860e",
+        "modelSha256": "a03779c86df3323075f5e796cb2ce5029f00ec8869eee3fdfb897afe36c6d002",
+        "workerSha256": "24e23ce7bf91644e161200d113eefc5bc3b433d68aa56ca7f860ebf3ede708d4",
+        "capture": {
+          "samples": 176000,
+          "mediaStart": 100,
+          "generation": 1,
+          "continuity": 1
+        },
+        "threads": 2,
+        "wordErrorRate": 0.045454545454545456,
+        "referenceScope": "full fixture",
+        "inferenceSecondsExcludingModelLoad": 0.426475292,
+        "segments": [
+          {
+            "mediaStart": 100.0,
+            "mediaEnd": 107.68
+          },
+          {
+            "mediaStart": 107.68,
+            "mediaEnd": 110.68
+          }
+        ],
+        "validPrefixOnly": false,
+        "speechSupportCounts": {
+          "0": 0,
+          "1": 24,
+          "2": 0
+        },
+        "timestampAccuracyValidated": false,
+        "srtAlignmentValidated": false,
+        "productionAppValidated": false,
+        "audiblePlaybackValidated": false,
+        "retainedCapturedAudio": false,
+        "retainedTranscript": false
+      }
+    },
+    {
+      "file": "jfk-base.en-2-context768.json",
+      "sha256": "9cf0cc0351a9ea29b20eb6682aa21e9a07c4f85dbaab42cf0321dd629afeca0c",
+      "data": {
+        "kind": "fixture-native-worker-abi",
+        "fixtureSha256": "59dfb9a4acb36fe2a2affc14bacbee2920ff435cb13cc314a08c13f66ba7860e",
+        "modelSha256": "a03779c86df3323075f5e796cb2ce5029f00ec8869eee3fdfb897afe36c6d002",
+        "workerSha256": "24e23ce7bf91644e161200d113eefc5bc3b433d68aa56ca7f860ebf3ede708d4",
+        "capture": {
+          "samples": 176000,
+          "mediaStart": 100,
+          "generation": 1,
+          "continuity": 1
+        },
+        "threads": 2,
+        "wordErrorRate": 0.045454545454545456,
+        "referenceScope": "full fixture",
+        "inferenceSecondsExcludingModelLoad": 0.425358417,
+        "segments": [
+          {
+            "mediaStart": 100.0,
+            "mediaEnd": 107.68
+          },
+          {
+            "mediaStart": 107.68,
+            "mediaEnd": 110.68
+          }
+        ],
+        "validPrefixOnly": false,
+        "speechSupportCounts": {
+          "0": 0,
+          "1": 24,
+          "2": 0
+        },
+        "timestampAccuracyValidated": false,
+        "srtAlignmentValidated": false,
+        "productionAppValidated": false,
+        "audiblePlaybackValidated": false,
+        "retainedCapturedAudio": false,
+        "retainedTranscript": false
+      }
+    },
+    {
+      "file": "jfk-base.en-3-default.json",
+      "sha256": "3cb86fcfe0b26a17526efb50f6bc8793dc53600b6ac68b52c84ab7764ecf530d",
+      "data": {
+        "kind": "fixture-native-worker-abi",
+        "fixtureSha256": "59dfb9a4acb36fe2a2affc14bacbee2920ff435cb13cc314a08c13f66ba7860e",
+        "modelSha256": "a03779c86df3323075f5e796cb2ce5029f00ec8869eee3fdfb897afe36c6d002",
+        "workerSha256": "366cb2ac8c34cc38a59ac5ae99ec57f8334af7c74b78aaef507b33badefeb3e6",
+        "capture": {
+          "samples": 176000,
+          "mediaStart": 100,
+          "generation": 1,
+          "continuity": 1
+        },
+        "threads": 2,
+        "wordErrorRate": 0.0,
+        "referenceScope": "full fixture",
+        "inferenceSecondsExcludingModelLoad": 0.896693416,
+        "segments": [
+          {
+            "mediaStart": 100.0,
+            "mediaEnd": 111.0
+          }
+        ],
+        "validPrefixOnly": false,
+        "speechSupportCounts": {
+          "0": 0,
+          "1": 25,
+          "2": 0
+        },
+        "timestampAccuracyValidated": false,
+        "srtAlignmentValidated": false,
+        "productionAppValidated": false,
+        "audiblePlaybackValidated": false,
+        "retainedCapturedAudio": false,
+        "retainedTranscript": false
+      }
+    },
+    {
+      "file": "jfk-base.en-q5_1-0-default.json",
+      "sha256": "40fb570f60ca429bfd0f35a88c7742077b23fe15be193c342f8caf56dacdd8db",
+      "data": {
+        "kind": "fixture-native-worker-abi",
+        "fixtureSha256": "59dfb9a4acb36fe2a2affc14bacbee2920ff435cb13cc314a08c13f66ba7860e",
+        "modelSha256": "4baf70dd0d7c4247ba2b81fafd9c01005ac77c2f9ef064e00dcf195d0e2fdd2f",
+        "workerSha256": "366cb2ac8c34cc38a59ac5ae99ec57f8334af7c74b78aaef507b33badefeb3e6",
+        "capture": {
+          "samples": 176000,
+          "mediaStart": 100,
+          "generation": 1,
+          "continuity": 1
+        },
+        "threads": 2,
+        "wordErrorRate": 0.0,
+        "referenceScope": "full fixture",
+        "inferenceSecondsExcludingModelLoad": 1.050935292,
+        "segments": [
+          {
+            "mediaStart": 100.0,
+            "mediaEnd": 111.0
+          }
+        ],
+        "validPrefixOnly": false,
+        "speechSupportCounts": {
+          "0": 0,
+          "1": 25,
+          "2": 0
+        },
+        "timestampAccuracyValidated": false,
+        "srtAlignmentValidated": false,
+        "productionAppValidated": false,
+        "audiblePlaybackValidated": false,
+        "retainedCapturedAudio": false,
+        "retainedTranscript": false
+      }
+    },
+    {
+      "file": "jfk-base.en-q5_1-1-context768.json",
+      "sha256": "7f5f76a41f6917aa2f8c98b84de3ea6862591fbcddde55766a02a00af1cec6fa",
+      "data": {
+        "kind": "fixture-native-worker-abi",
+        "fixtureSha256": "59dfb9a4acb36fe2a2affc14bacbee2920ff435cb13cc314a08c13f66ba7860e",
+        "modelSha256": "4baf70dd0d7c4247ba2b81fafd9c01005ac77c2f9ef064e00dcf195d0e2fdd2f",
+        "workerSha256": "24e23ce7bf91644e161200d113eefc5bc3b433d68aa56ca7f860ebf3ede708d4",
+        "capture": {
+          "samples": 176000,
+          "mediaStart": 100,
+          "generation": 1,
+          "continuity": 1
+        },
+        "threads": 2,
+        "wordErrorRate": 0.045454545454545456,
+        "referenceScope": "full fixture",
+        "inferenceSecondsExcludingModelLoad": 0.509510708,
+        "segments": [
+          {
+            "mediaStart": 100.0,
+            "mediaEnd": 107.68
+          },
+          {
+            "mediaStart": 107.68,
+            "mediaEnd": 110.68
+          }
+        ],
+        "validPrefixOnly": false,
+        "speechSupportCounts": {
+          "0": 0,
+          "1": 24,
+          "2": 0
+        },
+        "timestampAccuracyValidated": false,
+        "srtAlignmentValidated": false,
+        "productionAppValidated": false,
+        "audiblePlaybackValidated": false,
+        "retainedCapturedAudio": false,
+        "retainedTranscript": false
+      }
+    },
+    {
+      "file": "jfk-base.en-q5_1-2-context768.json",
+      "sha256": "43147b1140f7f2fdb2388719be91982d0db1230a7a86d611dc0b4cf98ca87f13",
+      "data": {
+        "kind": "fixture-native-worker-abi",
+        "fixtureSha256": "59dfb9a4acb36fe2a2affc14bacbee2920ff435cb13cc314a08c13f66ba7860e",
+        "modelSha256": "4baf70dd0d7c4247ba2b81fafd9c01005ac77c2f9ef064e00dcf195d0e2fdd2f",
+        "workerSha256": "24e23ce7bf91644e161200d113eefc5bc3b433d68aa56ca7f860ebf3ede708d4",
+        "capture": {
+          "samples": 176000,
+          "mediaStart": 100,
+          "generation": 1,
+          "continuity": 1
+        },
+        "threads": 2,
+        "wordErrorRate": 0.045454545454545456,
+        "referenceScope": "full fixture",
+        "inferenceSecondsExcludingModelLoad": 0.504456292,
+        "segments": [
+          {
+            "mediaStart": 100.0,
+            "mediaEnd": 107.68
+          },
+          {
+            "mediaStart": 107.68,
+            "mediaEnd": 110.68
+          }
+        ],
+        "validPrefixOnly": false,
+        "speechSupportCounts": {
+          "0": 0,
+          "1": 24,
+          "2": 0
+        },
+        "timestampAccuracyValidated": false,
+        "srtAlignmentValidated": false,
+        "productionAppValidated": false,
+        "audiblePlaybackValidated": false,
+        "retainedCapturedAudio": false,
+        "retainedTranscript": false
+      }
+    },
+    {
+      "file": "jfk-base.en-q5_1-3-default.json",
+      "sha256": "b6d5309d4b4ae48867536085369cb2794ef4f46cdf9603f02db885f01c8b78d8",
+      "data": {
+        "kind": "fixture-native-worker-abi",
+        "fixtureSha256": "59dfb9a4acb36fe2a2affc14bacbee2920ff435cb13cc314a08c13f66ba7860e",
+        "modelSha256": "4baf70dd0d7c4247ba2b81fafd9c01005ac77c2f9ef064e00dcf195d0e2fdd2f",
+        "workerSha256": "366cb2ac8c34cc38a59ac5ae99ec57f8334af7c74b78aaef507b33badefeb3e6",
+        "capture": {
+          "samples": 176000,
+          "mediaStart": 100,
+          "generation": 1,
+          "continuity": 1
+        },
+        "threads": 2,
+        "wordErrorRate": 0.0,
+        "referenceScope": "full fixture",
+        "inferenceSecondsExcludingModelLoad": 1.054261417,
+        "segments": [
+          {
+            "mediaStart": 100.0,
+            "mediaEnd": 111.0
+          }
+        ],
+        "validPrefixOnly": false,
+        "speechSupportCounts": {
+          "0": 0,
+          "1": 25,
+          "2": 0
+        },
+        "timestampAccuracyValidated": false,
+        "srtAlignmentValidated": false,
+        "productionAppValidated": false,
+        "audiblePlaybackValidated": false,
+        "retainedCapturedAudio": false,
+        "retainedTranscript": false
+      }
+    }
+  ],
+  "consumedDevelopmentWindows": [
+    {
+      "start": 75.2,
+      "end": 83.2,
+      "default": {
+        "seconds": 1.021685542,
+        "evidence": {
+          "status": "matched",
+          "windowCount": 1,
+          "segmented": true,
+          "rejections": {},
+          "anchors": [
+            {
+              "cue": 10,
+              "offset": -69.88999999999999
+            }
+          ]
+        },
+        "sha256": "af7e977a89c6e8154f3c0f39a2afe27729b543a4a75edd6bbb7ccbc457afde1d"
+      },
+      "context768": {
+        "seconds": 0.581719042,
+        "evidence": {
+          "status": "matched",
+          "windowCount": 1,
+          "segmented": true,
+          "rejections": {},
+          "anchors": [
+            {
+              "cue": 10,
+              "offset": -69.88999999999999
+            }
+          ]
+        },
+        "sha256": "3101380ce5ad39f48911e32a245d61fd5297e2c2600820cbdc31386a83e7b68e"
+      }
+    },
+    {
+      "start": 75.3696875,
+      "end": 83.3696875,
+      "default": {
+        "seconds": 1.255836292,
+        "evidence": {
+          "status": "matched",
+          "windowCount": 2,
+          "segmented": true,
+          "rejections": {
+            "phraseNotMatched": 2,
+            "cueBeginningAbsent": 1
+          },
+          "anchors": [
+            {
+              "cue": 8,
+              "offset": -70.1743125
+            },
+            {
+              "cue": 10,
+              "offset": -69.8803125
+            }
+          ]
+        },
+        "sha256": "c425999887da3b984f417c4a2f719c0379f079acfa818fbdedbe8aeb7bdf8915"
+      },
+      "context768": {
+        "seconds": 0.484512041,
+        "evidence": {
+          "status": "matched",
+          "windowCount": 2,
+          "segmented": true,
+          "rejections": {
+            "phraseNotMatched": 3,
+            "cueBeginningAbsent": 1,
+            "beginningLowConfidence": 3
+          },
+          "anchors": [
+            {
+              "cue": 8,
+              "offset": -70.1743125
+            }
+          ]
+        },
+        "sha256": "5dd547e72dc91b69d9fe20eea2748acb5d685a2d43bff84a39f1fef347a0a053"
+      }
+    },
+    {
+      "start": 75.4550625,
+      "end": 83.4550625,
+      "default": {
+        "seconds": 1.045896541,
+        "evidence": {
+          "status": "matched",
+          "windowCount": 1,
+          "segmented": false,
+          "rejections": {},
+          "anchors": [
+            {
+              "cue": 10,
+              "offset": -69.8749375
+            }
+          ]
+        },
+        "sha256": "15898ec7efafcd7ddbd43b97c736a2211ac38b9a1b18a9418dd41241dc62a82b"
+      },
+      "context768": {
+        "seconds": 0.48202975,
+        "evidence": {
+          "status": "matched",
+          "windowCount": 1,
+          "segmented": false,
+          "rejections": {},
+          "anchors": [
+            {
+              "cue": 10,
+              "offset": -69.8949375
+            }
+          ]
+        },
+        "sha256": "be112b259bad18da19642bd432ab3fbf368dac46d2cea853244b5acf3a09d82f"
+      }
+    },
+    {
+      "start": 75.54,
+      "end": 83.54,
+      "default": {
+        "seconds": 1.047403917,
+        "evidence": {
+          "status": "matched",
+          "windowCount": 1,
+          "segmented": false,
+          "rejections": {},
+          "anchors": [
+            {
+              "cue": 10,
+              "offset": -69.88999999999999
+            },
+            {
+              "cue": 11,
+              "offset": -69.80999999999999
+            }
+          ]
+        },
+        "sha256": "499952fb66854df7606a77cfc24ca234683d79498a5b9ab657656e7a96477726"
+      },
+      "context768": {
+        "seconds": 0.496898167,
+        "evidence": {
+          "status": "matched",
+          "windowCount": 1,
+          "segmented": false,
+          "rejections": {},
+          "anchors": [
+            {
+              "cue": 10,
+              "offset": -69.88999999999999
+            },
+            {
+              "cue": 11,
+              "offset": -69.78999999999998
+            }
+          ]
+        },
+        "sha256": "292d8b07c6dc65ef98114cf1a37090f5bb98bd76f83a0e7384864c307e3b97d0"
+      }
+    },
+    {
+      "start": 75.71,
+      "end": 83.71,
+      "default": {
+        "seconds": 1.03054,
+        "evidence": {
+          "status": "matched",
+          "windowCount": 1,
+          "segmented": false,
+          "rejections": {
+            "beginningUnsupportedSpeech": 1
+          },
+          "anchors": [
+            {
+              "cue": 10,
+              "offset": -69.88
+            }
+          ]
+        },
+        "sha256": "2dc42fa7ecac8659ce17fe81b17be42c322eb339b0863207086d324ac11bc57c"
+      },
+      "context768": {
+        "seconds": 0.479933375,
+        "evidence": {
+          "status": "matched",
+          "windowCount": 1,
+          "segmented": false,
+          "rejections": {},
+          "anchors": [
+            {
+              "cue": 10,
+              "offset": -69.88
+            },
+            {
+              "cue": 11,
+              "offset": -69.82
+            }
+          ]
+        },
+        "sha256": "2949ffb8e7bcf760e449aa02c0b656a871987815e98f07ee05f4dc415d189af9"
+      }
+    }
+  ],
+  "decision": "Do not promote: faster inference loses the cue-10 anchor at start 75.3696875 under unchanged confidence gates and increases JFK WER from zero to 2/44.",
+  "limitations": [
+    "Offline public PCM, not an active application performance benchmark.",
+    "Two JFK observations per variant/model, not a p95 estimate.",
+    "Window baseline recordings are prior same-host development observations, not concurrent paired timings.",
+    "No independent acoustic-onset ground truth, Windows runtime or held-out corpus tested.",
+    "PCM and transcripts remained in memory. No production native source, runtime or installed application replaced."
+  ]
+}
