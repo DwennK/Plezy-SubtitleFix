@@ -7,11 +7,13 @@ import 'dart:io';
 import 'dart:isolate';
 
 import 'package:ffi/ffi.dart';
+import 'package:plezy/features/live_subtitle_sync/analysis_cadence.dart';
 import 'package:plezy/features/live_subtitle_sync/native_bindings.dart';
 import 'package:plezy/features/live_subtitle_sync/subtitle_index.dart';
 import 'package:plezy/features/live_subtitle_sync/subtitle_parser.dart';
 import 'package:plezy/features/live_subtitle_sync/timeline_tracker.dart';
 import 'package:plezy/features/live_subtitle_sync/transcript_context.dart';
+import 'package:plezy/features/live_subtitle_sync/transcript_matcher.dart';
 import 'package:plezy/features/live_subtitle_sync/text_normalization.dart';
 
 void require(bool value, String reason) {
@@ -140,8 +142,7 @@ Future<Map<String, Object>> probe(Map<String, String> options) async {
       final context = TranscriptContext();
       final clock = Stopwatch()..start();
       var last = -60000;
-      var attempts = 0;
-      var windowSeconds = 12.0;
+      final cadence = AnalysisCadence();
       final analyses = <Map<String, Object?>>[];
       double? offset;
       double? acquiredPosition;
@@ -151,6 +152,7 @@ Future<Map<String, Object>> probe(Map<String, String> options) async {
         if (continuity != null && capture.continuity != continuity) {
           timeline.discontinuity();
           context.clear();
+          cadence.clear();
         }
         continuity = capture.continuity;
         try {
@@ -163,15 +165,15 @@ Future<Map<String, Object>> probe(Map<String, String> options) async {
             );
             final result = evidence.match;
             final anchors = evidence.anchors;
-            windowSeconds = anchors.isEmpty ? 15 : 12;
-            timeline.observe(anchors);
+            final learned = timeline.observe(anchors);
+            cadence.evidence(recognizedPassage: result.status == TranscriptMatchStatus.matched, learned: learned);
             final position = mediaPosition();
             if (position != null) {
               offset = timeline.correctionAt(position).position.automaticDelay;
               if (offset != null) acquiredPosition = position;
             }
             analyses.add({
-              'attempt': attempts,
+              'attempt': cadence.attempts,
               'windowStart': transcript.windowStart,
               'windowEnd': transcript.windowEnd,
               'match': result.status.name,
@@ -197,14 +199,15 @@ Future<Map<String, Object>> probe(Map<String, String> options) async {
             });
           }
         } on NativeSyncException catch (error) {
-          analyses.add({'attempt': attempts, 'failure': error.reason.name});
+          cadence.rejectedInference();
+          analyses.add({'attempt': cadence.attempts, 'failure': error.reason.name});
         }
-        final interval = attempts > 3 ? 30000 : 12000;
+        final interval = cadence.intervalMs(synced: false, established: false);
         if (capture.samples >= 128000 &&
             clock.elapsedMilliseconds - last >= interval &&
-            engine.submitRecent(seconds: windowSeconds)) {
+            engine.submitRecent(seconds: cadence.windowSeconds)) {
           last = clock.elapsedMilliseconds;
-          attempts++;
+          cadence.submitted();
         }
         await Future<void>.delayed(const Duration(milliseconds: 100));
       }

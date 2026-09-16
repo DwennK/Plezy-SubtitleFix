@@ -48,6 +48,11 @@ segments are retained; unbounded history is never accumulated.
 The controller checks every 30 seconds after first acquisition until a segment
 contains six anchors spanning 60 seconds, then every 90 seconds. These intervals
 and the 120-second prediction bound remain heuristics requiring real validation.
+During acquisition, a quiet section backs off to 30 seconds, but a recognized
+passage without enough timing evidence retries after 12 seconds with a 15-second
+window. The first two consecutive rejected native analyses also allow a prompt
+retry; further consecutive failures back off. This responds to the Windows
+intro failure without weakening text or temporal confirmation requirements.
 The Windows application probe now checks native delay after a paused seek to an
 unknown region and back into the learned domain, including the manual delay.
 Its success must be checked in CI before claiming the native behavior is proven.

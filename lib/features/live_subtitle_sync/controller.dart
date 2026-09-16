@@ -7,6 +7,7 @@ import 'package:path_provider/path_provider.dart';
 
 import '../../mpv/player/player_native.dart';
 import '../../utils/media_server_http_client.dart';
+import 'analysis_cadence.dart';
 import 'analysis_worker.dart';
 import 'model_manager.dart';
 import 'native_bindings.dart';
@@ -17,6 +18,7 @@ import 'subtitle_parser.dart';
 import 'subtitle_source.dart';
 import 'timeline_tracker.dart';
 import 'transcript_context.dart';
+import 'transcript_matcher.dart';
 
 enum LiveSyncPhase { off, loadingSubtitles, downloading, analyzing, synced, resyncing, unable, unsupported }
 
@@ -94,8 +96,7 @@ class LiveSubtitleSyncController extends ChangeNotifier {
   int _generation = 0;
   String? _trackKey;
   int _lastAnalysisMs = -60000;
-  int _attempts = 0;
-  double _analysisWindowSeconds = 12;
+  final _cadence = AnalysisCadence();
   bool _tickBusy = false;
   Timer? _timer;
   AbortController? _sourceAbort;
@@ -207,8 +208,7 @@ class LiveSubtitleSyncController extends ChangeNotifier {
       _continuity = null;
       _timeline.clear();
       _transcriptContext.clear();
-      _attempts = 0;
-      _analysisWindowSeconds = 12;
+      _cadence.clear();
       _lastAnalysisMs = -60000;
       _state(LiveSyncPhase.analyzing);
       _timer = Timer.periodic(const Duration(milliseconds: 500), (_) => unawaited(_tick()));
@@ -250,8 +250,7 @@ class LiveSubtitleSyncController extends ChangeNotifier {
         // as well as the inference. Do not combine anchors across a PCM gap.
         _timeline.discontinuity();
         _transcriptContext.clear();
-        _attempts = 0;
-        _analysisWindowSeconds = 12;
+        _cadence.clear();
         _lastAnalysisMs = -60000;
         if (automaticOffset != null) {
           automaticOffset = null;
@@ -272,7 +271,7 @@ class LiveSubtitleSyncController extends ChangeNotifier {
         final anchors = evidence.anchors;
         if (!enabled || generation != _generation) return;
         diagnosticObserver?.call({
-          'attempt': _attempts,
+          'attempt': _cadence.attempts,
           'windowStart': transcript.windowStart,
           'windowEnd': transcript.windowEnd,
           'match': evidence.match.status.name,
@@ -282,11 +281,15 @@ class LiveSubtitleSyncController extends ChangeNotifier {
           'segmentedMatch': evidence.segmented,
           'anchors': anchors.map((anchor) => {'cue': anchor.cue, 'offset': anchor.offset}).toList(),
         });
-        // A wider retry recovers cue beginnings cut by the preceding window.
-        // Keep the cadence and all matching thresholds; only use the already
-        // bounded 15-second snapshot when no timestamp anchor was usable.
-        _analysisWindowSeconds = anchors.isEmpty ? 15 : 12;
-        if (_timeline.observe(anchors)) {
+        // A wider prompt retry can recover cue beginnings when a recognized
+        // passage lacks enough independent timing anchors. Matching and
+        // confirmation thresholds remain unchanged.
+        final learnedRegion = _timeline.observe(anchors);
+        _cadence.evidence(
+          recognizedPassage: evidence.match.status == TranscriptMatchStatus.matched,
+          learned: learnedRegion,
+        );
+        if (learnedRegion) {
           final learned = _timeline.map.segments.last;
           diagnosticObserver?.call({
             'learnedMediaStart': learned.mediaStart,
@@ -295,7 +298,7 @@ class LiveSubtitleSyncController extends ChangeNotifier {
             'learnedSegments': _timeline.map.segments.length,
           });
         }
-        if (_attempts >= 5 && automaticOffset == null) {
+        if (_cadence.attempts >= 5 && automaticOffset == null) {
           _state(LiveSyncPhase.unable, LiveSyncReason.noMatch);
         }
       }
@@ -310,15 +313,19 @@ class LiveSubtitleSyncController extends ChangeNotifier {
       final established = _timeline.map.segments.any(
         (segment) => segment.anchors.length >= 6 && segment.subtitleEnd - segment.subtitleStart >= 60,
       );
-      final intervalMs = phase == LiveSyncPhase.synced
-          ? (established ? 90000 : 30000)
-          : (_attempts > 3 ? 30000 : 12000);
+      final intervalMs = _cadence.intervalMs(synced: phase == LiveSyncPhase.synced, established: established);
       if (_clock.elapsedMilliseconds - _lastAnalysisMs >= intervalMs &&
-          await worker.submitRecent(seconds: _analysisWindowSeconds)) {
+          await worker.submitRecent(seconds: _cadence.windowSeconds)) {
         _lastAnalysisMs = _clock.elapsedMilliseconds;
-        _attempts++;
+        _cadence.submitted();
       }
     } catch (error) {
+      if (enabled &&
+          generation == _generation &&
+          error is NativeSyncException &&
+          (error.reason == NativeSyncFailure.inferenceUnavailable || error.reason == NativeSyncFailure.invalidOutput)) {
+        _cadence.rejectedInference();
+      }
       diagnosticFailure = error is NativeSyncException ? error.reason.name : error.runtimeType.toString();
       if (enabled && generation == _generation) _state(LiveSyncPhase.unable, LiveSyncReason.nativeRuntime);
     } finally {
@@ -354,8 +361,7 @@ class LiveSubtitleSyncController extends ChangeNotifier {
     _timeline.discontinuity();
     _transcriptContext.clear();
     _continuity = null;
-    _attempts = 0;
-    _analysisWindowSeconds = 12;
+    _cadence.clear();
     automaticOffset = null;
     _lastAnalysisMs = -60000;
     try {
