@@ -1487,3 +1487,51 @@ Copie conservée dans `build/livesync/review-builds/0cef5ed8/`, kernel SHA-256
 `540dd5eeff0fdfbcc2f3f285916c6b17c6e141b2dc931182f1d9ff501762de1d`.
 Ce build reste fondé sur upstream `e3875912` ; le candidat `7883cf8c` n'est pas
 encore promu et l'application conservée n'a pas été testée visuellement.
+
+## Conservation des horodatages affinés — 2026-09-16
+
+`0f355835` corrige la fusion des preuves d'un mapping. Une cue réobservée avec
+un horodatage affiné était utilisée pour calculer la nouvelle correction, puis
+l'ancien horodatage écrasait le nouveau dans la liste des ancres du segment.
+La fusion conserve maintenant la preuve candidate acceptée pour cette cue et
+ajoute les anciennes cues qui n'ont pas été réobservées. Les vérifications de
+compatibilité avec le mapping précédent restent en place.
+
+Deux régressions échouent avant et passent après : conservation de la nouvelle
+valeur dans le tracker, puis fusion avec des cues historiques non réobservées
+sans modification de l'ancienne map. **135 tests LiveSync passent**, analyse
+Flutter complète sans diagnostic. Cela ne démontre pas un gain sur Mentalist.
+
+## Dérive accélérée et estimation précoce non retenue — 2026-09-16
+
+Au SHA `2be90b08`, le probe PCM/ASR macOS sur LibriSpeech accéléré acquiert une
+première correction à **21,605 s**, puis une pente à **93,961 s**. Le suivi complet
+échoue : **p95 3,474 s**, maximum **3,689 s**, malgré une erreur finale de 720 ms.
+Huit analyses complètes, dont deux préfixes valides, aucun rejet natif.
+Rapport `speech-drift-faster-2be90b08.json`. Des tests Flutter tournaient pendant
+une partie de cet essai ; aucune conclusion sur les budgets de performance.
+Le code exécuté a été chargé avant le correctif de conservation des ancres.
+
+Un rejeu exploratoire des seules ancres numériques compare les seuils actuels
+(six cues, 60 s, paires espacées de 30 s) à quatre cues sur 20 s avec paires
+espacées de 10 s. Le candidat améliore un rejeu ralenti (p95 simulé 656 ms), mais
+échoue sur un autre (1,528 s) et sur le nouvel accéléré (2,949 s). Ces valeurs
+supposent les résultats disponibles une seconde après la fin des fenêtres ;
+elles ne reproduisent ni le tracker complet ni l'évolution de la cadence ASR.
+Rapport `early-slope-development-replay.json`. Aucun seuil de production n'est
+modifié sur la base de cet essai, qui ne comprend pas de corpus indépendant.
+
+## Build Mac du candidat upstream — 2026-09-16
+
+Le run `35078936569` est **réussi** à `18e50324`, avec upstream `7883cf8c` et
+mpv-build `6855ea37`. L'application Debug compile, sa signature stricte passe
+et **14 contrats natifs** liés à l'app passent sur macOS arm64 en VM. Artefacts
+`livesync-macos-app-18e50324b1b133eeab663a2c241725abf2d33661` et
+`livesync-macos-contracts-18e50324b1b133eeab663a2c241725abf2d33661`.
+Ce n'est pas une preuve UI/audio de Mentalist. Le candidat n'est pas promu :
+sa CI générale a échoué et sa compilation native Windows reste active.
+
+Build Mac `0f355835` et signature stricte vérifiés ; copie conservée dans
+`build/livesync/review-builds/0f355835/`, kernel SHA-256
+`49c468e306c1224c043d8724280ea036cbd1520ad05250bd69a2c0989a8fbcff`.
+Ce build local reste sur upstream `e3875912`, distinct du candidat CI `18e50324`.

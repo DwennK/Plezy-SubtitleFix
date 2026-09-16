@@ -659,7 +659,7 @@
       "ciRun": 35034268551,
       "forkSha": "c4e64bba647bcf424517f8fe7481b4e910819194"
     },
-    "qualityLimitations": "134 focused tests and whole Flutter analysis passed at 1738e659; full-playback slower-drift regression still fails (p95 2.526 s). Windows application and general CI passed at df53e749. Upstream 7883 integration is unpromoted; its first candidate exposes Kotlin formatting and native-job ordering failures. Mentalist, gap handling and performance budgets remain incomplete.",
+    "qualityLimitations": "135 focused tests and whole Flutter analysis passed at 0f355835. Full-playback drift still fails: slower p95 2.526 s at 1738e659, faster p95 3.474 s at 2be90b08. Windows and general CI passed at df53e749; 2be90b08 validation is running. Upstream 7883 Mac application and 14 native contracts passed at 18e50324, but general integration CI failed and the native Windows build is still running. Mentalist, gap handling and performance budgets remain incomplete.",
     "nativeCaptureOwner": {
       "localResult": "passed real decoder PCM, forward/backward seeks, pause, exclusive capture and weak-client release on parent shutdown",
       "platform": "macOS arm64 Apple M4",
@@ -720,13 +720,13 @@
         "scope": "55da2726 tracker and native media clock, zero manual audio delay; not production UI."
       },
       "macosBuild": {
-        "forkSha": "0cef5ed87e82e1c9e3d0cb357ada9c50897b2cc1",
-        "dartKernelSha256": "540dd5eeff0fdfbcc2f3f285916c6b17c6e141b2dc931182f1d9ff501762de1d",
-        "focusedTestsPassed": 134,
+        "forkSha": "0f355835a9eb23179b101757d5b0159d85d63db5",
+        "dartKernelSha256": "49c468e306c1224c043d8724280ea036cbd1520ad05250bd69a2c0989a8fbcff",
+        "focusedTestsPassed": 135,
         "wholeAnalysisPassed": true,
         "strictSignatureVerified": true,
         "nativeUiValidated": false,
-        "scope": "Includes fresh-anchor fix 1738e659. Build, analysis and signature pass; full-playback slower-drift probe fails and Mentalist remains unvalidated.",
+        "scope": "Build includes refined-anchor retention. No new production-controller or Mentalist proof; faster/slower drift still fails in the preceding native probes.",
         "upstreamSha": "e38759127a1fb26c4cd99172ba6609fd50e355d9",
         "platform": "macos-arm64",
         "configuration": "debug"
@@ -956,12 +956,15 @@
       "candidateExercise": {
         "ciRun": 35078879715,
         "candidateSha": "18e50324b1b133eeab663a2c241725abf2d33661",
-        "state": "Dart passed; general CI failed on Kotlin formatting and stale native build. Native and Mac builds still running.",
+        "state": "Dart and Mac application/native contracts passed; general CI failed on Kotlin formatting and stale native build. Native Windows build is still running.",
         "nativeCiRun": 35078943474,
         "macosCiRun": 35078936569,
         "generalCiRun": 35078936531,
         "dartCiRun": 35078940204,
-        "promoted": false
+        "promoted": false,
+        "macosStatus": "passed",
+        "macosNativeContractsPassed": 14,
+        "macosNativeRevision": "6855ea3776b437a922c0c7841560842e799fc152"
       },
       "nativeOrderingFixSha": "0cef5ed87e82e1c9e3d0cb357ada9c50897b2cc1"
     },
@@ -972,6 +975,23 @@
       "driftReport": "docs/livesync-evidence/speech-drift-slower-1738e659.json",
       "fullPlaybackDriftPassed": false,
       "scope": "Exact repeated anchors and empty results do not reconfirm a mapping. Refined timestamps and revalidation after discontinuity remain accepted. Native full-playback drift still fails; Mentalist is not validated."
+    },
+    "refinedAnchorRetention": {
+      "forkSha": "0f355835a9eb23179b101757d5b0159d85d63db5",
+      "focusedTestsPassed": 135,
+      "wholeAnalysisPassed": true,
+      "regression": "Refined correction and persisted mapping now keep the same accepted newer cue timestamp; non-reobserved historical cues remain.",
+      "nativeValidation": "No new production-controller or Mentalist proof.",
+      "macosBuildAndSignaturePassed": true
+    },
+    "currentFasterDrift": {
+      "forkSha": "2be90b0896b7c185c1ee57e90123dba4a2122123",
+      "report": "docs/livesync-evidence/speech-drift-faster-2be90b08.json",
+      "passed": false,
+      "acquisitionMs": 21605,
+      "affineAcquisitionMs": 93961,
+      "trackingErrorP95Seconds": 3.473786877671813,
+      "trackingErrorMaximumSeconds": 3.6892171094972923
     }
   }
 }
