@@ -115,6 +115,7 @@ class InferenceWorker::Impl {
       // Allow the decoder's final 10 ms timestamp quantum; do not invent valid
       // times for a negative or otherwise malformed segment.
       if (t0 < 0 || t1 < t0 || static_cast<double>(t1) * 0.01 > duration + 0.02) {
+        out.status = InferenceStatus::invalid_timestamps;
         out.segments.clear();
         return out;
       }

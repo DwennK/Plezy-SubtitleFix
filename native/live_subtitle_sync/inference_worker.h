@@ -27,7 +27,7 @@ struct TranscriptSegment {
   std::vector<TranscriptToken> tokens;
 };
 
-enum class InferenceStatus { success, model_unavailable, inference_failed, output_limit };
+enum class InferenceStatus { success, model_unavailable, inference_failed, output_limit, invalid_timestamps };
 
 struct InferenceResult {
   uint64_t generation;
