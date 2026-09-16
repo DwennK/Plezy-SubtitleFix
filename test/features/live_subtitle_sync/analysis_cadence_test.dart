@@ -53,7 +53,9 @@ void main() {
 
   test('initial correction has a bounded confirmation phase and still retries native failures', () {
     final cadence = AnalysisCadence()..evidence(recognizedPassage: true, learned: true);
-    for (var i = 0; i < 5; i++) {
+    // Early acquisition at ~21 s must keep sampling past 81 s: sparse cue
+    // starts may not establish a slope during the first five confirmations.
+    for (var i = 0; i < 10; i++) {
       expect(cadence.intervalMs(synced: true, established: false), 12000);
       cadence.submitted();
       cadence.evidence(recognizedPassage: true, learned: true);

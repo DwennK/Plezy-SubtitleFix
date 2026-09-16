@@ -1,6 +1,7 @@
 /// Bounded retry policy. A long quiet section may slow acquisition, but a
 /// recognized passage without enough timing evidence should get a prompt retry.
 class AnalysisCadence {
+  static const confirmationRequests = 10;
   int attempts = 0;
   int _nativeFailures = 0;
   bool _retrySoon = false;
@@ -56,7 +57,11 @@ class AnalysisCadence {
       // A failed inference must also get its recovery attempts while a previous
       // correction remains active; otherwise it ages for another 30–90 s.
       if (_nativeFailures > 0 && _nativeFailures <= 2) return 12000;
-      if (!established && _nativeFailures == 0 && (_confirmationRequests ?? 5) < 5) return 12000;
+      if (!established &&
+          _nativeFailures == 0 &&
+          (_confirmationRequests ?? confirmationRequests) < confirmationRequests) {
+        return 12000;
+      }
       return established ? 90000 : 30000;
     }
     if (_activityWake && _nativeFailures <= 2) return 12000;
