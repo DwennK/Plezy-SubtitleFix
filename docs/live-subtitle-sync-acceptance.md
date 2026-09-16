@@ -7,11 +7,11 @@ Les limites ne sont pas des validations. Les preuves historiques gardent leur SH
 ## Code et artefacts de référence
 
 - Upstream intégré : `7883cf8c88d31e9b81e574c6949031a1c46de0b4`.
-- Code courant construit/testé : `a5838cbe26be02e3a19f259661e48c10c0994d7e`.
-- Promotion : `893b247fe3bc6e99bf763ff80e48f37f20c684f8`, code identique ; seuls des documents de preuve supplémentaires diffèrent.
+- Code courant construit/testé : `f04d8e295baf49483e46fa5b03cee7393d66dfc4`.
+- Promotion : `7a68ca094c5fc17477dd2343a53b684d6dbdadd0`, code identique ; seuls des documents de preuve supplémentaires diffèrent.
 - Base d’intégration upstream validée : `10ace9fc6d93c59a2f577e1d2a2d9e7245087f52`.
 - [Chaîne complète, PR #1, promotion et no-op](livesync-evidence/upstream-10ace9fc-full-workflow.json).
-- [Archives brouillon courantes vérifiées](livesync-evidence/draft-test-artifacts-a5838cbe.json), pour `a5838cbe`.
+- [Archives brouillon courantes vérifiées](livesync-evidence/draft-test-artifacts-a5838cbe.json), pour `a5838cbe` ; elles ne contiennent pas le nouveau cache v2.
 - [Archives historiques de la base upstream](livesync-evidence/draft-test-artifacts-10ace9fc.json).
 - [Manifestes et outils](live-subtitle-sync-versions.json).
 
@@ -58,8 +58,12 @@ Les limites ne sont pas des validations. Les preuves historiques gardent leur SH
   build `a5838cbe` et n'ajoute pas la détection automatique des gaps.
   La suite `be6f431d` versionne également le cache en v2 ; 160 tests locaux,
   analyse et CI Dart `35108485431` passent. Le candidat `f04d8e29` ajoute un essai
-  natif de cache volontairement erroné : 162 tests locaux passent, Windows
-  `35109362139` et macOS `35109400288` sont en cours au relevé.
+  natif de cache volontairement erroné : 162 tests locaux passent ainsi que les
+  quatre workflows. Windows `35109362139` confirme chargement, masquage puis
+  récupération réelle et correction du cache ; macOS `35109400288` passe ses
+  14 contrats natifs. Acquisition 20,946 s / 122,224 s, erreurs de calibration
+  198,7 / 227,6 ms. [Preuve et limites](livesync-evidence/cache-recovery-f04d8e29-windows.json).
+  PR nº 3 intégrée dans `7a68ca09` ; cela ne valide pas Mentalist.
 - **Mesure de l'acquisition**, `902d7701` : le probe conserve maintenant les
   instants des demandes/résultats, le coût natif et le coût du matching, sans
   dialogue ni PCM. [Run Windows `35108145786` réussi](livesync-evidence/acquisition-trace-902d7701-windows.json) :

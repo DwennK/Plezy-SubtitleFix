@@ -1039,6 +1039,27 @@
     ]
   },
   "maintainedFeatureValidation": {
+    "sourceSha": "f04d8e295baf49483e46fa5b03cee7393d66dfc4",
+    "promotionSha": "7a68ca094c5fc17477dd2343a53b684d6dbdadd0",
+    "codeIdenticalToSource": true,
+    "evidence": "docs/livesync-evidence/cache-recovery-f04d8e29-windows.json",
+    "runs": {
+      "windows": 35109362139,
+      "macos": 35109400288,
+      "dart": 35109404025,
+      "upstreamCI": 35109408127
+    },
+    "allRunsPassed": true,
+    "initialAcquisitionBudgetPassedForThisRun": true,
+    "initialAcquisitionBudgetEstablishedAcrossRuns": false,
+    "fullProductAcceptance": false,
+    "latestDraftArtifacts": {
+      "sourceSha": "a5838cbe26be02e3a19f259661e48c10c0994d7e",
+      "includesCurrentCacheFix": false,
+      "evidence": "docs/livesync-evidence/draft-test-artifacts-a5838cbe.json"
+    }
+  },
+  "previousMaintainedFeatureValidation": {
     "sourceSha": "a5838cbe26be02e3a19f259661e48c10c0994d7e",
     "promotionSha": "893b247fe3bc6e99bf763ff80e48f37f20c684f8",
     "codeIdenticalToSource": true,

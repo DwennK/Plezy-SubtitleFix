@@ -229,6 +229,7 @@ class LiveSubtitleSyncController extends ChangeNotifier {
             'startupSubtitlesMs': startupClock.elapsedMilliseconds,
             'mappingCacheEligible': _cacheKey != null,
             'restoredSegments': _timeline.map.segments.length,
+            'restoredGaps': _timeline.map.gaps.length,
           });
           return index;
         },
@@ -373,6 +374,7 @@ class LiveSubtitleSyncController extends ChangeNotifier {
       if (!enabled || generation != _generation) return;
       if (transcript != null && transcript.generation == generation && transcript.continuity == _continuity) {
         final context = _transcriptContext.add(transcript);
+        final matchingClock = diagnosticObserver == null ? null : (Stopwatch()..start());
         final evidence = await compute((data) {
           final (NativeTranscript transcript, NativeTranscript? context, SubtitleIndex index) = data;
           return matchTranscriptEvidence(transcript, index, context: context);
@@ -381,6 +383,10 @@ class LiveSubtitleSyncController extends ChangeNotifier {
         if (!enabled || generation != _generation) return;
         diagnosticObserver?.call({
           'attempt': _cadence.attempts,
+          'generation': generation,
+          'continuity': transcript.continuity,
+          'inferenceSeconds': transcript.elapsed,
+          if (matchingClock != null) 'matchingMs': matchingClock.elapsedMilliseconds,
           'windowStart': transcript.windowStart,
           'windowEnd': transcript.windowEnd,
           'validPrefixOnly': transcript.validPrefixOnly,
@@ -462,6 +468,8 @@ class LiveSubtitleSyncController extends ChangeNotifier {
         _cadence.submitted();
         diagnosticObserver?.call({
           'analysisRequest': _cadence.attempts,
+          'generation': generation,
+          'continuity': _continuity,
           'activityVoicePresent': voicePresent,
           'activityTimingMismatch': mismatch,
           'analysisIntervalMs': intervalMs,

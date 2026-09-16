@@ -63,7 +63,7 @@ class MappingCacheKey {
   final String digest;
   static const schema = 1;
   // Bump whenever recognition, fitting or timing semantics change.
-  static const algorithm = 'bounded-affine-titles-v1';
+  static const algorithm = 'bounded-affine-titles-v2';
 
   static MappingCacheKey? create(LiveSyncMediaIdentity media, AudioTrack audio, String subtitleHash) {
     if (!RegExp(r'^[0-9]+$').hasMatch(audio.id) ||
