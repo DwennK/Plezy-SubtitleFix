@@ -22,6 +22,11 @@ on:
         description: Exercise a real seek while controller startup awaits player properties
         type: boolean
         default: false
+      build_mode:
+        description: Flutter application and native contract build mode
+        type: choice
+        options: ['debug', 'release']
+        default: 'debug'
       renderer_only:
         description: Run only the dedicated renderer after a completed native/application probe run
         type: boolean
@@ -52,6 +57,10 @@ jobs:
     needs: wait-for-native
     runs-on: windows-latest
     timeout-minutes: 90
+    env:
+      FLUTTER_BUILD_MODE: ${{ inputs.build_mode || 'debug' }}
+      BUILD_CONFIGURATION: ${{ inputs.build_mode == 'release' && 'Release' || 'Debug' }}
+      APP_BUNDLE: build/windows/x64/runner/${{ inputs.build_mode == 'release' && 'Release' || 'Debug' }}
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
         with:
@@ -62,12 +71,15 @@ jobs:
           GH_TOKEN: ${{ github.token }}
           NATIVE_RUN_ID: ${{ inputs.run_id }}
         run: |
+          if ($env:FLUTTER_BUILD_MODE -notin @('debug', 'release')) { throw 'Unsupported Flutter build mode' }
           python scripts/livesync/stage_windows_package.py --run-id $env:NATIVE_RUN_ID
           if ($LASTEXITCODE -ne 0) { throw 'Native package verification failed' }
           New-Item -ItemType Directory -Force build/livesync/evidence | Out-Null
           Copy-Item windows/LiveSyncMPV/livesync-provenance.json build/livesync/evidence/
           Copy-Item docs/live-subtitle-sync-versions.json build/livesync/evidence/versions.json
           git rev-parse HEAD > build/livesync/evidence/fork-sha.txt
+          @{ flutterMode = $env:FLUTTER_BUILD_MODE; nativeConfiguration = $env:BUILD_CONFIGURATION } |
+            ConvertTo-Json > build/livesync/evidence/build-mode.json
       - name: Setup the exact upstream Flutter SDK
         uses: ./.github/actions/setup-flutter-git
       - name: Build the pinned analysis runtime
@@ -90,7 +102,7 @@ jobs:
         if: ${{ !inputs.renderer_only }}
         shell: pwsh
         run: |
-          flutter build windows --debug --no-pub
+          flutter build windows "--$env:FLUTTER_BUILD_MODE" --no-pub
           if ($LASTEXITCODE -ne 0) { throw 'Windows application build failed' }
       - name: Build and execute upstream native reliability contracts
         if: ${{ !inputs.renderer_only }}
@@ -99,17 +111,17 @@ jobs:
           $buildDir = 'build/windows/x64'
           cmake -S windows -B $buildDir -DPLEZY_BUILD_MPV_PROPERTY_CONTRACT_TESTS=ON -DPLEZY_BUILD_DISPLAY_RECOVERY_TESTS=ON
           if ($LASTEXITCODE -ne 0) { throw 'Native test configure failed' }
-          cmake --build $buildDir --config Debug --parallel 2 --target mpv_property_result_contract_test mpv_player_property_contract_test display_mode_manager_test
+          cmake --build $buildDir --config $env:BUILD_CONFIGURATION --parallel 2 --target mpv_property_result_contract_test mpv_player_property_contract_test display_mode_manager_test
           if ($LASTEXITCODE -ne 0) { throw 'Native test build failed' }
-          $bundle = (Resolve-Path "$buildDir/runner/Debug").Path
+          $bundle = (Resolve-Path $env:APP_BUNDLE).Path
           $env:PATH = "$bundle;$env:PATH"
-          ctest --test-dir "$buildDir/runner" -C Debug --output-on-failure --no-tests=error --output-junit "${{ github.workspace }}/build/livesync/evidence/native-contracts.xml"
+          ctest --test-dir "$buildDir/runner" -C $env:BUILD_CONFIGURATION --output-on-failure --no-tests=error --output-junit "${{ github.workspace }}/build/livesync/evidence/native-contracts.xml"
           if ($LASTEXITCODE -ne 0) { throw 'Native contracts failed' }
       - name: Verify PCM and reversible SRT timing with the app-bundled DLL
         if: ${{ !inputs.renderer_only }}
         shell: pwsh
         run: |
-          $dll = 'build/windows/x64/runner/Debug/libmpv-2.dll'
+          $dll = "$env:APP_BUNDLE/libmpv-2.dll"
           if ((Get-FileHash $dll).Hash -ne (Get-FileHash windows/LiveSyncMPV/libmpv-2.dll).Hash) {
             throw 'App did not bundle the staged library'
           }
@@ -127,7 +139,7 @@ jobs:
           if ($LASTEXITCODE -ne 0) { throw 'PCM consumer build failed' }
           ctest --test-dir build/livesync/pcm-consumer -C Release --output-on-failure
           if ($LASTEXITCODE -ne 0) { throw 'PCM consumer tests failed' }
-          python scripts/livesync/probe_pcm_consumer.py --library build/windows/x64/runner/Debug/libmpv-2.dll --consumer build/livesync/pcm-consumer/Release/livesync_pcm_bridge.dll --output build/livesync/evidence/consumer
+          python scripts/livesync/probe_pcm_consumer.py --library "$env:APP_BUNDLE/libmpv-2.dll" --consumer build/livesync/pcm-consumer/Release/livesync_pcm_bridge.dll --output build/livesync/evidence/consumer
           if ($LASTEXITCODE -ne 0) { throw 'Native PCM conversion probe failed' }
       - name: Verify actual CPU inference from active-playback PCM
         if: ${{ !inputs.renderer_only }}
@@ -146,24 +158,24 @@ jobs:
           cmake --build build/livesync/pcm-consumer --config Release --parallel 3 --target livesync_inference_bridge
           if ($LASTEXITCODE -ne 0) { throw 'Native worker build failed' }
           foreach ($model in @('base.en', 'base.en-q5_1')) {
-            python scripts/livesync/probe_inference_pipeline.py --library build/windows/x64/runner/Debug/libmpv-2.dll --consumer build/livesync/pcm-consumer/Release/livesync_pcm_bridge.dll --fixture build/livesync/whisper-source/samples/jfk.wav --whisper-cli build/livesync/whisper/bin/Release/whisper-cli.exe --model "build/livesync/models/ggml-$model.bin" --output "build/livesync/evidence/pipeline-$model.json"
+            python scripts/livesync/probe_inference_pipeline.py --library "$env:APP_BUNDLE/libmpv-2.dll" --consumer build/livesync/pcm-consumer/Release/livesync_pcm_bridge.dll --fixture build/livesync/whisper-source/samples/jfk.wav --whisper-cli build/livesync/whisper/bin/Release/whisper-cli.exe --model "build/livesync/models/ggml-$model.bin" --output "build/livesync/evidence/pipeline-$model.json"
             if ($LASTEXITCODE -ne 0) { throw 'Active-playback inference probe failed' }
-            python scripts/livesync/probe_inference_worker.py --worker build/livesync/pcm-consumer/Release/livesync_inference_bridge.dll --model "build/livesync/models/ggml-$model.bin" --fixture build/livesync/whisper-source/samples/jfk.wav --library build/windows/x64/runner/Debug/libmpv-2.dll --consumer build/livesync/pcm-consumer/Release/livesync_pcm_bridge.dll --active-timeout-seconds 90 --output "build/livesync/evidence/worker-active-$model.json"
+            python scripts/livesync/probe_inference_worker.py --worker build/livesync/pcm-consumer/Release/livesync_inference_bridge.dll --model "build/livesync/models/ggml-$model.bin" --fixture build/livesync/whisper-source/samples/jfk.wav --library "$env:APP_BUNDLE/libmpv-2.dll" --consumer build/livesync/pcm-consumer/Release/livesync_pcm_bridge.dll --active-timeout-seconds 90 --output "build/livesync/evidence/worker-active-$model.json"
             if ($LASTEXITCODE -ne 0) { throw 'Active-playback worker probe failed' }
           }
       - name: Preserve test application
         if: ${{ !inputs.renderer_only }}
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7
         with:
-          name: livesync-windows-app-${{ github.sha }}
-          path: build/windows/x64/runner/Debug/
+          name: livesync-windows-app-${{ github.sha }}${{ inputs.build_mode == 'release' && '-release' || '' }}
+          path: ${{ env.APP_BUNDLE }}/
           if-no-files-found: error
           retention-days: 14
       - name: Verify the Dart isolate against the bundled native runtime
         if: ${{ !inputs.renderer_only }}
         shell: pwsh
         run: |
-          $bundle = 'build/windows/x64/runner/Debug'
+          $bundle = $env:APP_BUNDLE
           $cpuid = [System.Runtime.Intrinsics.X86.X86Base]::CpuId(1, 0)
           $expectAvx2 = [System.Runtime.Intrinsics.X86.Avx2]::IsSupported -and
             [System.Runtime.Intrinsics.X86.Sse42]::IsSupported -and
@@ -192,7 +204,7 @@ jobs:
           $version = python scripts/pubspec_version.py
           if ($LASTEXITCODE -ne 0) { throw 'Version parsing failed' }
           New-Item -ItemType Directory -Force build/livesync/evidence/packaging | Out-Null
-          ./windows/build-installer.ps1 -Version $version -X64BuildDir build/windows/x64/runner/Debug -OutputDir build/livesync/evidence/packaging -EmitScriptOnly
+          ./windows/build-installer.ps1 -Version $version -X64BuildDir $env:APP_BUNDLE -OutputDir build/livesync/evidence/packaging -EmitScriptOnly
           if ($LASTEXITCODE -ne 0) { throw 'Installer metadata generation failed' }
           ./windows/build-msix.ps1 -Version $version -OutputDir build/livesync/evidence/packaging -EmitManifestOnly
           if ($LASTEXITCODE -ne 0) { throw 'MSIX metadata generation failed' }
@@ -209,9 +221,9 @@ jobs:
           New-Item -ItemType Directory -Force build/livesync/evidence/renderer | Out-Null
           $evidence = (Resolve-Path build/livesync/evidence/renderer).Path
           ffmpeg -version > build/livesync/evidence/renderer/fixture-generator.txt
-          flutter build windows --debug --no-pub --target tool/livesync_player_probe.dart "--dart-define=LIVESYNC_FIXTURE_DIR=$fixture" "--dart-define=LIVESYNC_RENDERER_AUTOMATION_DIR=$evidence"
+          flutter build windows "--$env:FLUTTER_BUILD_MODE" --no-pub --target tool/livesync_player_probe.dart "--dart-define=LIVESYNC_FIXTURE_DIR=$fixture" "--dart-define=LIVESYNC_RENDERER_AUTOMATION_DIR=$evidence"
           if ($LASTEXITCODE -ne 0) { throw 'Dedicated renderer build failed' }
-          ./scripts/livesync/capture_windows_renderer.ps1 -Executable build/windows/x64/runner/Debug/plezy_livesync.exe -OutputDirectory $evidence
+          ./scripts/livesync/capture_windows_renderer.ps1 -Executable "$env:APP_BUNDLE/plezy_livesync.exe" -OutputDirectory $evidence
       - name: Verify actual automatic correction in the production controller
         if: ${{ !inputs.renderer_only }}
         shell: pwsh
@@ -221,14 +233,14 @@ jobs:
         run: |
           New-Item -ItemType Directory -Force build/livesync/calibration-player | Out-Null
           $fixture = (Resolve-Path build/livesync/calibration-player).Path
-          flutter build windows --debug --no-pub --target tool/livesync_analysis_player_probe.dart "--dart-define=LIVESYNC_ANALYSIS_FIXTURE_DIR=$fixture" "--dart-define=LIVESYNC_SUBTITLE_LOAD_DELAY_MS=$env:SUBTITLE_LOAD_DELAY_MS" "--dart-define=LIVESYNC_SEEK_DURING_STARTUP=$env:SEEK_DURING_STARTUP"
+          flutter build windows "--$env:FLUTTER_BUILD_MODE" --no-pub --target tool/livesync_analysis_player_probe.dart "--dart-define=LIVESYNC_ANALYSIS_FIXTURE_DIR=$fixture" "--dart-define=LIVESYNC_SUBTITLE_LOAD_DELAY_MS=$env:SUBTITLE_LOAD_DELAY_MS" "--dart-define=LIVESYNC_SEEK_DURING_STARTUP=$env:SEEK_DURING_STARTUP"
           if ($LASTEXITCODE -ne 0) { throw 'Production controller probe build failed' }
           foreach ($case in @('calibration', 'intro-90')) {
             python scripts/livesync/create_analysis_fixture.py --source build/livesync/corpus-source --output build/livesync/calibration-player --model build/livesync/models/ggml-base.en.bin --channels 6 --case $case
             if ($LASTEXITCODE -ne 0) { throw 'Calibration fixture preparation failed' }
             # A result from the preceding process must never satisfy this case.
             Remove-Item "$fixture/result.json" -ErrorAction SilentlyContinue
-            $process = Start-Process -FilePath build/windows/x64/runner/Debug/plezy_livesync.exe -PassThru
+            $process = Start-Process -FilePath "$env:APP_BUNDLE/plezy_livesync.exe" -PassThru
             try {
               $limit = if ($case -eq 'intro-90') { 240 } else { 150 }
               $deadline = (Get-Date).AddSeconds($limit)
@@ -258,7 +270,7 @@ jobs:
         if: always()
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7
         with:
-          name: livesync-windows-contracts-${{ github.sha }}
+          name: livesync-windows-contracts-${{ github.sha }}${{ inputs.build_mode == 'release' && '-release' || '' }}
           path: build/livesync/evidence/
           if-no-files-found: error
           retention-days: 14
