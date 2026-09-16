@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
   "product": "Plezy + LiveSync",
-  "status": "integration-candidate-not-validated",
-  "recordedAt": "2026-09-16T12:47:31.117412+00:00",
+  "status": "upstream-validated-feature-acceptance-incomplete",
+  "recordedAt": "2026-09-16T13:27:42.660192+00:00",
   "upstream": {
     "repository": "edde746/plezy",
     "branch": "main",
@@ -11,11 +11,11 @@
     "plezyVersion": "2.20.0+150",
     "stableRelease": "2.20.0",
     "latestCheck": {
-      "checkedAt": "2026-09-16T12:47:31.117412+00:00",
+      "checkedAt": "2026-09-16T13:27:42.660192+00:00",
       "latestSha": "7883cf8c88d31e9b81e574c6949031a1c46de0b4",
       "integratedSha": "7883cf8c88d31e9b81e574c6949031a1c46de0b4",
       "unintegratedCommits": 0,
-      "scope": "Integration candidate only; maintained branch unchanged. Builds pending."
+      "scope": "Candidate 10ace9fc validated by all five exact-SHA workflows, promoted without tree changes in 4d06568f. Full feature acceptance remains incomplete."
     }
   },
   "flutter": {
@@ -659,7 +659,7 @@
       "ciRun": 35034268551,
       "forkSha": "c4e64bba647bcf424517f8fe7481b4e910819194"
     },
-    "qualityLimitations": "135 focused tests and whole Flutter analysis passed at 0f355835. Full-playback drift still fails: slower p95 2.526 s at 1738e659, faster p95 3.474 s at 2be90b08. Windows and general CI passed at 2be90b08. Upstream 7883 Mac application and 14 native contracts passed at 18e50324, and native Windows build/probes passed in run 35078943474, but general integration CI failed and the candidate is not promoted. Mentalist, gap handling and performance budgets remain incomplete.",
+    "qualityLimitations": "The full upstream orchestrator and all five exact-SHA child workflows passed at 10ace9fc, followed by promotion and a real unchanged run. Native controller calibration is passing on Windows. Independent timing, full drift, automatic scene gaps, Mentalist, hardware performance and distribution acceptance remain incomplete. Separate scene/startup candidates are not included in the promoted test build.",
     "nativeCaptureOwner": {
       "localResult": "passed real decoder PCM, forward/backward seeks, pause, exclusive capture and weak-client release on parent shutdown",
       "platform": "macOS arm64 Apple M4",
@@ -1011,7 +1011,31 @@
   "integrationCandidate": {
     "maintainedBaseSha": "5bddabd0a0e947b4ab90ae1148b8e3e5a672fde2",
     "upstreamSha": "7883cf8c88d31e9b81e574c6949031a1c46de0b4",
-    "validated": false,
-    "historicalChecksAreCandidateProof": false
+    "validated": true,
+    "historicalChecksAreCandidateProof": false,
+    "sourceSha": "10ace9fc6d93c59a2f577e1d2a2d9e7245087f52",
+    "validationScope": "All five exact-SHA workflows and full orchestrator passed; promoted without tree changes. Full product acceptance remains incomplete."
+  },
+  "historicalEvidenceNotice": "appValidation and checks retain earlier measurements with their source SHAs. currentValidation identifies the latest promoted code; pending experiment branches are not part of that build.",
+  "validatedPlatformsMeaning": "Full product acceptance, including real playback, accuracy and performance; passing builds or native contracts alone do not populate this list.",
+  "currentValidation": {
+    "testedForkSha": "10ace9fc6d93c59a2f577e1d2a2d9e7245087f52",
+    "promotedMergeSha": "4d06568f8d633c606d498804ccd0bbeab9fa99bc",
+    "fullIntegrationRun": 35097858231,
+    "unchangedRun": 35101893525,
+    "platformBuilds": {
+      "macosArm64": 35097912981,
+      "windowsX64": 35099278748
+    },
+    "evidence": "docs/livesync-evidence/upstream-10ace9fc-full-workflow.json",
+    "testArtifacts": "docs/livesync-evidence/draft-test-artifacts-10ace9fc.json",
+    "fullProductAcceptance": false,
+    "remaining": [
+      "Mentalist native/audible verification",
+      "independent timing and non-degradation",
+      "real drift and automatic edit boundaries",
+      "hardware playback/performance budgets",
+      "installation and native settings UI"
+    ]
   }
 }

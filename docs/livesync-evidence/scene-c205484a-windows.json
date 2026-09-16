@@ -1,0 +1,340 @@
+{
+  "schema": 1,
+  "sourceSha": "c205484a247682ef038dd013fb3e1852a5d14465",
+  "runId": 35100887451,
+  "runUrl": "https://github.com/DwennK/Plezy-SubtitleFix/actions/runs/35100887451",
+  "conclusion": "success",
+  "renderer": {
+    "visualInspectionRequired": true,
+    "kind": "native-windows-renderer-synthetic-fixture",
+    "automaticSynchronizationValidated": false,
+    "captures": [
+      {
+        "width": 1024,
+        "sha256": "0e0c4a6b6cb2dc95c1282440d01b82ca3c9eb77faf35d6642af1a63e6479e35e",
+        "state": "baseline",
+        "height": 720
+      },
+      {
+        "width": 1024,
+        "sha256": "95975813fe87608d8a06f4ccc5a512a4113c6639a77e63ebc98433b5d5a430cc",
+        "state": "positive",
+        "height": 720
+      },
+      {
+        "width": 1024,
+        "sha256": "0fc3e76bb2cd084c1575a18fbba39a94dd7701590af33bd5a91ac36d76ade1b5",
+        "state": "negative",
+        "height": 720
+      },
+      {
+        "width": 1024,
+        "sha256": "2354dad5b422c9187e6e47aa2aab9134151ae5e8d71782699fb603e4609d31a3",
+        "state": "restored",
+        "height": 720
+      },
+      {
+        "width": 1024,
+        "sha256": "79f4d2f4c17d5b09907a8384c2ff53bf569e88726f2be8c02ca84f759efb4870",
+        "state": "gap-hidden",
+        "height": 720,
+        "visuallyReviewed": true,
+        "subtitleVisible": false
+      },
+      {
+        "width": 1024,
+        "sha256": "eeddb3f9e0189c7dd00c39aeabb0c4e7abc17a7efea9f512789da759e64dbac7",
+        "state": "gap-shown-manual",
+        "height": 720,
+        "visuallyReviewed": true,
+        "subtitleVisible": false
+      },
+      {
+        "width": 1024,
+        "sha256": "1bbd2e9245dd39aea57392710c2a217f8d229b1e14794c879adb732d83e6d81a",
+        "state": "gap-restored",
+        "height": 720,
+        "visuallyReviewed": true,
+        "subtitleVisible": true
+      },
+      {
+        "width": 1024,
+        "sha256": "fed45e01e20a5d91fda51f95c996fa76c37204bafd000dfec3b9b6daa61c085a",
+        "state": "gap-hidden-again",
+        "height": 720
+      },
+      {
+        "width": 1024,
+        "sha256": "c5138bc57ec89954f7e1aecc429aabb4020cef29b64f463c03d5521fdff3fc33",
+        "state": "gap-manual-hidden",
+        "height": 720
+      },
+      {
+        "width": 1024,
+        "sha256": "79139439f0bca6dbbf19b6fc0367eea7b825d552d7c8ca0d991d39d2e9e46a22",
+        "state": "gap-release-manual-hidden",
+        "height": 720,
+        "visuallyReviewed": true,
+        "subtitleVisible": false
+      },
+      {
+        "width": 1024,
+        "sha256": "eb587fcb32e712b668f1ea622b15f41eafafcc303848f4afa1b18ea45e6b8007",
+        "state": "manual-shown",
+        "height": 720,
+        "visuallyReviewed": true,
+        "subtitleVisible": true
+      },
+      {
+        "width": 1024,
+        "sha256": "408a56c669429e2c48096863f1b245510ad27393c2a5082c06817190c08ce2d1",
+        "state": "capture-on",
+        "height": 720
+      },
+      {
+        "width": 1024,
+        "sha256": "e2734621694f92845f0a618efb210c1c54bd6ad040a5512ffca141068e5113ad",
+        "state": "capture-off",
+        "height": 720
+      }
+    ],
+    "screenWidth": 1024,
+    "screenHeight": 720
+  },
+  "states": [
+    {
+      "state": "baseline",
+      "cue": "FIRST PROBE CUE",
+      "sid": "1",
+      "delay": "0.125000",
+      "visibility": "yes",
+      "automaticGapDetectionValidated": false,
+      "syntheticFixture": true,
+      "audioOutput": "pcm-to-NUL",
+      "videoBackend": "d3d11-warp",
+      "audiblePlaybackValidated": false
+    },
+    {
+      "state": "positive",
+      "cue": "",
+      "sid": "1",
+      "delay": "2.125000",
+      "visibility": "yes",
+      "automaticGapDetectionValidated": false,
+      "syntheticFixture": true,
+      "audioOutput": "pcm-to-NUL",
+      "videoBackend": "d3d11-warp",
+      "audiblePlaybackValidated": false
+    },
+    {
+      "state": "negative",
+      "cue": "SECOND PROBE CUE",
+      "sid": "1",
+      "delay": "-3.000000",
+      "visibility": "yes",
+      "automaticGapDetectionValidated": false,
+      "syntheticFixture": true,
+      "audioOutput": "pcm-to-NUL",
+      "videoBackend": "d3d11-warp",
+      "audiblePlaybackValidated": false
+    },
+    {
+      "state": "restored",
+      "cue": "FIRST PROBE CUE",
+      "sid": "1",
+      "delay": "0.125000",
+      "visibility": "yes",
+      "automaticGapDetectionValidated": false,
+      "syntheticFixture": true,
+      "audioOutput": "pcm-to-NUL",
+      "videoBackend": "d3d11-warp",
+      "audiblePlaybackValidated": false
+    },
+    {
+      "state": "gap-hidden",
+      "cue": "FIRST PROBE CUE",
+      "sid": "1",
+      "delay": "0.125000",
+      "visibility": "no",
+      "automaticGapDetectionValidated": false,
+      "syntheticFixture": true,
+      "audioOutput": "pcm-to-NUL",
+      "videoBackend": "d3d11-warp",
+      "audiblePlaybackValidated": false
+    },
+    {
+      "state": "gap-shown-manual",
+      "cue": "FIRST PROBE CUE",
+      "sid": "1",
+      "delay": "0.125000",
+      "visibility": "no",
+      "automaticGapDetectionValidated": false,
+      "syntheticFixture": true,
+      "audioOutput": "pcm-to-NUL",
+      "videoBackend": "d3d11-warp",
+      "audiblePlaybackValidated": false
+    },
+    {
+      "state": "gap-restored",
+      "cue": "FIRST PROBE CUE",
+      "sid": "1",
+      "delay": "0.125000",
+      "visibility": "yes",
+      "automaticGapDetectionValidated": false,
+      "syntheticFixture": true,
+      "audioOutput": "pcm-to-NUL",
+      "videoBackend": "d3d11-warp",
+      "audiblePlaybackValidated": false
+    },
+    {
+      "state": "gap-hidden-again",
+      "cue": "FIRST PROBE CUE",
+      "sid": "1",
+      "delay": "0.125000",
+      "visibility": "no",
+      "automaticGapDetectionValidated": false,
+      "syntheticFixture": true,
+      "audioOutput": "pcm-to-NUL",
+      "videoBackend": "d3d11-warp",
+      "audiblePlaybackValidated": false
+    },
+    {
+      "state": "gap-manual-hidden",
+      "cue": "FIRST PROBE CUE",
+      "sid": "1",
+      "delay": "0.125000",
+      "visibility": "no",
+      "automaticGapDetectionValidated": false,
+      "syntheticFixture": true,
+      "audioOutput": "pcm-to-NUL",
+      "videoBackend": "d3d11-warp",
+      "audiblePlaybackValidated": false
+    },
+    {
+      "state": "gap-release-manual-hidden",
+      "cue": "FIRST PROBE CUE",
+      "sid": "1",
+      "delay": "0.125000",
+      "visibility": "no",
+      "automaticGapDetectionValidated": false,
+      "syntheticFixture": true,
+      "audioOutput": "pcm-to-NUL",
+      "videoBackend": "d3d11-warp",
+      "audiblePlaybackValidated": false
+    },
+    {
+      "state": "manual-shown",
+      "cue": "FIRST PROBE CUE",
+      "sid": "1",
+      "delay": "0.125000",
+      "visibility": "yes",
+      "automaticGapDetectionValidated": false,
+      "syntheticFixture": true,
+      "audioOutput": "pcm-to-NUL",
+      "videoBackend": "d3d11-warp",
+      "audiblePlaybackValidated": false
+    },
+    {
+      "state": "capture-on",
+      "cue": "FIRST PROBE CUE",
+      "sid": "1",
+      "delay": "0.125000",
+      "visibility": "yes",
+      "automaticGapDetectionValidated": false,
+      "syntheticFixture": true,
+      "audioOutput": "pcm-to-NUL",
+      "videoBackend": "d3d11-warp",
+      "audiblePlaybackValidated": false
+    },
+    {
+      "state": "capture-off",
+      "cue": "FIRST PROBE CUE",
+      "sid": "1",
+      "delay": "0.125000",
+      "visibility": "yes",
+      "automaticGapDetectionValidated": false,
+      "syntheticFixture": true,
+      "audioOutput": "pcm-to-NUL",
+      "videoBackend": "d3d11-warp",
+      "audiblePlaybackValidated": false
+    }
+  ],
+  "controllerReports": {
+    "calibration-player-calibration.json": {
+      "sha256": "cf5763e29a65f5fa670c3f116d1b20a29e8f5f2edb6832ca7c38cf56f00cd9ae",
+      "report": {
+        "kind": "actual-plezy-production-controller-calibration",
+        "platform": "windows",
+        "inferenceBackend": "avx2-cpu",
+        "expectedOffset": -100.0,
+        "absoluteOffsetError": 0.2686249999999859,
+        "maximumOffsetError": 0.75,
+        "modelId": "base.en",
+        "modelSha256": "a03779c86df3323075f5e796cb2ce5029f00ec8869eee3fdfb897afe36c6d002",
+        "fixtureCase": "calibration",
+        "introSilenceSeconds": 0,
+        "actualOffset": -100.26862499999999,
+        "reference": "authored Sintel SRT, not precise acoustic-onset ground truth",
+        "acquisitionMs": 36735,
+        "nativeDelay": -100.143623,
+        "audioPartitionSeconds": [
+          100,
+          175
+        ],
+        "audioOutput": "pcm-to-NUL",
+        "audiblePlaybackValidated": false,
+        "pcmOrTranscriptPersisted": false,
+        "postConfirmationOffset": -100.26862499999999,
+        "knownRegionRestoredAfterSeek": true,
+        "unknownSeekClearsAutomaticOnly": true,
+        "audioDelayCompositionAndPreservation": true,
+        "cacheRestoreMs": 1870,
+        "persistentCacheKnownAndUnknownRegions": true,
+        "manualDelayDuringAndAfter": true,
+        "tapDisabledOnClose": true,
+        "passed": true
+      }
+    },
+    "calibration-player-intro-90.json": {
+      "sha256": "d6bb3cac3241b1df3b5da193c47c3b2a056c2b054e29ca5f9647f7d857ab72ae",
+      "report": {
+        "kind": "actual-plezy-production-controller-calibration",
+        "platform": "windows",
+        "inferenceBackend": "avx2-cpu",
+        "expectedOffset": 90.0,
+        "absoluteOffsetError": 0.24631249999998772,
+        "maximumOffsetError": 0.75,
+        "modelId": "base.en",
+        "modelSha256": "a03779c86df3323075f5e796cb2ce5029f00ec8869eee3fdfb897afe36c6d002",
+        "fixtureCase": "intro-90",
+        "introSilenceSeconds": 90,
+        "actualOffset": 89.75368750000001,
+        "reference": "authored Sintel SRT, not precise acoustic-onset ground truth",
+        "acquisitionMs": 124933,
+        "nativeDelay": 89.878685,
+        "audioPartitionSeconds": [
+          100,
+          175
+        ],
+        "audioOutput": "pcm-to-NUL",
+        "audiblePlaybackValidated": false,
+        "pcmOrTranscriptPersisted": false,
+        "postConfirmationOffset": 89.7936875,
+        "knownRegionRestoredAfterSeek": true,
+        "unknownSeekClearsAutomaticOnly": true,
+        "audioDelayCompositionAndPreservation": true,
+        "cacheRestoreMs": 1845,
+        "persistentCacheKnownAndUnknownRegions": true,
+        "manualDelayDuringAndAfter": true,
+        "tapDisabledOnClose": true,
+        "passed": true
+      }
+    }
+  },
+  "limits": [
+    "Renderer masking is explicitly invoked by the harness, not learned automatically from a scene edit.",
+    "No automatic gap learner or removed-scene/cue-boundary handling is validated.",
+    "Controller calibration is Sintel with null audio output, not Mentalist, an independent precision distribution or a hardware performance benchmark.",
+    "macOS native UI and audible playback remain unvalidated."
+  ]
+}
