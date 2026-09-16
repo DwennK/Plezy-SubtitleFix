@@ -1900,7 +1900,15 @@
     "model": "",
     "nativeRuntime": "",
     "noMatch": "",
-    "offset": ""
+    "offset": "",
+    "clearCache": "",
+    "clearCacheDetail": "",
+    "cacheCleared": "",
+    "deleteModel": "",
+    "deleteModelDetail": "",
+    "modelDeleted": "",
+    "modelInUse": "",
+    "storageFailed": ""
   },
   "videoSettings": {
     "playbackSpeed": "Oynatma sürəti",
