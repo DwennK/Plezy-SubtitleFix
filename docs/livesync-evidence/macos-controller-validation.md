@@ -23,3 +23,19 @@ It does not establish audible playback, manual visual inspection, Mentalist,
 precise acoustic-onset accuracy, full drift or automatic scene gaps. The helper
 binary is distinct from the already archived ordinary application. Actual native
 execution must complete before any passing controller claim is recorded here.
+
+## Native contract prerequisite failure
+
+The preceding e85fd4bd Mac run `35148927428` builds and signs the ordinary app,
+but one of 14 native contracts fails. The [retained report](macos-activation-race-e85fd4bd.json)
+locates the first error at capture activation, followed by reads from a capture
+that never enabled. The chain's disabled-state property is available before the
+native PCM-format guard permits activation. Await only that transient unavailable
+status within the original five-second deadline, require the enabled-state
+acknowledgement, and keep the real PCM and disable assertions. Swift formatting
+and a type check against the actual mpv header pass; new native execution remains
+required. The workflow also exports the numeric XCTest summary after failures.
+
+The first Mac controller workflow is run `35149938639`, source `4da5ba32`.
+It retains the earlier contract and is still running; do not cancel or replace
+its evidence merely because the bounded-activation test correction is now ready.

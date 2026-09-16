@@ -138,7 +138,19 @@ final class MpvPlayerContractTests: XCTestCase {
       Date() < deadline
     { usleep(10000) }
     XCTAssertEqual(enabled, 0, "A fresh audio chain must start with capture disabled")
-    XCTAssertGreaterThanOrEqual(mpv_set_property_string(mpv, "livesync-enabled", "yes"), 0)
+    // The chain can exist before its input PCM format is initialized. The
+    // opt-in setter correctly refuses capture in that interval. Await its
+    // acknowledgement within the original deadline before trying to read PCM.
+    var activation = mpv_set_property_string(mpv, "livesync-enabled", "yes")
+    while activation == MPV_ERROR_PROPERTY_UNAVAILABLE.rawValue, Date() < deadline {
+      usleep(10000)
+      activation = mpv_set_property_string(mpv, "livesync-enabled", "yes")
+    }
+    guard activation >= 0 else {
+      return XCTFail("Capture activation was not acknowledged: \(activation)")
+    }
+    XCTAssertGreaterThanOrEqual(mpv_get_property(mpv, "livesync-enabled", MPV_FORMAT_FLAG, &enabled), 0)
+    XCTAssertEqual(enabled, 1)
     var captured: [[String: Any]] = []
     while captured.isEmpty, Date() < deadline {
       usleep(20000)

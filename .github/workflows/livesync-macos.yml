@@ -106,8 +106,13 @@ jobs:
           # XCTest imports internal Swift symbols. Preserve the ordinary app
           # first; the contract rebuild enables testability in the chosen mode.
           xcodebuild test -workspace macos/Runner.xcworkspace -scheme Runner -configuration "$BUILD_CONFIGURATION" ENABLE_TESTABILITY=YES -destination 'platform=macOS,arch=arm64' -derivedDataPath build/macos -clonedSourcePackagesDirPath build/macos/SourcePackages -only-testing:RunnerTests -resultBundlePath build/livesync/evidence/native-contracts.xcresult
-          xcrun xcresulttool get test-results summary --path build/livesync/evidence/native-contracts.xcresult --format json > build/livesync/evidence/native-contracts.json
           python3 scripts/checks/check_apple_spm_locks.py
+      - name: Summarize native contract failures as well as successes
+        if: always()
+        run: |
+          if [ -d build/livesync/evidence/native-contracts.xcresult ]; then
+            xcrun xcresulttool get test-results summary --path build/livesync/evidence/native-contracts.xcresult --format json > build/livesync/evidence/native-contracts.json
+          fi
       - name: Verify actual automatic correction in the Mac production controller
         run: |
           brew install ffmpeg
