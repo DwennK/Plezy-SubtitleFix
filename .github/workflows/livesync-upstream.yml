@@ -1,0 +1,150 @@
+name: LiveSync upstream integration
+
+on:
+  schedule:
+    - cron: '23 5 * * *'
+  workflow_dispatch:
+    inputs:
+      validate_current:
+        description: Exercise both builds and the draft PR even when upstream has not changed
+        type: boolean
+        default: false
+
+permissions:
+  contents: read
+
+concurrency:
+  group: livesync-upstream-integration
+  cancel-in-progress: false
+
+jobs:
+  prepare:
+    if: github.repository == 'DwennK/Plezy-SubtitleFix'
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    permissions:
+      contents: write
+      pull-requests: write
+    outputs:
+      changed: ${{ steps.prepare.outputs.changed }}
+      sha: ${{ steps.prepare.outputs.sha }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          fetch-depth: 0
+      - name: Prepare a separate integration branch
+        id: prepare
+        env:
+          GH_TOKEN: ${{ github.token }}
+          VALIDATE_CURRENT: ${{ inputs.validate_current }}
+        shell: bash
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          args=()
+          if [[ "$VALIDATE_CURRENT" == 'true' ]]; then args+=(--validate-current); fi
+          python3 scripts/livesync/upstream_sync.py prepare --report "$RUNNER_TEMP/upstream/prepare.json" "${args[@]}"
+      - name: Preserve no-op, candidate or conflict evidence
+        if: always()
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7
+        with:
+          name: livesync-upstream-prepare-${{ github.run_id }}
+          path: ${{ runner.temp }}/upstream/
+          if-no-files-found: error
+          retention-days: 30
+
+  validate:
+    needs: prepare
+    if: needs.prepare.outputs.changed == 'true'
+    runs-on: ubuntu-latest
+    timeout-minutes: 355
+    permissions:
+      contents: read
+      actions: write
+    strategy:
+      fail-fast: false
+      matrix:
+        kind: [checks, dart, native, macos]
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          persist-credentials: false
+      - name: Dispatch or resume exact candidate validation
+        id: validate
+        env:
+          GH_TOKEN: ${{ github.token }}
+          CANDIDATE_SHA: ${{ needs.prepare.outputs.sha }}
+          VALIDATION_KIND: ${{ matrix.kind }}
+        run: |
+          python3 scripts/livesync/upstream_sync.py validate --sha "$CANDIDATE_SHA" --kind "$VALIDATION_KIND" --report "$RUNNER_TEMP/upstream/$VALIDATION_KIND.json"
+      - name: Preserve child run identity and outcome
+        if: always()
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7
+        with:
+          name: livesync-upstream-${{ matrix.kind }}-${{ github.run_id }}
+          path: ${{ runner.temp }}/upstream/
+          if-no-files-found: error
+          retention-days: 30
+
+  windows:
+    needs: [prepare, validate]
+    if: needs.prepare.outputs.changed == 'true'
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    permissions:
+      contents: read
+      actions: write
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          persist-credentials: false
+      - uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8
+        with:
+          name: livesync-upstream-native-${{ github.run_id }}
+          path: ${{ runner.temp }}/upstream-native
+      - name: Build and exercise the Windows application
+        env:
+          GH_TOKEN: ${{ github.token }}
+          CANDIDATE_SHA: ${{ needs.prepare.outputs.sha }}
+        run: |
+          native_run=$(python3 -c 'import json,os; p=os.path.join(os.environ["RUNNER_TEMP"],"upstream-native/native.json"); print(json.load(open(p))["runId"])')
+          python3 scripts/livesync/upstream_sync.py validate --sha "$CANDIDATE_SHA" --kind windows --native-run "$native_run" --report "$RUNNER_TEMP/upstream/windows.json"
+      - name: Preserve Windows run identity and outcome
+        if: always()
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7
+        with:
+          name: livesync-upstream-windows-${{ github.run_id }}
+          path: ${{ runner.temp }}/upstream/
+          if-no-files-found: error
+          retention-days: 30
+
+  pull-request:
+    needs: [prepare, validate, windows]
+    if: needs.prepare.outputs.changed == 'true'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: read
+      actions: read
+      pull-requests: write
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          persist-credentials: false
+      - uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8
+        with:
+          pattern: livesync-upstream-*-${{ github.run_id }}
+          path: ${{ runner.temp }}/upstream-evidence
+      - name: Open or update the single draft integration PR
+        env:
+          GH_TOKEN: ${{ github.token }}
+          CANDIDATE_SHA: ${{ needs.prepare.outputs.sha }}
+        run: python3 scripts/livesync/upstream_sync.py publish --sha "$CANDIDATE_SHA" --evidence "$RUNNER_TEMP/upstream-evidence" --report "$RUNNER_TEMP/upstream/pr.json"
+      - name: Preserve publication result
+        if: always()
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7
+        with:
+          name: livesync-upstream-pr-${{ github.run_id }}
+          path: ${{ runner.temp }}/upstream/
+          if-no-files-found: error
+          retention-days: 30

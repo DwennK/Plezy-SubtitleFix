@@ -1,5 +1,7 @@
 name: CI - Sanity Checks
 
+run-name: ${{ inputs.integration_id && format('LiveSync upstream {0}', inputs.integration_id) || github.workflow }}
+
 on:
   push:
     branches:
@@ -10,6 +12,10 @@ on:
       - main
   workflow_dispatch:
     inputs:
+      integration_id:
+        description: Exact candidate SHA supplied by upstream integration
+        type: string
+        default: ""
       build_linux_packages:
         description: >
           Smoke-build the Linux deb/rpm/pacman packages. Off by default: it needs

@@ -1,7 +1,14 @@
 name: LiveSync Dart components
 
+run-name: ${{ inputs.integration_id && format('LiveSync upstream {0}', inputs.integration_id) || github.workflow }}
+
 on:
   workflow_dispatch:
+    inputs:
+      integration_id:
+        description: Exact candidate SHA supplied by upstream integration
+        type: string
+        default: ""
   push:
     branches: [feature/live-subtitle-sync]
     paths:
@@ -15,6 +22,8 @@ on:
       - 'scripts/livesync/test_speech_fixture.py'
       - 'scripts/livesync/probe_pcm.py'
       - 'scripts/livesync/test_pcm_probe.py'
+      - 'scripts/livesync/upstream_sync.py'
+      - 'scripts/livesync/test_upstream_sync.py'
       - 'test/fixtures/livesync/librispeech-development.json'
 
 permissions:
@@ -58,6 +67,9 @@ jobs:
       - name: Verify queued seek observation
         shell: bash
         run: python3 -m unittest discover -s scripts/livesync -p 'test_pcm_probe.py'
+      - name: Verify upstream integration preserves the maintained patch
+        shell: bash
+        run: python3 -m unittest discover -s scripts/livesync -p 'test_upstream_sync.py'
       - name: Analyze and test the feature components
         shell: bash
         run: |

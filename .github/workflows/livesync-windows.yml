@@ -1,8 +1,14 @@
 name: LiveSync Windows application
 
+run-name: ${{ inputs.integration_id && format('LiveSync upstream {0}', inputs.integration_id) || github.workflow }}
+
 on:
   workflow_dispatch:
     inputs:
+      integration_id:
+        description: Exact candidate SHA supplied by upstream integration
+        type: string
+        default: ""
       run_id:
         description: Native build run in this fork containing the Windows x64 artifact
         required: true

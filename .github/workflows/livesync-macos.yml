@@ -1,7 +1,14 @@
 name: LiveSync macOS app and native contracts
 
+run-name: ${{ inputs.integration_id && format('LiveSync upstream {0}', inputs.integration_id) || github.workflow }}
+
 on:
   workflow_dispatch:
+    inputs:
+      integration_id:
+        description: Exact candidate SHA supplied by upstream integration
+        type: string
+        default: ""
   push:
     branches: [feature/live-subtitle-sync]
     paths:

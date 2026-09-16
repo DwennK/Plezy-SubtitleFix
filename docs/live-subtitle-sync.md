@@ -179,6 +179,9 @@ identité et stockage distincts, auto-update officiel désactivé, aucune écrit
 dans les données de l'application Plezy existante. Signature/notarisation ne sont
 pas implicites dans un build de test.
 
+Le [suivi upstream quotidien](live-subtitle-sync-upstream.md) décrit l'action,
+ses preuves, ses limites et la promotion sans réécriture forcée de l'historique.
+
 ## État
 
 Plan enregistré avant implémentation. Phase A revalidée sur `9babe681`, phase B

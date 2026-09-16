@@ -1,8 +1,14 @@
 name: LiveSync patched mpv build
 
+run-name: ${{ inputs.integration_id && format('LiveSync upstream {0}', inputs.integration_id) || github.workflow }}
+
 on:
   workflow_dispatch:
     inputs:
+      integration_id:
+        description: Exact candidate SHA supplied by upstream integration
+        type: string
+        default: ""
       windows:
         description: Build Windows x64 (cold LLVM bootstrap can take hours)
         type: boolean
