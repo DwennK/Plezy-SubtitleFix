@@ -32,15 +32,13 @@ class LiveSyncAnalysisWorker {
   }) async {
     final worker = LiveSyncAnalysisWorker._(lease);
     worker._replies.listen((message) {
-      if (message is SendPort) {
-        worker._ready.complete(message);
-      } else if (message is List && message.length == 3 && message[0] is int) {
-        final reply = worker._pending.remove(message[0]);
-        if (message[1] == true) {
-          reply?.complete(message[2]);
-        } else {
-          reply?.completeError(NativeSyncException(message[2] as NativeSyncFailure, nativeStatus: message[3] as int?));
-        }
+      switch (message) {
+        case final SendPort commands:
+          worker._ready.complete(commands);
+        case [final int id, true, final result]:
+          worker._pending.remove(id)?.complete(result);
+        case [final int id, false, final NativeSyncFailure reason, final int? nativeStatus]:
+          worker._pending.remove(id)?.completeError(NativeSyncException(reason, nativeStatus: nativeStatus));
       }
     });
     try {
