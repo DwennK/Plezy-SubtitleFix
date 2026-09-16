@@ -22,6 +22,7 @@ public static class LiveSyncProbeWindow {
 $executablePath = (Resolve-Path $Executable).Path
 $outputPath = (Resolve-Path $OutputDirectory).Path
 $screen = [System.Windows.Forms.Screen]::PrimaryScreen.WorkingArea
+$startedAt = [DateTime]::UtcNow
 $process = Start-Process -FilePath $executablePath -WorkingDirectory (Split-Path $executablePath) -PassThru -RedirectStandardOutput (Join-Path $outputPath 'stdout.log') -RedirectStandardError (Join-Path $outputPath 'stderr.log')
 try {
   $deadline = [DateTime]::UtcNow.AddSeconds(60)
@@ -88,6 +89,35 @@ try {
     automaticSynchronizationValidated = $false
   } | ConvertTo-Json -Depth 5 | Set-Content (Join-Path $outputPath 'capture-provenance.json')
 } catch {
+  $failureReason = $_.Exception.Message
+  $process.Refresh()
+  $exited = $process.HasExited
+  if ($exited) { $process.WaitForExit() }
+  $exitCode = if ($exited) { $process.ExitCode } else { $null }
+  @{
+    passed = $false
+    reason = $failureReason
+    state = $state
+    processExited = $exited
+    processExitCode = $exitCode
+    elapsedSeconds = ([DateTime]::UtcNow - $startedAt).TotalSeconds
+    source = 'dedicated synthetic renderer process'
+  } | ConvertTo-Json | Set-Content (Join-Path $outputPath 'driver-failure.json')
+  # A native crash may leave neither a Dart exception nor a live window. Keep
+  # the OS fault record for this executable on the disposable hosted runner.
+  # Missing event-log access is not evidence that no native crash occurred.
+  try {
+    $namePattern = [Regex]::Escape((Split-Path $executablePath -Leaf))
+    $events = @(Get-WinEvent -FilterHashtable @{
+        LogName = 'Application'; StartTime = $startedAt; Id = @(1000, 1001)
+      } -ErrorAction Stop | Where-Object { $_.Message -match $namePattern } |
+      Select-Object -First 10 TimeCreated, Id, ProviderName, Message)
+    @{ available = $true; events = $events } | ConvertTo-Json -Depth 5 |
+      Set-Content (Join-Path $outputPath 'process-fault-events.json')
+  } catch {
+    @{ available = $false; events = @() } | ConvertTo-Json |
+      Set-Content (Join-Path $outputPath 'process-fault-events.json')
+  }
   # Preserve the real window on failure too, so a UI initialization error is
   # distinguishable from a video/clock failure. This runner contains no user data.
   $process.Refresh()
