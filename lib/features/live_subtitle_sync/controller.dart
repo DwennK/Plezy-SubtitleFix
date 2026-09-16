@@ -187,6 +187,7 @@ class LiveSubtitleSyncController extends ChangeNotifier {
         lease: lease,
         captureLibrary: paths.capture,
         inferenceLibrary: paths.inference,
+        acceleratedInferenceLibrary: paths.acceleratedInference,
         generation: generation,
       );
       if (!current()) {
@@ -194,6 +195,7 @@ class LiveSubtitleSyncController extends ChangeNotifier {
         return;
       }
       _worker = worker;
+      diagnosticObserver?.call({'inferenceBackend': worker.inferenceBackend});
       _continuity = null;
       _estimator.clear();
       _attempts = 0;

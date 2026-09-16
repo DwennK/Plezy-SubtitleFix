@@ -6,9 +6,10 @@ import 'package:path/path.dart' as p;
 /// Resolve only bundled libraries beside this executable. No PATH lookup or
 /// environment-controlled fallback to an unrelated native runtime.
 class LiveSyncRuntimePaths {
-  const LiveSyncRuntimePaths(this.capture, this.inference);
+  const LiveSyncRuntimePaths(this.capture, this.inference, {this.acceleratedInference});
   final String capture;
   final String inference;
+  final String? acceleratedInference;
 
   static LiveSyncRuntimePaths? bundled() {
     final executableDirectory = p.dirname(Platform.resolvedExecutable);
@@ -24,6 +25,7 @@ class LiveSyncRuntimePaths {
       return LiveSyncRuntimePaths(
         p.join(executableDirectory, 'livesync_capture_bridge.dll'),
         p.join(executableDirectory, 'livesync_inference_bridge.dll'),
+        acceleratedInference: p.join(executableDirectory, 'livesync_inference_bridge_avx2.dll'),
       );
     }
     return null;

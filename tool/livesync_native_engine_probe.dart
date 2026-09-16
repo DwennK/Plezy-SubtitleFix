@@ -94,6 +94,7 @@ Future<Map<String, Object>> probe(Map<String, String> options) async {
       client: client(),
       captureLibrary: File(options['capture']!).absolute.path,
       inferenceLibrary: File(options['inference']!).absolute.path,
+      acceleratedInferenceLibrary: options['accelerated-inference'],
       modelPath: File(options['model']!).absolute.path,
       generation: 1,
     );
@@ -104,6 +105,7 @@ Future<Map<String, Object>> probe(Map<String, String> options) async {
         client: client(),
         captureLibrary: File(options['capture']!).absolute.path,
         inferenceLibrary: File(options['inference']!).absolute.path,
+        acceleratedInferenceLibrary: options['accelerated-inference'],
         modelPath: File(options['model']!).absolute.path,
         generation: 1,
       );
@@ -157,6 +159,7 @@ Future<Map<String, Object>> probe(Map<String, String> options) async {
       return {
         'kind': 'native-active-pcm-real-asr-and-domain-alignment',
         'platform': Platform.operatingSystem,
+        'inferenceBackend': engine.inferenceBackend,
         'actualOffset': offset ?? 'none',
         'acquisitionMs': clock.elapsedMilliseconds,
         'passed': offset != null && (offset + 100).abs() < 1.5,
@@ -194,6 +197,7 @@ Future<Map<String, Object>> probe(Map<String, String> options) async {
     require(engine.takeResult() == null, 'reset retained a transcript');
     final report = <String, Object>{
       'kind': 'dart-isolate-real-native-capture-and-inference',
+      'inferenceBackend': engine.inferenceBackend,
       'platform': Platform.operatingSystem,
       'generationReset': true,
       'duplicateCaptureRejected': duplicateRejected,

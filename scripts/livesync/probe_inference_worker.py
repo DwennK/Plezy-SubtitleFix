@@ -103,7 +103,7 @@ def recognize_active(args, worker):
                 time.sleep(0.05)
         player.command("seek", "0", "absolute+exact")
         player.set("pause", "no")
-        deadline = time.monotonic() + 35
+        deadline = time.monotonic() + args.active_timeout_seconds
         while time.monotonic() < deadline:
             packet = player.get("livesync-pcm")
             consumer.append(packet, 1)
@@ -140,7 +140,11 @@ def main():
     parser.add_argument("--library", type=Path)
     parser.add_argument("--consumer", type=Path)
     parser.add_argument("--output", type=Path, required=True)
+    parser.add_argument("--active-timeout-seconds", type=int, default=35,
+                        help="Functional active-playback deadline, not a performance budget")
     args = parser.parse_args()
+    if not 15 <= args.active_timeout_seconds <= 120:
+        parser.error("Active playback timeout must be between 15 and 120 seconds")
     assert bool(args.library) == bool(args.consumer), "Both native playback libraries are required"
     assert digest(args.fixture) == FIXTURE_SHA256, "Only the pinned public fixture is accepted"
     model_hash = digest(args.model)

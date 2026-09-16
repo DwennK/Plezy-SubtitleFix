@@ -21,7 +21,7 @@ def settings(target):
         names = ["liblivesync_capture_bridge.dylib", "liblivesync_inference_bridge.dylib"]
     elif target == "windows-x64":
         include = ROOT / "windows/LiveSyncMPV/include"
-        names = ["livesync_capture_bridge.dll", "livesync_inference_bridge.dll"]
+        names = ["livesync_capture_bridge.dll", "livesync_inference_bridge.dll", "livesync_inference_bridge_avx2.dll"]
     else:
         raise ValueError("Unsupported analysis runtime target")
     sources = sorted([*NATIVE.glob("*.cpp"), *NATIVE.glob("*.h"), NATIVE / "CMakeLists.txt", Path(__file__)])
@@ -29,7 +29,9 @@ def settings(target):
     for source in sources:
         hasher.update(str(source.relative_to(ROOT)).replace("\\", "/").encode() + b"\0" + source.read_bytes())
     return include, names, {
-        "schema": 1, "target": target, "profile": "portable-cpu", "captureAbi": 1, "inferenceAbi": 1,
+        "schema": 1, "target": target,
+        "profile": "portable-and-guarded-avx2-cpu" if target == "windows-x64" else "portable-cpu",
+        "captureAbi": 1, "inferenceAbi": 1,
         "whisperRevision": manifest["whisper"]["revision"], "mpvRevision": manifest["native"]["commit"],
         "mpvHeaderSha256": digest(include / "mpv/client.h"), "sourceSha256": hasher.hexdigest(),
     }
@@ -80,7 +82,19 @@ def main():
     binaries = build / "Release" if args.target == "windows-x64" else build
     directory = ROOT / "build/livesync/runtime" / args.target
     directory.mkdir(parents=True, exist_ok=True)
-    paths = {name: binaries / name for name in names}
+    paths = {name: binaries / name for name in names[:2]}
+    accelerated_configure = None
+    if args.target == "windows-x64":
+        accelerated_build = ROOT / "build/livesync/analysis-build-windows-x64-avx2"
+        accelerated_configure = [
+            str(accelerated_build) if value == str(build) else
+            "-DLIVESYNC_CPU_PROFILE=guarded-avx2" if value == "-DLIVESYNC_CPU_PROFILE=portable" else value
+            for value in configure
+        ]
+        subprocess.run(accelerated_configure, check=True)
+        subprocess.run([args.cmake, "--build", str(accelerated_build), "--config", "Release", "--parallel", "3",
+                        "--target", "livesync_inference_bridge"], check=True)
+        paths["livesync_inference_bridge_avx2.dll"] = accelerated_build / "Release/livesync_inference_bridge.dll"
     paths.update({"whisper-ggml-LICENSE": source / "LICENSE"})
     for name, path in paths.items():
         temporary = directory / (name + ".partial")
@@ -88,7 +102,8 @@ def main():
         temporary.replace(directory / name)
     record = {"inputs": inputs, "files": {name: digest(directory / name) for name in paths},
               "cmakeVersion": subprocess.check_output([args.cmake, "--version"], text=True).splitlines()[0],
-              "configureArguments": configure[5:]}
+              "configureArguments": configure[5:],
+              "acceleratedConfigureArguments": accelerated_configure[5:] if accelerated_configure else None}
     temporary = directory / "provenance.partial"
     temporary.write_text(json.dumps(record, indent=2) + "\n")
     temporary.replace(directory / "provenance.json")

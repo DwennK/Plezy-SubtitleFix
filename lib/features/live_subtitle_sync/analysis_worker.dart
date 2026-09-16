@@ -17,6 +17,7 @@ class LiveSyncAnalysisWorker {
   final _pending = <int, Completer<Object?>>{};
   late final SendPort _commands;
   int _nextId = 0;
+  late final String inferenceBackend;
   bool _closing = false;
   Future<void>? _closeFuture;
 
@@ -25,6 +26,7 @@ class LiveSyncAnalysisWorker {
     required ModelLease lease,
     required String captureLibrary,
     required String inferenceLibrary,
+    String? acceleratedInferenceLibrary,
     required int generation,
   }) async {
     final worker = LiveSyncAnalysisWorker._(lease);
@@ -46,7 +48,16 @@ class LiveSyncAnalysisWorker {
       worker._commands = await worker._ready.future;
       final addresses = await playerChannel.invokeListMethod<int>('createLiveSyncClient');
       if (addresses == null) throw const NativeSyncException(NativeSyncFailure.captureUnavailable);
-      await worker._request('open', [addresses, captureLibrary, inferenceLibrary, lease.file.path, generation]);
+      worker.inferenceBackend =
+          (await worker._request('open', [
+                addresses,
+                captureLibrary,
+                inferenceLibrary,
+                lease.file.path,
+                generation,
+                acceleratedInferenceLibrary,
+              ]))!
+              as String;
       return worker;
     } catch (error) {
       // If spawning itself failed, there is no native client or model context.
@@ -128,7 +139,9 @@ void _runAnalysis(SendPort replies) {
             inferenceLibrary: args[2] as String,
             modelPath: args[3] as String,
             generation: args[4] as int,
+            acceleratedInferenceLibrary: args[5] as String?,
           );
+          result = engine!.inferenceBackend;
         case 'status':
           result = engine!.status();
         case 'submit':

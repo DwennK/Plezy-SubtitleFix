@@ -3,6 +3,8 @@ import 'dart:ffi';
 
 import 'package:ffi/ffi.dart';
 
+import 'runtime_dispatch.dart';
+
 // Handwritten ABI v1 declarations, checked against native sizeof before use.
 // Every operation, including creation/destruction, belongs to the serialized
 // analysis isolate. Do not import this module from UI widgets.
@@ -169,9 +171,10 @@ class NativeCaptureStatus {
 /// The model lease must outlive [close]. The caller must never kill its owning
 /// isolate before close has joined both native threads.
 class NativeLiveSyncEngine {
-  NativeLiveSyncEngine._(this._captureLibrary, this._inferenceLibrary);
+  NativeLiveSyncEngine._(this._captureLibrary, this._inferenceLibrary, this.inferenceBackend);
   final DynamicLibrary _captureLibrary;
   final DynamicLibrary _inferenceLibrary;
+  final String inferenceBackend;
   Pointer<Void> _capture = nullptr;
   Pointer<Void> _inference = nullptr;
   Pointer<Float> _samples = nullptr;
@@ -220,6 +223,7 @@ class NativeLiveSyncEngine {
     required NativeMpvClient client,
     required String captureLibrary,
     required String inferenceLibrary,
+    String? acceleratedInferenceLibrary,
     required String modelPath,
     required int generation,
     int threads = 2,
@@ -231,7 +235,22 @@ class NativeLiveSyncEngine {
       if (!client._owned || generation <= 0 || sizeOf<IntPtr>() != 8 || modelPath.contains('\u0000')) {
         throw const NativeSyncException(NativeSyncFailure.incompatibleAbi);
       }
-      engine = NativeLiveSyncEngine._(DynamicLibrary.open(captureLibrary), DynamicLibrary.open(inferenceLibrary));
+      final captureDll = DynamicLibrary.open(captureLibrary);
+      var avx2Supported = false;
+      if (Abi.current() == Abi.windowsX64 && acceleratedInferenceLibrary != null) {
+        try {
+          avx2Supported =
+              captureDll.lookupFunction<Uint32 Function(), int Function()>('ls_capture_cpu_features')() & 1 != 0;
+        } catch (_) {
+          // Older capture runtimes do not authorize accelerated code.
+        }
+      }
+      final runtime = openCpuInference(
+        avx2Supported: avx2Supported,
+        openPortable: () => _openInferenceLibrary(inferenceLibrary),
+        openAvx2: () => _openInferenceLibrary(acceleratedInferenceLibrary!),
+      );
+      engine = NativeLiveSyncEngine._(captureDll, runtime.value, runtime.backend);
       final capture = engine._captureLibrary;
       final inference = engine._inferenceLibrary;
       if (capture.lookupFunction<Uint32 Function(), int Function()>('ls_capture_abi_version')() != 1 ||
@@ -287,6 +306,24 @@ class NativeLiveSyncEngine {
       calloc.free(api);
       calloc.free(path);
     }
+  }
+
+  static DynamicLibrary _openInferenceLibrary(String path) {
+    final library = DynamicLibrary.open(path);
+    if (library.lookupFunction<Uint32 Function(), int Function()>('ls_inference_abi_version')() != 1 ||
+        library.lookupFunction<Size Function(), int Function()>('ls_inference_result_size')() != sizeOf<_Result>()) {
+      throw const NativeSyncException(NativeSyncFailure.incompatibleAbi);
+    }
+    for (final symbol in [
+      'ls_inference_create',
+      'ls_inference_destroy',
+      'ls_inference_reset',
+      'ls_inference_submit',
+      'ls_inference_take_result',
+    ]) {
+      library.lookup<Void>(symbol);
+    }
+    return library;
   }
 
   NativeCaptureStatus status() {

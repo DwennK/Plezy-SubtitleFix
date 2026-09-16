@@ -271,10 +271,12 @@ if(MPV_ARCH STREQUAL "x86_64")
       message(FATAL_ERROR \"LiveSync analysis runtime changed after configuration\")
     endif()
     file(REMOVE \"${INSTALL_BUNDLE_LIB_DIR}/livesync_capture_bridge.dll\"
-      \"${INSTALL_BUNDLE_LIB_DIR}/livesync_inference_bridge.dll\")
+      \"${INSTALL_BUNDLE_LIB_DIR}/livesync_inference_bridge.dll\"
+      \"${INSTALL_BUNDLE_LIB_DIR}/livesync_inference_bridge_avx2.dll\")
     " COMPONENT Runtime)
   install(FILES "${LIVESYNC_ANALYSIS_DIR}/livesync_capture_bridge.dll"
     "${LIVESYNC_ANALYSIS_DIR}/livesync_inference_bridge.dll"
+    "${LIVESYNC_ANALYSIS_DIR}/livesync_inference_bridge_avx2.dll"
     DESTINATION "${INSTALL_BUNDLE_LIB_DIR}" COMPONENT Runtime)
   install(FILES "${LIVESYNC_ANALYSIS_DIR}/whisper-ggml-LICENSE" "${LIVESYNC_ANALYSIS_DIR}/provenance.json"
     DESTINATION "${INSTALL_BUNDLE_DATA_DIR}/livesync" COMPONENT Runtime)

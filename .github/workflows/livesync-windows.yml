@@ -133,7 +133,7 @@ jobs:
           foreach ($model in @('base.en', 'base.en-q5_1')) {
             python scripts/livesync/probe_inference_pipeline.py --library build/windows/x64/runner/Debug/libmpv-2.dll --consumer build/livesync/pcm-consumer/Release/livesync_pcm_bridge.dll --fixture build/livesync/whisper-source/samples/jfk.wav --whisper-cli build/livesync/whisper/bin/Release/whisper-cli.exe --model "build/livesync/models/ggml-$model.bin" --output "build/livesync/evidence/pipeline-$model.json"
             if ($LASTEXITCODE -ne 0) { throw 'Active-playback inference probe failed' }
-            python scripts/livesync/probe_inference_worker.py --worker build/livesync/pcm-consumer/Release/livesync_inference_bridge.dll --model "build/livesync/models/ggml-$model.bin" --fixture build/livesync/whisper-source/samples/jfk.wav --library build/windows/x64/runner/Debug/libmpv-2.dll --consumer build/livesync/pcm-consumer/Release/livesync_pcm_bridge.dll --output "build/livesync/evidence/worker-active-$model.json"
+            python scripts/livesync/probe_inference_worker.py --worker build/livesync/pcm-consumer/Release/livesync_inference_bridge.dll --model "build/livesync/models/ggml-$model.bin" --fixture build/livesync/whisper-source/samples/jfk.wav --library build/windows/x64/runner/Debug/libmpv-2.dll --consumer build/livesync/pcm-consumer/Release/livesync_pcm_bridge.dll --active-timeout-seconds 90 --output "build/livesync/evidence/worker-active-$model.json"
             if ($LASTEXITCODE -ne 0) { throw 'Active-playback worker probe failed' }
           }
       - name: Preserve test application
@@ -149,10 +149,23 @@ jobs:
         shell: pwsh
         run: |
           $bundle = 'build/windows/x64/runner/Debug'
+          $cpuid = [System.Runtime.Intrinsics.X86.X86Base]::CpuId(1, 0)
+          $expectAvx2 = [System.Runtime.Intrinsics.X86.Avx2]::IsSupported -and
+            [System.Runtime.Intrinsics.X86.Sse42]::IsSupported -and
+            [System.Runtime.Intrinsics.X86.Bmi2]::IsSupported -and
+            [System.Runtime.Intrinsics.X86.Fma]::IsSupported -and
+            (($cpuid.Item3 -band (1 -shl 29)) -ne 0)
           foreach ($model in @('base.en', 'base.en-q5_1')) {
-            dart run tool/livesync_native_engine_probe.dart --mpv "$bundle/libmpv-2.dll" --capture "$bundle/livesync_capture_bridge.dll" --inference "$bundle/livesync_inference_bridge.dll" --model "build/livesync/models/ggml-$model.bin" --audio build/livesync/whisper-source/samples/jfk.wav --output "build/livesync/evidence/dart-native-$model.json"
+            dart run tool/livesync_native_engine_probe.dart --mpv "$bundle/libmpv-2.dll" --capture "$bundle/livesync_capture_bridge.dll" --inference "$bundle/livesync_inference_bridge.dll" --accelerated-inference "$bundle/livesync_inference_bridge_avx2.dll" --model "build/livesync/models/ggml-$model.bin" --audio build/livesync/whisper-source/samples/jfk.wav --output "build/livesync/evidence/dart-native-$model.json"
             if ($LASTEXITCODE -ne 0) { throw 'Dart native runtime probe failed' }
+            $report = Get-Content "build/livesync/evidence/dart-native-$model.json" -Raw | ConvertFrom-Json
+            $expectedBackend = if ($expectAvx2) { 'avx2-cpu' } else { 'portable-cpu' }
+            if ($report.inferenceBackend -ne $expectedBackend) { throw 'Runtime backend did not match independently checked CPU features' }
           }
+          dart run tool/livesync_native_engine_probe.dart --mpv "$bundle/libmpv-2.dll" --capture "$bundle/livesync_capture_bridge.dll" --inference "$bundle/livesync_inference_bridge.dll" --accelerated-inference "$bundle/missing-accelerated-fixture.dll" --model build/livesync/models/ggml-base.en-q5_1.bin --audio build/livesync/whisper-source/samples/jfk.wav --output build/livesync/evidence/dart-native-fallback.json
+          if ($LASTEXITCODE -ne 0) { throw 'Portable fallback failed after accelerated-library absence' }
+          $fallback = Get-Content build/livesync/evidence/dart-native-fallback.json -Raw | ConvertFrom-Json
+          if ($fallback.inferenceBackend -ne 'portable-cpu') { throw 'Fallback probe did not use portable CPU' }
       - name: Emit and verify isolated packaging metadata
         if: ${{ !inputs.renderer_only }}
         shell: pwsh

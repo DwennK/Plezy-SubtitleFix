@@ -132,6 +132,8 @@ class _ProbeState extends State<_Probe> {
       final report = <String, Object>{
         'kind': 'actual-plezy-production-controller-calibration',
         'platform': Platform.operatingSystem,
+        'inferenceBackend':
+            diagnostics.firstWhere((entry) => entry.containsKey('inferenceBackend'))['inferenceBackend']! as String,
         'expectedOffset': -100,
         'actualOffset': automatic,
         'reference': 'authored Sintel SRT, not precise acoustic-onset ground truth',

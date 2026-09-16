@@ -29,6 +29,8 @@ typedef struct ls_capture_info {
 } ls_capture_info;
 
 LIVESYNC_PCM_API uint32_t ls_capture_abi_version(void);
+// Portable code only. Bit 0 permits the packaged Windows AVX2 inference DLL.
+LIVESYNC_PCM_API uint32_t ls_capture_cpu_features(void);
 LIVESYNC_PCM_API size_t ls_capture_api_size(void);
 LIVESYNC_PCM_API size_t ls_capture_info_size(void);
 // weak_client comes from mpv_create_weak_client on the live player's owner

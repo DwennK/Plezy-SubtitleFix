@@ -10,6 +10,7 @@
 #include <stdexcept>
 #include <thread>
 
+#include "cpu_capabilities.h"
 #include "pcm_buffer.h"
 
 #if defined(__APPLE__)
@@ -199,6 +200,7 @@ class Capture {
 }  // namespace
 
 uint32_t ls_capture_abi_version(void) { return 1; }
+uint32_t ls_capture_cpu_features(void) { return livesync::cpu_features(); }
 size_t ls_capture_api_size(void) { return sizeof(ls_mpv_api); }
 size_t ls_capture_info_size(void) { return sizeof(ls_capture_info); }
 
