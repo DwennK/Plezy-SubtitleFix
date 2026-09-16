@@ -159,6 +159,9 @@ void main() {
       // Timings learned before bounded segmented matching and gap revalidation
       // must not immediately become trusted corrections after the upgrade.
       (p) => p['algorithm'] = 'bounded-affine-titles-v1',
+      // A well-formed pre-speech-support cache can contain cue starts that
+      // the new detector would reject; its valid checksum cannot authorize reuse.
+      (p) => p['algorithm'] = 'bounded-affine-titles-v2',
       (p) => p['segments'][0]['end'] = 900.0,
       (p) => p['segments'][0]['anchors'][0]['cue'] = 999,
       (p) => p['segments'][0]['anchors'][0]['subtitle'] = 3.0,

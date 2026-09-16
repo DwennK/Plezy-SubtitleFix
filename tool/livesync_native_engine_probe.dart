@@ -184,7 +184,14 @@ Future<Map<String, Object>> probe(Map<String, String> options) async {
             final result = evidence.match;
             final anchors = evidence.anchors;
             final learned = timeline.observe(anchors);
-            cadence.evidence(recognizedPassage: result.status == TranscriptMatchStatus.matched, learned: learned);
+            cadence.evidence(
+              recognizedPassage: result.status == TranscriptMatchStatus.matched,
+              learned: learned,
+              predictionContradicted: timeline.correctionAt(transcript.windowEnd).predictionContradicted,
+              speechTimingRejected: evidence.speechTimingRejected,
+              windowEnd: transcript.windowEnd,
+              latestAnchorMediaTime: evidence.latestAnchorMediaTime,
+            );
             final position = mediaPosition();
             if (position != null) {
               offset = timeline.correctionAt(position).position.automaticDelay;
@@ -200,6 +207,7 @@ Future<Map<String, Object>> probe(Map<String, String> options) async {
               'attempt': cadence.attempts,
               'windowStart': transcript.windowStart,
               'windowEnd': transcript.windowEnd,
+              'inferenceSeconds': transcript.elapsed,
               'validPrefixOnly': transcript.validPrefixOnly,
               'match': result.status.name,
               'contextWindows': evidence.windowCount,
@@ -222,6 +230,14 @@ Future<Map<String, Object>> probe(Map<String, String> options) async {
               'similarity': result.passage?.similarity,
               'anchors': anchors.map((anchor) => {'cue': anchor.cue, 'offset': anchor.offset}).toList(),
               'anchorRejections': evidence.anchorRejections,
+              'speechTimingRejected': evidence.speechTimingRejected,
+              'speechSupportCounts': {
+                for (final support in NativeSpeechSupport.values)
+                  support.name: transcript.segments
+                      .expand((s) => s.tokens)
+                      .where((t) => t.speechSupport == support)
+                      .length,
+              },
               if (!evidence.segmented && evidence.windowCount == 1 && result.passage != null)
                 'cueBeginningMatches': [
                   for (final pair in result.passage!.words)
@@ -276,6 +292,7 @@ Future<Map<String, Object>> probe(Map<String, String> options) async {
                 trackingSamples.add({
                   'mediaTime': position,
                   'regionKind': timeline.correctionAt(position).position.kind.name,
+                  'presentationSuppressionRequested': timeline.correctionAt(position).suppressSubtitles,
                   'automaticDelay': offset ?? 0,
                   'mappingAvailable': offset != null,
                   'nativeDelay': nativeDelay!,

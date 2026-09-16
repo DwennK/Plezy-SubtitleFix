@@ -2,13 +2,25 @@ import 'temporal_aligner.dart';
 import 'timeline_map.dart';
 
 class TimelineCorrection {
-  const TimelineCorrection(this.position, {this.predicted = false, this.established = false});
+  const TimelineCorrection(
+    this.position, {
+    this.predicted = false,
+    this.established = false,
+    this.predictionContradicted = false,
+  });
   final TimelinePosition position;
   final bool predicted;
 
   /// This correction's own region has enough validated, spaced observations
   /// for sparse checks. Evidence elsewhere in the media does not qualify it.
   final bool established;
+
+  /// Later independent dialogue disproved extrapolation here, but no
+  /// replacement is confirmed yet. Bounded to the prediction horizon, this
+  /// is transient uncertainty, not a gap or a persistent visibility setting.
+  final bool predictionContradicted;
+
+  bool get suppressSubtitles => position.kind == TimelineRegionKind.videoOnly || predictionContradicted;
 }
 
 /// Learns only from accepted, timestamped dialogue anchors. Predictions are
@@ -21,6 +33,8 @@ class TimelineTracker {
   final _pending = <int, SubtitleAnchor>{};
   final _continuous = <int, SubtitleAnchor>{};
   TimelineSegment? _prediction;
+  double? _predictionBlockedUntilSubtitle;
+  SubtitleAnchor? _firstContradiction;
   final _restored = <TimelineSegment>{};
   final _restoredGaps = <TimelineGap>{};
 
@@ -45,11 +59,19 @@ class TimelineTracker {
     _pending.clear();
     _continuous.clear();
     _prediction = null;
+    _predictionBlockedUntilSubtitle = null;
+    _firstContradiction = null;
   }
 
   bool observe(List<SubtitleAnchor> anchors) {
     var changed = false;
     for (final anchor in anchors) {
+      if (_predictionBlockedUntilSubtitle != null &&
+          (_agreesWithKnownDomain(anchor) || _precedesContradiction(anchor))) {
+        // Old context still agrees with its known domain. It cannot validate
+        // extrapolation through the later contradiction or dilute new anchors.
+        continue;
+      }
       final previous = _pending[anchor.cue] ?? _continuous[anchor.cue];
       if (previous != null &&
           previous.subtitleTime == anchor.subtitleTime &&
@@ -69,6 +91,7 @@ class TimelineTracker {
     while (_pending.length > 24) {
       _pending.remove(_pending.keys.first);
     }
+    _revokeContradictedPrediction();
     var fitted = _fitter.fit(_pending.values.toList());
     if (_continuous.isNotEmpty) {
       final observations = {..._continuous, ..._pending}.values.toList();
@@ -157,7 +180,12 @@ class TimelineTracker {
       _map = next;
       _restored.removeWhere((segment) => !next.segments.contains(segment));
       // withSegment builds a new segment while preserving previous evidence.
-      _prediction = next.segments.last;
+      final learned = next.segments.last;
+      if (_predictionBlockedUntilSubtitle == null || learned.subtitleEnd > _predictionBlockedUntilSubtitle!) {
+        _prediction = learned;
+        _predictionBlockedUntilSubtitle = null;
+        _firstContradiction = null;
+      }
       // A constant cluster may exclude an early, correctly timestamped cue
       // because the real offset is drifting. Retain it within the existing
       // bounded pending set until later observations can test an affine fit.
@@ -172,6 +200,56 @@ class TimelineTracker {
       _prediction = null;
       _continuous.clear();
       return false;
+    }
+  }
+
+  bool _agreesWithKnownDomain(SubtitleAnchor anchor) => _map.segments.any(
+    (segment) =>
+        segment.containsSubtitle(anchor.subtitleTime) &&
+        (segment.mediaFor(anchor.subtitleTime) - anchor.mediaTime).abs() <= 0.8,
+  );
+
+  bool _precedesContradiction(SubtitleAnchor anchor) {
+    final first = _firstContradiction;
+    return first != null &&
+        anchor.subtitleTime < first.subtitleTime &&
+        anchor.mediaTime + anchor.uncertainty < first.mediaTime - first.uncertainty;
+  }
+
+  /// Two independent later cue starts can disprove extrapolation even when
+  /// their timing is too inconsistent to fit a replacement. They must both
+  /// fall beyond every supported cadence slope, including timing tolerance.
+  /// This only withdraws prediction; it never classifies a gap, moves a known
+  /// region, or applies an offset inferred from inconsistent timestamps.
+  void _revokeContradictedPrediction() {
+    final active = _prediction;
+    if (active == null) return;
+    final earlier = <SubtitleAnchor>[];
+    final later = <SubtitleAnchor>[];
+    for (final anchor in _fitter.independentObservations(_pending.values.toList())) {
+      final subtitleSpan = anchor.subtitleTime - active.subtitleEnd;
+      final mediaSpan = anchor.mediaTime - active.mediaEnd;
+      if (subtitleSpan <= 0 || mediaSpan <= 0 || mediaSpan > predictionSeconds) continue;
+      final tolerance = 0.8 + active.uncertainty + anchor.uncertainty;
+      if (mediaSpan < 0.9 * subtitleSpan - tolerance) earlier.add(anchor);
+      if (mediaSpan > 1.1 * subtitleSpan + tolerance) later.add(anchor);
+    }
+    for (final contradicting in [earlier, later]) {
+      if (contradicting.length < 2) continue;
+      final first = contradicting.first;
+      final last = contradicting.last;
+      if (last.subtitleTime - first.subtitleTime < 3 || last.mediaTime <= first.mediaTime) continue;
+      _prediction = null;
+      // A refinement of old context must not re-enable the disproved offset.
+      // Only a confirmed region extending past these observations can recover.
+      _predictionBlockedUntilSubtitle = last.subtitleTime;
+      _firstContradiction = first;
+      // Pending observations before the discontinuity may never have fitted
+      // the old domain (e.g. a noisy cue start). Do not mix that earlier region
+      // into the new fit. Require ordering in both clocks, including timing
+      // uncertainty; this does not extend a segment or locate an exact cut.
+      _pending.removeWhere((_, anchor) => _agreesWithKnownDomain(anchor) || _precedesContradiction(anchor));
+      return;
     }
   }
 
@@ -244,7 +322,13 @@ class TimelineTracker {
                   g.start >= active.subtitleEnd &&
                   g.start <= active.subtitleFor(mediaTime),
         )) {
-      return const TimelineCorrection(TimelinePosition(TimelineRegionKind.unknown));
+      return TimelineCorrection(
+        const TimelinePosition(TimelineRegionKind.unknown),
+        predictionContradicted:
+            _firstContradiction != null &&
+            mediaTime >= _firstContradiction!.mediaTime &&
+            mediaTime - _firstContradiction!.mediaTime <= predictionSeconds,
+      );
     }
     final subtitleTime = active.subtitleFor(mediaTime);
     return TimelineCorrection(

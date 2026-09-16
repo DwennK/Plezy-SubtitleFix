@@ -8,6 +8,10 @@ class AnalysisCadence {
   bool? _previousVoicePresent;
   bool _activityWake = false;
   int? _confirmationRequests;
+  bool _tightRetryPending = false;
+  bool _tightRetryUsed = false;
+  double? _tightRetryThrough;
+  bool _awaitingTightRetryResult = false;
   double windowSeconds = 12;
 
   void clear() {
@@ -17,24 +21,68 @@ class AnalysisCadence {
     _previousVoicePresent = null;
     _activityWake = false;
     _confirmationRequests = null;
+    _tightRetryPending = false;
+    _tightRetryUsed = false;
+    _tightRetryThrough = null;
+    _awaitingTightRetryResult = false;
     windowSeconds = 12;
   }
 
   void submitted() {
     attempts++;
     _activityWake = false;
+    if (_tightRetryPending) {
+      _tightRetryPending = false;
+      _tightRetryUsed = true;
+      _awaitingTightRetryResult = true;
+      windowSeconds = 15;
+    }
     if (_confirmationRequests != null) _confirmationRequests = _confirmationRequests! + 1;
   }
 
-  void evidence({required bool recognizedPassage, required bool learned}) {
+  void evidence({
+    required bool recognizedPassage,
+    required bool learned,
+    bool predictionContradicted = false,
+    bool speechTimingRejected = false,
+    double? windowEnd,
+    double? latestAnchorMediaTime,
+  }) {
+    final shortResult = _awaitingTightRetryResult;
+    _awaitingTightRetryResult = false;
+    if (shortResult && windowEnd != null && windowEnd.isFinite) _tightRetryThrough = windowEnd;
     _nativeFailures = 0;
     _retrySoon = recognizedPassage && !learned;
     windowSeconds = learned ? 12 : 15;
-    if (learned) _confirmationRequests ??= 0;
+    if (learned) {
+      _confirmationRequests ??= 0;
+      if (!predictionContradicted) _tightRetryUsed = false;
+    }
+    // New, accepted timing beyond the previous retry's audio may justify a
+    // fresh tail. Repeating old anchors or sliding the same window cannot.
+    if (!shortResult &&
+        speechTimingRejected &&
+        _tightRetryUsed &&
+        _tightRetryThrough != null &&
+        windowEnd != null &&
+        windowEnd.isFinite &&
+        latestAnchorMediaTime != null &&
+        latestAnchorMediaTime.isFinite &&
+        latestAnchorMediaTime > _tightRetryThrough! &&
+        latestAnchorMediaTime <= windowEnd) {
+      _tightRetryUsed = false;
+    }
+    _tightRetryPending = (predictionContradicted || speechTimingRejected) && !learned && !_tightRetryUsed;
+    if (_tightRetryPending) {
+      windowSeconds = 8;
+      _tightRetryThrough = windowEnd != null && windowEnd.isFinite ? windowEnd : null;
+    }
   }
 
   void rejectedInference() {
     _nativeFailures++;
+    _awaitingTightRetryResult = false;
+    _tightRetryPending = false;
     // Give transient failures two prompt recovery attempts, then return to
     // sparse acquisition. Never loop continuously on a broken native runtime.
     _retrySoon = _nativeFailures <= 2;
@@ -47,6 +95,10 @@ class AnalysisCadence {
       if (!voicePresent) _activityWake = false;
       _previousVoicePresent = voicePresent;
     }
+    // A contradiction or a speech-rejected cue start can reflect a bad token in a
+    // long window. Reanalyze the recent tail once, after the previous result
+    // has released its native slot. Repeated failures cannot create a loop.
+    if (_tightRetryPending) return 0;
     // Keep one initial analysis and a periodic fallback: the heuristic can
     // miss quiet speech. Activity never changes a mapping or grants a lock.
     if (synced && timingMismatch) return 30000;

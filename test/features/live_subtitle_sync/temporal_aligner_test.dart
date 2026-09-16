@@ -22,21 +22,43 @@ void main() {
         ),
     ]),
   );
-  NativeTranscript transcript(double offset, {bool timestamps = true}) =>
-      NativeTranscript(1, 2, offset, offset + 15, 0.2, [
-        for (var i = 0; i < phrases.length; i++)
-          NativeTranscriptSegment(phrases[i], offset + 2 + i * 5, offset + 6 + i * 5, [
-            for (var w = 0; w < 5; w++)
-              NativeTranscriptToken(
-                ' ${phrases[i].split(' ')[w]}',
-                offset + 2 + i * 5 + w * 0.5,
-                offset + 2.3 + i * 5 + w * 0.5,
-                0.95,
-                timestamps,
-              ),
-          ]),
-      ]);
+  NativeTranscript transcript(
+    double offset, {
+    bool timestamps = true,
+    NativeSpeechSupport speech = NativeSpeechSupport.unknown,
+  }) => NativeTranscript(1, 2, offset, offset + 15, 0.2, [
+    for (var i = 0; i < phrases.length; i++)
+      NativeTranscriptSegment(phrases[i], offset + 2 + i * 5, offset + 6 + i * 5, [
+        for (var w = 0; w < 5; w++)
+          NativeTranscriptToken(
+            ' ${phrases[i].split(' ')[w]}',
+            offset + 2 + i * 5 + w * 0.5,
+            offset + 2.3 + i * 5 + w * 0.5,
+            0.95,
+            timestamps,
+            speechSupport: speech,
+          ),
+      ]),
+  ]);
   final passage = const TranscriptMatcher().find(phrases.join(' '), index).passage!;
+
+  test('speech support rejects silence anchors without changing text or inventing timing', () {
+    for (final support in NativeSpeechSupport.values) {
+      final source = transcript(90, speech: support);
+      final match = const TranscriptMatcher().find(phrases.join(' '), index);
+      expect(match.status, TranscriptMatchStatus.matched);
+      final rejected = <String, int>{};
+      final anchors = const TemporalAligner().anchors(source, index, match.passage!, rejectionCounts: rejected);
+      if (support == NativeSpeechSupport.unsupported) {
+        expect(anchors, isEmpty);
+        expect(rejected['beginningUnsupportedSpeech'], 2);
+      } else {
+        expect(anchors.map((a) => a.offset), [90, 90]);
+        expect(anchors.map((a) => a.uncertainty), [0.35, 0.35]);
+        expect(rejected, isEmpty);
+      }
+    }
+  });
 
   NativeTranscript alteredFirst(List<String> words, {int? untimed, int? reversed}) =>
       NativeTranscript(1, 2, 90, 105, 0.2, [

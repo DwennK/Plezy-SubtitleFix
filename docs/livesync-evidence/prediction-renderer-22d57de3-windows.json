@@ -1,0 +1,449 @@
+{
+  "schema": 1,
+  "sourceSha": "22d57de32a3bade4a16281ed40d092f5cb55846b",
+  "runId": 35146109893,
+  "runUrl": "https://github.com/DwennK/Plezy-SubtitleFix/actions/runs/35146109893",
+  "conclusion": "success",
+  "artifactId": 10468086876,
+  "scope": "Actual Windows native renderer with injected numeric timing anchors. No real ASR/controller or audible playback claim.",
+  "fullProductAcceptance": false,
+  "reports": {
+    "baseline": {
+      "sha256": "20bba7b5a3ff4f535366506e0ad10f62513af919e066abc933f7e668be768b46",
+      "data": {
+        "state": "baseline",
+        "cue": "FIRST PROBE CUE",
+        "sid": "1",
+        "delay": "0.125000",
+        "visibility": "yes",
+        "automaticGapDetectionValidated": false,
+        "predictionContradicted": false,
+        "timingAnchorsInjected": true,
+        "syntheticFixture": true,
+        "audioOutput": "pcm-to-NUL",
+        "videoBackend": "d3d11-warp",
+        "audiblePlaybackValidated": false
+      }
+    },
+    "capture-off": {
+      "sha256": "1836f85f7996d45839b6a6f21162732eff41fe39d8348ee3d77047fb8baba570",
+      "data": {
+        "state": "capture-off",
+        "cue": "FIRST PROBE CUE",
+        "sid": "1",
+        "delay": "0.125000",
+        "visibility": "yes",
+        "automaticGapDetectionValidated": false,
+        "predictionContradicted": false,
+        "timingAnchorsInjected": true,
+        "syntheticFixture": true,
+        "audioOutput": "pcm-to-NUL",
+        "videoBackend": "d3d11-warp",
+        "audiblePlaybackValidated": false
+      }
+    },
+    "capture-on": {
+      "sha256": "23657d6bb6d3d9a52bcc2cac073dd7f429eda4a684e5c7ce438d0f064c8ce3f8",
+      "data": {
+        "state": "capture-on",
+        "cue": "FIRST PROBE CUE",
+        "sid": "1",
+        "delay": "0.125000",
+        "visibility": "yes",
+        "automaticGapDetectionValidated": false,
+        "predictionContradicted": false,
+        "timingAnchorsInjected": true,
+        "syntheticFixture": true,
+        "audioOutput": "pcm-to-NUL",
+        "videoBackend": "d3d11-warp",
+        "audiblePlaybackValidated": false
+      }
+    },
+    "capture-provenance": {
+      "sha256": "590382d761c5cf3c94d698e3cb8059823dd575d12590084f5890fae1bfd973fd",
+      "data": {
+        "screenWidth": 1024,
+        "visualInspectionRequired": true,
+        "automaticSynchronizationValidated": false,
+        "captures": [
+          {
+            "height": 720,
+            "state": "baseline",
+            "sha256": "20c130bac6f344346e70a3c4dcb9e1b0a33765bec208e27691145b8d8c7ad3f0",
+            "width": 1024
+          },
+          {
+            "height": 720,
+            "state": "positive",
+            "sha256": "6de1e9893876f45b28c872aee7f744f1d0b47d5a45af7126d0c760c31631cc97",
+            "width": 1024
+          },
+          {
+            "height": 720,
+            "state": "negative",
+            "sha256": "e184fc7c185391fd76aa46c411c11536d9f52d0dea9c1b1826aec946fa3d8997",
+            "width": 1024
+          },
+          {
+            "height": 720,
+            "state": "restored",
+            "sha256": "ed9929e3625e972dc45ee18ea4146fac5cdb2f5cb4575ef4f887b5b11e2b6318",
+            "width": 1024
+          },
+          {
+            "height": 720,
+            "state": "gap-hidden",
+            "sha256": "e4703586246251a58ef81420e994de23291ee152967d9dfc24a0dfdfca3809e8",
+            "width": 1024
+          },
+          {
+            "height": 720,
+            "state": "gap-shown-manual",
+            "sha256": "d92250059109f81e0c6d00a37167f0144446594e26635f563d64232143c75fe7",
+            "width": 1024
+          },
+          {
+            "height": 720,
+            "state": "gap-restored",
+            "sha256": "a339d7bc2d332b8e477ef4d6c3bcc5b079429a95b1e7872b0c9025792ebddbd0",
+            "width": 1024
+          },
+          {
+            "height": 720,
+            "state": "gap-hidden-again",
+            "sha256": "8ef1aaa840c776f68e5a628f187a3019e9e703b11dff55da158a8c4a35ef50ed",
+            "width": 1024
+          },
+          {
+            "height": 720,
+            "state": "gap-manual-hidden",
+            "sha256": "9a76312b103fa696e0eab26a697be1f97ba9fec6fd4d1301a2e115dd1c1f824b",
+            "width": 1024
+          },
+          {
+            "height": 720,
+            "state": "gap-release-manual-hidden",
+            "sha256": "11619339e50517ba5df76c581325447066aef41a0ec5f713e6583d2ea9222127",
+            "width": 1024
+          },
+          {
+            "height": 720,
+            "state": "manual-shown",
+            "sha256": "7b2150dd87d6ca14790211f64ad12567edcd92dd21f4b5ec2ca447fcca668faf",
+            "width": 1024
+          },
+          {
+            "height": 720,
+            "state": "prediction-contradicted",
+            "sha256": "fda4ec622cff57985d2ca0457339bbfd43d2c1a826e101c40a0e98ac1d06f9b5",
+            "width": 1024
+          },
+          {
+            "height": 720,
+            "state": "prediction-manual-shown",
+            "sha256": "e17e4202f7051b63a587da8f43c6a7860950cb19bf53461fbdac5c2bb82fc70b",
+            "width": 1024
+          },
+          {
+            "height": 720,
+            "state": "prediction-recovered",
+            "sha256": "225e82aba17ca2f976091501b728729a828bf6e8738a5d841a036279449192d6",
+            "width": 1024
+          },
+          {
+            "height": 720,
+            "state": "capture-on",
+            "sha256": "aab96536c2f9700b10d75df390e073a853407926c0803f3e930294c62167a215",
+            "width": 1024
+          },
+          {
+            "height": 720,
+            "state": "capture-off",
+            "sha256": "3cfe253ce0cb05451d6db8d4ab84ec3b9cb2f9618ebb18733491bb04ef1114a9",
+            "width": 1024
+          }
+        ],
+        "screenHeight": 720,
+        "kind": "native-windows-renderer-synthetic-fixture"
+      }
+    },
+    "complete": {
+      "sha256": "dac4fe62bdd28d8d4b827710720a073dfb4517294092d028014ad77c277e3ff8",
+      "data": {
+        "states": 16,
+        "passed": true
+      }
+    },
+    "gap-hidden-again": {
+      "sha256": "bb86116f981565266d43081a757e283b23b4fbd6a53b30ecf4e40bf0f8128ce9",
+      "data": {
+        "state": "gap-hidden-again",
+        "cue": "FIRST PROBE CUE",
+        "sid": "1",
+        "delay": "0.125000",
+        "visibility": "no",
+        "automaticGapDetectionValidated": false,
+        "predictionContradicted": false,
+        "timingAnchorsInjected": true,
+        "syntheticFixture": true,
+        "audioOutput": "pcm-to-NUL",
+        "videoBackend": "d3d11-warp",
+        "audiblePlaybackValidated": false
+      }
+    },
+    "gap-hidden": {
+      "sha256": "0a0735e1f8bf52c242871b1fa469a7c6fc4de716fcb7a58fe802b3349f1e60f8",
+      "data": {
+        "state": "gap-hidden",
+        "cue": "FIRST PROBE CUE",
+        "sid": "1",
+        "delay": "0.125000",
+        "visibility": "no",
+        "automaticGapDetectionValidated": false,
+        "predictionContradicted": false,
+        "timingAnchorsInjected": true,
+        "syntheticFixture": true,
+        "audioOutput": "pcm-to-NUL",
+        "videoBackend": "d3d11-warp",
+        "audiblePlaybackValidated": false
+      }
+    },
+    "gap-manual-hidden": {
+      "sha256": "822af82a461a1a1ebc58cda1588ed99b15e7895ba926ff902f412d0a5f930375",
+      "data": {
+        "state": "gap-manual-hidden",
+        "cue": "FIRST PROBE CUE",
+        "sid": "1",
+        "delay": "0.125000",
+        "visibility": "no",
+        "automaticGapDetectionValidated": false,
+        "predictionContradicted": false,
+        "timingAnchorsInjected": true,
+        "syntheticFixture": true,
+        "audioOutput": "pcm-to-NUL",
+        "videoBackend": "d3d11-warp",
+        "audiblePlaybackValidated": false
+      }
+    },
+    "gap-release-manual-hidden": {
+      "sha256": "73594cb50c10ab7bf35735efa7f731ff8d3439fbec950c877d82ecf5002389c8",
+      "data": {
+        "state": "gap-release-manual-hidden",
+        "cue": "FIRST PROBE CUE",
+        "sid": "1",
+        "delay": "0.125000",
+        "visibility": "no",
+        "automaticGapDetectionValidated": false,
+        "predictionContradicted": false,
+        "timingAnchorsInjected": true,
+        "syntheticFixture": true,
+        "audioOutput": "pcm-to-NUL",
+        "videoBackend": "d3d11-warp",
+        "audiblePlaybackValidated": false
+      }
+    },
+    "gap-restored": {
+      "sha256": "914ed0594375727154fc029f80a0aba8b9e29c433ee5443f091910ca0f26abe7",
+      "data": {
+        "state": "gap-restored",
+        "cue": "FIRST PROBE CUE",
+        "sid": "1",
+        "delay": "0.125000",
+        "visibility": "yes",
+        "automaticGapDetectionValidated": false,
+        "predictionContradicted": false,
+        "timingAnchorsInjected": true,
+        "syntheticFixture": true,
+        "audioOutput": "pcm-to-NUL",
+        "videoBackend": "d3d11-warp",
+        "audiblePlaybackValidated": false
+      }
+    },
+    "gap-shown-manual": {
+      "sha256": "872755ae00e3eb70ba1c2821770fec67c06389874872ae470c3372e87cd5c785",
+      "data": {
+        "state": "gap-shown-manual",
+        "cue": "FIRST PROBE CUE",
+        "sid": "1",
+        "delay": "0.125000",
+        "visibility": "no",
+        "automaticGapDetectionValidated": false,
+        "predictionContradicted": false,
+        "timingAnchorsInjected": true,
+        "syntheticFixture": true,
+        "audioOutput": "pcm-to-NUL",
+        "videoBackend": "d3d11-warp",
+        "audiblePlaybackValidated": false
+      }
+    },
+    "manual-shown": {
+      "sha256": "f07f4364dcc293a2d1370b8a169387b63b8c6896bf8b263af0ef23310cc550ae",
+      "data": {
+        "state": "manual-shown",
+        "cue": "FIRST PROBE CUE",
+        "sid": "1",
+        "delay": "0.125000",
+        "visibility": "yes",
+        "automaticGapDetectionValidated": false,
+        "predictionContradicted": false,
+        "timingAnchorsInjected": true,
+        "syntheticFixture": true,
+        "audioOutput": "pcm-to-NUL",
+        "videoBackend": "d3d11-warp",
+        "audiblePlaybackValidated": false
+      }
+    },
+    "negative": {
+      "sha256": "b4cdca12fd290246e6db4dab5c5334541f1cd193f6a17c7f4b220ce33a99f244",
+      "data": {
+        "state": "negative",
+        "cue": "SECOND PROBE CUE",
+        "sid": "1",
+        "delay": "-3.000000",
+        "visibility": "yes",
+        "automaticGapDetectionValidated": false,
+        "predictionContradicted": false,
+        "timingAnchorsInjected": true,
+        "syntheticFixture": true,
+        "audioOutput": "pcm-to-NUL",
+        "videoBackend": "d3d11-warp",
+        "audiblePlaybackValidated": false
+      }
+    },
+    "positive": {
+      "sha256": "5d749d2a314038611590f77af1c8008e8804b74af0da60a653c6913c824c35c0",
+      "data": {
+        "state": "positive",
+        "cue": "",
+        "sid": "1",
+        "delay": "2.125000",
+        "visibility": "yes",
+        "automaticGapDetectionValidated": false,
+        "predictionContradicted": false,
+        "timingAnchorsInjected": true,
+        "syntheticFixture": true,
+        "audioOutput": "pcm-to-NUL",
+        "videoBackend": "d3d11-warp",
+        "audiblePlaybackValidated": false
+      }
+    },
+    "prediction-contradicted": {
+      "sha256": "1a46a3fe0d2b7355f158b981ee5ba142e667cf2d8f50ddb3dcc52e178954dcd6",
+      "data": {
+        "state": "prediction-contradicted",
+        "cue": "FIRST PROBE CUE",
+        "sid": "1",
+        "delay": "0.125000",
+        "visibility": "no",
+        "automaticGapDetectionValidated": false,
+        "predictionContradicted": true,
+        "timingAnchorsInjected": true,
+        "syntheticFixture": true,
+        "audioOutput": "pcm-to-NUL",
+        "videoBackend": "d3d11-warp",
+        "audiblePlaybackValidated": false
+      }
+    },
+    "prediction-manual-shown": {
+      "sha256": "dfac24aa6747a843409a06c17dca9ba688149a3f80bc57a1a4e919a905da29a5",
+      "data": {
+        "state": "prediction-manual-shown",
+        "cue": "FIRST PROBE CUE",
+        "sid": "1",
+        "delay": "0.125000",
+        "visibility": "no",
+        "automaticGapDetectionValidated": false,
+        "predictionContradicted": true,
+        "timingAnchorsInjected": true,
+        "syntheticFixture": true,
+        "audioOutput": "pcm-to-NUL",
+        "videoBackend": "d3d11-warp",
+        "audiblePlaybackValidated": false
+      }
+    },
+    "prediction-recovered": {
+      "sha256": "939f141b8bacae2b69aa8391c2e8c476c93e0b58f496b3d759210773365098cc",
+      "data": {
+        "state": "prediction-recovered",
+        "cue": "FIRST PROBE CUE",
+        "sid": "1",
+        "delay": "0.125000",
+        "visibility": "yes",
+        "automaticGapDetectionValidated": false,
+        "predictionContradicted": false,
+        "timingAnchorsInjected": true,
+        "syntheticFixture": true,
+        "audioOutput": "pcm-to-NUL",
+        "videoBackend": "d3d11-warp",
+        "audiblePlaybackValidated": false
+      }
+    },
+    "preparation": {
+      "sha256": "c315db32d898bbe49158e63bd9a713d40fafbc998d803dfef5828e8abdcbcb19",
+      "data": {
+        "phase": "waiting-subtitle-track"
+      }
+    },
+    "restored": {
+      "sha256": "0ab96959d764bf6bff3cd95599b8eaa85df86db7fda25a664462e23e4e18efd4",
+      "data": {
+        "state": "restored",
+        "cue": "FIRST PROBE CUE",
+        "sid": "1",
+        "delay": "0.125000",
+        "visibility": "yes",
+        "automaticGapDetectionValidated": false,
+        "predictionContradicted": false,
+        "timingAnchorsInjected": true,
+        "syntheticFixture": true,
+        "audioOutput": "pcm-to-NUL",
+        "videoBackend": "d3d11-warp",
+        "audiblePlaybackValidated": false
+      }
+    }
+  },
+  "screenshots": {
+    "prediction-contradicted": {
+      "sha256": "fda4ec622cff57985d2ca0457339bbfd43d2c1a826e101c40a0e98ac1d06f9b5",
+      "visuallyInspected": true,
+      "captionVisible": false,
+      "dimensions": [
+        1024,
+        720
+      ]
+    },
+    "prediction-manual-shown": {
+      "sha256": "e17e4202f7051b63a587da8f43c6a7860950cb19bf53461fbdac5c2bb82fc70b",
+      "visuallyInspected": true,
+      "captionVisible": false,
+      "dimensions": [
+        1024,
+        720
+      ]
+    },
+    "prediction-recovered": {
+      "sha256": "225e82aba17ca2f976091501b728729a828bf6e8738a5d841a036279449192d6",
+      "visuallyInspected": true,
+      "captionVisible": true,
+      "dimensions": [
+        1024,
+        720
+      ]
+    }
+  },
+  "otherChecks": {
+    "dart": {
+      "runId": 35146106705,
+      "conclusion": "success"
+    },
+    "general": {
+      "runId": 35146373296,
+      "nativeRunId": 35097915052,
+      "conclusion": "success"
+    }
+  },
+  "limitations": [
+    "Captured native windows are 1024x720 on the hosted desktop, below preferred 1440x900.",
+    "Only the three new prediction visibility screenshots were visually inspected for this receipt."
+  ]
+}

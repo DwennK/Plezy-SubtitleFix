@@ -7,6 +7,7 @@
 #include <vector>
 
 #include "pcm_buffer.h"
+#include "speech_support.h"
 
 namespace livesync {
 
@@ -18,6 +19,7 @@ struct TranscriptToken {
   double media_end;
   float recognition_score;
   bool has_timestamp;
+  SpeechSupport speech_support = SpeechSupport::unknown;
 };
 
 struct TranscriptSegment {
