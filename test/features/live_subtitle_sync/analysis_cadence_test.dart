@@ -47,8 +47,30 @@ void main() {
     expect(cadence.windowSeconds, 15);
     cadence.evidence(recognizedPassage: true, learned: true);
     expect(cadence.windowSeconds, 12);
+    expect(cadence.intervalMs(synced: true, established: false), 12000);
+    expect(cadence.intervalMs(synced: true, established: true), 90000);
+  });
+
+  test('initial correction has a bounded confirmation phase and still retries native failures', () {
+    final cadence = AnalysisCadence()..evidence(recognizedPassage: true, learned: true);
+    for (var i = 0; i < 5; i++) {
+      expect(cadence.intervalMs(synced: true, established: false), 12000);
+      cadence.submitted();
+      cadence.evidence(recognizedPassage: true, learned: true);
+    }
     expect(cadence.intervalMs(synced: true, established: false), 30000);
     expect(cadence.intervalMs(synced: true, established: true), 90000);
+    for (var i = 0; i < 2; i++) {
+      cadence.rejectedInference();
+      expect(cadence.intervalMs(synced: true, established: true), 12000);
+      cadence.submitted();
+    }
+    cadence.rejectedInference();
+    expect(cadence.intervalMs(synced: true, established: false), 30000);
+    expect(cadence.intervalMs(synced: true, established: true), 90000);
+    cadence.clear();
+    cadence.evidence(recognizedPassage: true, learned: true);
+    expect(cadence.intervalMs(synced: true, established: false), 12000);
   });
 
   test('transient inference failure retries twice without creating an unbounded fast loop', () {

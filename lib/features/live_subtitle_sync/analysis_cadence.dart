@@ -6,6 +6,7 @@ class AnalysisCadence {
   bool _retrySoon = false;
   bool? _previousVoicePresent;
   bool _activityWake = false;
+  int? _confirmationRequests;
   double windowSeconds = 12;
 
   void clear() {
@@ -14,18 +15,21 @@ class AnalysisCadence {
     _retrySoon = false;
     _previousVoicePresent = null;
     _activityWake = false;
+    _confirmationRequests = null;
     windowSeconds = 12;
   }
 
   void submitted() {
     attempts++;
     _activityWake = false;
+    if (_confirmationRequests != null) _confirmationRequests = _confirmationRequests! + 1;
   }
 
   void evidence({required bool recognizedPassage, required bool learned}) {
     _nativeFailures = 0;
     _retrySoon = recognizedPassage && !learned;
     windowSeconds = learned ? 12 : 15;
+    if (learned) _confirmationRequests ??= 0;
   }
 
   void rejectedInference() {
@@ -46,7 +50,15 @@ class AnalysisCadence {
     // miss quiet speech. Activity never changes a mapping or grants a lock.
     if (synced && timingMismatch) return 30000;
     if (attempts > 0 && voicePresent == false) return 90000;
-    if (synced) return established ? 90000 : 30000;
+    if (synced) {
+      // An initial constant correction still needs a longer baseline to rule
+      // out drift. Bound the extra work even if the source stays too sparse.
+      // A failed inference must also get its recovery attempts while a previous
+      // correction remains active; otherwise it ages for another 30–90 s.
+      if (_nativeFailures > 0 && _nativeFailures <= 2) return 12000;
+      if (!established && _nativeFailures == 0 && (_confirmationRequests ?? 5) < 5) return 12000;
+      return established ? 90000 : 30000;
+    }
     if (_activityWake && _nativeFailures <= 2) return 12000;
     return attempts > 3 && !_retrySoon ? 30000 : 12000;
   }
