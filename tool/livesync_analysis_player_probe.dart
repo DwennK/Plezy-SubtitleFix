@@ -52,6 +52,7 @@ class _ProbeState extends State<_Probe> {
     const directory = String.fromEnvironment('LIVESYNC_ANALYSIS_FIXTURE_DIR');
     final output = File('$directory/result.json');
     final diagnostics = <Map<String, Object?>>[];
+    final started = Stopwatch();
     HttpServer? subtitleServer;
     const sourceDelayMs = int.fromEnvironment('LIVESYNC_SUBTITLE_LOAD_DELAY_MS');
     const seekDuringStartup = bool.fromEnvironment('LIVESYNC_SEEK_DURING_STARTUP');
@@ -147,7 +148,7 @@ class _ProbeState extends State<_Probe> {
       await player.setProperty('sub-delay', '0.125');
       final sync = controller = LiveSubtitleSyncController.forPlayer(player);
       sync.diagnosticObserver = (event) {
-        diagnostics.add(event);
+        diagnostics.add({'observedElapsedMs': started.elapsedMilliseconds, ...event});
         if (seekDuringStartup && startupSeek == null && event.containsKey('startupReadyMs')) {
           // A real seek announces its intent before the native reply. Issue it
           // while the controller owns capture but startup is still awaiting
@@ -160,7 +161,7 @@ class _ProbeState extends State<_Probe> {
       }
       await player.play();
       delayNextSourceRead = sourceDelayMs > 0;
-      final started = Stopwatch()..start();
+      started.start();
       await sync.enable();
       if (seekDuringStartup) {
         check(startupSeek != null, 'startup-seek-not-issued');
@@ -201,6 +202,9 @@ class _ProbeState extends State<_Probe> {
         'subtitleLoadDelayMs': sourceDelayMs,
         'seekDuringStartupValidated': seekDuringStartup,
         'startupDiagnostics': diagnostics.where((event) => event.keys.any((key) => key.startsWith('startup'))).toList(),
+        // Freeze the numeric acquisition trace before manual/cache checks add
+        // events from later generations. Never persist PCM or dialogue text.
+        'acquisitionDiagnostics': List<Map<String, Object?>>.of(diagnostics),
         'captureDuringSubtitleLoadValidated': sourceDelayMs > 0,
         'platform': Platform.operatingSystem,
         'inferenceBackend':
@@ -215,6 +219,8 @@ class _ProbeState extends State<_Probe> {
         'actualOffset': automatic,
         'reference': 'authored Sintel SRT, not precise acoustic-onset ground truth',
         'acquisitionMs': started.elapsedMilliseconds,
+        'acquisitionTargetMs': 45000 + introSilence * 1000,
+        'acquisitionTargetPassed': started.elapsedMilliseconds <= 45000 + introSilence * 1000,
         'nativeDelay': nativeDelay,
         'audioPartitionSeconds': provenance['partition'] as List,
         'audioOutput': Platform.isWindows ? 'pcm-to-NUL' : 'null',
