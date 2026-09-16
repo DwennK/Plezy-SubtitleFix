@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "product": "Plezy + LiveSync",
   "status": "in-development-not-validated",
-  "recordedAt": "2026-09-16T05:29:55.634664+00:00",
+  "recordedAt": "2026-09-16T05:31:46.497727+00:00",
   "upstream": {
     "repository": "edde746/plezy",
     "branch": "main",
@@ -659,7 +659,7 @@
       "ciRun": 35034268551,
       "forkSha": "c4e64bba647bcf424517f8fe7481b4e910819194"
     },
-    "qualityLimitations": "Whole upstream CI 35056963159 passed at 8f2f7ac2 after macOS infrastructure retry. Windows 8f2f7ac2 acquired calibration but failed manual-during when prediction was revoked. Latest 503d81b0 checks running. Mentalist UI/audible behavior, independent accuracy, gaps/cache and performance remain incomplete.",
+    "qualityLimitations": "Whole upstream CI 35058912671 passed at 503d81b0; 574ef060 has local analysis, 111 focused tests and signed Mac build. Windows functional runs still pending. Earlier Windows calibration acquired but lost prediction; fixed pending retest. Full-playback drift still fails; Mentalist UI/audible behavior, independent accuracy, gaps/cache and performance remain incomplete.",
     "nativeCaptureOwner": {
       "localResult": "passed real decoder PCM, forward/backward seeks, pause, exclusive capture and weak-client release on parent shutdown",
       "platform": "macOS arm64 Apple M4",
@@ -812,7 +812,7 @@
       "windowsCiRun": 35058910946,
       "upstreamCiRun": 35058912671,
       "windowsStatus": "in progress",
-      "upstreamStatus": "in progress",
+      "upstreamStatus": "passed at 503d81b0",
       "longRegressions": {
         "slower": {
           "passed": false,

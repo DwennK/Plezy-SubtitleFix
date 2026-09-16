@@ -1201,3 +1201,8 @@ de la dérive reste un échec explicite, et le lecteur Mentalist n'est pas valid
 Upstream refetché à `2026-09-16T05:29:56Z` : toujours
 `e38759127a1fb26c4cd99172ba6609fd50e355d9`, aucun commit supplémentaire.
 Cette actualité du code de base ne constitue pas une validation finale LiveSync.
+
+Les CI générales `35058400300` (`30b73ce9`) et `35058912671` (`503d81b0`)
+sont maintenant terminées avec succès. La modification de cadence `574ef060`
+est vérifiée localement, pas par ces deux exécutions antérieures. Les validations
+applicatives Windows distinctes restent en cours/en attente.
