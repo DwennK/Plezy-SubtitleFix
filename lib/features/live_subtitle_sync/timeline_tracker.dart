@@ -93,9 +93,10 @@ class TimelineTracker {
       // A constant cluster may exclude an early, correctly timestamped cue
       // because the real offset is drifting. Retain it within the existing
       // bounded pending set until later observations can test an affine fit.
-      for (final anchor in candidate.anchors) {
-        _pending.remove(anchor.cue);
-      }
+      // Outliers inside the now-confirmed domain have already been disproved.
+      // They must not pair with a later bad timestamp to revoke this mapping.
+      // Keep only observations outside the learned domain for future drift.
+      _pending.removeWhere((_, anchor) => candidate.containsSubtitle(anchor.subtitleTime));
       return true;
     } on ArgumentError {
       // Confirmed but contradictory evidence must not extend the old offset.

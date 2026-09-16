@@ -7,6 +7,17 @@ SubtitleAnchor anchor(int cue, double subtitle, double media) =>
     SubtitleAnchor(cue, subtitle, media, 0.35, 'distinct phrase number $cue');
 
 void main() {
+  test('an interior rejected timestamp cannot combine with a later outlier to revoke a valid prediction', () {
+    final tracker = TimelineTracker();
+    expect(
+      tracker.observe([anchor(0, 100, 104), anchor(1, 110, 114.1), anchor(2, 115, 117.5), anchor(3, 120, 124.2)]),
+      isTrue,
+    );
+    expect(tracker.correctionAt(140).position.automaticDelay, closeTo(4.1, 1e-9));
+    expect(tracker.observe([anchor(4, 135, 136.4)]), isFalse);
+    expect(tracker.correctionAt(145).position.automaticDelay, closeTo(4.1, 1e-9));
+  });
+
   test('a sparse early cue survives a later constant cluster to establish drift', () {
     final tracker = TimelineTracker();
     // Numeric observations from the initial real-speech slowdown trial. A
