@@ -11,7 +11,8 @@ namespace mpv {
 
 namespace {
 
-constexpr wchar_t kRegistryPath[] = L"Software\\Plezy\\DisplayModeOverride";
+// Fork-owned state: never adopt or clear the official application's record.
+constexpr wchar_t kRegistryPath[] = L"Software\\PlezyLiveSync\\DisplayModeOverride";
 constexpr wchar_t kRegVersion[] = L"Version";
 constexpr DWORD kRecoveryVersion = 1;
 constexpr wchar_t kRegModeDeviceName[] = L"ModeDeviceName";

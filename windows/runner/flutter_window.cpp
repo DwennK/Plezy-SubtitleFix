@@ -6,7 +6,8 @@
 #include "mpv/display_mode_manager.h"
 #include "mpv/mpv_plugin.h"
 
-static constexpr wchar_t kWindowPlacementKey[] = L"Software\\Plezy";
+// Fork-owned state: never adopt or clear the official application's record.
+static constexpr wchar_t kWindowPlacementKey[] = L"Software\\PlezyLiveSync";
 static constexpr wchar_t kWindowPlacementValue[] = L"WindowPlacement";
 
 static UINT_PTR g_saveTimerId = 0;

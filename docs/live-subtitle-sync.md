@@ -191,6 +191,14 @@ identité et stockage distincts, auto-update officiel désactivé, aucune écrit
 dans les données de l'application Plezy existante. Signature/notarisation ne sont
 pas implicites dans un build de test.
 
+Sur Windows, la position de fenêtre et le journal de récupération écran du fork
+utilisent `HKCU\Software\PlezyLiveSync` (sous-clé `DisplayModeOverride` pour la
+récupération). Les anciennes clés `HKCU\Software\Plezy` appartiennent à Plezy
+officiel : aucune migration ni suppression automatique, car les anciens builds
+du fork pouvaient aussi les partager. Ce changement de namespace doit encore
+être validé dans le prochain build Windows ; il ne prouve pas à lui seul le
+parcours installation/désinstallation ou des changements HDR concurrents.
+
 Le [suivi upstream quotidien](live-subtitle-sync-upstream.md) décrit l'action,
 ses preuves, ses limites et la promotion sans réécriture forcée de l'historique.
 
