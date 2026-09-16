@@ -13,7 +13,8 @@ brouillon. Aucun changement ni PR au dépôt officiel.
 
 Le contrôle « Live subtitle sync » est branché dans les menus de sous-titres
 et de réglages vidéo sur les plateformes ciblées. Il charge le SRT externe
-anglais sélectionné avec les en-têtes du média, vérifie/télécharge le modèle
+anglais sélectionné avec les en-têtes du média, ou le SRT intégré sélectionné
+sur Plex en lecture directe après vérification des décisions de copie. Il vérifie/télécharge le modèle
 quantifié (~60 Mo), prélève le PCM du lecteur et applique un décalage constant
 après plusieurs ancres concordantes. La lecture continue pendant l'analyse.
 Le délai manuel est additionné séparément ; désactiver retire seulement la
@@ -25,7 +26,12 @@ La première preuve native macOS sur audio réel de calibration a appliqué
 l'arrêt du prélèvement. C'est une preuve intermédiaire sur un extrait,
 avec sortie audio nulle. Le premier test multicanal a révélé des ancres
 imprécises. L'alignement DTW suivant donne −100,23 s en 33,62 s dans le banc
-natif sans UI ; le cas utilisateur Mentalist S2 E16 n'est pas validé.
+natif sans UI. Sur le cas utilisateur, le transport complet du SRT intégré
+et le rapprochement depuis le véritable PCM 5.1 fonctionnent dans des probes
+sans UI. La correction estimée (+3,75 s) reste à confirmer visuellement et
+à l'écoute dans le lecteur applicatif. Le premier chargement du SRT a demandé
+80 s avec l'adaptateur final, puis l'acquisition native 46 s sur un autre essai.
+Ces temps dépassent le budget utilisateur ; ce n'est pas une livraison finale.
 Le Mac verrouillé empêche actuellement la suite des contrôles d'interface.
 
 Le moteur actuel ne livre pas encore la timeline segmentée, la dérive, les

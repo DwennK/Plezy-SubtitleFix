@@ -721,3 +721,43 @@ La suite complète locale a exposé une course dans le serveur HTTP du test de
 délai total du modèle (écriture pendant un flush). Le test sérialise maintenant
 les écritures et vérifie qu'un timeout d'inactivité prématuré ne satisfait pas
 l'assertion ; ses 11 tests passent. Aucun changement au téléchargeur de production.
+
+
+### SRT intégré Plex : défaut utilisateur reproduit et adaptateur branché
+
+Le cas signalé emploie un SRT intégré, sans `Stream.key`, auparavant refusé
+par le contrôleur. `/library/streams/{id}.srt` renvoie HTTP 501. L'extraction
+Plex exige une décision préparée et une session dédiée ; une requête nue
+peut échouer ou dépendre d'une ancienne session. Le serveur peut aussi choisir
+de transcoder l'audio ou de convertir le SRT en ASS si les profils sont omis.
+
+L'adaptateur vérifie la sélection avant/après, prépare un profil de copie,
+refuse toute décision A/V autre que `copy`, exige le même SRT en copie et
+ne récupère que le corps texte complet. Aucun endpoint de démarrage A/V
+n'est demandé. Plex parcourt et remuxe néanmoins le conteneur côté serveur
+pour en extraire la piste : son coût reste à mesurer. La session créée est
+arrêtée en fin de requête ou annulation. La sélection et les fichiers sources
+ne sont pas modifiés. Le document est conservé en mémoire pour la source
+de lecture courante seulement ; changer de média le libère.
+
+Une validation privée du **code de transport de production**, sur PMS
+1.43.4.10903, récupère et parse 815 cues / 57 067 octets en 80,404 s. Les
+identifiants du serveur, secrets et dialogues restent hors dépôt. Un probe
+natif distinct, avec un unique flux de lecture H.264/EAC3 5.1, reconnaît les
+dialogues et estime +3,749 s en 46,010 s, puis applique le délai mpv. L'arrêt
+de sa session d'extraction renvoie HTTP 200. Ce n'est ni une mesure de
+précision (décalage attendu non annoté), ni une preuve du contrôleur/UI Plezy
+sur cet épisode. La lecture audible et le contrôle visuel restent ouverts.
+
+L'UI affiche le chargement des sous-titres pendant l'extraction. 51 tests
+Dart ciblés passent, dont huit cas de transport Plex (sélection, changement
+pendant extraction, cache en mémoire, annulation, refus média/playlist et
+refus de réencodage). Analyse du dépôt sans diagnostics et build macOS
+normal avec signature stricte vérifiée.
+
+Windows : `35043215939` échouait avant l'analyse, car le banc lançait
+LiveSync avant la confirmation des pistes. Le banc attend désormais cet
+événement. `35045347613` échoue plus tôt sur le délai du probe d'inférence
+CPU quantifiée : aucun résultat applicatif Windows n'est déclaré acquis.
+Les vérifications de traduction et le format du pont Windows ont été
+corrigés dans `b07bfad3`; attente des pistes dans `a9fef9b9`.
