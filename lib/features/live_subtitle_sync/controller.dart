@@ -455,6 +455,9 @@ class LiveSubtitleSyncController extends ChangeNotifier {
       );
       if (_clock.elapsedMilliseconds - _lastAnalysisMs >= intervalMs &&
           await worker.submitRecent(seconds: _cadence.windowSeconds)) {
+        // A seek can clear cadence while the native acknowledgement is pending.
+        // The old request must not rate-limit or count as work in the new run.
+        if (!enabled || generation != _generation) return;
         _lastAnalysisMs = _clock.elapsedMilliseconds;
         _cadence.submitted();
         diagnosticObserver?.call({
