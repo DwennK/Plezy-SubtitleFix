@@ -131,14 +131,16 @@ class NativeTranscript {
     this.windowStart,
     this.windowEnd,
     this.elapsed,
-    List<NativeTranscriptSegment> segments,
-  ) : segments = List.unmodifiable(segments);
+    List<NativeTranscriptSegment> segments, {
+    this.validPrefixOnly = false,
+  }) : segments = List.unmodifiable(segments);
   final int generation;
   final int continuity;
   final double windowStart;
   final double windowEnd;
   final double elapsed;
   final List<NativeTranscriptSegment> segments;
+  final bool validPrefixOnly;
 }
 
 /// An owned weak client supplied by the *active* platform player. The function
@@ -420,10 +422,11 @@ class NativeLiveSyncEngine {
     try {
       final value = _result.ref;
       if (value.generation != _generation || value.continuity != _continuity) return null;
-      if (value.status != 0) {
+      if (value.status != 0 && value.status != 5) {
         throw NativeSyncException(NativeSyncFailure.inferenceUnavailable, nativeStatus: value.status);
       }
-      if (value.segmentCount > 64 ||
+      if ((value.status == 5 && value.segmentCount == 0) ||
+          value.segmentCount > 64 ||
           value.tokenCount > 512 ||
           value.textBytes > 8192 ||
           !value.elapsed.isFinite ||
@@ -482,6 +485,7 @@ class NativeLiveSyncEngine {
         _submittedEnd,
         value.elapsed,
         segments,
+        validPrefixOnly: value.status == 5,
       );
     } on FormatException {
       throw const NativeSyncException(NativeSyncFailure.invalidOutput);

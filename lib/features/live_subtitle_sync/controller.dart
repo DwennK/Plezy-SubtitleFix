@@ -287,6 +287,7 @@ class LiveSubtitleSyncController extends ChangeNotifier {
           'attempt': _cadence.attempts,
           'windowStart': transcript.windowStart,
           'windowEnd': transcript.windowEnd,
+          'validPrefixOnly': transcript.validPrefixOnly,
           'match': evidence.match.status.name,
           'similarity': evidence.match.passage?.similarity,
           'competitor': evidence.match.runnerUpSimilarity,

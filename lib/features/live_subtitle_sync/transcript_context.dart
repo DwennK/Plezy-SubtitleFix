@@ -26,6 +26,7 @@ class TranscriptContext {
     }
     _previous = current;
     if (previous == null ||
+        previous.validPrefixOnly ||
         previous.generation != current.generation ||
         previous.continuity != current.continuity ||
         current.windowStart < previous.windowStart ||
@@ -57,6 +58,7 @@ class TranscriptContext {
       current.windowEnd,
       previous.elapsed + current.elapsed,
       segments,
+      validPrefixOnly: previous.validPrefixOnly || current.validPrefixOnly,
     );
   }
 
@@ -124,6 +126,7 @@ TranscriptEvidence _matchWindow(NativeTranscript source, SubtitleIndex index, in
         source.windowEnd,
         source.elapsed,
         segments,
+        validPrefixOnly: source.validPrefixOnly,
       );
       final matched = const TemporalAligner().anchors(selected, index, match.passage!, rejectionCounts: rejected);
       for (final anchor in matched) {

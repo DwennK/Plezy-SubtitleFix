@@ -42,7 +42,8 @@ typedef struct ls_inference_result {
   uint64_t continuity;
   double elapsed_seconds;
   // 0 success, 1 model unavailable, 2 inference failed, 3 output limit,
-  // 4 invalid segment timestamps. Nonzero results never contain usable text.
+  // 4 invalid segment timestamps, 5 valid prefix before an invalid segment.
+  // Only 0 and 5 contain usable text. Existing clients may reject status 5.
   uint32_t status;
   uint32_t segment_count;
   uint32_t token_count;

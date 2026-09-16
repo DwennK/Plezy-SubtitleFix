@@ -200,6 +200,7 @@ Future<Map<String, Object>> probe(Map<String, String> options) async {
               'attempt': cadence.attempts,
               'windowStart': transcript.windowStart,
               'windowEnd': transcript.windowEnd,
+              'validPrefixOnly': transcript.validPrefixOnly,
               'match': result.status.name,
               'contextWindows': evidence.windowCount,
               'segmentedMatch': evidence.segmented,
@@ -316,6 +317,7 @@ Future<Map<String, Object>> probe(Map<String, String> options) async {
         'expectedOffset': expectNoLock ? 'none' : expectedOffset,
         'expectNoLock': expectNoLock,
         'completedAnalyses': completedAnalyses,
+        'validPrefixAnalyses': analyses.where((entry) => entry['validPrefixOnly'] == true).length,
         'rejectedAnalyses': analyses.where((entry) => entry.containsKey('failure')).length,
         'absoluteOffsetError': tracking
             ? (trackingSamples.isEmpty ? 'unavailable' : trackingSamples.last['error']!)

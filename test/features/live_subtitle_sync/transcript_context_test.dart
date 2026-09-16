@@ -58,6 +58,16 @@ void main() {
     expect(const TimelineFitter().fit(evidence.anchors)?.offset, isNull);
   });
 
+  test('a rejected transcript tail cannot be bridged by the next text window', () {
+    final original = window(90, 96, 'Carry the lantern', 92);
+    final partial = NativeTranscript(1, 2, 90, 96, 0.1, original.segments, validPrefixOnly: true);
+    final context = TranscriptContext()..add(partial);
+    final next = window(96.2, 102, 'Cross the bridge', 97);
+    expect(context.add(next), isNull);
+    expect(matchTranscriptEvidence(next, index).match.status, TranscriptMatchStatus.insufficientDialogue);
+    expect(context.add(window(102, 108, 'Carry the lantern', 104)), isNotNull);
+  });
+
   test('overlapped audio is not counted twice', () {
     final context = TranscriptContext()..add(window(90, 99, 'Carry the lantern', 97));
     expect(context.add(window(96, 108, 'Carry the lantern', 97)), isNull);
