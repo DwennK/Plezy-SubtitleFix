@@ -1900,7 +1900,15 @@
     "model": "Model preparation failed. Turn off and try again.",
     "nativeRuntime": "Local analysis is unavailable. Turn off and try again.",
     "noMatch": "No reliable dialogue match yet.",
-    "offset": "Automatic: $seconds s"
+    "offset": "Automatic: $seconds s",
+    "clearCache": "Forget learned subtitle timings",
+    "clearCacheDetail": "Remove saved timings for all media. Active synchronization learns them again.",
+    "cacheCleared": "Saved subtitle timings removed.",
+    "deleteModel": "Delete speech model",
+    "deleteModelDetail": "The next activation downloads the model again. Turn off Live subtitle sync before deleting.",
+    "modelDeleted": "Speech model deleted.",
+    "modelInUse": "Turn off Live subtitle sync before deleting the model.",
+    "storageFailed": "Could not remove the local files. Please try again."
   },
   "videoSettings": {
     "playbackSpeed": "Playback Speed",

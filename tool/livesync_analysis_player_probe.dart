@@ -240,6 +240,23 @@ class _ProbeState extends State<_Probe> {
       check(await player.getProperty('livesync-enabled') == 'no', 'capture-after');
       check(double.parse((await player.getProperty('audio-delay'))!) == 0.5, 'audio-delay-after');
       report['audioDelayCompositionAndPreservation'] = true;
+      final cacheDiagnosticStart = diagnostics.length;
+      final restoring = Stopwatch()..start();
+      await sync.enable();
+      final cacheEvents = diagnostics
+          .skip(cacheDiagnosticStart)
+          .where((event) => event.containsKey('restoredSegments'));
+      check(cacheEvents.isNotEmpty && (cacheEvents.last['restoredSegments'] as int) > 0, 'cache-not-restored');
+      await checkComposition('cache-known-region', audioDelay: 0.5, fixedAutomatic: knownAutomatic + 0.5);
+      report['cacheRestoreMs'] = restoring.elapsedMilliseconds;
+      await seekAndWait(unknownPosition, false);
+      check((double.parse((await player.getProperty('sub-delay'))!) + 0.25).abs() < 0.0001, 'cache-unknown-manual');
+      await seekAndWait(knownPosition, true);
+      await checkComposition('cache-known-after-seek', audioDelay: 0.5, fixedAutomatic: knownAutomatic + 0.5);
+      await sync.disable();
+      check((double.parse((await player.getProperty('sub-delay'))!) + 0.25).abs() < 0.0001, 'cache-manual-after');
+      check(await player.getProperty('livesync-enabled') == 'no', 'cache-capture-after');
+      report['persistentCacheKnownAndUnknownRegions'] = true;
       report.addAll({'manualDelayDuringAndAfter': true, 'tapDisabledOnClose': true, 'passed': true});
       await output.writeAsString('${const JsonEncoder.withIndent('  ').convert(report)}\n');
       if (mounted) setState(() => status = 'PASS — automatic offset, manual adjustment and disable verified');

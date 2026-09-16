@@ -1900,7 +1900,15 @@
     "model": "Échec de préparation du modèle. Désactivez puis réessayez.",
     "nativeRuntime": "Analyse locale indisponible. Désactivez puis réessayez.",
     "noMatch": "Aucune correspondance fiable pour le moment.",
-    "offset": "Correction automatique : $seconds s"
+    "offset": "Correction automatique : $seconds s",
+    "clearCache": "Oublier les réglages appris",
+    "clearCacheDetail": "Supprime les réglages enregistrés pour tous les médias. La synchronisation active les apprendra à nouveau.",
+    "cacheCleared": "Réglages de sous-titres enregistrés supprimés.",
+    "deleteModel": "Supprimer le modèle vocal",
+    "deleteModelDetail": "La prochaine activation téléchargera à nouveau le modèle. Désactivez Live subtitle sync avant de le supprimer.",
+    "modelDeleted": "Modèle vocal supprimé.",
+    "modelInUse": "Désactivez Live subtitle sync avant de supprimer le modèle.",
+    "storageFailed": "Impossible de supprimer les fichiers locaux. Réessayez."
   },
   "videoSettings": {
     "playbackSpeed": "Vitesse de lecture",

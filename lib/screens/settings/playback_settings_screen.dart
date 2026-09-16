@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:material_symbols_icons/symbols.dart';
 
 import '../../i18n/strings.g.dart';
+import '../../features/live_subtitle_sync/settings.dart';
 import '../../models/audio_quality_preset.dart';
 import '../../models/transcode_quality_preset.dart';
 import '../../models/player_setting_scope.dart';
@@ -122,6 +123,7 @@ class PlaybackSettingsScreen extends StatelessWidget {
             ),
 
             _seekAndTimingGroup(),
+            if (Platform.isMacOS || Platform.isWindows) const LiveSubtitleSyncSettings(),
             _autoPlayAndSkipGroup(),
             _behaviorGroup(context, isMobile),
             if (isMobile) _gesturesGroup(),

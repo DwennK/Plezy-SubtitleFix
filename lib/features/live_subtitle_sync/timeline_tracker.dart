@@ -17,11 +17,21 @@ class TimelineTracker {
   final _pending = <int, SubtitleAnchor>{};
   final _continuous = <int, SubtitleAnchor>{};
   TimelineSegment? _prediction;
+  final _restored = <TimelineSegment>{};
 
   TimelineMap get map => _map;
+  bool get hasUnvalidatedCache => _restored.isNotEmpty;
+
+  void restore(TimelineMap map) {
+    clear();
+    _map = map;
+    _restored.addAll(map.segments);
+    // Deliberately no prediction: a partial cache proves only its own domains.
+  }
 
   void clear() {
     _map = TimelineMap();
+    _restored.clear();
     discontinuity();
   }
 
@@ -54,6 +64,22 @@ class TimelineTracker {
     }
     if (fitted == null) return false;
     var candidate = fitted;
+
+    // A cached region is provisional. Two independently confirmed new cue
+    // starts must be able to invalidate it; keeping contradictory old anchors
+    // forever would make a stale cache impossible to correct in the background.
+    final invalidated = _restored.where((previous) {
+      final inside = candidate.anchors.where((a) => previous.containsSubtitle(a.subtitleTime)).toList();
+      final confirmed = _fitter.fit(inside);
+      return confirmed != null &&
+          confirmed.anchors.every((a) => (previous.mediaFor(a.subtitleTime) - a.mediaTime).abs() > 0.8);
+    }).toSet();
+    if (invalidated.isNotEmpty) {
+      _map = TimelineMap(segments: _map.segments.where((s) => !invalidated.contains(s)).toList());
+      _restored.removeAll(invalidated);
+      _prediction = null;
+      _continuous.clear();
+    }
 
     // A cadence difference can already exceed the constant-fit tolerance
     // before six phrases span a minute. Retain the individually confirmed
@@ -88,6 +114,7 @@ class TimelineTracker {
     try {
       final next = _map.withSegment(candidate);
       _map = next;
+      _restored.removeWhere((segment) => !next.segments.contains(segment));
       // withSegment builds a new segment while preserving previous evidence.
       _prediction = next.segments.last;
       // A constant cluster may exclude an early, correctly timestamped cue

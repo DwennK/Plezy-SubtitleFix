@@ -7,6 +7,7 @@ import 'package:flutter/services.dart';
 
 import '../../services/device_performance.dart';
 import '../../features/live_subtitle_sync/player_attachment.dart';
+import '../../features/live_subtitle_sync/mapping_cache.dart';
 import '../../services/settings_service.dart';
 import '../../utils/app_logger.dart';
 import '../models.dart';
@@ -392,6 +393,7 @@ class PlayerNative extends PlayerBase {
     if (_nativeCoreUnavailable) return null;
     await LiveSyncPlayerAttachment.sessions[this]?.stop();
     LiveSyncPlayerAttachment.subtitleProviders[this] = null;
+    LiveSyncPlayerAttachment.mediaIdentities[this] = () => LiveSyncMediaIdentity.local(media.uri);
     _liveSubtitleHeaders = Map.unmodifiable(media.headers ?? const <String, String>{});
     await _ensureInitialized();
     if (_nativeCoreUnavailable) return null;

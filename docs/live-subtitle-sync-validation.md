@@ -1256,3 +1256,42 @@ La dérive complète et Mentalist restent non validés ; ni ces changements
 ni les corrections du protocole de test ne constituent la livraison finale.
 
 Upstream refetché à `2026-09-16T07:47:16.102395+00:00` : `e38759127a1fb26c4cd99172ba6609fd50e355d9`, 0 commit non intégré.
+
+## Cache des mappings et gestion locale — implémentation
+
+Le contrôleur restaure désormais les segments bornés du cache avant sa première
+analyse, uniquement après vérification du média/version, de l'audio et du hash
+du SRT. Il ne restaure aucune prédiction au-delà des domaines observés. Les
+confirmations restent rapides tant que les régions restaurées ne sont pas
+revalidées. Deux nouvelles ancres indépendantes contradictoires invalident une
+région restaurée. Un seek seul ne valide pas le reste du média.
+
+Le cache sérialise uniquement des coordonnées et numéros de cues, avec un
+checksum et des versions explicites. Les phrases de déduplication sont
+reconstruites à partir du SRT courant en RAM. Le décodage, le recalcul des preuves
+et l'encodage JSON sont déportés dans un isolate. Une suppression invalide aussi
+les écritures en attente et les contrôleurs actifs. Les erreurs de stockage ne
+modifient pas la lecture ; l'UI ne déclare pas une suppression réussie en cas
+d'échec. Les métadonnées absentes ne sont pas remplacées par le titre ou une URL.
+
+Un test a reproduit le rejet incorrect d'une carte affinée : `withSegment`
+conserve d'anciennes ancres cohérentes, alors que sa correction évolue. La
+validation du cache vérifie désormais les domaines exacts et les résidus selon
+la borne de production de 800 ms, sans exiger qu'un nouvel ajustement produise
+les mêmes paramètres bit pour bit. La correction enregistrée est restaurée
+exactement. Les contrôles de nombre/étendue d'ancres restent imposés à la pente.
+
+Résultat local : **127 tests ciblés réussis**, analyse complète sans diagnostic.
+Les tests couvrent les identités de versions/pistes, le changement d'URL
+temporaire, les caches corrompus/partiels/expirés, les limites de stockage, les
+écritures précédant une suppression, les régions inconnues et les nouvelles
+preuves contradictoires. Les trois tests des paramètres utilisent un viewport
+1440 × 900 en français et vérifient l'attente, l'échec de stockage et le refus
+de supprimer un modèle utilisé. Ce sont des tests Flutter, pas une inspection
+visuelle de l'application native.
+
+Le probe du contrôleur natif est étendu pour désactiver/réactiver LiveSync,
+prouver la restauration depuis le disque, puis vérifier les seeks connus et
+inconnus avec les délais manuel et audio déjà appliqués. Cette nouvelle preuve
+native n'est pas encore obtenue. Mentalist, la dérive complète, les gaps et les
+budgets de performances restent ouverts.

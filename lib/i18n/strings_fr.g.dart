@@ -1860,6 +1860,14 @@ class _Translations$liveSubtitleSync$fr extends Translations$liveSubtitleSync$en
 	@override String get nativeRuntime => 'Analyse locale indisponible. Désactivez puis réessayez.';
 	@override String get noMatch => 'Aucune correspondance fiable pour le moment.';
 	@override String offset({required Object seconds}) => 'Correction automatique : ${seconds} s';
+	@override String get clearCache => 'Oublier les réglages appris';
+	@override String get clearCacheDetail => 'Supprime les réglages enregistrés pour tous les médias. La synchronisation active les apprendra à nouveau.';
+	@override String get cacheCleared => 'Réglages de sous-titres enregistrés supprimés.';
+	@override String get deleteModel => 'Supprimer le modèle vocal';
+	@override String get deleteModelDetail => 'La prochaine activation téléchargera à nouveau le modèle. Désactivez Live subtitle sync avant de le supprimer.';
+	@override String get modelDeleted => 'Modèle vocal supprimé.';
+	@override String get modelInUse => 'Désactivez Live subtitle sync avant de supprimer le modèle.';
+	@override String get storageFailed => 'Impossible de supprimer les fichiers locaux. Réessayez.';
 }
 
 // Path: videoSettings
@@ -4653,6 +4661,14 @@ extension on TranslationsFr {
 			'liveSubtitleSync.nativeRuntime' => 'Analyse locale indisponible. Désactivez puis réessayez.',
 			'liveSubtitleSync.noMatch' => 'Aucune correspondance fiable pour le moment.',
 			'liveSubtitleSync.offset' => ({required Object seconds}) => 'Correction automatique : ${seconds} s',
+			'liveSubtitleSync.clearCache' => 'Oublier les réglages appris',
+			'liveSubtitleSync.clearCacheDetail' => 'Supprime les réglages enregistrés pour tous les médias. La synchronisation active les apprendra à nouveau.',
+			'liveSubtitleSync.cacheCleared' => 'Réglages de sous-titres enregistrés supprimés.',
+			'liveSubtitleSync.deleteModel' => 'Supprimer le modèle vocal',
+			'liveSubtitleSync.deleteModelDetail' => 'La prochaine activation téléchargera à nouveau le modèle. Désactivez Live subtitle sync avant de le supprimer.',
+			'liveSubtitleSync.modelDeleted' => 'Modèle vocal supprimé.',
+			'liveSubtitleSync.modelInUse' => 'Désactivez Live subtitle sync avant de supprimer le modèle.',
+			'liveSubtitleSync.storageFailed' => 'Impossible de supprimer les fichiers locaux. Réessayez.',
 			'videoSettings.playbackSpeed' => 'Vitesse de lecture',
 			'videoSettings.normalSpeed' => 'Normale',
 			'videoSettings.sleepTimerActive' => ({required Object duration}) => 'Actif (${duration})',

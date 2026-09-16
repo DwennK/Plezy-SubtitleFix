@@ -4664,6 +4664,30 @@ class Translations$liveSubtitleSync$en {
 
 	/// en: 'Automatic: $seconds s'
 	String offset({required Object seconds}) => 'Automatic: ${seconds} s';
+
+	/// en: 'Forget learned subtitle timings'
+	String get clearCache => 'Forget learned subtitle timings';
+
+	/// en: 'Remove saved timings for all media. Active synchronization learns them again.'
+	String get clearCacheDetail => 'Remove saved timings for all media. Active synchronization learns them again.';
+
+	/// en: 'Saved subtitle timings removed.'
+	String get cacheCleared => 'Saved subtitle timings removed.';
+
+	/// en: 'Delete speech model'
+	String get deleteModel => 'Delete speech model';
+
+	/// en: 'The next activation downloads the model again. Turn off Live subtitle sync before deleting.'
+	String get deleteModelDetail => 'The next activation downloads the model again. Turn off Live subtitle sync before deleting.';
+
+	/// en: 'Speech model deleted.'
+	String get modelDeleted => 'Speech model deleted.';
+
+	/// en: 'Turn off Live subtitle sync before deleting the model.'
+	String get modelInUse => 'Turn off Live subtitle sync before deleting the model.';
+
+	/// en: 'Could not remove the local files. Please try again.'
+	String get storageFailed => 'Could not remove the local files. Please try again.';
 }
 
 // Path: videoSettings
@@ -8846,6 +8870,14 @@ extension on Translations {
 			'liveSubtitleSync.nativeRuntime' => 'Local analysis is unavailable. Turn off and try again.',
 			'liveSubtitleSync.noMatch' => 'No reliable dialogue match yet.',
 			'liveSubtitleSync.offset' => ({required Object seconds}) => 'Automatic: ${seconds} s',
+			'liveSubtitleSync.clearCache' => 'Forget learned subtitle timings',
+			'liveSubtitleSync.clearCacheDetail' => 'Remove saved timings for all media. Active synchronization learns them again.',
+			'liveSubtitleSync.cacheCleared' => 'Saved subtitle timings removed.',
+			'liveSubtitleSync.deleteModel' => 'Delete speech model',
+			'liveSubtitleSync.deleteModelDetail' => 'The next activation downloads the model again. Turn off Live subtitle sync before deleting.',
+			'liveSubtitleSync.modelDeleted' => 'Speech model deleted.',
+			'liveSubtitleSync.modelInUse' => 'Turn off Live subtitle sync before deleting the model.',
+			'liveSubtitleSync.storageFailed' => 'Could not remove the local files. Please try again.',
 			'videoSettings.playbackSpeed' => 'Playback Speed',
 			'videoSettings.normalSpeed' => 'Normal',
 			'videoSettings.sleepTimerActive' => ({required Object duration}) => 'Active (${duration})',
@@ -9165,6 +9197,8 @@ extension on Translations {
 			'addServer.urlDoesNotMatchServer' => ({required Object product}) => 'This URL does not match the ${product} server',
 			'addServer.redirectUnsupported' => 'The server redirected to an unsupported URL',
 			'addServer.redirectDifferentHost' => ({required Object product}) => 'The server redirected to a different host. Enter the final ${product} URL directly.',
+			_ => null,
+		} ?? switch (path) {
 			'addServer.redirectInsecure' => 'The server redirected from HTTPS to an insecure URL',
 			'addServer.redirectUnsupportedEnterFinal' => ({required Object product}) => 'The server redirected to an unsupported URL. Enter the final ${product} URL directly.',
 			_ => null,

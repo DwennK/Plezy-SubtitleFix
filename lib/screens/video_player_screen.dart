@@ -13,6 +13,7 @@ import 'package:provider/provider.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
 
 import '../features/live_subtitle_sync/player_attachment.dart';
+import '../features/live_subtitle_sync/media_identity.dart';
 import '../features/live_subtitle_sync/plex_subtitle_source.dart';
 import '../mpv/mpv.dart';
 import '../mpv/player/platform/player_android.dart';
@@ -1017,6 +1018,10 @@ class VideoPlayerScreenState extends State<VideoPlayerScreen> with WidgetsBindin
     final mediaInfo = session.mediaInfo;
     if ((Platform.isMacOS || Platform.isWindows) && currentPlayer is PlayerNative) {
       LiveSyncPlayerAttachment.subtitleProviders[currentPlayer] = null;
+      if (!session.isOffline) {
+        final identity = liveSyncIdentityForSession(session);
+        LiveSyncPlayerAttachment.mediaIdentities[currentPlayer] = () async => identity;
+      }
       if (!session.isOffline && !session.isTranscoding && client is PlexClient && mediaInfo != null) {
         final source = PlexSubtitleSource(
           baseUrl: client.config.baseUrl,

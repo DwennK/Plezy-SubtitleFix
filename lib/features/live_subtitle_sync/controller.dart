@@ -10,6 +10,7 @@ import '../../utils/media_server_http_client.dart';
 import 'analysis_cadence.dart';
 import 'analysis_worker.dart';
 import 'model_manager.dart';
+import 'mapping_cache.dart';
 import 'native_bindings.dart';
 import 'player_attachment.dart';
 import 'pcm_availability.dart';
@@ -36,9 +37,10 @@ enum LiveSyncReason {
 }
 
 class _Resources {
-  _Resources(this.transport, this.models);
+  _Resources(this.transport, this.models, this.mappings);
   final MediaServerHttpClient transport;
   final LiveSyncModelManager models;
+  final MappingCache mappings;
 }
 
 class LiveSubtitleSyncController extends ChangeNotifier {
@@ -58,17 +60,28 @@ class LiveSubtitleSyncController extends ChangeNotifier {
   static LiveSubtitleSyncController forPlayer(PlayerNative player) =>
       _controllers[player] ??= LiveSubtitleSyncController._(player);
 
-  static Future<_Resources> _prepareResources() => _resources ??= () async {
-    final transport = MediaServerHttpClient();
-    final support = await getApplicationSupportDirectory();
-    return _Resources(
-      transport,
-      LiveSyncModelManager(
-        directory: Directory(p.join(support.path, 'live-subtitle-sync', 'models')),
-        client: transport.inner,
-      ),
-    );
-  }();
+  static Future<_Resources> _prepareResources() => _resources ??=
+      () async {
+        final support = await getApplicationSupportDirectory();
+        final transport = MediaServerHttpClient();
+        return _Resources(
+          transport,
+          LiveSyncModelManager(
+            directory: Directory(p.join(support.path, 'live-subtitle-sync', 'models')),
+            client: transport.inner,
+          ),
+          MappingCache(Directory(p.join(support.path, 'live-subtitle-sync', 'mappings'))),
+        );
+      }().catchError((Object error, StackTrace stack) {
+        _resources = null;
+        Error.throwWithStackTrace(error, stack);
+      });
+
+  /// Invalidates pending writes as well as files. Active sessions observe the
+  /// cache generation on their next tick and discard restored/learned maps.
+  static Future<bool> clearMappingCache() async => (await _prepareResources()).mappings.clear();
+
+  static Future<void> deleteSpeechModel() async => (await _prepareResources()).models.delete(preferredModel);
 
   // The guarded Windows runtime recognizes the same fixture in 2.66 s with
   // base.en versus 14.27 s with Q5_1 (DTW enabled). Prefer the larger model
@@ -110,6 +123,8 @@ class LiveSubtitleSyncController extends ChangeNotifier {
   Future<void>? _restarting;
   int? _continuity;
   _Resources? _shared;
+  MappingCacheKey? _cacheKey;
+  int _cacheGeneration = 0;
 
   static bool _english(String? language) =>
       language != null &&
@@ -180,6 +195,27 @@ class LiveSubtitleSyncController extends ChangeNotifier {
       }
       _index = await compute((bytes) => SubtitleIndex(const SubtitleParser().parse(bytes)), document.bytes);
       if (!current()) return;
+      _timeline.clear();
+      _cacheKey = null;
+      _cacheGeneration = resources.mappings.generation;
+      final identity = await LiveSyncPlayerAttachment.mediaIdentities[player]?.call();
+      if (!current()) return;
+      final audio = selection.audio;
+      final key = identity != null && audio != null
+          ? MappingCacheKey.create(identity, audio, document.contentHash)
+          : null;
+      if (key != null) {
+        final restored = await resources.mappings.read(key, _index!);
+        if (!current()) return;
+        if (_cacheGeneration == resources.mappings.generation) {
+          _cacheKey = key;
+          if (restored != null) _timeline.restore(restored);
+        }
+      }
+      diagnosticObserver?.call({
+        'mappingCacheEligible': _cacheKey != null,
+        'restoredSegments': _timeline.map.segments.length,
+      });
       _state(LiveSyncPhase.downloading);
       final lease = await resources.models.acquire(
         preferredModel,
@@ -210,11 +246,14 @@ class LiveSubtitleSyncController extends ChangeNotifier {
       diagnosticObserver?.call({'inferenceBackend': worker.inferenceBackend});
       _continuity = null;
       _pcmAvailability.clear();
-      _timeline.clear();
       _transcriptContext.clear();
       _cadence.clear();
-      _lastAnalysisMs = -60000;
+      _lastAnalysisMs = -90000;
       _state(LiveSyncPhase.analyzing);
+      final position = double.tryParse(await player.getProperty('time-pos') ?? '');
+      if (!current()) return;
+      if (position != null) await _applyCorrection(position, generation);
+      if (!current()) return;
       _timer = Timer.periodic(const Duration(milliseconds: 500), (_) => unawaited(_tick()));
     } on SubtitleSourceException {
       if (current()) _state(LiveSyncPhase.unsupported, LiveSyncReason.source);
@@ -234,6 +273,15 @@ class LiveSubtitleSyncController extends ChangeNotifier {
     _tickBusy = true;
     final generation = _generation;
     try {
+      final mappings = _shared?.mappings;
+      if (mappings != null && _cacheGeneration != mappings.generation) {
+        _cacheGeneration = mappings.generation;
+        _cacheKey = null;
+        _timeline.clear();
+        _transcriptContext.clear();
+        _cadence.clear();
+        _lastAnalysisMs = -90000;
+      }
       final status = await worker.status();
       if (!enabled || generation != _generation) return;
       if (player.audioPassthroughActive || status.state == 3) {
@@ -298,7 +346,12 @@ class LiveSubtitleSyncController extends ChangeNotifier {
         // A wider prompt retry can recover cue beginnings when a recognized
         // passage lacks enough independent timing anchors. Matching and
         // confirmation thresholds remain unchanged.
+        final previousMap = _timeline.map;
         final learnedRegion = _timeline.observe(anchors);
+        final key = _cacheKey;
+        if (key != null && mappings != null && !identical(previousMap, _timeline.map)) {
+          unawaited(mappings.write(key, _timeline.map, generation: _cacheGeneration));
+        }
         _cadence.evidence(
           recognizedPassage: evidence.match.status == TranscriptMatchStatus.matched,
           learned: learnedRegion,
@@ -346,9 +399,11 @@ class LiveSubtitleSyncController extends ChangeNotifier {
       }
       // Collect spaced confirmation windows before slowing to steady-state
       // checks, so a cadence difference can actually accumulate six anchors.
-      final established = _timeline.map.segments.any(
-        (segment) => segment.anchors.length >= 6 && segment.subtitleEnd - segment.subtitleStart >= 60,
-      );
+      final established =
+          !_timeline.hasUnvalidatedCache &&
+          _timeline.map.segments.any(
+            (segment) => segment.anchors.length >= 6 && segment.subtitleEnd - segment.subtitleStart >= 60,
+          );
       final intervalMs = _cadence.intervalMs(
         synced: phase == LiveSyncPhase.synced,
         established: established,
@@ -477,6 +532,7 @@ class LiveSubtitleSyncController extends ChangeNotifier {
     await player.setLiveSubtitleOffset(0);
     automaticOffset = null;
     _index = null;
+    _cacheKey = null;
     _timeline.clear();
     _transcriptContext.clear();
     _state(LiveSyncPhase.off);

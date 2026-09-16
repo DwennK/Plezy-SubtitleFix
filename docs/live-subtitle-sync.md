@@ -82,11 +82,36 @@ l’acquisition rapide. `574ef060` retrouve la pente à 93,625 s, mais
 l’erreur avant cette acquisition reste excessive (p95 2,490 s). Le passage
 négatif reste sans faux verrouillage.
 
-Les gaps confirmés et leur rendu, le cache de mappings et la suppression
-du modèle dans les paramètres ne sont pas livrés. La dérive dans le lecteur réel,
+Le cache local des mappings et les commandes de suppression du cache/modèle
+sont implémentés, avec vérification native en cours. Les gaps confirmés et leur
+rendu ne sont pas livrés. La dérive dans le lecteur réel,
 les performances, la validation native de Mentalist et les autres critères de
 livraison restent ouverts. Aucun build final annoncé. Voir les preuves exactes
 et leur provenance dans `live-subtitle-sync-validation.md`.
+
+### Réutilisation des réglages appris
+
+Les zones apprises sont enregistrées localement puis restaurées à la prochaine
+activation pour le même fichier, la même piste audio et le même SRT. Les zones
+non apprises restent inconnues. L'audio courant vérifie les zones restaurées en
+arrière-plan ; deux repères indépendants contradictoires peuvent les invalider.
+Le délai manuel reste séparé et la désactivation conserve ce délai.
+
+Dans les paramètres de lecture, « Live subtitle sync » permet d'oublier les
+réglages de tous les médias et de supprimer le modèle de reconnaissance. Un
+modèle encore utilisé doit d'abord être libéré en désactivant la synchronisation.
+Le prochain usage télécharge à nouveau un modèle supprimé.
+
+Le cache ne contient ni texte, ni audio, ni URL : uniquement une clé hachée et
+des repères numériques. Sa clé inclut la version du média, la piste audio, le
+hash du SRT et les versions du schéma/algorithme. Les sources serveur sans
+identité de fichier suffisamment discriminante et les transcodages n'utilisent
+pas ce cache. Les fichiers locaux utilisent chemin canonique haché, taille et
+date de modification. Les écritures passent par un fichier temporaire puis un
+renommage atomique ; la lecture vérifie intégrité, limites et preuves temporelles.
+Limites : 100 entrées, 1 Mio par entrée, expiration à 90 jours. Aucun cache ne
+dispense de charger le SRT complet pour vérifier son hash ; il ne résout donc
+pas à lui seul l'extraction Plex lente observée sur Mentalist.
 
 ## Plan d'exécution et portes de validation
 
