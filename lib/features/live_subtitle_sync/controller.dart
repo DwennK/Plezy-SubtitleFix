@@ -16,7 +16,7 @@ import 'subtitle_index.dart';
 import 'subtitle_parser.dart';
 import 'subtitle_source.dart';
 import 'temporal_aligner.dart';
-import 'transcript_matcher.dart';
+import 'transcript_context.dart';
 
 enum LiveSyncPhase { off, loadingSubtitles, downloading, analyzing, synced, resyncing, unable, unsupported }
 
@@ -76,6 +76,7 @@ class LiveSubtitleSyncController extends ChangeNotifier {
   final PlayerNative player;
   final _subscriptions = <StreamSubscription<Object?>>[];
   final _estimator = ConstantOffsetEstimator();
+  final _transcriptContext = TranscriptContext();
   final _clock = Stopwatch()..start();
   LiveSyncPhase phase = LiveSyncPhase.off;
   LiveSyncReason? reason;
@@ -94,6 +95,7 @@ class LiveSubtitleSyncController extends ChangeNotifier {
   String? _trackKey;
   int _lastAnalysisMs = -60000;
   int _attempts = 0;
+  double _analysisWindowSeconds = 12;
   bool _tickBusy = false;
   Timer? _timer;
   AbortController? _sourceAbort;
@@ -204,7 +206,9 @@ class LiveSubtitleSyncController extends ChangeNotifier {
       diagnosticObserver?.call({'inferenceBackend': worker.inferenceBackend});
       _continuity = null;
       _estimator.clear();
+      _transcriptContext.clear();
       _attempts = 0;
+      _analysisWindowSeconds = 12;
       _lastAnalysisMs = -60000;
       _state(LiveSyncPhase.analyzing);
       _timer = Timer.periodic(const Duration(milliseconds: 500), (_) => unawaited(_tick()));
@@ -245,7 +249,9 @@ class LiveSubtitleSyncController extends ChangeNotifier {
         // Overflow, decoder resets and dropped blocks invalidate the evidence
         // as well as the inference. Do not combine anchors across a PCM gap.
         _estimator.clear();
+        _transcriptContext.clear();
         _attempts = 0;
+        _analysisWindowSeconds = 12;
         _lastAnalysisMs = -60000;
         if (automaticOffset != null) {
           automaticOffset = null;
@@ -258,25 +264,28 @@ class LiveSubtitleSyncController extends ChangeNotifier {
       final transcript = await worker.takeResult();
       if (!enabled || generation != _generation) return;
       if (transcript != null && transcript.generation == generation && transcript.continuity == _continuity) {
-        final (anchors, matchStatus, similarity, competitor) = await compute((data) {
-          final (NativeTranscript transcript, SubtitleIndex index) = data;
-          final text = transcript.segments.map((segment) => segment.text).join(' ');
-          final result = const TranscriptMatcher().find(text, index);
-          final anchors = result.status == TranscriptMatchStatus.matched
-              ? const TemporalAligner().anchors(transcript, index, result.passage!)
-              : <SubtitleAnchor>[];
-          return (anchors, result.status.name, result.passage?.similarity, result.runnerUpSimilarity);
-        }, (transcript, index));
+        final context = _transcriptContext.add(transcript);
+        final evidence = await compute((data) {
+          final (NativeTranscript transcript, NativeTranscript? context, SubtitleIndex index) = data;
+          return matchTranscriptEvidence(transcript, index, context: context);
+        }, (transcript, context, index));
+        final anchors = evidence.anchors;
         if (!enabled || generation != _generation) return;
         diagnosticObserver?.call({
           'attempt': _attempts,
           'windowStart': transcript.windowStart,
           'windowEnd': transcript.windowEnd,
-          'match': matchStatus,
-          'similarity': similarity,
-          'competitor': competitor,
+          'match': evidence.match.status.name,
+          'similarity': evidence.match.passage?.similarity,
+          'competitor': evidence.match.runnerUpSimilarity,
+          'contextWindows': evidence.windowCount,
+          'segmentedMatch': evidence.segmented,
           'anchors': anchors.map((anchor) => {'cue': anchor.cue, 'offset': anchor.offset}).toList(),
         });
+        // A wider retry recovers cue beginnings cut by the preceding window.
+        // Keep the cadence and all matching thresholds; only use the already
+        // bounded 15-second snapshot when no timestamp anchor was usable.
+        _analysisWindowSeconds = anchors.isEmpty ? 15 : 12;
         final offset = _estimator.add(anchors);
         if (offset != null) {
           await player.setLiveSubtitleOffset(offset.abs() < 0.25 ? 0 : offset);
@@ -289,7 +298,8 @@ class LiveSubtitleSyncController extends ChangeNotifier {
       }
       if (!player.state.playing || player.state.buffering || status.samples < 128000) return;
       final intervalMs = phase == LiveSyncPhase.synced ? 90000 : (_attempts > 3 ? 30000 : 12000);
-      if (_clock.elapsedMilliseconds - _lastAnalysisMs >= intervalMs && await worker.submitRecent()) {
+      if (_clock.elapsedMilliseconds - _lastAnalysisMs >= intervalMs &&
+          await worker.submitRecent(seconds: _analysisWindowSeconds)) {
         _lastAnalysisMs = _clock.elapsedMilliseconds;
         _attempts++;
       }
@@ -305,8 +315,10 @@ class LiveSubtitleSyncController extends ChangeNotifier {
     if (!enabled || _worker == null) return;
     final generation = ++_generation;
     _estimator.clear();
+    _transcriptContext.clear();
     _continuity = null;
     _attempts = 0;
+    _analysisWindowSeconds = 12;
     automaticOffset = null;
     _lastAnalysisMs = -60000;
     try {
@@ -340,6 +352,7 @@ class LiveSubtitleSyncController extends ChangeNotifier {
     automaticOffset = null;
     _index = null;
     _estimator.clear();
+    _transcriptContext.clear();
     _state(LiveSyncPhase.off);
   }
 }

@@ -11,7 +11,8 @@ import 'package:plezy/features/live_subtitle_sync/native_bindings.dart';
 import 'package:plezy/features/live_subtitle_sync/subtitle_index.dart';
 import 'package:plezy/features/live_subtitle_sync/subtitle_parser.dart';
 import 'package:plezy/features/live_subtitle_sync/temporal_aligner.dart';
-import 'package:plezy/features/live_subtitle_sync/transcript_matcher.dart';
+import 'package:plezy/features/live_subtitle_sync/transcript_context.dart';
+import 'package:plezy/features/live_subtitle_sync/text_normalization.dart';
 
 void require(bool value, String reason) {
   if (!value) throw StateError(reason);
@@ -124,9 +125,11 @@ Future<Map<String, Object>> probe(Map<String, String> options) async {
       require(analysisSeconds >= 15 && analysisSeconds <= 900, 'Invalid analysis duration');
       final index = SubtitleIndex(const SubtitleParser().parse(await File(options['srt']!).readAsBytes()));
       final estimator = ConstantOffsetEstimator();
+      final context = TranscriptContext();
       final clock = Stopwatch()..start();
       var last = -60000;
       var attempts = 0;
+      var windowSeconds = 12.0;
       final analyses = <Map<String, Object?>>[];
       double? offset;
       while (clock.elapsedMilliseconds < analysisSeconds * 1000 && offset == null) {
@@ -134,19 +137,37 @@ Future<Map<String, Object>> probe(Map<String, String> options) async {
         try {
           final transcript = engine.takeResult();
           if (transcript != null) {
-            final result = const TranscriptMatcher().find(
+            final adjacent = context.add(transcript);
+            final evidence = matchTranscriptEvidence(transcript, index, context: adjacent);
+            final words = const DialogueNormalizer().words(
               transcript.segments.map((segment) => segment.text).join(' '),
-              index,
             );
-            final anchors = result.passage == null
-                ? <SubtitleAnchor>[]
-                : const TemporalAligner().anchors(transcript, index, result.passage!);
+            final result = evidence.match;
+            final anchors = evidence.anchors;
+            windowSeconds = anchors.isEmpty ? 15 : 12;
             offset = estimator.add(anchors);
             analyses.add({
               'attempt': attempts,
               'windowStart': transcript.windowStart,
               'windowEnd': transcript.windowEnd,
               'match': result.status.name,
+              'contextWindows': evidence.windowCount,
+              'segmentedMatch': evidence.segmented,
+              'transcriptWords': words.length,
+              'wordsInSubtitleVocabulary': words.where((word) => index.positionsOf(word).isNotEmpty).length,
+              'contextWords': adjacent == null
+                  ? 0
+                  : const DialogueNormalizer().words(adjacent.segments.map((segment) => segment.text).join(' ')).length,
+              'segmentBounds': [
+                for (final segment in transcript.segments)
+                  {
+                    'start': segment.start,
+                    'end': segment.end,
+                    'timedTokens': segment.tokens.where((token) => token.hasTimestamp).length,
+                    'firstToken': segment.tokens.isEmpty ? null : segment.tokens.first.start,
+                    'lastToken': segment.tokens.isEmpty ? null : segment.tokens.last.end,
+                  },
+              ],
               'similarity': result.passage?.similarity,
               'anchors': anchors.map((anchor) => {'cue': anchor.cue, 'offset': anchor.offset}).toList(),
             });
@@ -155,7 +176,9 @@ Future<Map<String, Object>> probe(Map<String, String> options) async {
           analyses.add({'attempt': attempts, 'failure': error.reason.name});
         }
         final interval = attempts > 3 ? 30000 : 12000;
-        if (capture.samples >= 128000 && clock.elapsedMilliseconds - last >= interval && engine.submitRecent()) {
+        if (capture.samples >= 128000 &&
+            clock.elapsedMilliseconds - last >= interval &&
+            engine.submitRecent(seconds: windowSeconds)) {
           last = clock.elapsedMilliseconds;
           attempts++;
         }
