@@ -1,0 +1,526 @@
+{
+  "schema": 1,
+  "sourceSha": "64046ce76395a75065667b5a5b4ca6be81ad8c3d",
+  "productionCodeMatches": "18a6f31534840f5dd1075606420b0823f4829c0b",
+  "host": "Local Apple M4; existing OS/driver caches retained",
+  "reports": {
+    "local-harness-identity.json": {
+      "sha256": "3ffbde1d15b1674a2ac602d556d0ef34e173c5885c11f08abfc611cad528fb72",
+      "data": {
+        "sourceBundleIdentifier": "com.dwennk.plezy.livesync",
+        "probeBundleIdentifier": "com.dwennk.plezy.livesync.localmetalprobe",
+        "reason": "Isolate settings, model and mapping caches from the installed app during a local public-fixture run.",
+        "signedBundleVerified": true
+      }
+    },
+    "local-controller-build-provenance.json": {
+      "sha256": "be39d61d9eefb7e8f8a6e14c96fffbf217278f4fd83ddaca4278d3d05acd8c36",
+      "data": {
+        "sourceSha": "64046ce76395a75065667b5a5b4ca6be81ad8c3d",
+        "runtimeProfile": "metal-preferred-with-cpu-fallback",
+        "bundledFiles": {
+          "liblivesync_capture_bridge.dylib": "8321df35b0db00a15fd60e71c590c9733b626339cac88cf0306b644bb2fca99b",
+          "liblivesync_inference_bridge.dylib": "fdf9acdb0c0f25b2f1be93966fc2717dcc9bc2957fee013ae764ca80ee451cd8",
+          "whisper-ggml-LICENSE": "94f29bbed6a22c35b992c5c6ebf0e7c92f13b836b90f36f461c9cf2f0f1d010d",
+          "SILERO-LICENSE": "2e63e9a38b6e8fc0c7bc37ce174caca1862870856c6daf5697cfb785e925520b"
+        },
+        "calibrationRequestTimings": [
+          {
+            "attempt": 1,
+            "requestToObservedResultSeconds": 14.998,
+            "reportedInferenceSeconds": 0.486650791
+          },
+          {
+            "attempt": 2,
+            "requestToObservedResultSeconds": 0.501,
+            "reportedInferenceSeconds": 0.272618292
+          }
+        ],
+        "nativeLibrarySha256": "96e65b0ecb9419425f19249a6af40421fbf8a100eeb2c76b57fb1f92c8f628b1"
+      }
+    },
+    "local-native-stage.json": {
+      "sha256": "fc015f80294d94965b6c80cf8ced4f9f23603de2efff52b3655b18ae581f3e93",
+      "data": {
+        "sourceProvenance": {
+          "nativeRevision": "6855ea3776b437a922c0c7841560842e799fc152",
+          "xcframeworkSha256": "f9ac77d01fe2b8596012bff7d8c98146f8e642793bc4a2efaa4d699e4343a885",
+          "liveSyncPatchSha256": "6a2e0e12b3e61c6f846127c90e75361a20cbfef9c822d56a0ecac55b6803a977",
+          "packageSource": "Pinned upstream Package.swift; only Libmpv target uses a local path"
+        },
+        "copiedFilesVerified": 14,
+        "binarySha256": "bcf5fc1eb934b39e94c999b95dce4615e242b5e33dde6921725e8990ae2d8ef4"
+      }
+    },
+    "local-controller/controller-runner-calibration.json": {
+      "sha256": "7b43a011c345510fde839eb4933ae7df75425f1b688653ab359d1fb158be267a",
+      "data": {
+        "case": "calibration",
+        "passed": true,
+        "scope": "native production controller; null audio output",
+        "failure": null
+      }
+    },
+    "local-controller/calibration-player-calibration.json": {
+      "sha256": "663a10a6fe2cbc227174505fe6bceb97b0dc7e0e6d6ddd6e96c8feecb07cd852",
+      "data": {
+        "kind": "actual-plezy-production-controller-calibration",
+        "subtitleLoadDelayMs": 0,
+        "seekDuringStartupValidated": false,
+        "wrongCachedGapRecoveryValidated": true,
+        "cacheAlgorithm": "bounded-affine-speech-v3",
+        "cacheFixtureIsSynthetic": true,
+        "seededGapEndSeconds": 75,
+        "startupDiagnostics": [
+          {
+            "observedElapsedMs": 3,
+            "startupSubtitlesMs": 3,
+            "mappingCacheEligible": true,
+            "restoredSegments": 1,
+            "restoredGaps": 1
+          },
+          {
+            "observedElapsedMs": 317,
+            "startupCaptureMs": 316,
+            "captureReadyBeforeSubtitles": false
+          },
+          {
+            "observedElapsedMs": 317,
+            "startupReadyMs": 316,
+            "startupBufferedSamples": 0
+          }
+        ],
+        "acquisitionDiagnostics": [
+          {
+            "selectedAudioLanguage": "eng",
+            "selectedSubtitleLanguage": "eng",
+            "subtitleExternal": true,
+            "subtitleSourceMatchesFixture": true
+          },
+          {
+            "observedElapsedMs": 3,
+            "startupSubtitlesMs": 3,
+            "mappingCacheEligible": true,
+            "restoredSegments": 1,
+            "restoredGaps": 1
+          },
+          {
+            "observedElapsedMs": 317,
+            "startupCaptureMs": 316,
+            "captureReadyBeforeSubtitles": false
+          },
+          {
+            "observedElapsedMs": 317,
+            "startupReadyMs": 316,
+            "startupBufferedSamples": 0
+          },
+          {
+            "observedElapsedMs": 317,
+            "inferenceBackend": "metal-preferred"
+          },
+          {
+            "observedElapsedMs": 8824,
+            "analysisRequest": 1,
+            "generation": 1,
+            "continuity": 3,
+            "activityVoicePresent": null,
+            "activityTimingMismatch": false,
+            "analysisIntervalMs": 12000,
+            "analysisWindowSeconds": 12.0
+          },
+          {
+            "observedElapsedMs": 23822,
+            "attempt": 1,
+            "generation": 1,
+            "continuity": 3,
+            "inferenceSeconds": 0.486650791,
+            "inferenceBackend": "metal-preferred",
+            "matchingMs": 3,
+            "windowStart": 0.7796666666666667,
+            "windowEnd": 9.225666666666667,
+            "validPrefixOnly": false,
+            "match": "matched",
+            "similarity": 1.0,
+            "competitor": null,
+            "contextWindows": 1,
+            "segmentedMatch": false,
+            "anchors": []
+          },
+          {
+            "observedElapsedMs": 23824,
+            "analysisRequest": 2,
+            "generation": 1,
+            "continuity": 3,
+            "activityVoicePresent": true,
+            "activityTimingMismatch": false,
+            "analysisIntervalMs": 12000,
+            "analysisWindowSeconds": 15.0
+          },
+          {
+            "observedElapsedMs": 24325,
+            "attempt": 2,
+            "generation": 1,
+            "continuity": 3,
+            "inferenceSeconds": 0.272618292,
+            "inferenceBackend": "metal-preferred",
+            "matchingMs": 4,
+            "windowStart": 9.159041666666667,
+            "windowEnd": 24.159041666666667,
+            "validPrefixOnly": false,
+            "match": "matched",
+            "similarity": 0.875,
+            "competitor": null,
+            "contextWindows": 1,
+            "segmentedMatch": false,
+            "anchors": [
+              {
+                "cue": 2,
+                "offset": -100.24095833333334
+              },
+              {
+                "cue": 3,
+                "offset": -100.31095833333333
+              }
+            ]
+          },
+          {
+            "observedElapsedMs": 24325,
+            "learnedMediaStart": 17.724041666666665,
+            "learnedMediaEnd": 21.474042666666662,
+            "learnedSlope": 1.0,
+            "learnedSegments": 2
+          }
+        ],
+        "captureDuringSubtitleLoadValidated": false,
+        "platform": "macos",
+        "flutterBuildMode": "release",
+        "inferenceBackend": "metal-preferred",
+        "expectedOffset": -100.0,
+        "absoluteOffsetError": 0.2759583333333353,
+        "maximumOffsetError": 0.75,
+        "modelId": "base.en-q5_1",
+        "modelSha256": "4baf70dd0d7c4247ba2b81fafd9c01005ac77c2f9ef064e00dcf195d0e2fdd2f",
+        "fixtureCase": "calibration",
+        "introSilenceSeconds": 0,
+        "actualOffset": -100.27595833333334,
+        "reference": "authored Sintel SRT, not precise acoustic-onset ground truth",
+        "acquisitionMs": 24509,
+        "acquisitionTargetMs": 45000,
+        "acquisitionTargetPassed": true,
+        "nativeDelay": -100.150955,
+        "audioPartitionSeconds": [
+          100,
+          175
+        ],
+        "audioOutput": "null",
+        "audiblePlaybackValidated": false,
+        "pcmOrTranscriptPersisted": false,
+        "postConfirmationOffset": -100.27595833333334,
+        "knownRegionRestoredAfterSeek": true,
+        "unknownSeekClearsAutomaticOnly": true,
+        "audioDelayCompositionAndPreservation": true,
+        "cacheRestoreMs": 2268,
+        "persistentCacheKnownAndUnknownRegions": true,
+        "manualDelayDuringAndAfter": true,
+        "tapDisabledOnClose": true,
+        "passed": true
+      }
+    },
+    "local-controller/calibration-fixture-calibration.json": {
+      "sha256": "78244bd5fd009cf0dee728dcf97404a3273309c8df164274fe956e61d0440f26",
+      "data": {
+        "source": "sintel-stereo-en",
+        "attribution": "Copyright (c) Blender Foundation | durian.blender.org",
+        "license": "CC-BY-3.0",
+        "partition": [
+          100,
+          175
+        ],
+        "role": "calibration",
+        "case": "calibration",
+        "introSilenceSeconds": 0,
+        "subtitleShiftSeconds": 0,
+        "expectedOffsetSeconds": -100,
+        "channels": 6,
+        "syntheticChannelRouting": true,
+        "files": {
+          "fixture.mkv": "3b914ec7615dffb61fc6485a87e754b6b4bbcee245b88db0143576a6cb7e9b29",
+          "fixture.srt": "4ed7e1f1bc5ff69fe33606960e4c048ba6766237bf33b132fef76e1a92cb64b2"
+        }
+      }
+    },
+    "local-controller/controller-runner-intro-90.json": {
+      "sha256": "20b9548b2e7cd39c6a13158d9914f73af6b04fa07f38da491cc90a92de7fd60e",
+      "data": {
+        "case": "intro-90",
+        "passed": true,
+        "scope": "native production controller; null audio output",
+        "failure": null
+      }
+    },
+    "local-controller/calibration-player-intro-90.json": {
+      "sha256": "a2014498927ca68169073a250f90ca9cfabe0dad15daea4332844c94124295c4",
+      "data": {
+        "kind": "actual-plezy-production-controller-calibration",
+        "subtitleLoadDelayMs": 0,
+        "seekDuringStartupValidated": false,
+        "wrongCachedGapRecoveryValidated": true,
+        "cacheAlgorithm": "bounded-affine-speech-v3",
+        "cacheFixtureIsSynthetic": true,
+        "seededGapEndSeconds": 165,
+        "startupDiagnostics": [
+          {
+            "observedElapsedMs": 2,
+            "startupSubtitlesMs": 2,
+            "mappingCacheEligible": true,
+            "restoredSegments": 1,
+            "restoredGaps": 1
+          },
+          {
+            "observedElapsedMs": 300,
+            "startupCaptureMs": 299,
+            "captureReadyBeforeSubtitles": false
+          },
+          {
+            "observedElapsedMs": 300,
+            "startupReadyMs": 299,
+            "startupBufferedSamples": 0
+          }
+        ],
+        "acquisitionDiagnostics": [
+          {
+            "selectedAudioLanguage": "eng",
+            "selectedSubtitleLanguage": "eng",
+            "subtitleExternal": true,
+            "subtitleSourceMatchesFixture": true
+          },
+          {
+            "observedElapsedMs": 2,
+            "startupSubtitlesMs": 2,
+            "mappingCacheEligible": true,
+            "restoredSegments": 1,
+            "restoredGaps": 1
+          },
+          {
+            "observedElapsedMs": 300,
+            "startupCaptureMs": 299,
+            "captureReadyBeforeSubtitles": false
+          },
+          {
+            "observedElapsedMs": 300,
+            "startupReadyMs": 299,
+            "startupBufferedSamples": 0
+          },
+          {
+            "observedElapsedMs": 300,
+            "inferenceBackend": "metal-preferred"
+          },
+          {
+            "observedElapsedMs": 8806,
+            "analysisRequest": 1,
+            "generation": 1,
+            "continuity": 3,
+            "activityVoicePresent": null,
+            "activityTimingMismatch": false,
+            "analysisIntervalMs": 12000,
+            "analysisWindowSeconds": 12.0
+          },
+          {
+            "observedElapsedMs": 9304,
+            "attempt": 1,
+            "generation": 1,
+            "continuity": 3,
+            "inferenceSeconds": 0.126996208,
+            "inferenceBackend": "metal-preferred",
+            "matchingMs": 0,
+            "windowStart": 0.7263333333333333,
+            "windowEnd": 9.087020833333334,
+            "validPrefixOnly": false,
+            "match": "insufficientDialogue",
+            "similarity": null,
+            "competitor": null,
+            "contextWindows": 1,
+            "segmentedMatch": false,
+            "anchors": []
+          },
+          {
+            "observedElapsedMs": 90306,
+            "analysisRequest": 2,
+            "generation": 1,
+            "continuity": 3,
+            "activityVoicePresent": true,
+            "activityTimingMismatch": false,
+            "analysisIntervalMs": 12000,
+            "analysisWindowSeconds": 15.0
+          },
+          {
+            "observedElapsedMs": 90804,
+            "attempt": 2,
+            "generation": 1,
+            "continuity": 3,
+            "inferenceSeconds": 0.177162708,
+            "inferenceBackend": "metal-preferred",
+            "matchingMs": 0,
+            "windowStart": 75.77770833333334,
+            "windowEnd": 90.77770833333334,
+            "validPrefixOnly": false,
+            "match": "insufficientDialogue",
+            "similarity": null,
+            "competitor": null,
+            "contextWindows": 1,
+            "segmentedMatch": false,
+            "anchors": []
+          },
+          {
+            "observedElapsedMs": 102805,
+            "analysisRequest": 3,
+            "generation": 1,
+            "continuity": 3,
+            "activityVoicePresent": true,
+            "activityTimingMismatch": false,
+            "analysisIntervalMs": 12000,
+            "analysisWindowSeconds": 15.0
+          },
+          {
+            "observedElapsedMs": 103306,
+            "attempt": 3,
+            "generation": 1,
+            "continuity": 3,
+            "inferenceSeconds": 0.220058125,
+            "inferenceBackend": "metal-preferred",
+            "matchingMs": 2,
+            "windowStart": 88.15102083333333,
+            "windowEnd": 103.15102083333333,
+            "validPrefixOnly": false,
+            "match": "matched",
+            "similarity": 1.0,
+            "competitor": null,
+            "contextWindows": 1,
+            "segmentedMatch": false,
+            "anchors": [
+              {
+                "cue": 1,
+                "offset": 89.77102083333334
+              }
+            ]
+          },
+          {
+            "observedElapsedMs": 114807,
+            "analysisRequest": 4,
+            "generation": 1,
+            "continuity": 3,
+            "activityVoicePresent": true,
+            "activityTimingMismatch": false,
+            "analysisIntervalMs": 12000,
+            "analysisWindowSeconds": 15.0
+          },
+          {
+            "observedElapsedMs": 115306,
+            "attempt": 4,
+            "generation": 1,
+            "continuity": 3,
+            "inferenceSeconds": 0.26107225,
+            "inferenceBackend": "metal-preferred",
+            "matchingMs": 2,
+            "windowStart": 100.26833333333335,
+            "windowEnd": 115.26833333333335,
+            "validPrefixOnly": false,
+            "match": "matched",
+            "similarity": 0.8518518518518519,
+            "competitor": null,
+            "contextWindows": 1,
+            "segmentedMatch": false,
+            "anchors": [
+              {
+                "cue": 1,
+                "offset": 89.80833333333335
+              },
+              {
+                "cue": 2,
+                "offset": 89.76833333333335
+              },
+              {
+                "cue": 3,
+                "offset": 89.69833333333335
+              }
+            ]
+          },
+          {
+            "observedElapsedMs": 115307,
+            "learnedMediaStart": 101.56833333333334,
+            "learnedMediaEnd": 111.51833433333334,
+            "learnedSlope": 1.0,
+            "learnedSegments": 2
+          }
+        ],
+        "captureDuringSubtitleLoadValidated": false,
+        "platform": "macos",
+        "flutterBuildMode": "release",
+        "inferenceBackend": "metal-preferred",
+        "expectedOffset": 90.0,
+        "absoluteOffsetError": 0.23166666666665492,
+        "maximumOffsetError": 0.75,
+        "modelId": "base.en-q5_1",
+        "modelSha256": "4baf70dd0d7c4247ba2b81fafd9c01005ac77c2f9ef064e00dcf195d0e2fdd2f",
+        "fixtureCase": "intro-90",
+        "introSilenceSeconds": 90,
+        "actualOffset": 89.76833333333335,
+        "reference": "authored Sintel SRT, not precise acoustic-onset ground truth",
+        "acquisitionMs": 115375,
+        "acquisitionTargetMs": 135000,
+        "acquisitionTargetPassed": true,
+        "nativeDelay": 89.893333,
+        "audioPartitionSeconds": [
+          100,
+          175
+        ],
+        "audioOutput": "null",
+        "audiblePlaybackValidated": false,
+        "pcmOrTranscriptPersisted": false,
+        "postConfirmationOffset": 89.76833333333335,
+        "knownRegionRestoredAfterSeek": true,
+        "unknownSeekClearsAutomaticOnly": true,
+        "audioDelayCompositionAndPreservation": true,
+        "cacheRestoreMs": 2264,
+        "persistentCacheKnownAndUnknownRegions": true,
+        "manualDelayDuringAndAfter": true,
+        "tapDisabledOnClose": true,
+        "passed": true
+      }
+    },
+    "local-controller/calibration-fixture-intro-90.json": {
+      "sha256": "e417a6150d82c6fb13f6d06ae66430b6da693be26f7892e27913d2fa9bcd29f8",
+      "data": {
+        "source": "sintel-stereo-en",
+        "attribution": "Copyright (c) Blender Foundation | durian.blender.org",
+        "license": "CC-BY-3.0",
+        "partition": [
+          100,
+          175
+        ],
+        "role": "calibration",
+        "case": "intro-90",
+        "introSilenceSeconds": 90,
+        "subtitleShiftSeconds": -100,
+        "expectedOffsetSeconds": 90,
+        "channels": 6,
+        "syntheticChannelRouting": true,
+        "files": {
+          "fixture.mkv": "9d9bdfe96d3ea8865afc1e75fd44d77bbfeb71994156eba6c50e0acf9604a473",
+          "fixture.srt": "9e97de827922d82cea40142d42f0e29fcbcf6af956147a8286378ee35d2c4edd"
+        }
+      }
+    }
+  },
+  "fullProductAcceptance": false,
+  "limitations": [
+    "Dedicated release entrypoint uses the real production controller and native PCM/Whisper; bundle identifier is changed only to isolate local test settings and caches.",
+    "The harness is rebuilt locally from the same production source, using a verified existing native package. This is distinct from the downloaded CI application.",
+    "Calibration first request-to-result is 14.998 seconds versus 0.487 seconds reported inference. Initialization, polling and scheduling are not separately measured.",
+    "The failed hosted acquisition result remains a failure; these local results do not explain it.",
+    "Metal preferred does not identify the actual backend selected inside Whisper.",
+    "Both fixtures use authored SRT timing and null audio, not independent acoustic-onset annotations or audible playback.",
+    "Scene gaps and the punctuation change are not included in this validation.",
+    "The installed application was not replaced."
+  ]
+}
