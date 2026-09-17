@@ -1,0 +1,25 @@
+{
+  "sourceSha": "3947d5865b5b6866d42326f0347935ec0fe8fc96",
+  "installedPath": "/Applications/PlezyLiveSync.app",
+  "backupPath": "/Users/dwenn/.codex/worktrees/plezy-livesync-desktop-integration/build/livesync/evidence/app-3947d586/previous-installed-before-3947d586.app",
+  "oldExecutableSha256": "e61b837bc85d367e609cf329c93d429766e6e14357ca52fc6c8aa2dd93c30581",
+  "newExecutableSha256": "5a39ea31209465649b23feaf21dd1d38263d2df0c43d9b1bce077a3135d9ab0d",
+  "priorProcessTerminated": [
+    61188
+  ],
+  "codesignDeepStrictPassed": true,
+  "backupVerified": true,
+  "userDataModified": false,
+  "officialAppModified": false,
+  "launched": false,
+  "visualAndAudibleValidation": false,
+  "recordedAt": "2026-09-17T04:24:56.126615+00:00",
+  "appWorkflow": 35180606140,
+  "packageVerificationReceipt": "upstream-3947d586-macos.json",
+  "fullProductAcceptance": false,
+  "limitations": [
+    "Application not relaunched: Mac remains locked.",
+    "Mentalist audible alignment unconfirmed.",
+    "Windows candidate builds and iOS contract rerun remain pending."
+  ]
+}
