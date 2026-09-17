@@ -8,6 +8,21 @@ SubtitleAnchor anchor(int cue, double subtitle, double media) =>
     SubtitleAnchor(cue, subtitle, media, 0.35, 'distinct phrase number $cue');
 
 void main() {
+  test('an old outlier cannot bridge contradictory history and block a fresh later region', () {
+    final tracker = TimelineTracker();
+    expect(tracker.observe([anchor(0, 100, 104.25), anchor(1, 102, 105.19)]), isFalse);
+    expect(tracker.observe([anchor(2, 114, 117.22), anchor(3, 117, 119.65)]), isTrue);
+    expect(tracker.observe([anchor(4, 130, 133.27), anchor(5, 134, 138.51)]), isTrue);
+    final earlier = tracker.map.segments.toList();
+    expect(earlier, hasLength(2));
+    expect(tracker.observe([anchor(6, 154, 157.96), anchor(7, 159, 162.38)]), isTrue);
+    expect(tracker.correctionAt(165).position.automaticDelay, closeTo(3.67, 1e-9));
+    expect(tracker.map.segments, hasLength(3));
+    expect(tracker.map.segments.take(2), orderedEquals(earlier));
+    expect(tracker.map.atMedia(150).kind, TimelineRegionKind.unknown);
+    expect(tracker.map.gaps, isEmpty);
+  });
+
   test('inconsistent earlier observations cannot block an independently confirmed later region', () {
     final tracker = TimelineTracker();
     expect(tracker.observe([anchor(0, 100, 100), anchor(1, 110, 114), anchor(2, 120, 128)]), isFalse);

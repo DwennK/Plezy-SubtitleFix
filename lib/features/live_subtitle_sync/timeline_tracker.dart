@@ -113,7 +113,12 @@ class TimelineTracker {
     // independence, spacing and inlier requirements; never select just an
     // agreeing pair. Replayed context cannot grant this fallback. Retain the
     // older pending observations so a later baseline can still establish drift.
-    fitted ??= _fitter.fit(fresh.values.toList());
+    // Even a successful pending fit cannot bridge through incompatible known
+    // history: an old outlier may agree with the latest passage but contradict
+    // an already confirmed region in between.
+    if (fitted == null || _contradictsKnownRegion(fitted)) {
+      fitted = _fitter.fit(fresh.values.toList()) ?? fitted;
+    }
     if (fitted == null) return false;
     var candidate = fitted;
 
@@ -166,6 +171,7 @@ class TimelineTracker {
     }
     final continuousFit = _fitter.fit(_continuous.values.toList());
     if (continuousFit != null &&
+        !_contradictsKnownRegion(continuousFit) &&
         _continuous.values.every((a) => (continuousFit.mediaFor(a.subtitleTime) - a.mediaTime).abs() <= 0.8)) {
       candidate = continuousFit;
     }
@@ -210,6 +216,14 @@ class TimelineTracker {
       return false;
     }
   }
+
+  bool _contradictsKnownRegion(TimelineSegment candidate) => _map.segments.any((previous) {
+    final sourceOverlap =
+        candidate.subtitleStart < previous.subtitleEnd && previous.subtitleStart < candidate.subtitleEnd;
+    final mediaOverlap = candidate.mediaStart < previous.mediaEnd && previous.mediaStart < candidate.mediaEnd;
+    return (sourceOverlap || mediaOverlap) &&
+        previous.anchors.any((anchor) => (candidate.mediaFor(anchor.subtitleTime) - anchor.mediaTime).abs() > 0.8);
+  });
 
   bool _agreesWithKnownDomain(SubtitleAnchor anchor) => _map.segments.any(
     (segment) =>
