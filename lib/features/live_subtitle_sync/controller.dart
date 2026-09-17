@@ -15,11 +15,11 @@ import 'native_bindings.dart';
 import 'player_attachment.dart';
 import 'pcm_availability.dart';
 import 'runtime_paths.dart';
+import 'runtime_diagnostics.dart';
 import 'subtitle_index.dart';
 import 'subtitle_parser.dart';
 import 'subtitle_source.dart';
 import 'startup.dart';
-import 'timeline_map.dart';
 import 'timeline_tracker.dart';
 import 'transcript_context.dart';
 import 'transcript_matcher.dart';
@@ -47,6 +47,10 @@ class _Resources {
 
 class LiveSubtitleSyncController extends ChangeNotifier {
   LiveSubtitleSyncController._(this.player) {
+    if (Platform.environment['PLEZY_LIVESYNC_DIAGNOSTICS'] == '1') {
+      final diagnostics = LiveSyncRuntimeDiagnostics(stderr.writeln);
+      diagnosticObserver = (event) => diagnostics.record({'elapsedMs': _clock.elapsedMilliseconds, ...event});
+    }
     LiveSyncPlayerAttachment.sessions[player] = LiveSyncPlayerAttachment(disable);
     _subscriptions.add(player.streams.playheadJump.listen((target) => unawaited(_reset(target: target))));
     _subscriptions.add(player.streams.rate.listen((_) => unawaited(_reset())));
@@ -96,6 +100,7 @@ class LiveSubtitleSyncController extends ChangeNotifier {
   final _timeline = TimelineTracker();
   final _pcmAvailability = PcmAvailability();
   final _transcriptContext = TranscriptContext();
+  final _diagnosticIdentities = LiveSyncDiagnosticIdentities();
   final _clock = Stopwatch()..start();
   LiveSyncPhase phase = LiveSyncPhase.off;
   LiveSyncReason? reason;
@@ -133,6 +138,14 @@ class LiveSubtitleSyncController extends ChangeNotifier {
       (language.toLowerCase() == 'eng' || language.toLowerCase().split(RegExp('[-_]')).first == 'en');
 
   void _state(LiveSyncPhase value, [LiveSyncReason? why]) {
+    if (phase != value || reason != why) {
+      diagnosticObserver?.call({
+        'phase': value.name,
+        'reason': why?.name,
+        'automaticOffset': automaticOffset,
+        'generation': _generation,
+      });
+    }
     phase = value;
     reason = why;
     notifyListeners();
@@ -354,6 +367,12 @@ class LiveSubtitleSyncController extends ChangeNotifier {
         return;
       }
       if (_continuity != null && status.continuity != _continuity) {
+        diagnosticObserver?.call({
+          'previousContinuity': _continuity,
+          'continuity': status.continuity,
+          'bufferedSamples': status.samples,
+          'generation': generation,
+        });
         // Overflow, decoder resets and dropped blocks invalidate the evidence
         // as well as the inference. Do not combine anchors across a PCM gap.
         _timeline.discontinuity();
@@ -376,9 +395,9 @@ class LiveSubtitleSyncController extends ChangeNotifier {
         final context = _transcriptContext.add(transcript);
         final matchingClock = diagnosticObserver == null ? null : (Stopwatch()..start());
         final evidence = await compute((data) {
-          final (NativeTranscript transcript, NativeTranscript? context, SubtitleIndex index) = data;
-          return matchTranscriptEvidence(transcript, index, context: context);
-        }, (transcript, context, index));
+          final (NativeTranscript transcript, NativeTranscript? context, SubtitleIndex index, bool diagnostics) = data;
+          return matchTranscriptEvidence(transcript, index, context: context, diagnostics: diagnostics);
+        }, (transcript, context, index, diagnosticObserver != null));
         final anchors = evidence.anchors;
         if (!enabled || generation != _generation) return;
         diagnosticObserver?.call({
@@ -395,7 +414,21 @@ class LiveSubtitleSyncController extends ChangeNotifier {
           'competitor': evidence.match.runnerUpSimilarity,
           'contextWindows': evidence.windowCount,
           'segmentedMatch': evidence.segmented,
-          'anchors': anchors.map((anchor) => {'cue': anchor.cue, 'offset': anchor.offset}).toList(),
+          'anchorRejections': evidence.anchorRejections,
+          'speechTimingRejected': evidence.speechTimingRejected,
+          'latestAnchorMediaTime': evidence.latestAnchorMediaTime,
+          'anchors': anchors
+              .map(
+                (anchor) => {
+                  'cue': anchor.cue,
+                  'offset': anchor.offset,
+                  'subtitleTime': anchor.subtitleTime,
+                  'mediaTime': anchor.mediaTime,
+                  'uncertainty': anchor.uncertainty,
+                  'phraseId': _diagnosticIdentities.identify(anchor.phrase),
+                },
+              )
+              .toList(),
         });
         // A wider prompt retry can recover cue beginnings when a recognized
         // passage lacks enough independent timing anchors. Matching and
@@ -409,6 +442,10 @@ class LiveSubtitleSyncController extends ChangeNotifier {
         _cadence.evidence(
           recognizedPassage: evidence.match.status == TranscriptMatchStatus.matched,
           learned: learnedRegion,
+          predictionContradicted: _timeline.correctionAt(transcript.windowEnd).predictionContradicted,
+          speechTimingRejected: evidence.speechTimingRejected,
+          windowEnd: transcript.windowEnd,
+          latestAnchorMediaTime: evidence.latestAnchorMediaTime,
         );
         if (learnedRegion) {
           final learned = _timeline.map.segments.last;
@@ -459,8 +496,9 @@ class LiveSubtitleSyncController extends ChangeNotifier {
         voicePresent: voicePresent,
         timingMismatch: mismatch,
       );
+      final requestedWindowSeconds = _cadence.windowSeconds;
       if (_clock.elapsedMilliseconds - _lastAnalysisMs >= intervalMs &&
-          await worker.submitRecent(seconds: _cadence.windowSeconds)) {
+          await worker.submitRecent(seconds: requestedWindowSeconds)) {
         // A seek can clear cadence while the native acknowledgement is pending.
         // The old request must not rate-limit or count as work in the new run.
         if (!enabled || generation != _generation) return;
@@ -473,7 +511,7 @@ class LiveSubtitleSyncController extends ChangeNotifier {
           'activityVoicePresent': voicePresent,
           'activityTimingMismatch': mismatch,
           'analysisIntervalMs': intervalMs,
-          'analysisWindowSeconds': _cadence.windowSeconds,
+          'analysisWindowSeconds': requestedWindowSeconds,
         });
       }
     } catch (error) {
@@ -517,10 +555,11 @@ class LiveSubtitleSyncController extends ChangeNotifier {
     final correction = _timeline.correctionAt(position, audioDelay: audioDelay);
     final offset = correction.position.automaticDelay;
     if (offset == null) {
-      final suppressed = correction.position.kind == TimelineRegionKind.videoOnly;
+      final suppressed = correction.suppressSubtitles;
       if (suppressed) {
-        // Mask first, before clearing a previous delay could expose future
-        // dialogue inside an explicitly confirmed absence of correspondence.
+        // Mask first: clearing a disproved delay must not expose unrelated
+        // cues while a replacement is still unknown. A contradiction is
+        // transient uncertainty; it does not become a cached video-only gap.
         await player.setLiveSubtitleSuppressed(true);
         if (!enabled || generation != _generation) return false;
       }
@@ -553,6 +592,7 @@ class LiveSubtitleSyncController extends ChangeNotifier {
   Future<void> _reset({Duration? target}) async {
     if (!enabled || _worker == null) return;
     final generation = ++_generation;
+    _diagnosticIdentities.clear();
     _timeline.discontinuity();
     _transcriptContext.clear();
     _continuity = null;
@@ -632,6 +672,7 @@ class LiveSubtitleSyncController extends ChangeNotifier {
   Future<void> _stop() async {
     enabled = false;
     ++_generation;
+    _diagnosticIdentities.clear();
     _timer?.cancel();
     _timer = null;
     _sourceAbort?.abort();

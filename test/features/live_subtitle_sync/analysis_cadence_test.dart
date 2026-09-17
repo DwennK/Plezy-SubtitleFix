@@ -2,6 +2,111 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:plezy/features/live_subtitle_sync/analysis_cadence.dart';
 
 void main() {
+  test('an unconfirmed steady-state check gets two voice-backed renewal retries', () {
+    final cadence = AnalysisCadence()..evidence(recognizedPassage: true, learned: true);
+    int delay(bool voice) => cadence.intervalMs(synced: true, established: true, voicePresent: voice);
+    expect(delay(true), 90000);
+    for (var i = 0; i < 2; i++) {
+      cadence.submitted();
+      cadence.evidence(recognizedPassage: false, learned: false);
+      expect(delay(true), 12000);
+      expect(delay(false), 90000);
+    }
+    for (var i = 0; i < 5; i++) {
+      cadence.submitted();
+      cadence.evidence(recognizedPassage: false, learned: false);
+      expect(delay(true), 90000);
+    }
+    cadence.evidence(recognizedPassage: true, learned: true);
+    expect(delay(true), 90000);
+    cadence.evidence(recognizedPassage: true, learned: false);
+    expect(delay(true), 12000);
+    cadence.clear();
+    expect(delay(true), 90000);
+  });
+
+  test('timing mismatch never postpones initial confirmation or native recovery', () {
+    final cadence = AnalysisCadence()..evidence(recognizedPassage: true, learned: true);
+    int delay({bool mismatch = false, bool established = false, bool? voice}) =>
+        cadence.intervalMs(synced: true, established: established, voicePresent: voice, timingMismatch: mismatch);
+    cadence.submitted();
+    expect(delay(voice: true), 12000);
+    expect(delay(mismatch: true, voice: true), 12000);
+    // An initial estimate still needs its bounded confirmation phase when
+    // subtitles predict speech but the activity check reports quiet audio.
+    expect(delay(mismatch: true, voice: false), 12000);
+    cadence.rejectedInference();
+    expect(delay(established: true, voice: true), 12000);
+    expect(delay(mismatch: true, established: true, voice: true), 12000);
+    cadence.evidence(recognizedPassage: true, learned: true);
+    for (var i = 0; i < 10; i++) {
+      cadence.submitted();
+      cadence.evidence(recognizedPassage: true, learned: true);
+    }
+    expect(delay(mismatch: true, voice: true), 30000);
+    expect(delay(established: true, voice: true), 90000);
+    expect(delay(mismatch: true, established: true, voice: true), 30000);
+    expect(delay(established: true, voice: false), 90000);
+    expect(delay(mismatch: true, established: true, voice: false), 30000);
+  });
+
+  test('a fresh accepted anchor rearms speech retry only beyond the previously analyzed audio', () {
+    final cadence = AnalysisCadence();
+    void rejected(double end, double? anchor) => cadence.evidence(
+      recognizedPassage: true,
+      learned: false,
+      speechTimingRejected: true,
+      windowEnd: end,
+      latestAnchorMediaTime: anchor,
+    );
+    int delay() => cadence.intervalMs(synced: true, established: true);
+    rejected(45, 29);
+    expect(delay(), 0);
+    cadence.submitted();
+    // The short result itself cannot start another immediate retry, even if
+    // its tiny new tail contains a later cue. Extend the covered-audio bound.
+    rejected(46, 45.5);
+    expect(delay(), isNot(0));
+    for (final anchor in <double?>[null, 29, 46, 83, double.nan]) {
+      rejected(82, anchor);
+      expect(delay(), isNot(0));
+    }
+    rejected(82, 68);
+    expect(delay(), 0);
+    cadence.submitted();
+    for (var i = 0; i < 10; i++) {
+      rejected(83 + i.toDouble(), 78);
+      expect(delay(), isNot(0));
+      cadence.submitted();
+    }
+    rejected(95, 84);
+    expect(delay(), 0);
+    cadence.submitted();
+    cadence.clear();
+    rejected(20, 12);
+    expect(delay(), 0);
+  });
+
+  test('a speech-rejected timestamp permits only one short retry while an old mapping remains active', () {
+    final cadence = AnalysisCadence()..evidence(recognizedPassage: true, learned: true);
+    cadence.submitted();
+    cadence.evidence(recognizedPassage: true, learned: false, speechTimingRejected: true);
+    expect(cadence.windowSeconds, 8);
+    expect(cadence.intervalMs(synced: true, established: true, voicePresent: false), 0);
+    cadence.submitted();
+    for (var i = 0; i < 5; i++) {
+      cadence.evidence(recognizedPassage: true, learned: false, speechTimingRejected: true);
+      expect(cadence.windowSeconds, 15);
+      expect(cadence.intervalMs(synced: true, established: true), isNot(0));
+      cadence.submitted();
+    }
+    cadence.evidence(recognizedPassage: true, learned: true, speechTimingRejected: true);
+    expect(cadence.windowSeconds, 12);
+    expect(cadence.intervalMs(synced: true, established: true), isNot(0));
+    cadence.evidence(recognizedPassage: true, learned: false, speechTimingRejected: true);
+    expect(cadence.intervalMs(synced: true, established: true), 0);
+  });
+
   test('continuous music-like activity cannot force fast transcription forever', () {
     final cadence = AnalysisCadence();
     for (var i = 0; i < 5; i++) {
@@ -34,6 +139,56 @@ void main() {
   });
 
   int interval(AnalysisCadence cadence) => cadence.intervalMs(synced: false, established: false);
+
+  test('a confirmed timing contradiction allows one immediate short retry, not an inference loop', () {
+    final cadence = AnalysisCadence()..evidence(recognizedPassage: true, learned: true);
+    cadence.submitted();
+    cadence.evidence(recognizedPassage: true, learned: false, predictionContradicted: true);
+    expect(cadence.windowSeconds, 8);
+    expect(interval(cadence), 0);
+    // Timing evidence takes priority over a possibly missed quiet voice.
+    expect(cadence.intervalMs(synced: false, established: false, voicePresent: false), 0);
+    cadence.submitted();
+    expect(cadence.windowSeconds, 15);
+    for (var i = 0; i < 5; i++) {
+      cadence.evidence(recognizedPassage: true, learned: false, predictionContradicted: true);
+      expect(interval(cadence), 12000);
+      expect(cadence.windowSeconds, 15);
+      cadence.submitted();
+    }
+    cadence.rejectedInference();
+    cadence.evidence(recognizedPassage: true, learned: false, predictionContradicted: true);
+    expect(interval(cadence), 12000);
+  });
+
+  test('short retries rearm only after confirmed recovery or a new playback generation', () {
+    final cadence = AnalysisCadence();
+    for (final reset in ['learned', 'clear']) {
+      cadence.evidence(recognizedPassage: true, learned: false, predictionContradicted: true);
+      expect(interval(cadence), 0);
+      cadence.submitted();
+      cadence.evidence(recognizedPassage: false, learned: false);
+      expect(interval(cadence), isNot(0));
+      cadence.evidence(recognizedPassage: true, learned: false, predictionContradicted: true);
+      expect(interval(cadence), isNot(0));
+      reset == 'clear' ? cadence.clear() : cadence.evidence(recognizedPassage: true, learned: true);
+    }
+    cadence.evidence(recognizedPassage: true, learned: false, predictionContradicted: true);
+    expect(interval(cadence), 0);
+    cadence.clear();
+    expect(cadence.windowSeconds, 12);
+    expect(interval(cadence), 12000);
+  });
+
+  test('unconfirmed dialogue, VAD and a known mapping cannot request an immediate short retry', () {
+    final cadence = AnalysisCadence();
+    cadence.evidence(recognizedPassage: true, learned: false);
+    expect(cadence.windowSeconds, 15);
+    expect(interval(cadence), 12000);
+    cadence.evidence(recognizedPassage: true, learned: true);
+    expect(cadence.windowSeconds, 12);
+    expect(cadence.intervalMs(synced: true, established: true, voicePresent: true), 90000);
+  });
 
   test('quiet intro backs off but weak recognized dialogue promptly retries a wider window', () {
     final cadence = AnalysisCadence();

@@ -4301,8 +4301,11 @@ class Translations$downloads$en {
 	/// en: 'Server error: file may exceed the remote bitrate limit'
 	String get serverErrorBitrate => 'Server error: file may exceed the remote bitrate limit';
 
-	/// en: 'Downloads stopped because device storage is full. Free some space, then retry.'
-	String get storageFull => 'Downloads stopped because device storage is full. Free some space, then retry.';
+	/// en: 'Downloads stopped to protect available storage. Free some space or choose another download location, then retry.'
+	String get storageFull => 'Downloads stopped to protect available storage. Free some space or choose another download location, then retry.';
+
+	/// en: 'Downloads stopped because available storage could not be checked. Check the download location, then retry.'
+	String get storageUnavailable => 'Downloads stopped because available storage could not be checked. Check the download location, then retry.';
 
 	/// en: '${count} episodes queued for download'
 	String episodesQueued({required Object count}) => '${count} episodes queued for download';
@@ -8670,7 +8673,8 @@ extension on Translations {
 			'downloads.downloadQueued' => 'Download queued',
 			'downloads.downloadResumed' => 'Download resumed',
 			'downloads.serverErrorBitrate' => 'Server error: file may exceed the remote bitrate limit',
-			'downloads.storageFull' => 'Downloads stopped because device storage is full. Free some space, then retry.',
+			'downloads.storageFull' => 'Downloads stopped to protect available storage. Free some space or choose another download location, then retry.',
+			'downloads.storageUnavailable' => 'Downloads stopped because available storage could not be checked. Check the download location, then retry.',
 			'downloads.episodesQueued' => ({required Object count}) => '${count} episodes queued for download',
 			'downloads.downloadDeleted' => 'Download deleted',
 			'downloads.deleteConfirm' => ({required Object title}) => 'Delete "${title}" from this device?',
@@ -8682,9 +8686,9 @@ extension on Translations {
 			'downloads.syncingFile' => ({required Object file, required Object status}) => '${file} (syncing ${status})',
 			'downloads.downloadedFileClickToComplete' => ({required Object file}) => 'Downloaded ${file} - Click to complete',
 			'downloads.partialDownloadClickToComplete' => 'Partially downloaded - Click to complete',
-			'downloads.deleting' => 'Deleting...',
 			_ => null,
 		} ?? switch (path) {
+			'downloads.deleting' => 'Deleting...',
 			'downloads.deletingWithProgress' => ({required Object title, required Object current, required Object total}) => 'Deleting ${title}... (${current} of ${total})',
 			'downloads.queuedTooltip' => 'Queued',
 			'downloads.queuedFilesTooltip' => ({required Object files}) => 'Queued ${files}',
@@ -9196,9 +9200,9 @@ extension on Translations {
 			'addServer.urlsPointToDifferentServers' => ({required Object product}) => 'These URLs point to different ${product} servers',
 			'addServer.urlDoesNotMatchServer' => ({required Object product}) => 'This URL does not match the ${product} server',
 			'addServer.redirectUnsupported' => 'The server redirected to an unsupported URL',
-			'addServer.redirectDifferentHost' => ({required Object product}) => 'The server redirected to a different host. Enter the final ${product} URL directly.',
 			_ => null,
 		} ?? switch (path) {
+			'addServer.redirectDifferentHost' => ({required Object product}) => 'The server redirected to a different host. Enter the final ${product} URL directly.',
 			'addServer.redirectInsecure' => 'The server redirected from HTTPS to an insecure URL',
 			'addServer.redirectUnsupportedEnterFinal' => ({required Object product}) => 'The server redirected to an unsupported URL. Enter the final ${product} URL directly.',
 			_ => null,

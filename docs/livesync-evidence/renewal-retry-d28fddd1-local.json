@@ -1,0 +1,18 @@
+{
+  "source": "449d901f",
+  "integrationSource": "d28fddd1c0acc727ae94a95663957bb8f05d64fa",
+  "regressionFailedBeforeFix": true,
+  "liveSyncAndPlayerTestsPassed": 372,
+  "existingTestsSkipped": 1,
+  "fullAnalysisPassed": true,
+  "maximumPromptRenewalRetries": 2,
+  "promptRetryIntervalMs": 12000,
+  "quietBackoffMs": 90000,
+  "nativePlaybackValidationPending": true,
+  "productAccepted": false,
+  "evidenceSha256": {
+    "regressionBefore": "3c284fc232a0bcf130bdcece04455073d739912e5ad5696aa191120593a46ef5",
+    "tests": "54bd7dba44b222c568806296f48a633164da601649ea0bb6191ec8dcf6459b87",
+    "analysis": "84785b78ab4e5d6b7d05abc39987d64bb3f948ca9512f529e647791966c7dc79"
+  }
+}

@@ -1,0 +1,111 @@
+{
+  "schema": 1,
+  "sourceSha": "6bf4bd573898064b82099573eee14e90ae847e3f",
+  "scope": "native speech-support wrapper on already consumed public development windows",
+  "reports": {
+    "crossing": {
+      "sha256": "8dbd55877e32e0258860c27def4250879844c1776e6c9441ad08c650a6275e8d",
+      "binarySha256": "67f28457d1edfe88b57a12199eba722cf2cca9b8915cebb45cde8a17f457273e",
+      "fixtureSha256": "8c8a1be4f19c666fe3509cf38e704f27f0134302363b775a378d8b98faf27098",
+      "referenceSha256": "63f125a75a54467cbcb0e4b679229f4e6376b92d0c38f398f287a8d920bae12a",
+      "windows": 9,
+      "allResetAndReusePassed": true
+    },
+    "calibration": {
+      "sha256": "0e5760d555297e39bf65ba7f5b2b20b0bf8870f9e53c3aba7bdf5f945a20d58f",
+      "binarySha256": "67f28457d1edfe88b57a12199eba722cf2cca9b8915cebb45cde8a17f457273e",
+      "fixtureSha256": "23c7b58e8237f4c2d0e12e6a04e4150ece1c04cb3cf25425b2dbbfc4cdb0fd2b",
+      "referenceSha256": "035d586b6379a44f2a91c51722758b103f8b577b5d5cec795147d0ab6566c9b7",
+      "windows": 6,
+      "allResetAndReusePassed": true
+    },
+    "crossingSanitizers": {
+      "sha256": "8f4776f47a6e80ac3d5aa91b823cc71a460e3654ab6732e964d0fde0ba137b45",
+      "binarySha256": "c9a600a9f8f5a5c6b141267e7c9875fcf9361970a1355fd697249e4a651a6343",
+      "fixtureSha256": "8c8a1be4f19c666fe3509cf38e704f27f0134302363b775a378d8b98faf27098",
+      "referenceSha256": "63f125a75a54467cbcb0e4b679229f4e6376b92d0c38f398f287a8d920bae12a",
+      "windows": 9,
+      "allResetAndReusePassed": true
+    }
+  },
+  "tests": {
+    "nativeContracts": true,
+    "addressAndUndefinedBehaviorSanitizers": true,
+    "independentWindowResetAndReuse": true
+  },
+  "fullProductAcceptance": false,
+  "productionIntegrationValidated": false,
+  "limitations": [
+    "Wrapper is not yet connected to the production inference worker.",
+    "Reference equality is not independent acoustic onset truth.",
+    "Contract replay timing includes multiple analyses and cannot be used as an inference performance benchmark."
+  ],
+  "desktopCi": {
+    "runId": 35156267371,
+    "conclusion": "success",
+    "platforms": {
+      "mac": {
+        "contract": {
+          "name": "livesync_speech_support_test",
+          "classname": "livesync_speech_support_test",
+          "time": "0.055445",
+          "status": "run"
+        },
+        "contractSha256": "51b293455aa98c06e0924e62145afbf937c24f516a47961694f22547837565df",
+        "speechReplay": {
+          "intervals": [
+            [
+              0.32,
+              2.27
+            ],
+            [
+              3.27,
+              4.41
+            ],
+            [
+              5.38,
+              7.68
+            ],
+            [
+              8.16,
+              10.62
+            ]
+          ],
+          "resetAndReusePassed": true
+        },
+        "speechReplaySha256": "989cfa4872d8ad2ae457a5d16acefa91dfd967e71d9696371c0314a17d9a9943"
+      },
+      "windows": {
+        "contract": {
+          "name": "livesync_speech_support_test",
+          "classname": "livesync_speech_support_test",
+          "time": "0.198636",
+          "status": "run"
+        },
+        "contractSha256": "7816ad08b63e5ffb574d54a77cfee310ab37c91497d76bba9c90fb9f030b2662",
+        "speechReplay": {
+          "intervals": [
+            [
+              0.32,
+              2.27
+            ],
+            [
+              3.27,
+              4.41
+            ],
+            [
+              5.38,
+              7.68
+            ],
+            [
+              8.16,
+              10.62
+            ]
+          ],
+          "resetAndReusePassed": true
+        },
+        "speechReplaySha256": "e1a5dd29011ec2d7039d2afbfb5d43ffce2f871635a3a6fada72daa3f36654f2"
+      }
+    }
+  }
+}

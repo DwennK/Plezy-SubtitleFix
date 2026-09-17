@@ -1,0 +1,273 @@
+{
+  "schema": 1,
+  "sourceSha": "3ccb1be7ebf3061d5eca4ff26fd6d54d699f3ea3",
+  "runId": 35167800776,
+  "conclusion": "success",
+  "applicationArtifactId": 10476481084,
+  "contractsArtifactId": 10476283178,
+  "mode": "full workflow; only the dedicated renderer uses the test-only vectored observer",
+  "rendererCapture": {
+    "sha256": "0d021b19a432355692da6bd3d6d97e662c2816e8be9d5fe9d724bf7a9fbd3a54",
+    "data": {
+      "visualInspectionRequired": true,
+      "screenHeight": 720,
+      "screenWidth": 1024,
+      "captures": [
+        {
+          "state": "baseline",
+          "height": 720,
+          "width": 1024,
+          "sha256": "f39d1bb600dc47effda283afcca4e66cb0be401729841d301071720017817f80"
+        },
+        {
+          "state": "positive",
+          "height": 720,
+          "width": 1024,
+          "sha256": "3e56254dc88c415d5c6f7d56a796396a61f8318ac119a9cf0eb12b64e757f7c0"
+        },
+        {
+          "state": "negative",
+          "height": 720,
+          "width": 1024,
+          "sha256": "1f64de5041427401b012f19b931ee28902d42c0beaf0eed8526cf4932eb4826f"
+        },
+        {
+          "state": "restored",
+          "height": 720,
+          "width": 1024,
+          "sha256": "a1eed6dcbca5e8ac7ea1c03e02ac83527907a4a0bb8338e3d87fa6d69294498e"
+        },
+        {
+          "state": "gap-hidden",
+          "height": 720,
+          "width": 1024,
+          "sha256": "1f3041cb93b4944236ff1596a8b67c9761c9088fde52081a0c962d91f0059183"
+        },
+        {
+          "state": "gap-shown-manual",
+          "height": 720,
+          "width": 1024,
+          "sha256": "1d17e3e02e7bf36d14c91c6969fd1c2bb479d212def1ff3fcf718a52a5976414"
+        },
+        {
+          "state": "gap-restored",
+          "height": 720,
+          "width": 1024,
+          "sha256": "4b769573c8c12a57100f6cb00085234c0917c9f8470ba08835ba5330daa472d5"
+        },
+        {
+          "state": "gap-hidden-again",
+          "height": 720,
+          "width": 1024,
+          "sha256": "99255c6a410aab50454c50e07e691e9a371284dfe70be2d87d410e4785c42180"
+        },
+        {
+          "state": "gap-manual-hidden",
+          "height": 720,
+          "width": 1024,
+          "sha256": "452a28d71914de5506c35bedd0fbfe7e969236ebab42457dd54b8d0e7f26fa53"
+        },
+        {
+          "state": "gap-release-manual-hidden",
+          "height": 720,
+          "width": 1024,
+          "sha256": "bedd8a28b3501c758f1eabc2b476397252300f369b466433c6ca6210b030a101"
+        },
+        {
+          "state": "manual-shown",
+          "height": 720,
+          "width": 1024,
+          "sha256": "918565064f5bd1cca45e84c3b26ca4870b9a5ab1a09d5cd8f278994bafbaf915"
+        },
+        {
+          "state": "prediction-contradicted",
+          "height": 720,
+          "width": 1024,
+          "sha256": "c0d8e78cd64c848e4d9f380fa01e5f5f74d64b99369122abdb95c07a63a5c9de"
+        },
+        {
+          "state": "prediction-manual-shown",
+          "height": 720,
+          "width": 1024,
+          "sha256": "3b45715c237b716af494f1059b343d4c9d0a5cb72400ed9c2696011052519dc8"
+        },
+        {
+          "state": "prediction-recovered",
+          "height": 720,
+          "width": 1024,
+          "sha256": "c8f2752be5fda8db35b4907f5245beca02b2ac11de58a0ead6d73c33ea24d628"
+        },
+        {
+          "state": "capture-on",
+          "height": 720,
+          "width": 1024,
+          "sha256": "14e8d9a796aaa66216fc4b5c449c1f651db7ecfae8e90a848568d63226b4bb63"
+        },
+        {
+          "state": "capture-off",
+          "height": 720,
+          "width": 1024,
+          "sha256": "9af38c7c3c51c67c232d86e6d725b4454cd79f6c9469d4024511f63309535fd7"
+        }
+      ],
+      "nativeDebugger": false,
+      "automaticSynchronizationValidated": false,
+      "kind": "native-windows-renderer-synthetic-fixture"
+    }
+  },
+  "rendererBinaries": {
+    "sha256": "2d7ebece797a5f0e1dd6606164297b293e352df6e7d2f0a315f51e5face5a718",
+    "data": {
+      "mechanism": "test-only vectored first-chance observer",
+      "binaries": [
+        {
+          "name": "plezy_livesync.exe",
+          "sha256": "2c41f84036e1b110422163204393934c9a182e9ef4031913e92a78581ac4dc57"
+        },
+        {
+          "name": "flutter_windows.dll",
+          "sha256": "1f9fcfa3003b64af53154fb3ffe4d1b60d5462dfaacd78b3b2b2ebd5b75de18e"
+        },
+        {
+          "name": "libmpv-2.dll",
+          "sha256": "e0abf158f4ab736843bf9fd3002955b44c2e8f43f5dadfefc0d4e69627e182ec"
+        }
+      ]
+    }
+  },
+  "nativeContracts": {
+    "sha256": "51e9ad710fde0de3aace18f339c8d915350d8594855552a2df48a4fd78981b3d",
+    "data": {
+      "passed": true,
+      "cases": [
+        {
+          "case": "handled",
+          "passed": true,
+          "observerExitCode": 0
+        },
+        {
+          "case": "crash",
+          "passed": true,
+          "observerExitCode": 1
+        },
+        {
+          "case": "hang",
+          "passed": true,
+          "observerExitCode": 124
+        },
+        {
+          "case": "vectored-handled",
+          "passed": true,
+          "targetExitCode": 0,
+          "debuggerPresent": false
+        },
+        {
+          "case": "vectored-crash",
+          "passed": true,
+          "targetExitCode": 3221225477,
+          "debuggerPresent": false
+        },
+        {
+          "case": "vectored-log-unavailable",
+          "passed": true
+        },
+        {
+          "case": "missing-executable",
+          "passed": true
+        }
+      ]
+    }
+  },
+  "exceptions": {
+    "0xe06d7363": 3
+  },
+  "exceptionLogSha256": "0128b77e7b2b8a6f2e03ee310a284ed91b96d113a5aaeb68755c9255ac362e67",
+  "controllerReports": {
+    "calibration-player-calibration.json": {
+      "sha256": "3dc5f296ccd708e7d09bbb808cfaba767aaeed7725dcbea6829815ee542242f7",
+      "data": {
+        "kind": "actual-plezy-production-controller-calibration",
+        "seekDuringStartupValidated": false,
+        "wrongCachedGapRecoveryValidated": true,
+        "cacheAlgorithm": "bounded-affine-speech-v3",
+        "cacheFixtureIsSynthetic": true,
+        "captureDuringSubtitleLoadValidated": false,
+        "platform": "windows",
+        "flutterBuildMode": "release",
+        "inferenceBackend": "avx2-cpu",
+        "expectedOffset": -100.0,
+        "absoluteOffsetError": 0.16533333333333644,
+        "modelId": "base.en",
+        "modelSha256": "a03779c86df3323075f5e796cb2ce5029f00ec8869eee3fdfb897afe36c6d002",
+        "actualOffset": -100.16533333333334,
+        "acquisitionMs": 23025,
+        "acquisitionTargetMs": 45000,
+        "acquisitionTargetPassed": true,
+        "audiblePlaybackValidated": false,
+        "pcmOrTranscriptPersisted": false,
+        "knownRegionRestoredAfterSeek": true,
+        "unknownSeekClearsAutomaticOnly": true,
+        "audioDelayCompositionAndPreservation": true,
+        "cacheRestoreMs": 1642,
+        "persistentCacheKnownAndUnknownRegions": true,
+        "manualDelayDuringAndAfter": true,
+        "tapDisabledOnClose": true,
+        "passed": true,
+        "inferenceSeconds": [
+          8.6696165
+        ]
+      }
+    },
+    "calibration-player-intro-90.json": {
+      "sha256": "8c9c0495fc086b6cf387dc04108e35b9b0b6ad96863ae43a5bf83b754ca508e7",
+      "data": {
+        "kind": "actual-plezy-production-controller-calibration",
+        "seekDuringStartupValidated": false,
+        "wrongCachedGapRecoveryValidated": true,
+        "cacheAlgorithm": "bounded-affine-speech-v3",
+        "cacheFixtureIsSynthetic": true,
+        "captureDuringSubtitleLoadValidated": false,
+        "platform": "windows",
+        "flutterBuildMode": "release",
+        "inferenceBackend": "avx2-cpu",
+        "expectedOffset": 90.0,
+        "absoluteOffsetError": 0.24095833333333871,
+        "modelId": "base.en",
+        "modelSha256": "a03779c86df3323075f5e796cb2ce5029f00ec8869eee3fdfb897afe36c6d002",
+        "actualOffset": 89.75904166666666,
+        "acquisitionMs": 125840,
+        "acquisitionTargetMs": 135000,
+        "acquisitionTargetPassed": true,
+        "audiblePlaybackValidated": false,
+        "pcmOrTranscriptPersisted": false,
+        "knownRegionRestoredAfterSeek": true,
+        "unknownSeekClearsAutomaticOnly": true,
+        "audioDelayCompositionAndPreservation": true,
+        "cacheRestoreMs": 1642,
+        "persistentCacheKnownAndUnknownRegions": true,
+        "manualDelayDuringAndAfter": true,
+        "tapDisabledOnClose": true,
+        "passed": true,
+        "inferenceSeconds": [
+          7.8758897,
+          8.6962793,
+          9.430728,
+          9.6492998
+        ]
+      }
+    }
+  },
+  "baselineAndHiddenCapturesVisuallyInspected": true,
+  "crashReproduced": false,
+  "crashFixed": false,
+  "fullProductAcceptance": false,
+  "limitations": [
+    "The full sequence also passes with observation active. Renderer-only versus full-sequence preconditions alone do not explain the earlier failures.",
+    "The in-process observer affects timing even without a debugger. An uninstrumented renderer pass and the actual fault cause remain unproven.",
+    "Only the renderer diagnostic is instrumented; the preserved app precedes it, and the independent controller build disables observation again.",
+    "No private dialogue, PCM or process dump is included. Synthetic renderer captures are 1024x720 on the hosted desktop.",
+    "Controller offsets compare authored fixture SRT, not independent acoustic onset truth. Audio was not validated audibly.",
+    "Windows observed inference is 7.876\u20139.649 seconds; the three-second p95 budget remains unmet.",
+    "Any installation trial using this artifact is a packaging/coexistence check and must retain this instrumentation provenance."
+  ]
+}

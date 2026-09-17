@@ -278,7 +278,7 @@ if(MPV_ARCH STREQUAL "x86_64")
     "${LIVESYNC_ANALYSIS_DIR}/livesync_inference_bridge.dll"
     "${LIVESYNC_ANALYSIS_DIR}/livesync_inference_bridge_avx2.dll"
     DESTINATION "${INSTALL_BUNDLE_LIB_DIR}" COMPONENT Runtime)
-  install(FILES "${LIVESYNC_ANALYSIS_DIR}/whisper-ggml-LICENSE" "${LIVESYNC_ANALYSIS_DIR}/provenance.json"
+  install(FILES "${LIVESYNC_ANALYSIS_DIR}/whisper-ggml-LICENSE" "${LIVESYNC_ANALYSIS_DIR}/SILERO-LICENSE" "${LIVESYNC_ANALYSIS_DIR}/provenance.json"
     DESTINATION "${INSTALL_BUNDLE_DATA_DIR}/livesync" COMPONENT Runtime)
 endif()
 

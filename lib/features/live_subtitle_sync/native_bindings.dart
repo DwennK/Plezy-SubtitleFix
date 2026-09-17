@@ -6,7 +6,7 @@ import 'package:ffi/ffi.dart';
 import 'audio_activity.dart';
 import 'runtime_dispatch.dart';
 
-// Handwritten ABI v1 declarations, checked against native sizeof before use.
+// Handwritten capture ABI v1 and inference ABI v2 declarations, checked against native sizeof before use.
 // Every operation, including creation/destruction, belongs to the serialized
 // analysis isolate. Do not import this module from UI widgets.
 final class _MpvApi extends Struct {
@@ -50,6 +50,8 @@ final class _Token extends Struct {
   external double score;
   @Uint32()
   external int hasTimestamp;
+  @Uint32()
+  external int speechSupport;
   @Uint32()
   external int textOffset;
   @Uint32()
@@ -106,13 +108,23 @@ class NativeSyncException implements Exception {
   String toString() => 'NativeSyncException(${reason.name})';
 }
 
+enum NativeSpeechSupport { unknown, supported, unsupported }
+
 class NativeTranscriptToken {
-  const NativeTranscriptToken(this.text, this.start, this.end, this.score, this.hasTimestamp);
+  const NativeTranscriptToken(
+    this.text,
+    this.start,
+    this.end,
+    this.score,
+    this.hasTimestamp, {
+    this.speechSupport = NativeSpeechSupport.unknown,
+  });
   final String text;
   final double start;
   final double end;
   final double score;
   final bool hasTimestamp;
+  final NativeSpeechSupport speechSupport;
 }
 
 class NativeTranscriptSegment {
@@ -261,7 +273,7 @@ class NativeLiveSyncEngine {
       final capture = engine._captureLibrary;
       final inference = engine._inferenceLibrary;
       if (capture.lookupFunction<Uint32 Function(), int Function()>('ls_capture_abi_version')() != 1 ||
-          inference.lookupFunction<Uint32 Function(), int Function()>('ls_inference_abi_version')() != 1 ||
+          inference.lookupFunction<Uint32 Function(), int Function()>('ls_inference_abi_version')() != 2 ||
           capture.lookupFunction<Size Function(), int Function()>('ls_capture_api_size')() != sizeOf<_MpvApi>() ||
           capture.lookupFunction<Size Function(), int Function()>('ls_capture_info_size')() != sizeOf<_CaptureInfo>() ||
           inference.lookupFunction<Size Function(), int Function()>('ls_inference_result_size')() !=
@@ -317,7 +329,7 @@ class NativeLiveSyncEngine {
 
   static DynamicLibrary _openInferenceLibrary(String path) {
     final library = DynamicLibrary.open(path);
-    if (library.lookupFunction<Uint32 Function(), int Function()>('ls_inference_abi_version')() != 1 ||
+    if (library.lookupFunction<Uint32 Function(), int Function()>('ls_inference_abi_version')() != 2 ||
         library.lookupFunction<Size Function(), int Function()>('ls_inference_result_size')() != sizeOf<_Result>()) {
       throw const NativeSyncException(NativeSyncFailure.incompatibleAbi);
     }
@@ -461,6 +473,7 @@ class NativeLiveSyncEngine {
               token.score < 0 ||
               token.score > 1 ||
               token.hasTimestamp > 1 ||
+              token.speechSupport > 2 ||
               (token.hasTimestamp == 1 && !timeValid(token.start, token.end))) {
             throw const NativeSyncException(NativeSyncFailure.invalidOutput);
           }
@@ -471,6 +484,7 @@ class NativeLiveSyncEngine {
               token.end,
               token.score,
               token.hasTimestamp == 1,
+              speechSupport: NativeSpeechSupport.values[token.speechSupport],
             ),
           );
         }

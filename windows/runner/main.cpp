@@ -6,8 +6,15 @@
 #include "mpv/display_mode_manager.h"
 #include "utils.h"
 
+#ifdef PLEZY_LIVESYNC_EXCEPTION_DIAGNOSTIC
+#include "livesync_exception_observer.h"
+#endif
+
 int APIENTRY
 wWinMain(_In_ HINSTANCE instance, _In_opt_ HINSTANCE prev, _In_ wchar_t* command_line, _In_ int show_command) {
+#ifdef PLEZY_LIVESYNC_EXCEPTION_DIAGNOSTIC
+  if (!livesync_diagnostic::Install()) return EXIT_FAILURE;
+#endif
   // Plezy requires the bundled flutter-plezy engine, which presents the Flutter
   // UI on a topmost DirectComposition visual when FLUTTER_WINDOWS_DCOMP is set.
   // The mpv video window is then a plain child composed beneath the UI in the

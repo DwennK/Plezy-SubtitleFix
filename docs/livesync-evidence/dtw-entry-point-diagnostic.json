@@ -1,0 +1,53 @@
+{
+  "role": "rejected-development-diagnostic",
+  "sourceBase": "6a7c43af",
+  "generatedSourceSha256": "333b9facf0ad2456dcd290aeccb9b00e4208e52741de55525df65f6673ecc1ff",
+  "librarySha256": "3964540fc876a193520b3967fc666332615092882fc908027e43b6f15f5598cf",
+  "change": "Only export the previous DTW path transition instead of the current transition; initial token gets the initial path time. No recognition, model, worker, matching or timeline changes.",
+  "reference": "https://github.com/openai/whisper/blob/86098128c0b4f24f0e2aa2994de830614b474227/whisper/timing.py",
+  "referenceScope": "The reference computes word entry/exit boundaries and applies additional long-word and segment-boundary heuristics. This experiment only changes the raw entry point and does not implement the complete reference.",
+  "fixedWindowComparison": [
+    {
+      "windowStart": 15,
+      "windowSeconds": 15,
+      "recognitionIdentical": true,
+      "tokens": 47,
+      "medianTimestampChangeSeconds": -0.259999999999998,
+      "currentSupported": 47,
+      "onsetSupported": 47
+    },
+    {
+      "windowStart": 52,
+      "windowSeconds": 15,
+      "recognitionIdentical": true,
+      "tokens": 36,
+      "medianTimestampChangeSeconds": -0.2699999999999996,
+      "currentSupported": 36,
+      "onsetSupported": 36
+    }
+  ],
+  "activeCases": {
+    "aligned": {
+      "exitCode": 255,
+      "passed": false,
+      "acquisitionMs": 165048,
+      "affineAcquisitionMs": "none",
+      "trackingErrorP95": "unavailable",
+      "completedAnalyses": 8,
+      "reportSha256": "9b2da47625b695f6e2a849187de440304627e9b935529f5f96b5c55260646440"
+    },
+    "faster": {
+      "exitCode": 255,
+      "passed": false,
+      "acquisitionMs": 33658,
+      "affineAcquisitionMs": "none",
+      "trackingErrorP95": 6.751461458333324,
+      "completedAnalyses": 13,
+      "reportSha256": "9d764e1dd75ed273f909efbddf649470829ad55a22627275b0efab4237cbeacc"
+    }
+  },
+  "promoted": false,
+  "productAccepted": false,
+  "conclusion": "Raw entry-point substitution loses initial anchors at the capture-window edge. Aligned film never locks within 165 seconds, while faster playback still fails accuracy. Do not deploy this timing change or infer an arbitrary constant subtraction from the fixed-window shifts.",
+  "retainedCapturedAudioOrTranscript": false
+}

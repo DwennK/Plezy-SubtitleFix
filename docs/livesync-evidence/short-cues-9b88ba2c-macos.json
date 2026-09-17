@@ -1,0 +1,55 @@
+{
+  "sourceCommit": "9b88ba2cfd523fd179996c2e32d10116b58565d5",
+  "workflow": 35187016683,
+  "conclusion": "success",
+  "nativeContracts": {
+    "passed": 14,
+    "failed": 0
+  },
+  "artifactId": 10482853468,
+  "archiveSha256": "069caad3719b498f93034376d73a22d2c9d816122ddafb36839ba0f4a2adcf34",
+  "executableSha256": "aaed0ecf2bd1a4ce975a01e5c3899252cdf3c30fddbce8f364eae89e2267dabb",
+  "signatureVerified": true,
+  "runtimeInputsVerified": true,
+  "bundledHashesVerified": true,
+  "installed": false,
+  "productionControllerCases": {
+    "calibration": {
+      "acquisitionMs": 24569,
+      "absoluteOffsetError": 0.21364583333333087,
+      "cacheRestoreMs": 677,
+      "wrongCachedGapRecoveryValidated": true,
+      "knownRegionRestoredAfterSeek": true,
+      "unknownSeekClearsAutomaticOnly": true,
+      "audioDelayCompositionAndPreservation": true,
+      "manualDelayDuringAndAfter": true,
+      "tapDisabledOnClose": true,
+      "inferenceSeconds": [
+        2.240386041,
+        2.255927125
+      ],
+      "reportSha256": "92f16dbfd79b43c883a032eeb88c7be00eaf58146dbb695997cc8cd009d4c99c"
+    },
+    "intro-90": {
+      "acquisitionMs": 118581,
+      "absoluteOffsetError": 0.24095833333333871,
+      "cacheRestoreMs": 624,
+      "wrongCachedGapRecoveryValidated": true,
+      "knownRegionRestoredAfterSeek": true,
+      "unknownSeekClearsAutomaticOnly": true,
+      "audioDelayCompositionAndPreservation": true,
+      "manualDelayDuringAndAfter": true,
+      "tapDisabledOnClose": true,
+      "inferenceSeconds": [
+        2.055294459,
+        1.760896167,
+        1.926513125,
+        2.024356041
+      ],
+      "reportSha256": "f6e42f5e205c61d3178f60625895afce3df2aa0721f5dc918893570c6a5c1423"
+    }
+  },
+  "audiblePlaybackValidated": false,
+  "precisionMatrixAccepted": false,
+  "newerUpstreamAvailable": "f88feaa8e34fcb2141e34e619054a1f30590a266"
+}

@@ -72,6 +72,7 @@ class TranscriptContext {
             token.end,
             token.score,
             token.hasTimestamp && token.start >= source.windowStart + 0.1 && token.end <= source.windowEnd,
+            speechSupport: token.speechSupport,
           ),
       ]);
 }
@@ -83,11 +84,19 @@ class TranscriptEvidence {
     this.windowCount, {
     this.segmented = false,
     this.anchorRejections = const {},
+    this.speechTimingRejected = false,
   });
   final TranscriptMatchResult match;
   final List<SubtitleAnchor> anchors;
+  double? get latestAnchorMediaTime => anchors.fold<double?>(
+    null,
+    (latest, anchor) => latest == null || anchor.mediaTime > latest ? anchor.mediaTime : latest,
+  );
   final int windowCount;
   final bool segmented;
+
+  /// May request one retry; this never authorizes a mapping change.
+  final bool speechTimingRejected;
 
   /// Opt-in counts only. Never includes phrases, token text or audio.
   final Map<String, int> anchorRejections;
@@ -99,14 +108,15 @@ class TranscriptEvidence {
 /// All accepted anchors reach the estimator, including conflicting groups;
 /// choosing only the strongest group could hide a contradictory edition.
 TranscriptEvidence _matchWindow(NativeTranscript source, SubtitleIndex index, int windowCount, bool diagnostics) {
-  final rejected = diagnostics ? <String, int>{} : null;
+  final rejected = <String, int>{};
   final whole = const TranscriptMatcher().find(source.segments.map((segment) => segment.text).join(' '), index);
   if (whole.status == TranscriptMatchStatus.matched) {
     return TranscriptEvidence(
       whole,
       const TemporalAligner().anchors(source, index, whole.passage!, rejectionCounts: rejected),
       windowCount,
-      anchorRejections: rejected ?? const {},
+      anchorRejections: diagnostics ? rejected : const {},
+      speechTimingRejected: (rejected['beginningUnsupportedSpeech'] ?? 0) > 0,
     );
   }
   // Budget viable groups, not raw segments: short noise fragments must not
@@ -118,11 +128,17 @@ TranscriptEvidence _matchWindow(NativeTranscript source, SubtitleIndex index, in
     return TranscriptEvidence(whole, const [], windowCount);
   }
   const matcher = TranscriptMatcher();
+  // Sound/music annotations already contribute no matching words. They must
+  // not spend the three-dialogue-segment context budget or isolate a short
+  // useful phrase. Keep every spoken segment, its original tokens and times.
+  final dialogue = source.segments
+      .where((segment) => const DialogueNormalizer().words(segment.text).isNotEmpty)
+      .toList();
   final groups = <List<NativeTranscriptSegment>>[];
-  for (var start = 0; start < source.segments.length; start++) {
-    for (var count = 1; count <= 3 && start + count <= source.segments.length; count++) {
-      if (start == 0 && count == source.segments.length) continue;
-      final segments = source.segments.sublist(start, start + count);
+  for (var start = 0; start < dialogue.length; start++) {
+    for (var count = 1; count <= 3 && start + count <= dialogue.length; count++) {
+      if (start == 0 && count == dialogue.length && dialogue.length == source.segments.length) continue;
+      final segments = dialogue.sublist(start, start + count);
       final words = const DialogueNormalizer().words(segments.map((segment) => segment.text).join(' '));
       if (words.length < matcher.minimumWords ||
           words.length > 128 ||
@@ -158,13 +174,20 @@ TranscriptEvidence _matchWindow(NativeTranscript source, SubtitleIndex index, in
     if (matched.isNotEmpty && (best == null || match.passage!.similarity > best.passage!.similarity)) best = match;
   }
   return best == null
-      ? TranscriptEvidence(whole, const [], windowCount, anchorRejections: rejected ?? const {})
+      ? TranscriptEvidence(
+          whole,
+          const [],
+          windowCount,
+          anchorRejections: diagnostics ? rejected : const {},
+          speechTimingRejected: (rejected['beginningUnsupportedSpeech'] ?? 0) > 0,
+        )
       : TranscriptEvidence(
           best,
           List.unmodifiable(anchors.values),
           windowCount,
           segmented: true,
-          anchorRejections: rejected ?? const {},
+          anchorRejections: diagnostics ? rejected : const {},
+          speechTimingRejected: (rejected['beginningUnsupportedSpeech'] ?? 0) > 0,
         );
 }
 

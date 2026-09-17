@@ -1,0 +1,118 @@
+{
+  "source": "9ef259057bde1453ce35c6a8f321a8609dd08fa7",
+  "runId": 35191882234,
+  "conclusion": "failure",
+  "controllerCases": {
+    "calibration": {
+      "passed": true,
+      "acquisitionMs": 25195,
+      "absoluteOffsetError": 0.16199999999999193,
+      "cacheRestoreMs": 1655,
+      "inferenceBackend": "avx2-cpu",
+      "wrongCachedGapRecoveryValidated": true,
+      "audiblePlaybackValidated": false,
+      "inferenceSeconds": [
+        8.6815101
+      ],
+      "evidenceSha256": "f6946bfaecbbda726a73bc50735e03430d5b65ed9a0369e680df5d9e1fcb84e4"
+    },
+    "intro-90": {
+      "passed": true,
+      "acquisitionMs": 126453,
+      "absoluteOffsetError": 0.23562499999999886,
+      "cacheRestoreMs": 1646,
+      "inferenceBackend": "avx2-cpu",
+      "wrongCachedGapRecoveryValidated": true,
+      "audiblePlaybackValidated": false,
+      "inferenceSeconds": [
+        7.6634032,
+        8.3480444,
+        9.2346094,
+        10.3060857
+      ],
+      "evidenceSha256": "9d8841879e15d99051b82ad73a5170b4bf568058cb119ba6437482b74762c97e"
+    }
+  },
+  "rendererTrials": [
+    {
+      "trial": "trial-1-off",
+      "state": "baseline",
+      "reason": "Renderer failed at baseline",
+      "processExitCode": -1073740771,
+      "passed": false,
+      "elapsedSeconds": 1.1241197,
+      "source": "dedicated synthetic renderer process",
+      "processExited": true,
+      "processObserved": true,
+      "nativeDebugger": false
+    },
+    {
+      "trial": "trial-2-off",
+      "processObserved": true,
+      "source": "dedicated synthetic renderer process",
+      "processExitCode": -1073740771,
+      "nativeDebugger": false,
+      "elapsedSeconds": 0.3739048,
+      "state": "baseline",
+      "passed": false,
+      "reason": "Renderer failed at baseline",
+      "processExited": true
+    },
+    {
+      "trial": "trial-3-off",
+      "processObserved": true,
+      "nativeDebugger": false,
+      "elapsedSeconds": 0.4665688,
+      "state": "baseline",
+      "processExited": true,
+      "processExitCode": -1073740771,
+      "reason": "Renderer failed at baseline",
+      "source": "dedicated synthetic renderer process",
+      "passed": false
+    },
+    {
+      "trial": "trial-4-off",
+      "processObserved": true,
+      "state": "baseline",
+      "source": "dedicated synthetic renderer process",
+      "processExitCode": -1073740771,
+      "passed": false,
+      "elapsedSeconds": 0.4619944,
+      "nativeDebugger": false,
+      "reason": "Renderer failed at baseline",
+      "processExited": true
+    },
+    {
+      "trial": "trial-5-off",
+      "reason": "Renderer failed at baseline",
+      "processObserved": true,
+      "source": "dedicated synthetic renderer process",
+      "processExitCode": -1073740771,
+      "nativeDebugger": false,
+      "processExited": true,
+      "passed": false,
+      "state": "baseline",
+      "elapsedSeconds": 0.4829534
+    },
+    {
+      "trial": "trial-6-off",
+      "processExited": true,
+      "elapsedSeconds": 0.4143838,
+      "processObserved": true,
+      "nativeDebugger": false,
+      "processExitCode": -1073740771,
+      "source": "dedicated synthetic renderer process",
+      "state": "baseline",
+      "reason": "Renderer failed at baseline",
+      "passed": false
+    }
+  ],
+  "inferenceBudgetSeconds": 3,
+  "inferenceBudgetPassed": false,
+  "productAccepted": false,
+  "limitations": [
+    "All six uninstrumented dedicated renderer trials exited before baseline with 0xc000041d; underlying fault cause remains unknown.",
+    "Production-controller success with null audio does not prove a working native renderer or audible alignment.",
+    "Observed inference times exceed the frozen 3-second budget; test passed fields cover their own scope only."
+  ]
+}

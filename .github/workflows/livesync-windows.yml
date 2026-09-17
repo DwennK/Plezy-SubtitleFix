@@ -31,6 +31,18 @@ on:
         description: Run only the dedicated renderer after a completed native/application probe run
         type: boolean
         default: false
+      debug_renderer:
+        description: Observe native first/second-chance exceptions in the synthetic renderer (timing changes under debugger)
+        type: boolean
+        default: false
+      observe_renderer_faults:
+        description: Record bounded first-chance fault stacks in a test-only runner, without a debugger
+        type: boolean
+        default: false
+      compare_renderer_observer:
+        description: Six fixed launches (normal build, or observer off/on/on/off/off/on when enabled)
+        type: boolean
+        default: false
       seed_wrong_gap:
         description: Seed a wrong cached video-only region and verify recovery (use with immediate subtitles and no startup seek)
         type: boolean
@@ -69,6 +81,24 @@ jobs:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
         with:
           persist-credentials: false
+      - name: Build and verify the optional native exception observer
+        if: ${{ inputs.debug_renderer || inputs.observe_renderer_faults || inputs.compare_renderer_observer }}
+        shell: pwsh
+        run: |
+          if ('${{ inputs.debug_renderer }}' -eq 'true' -and '${{ inputs.observe_renderer_faults }}' -eq 'true') { throw 'Select one observation mechanism' }
+          if ('${{ inputs.compare_renderer_observer }}' -eq 'true' -and '${{ inputs.debug_renderer }}' -eq 'true') { throw 'Fixed trials do not run under an external debugger' }
+          foreach ($script in @('capture_windows_renderer.ps1', 'compare_windows_renderer_observer.ps1')) {
+            $tokens = $null; $parseErrors = $null
+            $null = [System.Management.Automation.Language.Parser]::ParseFile((Join-Path $PWD "scripts/livesync/$script"), [ref]$tokens, [ref]$parseErrors)
+            if ($parseErrors.Count -gt 0) { throw "PowerShell parsing failed: $script $parseErrors" }
+          }
+          New-Item -ItemType Directory -Force build/livesync/evidence | Out-Null
+          cmake -S scripts/livesync/windows_debugger -B build/livesync/windows-debugger -A x64
+          if ($LASTEXITCODE -ne 0) { throw 'Debugger configure failed' }
+          cmake --build build/livesync/windows-debugger --config Release
+          if ($LASTEXITCODE -ne 0) { throw 'Debugger build failed' }
+          python scripts/livesync/windows_debugger/test_debugger.py build/livesync/windows-debugger/Release/livesync_windows_debugger.exe > build/livesync/evidence/debugger-contracts.json
+          if ($LASTEXITCODE -ne 0) { throw 'Debugger contracts failed' }
       - name: Stage the patched native package with checked build provenance
         shell: pwsh
         env:
@@ -176,6 +206,7 @@ jobs:
           if-no-files-found: error
           retention-days: 14
       - name: Verify the Dart isolate against the bundled native runtime
+        id: native_isolate
         if: ${{ !inputs.renderer_only }}
         shell: pwsh
         run: |
@@ -225,11 +256,53 @@ jobs:
           New-Item -ItemType Directory -Force build/livesync/evidence/renderer | Out-Null
           $evidence = (Resolve-Path build/livesync/evidence/renderer).Path
           ffmpeg -version > build/livesync/evidence/renderer/fixture-generator.txt
-          flutter build windows "--$env:FLUTTER_BUILD_MODE" --no-pub --target tool/livesync_player_probe.dart "--dart-define=LIVESYNC_FIXTURE_DIR=$fixture" "--dart-define=LIVESYNC_RENDERER_AUTOMATION_DIR=$evidence"
-          if ($LASTEXITCODE -ne 0) { throw 'Dedicated renderer build failed' }
-          ./scripts/livesync/capture_windows_renderer.ps1 -Executable "$env:APP_BUNDLE/plezy_livesync.exe" -OutputDirectory $evidence
+          $observeFaults = '${{ inputs.observe_renderer_faults }}' -eq 'true'
+          $compareObserver = '${{ inputs.compare_renderer_observer }}' -eq 'true'
+          $automation = if ($compareObserver) { Join-Path $evidence 'active' } else { $evidence }
+          $buildArguments = @('build', 'windows', "--$env:FLUTTER_BUILD_MODE", '--no-pub', '--target', 'tool/livesync_player_probe.dart', "--dart-define=LIVESYNC_FIXTURE_DIR=$fixture", "--dart-define=LIVESYNC_RENDERER_AUTOMATION_DIR=$automation")
+          try {
+            if ($observeFaults) {
+              flutter @buildArguments --config-only
+              if ($LASTEXITCODE -ne 0) { throw 'Diagnostic Flutter configuration failed' }
+              cmake -S windows -B build/windows/x64 -DPLEZY_LIVESYNC_EXCEPTION_DIAGNOSTIC=ON
+              if ($LASTEXITCODE -ne 0) { throw 'Native fault observer configuration failed' }
+            }
+            flutter @buildArguments
+            if ($LASTEXITCODE -ne 0) { throw 'Dedicated renderer build failed' }
+            $observerFlags = @(Get-Content build/windows/x64/CMakeCache.txt | Where-Object { $_ -match '^PLEZY_LIVESYNC_EXCEPTION_DIAGNOSTIC:BOOL=' })
+            $expectedFlag = if ($observeFaults) { 'ON' } else { 'OFF' }
+            if ($observerFlags.Count -ne 1 -or $observerFlags[0] -ne "PLEZY_LIVESYNC_EXCEPTION_DIAGNOSTIC:BOOL=$expectedFlag") { throw 'Compiled observer mode does not match the trial' }
+            if ($observeFaults) {
+              $env:LIVESYNC_RENDERER_EXCEPTION_LOG = Join-Path $evidence 'native-faults.jsonl'
+              @{ mechanism = 'test-only vectored first-chance observer'; binaries = @(
+                foreach ($name in @('plezy_livesync.exe', 'flutter_windows.dll', 'libmpv-2.dll')) {
+                  @{ name = $name; sha256 = (Get-FileHash "$env:APP_BUNDLE/$name" -Algorithm SHA256).Hash.ToLowerInvariant() }
+                }
+              ) } | ConvertTo-Json -Depth 5 | Set-Content (Join-Path $evidence 'native-fault-provenance.json')
+            }
+            $debugger = if ('${{ inputs.debug_renderer }}' -eq 'true') { 'build/livesync/windows-debugger/Release/livesync_windows_debugger.exe' } else { '' }
+            if ($compareObserver) {
+              ./scripts/livesync/compare_windows_renderer_observer.ps1 -Executable "$env:APP_BUNDLE/plezy_livesync.exe" -OutputDirectory $evidence -ObserverCompiledIn $observeFaults
+            } else {
+              ./scripts/livesync/capture_windows_renderer.ps1 -Executable "$env:APP_BUNDLE/plezy_livesync.exe" -OutputDirectory $evidence -DebuggerExecutable $debugger
+            }
+            if ($observeFaults -and -not $compareObserver) {
+              $records = Get-Content $env:LIVESYNC_RENDERER_EXCEPTION_LOG | ForEach-Object { $_ | ConvertFrom-Json }
+              if ($records[0].event -ne 'installed' -or $records[0].debuggerPresent) { throw 'Renderer observer was not active without a debugger' }
+            }
+          } finally {
+            if ($observeFaults) {
+              Remove-Item Env:LIVESYNC_RENDERER_EXCEPTION_LOG -ErrorAction SilentlyContinue
+              # Application artifact is preserved before this diagnostic build;
+              # subsequent controller builds must also restore normal dispatch.
+              cmake -S windows -B build/windows/x64 -DPLEZY_LIVESYNC_EXCEPTION_DIAGNOSTIC=OFF
+              if ($LASTEXITCODE -ne 0) { throw 'Could not disable test-only fault observation' }
+            }
+          }
       - name: Verify actual automatic correction in the production controller
-        if: ${{ !inputs.renderer_only }}
+        # Renderer failure still fails the job, but must not discard an
+        # independent controller observation when its native runtime passed.
+        if: ${{ !cancelled() && !inputs.renderer_only && steps.native_isolate.conclusion == 'success' }}
         shell: pwsh
         env:
           SUBTITLE_LOAD_DELAY_MS: ${{ inputs.subtitle_load_delay_ms || '0' }}

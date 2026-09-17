@@ -1,0 +1,38 @@
+{
+  "sourceCommit": "8b1328b7c478efed870bc1d3e1926108fd5c0d1e",
+  "workflow": 35185904926,
+  "conclusion": "success",
+  "platforms": {
+    "macos-26": {
+      "dart-tests.jsonl": {
+        "passed": 184,
+        "skipped": 1,
+        "failed": 0,
+        "sha256": "061ba5428dc1d6f984594be99186a9c509c5952d92e3cd9a4a195f699300f521"
+      },
+      "source-lifecycle-tests.jsonl": {
+        "passed": 1,
+        "skipped": 0,
+        "failed": 0,
+        "sha256": "d25cded49a73a3d35d6df9e6351c82d6923b1ffc8d86d53ce9b8bbe23dc69957"
+      }
+    },
+    "windows-latest": {
+      "dart-tests.jsonl": {
+        "passed": 183,
+        "skipped": 2,
+        "failed": 0,
+        "sha256": "65dd72a51d3e3b4445d7b875e7513df56def0329b8a5df9ef2c0a551f35d16b9"
+      },
+      "source-lifecycle-tests.jsonl": {
+        "passed": 1,
+        "skipped": 0,
+        "failed": 0,
+        "sha256": "a6f0a155bb38e503fec6f8f6474d3f7ddcf60a638d17de9406ab1567102a6508"
+      }
+    }
+  },
+  "installed": false,
+  "nativeAccuracyAccepted": false,
+  "audiblePlaybackValidated": false
+}

@@ -159,6 +159,9 @@ Future<Map<String, Object>> probe(Map<String, String> options) async {
       final trackingSamples = <Map<String, Object>>[];
       int? continuity;
       bool? voicePresent;
+      var timingMismatch = false;
+      var timingMismatchChecks = 0;
+      final analysisRequests = <Map<String, Object?>>[];
       var lastActivityMs = -500;
       var activityChecks = 0;
       var voiceChecks = 0;
@@ -171,6 +174,7 @@ Future<Map<String, Object>> probe(Map<String, String> options) async {
           context.clear();
           cadence.clear();
           voicePresent = null;
+          timingMismatch = false;
         }
         continuity = capture.continuity;
         try {
@@ -184,7 +188,14 @@ Future<Map<String, Object>> probe(Map<String, String> options) async {
             final result = evidence.match;
             final anchors = evidence.anchors;
             final learned = timeline.observe(anchors);
-            cadence.evidence(recognizedPassage: result.status == TranscriptMatchStatus.matched, learned: learned);
+            cadence.evidence(
+              recognizedPassage: result.status == TranscriptMatchStatus.matched,
+              learned: learned,
+              predictionContradicted: timeline.correctionAt(transcript.windowEnd).predictionContradicted,
+              speechTimingRejected: evidence.speechTimingRejected,
+              windowEnd: transcript.windowEnd,
+              latestAnchorMediaTime: evidence.latestAnchorMediaTime,
+            );
             final position = mediaPosition();
             if (position != null) {
               offset = timeline.correctionAt(position).position.automaticDelay;
@@ -200,6 +211,7 @@ Future<Map<String, Object>> probe(Map<String, String> options) async {
               'attempt': cadence.attempts,
               'windowStart': transcript.windowStart,
               'windowEnd': transcript.windowEnd,
+              'inferenceSeconds': transcript.elapsed,
               'validPrefixOnly': transcript.validPrefixOnly,
               'match': result.status.name,
               'contextWindows': evidence.windowCount,
@@ -222,6 +234,14 @@ Future<Map<String, Object>> probe(Map<String, String> options) async {
               'similarity': result.passage?.similarity,
               'anchors': anchors.map((anchor) => {'cue': anchor.cue, 'offset': anchor.offset}).toList(),
               'anchorRejections': evidence.anchorRejections,
+              'speechTimingRejected': evidence.speechTimingRejected,
+              'speechSupportCounts': {
+                for (final support in NativeSpeechSupport.values)
+                  support.name: transcript.segments
+                      .expand((s) => s.tokens)
+                      .where((t) => t.speechSupport == support)
+                      .length,
+              },
               if (!evidence.segmented && evidence.windowCount == 1 && result.passage != null)
                 'cueBeginningMatches': [
                   for (final pair in result.passage!.words)
@@ -261,7 +281,26 @@ Future<Map<String, Object>> probe(Map<String, String> options) async {
           activityMicros += micros;
           if (micros > activityMaxMicros) activityMaxMicros = micros;
           activityChecks++;
-          voicePresent = activity != null && activity.observedSeconds >= 4 ? activity.voiceSeconds >= 0.4 : null;
+          final validActivity =
+              activity != null &&
+              activity.generation == 1 &&
+              activity.continuity == continuity &&
+              activity.observedSeconds >= 4;
+          voicePresent = validActivity ? activity.voiceSeconds >= 0.4 : null;
+          timingMismatch = false;
+          if (validActivity) {
+            // Use the production controller's scheduling hint, including its
+            // broad tolerances; this must not create or move a timing anchor.
+            final start = timeline.correctionAt(activity.start).position.subtitleTime;
+            final end = timeline.correctionAt(activity.end).position.subtitleTime;
+            if (start != null && end != null && end > start) {
+              final expectedFraction = index.dialogueSecondsBetween(start, end) / (end - start);
+              final actualFraction = activity.voiceSeconds / activity.observedSeconds;
+              timingMismatch =
+                  expectedFraction < 0.05 && actualFraction > 0.35 || expectedFraction > 0.5 && actualFraction < 0.02;
+            }
+          }
+          if (timingMismatch) timingMismatchChecks++;
           if (voicePresent == true) voiceChecks++;
           lastActivityMs = clock.elapsedMilliseconds;
           if (tracking) {
@@ -276,6 +315,7 @@ Future<Map<String, Object>> probe(Map<String, String> options) async {
                 trackingSamples.add({
                   'mediaTime': position,
                   'regionKind': timeline.correctionAt(position).position.kind.name,
+                  'presentationSuppressionRequested': timeline.correctionAt(position).suppressSubtitles,
                   'automaticDelay': offset ?? 0,
                   'mappingAvailable': offset != null,
                   'nativeDelay': nativeDelay!,
@@ -293,11 +333,21 @@ Future<Map<String, Object>> probe(Map<String, String> options) async {
           synced: tracking && offset != null,
           established: established,
           voicePresent: voicePresent,
+          timingMismatch: timingMismatch,
         );
         if (capture.samples >= 128000 &&
             clock.elapsedMilliseconds - last >= interval &&
             engine.submitRecent(seconds: cadence.windowSeconds)) {
           last = clock.elapsedMilliseconds;
+          analysisRequests.add({
+            'elapsedMs': last,
+            'mediaTime': currentPosition,
+            'intervalMs': interval,
+            'windowSeconds': cadence.windowSeconds,
+            'voicePresent': voicePresent,
+            'timingMismatch': timingMismatch,
+            'established': established,
+          });
           cadence.submitted();
         }
         await Future<void>.delayed(const Duration(milliseconds: 100));
@@ -323,6 +373,8 @@ Future<Map<String, Object>> probe(Map<String, String> options) async {
         ],
         'activityChecks': activityChecks,
         'activityVoiceChecks': voiceChecks,
+        'activityTimingMismatchChecks': timingMismatchChecks,
+        'analysisRequests': analysisRequests,
         'activityTotalMicros': activityMicros,
         'activityMaxMicros': activityMaxMicros,
         'actualOffset': offset ?? 'none',

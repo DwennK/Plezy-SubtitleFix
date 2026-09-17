@@ -1,0 +1,215 @@
+{
+  "schema": 1,
+  "sourceSha": "b86eb6b62649a42d297ad540ab892eb6f70c20cd",
+  "runs": {
+    "general": {
+      "id": 35160931778,
+      "conclusion": "success"
+    },
+    "desktopComponents": {
+      "id": 35160933829,
+      "conclusion": "success"
+    },
+    "macosApp": {
+      "id": 35160935964,
+      "conclusion": "success",
+      "appArtifact": 10473656137,
+      "contractsArtifact": 10473472655
+    },
+    "windowsApp": {
+      "id": 35160937804,
+      "conclusion": "failure",
+      "appArtifact": 10473511654,
+      "contractsArtifact": 10473955998
+    }
+  },
+  "controllerReports": {
+    "macos/calibration-player-calibration.json": {
+      "sha256": "0dfebaba0a672a520775ec7ac30e4f022db60c9295dbfe8ebe1533710e203a95",
+      "data": {
+        "kind": "actual-plezy-production-controller-calibration",
+        "seekDuringStartupValidated": false,
+        "wrongCachedGapRecoveryValidated": true,
+        "cacheAlgorithm": "bounded-affine-speech-v3",
+        "cacheFixtureIsSynthetic": true,
+        "captureDuringSubtitleLoadValidated": false,
+        "platform": "macos",
+        "flutterBuildMode": "release",
+        "inferenceBackend": "portable-cpu",
+        "expectedOffset": -100.0,
+        "absoluteOffsetError": 0.2136250000000075,
+        "modelId": "base.en-q5_1",
+        "modelSha256": "4baf70dd0d7c4247ba2b81fafd9c01005ac77c2f9ef064e00dcf195d0e2fdd2f",
+        "actualOffset": -100.21362500000001,
+        "acquisitionMs": 25136,
+        "acquisitionTargetMs": 45000,
+        "acquisitionTargetPassed": true,
+        "audiblePlaybackValidated": false,
+        "pcmOrTranscriptPersisted": false,
+        "knownRegionRestoredAfterSeek": true,
+        "unknownSeekClearsAutomaticOnly": true,
+        "audioDelayCompositionAndPreservation": true,
+        "cacheRestoreMs": 615,
+        "persistentCacheKnownAndUnknownRegions": true,
+        "manualDelayDuringAndAfter": true,
+        "tapDisabledOnClose": true,
+        "passed": true,
+        "inferenceSeconds": [
+          2.224932,
+          2.612429375
+        ]
+      }
+    },
+    "macos/calibration-player-intro-90.json": {
+      "sha256": "3c38f622a0d7924fc04d0a3e71e5cf4fec5a79543918fd4d562323b5bffe22f0",
+      "data": {
+        "kind": "actual-plezy-production-controller-calibration",
+        "seekDuringStartupValidated": false,
+        "wrongCachedGapRecoveryValidated": true,
+        "cacheAlgorithm": "bounded-affine-speech-v3",
+        "cacheFixtureIsSynthetic": true,
+        "captureDuringSubtitleLoadValidated": false,
+        "platform": "macos",
+        "flutterBuildMode": "release",
+        "inferenceBackend": "portable-cpu",
+        "expectedOffset": 90.0,
+        "absoluteOffsetError": 0.23833333333332973,
+        "modelId": "base.en-q5_1",
+        "modelSha256": "4baf70dd0d7c4247ba2b81fafd9c01005ac77c2f9ef064e00dcf195d0e2fdd2f",
+        "actualOffset": 89.76166666666667,
+        "acquisitionMs": 118111,
+        "acquisitionTargetMs": 135000,
+        "acquisitionTargetPassed": true,
+        "audiblePlaybackValidated": false,
+        "pcmOrTranscriptPersisted": false,
+        "knownRegionRestoredAfterSeek": true,
+        "unknownSeekClearsAutomaticOnly": true,
+        "audioDelayCompositionAndPreservation": true,
+        "cacheRestoreMs": 594,
+        "persistentCacheKnownAndUnknownRegions": true,
+        "manualDelayDuringAndAfter": true,
+        "tapDisabledOnClose": true,
+        "passed": true,
+        "inferenceSeconds": [
+          1.940251417,
+          2.424740292,
+          3.062198375,
+          2.27467625
+        ]
+      }
+    },
+    "windows/calibration-player-calibration.json": {
+      "sha256": "ac0731117bf62a83a49a32c75d7151aa728fe9b3015d9d1f53f50d194fcde6ce",
+      "data": {
+        "kind": "actual-plezy-production-controller-calibration",
+        "seekDuringStartupValidated": false,
+        "wrongCachedGapRecoveryValidated": true,
+        "cacheAlgorithm": "bounded-affine-speech-v3",
+        "cacheFixtureIsSynthetic": true,
+        "captureDuringSubtitleLoadValidated": false,
+        "platform": "windows",
+        "flutterBuildMode": "release",
+        "inferenceBackend": "avx2-cpu",
+        "expectedOffset": -100.0,
+        "absoluteOffsetError": 0.20566666666664446,
+        "modelId": "base.en",
+        "modelSha256": "a03779c86df3323075f5e796cb2ce5029f00ec8869eee3fdfb897afe36c6d002",
+        "actualOffset": -100.20566666666664,
+        "acquisitionMs": 44197,
+        "acquisitionTargetMs": 45000,
+        "acquisitionTargetPassed": true,
+        "audiblePlaybackValidated": false,
+        "pcmOrTranscriptPersisted": false,
+        "knownRegionRestoredAfterSeek": true,
+        "unknownSeekClearsAutomaticOnly": true,
+        "audioDelayCompositionAndPreservation": true,
+        "cacheRestoreMs": 1815,
+        "persistentCacheKnownAndUnknownRegions": true,
+        "manualDelayDuringAndAfter": true,
+        "tapDisabledOnClose": true,
+        "passed": true,
+        "inferenceSeconds": [
+          6.7367121,
+          7.1596667,
+          7.6908342
+        ]
+      }
+    },
+    "windows/calibration-player-intro-90.json": {
+      "sha256": "9928c4bf0111e80039e9f442a0f50284a5d96151cc889475d5d92b6cdbf58099",
+      "data": {
+        "kind": "actual-plezy-production-controller-calibration",
+        "seekDuringStartupValidated": false,
+        "wrongCachedGapRecoveryValidated": true,
+        "cacheAlgorithm": "bounded-affine-speech-v3",
+        "cacheFixtureIsSynthetic": true,
+        "captureDuringSubtitleLoadValidated": false,
+        "platform": "windows",
+        "flutterBuildMode": "release",
+        "inferenceBackend": "avx2-cpu",
+        "expectedOffset": 90.0,
+        "absoluteOffsetError": 0.2463333333333395,
+        "modelId": "base.en",
+        "modelSha256": "a03779c86df3323075f5e796cb2ce5029f00ec8869eee3fdfb897afe36c6d002",
+        "actualOffset": 89.75366666666666,
+        "acquisitionMs": 124492,
+        "acquisitionTargetMs": 135000,
+        "acquisitionTargetPassed": true,
+        "audiblePlaybackValidated": false,
+        "pcmOrTranscriptPersisted": false,
+        "knownRegionRestoredAfterSeek": true,
+        "unknownSeekClearsAutomaticOnly": true,
+        "audioDelayCompositionAndPreservation": true,
+        "cacheRestoreMs": 1638,
+        "persistentCacheKnownAndUnknownRegions": true,
+        "manualDelayDuringAndAfter": true,
+        "tapDisabledOnClose": true,
+        "passed": true,
+        "inferenceSeconds": [
+          6.791951,
+          7.4065078,
+          7.6542934,
+          8.5609864
+        ]
+      }
+    }
+  },
+  "rendererFailure": {
+    "driver-failure.json": {
+      "sha256": "28a8f1cc2cf7190640cbf8398366e1be283225780c4cf352dc99d60d901478d4",
+      "data": {
+        "processExited": true,
+        "processExitCode": -1073740771,
+        "passed": false,
+        "state": "baseline",
+        "reason": "Renderer failed at baseline",
+        "elapsedSeconds": 1.0904263,
+        "source": "dedicated synthetic renderer process"
+      }
+    },
+    "process-fault-events.json": {
+      "sha256": "336fd415b113f5caf442cc993e238c17fd62b2eb26bfddccbd18aeab04cd7a16",
+      "data": {
+        "waitedForExitedProcess": true,
+        "events": [],
+        "queryErrorId": null,
+        "available": true
+      }
+    }
+  },
+  "packagingVerification": {
+    "macosArchiveSha256": "e6966a60d2a869a1fdb3d252129fc9d5a8d96db9f67ba9499cc4622e3afb4ad4",
+    "macosBundledRuntimeHashesVerified": true,
+    "windowsRuntimeHashesVerified": true,
+    "bothSpeechModelLicensesPresent": true,
+    "inferenceAbi": 2
+  },
+  "fullProductAcceptance": false,
+  "limitations": [
+    "Windows renderer exits before baseline with 0xc000041d. Five-second Windows event wait is available but yields no event; the underlying module and exception remain unknown.",
+    "Controller passes are independent of the failed renderer. They do not turn the full Windows run green.",
+    "Calibration compares authored SRT timings, not independent acoustic-onset truth. Audio is not validated audibly; Windows rendering uses WARP.",
+    "Observed Windows inference is 6.737\u20138.561 seconds; the three-second p95 budget is not demonstrated.",
+    "The later cadence and normalized-empty-segment fixes are not included in this exact source."
+  ]
+}

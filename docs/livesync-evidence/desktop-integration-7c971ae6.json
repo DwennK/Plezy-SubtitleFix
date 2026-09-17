@@ -1,0 +1,222 @@
+{
+  "schema": 1,
+  "sourceSha": "7c971ae64b589ac8fbdb533211475391fac35065",
+  "runs": {
+    "general": {
+      "id": 35164338511,
+      "conclusion": "success"
+    },
+    "desktopComponents": {
+      "id": 35164340480,
+      "conclusion": "success"
+    },
+    "macosApp": {
+      "id": 35164364040,
+      "conclusion": "success",
+      "appArtifact": 10473984933,
+      "contractsArtifact": 10474392438
+    },
+    "windowsApp": {
+      "id": 35165058631,
+      "conclusion": "failure",
+      "appArtifact": 10475286711,
+      "contractsArtifact": 10474769687
+    }
+  },
+  "controllerReports": {
+    "macos/calibration-player-calibration.json": {
+      "sha256": "e3bc75eae97d2dffb947b0681a789eb418dfa2eee820221c1aa6de5f7d309867",
+      "data": {
+        "kind": "actual-plezy-production-controller-calibration",
+        "seekDuringStartupValidated": false,
+        "wrongCachedGapRecoveryValidated": true,
+        "cacheAlgorithm": "bounded-affine-speech-v3",
+        "cacheFixtureIsSynthetic": true,
+        "captureDuringSubtitleLoadValidated": false,
+        "platform": "macos",
+        "flutterBuildMode": "release",
+        "inferenceBackend": "portable-cpu",
+        "expectedOffset": -100.0,
+        "absoluteOffsetError": 0.21364583333333087,
+        "modelId": "base.en-q5_1",
+        "modelSha256": "4baf70dd0d7c4247ba2b81fafd9c01005ac77c2f9ef064e00dcf195d0e2fdd2f",
+        "actualOffset": -100.21364583333333,
+        "acquisitionMs": 25129,
+        "acquisitionTargetMs": 45000,
+        "acquisitionTargetPassed": true,
+        "audiblePlaybackValidated": false,
+        "pcmOrTranscriptPersisted": false,
+        "knownRegionRestoredAfterSeek": true,
+        "unknownSeekClearsAutomaticOnly": true,
+        "audioDelayCompositionAndPreservation": true,
+        "cacheRestoreMs": 618,
+        "persistentCacheKnownAndUnknownRegions": true,
+        "manualDelayDuringAndAfter": true,
+        "tapDisabledOnClose": true,
+        "passed": true,
+        "inferenceSeconds": [
+          2.121952042,
+          2.755937458
+        ]
+      }
+    },
+    "macos/calibration-player-intro-90.json": {
+      "sha256": "eb160912c61d411a461f31bedb4aad7da5551a10411ef319c286ec5f16352f72",
+      "data": {
+        "kind": "actual-plezy-production-controller-calibration",
+        "seekDuringStartupValidated": false,
+        "wrongCachedGapRecoveryValidated": true,
+        "cacheAlgorithm": "bounded-affine-speech-v3",
+        "cacheFixtureIsSynthetic": true,
+        "captureDuringSubtitleLoadValidated": false,
+        "platform": "macos",
+        "flutterBuildMode": "release",
+        "inferenceBackend": "portable-cpu",
+        "expectedOffset": 90.0,
+        "absoluteOffsetError": 0.22762499999998909,
+        "modelId": "base.en-q5_1",
+        "modelSha256": "4baf70dd0d7c4247ba2b81fafd9c01005ac77c2f9ef064e00dcf195d0e2fdd2f",
+        "actualOffset": 89.77237500000001,
+        "acquisitionMs": 118729,
+        "acquisitionTargetMs": 135000,
+        "acquisitionTargetPassed": true,
+        "audiblePlaybackValidated": false,
+        "pcmOrTranscriptPersisted": false,
+        "knownRegionRestoredAfterSeek": true,
+        "unknownSeekClearsAutomaticOnly": true,
+        "audioDelayCompositionAndPreservation": true,
+        "cacheRestoreMs": 617,
+        "persistentCacheKnownAndUnknownRegions": true,
+        "manualDelayDuringAndAfter": true,
+        "tapDisabledOnClose": true,
+        "passed": true,
+        "inferenceSeconds": [
+          2.555978542,
+          2.304219875,
+          2.279348875,
+          3.024559667
+        ]
+      }
+    },
+    "windows/calibration-player-calibration.json": {
+      "sha256": "cb2a2ed0edea9dd744676dd7ba6ef3d90519bacb37573b4e23d68b40f3e5d63a",
+      "data": {
+        "kind": "actual-plezy-production-controller-calibration",
+        "seekDuringStartupValidated": false,
+        "wrongCachedGapRecoveryValidated": true,
+        "cacheAlgorithm": "bounded-affine-speech-v3",
+        "cacheFixtureIsSynthetic": true,
+        "captureDuringSubtitleLoadValidated": false,
+        "platform": "windows",
+        "flutterBuildMode": "release",
+        "inferenceBackend": "avx2-cpu",
+        "expectedOffset": -100.0,
+        "absoluteOffsetError": 0.16066666666665697,
+        "modelId": "base.en",
+        "modelSha256": "a03779c86df3323075f5e796cb2ce5029f00ec8869eee3fdfb897afe36c6d002",
+        "actualOffset": -100.16066666666666,
+        "acquisitionMs": 24017,
+        "acquisitionTargetMs": 45000,
+        "acquisitionTargetPassed": true,
+        "audiblePlaybackValidated": false,
+        "pcmOrTranscriptPersisted": false,
+        "knownRegionRestoredAfterSeek": true,
+        "unknownSeekClearsAutomaticOnly": true,
+        "audioDelayCompositionAndPreservation": true,
+        "cacheRestoreMs": 1650,
+        "persistentCacheKnownAndUnknownRegions": true,
+        "manualDelayDuringAndAfter": true,
+        "tapDisabledOnClose": true,
+        "passed": true,
+        "inferenceSeconds": [
+          10.1837279
+        ]
+      }
+    },
+    "windows/calibration-player-intro-90.json": {
+      "sha256": "0f93ebfa960ccb2f8829efb4b2ef05f3e8efa13674bcd625fb2d23193156360b",
+      "data": {
+        "kind": "actual-plezy-production-controller-calibration",
+        "seekDuringStartupValidated": false,
+        "wrongCachedGapRecoveryValidated": true,
+        "cacheAlgorithm": "bounded-affine-speech-v3",
+        "cacheFixtureIsSynthetic": true,
+        "captureDuringSubtitleLoadValidated": false,
+        "platform": "windows",
+        "flutterBuildMode": "release",
+        "inferenceBackend": "avx2-cpu",
+        "expectedOffset": 90.0,
+        "absoluteOffsetError": 0.23299999999998988,
+        "modelId": "base.en",
+        "modelSha256": "a03779c86df3323075f5e796cb2ce5029f00ec8869eee3fdfb897afe36c6d002",
+        "actualOffset": 89.76700000000001,
+        "acquisitionMs": 127910,
+        "acquisitionTargetMs": 135000,
+        "acquisitionTargetPassed": true,
+        "audiblePlaybackValidated": false,
+        "pcmOrTranscriptPersisted": false,
+        "knownRegionRestoredAfterSeek": true,
+        "unknownSeekClearsAutomaticOnly": true,
+        "audioDelayCompositionAndPreservation": true,
+        "cacheRestoreMs": 1625,
+        "persistentCacheKnownAndUnknownRegions": true,
+        "manualDelayDuringAndAfter": true,
+        "tapDisabledOnClose": true,
+        "passed": true,
+        "inferenceSeconds": [
+          9.900728,
+          10.5181841,
+          11.460555,
+          12.2179649
+        ]
+      }
+    }
+  },
+  "rendererFailure": {
+    "driver-failure.json": {
+      "sha256": "434ffc3a921c7a2e97d545c11fb249d7ec500ffada1356b6ec507951494de2b8",
+      "data": {
+        "processObserved": true,
+        "processExited": true,
+        "source": "dedicated synthetic renderer process",
+        "reason": "Renderer failed at baseline",
+        "passed": false,
+        "state": "baseline",
+        "processExitCode": -1073740771,
+        "elapsedSeconds": 1.3565277,
+        "nativeDebugger": false
+      }
+    },
+    "preparation.json": {
+      "sha256": "6068fd09f3829358ba3ef2c3ed8390b9a876623d60fc36cdbb6fa9a18dd05027",
+      "data": {
+        "phase": "waiting-playback-restart"
+      }
+    },
+    "process-fault-events.json": {
+      "sha256": "744f6d5dfae921f46ced9020418039d3eb77895a33dc5062d58ec1c1c19b6468",
+      "data": {
+        "events": [],
+        "waitedForExitedProcess": true,
+        "available": true,
+        "queryErrorId": null
+      }
+    }
+  },
+  "packagingVerification": {
+    "macosArchiveSha256": "67b1cce68acb936ed3e451455cefb6a8ca17fea30254d46d58ad00becacc7e4f",
+    "macosBundledRuntimeHashesVerified": true,
+    "bundleId": "com.dwennk.plezy.livesync",
+    "version": "2.20.0",
+    "build": "150",
+    "inferenceAbi": 2
+  },
+  "fullProductAcceptance": false,
+  "limitations": [
+    "Windows native renderer still terminates at startup with 0xc000041d; independent controller success does not validate the full application.",
+    "Controller precision compares authored fixture SRT timings, not independent acoustic onset truth.",
+    "Observed Windows inference is 9.90\u201312.22 seconds; the three-second p95 requirement is unmet.",
+    "Scene-gap learning remains incomplete; the active crossing-scene replay still fails whole-scene p95.",
+    "No new app was installed or promoted from these results."
+  ]
+}

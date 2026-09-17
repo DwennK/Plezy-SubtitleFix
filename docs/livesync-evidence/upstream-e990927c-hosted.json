@@ -1,0 +1,48 @@
+{
+  "source": "e990927c9f662a3fc419788a3c253351dde7c183",
+  "upstream": "64dca5962a3dd24feee829235ed811298a74309b",
+  "runId": 35195990696,
+  "conclusion": "success",
+  "nativeContracts": {
+    "passed": 14,
+    "failed": 0,
+    "skipped": 0
+  },
+  "controllerCases": {
+    "calibration": {
+      "passed": true,
+      "acquisitionMs": 24557,
+      "absoluteOffsetError": 0.20497916666666072,
+      "cacheRestoreMs": 705,
+      "wrongCachedGapRecoveryValidated": true,
+      "knownRegionRestoredAfterSeek": true,
+      "unknownSeekClearsAutomaticOnly": true,
+      "audioDelayCompositionAndPreservation": true,
+      "persistentCacheKnownAndUnknownRegions": true,
+      "manualDelayDuringAndAfter": true,
+      "tapDisabledOnClose": true,
+      "audiblePlaybackValidated": false,
+      "evidenceSha256": "a3f8323587ee781b45f2e1d396e53b67d585f10edc4fe8a89f8dbf74d8566d83"
+    },
+    "intro-90": {
+      "passed": true,
+      "acquisitionMs": 117801,
+      "absoluteOffsetError": 0.2263124999999917,
+      "cacheRestoreMs": 549,
+      "wrongCachedGapRecoveryValidated": true,
+      "knownRegionRestoredAfterSeek": true,
+      "unknownSeekClearsAutomaticOnly": true,
+      "audioDelayCompositionAndPreservation": true,
+      "persistentCacheKnownAndUnknownRegions": true,
+      "manualDelayDuringAndAfter": true,
+      "tapDisabledOnClose": true,
+      "audiblePlaybackValidated": false,
+      "evidenceSha256": "d15bf77b42bf745372f62eb3df923c10f5e52ad342601233d8b347e54af4abca"
+    }
+  },
+  "productAccepted": false,
+  "limitations": [
+    "Null audio output and development fixtures only.",
+    "This predates fresh-region fitting; validation of the new candidate is tracked separately."
+  ]
+}

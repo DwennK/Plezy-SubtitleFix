@@ -1,0 +1,53 @@
+{
+  "role": "rejected-development-diagnostic",
+  "guardBase": "aaaa67c239b507db55c598588f3824a9635b43ac",
+  "domainProbeSource": "3947d5865b5b6866d42326f0347935ec0fe8fc96",
+  "generatedSourceSha256": "ee8a66f6655dcf9daa9cf866ba242560deff1e546f72f4ed9c45604da3e1d119",
+  "librarySha256": "5882f4395d929d3370b31f34ddbc061e22e9584e5f61ca46a26b1bd563cff332",
+  "change": "Use raw DTW entry points and cap only an excessively long first word using twice the median positive word duration, with the median capped at 0.7 seconds. Recognition, worker, matcher and timeline unchanged. This is not the complete reference word-timestamp implementation.",
+  "reference": "https://github.com/openai/whisper/blob/86098128c0b4f24f0e2aa2994de830614b474227/whisper/timing.py",
+  "activeCases": {
+    "film-aligned": {
+      "exitCode": 255,
+      "acquired": false,
+      "acquisitionMs": null,
+      "evaluationMs": 165092,
+      "trackingErrorMedian": null,
+      "trackingErrorP95": "unavailable",
+      "completedAnalyses": 8,
+      "accepted": false,
+      "reportSha256": "0bb397cf7ab0b43ab6093456b5f6418fe03e91ef28bb34950816d8f70fef06f5"
+    },
+    "sintel-calibration": {
+      "exitCode": 255,
+      "acquired": true,
+      "acquisitionMs": 34852,
+      "evaluationMs": 70011,
+      "trackingErrorMedian": 1.2972946166992188,
+      "trackingErrorP95": 1.2972946166992188,
+      "completedAnalyses": 7,
+      "accepted": false,
+      "reportSha256": "d0151810df025872ba20c66dab451c13af4a010afb0e06ac434fc420e9d07ba4"
+    }
+  },
+  "sintelInputVerification": {
+    "sourceSha256": "49b279400b6fcad23f6a8862ae65a2a22f21f249cd7576b09991880da221412b",
+    "partition": [
+      100,
+      175
+    ],
+    "pcmIdentical": true,
+    "sourcePartitionPcmBytes": 14400000,
+    "fixturePcmBytes": 14400000,
+    "pcmSha256": "441af48fc31401ba0c69c439624f709f647d336794932ffbd74d03c04ea18eae",
+    "subtitleSha256": "4ed7e1f1bc5ff69fe33606960e4c048ba6766237bf33b132fef76e1a92cb64b2",
+    "subtitleUnmodified": true,
+    "rawPcmPersisted": false
+  },
+  "filmFixtureEvidence": "film-drift-aaaa67c2.json",
+  "conclusion": "Reject: no acquisition on aligned film within 165 seconds; calibration acquires an offset wrong by 1.297 seconds. No production timing change. Cross-run capture phase differs, so the exact lost-anchor cause is not established by these active runs.",
+  "scope": "Development fixtures and standalone native playback with null audio; no production renderer or audible accuracy claim.",
+  "promoted": false,
+  "productAccepted": false,
+  "retainedCapturedAudioOrTranscript": false
+}

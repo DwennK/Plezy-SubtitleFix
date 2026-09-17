@@ -1,0 +1,59 @@
+{
+  "source": "9ef259057bde1453ce35c6a8f321a8609dd08fa7",
+  "runId": 35191846196,
+  "runUrl": "https://github.com/DwennK/Plezy-SubtitleFix/actions/runs/35191846196",
+  "conclusion": "success",
+  "nativeContracts": {
+    "passed": 14,
+    "failed": 0,
+    "skipped": 0
+  },
+  "controllerCases": {
+    "calibration": {
+      "passed": true,
+      "acquisitionMs": 25690,
+      "acquisitionTargetPassed": true,
+      "absoluteOffsetError": 0.22762499999998909,
+      "cacheRestoreMs": 705,
+      "wrongCachedGapRecoveryValidated": true,
+      "knownRegionRestoredAfterSeek": true,
+      "unknownSeekClearsAutomaticOnly": true,
+      "audioDelayCompositionAndPreservation": true,
+      "persistentCacheKnownAndUnknownRegions": true,
+      "manualDelayDuringAndAfter": true,
+      "tapDisabledOnClose": true,
+      "inferenceSeconds": [
+        2.969647541,
+        2.5534595
+      ],
+      "evidenceSha256": "e4bbd2adffb6737152c4cdeab527b21cf73ad77247348e5f133be36cca441b07"
+    },
+    "intro-90": {
+      "passed": true,
+      "acquisitionMs": 118161,
+      "acquisitionTargetPassed": true,
+      "absoluteOffsetError": 0.23295833333332894,
+      "cacheRestoreMs": 599,
+      "wrongCachedGapRecoveryValidated": true,
+      "knownRegionRestoredAfterSeek": true,
+      "unknownSeekClearsAutomaticOnly": true,
+      "audioDelayCompositionAndPreservation": true,
+      "persistentCacheKnownAndUnknownRegions": true,
+      "manualDelayDuringAndAfter": true,
+      "tapDisabledOnClose": true,
+      "inferenceSeconds": [
+        1.857570458,
+        2.725854416,
+        2.353717458,
+        2.083096334
+      ],
+      "evidenceSha256": "e0678a7a0d6ac57d8709d71d9842dcf0f016b80de070df6c1af981b8e6abd5ca"
+    }
+  },
+  "limitations": [
+    "Null audio output; no audible playback proof.",
+    "Development fixtures only; does not establish the complete precision or platform matrix.",
+    "Mentalist runtime still fails acquisition and sustained synchronization."
+  ],
+  "productAccepted": false
+}

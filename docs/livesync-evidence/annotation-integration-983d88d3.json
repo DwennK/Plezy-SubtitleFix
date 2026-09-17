@@ -1,0 +1,19 @@
+{
+  "schema": 1,
+  "sourceSha": "983d88d342600e41eaf31e8f35396f0370ce4136",
+  "cherryPickedFrom": "a9222184cafae5780b670cfee9b40dcc299c11e1",
+  "featureTestsPassed": 177,
+  "featureTestsSkipped": 1,
+  "plexSourceLifecycleTestsPassed": 1,
+  "focusedAnalysisPassed": true,
+  "evidenceSha256": {
+    "annotation-integration-tests.log": "7323dbd5383165d5ca05630092fe4ca4e85669ebc8752a6e75aec4637e589468",
+    "annotation-integration-analyze.log": "133f06cf6ee82c132a362756942fae64159a934c70d726f373b36cd4c5d37c41",
+    "annotation-integration-plex-test.log": "5cbac4e8fc2424bc678f9a04a175de0fb42de27aea955824b3def2bf961cc21f"
+  },
+  "fullApplicationBuiltAtThisCommit": false,
+  "installed": false,
+  "productionModelChanged": false,
+  "fullProductAcceptance": false,
+  "scope": "Combine desktop integration with the ignored whole-sound-segment normalization fix. Native libraries, model selection and renderer are unchanged."
+}

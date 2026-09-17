@@ -1,0 +1,431 @@
+{
+  "schema": 1,
+  "sourceSha": "689299bfdba498577368af4be6b981a9168283f6",
+  "runtimeSourceSha": "b18c9891c406fdd49fd96738dbc259cd4588504a",
+  "runId": 35156812108,
+  "conclusion": "failure",
+  "reports": {
+    "renderer/driver-failure.json": {
+      "sha256": "93025adddb7f558c69e0902b085c970479c92f98fffcbc9fea1886c555252f0a",
+      "data": {
+        "elapsedSeconds": 0.9474844,
+        "state": "baseline",
+        "reason": "Renderer failed at baseline",
+        "passed": false,
+        "source": "dedicated synthetic renderer process",
+        "processExitCode": -1073740771,
+        "processExited": true
+      }
+    },
+    "renderer/process-fault-events.json": {
+      "sha256": "e27b0f6af2de55992c48297f339facb5e4dbe9a6171ccc0699da722c485a0408",
+      "data": {
+        "available": false,
+        "events": []
+      }
+    },
+    "calibration-player-calibration.json": {
+      "sha256": "fb7ba95198fa7b7afee01fb8344414fb583f27c442b542a949430ba39a54d1bc",
+      "data": {
+        "kind": "actual-plezy-production-controller-calibration",
+        "subtitleLoadDelayMs": 0,
+        "seekDuringStartupValidated": false,
+        "wrongCachedGapRecoveryValidated": true,
+        "cacheAlgorithm": "bounded-affine-titles-v2",
+        "cacheFixtureIsSynthetic": true,
+        "seededGapEndSeconds": 75,
+        "startupDiagnostics": [
+          {
+            "observedElapsedMs": 25,
+            "startupSubtitlesMs": 17,
+            "mappingCacheEligible": true,
+            "restoredSegments": 1,
+            "restoredGaps": 1
+          },
+          {
+            "observedElapsedMs": 4063,
+            "startupCaptureMs": 4055,
+            "captureReadyBeforeSubtitles": false
+          },
+          {
+            "observedElapsedMs": 4064,
+            "startupReadyMs": 4056,
+            "startupBufferedSamples": 0
+          }
+        ],
+        "acquisitionDiagnostics": [
+          {
+            "selectedAudioLanguage": "eng",
+            "selectedSubtitleLanguage": "eng",
+            "subtitleExternal": true,
+            "subtitleSourceMatchesFixture": true
+          },
+          {
+            "observedElapsedMs": 25,
+            "startupSubtitlesMs": 17,
+            "mappingCacheEligible": true,
+            "restoredSegments": 1,
+            "restoredGaps": 1
+          },
+          {
+            "observedElapsedMs": 4063,
+            "startupCaptureMs": 4055,
+            "captureReadyBeforeSubtitles": false
+          },
+          {
+            "observedElapsedMs": 4064,
+            "startupReadyMs": 4056,
+            "startupBufferedSamples": 0
+          },
+          {
+            "observedElapsedMs": 4064,
+            "inferenceBackend": "avx2-cpu"
+          },
+          {
+            "observedElapsedMs": 12586,
+            "analysisRequest": 1,
+            "generation": 1,
+            "continuity": 3,
+            "activityVoicePresent": null,
+            "activityTimingMismatch": false,
+            "analysisIntervalMs": 12000,
+            "analysisWindowSeconds": 12.0
+          },
+          {
+            "observedElapsedMs": 20568,
+            "attempt": 1,
+            "generation": 1,
+            "continuity": 3,
+            "inferenceSeconds": 7.2280626,
+            "matchingMs": 2,
+            "windowStart": 3.680999999999998,
+            "windowEnd": 12.126999999999997,
+            "validPrefixOnly": true,
+            "match": "matched",
+            "similarity": 1.0,
+            "competitor": null,
+            "contextWindows": 1,
+            "segmentedMatch": false,
+            "anchors": [
+              {
+                "cue": 0,
+                "offset": -100.10900000000001
+              }
+            ]
+          },
+          {
+            "observedElapsedMs": 25071,
+            "analysisRequest": 2,
+            "generation": 1,
+            "continuity": 3,
+            "activityVoicePresent": true,
+            "activityTimingMismatch": false,
+            "analysisIntervalMs": 12000,
+            "analysisWindowSeconds": 15.0
+          },
+          {
+            "observedElapsedMs": 34082,
+            "attempt": 2,
+            "generation": 1,
+            "continuity": 3,
+            "inferenceSeconds": 8.8986871,
+            "matchingMs": 5,
+            "windowStart": 9.585687499999999,
+            "windowEnd": 24.5856875,
+            "validPrefixOnly": false,
+            "match": "matched",
+            "similarity": 1.0,
+            "competitor": null,
+            "contextWindows": 1,
+            "segmentedMatch": false,
+            "anchors": [
+              {
+                "cue": 1,
+                "offset": -100.1943125
+              },
+              {
+                "cue": 2,
+                "offset": -100.2343125
+              },
+              {
+                "cue": 3,
+                "offset": -100.30431250000001
+              }
+            ]
+          },
+          {
+            "observedElapsedMs": 34082,
+            "learnedMediaStart": 7.0356874999999945,
+            "learnedMediaEnd": 21.535688499999992,
+            "learnedSlope": 1.0,
+            "learnedSegments": 2
+          }
+        ],
+        "captureDuringSubtitleLoadValidated": false,
+        "platform": "windows",
+        "flutterBuildMode": "release",
+        "inferenceBackend": "avx2-cpu",
+        "expectedOffset": -100.0,
+        "absoluteOffsetError": 0.21431250000000546,
+        "maximumOffsetError": 0.75,
+        "modelId": "base.en",
+        "modelSha256": "a03779c86df3323075f5e796cb2ce5029f00ec8869eee3fdfb897afe36c6d002",
+        "fixtureCase": "calibration",
+        "introSilenceSeconds": 0,
+        "actualOffset": -100.2143125,
+        "reference": "authored Sintel SRT, not precise acoustic-onset ground truth",
+        "acquisitionMs": 34564,
+        "acquisitionTargetMs": 45000,
+        "acquisitionTargetPassed": true,
+        "nativeDelay": -100.08931,
+        "audioPartitionSeconds": [
+          100,
+          175
+        ],
+        "audioOutput": "pcm-to-NUL",
+        "audiblePlaybackValidated": false,
+        "pcmOrTranscriptPersisted": false,
+        "postConfirmationOffset": -100.1943125,
+        "knownRegionRestoredAfterSeek": true,
+        "unknownSeekClearsAutomaticOnly": true,
+        "audioDelayCompositionAndPreservation": true,
+        "cacheRestoreMs": 1714,
+        "persistentCacheKnownAndUnknownRegions": true,
+        "manualDelayDuringAndAfter": true,
+        "tapDisabledOnClose": true,
+        "passed": true
+      }
+    },
+    "calibration-player-intro-90.json": {
+      "sha256": "a696ebd9e3e9ecb0aae374b51c106b55cde486ca5b97f4bf56f3d2a7ce42465f",
+      "data": {
+        "kind": "actual-plezy-production-controller-calibration",
+        "subtitleLoadDelayMs": 0,
+        "seekDuringStartupValidated": false,
+        "wrongCachedGapRecoveryValidated": true,
+        "cacheAlgorithm": "bounded-affine-titles-v2",
+        "cacheFixtureIsSynthetic": true,
+        "seededGapEndSeconds": 165,
+        "startupDiagnostics": [
+          {
+            "observedElapsedMs": 21,
+            "startupSubtitlesMs": 8,
+            "mappingCacheEligible": true,
+            "restoredSegments": 1,
+            "restoredGaps": 1
+          },
+          {
+            "observedElapsedMs": 4291,
+            "startupCaptureMs": 4278,
+            "captureReadyBeforeSubtitles": false
+          },
+          {
+            "observedElapsedMs": 4291,
+            "startupReadyMs": 4278,
+            "startupBufferedSamples": 0
+          }
+        ],
+        "acquisitionDiagnostics": [
+          {
+            "selectedAudioLanguage": "eng",
+            "selectedSubtitleLanguage": "eng",
+            "subtitleExternal": true,
+            "subtitleSourceMatchesFixture": true
+          },
+          {
+            "observedElapsedMs": 21,
+            "startupSubtitlesMs": 8,
+            "mappingCacheEligible": true,
+            "restoredSegments": 1,
+            "restoredGaps": 1
+          },
+          {
+            "observedElapsedMs": 4291,
+            "startupCaptureMs": 4278,
+            "captureReadyBeforeSubtitles": false
+          },
+          {
+            "observedElapsedMs": 4291,
+            "startupReadyMs": 4278,
+            "startupBufferedSamples": 0
+          },
+          {
+            "observedElapsedMs": 4291,
+            "inferenceBackend": "avx2-cpu"
+          },
+          {
+            "observedElapsedMs": 12296,
+            "analysisRequest": 1,
+            "generation": 1,
+            "continuity": 3,
+            "activityVoicePresent": null,
+            "activityTimingMismatch": false,
+            "analysisIntervalMs": 12000,
+            "analysisWindowSeconds": 12.0
+          },
+          {
+            "observedElapsedMs": 19810,
+            "attempt": 1,
+            "generation": 1,
+            "continuity": 3,
+            "inferenceSeconds": 6.9760149,
+            "matchingMs": 2,
+            "windowStart": 4.267666666666673,
+            "windowEnd": 12.329666666666672,
+            "validPrefixOnly": false,
+            "match": "insufficientDialogue",
+            "similarity": null,
+            "competitor": null,
+            "contextWindows": 1,
+            "segmentedMatch": false,
+            "anchors": []
+          },
+          {
+            "observedElapsedMs": 90798,
+            "analysisRequest": 2,
+            "generation": 1,
+            "continuity": 3,
+            "activityVoicePresent": true,
+            "activityTimingMismatch": false,
+            "analysisIntervalMs": 12000,
+            "analysisWindowSeconds": 15.0
+          },
+          {
+            "observedElapsedMs": 99301,
+            "attempt": 2,
+            "generation": 1,
+            "continuity": 3,
+            "inferenceSeconds": 8.0574331,
+            "matchingMs": 0,
+            "windowStart": 75.77766666666668,
+            "windowEnd": 90.77766666666668,
+            "validPrefixOnly": false,
+            "match": "insufficientDialogue",
+            "similarity": null,
+            "competitor": null,
+            "contextWindows": 1,
+            "segmentedMatch": false,
+            "anchors": []
+          },
+          {
+            "observedElapsedMs": 102805,
+            "analysisRequest": 3,
+            "generation": 1,
+            "continuity": 3,
+            "activityVoicePresent": true,
+            "activityTimingMismatch": false,
+            "analysisIntervalMs": 12000,
+            "analysisWindowSeconds": 15.0
+          },
+          {
+            "observedElapsedMs": 111310,
+            "attempt": 3,
+            "generation": 1,
+            "continuity": 3,
+            "inferenceSeconds": 8.2290409,
+            "matchingMs": 6,
+            "windowStart": 87.80966666666669,
+            "windowEnd": 102.80966666666669,
+            "validPrefixOnly": false,
+            "match": "matched",
+            "similarity": 1.0,
+            "competitor": null,
+            "contextWindows": 1,
+            "segmentedMatch": false,
+            "anchors": [
+              {
+                "cue": 1,
+                "offset": 89.78966666666669
+              }
+            ]
+          },
+          {
+            "observedElapsedMs": 114819,
+            "analysisRequest": 4,
+            "generation": 1,
+            "continuity": 3,
+            "activityVoicePresent": true,
+            "activityTimingMismatch": false,
+            "analysisIntervalMs": 12000,
+            "analysisWindowSeconds": 15.0
+          },
+          {
+            "observedElapsedMs": 124828,
+            "attempt": 4,
+            "generation": 1,
+            "continuity": 3,
+            "inferenceSeconds": 9.6944456,
+            "matchingMs": 23,
+            "windowStart": 99.75635416666668,
+            "windowEnd": 114.75635416666668,
+            "validPrefixOnly": false,
+            "match": "matched",
+            "similarity": 0.875,
+            "competitor": null,
+            "contextWindows": 1,
+            "segmentedMatch": false,
+            "anchors": [
+              {
+                "cue": 1,
+                "offset": 89.79635416666669
+              },
+              {
+                "cue": 2,
+                "offset": 89.75635416666668
+              },
+              {
+                "cue": 3,
+                "offset": 89.68635416666669
+              }
+            ]
+          },
+          {
+            "observedElapsedMs": 124829,
+            "learnedMediaStart": 101.55635416666668,
+            "learnedMediaEnd": 111.50635516666668,
+            "learnedSlope": 1.0,
+            "learnedSegments": 2
+          }
+        ],
+        "captureDuringSubtitleLoadValidated": false,
+        "platform": "windows",
+        "flutterBuildMode": "release",
+        "inferenceBackend": "avx2-cpu",
+        "expectedOffset": 90.0,
+        "absoluteOffsetError": 0.2436458333333178,
+        "maximumOffsetError": 0.75,
+        "modelId": "base.en",
+        "modelSha256": "a03779c86df3323075f5e796cb2ce5029f00ec8869eee3fdfb897afe36c6d002",
+        "fixtureCase": "intro-90",
+        "introSilenceSeconds": 90,
+        "actualOffset": 89.75635416666668,
+        "reference": "authored Sintel SRT, not precise acoustic-onset ground truth",
+        "acquisitionMs": 124864,
+        "acquisitionTargetMs": 135000,
+        "acquisitionTargetPassed": true,
+        "nativeDelay": 89.881355,
+        "audioPartitionSeconds": [
+          100,
+          175
+        ],
+        "audioOutput": "pcm-to-NUL",
+        "audiblePlaybackValidated": false,
+        "pcmOrTranscriptPersisted": false,
+        "postConfirmationOffset": 89.79635416666669,
+        "knownRegionRestoredAfterSeek": true,
+        "unknownSeekClearsAutomaticOnly": true,
+        "audioDelayCompositionAndPreservation": true,
+        "cacheRestoreMs": 1740,
+        "persistentCacheKnownAndUnknownRegions": true,
+        "manualDelayDuringAndAfter": true,
+        "tapDisabledOnClose": true,
+        "passed": true
+      }
+    }
+  },
+  "fullProductAcceptance": false,
+  "limitations": [
+    "Renderer failed before its baseline state with exit status 0xc000041d; no matching fault event was captured by the immediate query. The nested exception and faulting module remain unknown.",
+    "Controller passes independently; this does not turn the overall failed run green or validate visible/audible output."
+  ]
+}

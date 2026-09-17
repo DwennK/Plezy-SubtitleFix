@@ -63,7 +63,7 @@ class MappingCacheKey {
   final String digest;
   static const schema = 1;
   // Bump whenever recognition, fitting or timing semantics change.
-  static const algorithm = 'bounded-affine-titles-v2';
+  static const algorithm = 'bounded-affine-unmapped-passage-v7';
 
   static MappingCacheKey? create(LiveSyncMediaIdentity media, AudioTrack audio, String subtitleHash) {
     if (!RegExp(r'^[0-9]+$').hasMatch(audio.id) ||
@@ -153,6 +153,7 @@ class MappingCache {
       for (var i = 0; i < index.words.length; i++)
         if (index.words[i].wordInCue == 0) index.words[i].cueOrdinal: i,
     };
+    final shortCueBeginnings = const TemporalAligner().shortCueContextStarts(index);
     double number(Object? value) {
       if (value is! num || !value.isFinite) throw const FormatException('Cache number');
       return value.toDouble();
@@ -173,7 +174,7 @@ class MappingCache {
               if (cue is! int ||
                   start == null ||
                   start + 2 >= index.words.length ||
-                  index.words[start + 2].cueOrdinal != cue) {
+                  (index.words[start + 2].cueOrdinal != cue && !shortCueBeginnings.contains(start))) {
                 throw const FormatException('Cache cue');
               }
               final time = index.words[start].cueStart.inMicroseconds / 1e6;

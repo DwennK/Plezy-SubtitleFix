@@ -1,0 +1,190 @@
+{
+  "schema": 1,
+  "sourceSha": "4ab2fcf878a04aba10fac1165ee0875cba41b7f2",
+  "runId": 35170518083,
+  "runConclusion": "success",
+  "artifactId": 10477275241,
+  "comparison": {
+    "trials": [
+      {
+        "elapsedSeconds": 27.801645,
+        "driverExitCode": 0,
+        "ordinal": 1,
+        "observerStateVerified": true,
+        "passed": true,
+        "observerEnabled": false,
+        "evidenceDirectory": "trial-1-off"
+      },
+      {
+        "elapsedSeconds": 26.6912322,
+        "driverExitCode": 0,
+        "ordinal": 2,
+        "observerStateVerified": true,
+        "passed": true,
+        "observerEnabled": true,
+        "evidenceDirectory": "trial-2-on"
+      },
+      {
+        "elapsedSeconds": 25.9942627,
+        "driverExitCode": 0,
+        "ordinal": 3,
+        "observerStateVerified": true,
+        "passed": true,
+        "observerEnabled": true,
+        "evidenceDirectory": "trial-3-on"
+      },
+      {
+        "elapsedSeconds": 26.4979725,
+        "driverExitCode": 0,
+        "ordinal": 4,
+        "observerStateVerified": true,
+        "passed": true,
+        "observerEnabled": false,
+        "evidenceDirectory": "trial-4-off"
+      },
+      {
+        "elapsedSeconds": 26.1154792,
+        "driverExitCode": 0,
+        "ordinal": 5,
+        "observerStateVerified": true,
+        "passed": true,
+        "observerEnabled": false,
+        "evidenceDirectory": "trial-5-off"
+      },
+      {
+        "elapsedSeconds": 26.1538659,
+        "driverExitCode": 0,
+        "ordinal": 6,
+        "observerStateVerified": true,
+        "passed": true,
+        "observerEnabled": true,
+        "evidenceDirectory": "trial-6-on"
+      }
+    ],
+    "expectedTrials": 6,
+    "kind": "same-binary-renderer-observer-comparison",
+    "binaries": {
+      "plezy_livesync.exe": "f456c7ee95031b34ee13087fe860de6e62b934df503bd9ecda4a3009d90bdb43",
+      "flutter_windows.dll": "1f9fcfa3003b64af53154fb3ffe4d1b60d5462dfaacd78b3b2b2ebd5b75de18e",
+      "libmpv-2.dll": "e0abf158f4ab736843bf9fd3002955b44c2e8f43f5dadfefc0d4e69627e182ec"
+    },
+    "limitations": [
+      "Observer code is compiled into both modes; this does not compare binary layout.",
+      "Fixed off/on/on/off/off/on order, shared OS caches and persisted window geometry.",
+      "Synthetic renderer on a hosted WARP desktop; no physical GPU or audible playback proof."
+    ],
+    "allTrialsPassed": true,
+    "automaticSynchronizationValidated": false,
+    "normalUninstrumentedBinaryValidated": false,
+    "completedTrials": 6
+  },
+  "trials": [
+    {
+      "ordinal": 1,
+      "captures": 16,
+      "viewport": [
+        1024,
+        720
+      ],
+      "observerEvents": 0,
+      "exceptionCodes": [],
+      "completed": true,
+      "provenanceSha256": "22c784a999099cd2f576f38251bbbbb9252ead0f367ff309fd335d0b5afb0a94"
+    },
+    {
+      "ordinal": 2,
+      "captures": 16,
+      "viewport": [
+        1024,
+        720
+      ],
+      "observerEvents": 7,
+      "exceptionCodes": [
+        "0xe24c4a02",
+        "0x4001000a",
+        "0x40010006",
+        "0xe06d7363",
+        "0xe06d7363",
+        "0xe06d7363"
+      ],
+      "completed": true,
+      "provenanceSha256": "9987fbbe9195c5b3630aae09e842075a734a835ab2393aef46e1ca578f4760a8"
+    },
+    {
+      "ordinal": 3,
+      "captures": 16,
+      "viewport": [
+        1024,
+        720
+      ],
+      "observerEvents": 5,
+      "exceptionCodes": [
+        "0xe24c4a02",
+        "0xe06d7363",
+        "0xe06d7363",
+        "0xe06d7363"
+      ],
+      "completed": true,
+      "provenanceSha256": "3bb70fe7e91259ef32a9f3ba92423b88cb07a509d867ac9ff0b648165a6f0907"
+    },
+    {
+      "ordinal": 4,
+      "captures": 16,
+      "viewport": [
+        1024,
+        720
+      ],
+      "observerEvents": 0,
+      "exceptionCodes": [],
+      "completed": true,
+      "provenanceSha256": "ba185c6509bae35dd0a98bce64c8b73a568a6a44bd43ca1d66c212a955c58d12"
+    },
+    {
+      "ordinal": 5,
+      "captures": 16,
+      "viewport": [
+        1024,
+        720
+      ],
+      "observerEvents": 0,
+      "exceptionCodes": [],
+      "completed": true,
+      "provenanceSha256": "564f1e08c0df611ed4d0c633da77ed8515abdca3553fd9859e78971e4f6ebee1"
+    },
+    {
+      "ordinal": 6,
+      "captures": 16,
+      "viewport": [
+        1024,
+        720
+      ],
+      "observerEvents": 7,
+      "exceptionCodes": [
+        "0x4001000a",
+        "0x40010006",
+        "0xe06d7363",
+        "0xe06d7363",
+        "0xe06d7363",
+        "0xe24c4a02"
+      ],
+      "completed": true,
+      "provenanceSha256": "40d231f43104f92d96916318ec1960432226a7bb09dd135f98a50345456d58df"
+    }
+  ],
+  "visualInspection": {
+    "trial": 1,
+    "observerEnabled": false,
+    "captures": [
+      "baseline",
+      "gap-hidden"
+    ],
+    "result": "baseline subtitle visible, learned-gap mask hidden",
+    "viewport": [
+      1024,
+      720
+    ]
+  },
+  "conclusion": "No crash in six launches. Observer registration alone does not explain earlier outcomes; binary layout and intermittent initialization remain unisolated.",
+  "normalRendererCrashFixed": false,
+  "fullProductAcceptance": false
+}

@@ -1,0 +1,50 @@
+{
+  "source": "e200220dfef757a937098a0568e34f78d205efd0",
+  "builtAt": "2026-09-17T06:10:35.556225+00:00",
+  "bundle": "/Users/dwenn/.codex/worktrees/plezy-livesync-runtime-diagnostics/build/macos/Build/Products/Release/PlezyLiveSync.app",
+  "exeSha256": "8aa18f03621fcc5b577d6028cb19b6ea1cc5cc836921cbf419df00e619aee0ff",
+  "signatureVerified": true,
+  "runtimeInputsVerified": true,
+  "bundledHashesVerified": true,
+  "upstream": "efbfd01ac3755395c13d8fd6acb60f7a115957d4",
+  "runtimeSourceHash": "36a36d23ce61493a6ece4c8f11c99fe61df1d30f1ffb38caacaec2215a06506f",
+  "installed": false,
+  "nativeEpisodeFailureDiagnosisPending": true,
+  "validation": {
+    "liveSyncTestsPassed": 187,
+    "liveSyncTestsSkipped": 1,
+    "analyzerPassed": true
+  },
+  "firstSession": {
+    "exitCode": 0,
+    "events": 8,
+    "eventFileSha256": "4911b96f54e7642115c0ed3f60511f8c7d5d2cc53095e20309c74ebb5ed648ab",
+    "startupSubtitlesMs": 56497,
+    "startupCaptureMs": 345,
+    "startupBufferedSamples": 249312,
+    "restoredSegments": 4,
+    "observedInferenceRequests": 0,
+    "closureCause": "Unknown; user was asked whether the normal closure was intentional.",
+    "privatePcmOrTranscriptSaved": false,
+    "accuracyAccepted": false,
+    "startupSubtitlesScope": "Combined retrieval, parsing, media identity and mapping-cache restoration; individual stages were not measured."
+  },
+  "limitations": [
+    "The process exited normally before its first observed analysis request. No matching-failure diagnosis is established.",
+    "A subsequent Computer Use state query automatically relaunched the diagnostic app without the collection environment. That new process is not being recorded.",
+    "The installed application at /Applications/PlezyLiveSync.app remains aaaa67c2.",
+    "The newer upstream f88feaa8 is not included in this diagnostic build."
+  ],
+  "secondSession": {
+    "startedAt": "2026-09-17T06:34:28.200736+00:00",
+    "exitCode": -15,
+    "terminationCause": "Collector enforced its configured 600-second deadline.",
+    "events": 0,
+    "eventFileSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "observedInferenceRequests": 0,
+    "liveSyncActivated": false,
+    "uiObservation": "Playback resumed, then was paused at 37:34. Automated attempts to open the subtitle panel did not expose its controls. Escape returned to Home. No application-crash cause was established.",
+    "privatePcmOrTranscriptSaved": false,
+    "accuracyAccepted": false
+  }
+}
