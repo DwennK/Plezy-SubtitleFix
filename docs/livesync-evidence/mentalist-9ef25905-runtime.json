@@ -1,0 +1,88 @@
+{
+  "source": "9ef259057bde1453ce35c6a8f321a8609dd08fa7",
+  "upstream": "f88feaa8e34fcb2141e34e619054a1f30590a266",
+  "application": "/Applications/PlezyLiveSync.app",
+  "executableSha256": "325b2372e3fb3f480ce70fe4374aab56d1613cb88be913b411e480ec760c2d25",
+  "episode": "Mentalist S2E16",
+  "startedAt": "2026-09-17T07:45:17.022263Z",
+  "privacy": {
+    "audioOrTranscriptPersisted": false,
+    "secondMediaStreamOpened": false,
+    "numericalEventsOnly": true
+  },
+  "session": {
+    "collectorExitCode": 0,
+    "appExitedBeforeCollectorDeadline": true,
+    "exitCause": "not established",
+    "eventCount": 53,
+    "eventSha256": "8ec594b4f4d6f4154aff708f7b54248b756cdee759852068e64230fe1053d636",
+    "completedAnalyses": 18,
+    "submittedAnalyses": 19,
+    "sourcePreparationMs": 49948,
+    "pausedDuringSourcePreparation": true,
+    "resumeContinuityEventMs": 176204,
+    "firstSyncedEventMs": 409722,
+    "resumeToFirstSyncedMs": 233518,
+    "laterResyncingEventMs": 499716,
+    "laterUnableEventMs": 512216,
+    "matchCounts": {
+      "matched": 13,
+      "noCandidate": 3,
+      "ambiguous": 1,
+      "insufficientDialogue": 1
+    },
+    "inferenceSecondsMin": 1.052791958,
+    "inferenceSecondsMax": 1.732602833,
+    "phases": [
+      {
+        "elapsedMs": 53752,
+        "phase": "loadingSubtitles"
+      },
+      {
+        "elapsedMs": 53754,
+        "phase": "downloading"
+      },
+      {
+        "elapsedMs": 54098,
+        "phase": "loadingSubtitles"
+      },
+      {
+        "elapsedMs": 103702,
+        "phase": "analyzing"
+      },
+      {
+        "elapsedMs": 176204,
+        "phase": "resyncing"
+      },
+      {
+        "elapsedMs": 235711,
+        "phase": "unable"
+      },
+      {
+        "elapsedMs": 409722,
+        "phase": "synced",
+        "automaticOffset": 5.452703564316039
+      },
+      {
+        "elapsedMs": 499716,
+        "phase": "resyncing"
+      },
+      {
+        "elapsedMs": 512216,
+        "phase": "unable"
+      },
+      {
+        "elapsedMs": 554231,
+        "phase": "off"
+      }
+    ]
+  },
+  "conclusions": {
+    "acquisitionBudgetPassed": false,
+    "sustainedSynchronizationPassed": false,
+    "audibleAlignmentVerified": false,
+    "learnedOffsetAccuracyVerified": false,
+    "productAccepted": false
+  },
+  "followup": "Test whether unresolved older observations prevent an independently confirmed fresh passage from establishing its own region; preserve existing fitting thresholds."
+}

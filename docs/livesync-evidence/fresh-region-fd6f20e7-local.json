@@ -1,0 +1,24 @@
+{
+  "source": "9755974e",
+  "integrationSource": "fd6f20e72d27992bb636ed7de6957e110bf6477e",
+  "upstream": "64dca5962a3dd24feee829235ed811298a74309b",
+  "regressionFailedBeforeFix": true,
+  "liveSyncAndPlayerTestsPassed": 371,
+  "existingTestsSkipped": 1,
+  "fullAnalysisPassed": true,
+  "cacheAlgorithm": "bounded-affine-fresh-region-v5",
+  "unchangedFitRequirements": {
+    "independentPhrases": 2,
+    "minimumSpanSeconds": 3,
+    "minimumInlierFraction": 0.75,
+    "maximumResidualSeconds": 0.8
+  },
+  "evidenceSha256": {
+    "regressionBefore": "472c2903aa23df30155d5c632b8222ad6949283359b7277ac8dd28a50ebce4d5",
+    "tests": "921d9ed3a57ebd834cc69f482c7c944eb366dac6fb16f3b8ea33da5ad6a024c4",
+    "analysis": "646b75065c1f8ca7df3e2efc4875583094a31fd23d01f4e1e61c28c584079524",
+    "offlineCiGuards": "4c76fdaa8c2be10762f2795d98b03104d4f61119acea28615c3c6b811c32d0ec"
+  },
+  "nativePlaybackValidationPending": true,
+  "productAccepted": false
+}
