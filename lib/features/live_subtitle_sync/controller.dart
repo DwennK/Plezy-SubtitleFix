@@ -385,6 +385,7 @@ class LiveSubtitleSyncController extends ChangeNotifier {
           'generation': generation,
           'continuity': transcript.continuity,
           'inferenceSeconds': transcript.elapsed,
+          'inferenceBackend': worker.inferenceBackend,
           if (matchingClock != null) 'matchingMs': matchingClock.elapsedMilliseconds,
           'windowStart': transcript.windowStart,
           'windowEnd': transcript.windowEnd,
@@ -491,6 +492,7 @@ class LiveSubtitleSyncController extends ChangeNotifier {
         diagnosticObserver?.call({
           'attempt': _cadence.attempts,
           'failure': diagnosticFailure,
+          'inferenceBackend': worker.inferenceBackend,
           if (error is NativeSyncException && error.nativeStatus != null) 'nativeStatus': error.nativeStatus,
         });
       }

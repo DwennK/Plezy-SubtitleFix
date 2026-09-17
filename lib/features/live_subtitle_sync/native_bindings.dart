@@ -189,10 +189,33 @@ class NativeCaptureStatus {
 /// The model lease must outlive [close]. The caller must never kill its owning
 /// isolate before close has joined both native threads.
 class NativeLiveSyncEngine {
-  NativeLiveSyncEngine._(this._captureLibrary, this._inferenceLibrary, this.inferenceBackend);
+  NativeLiveSyncEngine._(this._captureLibrary, this._inferenceLibrary, this._libraryBackend);
   final DynamicLibrary _captureLibrary;
   final DynamicLibrary _inferenceLibrary;
-  final String inferenceBackend;
+  final String _libraryBackend;
+  String get inferenceBackend {
+    if (_inference == nullptr) return _libraryBackend;
+    final query = _backendQuery;
+    if (query == null) return _libraryBackend; // Older ABI v2 CPU runtime.
+    return switch (query(_inference)) {
+      1 => _libraryBackend,
+      2 => 'metal-preferred',
+      3 => 'cpu-fallback',
+      _ => 'unknown',
+    };
+  }
+
+  late final int Function(Pointer<Void>)? _backendQuery = _lookupBackendQuery();
+  int Function(Pointer<Void>)? _lookupBackendQuery() {
+    try {
+      return _inferenceLibrary.lookupFunction<Uint32 Function(Pointer<Void>), int Function(Pointer<Void>)>(
+        'ls_inference_backend',
+      );
+    } catch (_) {
+      return null;
+    }
+  }
+
   Pointer<Void> _capture = nullptr;
   Pointer<Void> _inference = nullptr;
   Pointer<Float> _samples = nullptr;

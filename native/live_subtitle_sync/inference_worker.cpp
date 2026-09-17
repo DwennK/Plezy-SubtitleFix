@@ -11,6 +11,12 @@
 #include <thread>
 #include <utility>
 
+#ifdef LIVESYNC_INFERENCE_FAULT_TEST
+// Only the separate fault-contract executable supplies these wrappers. No
+// environment flag or fault-injection entry point exists in shipped libraries.
+#include "inference_fault_test_hooks.h"
+#endif
+
 #ifdef LIVESYNC_EMBEDDED_SPEECH_MODEL
 #include "speech_model_data.h"
 #endif
@@ -58,6 +64,13 @@ class InferenceWorker::Impl {
   std::condition_variable wake;
   std::atomic<bool> stopped{false};
   std::atomic<bool> decoding{false};
+#ifdef LIVESYNC_USE_METAL
+  bool use_gpu = true;  // Worker-thread ownership; disabled until destruction.
+  std::atomic<InferenceBackend> backend{InferenceBackend::metal_preferred};
+#else
+  bool use_gpu = false;
+  std::atomic<InferenceBackend> backend{InferenceBackend::cpu};
+#endif
   std::atomic<uint64_t> generation{0}, continuity{0};
   uint64_t running_generation = 0, running_continuity = 0;
   std::optional<PcmWindow> pending;
@@ -78,6 +91,33 @@ class InferenceWorker::Impl {
   void release_slot() {
     auto* expected = this;
     owner.compare_exchange_strong(expected, nullptr);
+  }
+
+  whisper_context* create_context() {
+    auto options = whisper_context_default_params();
+    options.use_gpu = use_gpu;
+    // Both pinned models use the base.en architecture/alignment heads.
+    // Flash attention silently disables DTW in this whisper revision.
+    options.flash_attn = false;
+    options.dtw_token_timestamps = true;
+    options.dtw_aheads_preset = WHISPER_AHEADS_BASE_EN;
+    options.dtw_mem_size = 128 * 1024 * 1024;
+    try {
+#ifdef LIVESYNC_INFERENCE_FAULT_TEST
+      return fault_test::initialize(model_path.c_str(), options);
+#else
+      return whisper_init_from_file_with_params(model_path.c_str(), options);
+#endif
+    } catch (...) {
+      return nullptr;
+    }
+  }
+
+  void disable_gpu(whisper_context*& context) {
+    if (context) whisper_free(context);
+    context = nullptr;
+    use_gpu = false;
+    backend.store(InferenceBackend::cpu_fallback);
   }
 
   InferenceResult transcribe(whisper_context* context, SpeechDetector* detector, const PcmWindow& window) {
@@ -113,7 +153,12 @@ class InferenceWorker::Impl {
       decoding.store(false);
       return out;
     }
+#ifdef LIVESYNC_INFERENCE_FAULT_TEST
+    const int code =
+        fault_test::transcribe(context, parameters, window.samples.data(), static_cast<int>(window.samples.size()));
+#else
     const int code = whisper_full(context, parameters, window.samples.data(), static_cast<int>(window.samples.size()));
+#endif
     decoding.store(false);
     out.elapsed_seconds = std::chrono::duration<double>(std::chrono::steady_clock::now() - started).count();
     if (code != 0 || cancelled()) return out;
@@ -129,7 +174,11 @@ class InferenceWorker::Impl {
     auto media_time = [&](int64_t ticks) { return window.media_start + static_cast<double>(ticks) * 0.01 * scale; };
     for (int index = 0; index < segments; ++index) {
       const auto t0 = whisper_full_get_segment_t0(context, index);
+#ifdef LIVESYNC_INFERENCE_FAULT_TEST
+      const auto t1 = fault_test::segment_end(context, index);
+#else
       const auto t1 = whisper_full_get_segment_t1(context, index);
+#endif
       // Allow the decoder's final 10 ms timestamp quantum; do not invent valid
       // times for a negative or otherwise malformed segment.
       if (t0 < 0 || t1 < t0 || static_cast<double>(t1) * 0.01 > duration + 0.02) {
@@ -195,19 +244,11 @@ class InferenceWorker::Impl {
       try {
         if (!cancelled()) {
           if (!context) {
-            auto options = whisper_context_default_params();
-#ifdef LIVESYNC_USE_METAL
-            options.use_gpu = true;
-#else
-            options.use_gpu = false;
-#endif
-            // Both pinned models use the base.en architecture/alignment heads.
-            // Flash attention silently disables DTW in this whisper revision.
-            options.flash_attn = false;
-            options.dtw_token_timestamps = true;
-            options.dtw_aheads_preset = WHISPER_AHEADS_BASE_EN;
-            options.dtw_mem_size = 128 * 1024 * 1024;
-            context = whisper_init_from_file_with_params(model_path.c_str(), options);
+            context = create_context();
+            if (!context && use_gpu && !cancelled()) {
+              disable_gpu(context);
+              context = create_context();
+            }
           }
           if (context && !cancelled()) {
             if (!detector_attempted) {
@@ -220,7 +261,31 @@ class InferenceWorker::Impl {
               }
 #endif
             }
-            next = transcribe(context, detector.get(), *window);
+            const auto attempt_started = std::chrono::steady_clock::now();
+            try {
+              next = transcribe(context, detector.get(), *window);
+            } catch (...) {
+              next.status = InferenceStatus::inference_failed;
+            }
+            // A seek/cancellation is not a backend failure. Neither malformed
+            // timestamps nor low-quality recognition justify retrying on CPU.
+            if (use_gpu && next.status == InferenceStatus::inference_failed && !cancelled()) {
+              disable_gpu(context);
+              if (!cancelled()) context = create_context();
+              if (context && !cancelled()) {
+                try {
+                  next = transcribe(context, detector.get(), *window);
+                } catch (...) {
+                  next.status = InferenceStatus::inference_failed;
+                }
+              } else {
+                next.status = InferenceStatus::model_unavailable;
+              }
+              // Include the failed attempt and replacement model load. Do not
+              // make a slow recovery appear to be one fast CPU inference.
+              next.elapsed_seconds =
+                  std::chrono::duration<double>(std::chrono::steady_clock::now() - attempt_started).count();
+            }
           }
         }
       } catch (...) {
@@ -293,6 +358,7 @@ bool InferenceWorker::busy() const {
 }
 
 bool InferenceWorker::inferencing() const { return impl_->decoding.load(); }
+InferenceBackend InferenceWorker::backend() const { return impl_->backend.load(); }
 
 void InferenceWorker::stop() {
   auto& s = *impl_;

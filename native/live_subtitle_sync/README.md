@@ -225,8 +225,8 @@ library logs are disabled and the worker writes nothing to disk or network.
 
 The model path must come from a held `ModelLease`. The owner must serialize
 control calls and stop/join the worker from a cleanup queue before releasing
-that lease. This native component is not wired to the production player yet.
-Only CPU inference is implemented here; GPU selection/fallback remains pending.
+that lease. The production player uses the packaged CPU runtime; the optional
+Metal profile below remains separate from application package selection.
 
 ```sh
 cmake -S native/live_subtitle_sync -B build/livesync/inference-worker \
@@ -287,8 +287,27 @@ This option defaults off. `build_analysis_runtime.py` explicitly forces it off
 for the existing portable/AVX2 packages, including reused CMake caches. Invalid
 platform/architecture, a disabled Metal backend, or external shader lookup are
 rejected at configuration time. The option is an evaluation build path; no
-application dispatch, GPU-error retry policy or distribution change is enabled.
-Those require explicit backend reporting, CPU fallback and native app validation.
+application dispatch or distribution change is enabled.
+
+Recoverable GPU initialization/inference failures free the old context, retry
+the same owned PCM once on CPU, and keep that worker on CPU. Cancellation never
+triggers a retry; rejected timestamps/recognition do not trigger fallback either.
+The failed inference and replacement model load count in the retry's elapsed
+time. Fatal native termination cannot be recovered inside the same process.
+
+The additive ABI v2 `ls_inference_backend` query reports CPU, Metal preferred,
+or CPU fallback. "Metal preferred" is deliberately not a claim that Whisper
+actually used a GPU: its own backend selection can fall back internally. The
+Dart analysis isolate refreshes this diagnostic before replying, including on
+failures. Older CPU ABI v2 libraries without the query remain supported.
+
+`livesync_inference_fallback_test` intercepts two backend calls in a separate
+test executable, decodes pinned public PCM on the real CPU decoder, and checks
+null/throwing loads, failed/throwing inference, CPU failure, rejected timestamps,
+and seeks during either the GPU attempt or CPU recovery.
+Run it through `scripts/livesync/test_inference_fallback.py`; PCM stays in memory.
+Fault hooks are absent from shipped libraries. These injected failures do not
+establish recovery from a real Metal driver fault or replace native app testing.
 
 The M4 measurements in `docs/livesync-evidence/metal-dtw-262bf882.json` show a
 substantial inference-time reduction with retained anchors on the selected
