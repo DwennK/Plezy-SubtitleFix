@@ -1,0 +1,18 @@
+{
+  "schema": 1,
+  "sourceSha": "6834a690",
+  "cherryPickedFrom": "3bccfb969c297ba5d89983c59b6d060c2bf8f724",
+  "featureTestsPassed": 174,
+  "featureTestsSkipped": 1,
+  "plexSourceLifecycleTestsPassed": 1,
+  "focusedAnalysisPassed": true,
+  "evidenceSha256": {
+    "punctuation-integration-tests.log": "92f2fd1501e309530a7a567310bc50d9f567b692f897e5f0bd71b918a64a4e50",
+    "punctuation-integration-analyze.log": "6f42519162e4bbcb040cd2aee0c074e12b59276e4ee717ca848875f04eb92fa2",
+    "punctuation-integration-plex-test.log": "5cbac4e8fc2424bc678f9a04a175de0fb42de27aea955824b3def2bf961cc21f"
+  },
+  "fullApplicationBuiltAtThisCommit": false,
+  "installed": false,
+  "fullProductAcceptance": false,
+  "scope": "Combine the desktop integration changes with punctuation timing validation; native runtime and renderer are unchanged."
+}
