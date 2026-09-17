@@ -15,6 +15,7 @@ import 'native_bindings.dart';
 import 'player_attachment.dart';
 import 'pcm_availability.dart';
 import 'runtime_paths.dart';
+import 'runtime_diagnostics.dart';
 import 'subtitle_index.dart';
 import 'subtitle_parser.dart';
 import 'subtitle_source.dart';
@@ -46,6 +47,10 @@ class _Resources {
 
 class LiveSubtitleSyncController extends ChangeNotifier {
   LiveSubtitleSyncController._(this.player) {
+    if (Platform.environment['PLEZY_LIVESYNC_DIAGNOSTICS'] == '1') {
+      final diagnostics = LiveSyncRuntimeDiagnostics(stderr.writeln);
+      diagnosticObserver = (event) => diagnostics.record({'elapsedMs': _clock.elapsedMilliseconds, ...event});
+    }
     LiveSyncPlayerAttachment.sessions[player] = LiveSyncPlayerAttachment(disable);
     _subscriptions.add(player.streams.playheadJump.listen((target) => unawaited(_reset(target: target))));
     _subscriptions.add(player.streams.rate.listen((_) => unawaited(_reset())));
@@ -132,6 +137,14 @@ class LiveSubtitleSyncController extends ChangeNotifier {
       (language.toLowerCase() == 'eng' || language.toLowerCase().split(RegExp('[-_]')).first == 'en');
 
   void _state(LiveSyncPhase value, [LiveSyncReason? why]) {
+    if (phase != value || reason != why) {
+      diagnosticObserver?.call({
+        'phase': value.name,
+        'reason': why?.name,
+        'automaticOffset': automaticOffset,
+        'generation': _generation,
+      });
+    }
     phase = value;
     reason = why;
     notifyListeners();
@@ -353,6 +366,12 @@ class LiveSubtitleSyncController extends ChangeNotifier {
         return;
       }
       if (_continuity != null && status.continuity != _continuity) {
+        diagnosticObserver?.call({
+          'previousContinuity': _continuity,
+          'continuity': status.continuity,
+          'bufferedSamples': status.samples,
+          'generation': generation,
+        });
         // Overflow, decoder resets and dropped blocks invalidate the evidence
         // as well as the inference. Do not combine anchors across a PCM gap.
         _timeline.discontinuity();
@@ -375,9 +394,9 @@ class LiveSubtitleSyncController extends ChangeNotifier {
         final context = _transcriptContext.add(transcript);
         final matchingClock = diagnosticObserver == null ? null : (Stopwatch()..start());
         final evidence = await compute((data) {
-          final (NativeTranscript transcript, NativeTranscript? context, SubtitleIndex index) = data;
-          return matchTranscriptEvidence(transcript, index, context: context);
-        }, (transcript, context, index));
+          final (NativeTranscript transcript, NativeTranscript? context, SubtitleIndex index, bool diagnostics) = data;
+          return matchTranscriptEvidence(transcript, index, context: context, diagnostics: diagnostics);
+        }, (transcript, context, index, diagnosticObserver != null));
         final anchors = evidence.anchors;
         if (!enabled || generation != _generation) return;
         diagnosticObserver?.call({
@@ -394,6 +413,9 @@ class LiveSubtitleSyncController extends ChangeNotifier {
           'competitor': evidence.match.runnerUpSimilarity,
           'contextWindows': evidence.windowCount,
           'segmentedMatch': evidence.segmented,
+          'anchorRejections': evidence.anchorRejections,
+          'speechTimingRejected': evidence.speechTimingRejected,
+          'latestAnchorMediaTime': evidence.latestAnchorMediaTime,
           'anchors': anchors.map((anchor) => {'cue': anchor.cue, 'offset': anchor.offset}).toList(),
         });
         // A wider prompt retry can recover cue beginnings when a recognized
