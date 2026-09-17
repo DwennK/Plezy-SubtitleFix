@@ -1,0 +1,268 @@
+{
+  "schema": 1,
+  "kind": "gap-boundary-evidence-diagnostic",
+  "sourceSha": "a072170ade52285bd5d69e7802ac2bc7ecf4cf38",
+  "fixtureSha256": "8c8a1be4f19c666fe3509cf38e704f27f0134302363b775a378d8b98faf27098",
+  "rawNumericReportSha256": "017e5bee79ceca7d1628a7d0b1d94459843eafac3dc768d5f010dcbcd4f968f6",
+  "scope": "independent bounded re-decode of consumed public fixture; no gap classification",
+  "windows": [
+    {
+      "start": 20.9376875,
+      "end": 32.9376875,
+      "match": "matched",
+      "anchors": [
+        {
+          "cue": 3,
+          "offset": -100.29231250000001
+        },
+        {
+          "cue": 6,
+          "offset": -100.0623125
+        }
+      ],
+      "validPrefixOnly": false,
+      "clippedInputSamples": 0,
+      "segments": [
+        {
+          "start": 20.9376875,
+          "end": 22.9376875,
+          "words": 8,
+          "validTokens": 9,
+          "minimumScore": 0.5771858096122742,
+          "medianScore": 0.9549859166145325,
+          "supportedTokens": 8,
+          "tokenStart": 21.4576875,
+          "tokenEnd": 24.357687499999997
+        },
+        {
+          "start": 24.9376875,
+          "end": 25.9376875,
+          "words": 2,
+          "validTokens": 3,
+          "minimumScore": 0.9571505188941956,
+          "medianScore": 0.9683573842048645,
+          "supportedTokens": 2,
+          "tokenStart": 25.0976875,
+          "tokenEnd": 26.6376875
+        },
+        {
+          "start": 26.9376875,
+          "end": 30.9376875,
+          "words": 10,
+          "validTokens": 13,
+          "minimumScore": 0.4648064076900482,
+          "medianScore": 0.9663351774215698,
+          "supportedTokens": 13,
+          "tokenStart": 27.5576875,
+          "tokenEnd": 30.9376875
+        }
+      ]
+    },
+    {
+      "start": 32.884375,
+      "end": 44.884375,
+      "match": "insufficientDialogue",
+      "anchors": [],
+      "validPrefixOnly": false,
+      "clippedInputSamples": 0,
+      "segments": [
+        {
+          "start": 32.884375,
+          "end": 36.484375,
+          "words": 5,
+          "validTokens": 6,
+          "minimumScore": 0.367539644241333,
+          "medianScore": 0.8489233553409576,
+          "supportedTokens": 4,
+          "tokenStart": 33.284375,
+          "tokenEnd": 36.484375
+        }
+      ]
+    },
+    {
+      "start": 38.164375,
+      "end": 46.164375,
+      "match": "noCandidate",
+      "anchors": [],
+      "validPrefixOnly": false,
+      "clippedInputSamples": 0,
+      "segments": [
+        {
+          "start": 38.164375,
+          "end": 46.164375,
+          "words": 14,
+          "validTokens": 19,
+          "minimumScore": 0.20168782770633698,
+          "medianScore": 0.8204575181007385,
+          "supportedTokens": 19,
+          "tokenStart": 38.304375,
+          "tokenEnd": 45.944375
+        }
+      ]
+    },
+    {
+      "start": 43.0256875,
+      "end": 58.0256875,
+      "match": "noCandidate",
+      "anchors": [],
+      "validPrefixOnly": false,
+      "clippedInputSamples": 215,
+      "segments": [
+        {
+          "start": 43.0256875,
+          "end": 45.745687499999995,
+          "words": 6,
+          "validTokens": 9,
+          "minimumScore": 0.1104426383972168,
+          "medianScore": 0.5628055930137634,
+          "supportedTokens": 9,
+          "tokenStart": 43.205687499999996,
+          "tokenEnd": 45.965687499999994
+        },
+        {
+          "start": 45.745687499999995,
+          "end": 47.2256875,
+          "words": 2,
+          "validTokens": 4,
+          "minimumScore": 0.8919182419776917,
+          "medianScore": 0.9409123659133911,
+          "supportedTokens": 4,
+          "tokenStart": 45.9856875,
+          "tokenEnd": 47.145687499999994
+        },
+        {
+          "start": 47.2256875,
+          "end": 48.3056875,
+          "words": 1,
+          "validTokens": 3,
+          "minimumScore": 0.45837247371673584,
+          "medianScore": 0.5184407830238342,
+          "supportedTokens": 3,
+          "tokenStart": 47.425687499999995,
+          "tokenEnd": 48.385687499999996
+        },
+        {
+          "start": 48.3056875,
+          "end": 49.3056875,
+          "words": 1,
+          "validTokens": 3,
+          "minimumScore": 0.4196541905403137,
+          "medianScore": 0.9567179083824158,
+          "supportedTokens": 3,
+          "tokenStart": 48.7256875,
+          "tokenEnd": 51.1856875
+        },
+        {
+          "start": 49.3056875,
+          "end": 51.3056875,
+          "words": 0,
+          "validTokens": 6,
+          "minimumScore": 0.03788261488080025,
+          "medianScore": 0.4860430508852005,
+          "supportedTokens": 6,
+          "tokenStart": 51.1656875,
+          "tokenEnd": 51.1856875
+        }
+      ]
+    },
+    {
+      "start": 55.1430625,
+      "end": 70.1430625,
+      "match": "insufficientDialogue",
+      "anchors": [],
+      "validPrefixOnly": false,
+      "clippedInputSamples": 96,
+      "segments": [
+        {
+          "start": 55.1430625,
+          "end": 65.1430625,
+          "words": 0,
+          "validTokens": 4,
+          "minimumScore": 0.22910134494304657,
+          "medianScore": 0.7258298099040985,
+          "supportedTokens": 0,
+          "tokenStart": 56.3230625,
+          "tokenEnd": 56.7830625
+        }
+      ]
+    },
+    {
+      "start": 67.3456875,
+      "end": 82.3456875,
+      "match": "matched",
+      "anchors": [
+        {
+          "cue": 8,
+          "offset": -70.1743125
+        }
+      ],
+      "validPrefixOnly": false,
+      "clippedInputSamples": 0,
+      "segments": [
+        {
+          "start": 67.3456875,
+          "end": 69.1456875,
+          "words": 3,
+          "validTokens": 4,
+          "minimumScore": 0.49581974744796753,
+          "medianScore": 0.7802112698554993,
+          "supportedTokens": 3,
+          "tokenStart": 67.8256875,
+          "tokenEnd": 69.3256875
+        },
+        {
+          "start": 69.1456875,
+          "end": 70.9856875,
+          "words": 3,
+          "validTokens": 4,
+          "minimumScore": 0.8024680614471436,
+          "medianScore": 0.9151505529880524,
+          "supportedTokens": 3,
+          "tokenStart": 69.9056875,
+          "tokenEnd": 72.22568749999999
+        },
+        {
+          "start": 72.9856875,
+          "end": 74.1456875,
+          "words": 2,
+          "validTokens": 3,
+          "minimumScore": 0.7227845788002014,
+          "medianScore": 0.9838901162147522,
+          "supportedTokens": 2,
+          "tokenStart": 73.3256875,
+          "tokenEnd": 75.2656875
+        },
+        {
+          "start": 78.58568749999999,
+          "end": 81.1456875,
+          "words": 7,
+          "validTokens": 8,
+          "minimumScore": 0.5155350565910339,
+          "medianScore": 0.9800459742546082,
+          "supportedTokens": 7,
+          "tokenStart": 76.0056875,
+          "tokenEnd": 81.1256875
+        }
+      ]
+    }
+  ],
+  "rawWordOverlap": {
+    "leftRawWords": 14,
+    "rightRawWords": 12,
+    "sameRawWords": false,
+    "sharedUniqueRawWords": 3,
+    "leftUniqueRawWords": 10,
+    "rightUniqueRawWords": 10
+  },
+  "oracleUsedOnlyAfterRecognition": {
+    "videoOnlyStart": 36.25,
+    "videoOnlyEnd": 66.25
+  },
+  "conclusion": "The unmatched windows contain distinct words, but neither speech timing nor absence of a global text match locates the edit boundaries. Do not turn their segment bounds into an exact video-only gap.",
+  "limitations": [
+    "Public fixture independently decoded through FFmpeg; not the original active mpv PCM.",
+    "Overshoots in two windows were clamped to [-1,1], as required by the worker input contract; this does not make the FFmpeg resampling/downmix identical to native capture.",
+    "The diagnostic did not generate a persistent gap or change production matching thresholds.",
+    "The first two diagnostic attempts stopped at an invalid PCM input and are not successful runs. Only the completed, range-checked observation supplies this report."
+  ]
+}
