@@ -1,0 +1,30 @@
+{
+  "runtimeSourceCommit": "4775308cc62587a03e0520dd1f3791a4a3ffd664",
+  "upstream": "f88feaa8e34fcb2141e34e619054a1f30590a266",
+  "nativeRevisionUnchanged": "0bdf5a7963a7b8338dd28f056f34e22d14edfdd8",
+  "upstreamMerge": "c92cd605",
+  "conflictResolution": "Only the generated translation count conflicted; regenerate from the merged locale JSON and retain all LiveSync strings.",
+  "validation": {
+    "upstreamFocusedTestsPassed": 344,
+    "skipped": 1,
+    "combinedLiveSyncSuitePassed": 187,
+    "combinedLiveSyncSuiteSkipped": 1,
+    "fullAnalysisPassed": true,
+    "codegenCheckPassed": true,
+    "affectedDartFormattingPassed": true
+  },
+  "invocationNotes": [
+    "The first targeted invocation named a nonexistent Watch Together test path. The other 292 tests passed with one skip; the corrected Watch Together path then passed 52 tests.",
+    "The first codegen check rejected the unstaged regenerated strings_en file. The complete generation and staged recheck passed."
+  ],
+  "evidenceSha256": {
+    "targeted": "a2e744cf31744135edb911062aa2da8a1d3d76b90736948b2a8fb65423de6cdc",
+    "watchTogether": "45452c4c1ae2571baa1fb8e2e676976767b9a310d97f1e61bf850d969726c77b",
+    "codegen": "33a0077174b08a2e2a3dfb2a08cefb3d63d027277c9bda6d4af7aa4a866d62e6",
+    "diagnosticsIntegration": "a764b60dad59f54a816355b7a8eadc7a11368a4f98d453b2d07dcc88e4b61b75",
+    "analyze": "a85b26366df703777c5660f359baa2cb1c89828d0b4ae2a5ea242dfe3612202f"
+  },
+  "desktopBuildsPending": true,
+  "audibleEpisodeAccuracyValidated": false,
+  "productAccepted": false
+}
