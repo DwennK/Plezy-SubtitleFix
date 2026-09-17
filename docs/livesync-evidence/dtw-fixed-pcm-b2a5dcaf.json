@@ -1,0 +1,361 @@
+{
+  "source": "b2a5dcaf5fc6d8aaae030834db6521518e469f51",
+  "role": "same-PCM diagnostic, not active playback or accuracy acceptance",
+  "fixtureSha256": {
+    "fixture.wav": "339c8b1f912cc0c94ed4334a83dba21a9e0f053892b8ae6facd68b1a3b6841ce",
+    "fixture.srt": "7d3f512795e58c83710d3867b853d6e6ec8c9f01d616c594ba65599c5856cd01"
+  },
+  "librariesSha256": {
+    "current": "809c00c65903acadb50506c2934bcf3e802f06df709807fb3855d80063c06e28",
+    "raw-entry": "3964540fc876a193520b3967fc666332615092882fc908027e43b6f15f5598cf",
+    "first-word-cap": "5882f4395d929d3370b31f34ddbc061e22e9584e5f61ca46a26b1bd563cff332"
+  },
+  "measurements": [
+    {
+      "start": 5.735,
+      "variant": "current",
+      "status": 0,
+      "tokens": 19,
+      "inferenceSeconds": 1.091454833,
+      "recognitionIdenticalToCurrent": true,
+      "pcmSha256": "01cac73d7b8bb0aefdc7164dfab725dbad77914161d461c1a4b26b2f61d2d2cd"
+    },
+    {
+      "start": 5.735,
+      "variant": "raw-entry",
+      "status": 0,
+      "tokens": 19,
+      "inferenceSeconds": 1.073906875,
+      "recognitionIdenticalToCurrent": true,
+      "pcmSha256": "01cac73d7b8bb0aefdc7164dfab725dbad77914161d461c1a4b26b2f61d2d2cd"
+    },
+    {
+      "start": 5.735,
+      "variant": "first-word-cap",
+      "status": 0,
+      "tokens": 19,
+      "inferenceSeconds": 1.073551083,
+      "recognitionIdenticalToCurrent": true,
+      "pcmSha256": "01cac73d7b8bb0aefdc7164dfab725dbad77914161d461c1a4b26b2f61d2d2cd"
+    },
+    {
+      "start": 17.831,
+      "variant": "current",
+      "status": 0,
+      "tokens": 38,
+      "inferenceSeconds": 1.160243334,
+      "recognitionIdenticalToCurrent": true,
+      "pcmSha256": "56e27ad444df32de4e85d2ca7e6d517497c6210b08343232b9160f78f7249545"
+    },
+    {
+      "start": 17.831,
+      "variant": "raw-entry",
+      "status": 0,
+      "tokens": 38,
+      "inferenceSeconds": 1.251595625,
+      "recognitionIdenticalToCurrent": true,
+      "pcmSha256": "56e27ad444df32de4e85d2ca7e6d517497c6210b08343232b9160f78f7249545"
+    },
+    {
+      "start": 17.831,
+      "variant": "first-word-cap",
+      "status": 0,
+      "tokens": 38,
+      "inferenceSeconds": 1.167006333,
+      "recognitionIdenticalToCurrent": true,
+      "pcmSha256": "56e27ad444df32de4e85d2ca7e6d517497c6210b08343232b9160f78f7249545"
+    },
+    {
+      "start": 41.831,
+      "variant": "current",
+      "status": 0,
+      "tokens": 12,
+      "inferenceSeconds": 1.058200291,
+      "recognitionIdenticalToCurrent": true,
+      "pcmSha256": "9dc0a6c60a4828c9037e159cf9a79c654c649e84949a324452cfae70d7e1a69e"
+    },
+    {
+      "start": 41.831,
+      "variant": "raw-entry",
+      "status": 0,
+      "tokens": 12,
+      "inferenceSeconds": 1.055508875,
+      "recognitionIdenticalToCurrent": true,
+      "pcmSha256": "9dc0a6c60a4828c9037e159cf9a79c654c649e84949a324452cfae70d7e1a69e"
+    },
+    {
+      "start": 41.831,
+      "variant": "first-word-cap",
+      "status": 0,
+      "tokens": 12,
+      "inferenceSeconds": 1.055742333,
+      "recognitionIdenticalToCurrent": true,
+      "pcmSha256": "9dc0a6c60a4828c9037e159cf9a79c654c649e84949a324452cfae70d7e1a69e"
+    },
+    {
+      "start": 52.0,
+      "variant": "current",
+      "status": 0,
+      "tokens": 36,
+      "inferenceSeconds": 1.1515915,
+      "recognitionIdenticalToCurrent": true,
+      "pcmSha256": "4dd2afd9b8867c98196a653bb5c693c977bf8d3bbb310c302645ddd1cd0f7c94"
+    },
+    {
+      "start": 52.0,
+      "variant": "raw-entry",
+      "status": 0,
+      "tokens": 36,
+      "inferenceSeconds": 1.146794083,
+      "recognitionIdenticalToCurrent": true,
+      "pcmSha256": "4dd2afd9b8867c98196a653bb5c693c977bf8d3bbb310c302645ddd1cd0f7c94"
+    },
+    {
+      "start": 52.0,
+      "variant": "first-word-cap",
+      "status": 0,
+      "tokens": 36,
+      "inferenceSeconds": 1.179083584,
+      "recognitionIdenticalToCurrent": true,
+      "pcmSha256": "4dd2afd9b8867c98196a653bb5c693c977bf8d3bbb310c302645ddd1cd0f7c94"
+    }
+  ],
+  "matching": [
+    {
+      "windowStart": 5.735,
+      "variant": "current",
+      "match": "matched",
+      "similarity": 0.8235294117647058,
+      "rejections": {
+        "beginningLowConfidence": 1,
+        "phraseNotMatched": 1
+      },
+      "anchors": [
+        {
+          "cue": 1,
+          "subtitleTime": 18.13,
+          "mediaTime": 16.655,
+          "offset": -1.4749999999999979
+        }
+      ]
+    },
+    {
+      "windowStart": 5.735,
+      "variant": "raw-entry",
+      "match": "matched",
+      "similarity": 0.8235294117647058,
+      "rejections": {
+        "beginningLowConfidence": 1,
+        "phraseNotMatched": 1
+      },
+      "anchors": [
+        {
+          "cue": 1,
+          "subtitleTime": 18.13,
+          "mediaTime": 16.575,
+          "offset": -1.5549999999999997
+        }
+      ]
+    },
+    {
+      "windowStart": 5.735,
+      "variant": "first-word-cap",
+      "match": "matched",
+      "similarity": 0.8235294117647058,
+      "rejections": {
+        "beginningLowConfidence": 1,
+        "phraseNotMatched": 1
+      },
+      "anchors": [
+        {
+          "cue": 1,
+          "subtitleTime": 18.13,
+          "mediaTime": 16.575,
+          "offset": -1.5549999999999997
+        }
+      ]
+    },
+    {
+      "windowStart": 17.831,
+      "variant": "current",
+      "match": "matched",
+      "similarity": 0.8125,
+      "rejections": {
+        "phraseNotMatched": 1
+      },
+      "anchors": [
+        {
+          "cue": 1,
+          "subtitleTime": 18.13,
+          "mediaTime": 18.751,
+          "offset": 0.6210000000000022
+        },
+        {
+          "cue": 3,
+          "subtitleTime": 21.98,
+          "mediaTime": 22.491,
+          "offset": 0.5109999999999992
+        }
+      ]
+    },
+    {
+      "windowStart": 17.831,
+      "variant": "raw-entry",
+      "match": "matched",
+      "similarity": 0.8125,
+      "rejections": {
+        "beginningAtWindowEdge": 2,
+        "phraseNotMatched": 1
+      },
+      "anchors": [
+        {
+          "cue": 3,
+          "subtitleTime": 21.98,
+          "mediaTime": 22.051,
+          "offset": 0.07099999999999795
+        }
+      ]
+    },
+    {
+      "windowStart": 17.831,
+      "variant": "first-word-cap",
+      "match": "matched",
+      "similarity": 0.8125,
+      "rejections": {
+        "phraseNotMatched": 1
+      },
+      "anchors": [
+        {
+          "cue": 1,
+          "subtitleTime": 18.13,
+          "mediaTime": 18.151,
+          "offset": 0.021000000000000796
+        },
+        {
+          "cue": 3,
+          "subtitleTime": 21.98,
+          "mediaTime": 22.051,
+          "offset": 0.07099999999999795
+        }
+      ]
+    },
+    {
+      "windowStart": 41.831,
+      "variant": "current",
+      "match": "noCandidate",
+      "similarity": null,
+      "rejections": {},
+      "anchors": []
+    },
+    {
+      "windowStart": 41.831,
+      "variant": "raw-entry",
+      "match": "noCandidate",
+      "similarity": null,
+      "rejections": {},
+      "anchors": []
+    },
+    {
+      "windowStart": 41.831,
+      "variant": "first-word-cap",
+      "match": "noCandidate",
+      "similarity": null,
+      "rejections": {},
+      "anchors": []
+    },
+    {
+      "windowStart": 52.0,
+      "variant": "current",
+      "match": "matched",
+      "similarity": 0.9565217391304348,
+      "rejections": {
+        "phraseNotMatched": 2,
+        "phraseLowConfidence": 1
+      },
+      "anchors": [
+        {
+          "cue": 8,
+          "subtitleTime": 51.99,
+          "mediaTime": 52.18,
+          "offset": 0.18999999999999773
+        },
+        {
+          "cue": 11,
+          "subtitleTime": 62.03,
+          "mediaTime": 62.28,
+          "offset": 0.25
+        },
+        {
+          "cue": 13,
+          "subtitleTime": 65.19,
+          "mediaTime": 65.66,
+          "offset": 0.46999999999999886
+        }
+      ]
+    },
+    {
+      "windowStart": 52.0,
+      "variant": "raw-entry",
+      "match": "matched",
+      "similarity": 0.9565217391304348,
+      "rejections": {
+        "beginningAtWindowEdge": 1,
+        "phraseNotMatched": 2,
+        "phraseLowConfidence": 1
+      },
+      "anchors": [
+        {
+          "cue": 11,
+          "subtitleTime": 62.03,
+          "mediaTime": 61.46,
+          "offset": -0.5700000000000003
+        },
+        {
+          "cue": 13,
+          "subtitleTime": 65.19,
+          "mediaTime": 64.84,
+          "offset": -0.3499999999999943
+        }
+      ]
+    },
+    {
+      "windowStart": 52.0,
+      "variant": "first-word-cap",
+      "match": "matched",
+      "similarity": 0.9565217391304348,
+      "rejections": {
+        "beginningAtWindowEdge": 1,
+        "phraseNotMatched": 2,
+        "phraseLowConfidence": 1
+      },
+      "anchors": [
+        {
+          "cue": 11,
+          "subtitleTime": 62.03,
+          "mediaTime": 61.46,
+          "offset": -0.5700000000000003
+        },
+        {
+          "cue": 13,
+          "subtitleTime": 65.19,
+          "mediaTime": 64.84,
+          "offset": -0.3499999999999943
+        }
+      ]
+    }
+  ],
+  "audioOrTranscriptPersisted": false,
+  "scriptSha256": {
+    "compare.py": "273e90453f845244cb5fc55d851fc33ab6874b7eaf190eadaecae77cfb94ab49",
+    "align.dart": "35d35036facd2601d6ea9c304f8fa1d40432e5283411c4411b9b07d80e5b6b00"
+  },
+  "modelSha256": "4baf70dd0d7c4247ba2b81fafd9c01005ac77c2f9ef064e00dcf195d0e2fdd2f",
+  "conclusions": [
+    "Recognition is identical across all three variants for all four identical PCM windows.",
+    "At 17.831 s, raw-entry timing loses an otherwise accepted cue at the window edge; the first-word cap restores it. This isolates a gate effect that the earlier active runs could not establish.",
+    "At 52 s both experimental variants lose the first cue and move the remaining cue offsets from +0.25/+0.47 s to -0.57/-0.35 s relative to the authored SRT.",
+    "Neither prototype offers a consistent timing improvement. Both remain rejected, and authored cue times are not independently annotated acoustic onsets."
+  ],
+  "productionChange": false,
+  "accuracyAccepted": false
+}
