@@ -1,0 +1,281 @@
+{
+  "schema": 1,
+  "kind": "development-only repeated-dialogue hypothesis",
+  "sourceSha": "9b462853",
+  "reportSha256": "c1e854a327608d5bb9f5e42f471ba12de53a7479e9337684de89883ad8e5ed4f",
+  "experimentScriptSha256": "7f79f5dc2a373c9b6cb3a785f7c15e9835a04c7b3fbce6d08a03ef5a030d2778",
+  "fixtureSha256": "8c8a1be4f19c666fe3509cf38e704f27f0134302363b775a378d8b98faf27098",
+  "criteriaFixedBeforeObservation": {
+    "windowSeconds": 8,
+    "shiftSeconds": 2,
+    "minimumTokenScore": 0.7,
+    "maximumTimingDifferenceSeconds": 0.75,
+    "minimumContiguousReliableWords": 6,
+    "minimumUniqueWords": 3,
+    "positiveSpeechSupportRequired": true
+  },
+  "wordNormalization": "diagnostic ASCII words with apostrophes; not the production DialogueNormalizer",
+  "reports": [
+    {
+      "case": "inserted-dialogue",
+      "start": 38.164375,
+      "end": 46.164375,
+      "inferenceSeconds": 1.020310958,
+      "validPrefixOnly": false,
+      "clippedSamples": 0,
+      "match": "noCandidate",
+      "anchors": []
+    },
+    {
+      "case": "inserted-dialogue",
+      "start": 40.164375,
+      "end": 48.164375,
+      "inferenceSeconds": 1.045876541,
+      "validPrefixOnly": false,
+      "clippedSamples": 0,
+      "match": "noCandidate",
+      "anchors": [],
+      "overlap": {
+        "leftWords": 14,
+        "rightWords": 16,
+        "commonReliableRunWords": 4,
+        "commonReliableRunUniqueWords": 4,
+        "commonStartRange": [
+          41.884375,
+          41.884375
+        ],
+        "commonEndRange": [
+          43.144375,
+          43.164375
+        ],
+        "candidateRepeatedSpeech": false
+      },
+      "bothUnmatched": true
+    },
+    {
+      "case": "inserted-dialogue",
+      "start": 42.164375,
+      "end": 50.164375,
+      "inferenceSeconds": 1.066505791,
+      "validPrefixOnly": false,
+      "clippedSamples": 29,
+      "match": "noCandidate",
+      "anchors": [],
+      "overlap": {
+        "leftWords": 16,
+        "rightWords": 11,
+        "commonReliableRunWords": 2,
+        "commonReliableRunUniqueWords": 2,
+        "commonStartRange": [
+          44.744375,
+          44.744375
+        ],
+        "commonEndRange": [
+          45.164375,
+          45.184375
+        ],
+        "candidateRepeatedSpeech": false
+      },
+      "bothUnmatched": true
+    },
+    {
+      "case": "inserted-dialogue",
+      "start": 44.164375,
+      "end": 52.164375,
+      "inferenceSeconds": 1.017771458,
+      "validPrefixOnly": false,
+      "clippedSamples": 29,
+      "match": "noCandidate",
+      "anchors": [],
+      "overlap": {
+        "leftWords": 11,
+        "rightWords": 7,
+        "commonReliableRunWords": 2,
+        "commonReliableRunUniqueWords": 2,
+        "commonStartRange": [
+          46.004374999999996,
+          46.004375
+        ],
+        "commonEndRange": [
+          47.144375,
+          47.164375
+        ],
+        "candidateRepeatedSpeech": false
+      },
+      "bothUnmatched": true
+    },
+    {
+      "case": "aligned-dialogue",
+      "start": 7.196375,
+      "end": 15.196375,
+      "inferenceSeconds": 1.01832125,
+      "validPrefixOnly": false,
+      "clippedSamples": 0,
+      "match": "matched",
+      "anchors": [
+        {
+          "cue": 1,
+          "offset": -100.203625
+        }
+      ]
+    },
+    {
+      "case": "aligned-dialogue",
+      "start": 9.196375,
+      "end": 17.196375,
+      "inferenceSeconds": 0.993700958,
+      "validPrefixOnly": false,
+      "clippedSamples": 0,
+      "match": "matched",
+      "anchors": [
+        {
+          "cue": 1,
+          "offset": -100.203625
+        }
+      ],
+      "overlap": {
+        "leftWords": 12,
+        "rightWords": 6,
+        "commonReliableRunWords": 3,
+        "commonReliableRunUniqueWords": 3,
+        "commonStartRange": [
+          11.696375,
+          11.716375
+        ],
+        "commonEndRange": [
+          12.616375,
+          12.636375
+        ],
+        "candidateRepeatedSpeech": false
+      },
+      "bothUnmatched": false
+    },
+    {
+      "case": "aligned-dialogue",
+      "start": 11.196375,
+      "end": 19.196375,
+      "inferenceSeconds": 1.026261709,
+      "validPrefixOnly": false,
+      "clippedSamples": 0,
+      "match": "matched",
+      "anchors": [
+        {
+          "cue": 1,
+          "offset": -100.203625
+        },
+        {
+          "cue": 2,
+          "offset": -100.223625
+        }
+      ],
+      "overlap": {
+        "leftWords": 6,
+        "rightWords": 13,
+        "commonReliableRunWords": 3,
+        "commonReliableRunUniqueWords": 3,
+        "commonStartRange": [
+          11.716375,
+          11.716375
+        ],
+        "commonEndRange": [
+          12.636375,
+          12.636375
+        ],
+        "candidateRepeatedSpeech": false
+      },
+      "bothUnmatched": false
+    },
+    {
+      "case": "aligned-dialogue",
+      "start": 13.196375,
+      "end": 21.196375,
+      "inferenceSeconds": 1.024551541,
+      "validPrefixOnly": false,
+      "clippedSamples": 0,
+      "match": "matched",
+      "anchors": [
+        {
+          "cue": 2,
+          "offset": -100.223625
+        }
+      ],
+      "overlap": {
+        "leftWords": 13,
+        "rightWords": 13,
+        "commonReliableRunWords": 3,
+        "commonReliableRunUniqueWords": 3,
+        "commonStartRange": [
+          17.936374999999998,
+          17.936374999999998
+        ],
+        "commonEndRange": [
+          18.316375,
+          18.316375
+        ],
+        "candidateRepeatedSpeech": false
+      },
+      "bothUnmatched": false
+    },
+    {
+      "case": "quiet-added-region",
+      "start": 52.0,
+      "end": 60.0,
+      "inferenceSeconds": 1.036864541,
+      "validPrefixOnly": false,
+      "clippedSamples": 186,
+      "match": "insufficientDialogue",
+      "anchors": []
+    },
+    {
+      "case": "quiet-added-region",
+      "start": 54.0,
+      "end": 62.0,
+      "inferenceSeconds": 1.033661167,
+      "validPrefixOnly": false,
+      "clippedSamples": 167,
+      "match": "insufficientDialogue",
+      "anchors": [],
+      "overlap": {
+        "leftWords": 0,
+        "rightWords": 0,
+        "commonReliableRunWords": 0,
+        "commonReliableRunUniqueWords": 0,
+        "commonStartRange": null,
+        "commonEndRange": null,
+        "candidateRepeatedSpeech": false
+      },
+      "bothUnmatched": false
+    },
+    {
+      "case": "quiet-added-region",
+      "start": 56.0,
+      "end": 64.0,
+      "inferenceSeconds": 0.977955833,
+      "validPrefixOnly": false,
+      "clippedSamples": 85,
+      "match": "insufficientDialogue",
+      "anchors": [],
+      "overlap": {
+        "leftWords": 0,
+        "rightWords": 0,
+        "commonReliableRunWords": 0,
+        "commonReliableRunUniqueWords": 0,
+        "commonStartRange": null,
+        "commonEndRange": null,
+        "candidateRepeatedSpeech": false
+      },
+      "bothUnmatched": false
+    }
+  ],
+  "decision": "Do not introduce a production suppression or gap rule from this experiment. No inserted-dialogue pair met the preselected six-word support criterion.",
+  "limitations": [
+    "Consumed development fixture only; no held-out validation was used.",
+    "Bounded FFmpeg re-decodes are not the original active mpv PCM stream; input peaks were clamped and counted.",
+    "No exact scene boundary can be obtained from the last recognized speech token.",
+    "Repeated recognition of overlapping audio is correlated evidence, not independent acoustic truth.",
+    "No production threshold, mapping, cadence or visibility behavior was changed.",
+    "One initial attempt failed in the numeric inspector because an empty previous-window boundary was emitted as integer zero; the complete rerun uses double zero."
+  ],
+  "pcmOrTranscriptPersisted": false,
+  "fullProductAcceptance": false
+}
