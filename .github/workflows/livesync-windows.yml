@@ -39,6 +39,10 @@ on:
         description: Record bounded first-chance fault stacks in a test-only runner, without a debugger
         type: boolean
         default: false
+      compare_renderer_observer:
+        description: Six fixed same-binary trials with observer off/on/on/off/off/on (requires observation)
+        type: boolean
+        default: false
       seed_wrong_gap:
         description: Seed a wrong cached video-only region and verify recovery (use with immediate subtitles and no startup seek)
         type: boolean
@@ -78,10 +82,16 @@ jobs:
         with:
           persist-credentials: false
       - name: Build and verify the optional native exception observer
-        if: ${{ inputs.debug_renderer || inputs.observe_renderer_faults }}
+        if: ${{ inputs.debug_renderer || inputs.observe_renderer_faults || inputs.compare_renderer_observer }}
         shell: pwsh
         run: |
           if ('${{ inputs.debug_renderer }}' -eq 'true' -and '${{ inputs.observe_renderer_faults }}' -eq 'true') { throw 'Select one observation mechanism' }
+          if ('${{ inputs.compare_renderer_observer }}' -eq 'true' -and '${{ inputs.observe_renderer_faults }}' -ne 'true') { throw 'Comparison requires the vectored observer build' }
+          foreach ($script in @('capture_windows_renderer.ps1', 'compare_windows_renderer_observer.ps1')) {
+            $tokens = $null; $parseErrors = $null
+            $null = [System.Management.Automation.Language.Parser]::ParseFile((Join-Path $PWD "scripts/livesync/$script"), [ref]$tokens, [ref]$parseErrors)
+            if ($parseErrors.Count -gt 0) { throw "PowerShell parsing failed: $script $parseErrors" }
+          }
           New-Item -ItemType Directory -Force build/livesync/evidence | Out-Null
           cmake -S scripts/livesync/windows_debugger -B build/livesync/windows-debugger -A x64
           if ($LASTEXITCODE -ne 0) { throw 'Debugger configure failed' }
@@ -247,7 +257,10 @@ jobs:
           $evidence = (Resolve-Path build/livesync/evidence/renderer).Path
           ffmpeg -version > build/livesync/evidence/renderer/fixture-generator.txt
           $observeFaults = '${{ inputs.observe_renderer_faults }}' -eq 'true'
-          $buildArguments = @('build', 'windows', "--$env:FLUTTER_BUILD_MODE", '--no-pub', '--target', 'tool/livesync_player_probe.dart', "--dart-define=LIVESYNC_FIXTURE_DIR=$fixture", "--dart-define=LIVESYNC_RENDERER_AUTOMATION_DIR=$evidence")
+          $compareObserver = '${{ inputs.compare_renderer_observer }}' -eq 'true'
+          if ($compareObserver -and -not $observeFaults) { throw 'Comparison requires the vectored observer build' }
+          $automation = if ($compareObserver) { Join-Path $evidence 'active' } else { $evidence }
+          $buildArguments = @('build', 'windows', "--$env:FLUTTER_BUILD_MODE", '--no-pub', '--target', 'tool/livesync_player_probe.dart', "--dart-define=LIVESYNC_FIXTURE_DIR=$fixture", "--dart-define=LIVESYNC_RENDERER_AUTOMATION_DIR=$automation")
           try {
             if ($observeFaults) {
               flutter @buildArguments --config-only
@@ -266,8 +279,12 @@ jobs:
               ) } | ConvertTo-Json -Depth 5 | Set-Content (Join-Path $evidence 'native-fault-provenance.json')
             }
             $debugger = if ('${{ inputs.debug_renderer }}' -eq 'true') { 'build/livesync/windows-debugger/Release/livesync_windows_debugger.exe' } else { '' }
-            ./scripts/livesync/capture_windows_renderer.ps1 -Executable "$env:APP_BUNDLE/plezy_livesync.exe" -OutputDirectory $evidence -DebuggerExecutable $debugger
-            if ($observeFaults) {
+            if ($compareObserver) {
+              ./scripts/livesync/compare_windows_renderer_observer.ps1 -Executable "$env:APP_BUNDLE/plezy_livesync.exe" -OutputDirectory $evidence
+            } else {
+              ./scripts/livesync/capture_windows_renderer.ps1 -Executable "$env:APP_BUNDLE/plezy_livesync.exe" -OutputDirectory $evidence -DebuggerExecutable $debugger
+            }
+            if ($observeFaults -and -not $compareObserver) {
               $records = Get-Content $env:LIVESYNC_RENDERER_EXCEPTION_LOG | ForEach-Object { $_ | ConvertFrom-Json }
               if ($records[0].event -ne 'installed' -or $records[0].debuggerPresent) { throw 'Renderer observer was not active without a debugger' }
             }

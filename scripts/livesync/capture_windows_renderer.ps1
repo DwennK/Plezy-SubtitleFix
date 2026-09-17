@@ -184,7 +184,10 @@ try {
     $process.Refresh()
     if (-not $process.HasExited) {
       $process.CloseMainWindow() | Out-Null
-      if (-not $process.WaitForExit(3000)) { $process.Kill() }
+      if (-not $process.WaitForExit(3000)) {
+        $process.Kill()
+        if (-not $process.WaitForExit(5000)) { throw 'Renderer did not terminate after forced cleanup' }
+      }
     }
   }
   if ($null -ne $debugger) {
