@@ -366,7 +366,7 @@
     "punctuationExplainsTheseRejections": "not established; no transcript was retained"
   },
   "desktopRunId": 35174437102,
-  "desktopConclusion": "pending",
+  "desktopConclusion": "success",
   "fullProductAcceptance": false,
   "limitations": [
     "Consumed public fixtures, authored SRT timing, no independent acoustic-onset or audible playback validation.",
@@ -374,5 +374,50 @@
     "The 238-second unmatched control passes with zero offset, segments and gaps; this does not establish a population false-positive rate.",
     "An initial negative-control invocation was rejected before analysis because tracking and negative modes are mutually exclusive; the corrected invocation completed once.",
     "No installed application was changed."
+  ],
+  "desktopReports": [
+    {
+      "artifact": "livesync-dart-macos-26-3bccfb969c297ba5d89983c59b6d060c2bf8f724",
+      "sha256": "80a9cf8f82263a04330eefcc3a4cdff9c0fdc702fd4fe8642ab0429c5411a084",
+      "success": true,
+      "passed": 174,
+      "skippedTests": [
+        "reads all authored cues from the hash-pinned real Sintel fixture"
+      ],
+      "punctuationCases": [
+        {
+          "name": "punctuation-only tokens do not invalidate or move the spoken cue beginning",
+          "result": "success",
+          "skipped": false
+        },
+        {
+          "name": "ignoring punctuation never rescues an unreliable lexical token",
+          "result": "success",
+          "skipped": false
+        }
+      ]
+    },
+    {
+      "artifact": "livesync-dart-windows-latest-3bccfb969c297ba5d89983c59b6d060c2bf8f724",
+      "sha256": "bfaf8a08b58e226836dbfa9870be07e04029dc0f18cef7ad71396c622eea77c9",
+      "success": true,
+      "passed": 173,
+      "skippedTests": [
+        "track changes retry a requested session, but a user stop wins during teardown",
+        "reads all authored cues from the hash-pinned real Sintel fixture"
+      ],
+      "punctuationCases": [
+        {
+          "name": "punctuation-only tokens do not invalidate or move the spoken cue beginning",
+          "result": "success",
+          "skipped": false
+        },
+        {
+          "name": "ignoring punctuation never rescues an unreliable lexical token",
+          "result": "success",
+          "skipped": false
+        }
+      ]
+    }
   ]
 }
