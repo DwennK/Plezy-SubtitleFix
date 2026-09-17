@@ -255,10 +255,10 @@ Write-Host "Architectures found:" -ForegroundColor Green
 if ($HasX64)   { Write-Host "  x64:   $X64BuildDir" }
 if ($HasArm64) { Write-Host "  arm64: $Arm64BuildDir" }
 
-$SetupScript = "setup.iss"
+$SetupScript = Join-Path $ResolvedOutput "setup.iss"
 
 if ($EmitScriptOnly) {
-    $EmittedScript = Join-Path $ResolvedOutput $SetupScript
+    $EmittedScript = $SetupScript
     Write-Host "`nGenerating Inno Setup script only..." -ForegroundColor Cyan
     New-InnoSetupScript -Version $Version -HasX64 ([bool]$HasX64) -HasArm64 ([bool]$HasArm64) |
         Out-File -FilePath $EmittedScript -Encoding ASCII
@@ -311,7 +311,7 @@ if ($HasArm64) {
 }
 
 Write-Host "`nStaging files for installer..." -ForegroundColor Cyan
-$StagingDir = "staging"
+$StagingDir = Join-Path $ResolvedOutput "staging"
 if (Test-Path $StagingDir) { Remove-Item $StagingDir -Recurse -Force }
 
 if ($HasX64) {

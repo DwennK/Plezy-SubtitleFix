@@ -1,0 +1,118 @@
+{
+  "schema": 1,
+  "kind": "actual-windows-installation-trial-receipt",
+  "runId": 35169812106,
+  "runConclusion": "success",
+  "evidenceArtifactId": 10476705027,
+  "packagesArtifactId": 10476473141,
+  "trial": {
+    "kind": "real-windows-installer-coexistence-trial",
+    "officialRelease": "2.20.0",
+    "forkInstallerSha256": "c9d09f94df41ad60865b0cea2f57b46b815ffc48d8b8dca929cacadca3456d16",
+    "officialInstallerSha256": "6bd848c708f34918160d584cb3baa9cbe5b248bec4aac4b8b55f6fff42000535",
+    "passed": true,
+    "stages": [
+      "official-installed-and-launched",
+      "fork-installed-launched-and-isolated",
+      "both-applications-alive",
+      "fork-uninstalled-official-preserved",
+      "official-relaunched-after-fork-removal"
+    ],
+    "captures": [
+      {
+        "height": 720,
+        "name": "official-coexistence",
+        "width": 1024,
+        "sha256": "022b0931efeb513173403f0b0fd80a648759983590aafa8b582668d7e3d4a259"
+      },
+      {
+        "height": 720,
+        "name": "fork-coexistence",
+        "width": 1024,
+        "sha256": "d3801475914f15e4590cd40270fc3cd81e9a4058c65e78d8c83174876ca3a690"
+      },
+      {
+        "height": 720,
+        "name": "official-after-removal",
+        "width": 1024,
+        "sha256": "14ba079955b53a3fa507eb7f1fd82cb6fb210ee1229c53792f988e6341651e04"
+      }
+    ],
+    "audiblePlaybackValidated": false,
+    "automaticSynchronizationValidated": false,
+    "officialStatePreservedAfterForkStartup": true,
+    "officialStatePreservedAfterForkRemoval": true,
+    "forkUserDataRetained": true,
+    "visualInspectionRequired": true
+  },
+  "validationScope": {
+    "installationTrialScope": "packaging, launch, coexistence and removal only",
+    "applicationSourceSha": "3ccb1be7ebf3061d5eca4ff26fd6d54d699f3ea3",
+    "applicationRunId": "35167800776",
+    "sourceRendererMode": "vectored-diagnostic",
+    "fullProductAcceptance": false,
+    "normalRendererStabilityEstablished": false
+  },
+  "packaging": {
+    "automaticSynchronizationValidatedByInstallationTrial": false,
+    "packagingSourceSha": "231ba391e781bb27b651c8ddfb82e732f53d3be6",
+    "excludedNativeContractFiles": [
+      {
+        "sha256": "137413d5bd00ccd8140afd54233cf0e0b4d94059b417bdf82def8efeab9e8cd6",
+        "name": "mpv_property_result_contract_test.exe"
+      },
+      {
+        "sha256": "ede1a1ddd7646ab72d086e13957685f437b72c3a5a2e02980640785b1bd7ea34",
+        "name": "mpv_player_property_contract_test.exe"
+      },
+      {
+        "sha256": "6929734d2eebb31bd0d44421de7cb7609b85d44c88283a866bd0321ef6eb788e",
+        "name": "display_mode_manager_test.exe"
+      }
+    ],
+    "applicationSourceSha": "3ccb1be7ebf3061d5eca4ff26fd6d54d699f3ea3",
+    "applicationRunId": "35167800776",
+    "runtimeHashesVerified": true
+  },
+  "visualInspection": {
+    "completed": true,
+    "viewport": [
+      1024,
+      720
+    ],
+    "limitation": "hosted desktop size; no physical GPU or audible playback proof",
+    "observations": [
+      "Fork sign-in screen renders with Plezy + LiveSync window title.",
+      "Official sign-in screen renders while both applications are running.",
+      "Official sign-in screen renders after fork removal."
+    ]
+  },
+  "artifactFileHashes": {
+    "application-run.json": "5b7a0944ab91f06a625c864da4ebbb0254c5d05b6fc8cf874f9770d77ad8d852",
+    "fork-coexistence.png": "d3801475914f15e4590cd40270fc3cd81e9a4058c65e78d8c83174876ca3a690",
+    "fork-install.log": "9bd3b0ff15e77a0a0603fc99809e7bb09292ac34f463c084b8843bf1a3541b9a",
+    "fork-stderr.log": "30922815abf689f4724faa69e3bef5398886fb5b0864c7876afa6e8c2b4fc18f",
+    "fork-stdout.log": "db9391705f63544b526aa7216712a4554a324297435eb6816bf61a748abb4d39",
+    "fork-uninstall.log": "bd9f38d3c4ac8e5a24aec0fce4162115cac105a0a3538cba7cd1adba7f1689dd",
+    "installation-result.json": "f4a1dd0f913c4cf9c74f7dc8b0ae65e5caffc81e4de44a2800a935d72d036b77",
+    "official-after-removal-stderr.log": "30922815abf689f4724faa69e3bef5398886fb5b0864c7876afa6e8c2b4fc18f",
+    "official-after-removal-stdout.log": "dc81ed44810b6807917d162251ecc283de9f134434dd78e904e4855f6d207fcd",
+    "official-after-removal.png": "14ba079955b53a3fa507eb7f1fd82cb6fb210ee1229c53792f988e6341651e04",
+    "official-cleanup-uninstall.log": "9113dcb06c4fe80584017cf1fa04086593d97f20c3486ad674ffc70c4106b29d",
+    "official-coexistence-stderr.log": "30922815abf689f4724faa69e3bef5398886fb5b0864c7876afa6e8c2b4fc18f",
+    "official-coexistence-stdout.log": "562a853430961d1c3875bcc17368f70356873479e4543f75417d60a954407bf9",
+    "official-coexistence.png": "022b0931efeb513173403f0b0fd80a648759983590aafa8b582668d7e3d4a259",
+    "official-initial-stderr.log": "30922815abf689f4724faa69e3bef5398886fb5b0864c7876afa6e8c2b4fc18f",
+    "official-initial-stdout.log": "34b50495455b045137fb49cc11ce5e24276e74134b40593dc58c4efd47a7caca",
+    "official-install.log": "a99861219f2d16d9b9a1c7f09063d7eedb5e02b2465a98458534f7dc0763aafb",
+    "packaging-provenance.json": "67e9d122572704f3cc53443bdc7794bfdb517875e7c71d8208059cb4b8dfe525",
+    "source-validation-scope.json": "5d0dde5b3fac818bfc5913274792925c39b2b6875b43882cabce8939d986773e"
+  },
+  "fullProductAcceptance": false,
+  "normalRendererStabilityEstablished": false,
+  "limitations": [
+    "Fresh disposable Windows runner, no existing signed-in library or upgrade migration exercised.",
+    "Application source renderer validation used a test-only observer; preserved normal app was built before instrumentation.",
+    "Trial validates packaging, launch, data isolation and removal only; no automatic synchronization or audible playback acceptance."
+  ]
+}
