@@ -10,6 +10,8 @@ class AnalysisCadence {
   int? _confirmationRequests;
   bool _tightRetryPending = false;
   bool _tightRetryUsed = false;
+  double? _tightRetryThrough;
+  bool _awaitingTightRetryResult = false;
   double windowSeconds = 12;
 
   void clear() {
@@ -21,6 +23,8 @@ class AnalysisCadence {
     _confirmationRequests = null;
     _tightRetryPending = false;
     _tightRetryUsed = false;
+    _tightRetryThrough = null;
+    _awaitingTightRetryResult = false;
     windowSeconds = 12;
   }
 
@@ -30,12 +34,23 @@ class AnalysisCadence {
     if (_tightRetryPending) {
       _tightRetryPending = false;
       _tightRetryUsed = true;
+      _awaitingTightRetryResult = true;
       windowSeconds = 15;
     }
     if (_confirmationRequests != null) _confirmationRequests = _confirmationRequests! + 1;
   }
 
-  void evidence({required bool recognizedPassage, required bool learned, bool predictionContradicted = false}) {
+  void evidence({
+    required bool recognizedPassage,
+    required bool learned,
+    bool predictionContradicted = false,
+    bool speechTimingRejected = false,
+    double? windowEnd,
+    double? latestAnchorMediaTime,
+  }) {
+    final shortResult = _awaitingTightRetryResult;
+    _awaitingTightRetryResult = false;
+    if (shortResult && windowEnd != null && windowEnd.isFinite) _tightRetryThrough = windowEnd;
     _nativeFailures = 0;
     _retrySoon = recognizedPassage && !learned;
     windowSeconds = learned ? 12 : 15;
@@ -43,12 +58,30 @@ class AnalysisCadence {
       _confirmationRequests ??= 0;
       if (!predictionContradicted) _tightRetryUsed = false;
     }
-    _tightRetryPending = predictionContradicted && !learned && !_tightRetryUsed;
-    if (_tightRetryPending) windowSeconds = 8;
+    // New, accepted timing beyond the previous retry's audio may justify a
+    // fresh tail. Repeating old anchors or sliding the same window cannot.
+    if (!shortResult &&
+        speechTimingRejected &&
+        _tightRetryUsed &&
+        _tightRetryThrough != null &&
+        windowEnd != null &&
+        windowEnd.isFinite &&
+        latestAnchorMediaTime != null &&
+        latestAnchorMediaTime.isFinite &&
+        latestAnchorMediaTime > _tightRetryThrough! &&
+        latestAnchorMediaTime <= windowEnd) {
+      _tightRetryUsed = false;
+    }
+    _tightRetryPending = (predictionContradicted || speechTimingRejected) && !learned && !_tightRetryUsed;
+    if (_tightRetryPending) {
+      windowSeconds = 8;
+      _tightRetryThrough = windowEnd != null && windowEnd.isFinite ? windowEnd : null;
+    }
   }
 
   void rejectedInference() {
     _nativeFailures++;
+    _awaitingTightRetryResult = false;
     _tightRetryPending = false;
     // Give transient failures two prompt recovery attempts, then return to
     // sparse acquisition. Never loop continuously on a broken native runtime.
@@ -62,14 +95,13 @@ class AnalysisCadence {
       if (!voicePresent) _activityWake = false;
       _previousVoicePresent = voicePresent;
     }
-    // A confirmed contradiction may be caused by a badly placed token in a
+    // A contradiction or a speech-rejected cue start can reflect a bad token in a
     // long window. Reanalyze the recent tail once, after the previous result
     // has released its native slot. Repeated failures cannot create a loop.
-    if (_tightRetryPending && !synced) return 0;
+    if (_tightRetryPending) return 0;
     // Keep one initial analysis and a periodic fallback: the heuristic can
     // miss quiet speech. Activity never changes a mapping or grants a lock.
-    if (synced && timingMismatch) return 30000;
-    if (attempts > 0 && voicePresent == false) return 90000;
+    if (attempts > 0 && voicePresent == false && !(synced && timingMismatch)) return 90000;
     if (synced) {
       // An initial constant correction still needs a longer baseline to rule
       // out drift. Bound the extra work even if the source stays too sparse.
@@ -81,7 +113,9 @@ class AnalysisCadence {
           (_confirmationRequests ?? confirmationRequests) < confirmationRequests) {
         return 12000;
       }
-      return established ? 90000 : 30000;
+      // A mismatch shortens sparse checks, but must never postpone an
+      // already faster confirmation or native-failure retry above.
+      return established && !timingMismatch ? 90000 : 30000;
     }
     if (_activityWake && _nativeFailures <= 2) return 12000;
     return attempts > 3 && !_retrySoon ? 30000 : 12000;

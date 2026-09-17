@@ -1,0 +1,3815 @@
+{
+  "schema": 1,
+  "sourceSha": "a9222184cafae5780b670cfee9b40dcc299c11e1",
+  "change": "Ignore whole non-dialogue segments only when both segment text and joined token text normalize to no words. All spoken-word confidence, speech support, timestamp, ambiguity and independent-anchor gates remain unchanged.",
+  "regression": {
+    "before": "The new test expected spoken onsets [92, 97] but received no anchors.",
+    "afterFeatureTestsPassed": 177,
+    "skipped": 1,
+    "focusedAnalysisPassed": true,
+    "logSha256": {
+      "annotation-red-test.log": "cdaa9184ad87fc23f43de17d72924ef8957c08c46bf5ddd06724ab76e714a915",
+      "annotation-feature-tests-final.log": "eb88dbeeef91b8afa44b4ace91595e707eaf3b1c239b00bff777d8d71e703614",
+      "annotation-analysis-final.log": "f156408e117dc0034689b4e39300c1c2aa95191e6b52c43c45e850213e557989"
+    }
+  },
+  "sameNativeResultComparison": {
+    "sha256": "3eb3d7f9fbaceac3c34ac9c09c3dfd044eccc0d512336142121e9ea66c53691b",
+    "data": {
+      "sameNativeResultCompared": true,
+      "paired": {
+        "before": {
+          "status": "matched",
+          "windowCount": 1,
+          "segmented": false,
+          "rejections": {
+            "normalizationMismatch": 1
+          },
+          "anchors": []
+        },
+        "after": {
+          "status": "matched",
+          "windowCount": 1,
+          "segmented": false,
+          "rejections": {
+            "beginningUnsupportedSpeech": 1
+          },
+          "anchors": []
+        }
+      },
+      "start": 68.1136875,
+      "end": 83.1136875,
+      "inferenceSeconds": 0.638590959,
+      "nativeStatus": 0,
+      "normalization": {
+        "segments": [
+          {
+            "wholeWords": 0,
+            "spanWords": 3,
+            "mismatch": true,
+            "wholeEmpty": true,
+            "tokenTextEqualsSegment": true,
+            "squareAnnotations": 1,
+            "parenthesisAnnotations": 0,
+            "musicCharacters": false,
+            "uppercaseSpeaker": false
+          },
+          {
+            "wholeWords": 0,
+            "spanWords": 4,
+            "mismatch": true,
+            "wholeEmpty": true,
+            "tokenTextEqualsSegment": true,
+            "squareAnnotations": 1,
+            "parenthesisAnnotations": 0,
+            "musicCharacters": false,
+            "uppercaseSpeaker": false
+          },
+          {
+            "wholeWords": 7,
+            "spanWords": 7,
+            "mismatch": false,
+            "wholeEmpty": false,
+            "tokenTextEqualsSegment": true,
+            "squareAnnotations": 0,
+            "parenthesisAnnotations": 0,
+            "musicCharacters": false,
+            "uppercaseSpeaker": false
+          }
+        ]
+      },
+      "pcmOrTranscriptPersisted": false
+    }
+  },
+  "defaultBaseCpuOrdinary": {
+    "sha256": "e2e85aadf126ffca6ae516bd91f3dd4a59a5caaff88f8b42f5f25d758517a268",
+    "data": {
+      "kind": "native-active-pcm-real-asr-and-domain-alignment",
+      "platform": "macos",
+      "inferenceBackend": "portable-cpu",
+      "alignmentEngine": "bounded-affine-timeline",
+      "acquiredMediaPosition": 21.625,
+      "learnedSegments": 1,
+      "learnedGaps": [],
+      "activityChecks": 146,
+      "activityVoiceChecks": 137,
+      "activityTimingMismatchChecks": 0,
+      "analysisRequests": [
+        {
+          "elapsedMs": 8421,
+          "mediaTime": 8.417,
+          "intervalMs": 12000,
+          "windowSeconds": 12.0,
+          "voicePresent": true,
+          "timingMismatch": false,
+          "established": false
+        },
+        {
+          "elapsedMs": 20453,
+          "mediaTime": 20.458,
+          "intervalMs": 12000,
+          "windowSeconds": 15.0,
+          "voicePresent": true,
+          "timingMismatch": false,
+          "established": false
+        },
+        {
+          "elapsedMs": 32469,
+          "mediaTime": 32.5,
+          "intervalMs": 12000,
+          "windowSeconds": 12.0,
+          "voicePresent": true,
+          "timingMismatch": false,
+          "established": false
+        },
+        {
+          "elapsedMs": 44492,
+          "mediaTime": 44.5,
+          "intervalMs": 12000,
+          "windowSeconds": 12.0,
+          "voicePresent": true,
+          "timingMismatch": false,
+          "established": false
+        },
+        {
+          "elapsedMs": 56522,
+          "mediaTime": 56.541999999999994,
+          "intervalMs": 12000,
+          "windowSeconds": 12.0,
+          "voicePresent": true,
+          "timingMismatch": false,
+          "established": false
+        },
+        {
+          "elapsedMs": 68554,
+          "mediaTime": 68.583,
+          "intervalMs": 12000,
+          "windowSeconds": 12.0,
+          "voicePresent": true,
+          "timingMismatch": false,
+          "established": false
+        }
+      ],
+      "activityTotalMicros": 203761,
+      "activityMaxMicros": 2686,
+      "actualOffset": -100.20429166666665,
+      "acquisitionMs": 21585,
+      "evaluationMs": 75028,
+      "expectedOffset": -100.0,
+      "expectNoLock": false,
+      "completedAnalyses": 6,
+      "validPrefixAnalyses": 0,
+      "rejectedAnalyses": 0,
+      "absoluteOffsetError": 0.20429229736328125,
+      "maximumOffsetError": 0.75,
+      "reference": "fixture SRT timings, not precise acoustic-onset ground truth",
+      "passed": true,
+      "expectedSlope": 1.0,
+      "slopeConfirmed": true,
+      "affineAcquisitionMs": "none",
+      "trackingErrorP95": 0.21429443359375,
+      "trackingErrorMaximum": 0.21429443359375,
+      "trackingSamples": [
+        {
+          "mediaTime": 21.625,
+          "regionKind": "aligned",
+          "presentationSuppressionRequested": false,
+          "automaticDelay": -100.21429166666667,
+          "mappingAvailable": true,
+          "nativeDelay": -100.21429443359375,
+          "expectedDelay": -100.0,
+          "error": 0.21429443359375
+        },
+        {
+          "mediaTime": 22.625,
+          "regionKind": "aligned",
+          "presentationSuppressionRequested": false,
+          "automaticDelay": -100.21429166666667,
+          "mappingAvailable": true,
+          "nativeDelay": -100.21429443359375,
+          "expectedDelay": -100.0,
+          "error": 0.21429443359375
+        },
+        {
+          "mediaTime": 23.666999999999998,
+          "regionKind": "aligned",
+          "presentationSuppressionRequested": false,
+          "automaticDelay": -100.21429166666667,
+          "mappingAvailable": true,
+          "nativeDelay": -100.21429443359375,
+          "expectedDelay": -100.0,
+          "error": 0.21429443359375
+        },
+        {
+          "mediaTime": 24.666999999999998,
+          "regionKind": "aligned",
+          "presentationSuppressionRequested": false,
+          "automaticDelay": -100.21429166666667,
+          "mappingAvailable": true,
+          "nativeDelay": -100.21429443359375,
+          "expectedDelay": -100.0,
+          "error": 0.21429443359375
+        },
+        {
+          "mediaTime": 25.708,
+          "regionKind": "aligned",
+          "presentationSuppressionRequested": false,
+          "automaticDelay": -100.21429166666667,
+          "mappingAvailable": true,
+          "nativeDelay": -100.21429443359375,
+          "expectedDelay": -100.0,
+          "error": 0.21429443359375
+        },
+        {
+          "mediaTime": 26.708,
+          "regionKind": "aligned",
+          "presentationSuppressionRequested": false,
+          "automaticDelay": -100.21429166666667,
+          "mappingAvailable": true,
+          "nativeDelay": -100.21429443359375,
+          "expectedDelay": -100.0,
+          "error": 0.21429443359375
+        },
+        {
+          "mediaTime": 27.75,
+          "regionKind": "aligned",
+          "presentationSuppressionRequested": false,
+          "automaticDelay": -100.21429166666667,
+          "mappingAvailable": true,
+          "nativeDelay": -100.21429443359375,
+          "expectedDelay": -100.0,
+          "error": 0.21429443359375
+        },
+        {
+          "mediaTime": 28.791999999999998,
+          "regionKind": "aligned",
+          "presentationSuppressionRequested": false,
+          "automaticDelay": -100.21429166666667,
+          "mappingAvailable": true,
+          "nativeDelay": -100.21429443359375,
+          "expectedDelay": -100.0,
+          "error": 0.21429443359375
+        },
+        {
+          "mediaTime": 29.791999999999998,
+          "regionKind": "aligned",
+          "presentationSuppressionRequested": false,
+          "automaticDelay": -100.21429166666667,
+          "mappingAvailable": true,
+          "nativeDelay": -100.21429443359375,
+          "expectedDelay": -100.0,
+          "error": 0.21429443359375
+        },
+        {
+          "mediaTime": 30.833,
+          "regionKind": "aligned",
+          "presentationSuppressionRequested": false,
+          "automaticDelay": -100.21429166666667,
+          "mappingAvailable": true,
+          "nativeDelay": -100.21429443359375,
+          "expectedDelay": -100.0,
+          "error": 0.21429443359375
+        },
+        {
+          "mediaTime": 31.875,
+          "regionKind": "aligned",
+          "presentationSuppressionRequested": false,
+          "automaticDelay": -100.21429166666667,
+          "mappingAvailable": true,
+          "nativeDelay": -100.21429443359375,
+          "expectedDelay": -100.0,
+          "error": 0.21429443359375
+        },
+        {
+          "mediaTime": 32.917,
+          "regionKind": "aligned",
+          "presentationSuppressionRequested": false,
+          "automaticDelay": -100.21429166666667,
+          "mappingAvailable": true,
+          "nativeDelay": -100.21429443359375,
+          "expectedDelay": -100.0,
+          "error": 0.21429443359375
+        },
+        {
+          "mediaTime": 33.917,
+          "regionKind": "aligned",
+          "presentationSuppressionRequested": false,
+          "automaticDelay": -100.21429166666667,
+          "mappingAvailable": true,
+          "nativeDelay": -100.21429443359375,
+          "expectedDelay": -100.0,
+          "error": 0.21429443359375
+        },
+        {
+          "mediaTime": 34.958,
+          "regionKind": "aligned",
+          "presentationSuppressionRequested": false,
+          "automaticDelay": -100.21429166666667,
+          "mappingAvailable": true,
+          "nativeDelay": -100.21429443359375,
+          "expectedDelay": -100.0,
+          "error": 0.21429443359375
+        },
+        {
+          "mediaTime": 35.958,
+          "regionKind": "aligned",
+          "presentationSuppressionRequested": false,
+          "automaticDelay": -100.21429166666667,
+          "mappingAvailable": true,
+          "nativeDelay": -100.21429443359375,
+          "expectedDelay": -100.0,
+          "error": 0.21429443359375
+        },
+        {
+          "mediaTime": 37.0,
+          "regionKind": "aligned",
+          "presentationSuppressionRequested": false,
+          "automaticDelay": -100.21429166666667,
+          "mappingAvailable": true,
+          "nativeDelay": -100.21429443359375,
+          "expectedDelay": -100.0,
+          "error": 0.21429443359375
+        },
+        {
+          "mediaTime": 38.042,
+          "regionKind": "aligned",
+          "presentationSuppressionRequested": false,
+          "automaticDelay": -100.21429166666667,
+          "mappingAvailable": true,
+          "nativeDelay": -100.21429443359375,
+          "expectedDelay": -100.0,
+          "error": 0.21429443359375
+        },
+        {
+          "mediaTime": 39.083,
+          "regionKind": "aligned",
+          "presentationSuppressionRequested": false,
+          "automaticDelay": -100.21429166666667,
+          "mappingAvailable": true,
+          "nativeDelay": -100.21429443359375,
+          "expectedDelay": -100.0,
+          "error": 0.21429443359375
+        },
+        {
+          "mediaTime": 40.083,
+          "regionKind": "aligned",
+          "presentationSuppressionRequested": false,
+          "automaticDelay": -100.21429166666667,
+          "mappingAvailable": true,
+          "nativeDelay": -100.21429443359375,
+          "expectedDelay": -100.0,
+          "error": 0.21429443359375
+        },
+        {
+          "mediaTime": 41.125,
+          "regionKind": "aligned",
+          "presentationSuppressionRequested": false,
+          "automaticDelay": -100.21429166666667,
+          "mappingAvailable": true,
+          "nativeDelay": -100.21429443359375,
+          "expectedDelay": -100.0,
+          "error": 0.21429443359375
+        },
+        {
+          "mediaTime": 42.125,
+          "regionKind": "aligned",
+          "presentationSuppressionRequested": false,
+          "automaticDelay": -100.21429166666667,
+          "mappingAvailable": true,
+          "nativeDelay": -100.21429443359375,
+          "expectedDelay": -100.0,
+          "error": 0.21429443359375
+        },
+        {
+          "mediaTime": 43.167,
+          "regionKind": "aligned",
+          "presentationSuppressionRequested": false,
+          "automaticDelay": -100.21429166666667,
+          "mappingAvailable": true,
+          "nativeDelay": -100.21429443359375,
+          "expectedDelay": -100.0,
+          "error": 0.21429443359375
+        },
+        {
+          "mediaTime": 44.208,
+          "regionKind": "aligned",
+          "presentationSuppressionRequested": false,
+          "automaticDelay": -100.21429166666667,
+          "mappingAvailable": true,
+          "nativeDelay": -100.21429443359375,
+          "expectedDelay": -100.0,
+          "error": 0.21429443359375
+        },
+        {
+          "mediaTime": 45.208,
+          "regionKind": "aligned",
+          "presentationSuppressionRequested": false,
+          "automaticDelay": -100.21429166666667,
+          "mappingAvailable": true,
+          "nativeDelay": -100.21429443359375,
+          "expectedDelay": -100.0,
+          "error": 0.21429443359375
+        },
+        {
+          "mediaTime": 46.25,
+          "regionKind": "aligned",
+          "presentationSuppressionRequested": false,
+          "automaticDelay": -100.21429166666667,
+          "mappingAvailable": true,
+          "nativeDelay": -100.21429443359375,
+          "expectedDelay": -100.0,
+          "error": 0.21429443359375
+        },
+        {
+          "mediaTime": 47.291999999999994,
+          "regionKind": "aligned",
+          "presentationSuppressionRequested": false,
+          "automaticDelay": -100.21429166666667,
+          "mappingAvailable": true,
+          "nativeDelay": -100.21429443359375,
+          "expectedDelay": -100.0,
+          "error": 0.21429443359375
+        },
+        {
+          "mediaTime": 48.291999999999994,
+          "regionKind": "aligned",
+          "presentationSuppressionRequested": false,
+          "automaticDelay": -100.21429166666667,
+          "mappingAvailable": true,
+          "nativeDelay": -100.21429443359375,
+          "expectedDelay": -100.0,
+          "error": 0.21429443359375
+        },
+        {
+          "mediaTime": 49.333,
+          "regionKind": "aligned",
+          "presentationSuppressionRequested": false,
+          "automaticDelay": -100.21429166666667,
+          "mappingAvailable": true,
+          "nativeDelay": -100.21429443359375,
+          "expectedDelay": -100.0,
+          "error": 0.21429443359375
+        },
+        {
+          "mediaTime": 50.375,
+          "regionKind": "aligned",
+          "presentationSuppressionRequested": false,
+          "automaticDelay": -100.21429166666667,
+          "mappingAvailable": true,
+          "nativeDelay": -100.21429443359375,
+          "expectedDelay": -100.0,
+          "error": 0.21429443359375
+        },
+        {
+          "mediaTime": 51.416999999999994,
+          "regionKind": "aligned",
+          "presentationSuppressionRequested": false,
+          "automaticDelay": -100.21429166666667,
+          "mappingAvailable": true,
+          "nativeDelay": -100.21429443359375,
+          "expectedDelay": -100.0,
+          "error": 0.21429443359375
+        },
+        {
+          "mediaTime": 52.416999999999994,
+          "regionKind": "aligned",
+          "presentationSuppressionRequested": false,
+          "automaticDelay": -100.21429166666667,
+          "mappingAvailable": true,
+          "nativeDelay": -100.21429443359375,
+          "expectedDelay": -100.0,
+          "error": 0.21429443359375
+        },
+        {
+          "mediaTime": 53.458,
+          "regionKind": "aligned",
+          "presentationSuppressionRequested": false,
+          "automaticDelay": -100.21429166666667,
+          "mappingAvailable": true,
+          "nativeDelay": -100.21429443359375,
+          "expectedDelay": -100.0,
+          "error": 0.21429443359375
+        },
+        {
+          "mediaTime": 54.5,
+          "regionKind": "aligned",
+          "presentationSuppressionRequested": false,
+          "automaticDelay": -100.21429166666667,
+          "mappingAvailable": true,
+          "nativeDelay": -100.21429443359375,
+          "expectedDelay": -100.0,
+          "error": 0.21429443359375
+        },
+        {
+          "mediaTime": 55.5,
+          "regionKind": "aligned",
+          "presentationSuppressionRequested": false,
+          "automaticDelay": -100.21429166666667,
+          "mappingAvailable": true,
+          "nativeDelay": -100.21429443359375,
+          "expectedDelay": -100.0,
+          "error": 0.21429443359375
+        },
+        {
+          "mediaTime": 56.541999999999994,
+          "regionKind": "aligned",
+          "presentationSuppressionRequested": false,
+          "automaticDelay": -100.21429166666667,
+          "mappingAvailable": true,
+          "nativeDelay": -100.21429443359375,
+          "expectedDelay": -100.0,
+          "error": 0.21429443359375
+        },
+        {
+          "mediaTime": 57.541999999999994,
+          "regionKind": "aligned",
+          "presentationSuppressionRequested": false,
+          "automaticDelay": -100.21429166666667,
+          "mappingAvailable": true,
+          "nativeDelay": -100.21429443359375,
+          "expectedDelay": -100.0,
+          "error": 0.21429443359375
+        },
+        {
+          "mediaTime": 58.583,
+          "regionKind": "aligned",
+          "presentationSuppressionRequested": false,
+          "automaticDelay": -100.20429166666665,
+          "mappingAvailable": true,
+          "nativeDelay": -100.20429229736328,
+          "expectedDelay": -100.0,
+          "error": 0.20429229736328125
+        },
+        {
+          "mediaTime": 59.625,
+          "regionKind": "aligned",
+          "presentationSuppressionRequested": false,
+          "automaticDelay": -100.20429166666668,
+          "mappingAvailable": true,
+          "nativeDelay": -100.20429229736328,
+          "expectedDelay": -100.0,
+          "error": 0.20429229736328125
+        },
+        {
+          "mediaTime": 60.666999999999994,
+          "regionKind": "aligned",
+          "presentationSuppressionRequested": false,
+          "automaticDelay": -100.20429166666665,
+          "mappingAvailable": true,
+          "nativeDelay": -100.20429229736328,
+          "expectedDelay": -100.0,
+          "error": 0.20429229736328125
+        },
+        {
+          "mediaTime": 61.666999999999994,
+          "regionKind": "aligned",
+          "presentationSuppressionRequested": false,
+          "automaticDelay": -100.20429166666665,
+          "mappingAvailable": true,
+          "nativeDelay": -100.20429229736328,
+          "expectedDelay": -100.0,
+          "error": 0.20429229736328125
+        },
+        {
+          "mediaTime": 62.708,
+          "regionKind": "aligned",
+          "presentationSuppressionRequested": false,
+          "automaticDelay": -100.20429166666665,
+          "mappingAvailable": true,
+          "nativeDelay": -100.20429229736328,
+          "expectedDelay": -100.0,
+          "error": 0.20429229736328125
+        },
+        {
+          "mediaTime": 63.75,
+          "regionKind": "aligned",
+          "presentationSuppressionRequested": false,
+          "automaticDelay": -100.20429166666668,
+          "mappingAvailable": true,
+          "nativeDelay": -100.20429229736328,
+          "expectedDelay": -100.0,
+          "error": 0.20429229736328125
+        },
+        {
+          "mediaTime": 64.792,
+          "regionKind": "aligned",
+          "presentationSuppressionRequested": false,
+          "automaticDelay": -100.20429166666665,
+          "mappingAvailable": true,
+          "nativeDelay": -100.20429229736328,
+          "expectedDelay": -100.0,
+          "error": 0.20429229736328125
+        },
+        {
+          "mediaTime": 65.792,
+          "regionKind": "aligned",
+          "presentationSuppressionRequested": false,
+          "automaticDelay": -100.20429166666665,
+          "mappingAvailable": true,
+          "nativeDelay": -100.20429229736328,
+          "expectedDelay": -100.0,
+          "error": 0.20429229736328125
+        },
+        {
+          "mediaTime": 66.833,
+          "regionKind": "aligned",
+          "presentationSuppressionRequested": false,
+          "automaticDelay": -100.20429166666665,
+          "mappingAvailable": true,
+          "nativeDelay": -100.20429229736328,
+          "expectedDelay": -100.0,
+          "error": 0.20429229736328125
+        },
+        {
+          "mediaTime": 67.875,
+          "regionKind": "aligned",
+          "presentationSuppressionRequested": false,
+          "automaticDelay": -100.20429166666668,
+          "mappingAvailable": true,
+          "nativeDelay": -100.20429229736328,
+          "expectedDelay": -100.0,
+          "error": 0.20429229736328125
+        },
+        {
+          "mediaTime": 68.875,
+          "regionKind": "aligned",
+          "presentationSuppressionRequested": false,
+          "automaticDelay": -100.20429166666668,
+          "mappingAvailable": true,
+          "nativeDelay": -100.20429229736328,
+          "expectedDelay": -100.0,
+          "error": 0.20429229736328125
+        },
+        {
+          "mediaTime": 69.917,
+          "regionKind": "aligned",
+          "presentationSuppressionRequested": false,
+          "automaticDelay": -100.20429166666665,
+          "mappingAvailable": true,
+          "nativeDelay": -100.20429229736328,
+          "expectedDelay": -100.0,
+          "error": 0.20429229736328125
+        },
+        {
+          "mediaTime": 70.917,
+          "regionKind": "aligned",
+          "presentationSuppressionRequested": false,
+          "automaticDelay": -100.20429166666665,
+          "mappingAvailable": true,
+          "nativeDelay": -100.20429229736328,
+          "expectedDelay": -100.0,
+          "error": 0.20429229736328125
+        },
+        {
+          "mediaTime": 71.958,
+          "regionKind": "aligned",
+          "presentationSuppressionRequested": false,
+          "automaticDelay": -100.20429166666665,
+          "mappingAvailable": true,
+          "nativeDelay": -100.20429229736328,
+          "expectedDelay": -100.0,
+          "error": 0.20429229736328125
+        },
+        {
+          "mediaTime": 73.0,
+          "regionKind": "aligned",
+          "presentationSuppressionRequested": false,
+          "automaticDelay": -100.20429166666668,
+          "mappingAvailable": true,
+          "nativeDelay": -100.20429229736328,
+          "expectedDelay": -100.0,
+          "error": 0.20429229736328125
+        },
+        {
+          "mediaTime": 74.0,
+          "regionKind": "aligned",
+          "presentationSuppressionRequested": false,
+          "automaticDelay": -100.20429166666668,
+          "mappingAvailable": true,
+          "nativeDelay": -100.20429229736328,
+          "expectedDelay": -100.0,
+          "error": 0.20429229736328125
+        }
+      ],
+      "trackingReference": "Correlated playback-time samples after first lock, including unknown regions at zero automatic delay. Ideal fixture transform, not independent acoustic annotations.",
+      "analyses": [
+        {
+          "observedElapsedMs": 9656,
+          "observedMediaTime": 9.667,
+          "attempt": 1,
+          "windowStart": 0.6943333333333334,
+          "windowEnd": 8.799020833333334,
+          "inferenceSeconds": 0.990044,
+          "inferenceBackend": "portable-cpu",
+          "validPrefixOnly": false,
+          "match": "noCandidate",
+          "contextWindows": 1,
+          "segmentedMatch": false,
+          "transcriptWords": 6,
+          "wordsInSubtitleVocabulary": 5,
+          "contextWords": 0,
+          "segmentBounds": [
+            {
+              "start": 0.6943333333333334,
+              "end": 8.694333333333333,
+              "timedTokens": 7,
+              "firstToken": 7.134333333333334,
+              "lastToken": 8.694333333333333
+            }
+          ],
+          "similarity": null,
+          "anchors": [],
+          "anchorRejections": {},
+          "speechTimingRejected": false,
+          "speechSupportCounts": {
+            "unknown": 0,
+            "supported": 7,
+            "unsupported": 0
+          },
+          "regions": []
+        },
+        {
+          "observedElapsedMs": 21585,
+          "observedMediaTime": 21.625,
+          "attempt": 2,
+          "windowStart": 5.745708333333333,
+          "windowEnd": 20.745708333333333,
+          "inferenceSeconds": 1.084200334,
+          "inferenceBackend": "portable-cpu",
+          "validPrefixOnly": false,
+          "match": "matched",
+          "contextWindows": 1,
+          "segmentedMatch": false,
+          "transcriptWords": 23,
+          "wordsInSubtitleVocabulary": 22,
+          "contextWords": 0,
+          "segmentBounds": [
+            {
+              "start": 5.745708333333333,
+              "end": 8.745708333333333,
+              "timedTokens": 7,
+              "firstToken": 7.045708333333333,
+              "lastToken": 10.185708333333334
+            },
+            {
+              "start": 10.745708333333333,
+              "end": 13.745708333333333,
+              "timedTokens": 8,
+              "firstToken": 11.585708333333333,
+              "lastToken": 15.565708333333333
+            },
+            {
+              "start": 16.745708333333333,
+              "end": 19.745708333333333,
+              "timedTokens": 11,
+              "firstToken": 17.765708333333333,
+              "lastToken": 19.745708333333333
+            }
+          ],
+          "similarity": 0.9565217391304348,
+          "anchors": [
+            {
+              "cue": 0,
+              "offset": -100.20429166666666
+            },
+            {
+              "cue": 1,
+              "offset": -100.21429166666667
+            },
+            {
+              "cue": 2,
+              "offset": -100.23429166666666
+            }
+          ],
+          "anchorRejections": {},
+          "speechTimingRejected": false,
+          "speechSupportCounts": {
+            "unknown": 0,
+            "supported": 24,
+            "unsupported": 2
+          },
+          "cueBeginningMatches": [
+            {
+              "cue": 0,
+              "wordInCue": 0,
+              "transcriptWord": 0,
+              "exact": true
+            },
+            {
+              "cue": 0,
+              "wordInCue": 1,
+              "transcriptWord": 1,
+              "exact": true
+            },
+            {
+              "cue": 0,
+              "wordInCue": 2,
+              "transcriptWord": 2,
+              "exact": true
+            },
+            {
+              "cue": 0,
+              "wordInCue": 3,
+              "transcriptWord": 3,
+              "exact": true
+            },
+            {
+              "cue": 0,
+              "wordInCue": 4,
+              "transcriptWord": 4,
+              "exact": true
+            },
+            {
+              "cue": 1,
+              "wordInCue": 0,
+              "transcriptWord": 6,
+              "exact": true
+            },
+            {
+              "cue": 1,
+              "wordInCue": 1,
+              "transcriptWord": 7,
+              "exact": true
+            },
+            {
+              "cue": 1,
+              "wordInCue": 2,
+              "transcriptWord": 8,
+              "exact": true
+            },
+            {
+              "cue": 1,
+              "wordInCue": 3,
+              "transcriptWord": 9,
+              "exact": true
+            },
+            {
+              "cue": 1,
+              "wordInCue": 4,
+              "transcriptWord": 11,
+              "exact": true
+            },
+            {
+              "cue": 2,
+              "wordInCue": 0,
+              "transcriptWord": 13,
+              "exact": true
+            },
+            {
+              "cue": 2,
+              "wordInCue": 1,
+              "transcriptWord": 14,
+              "exact": true
+            },
+            {
+              "cue": 2,
+              "wordInCue": 2,
+              "transcriptWord": 15,
+              "exact": true
+            },
+            {
+              "cue": 2,
+              "wordInCue": 3,
+              "transcriptWord": 16,
+              "exact": true
+            },
+            {
+              "cue": 2,
+              "wordInCue": 4,
+              "transcriptWord": 17,
+              "exact": true
+            }
+          ],
+          "regions": [
+            {
+              "start": 7.035708333333332,
+              "end": 17.78570933333333,
+              "slope": 1.0,
+              "offset": -100.21429166666667,
+              "anchors": 3
+            }
+          ]
+        },
+        {
+          "observedElapsedMs": 33596,
+          "observedMediaTime": 33.625,
+          "attempt": 3,
+          "windowStart": 20.86302083333333,
+          "windowEnd": 32.86302083333333,
+          "inferenceSeconds": 1.072700792,
+          "inferenceBackend": "portable-cpu",
+          "validPrefixOnly": false,
+          "match": "matched",
+          "contextWindows": 1,
+          "segmentedMatch": false,
+          "transcriptWords": 20,
+          "wordsInSubtitleVocabulary": 20,
+          "contextWords": 43,
+          "segmentBounds": [
+            {
+              "start": 20.86302083333333,
+              "end": 22.86302083333333,
+              "timedTokens": 9,
+              "firstToken": 21.46302083333333,
+              "lastToken": 24.34302083333333
+            },
+            {
+              "start": 24.86302083333333,
+              "end": 25.86302083333333,
+              "timedTokens": 3,
+              "firstToken": 25.103020833333332,
+              "lastToken": 26.90302083333333
+            },
+            {
+              "start": 26.86302083333333,
+              "end": 30.86302083333333,
+              "timedTokens": 13,
+              "firstToken": 27.54302083333333,
+              "lastToken": 30.86302083333333
+            }
+          ],
+          "similarity": 0.85,
+          "anchors": [
+            {
+              "cue": 3,
+              "offset": -100.28697916666667
+            },
+            {
+              "cue": 6,
+              "offset": -100.07697916666667
+            }
+          ],
+          "anchorRejections": {
+            "phraseNotMatched": 2
+          },
+          "speechTimingRejected": false,
+          "speechSupportCounts": {
+            "unknown": 0,
+            "supported": 23,
+            "unsupported": 2
+          },
+          "cueBeginningMatches": [
+            {
+              "cue": 3,
+              "wordInCue": 0,
+              "transcriptWord": 0,
+              "exact": true
+            },
+            {
+              "cue": 3,
+              "wordInCue": 1,
+              "transcriptWord": 1,
+              "exact": true
+            },
+            {
+              "cue": 3,
+              "wordInCue": 2,
+              "transcriptWord": 2,
+              "exact": true
+            },
+            {
+              "cue": 4,
+              "wordInCue": 0,
+              "transcriptWord": 8,
+              "exact": true
+            },
+            {
+              "cue": 4,
+              "wordInCue": 1,
+              "transcriptWord": 9,
+              "exact": true
+            },
+            {
+              "cue": 5,
+              "wordInCue": 0,
+              "transcriptWord": 10,
+              "exact": true
+            },
+            {
+              "cue": 6,
+              "wordInCue": 0,
+              "transcriptWord": 11,
+              "exact": true
+            },
+            {
+              "cue": 6,
+              "wordInCue": 1,
+              "transcriptWord": 12,
+              "exact": true
+            },
+            {
+              "cue": 6,
+              "wordInCue": 2,
+              "transcriptWord": 13,
+              "exact": true
+            },
+            {
+              "cue": 6,
+              "wordInCue": 3,
+              "transcriptWord": 14,
+              "exact": true
+            },
+            {
+              "cue": 6,
+              "wordInCue": 4,
+              "transcriptWord": 15,
+              "exact": true
+            }
+          ],
+          "regions": [
+            {
+              "start": 7.035708333333332,
+              "end": 29.185709333333335,
+              "slope": 1.0,
+              "offset": -100.21429166666667,
+              "anchors": 5
+            }
+          ]
+        },
+        {
+          "observedElapsedMs": 45620,
+          "observedMediaTime": 45.625,
+          "attempt": 4,
+          "windowStart": 32.895020833333334,
+          "windowEnd": 44.895020833333334,
+          "inferenceSeconds": 1.059112291,
+          "inferenceBackend": "portable-cpu",
+          "validPrefixOnly": false,
+          "match": "matched",
+          "contextWindows": 1,
+          "segmentedMatch": false,
+          "transcriptWords": 15,
+          "wordsInSubtitleVocabulary": 15,
+          "contextWords": 35,
+          "segmentBounds": [
+            {
+              "start": 32.895020833333334,
+              "end": 36.895020833333334,
+              "timedTokens": 9,
+              "firstToken": 33.275020833333336,
+              "lastToken": 36.97502083333333
+            },
+            {
+              "start": 36.895020833333334,
+              "end": 40.895020833333334,
+              "timedTokens": 8,
+              "firstToken": 37.75502083333333,
+              "lastToken": 41.87502083333334
+            },
+            {
+              "start": 42.895020833333334,
+              "end": 44.895020833333334,
+              "timedTokens": 3,
+              "firstToken": 43.33502083333333,
+              "lastToken": 44.395020833333334
+            }
+          ],
+          "similarity": 0.8666666666666667,
+          "anchors": [
+            {
+              "cue": 7,
+              "offset": -99.90497916666666
+            },
+            {
+              "cue": 8,
+              "offset": -100.24497916666667
+            }
+          ],
+          "anchorRejections": {
+            "phraseNotMatched": 1
+          },
+          "speechTimingRejected": false,
+          "speechSupportCounts": {
+            "unknown": 0,
+            "supported": 14,
+            "unsupported": 6
+          },
+          "cueBeginningMatches": [
+            {
+              "cue": 7,
+              "wordInCue": 0,
+              "transcriptWord": 2,
+              "exact": true
+            },
+            {
+              "cue": 7,
+              "wordInCue": 1,
+              "transcriptWord": 3,
+              "exact": true
+            },
+            {
+              "cue": 7,
+              "wordInCue": 2,
+              "transcriptWord": 4,
+              "exact": true
+            },
+            {
+              "cue": 7,
+              "wordInCue": 3,
+              "transcriptWord": 5,
+              "exact": true
+            },
+            {
+              "cue": 7,
+              "wordInCue": 4,
+              "transcriptWord": 6,
+              "exact": true
+            },
+            {
+              "cue": 8,
+              "wordInCue": 0,
+              "transcriptWord": 7,
+              "exact": true
+            },
+            {
+              "cue": 8,
+              "wordInCue": 1,
+              "transcriptWord": 8,
+              "exact": true
+            },
+            {
+              "cue": 8,
+              "wordInCue": 2,
+              "transcriptWord": 9,
+              "exact": true
+            },
+            {
+              "cue": 8,
+              "wordInCue": 3,
+              "transcriptWord": 10,
+              "exact": true
+            },
+            {
+              "cue": 8,
+              "wordInCue": 4,
+              "transcriptWord": 11,
+              "exact": true
+            },
+            {
+              "cue": 9,
+              "wordInCue": 0,
+              "transcriptWord": 13,
+              "exact": true
+            },
+            {
+              "cue": 9,
+              "wordInCue": 1,
+              "transcriptWord": 14,
+              "exact": true
+            }
+          ],
+          "regions": [
+            {
+              "start": 7.035708333333332,
+              "end": 37.78570933333333,
+              "slope": 1.0,
+              "offset": -100.21429166666667,
+              "anchors": 7
+            }
+          ]
+        },
+        {
+          "observedElapsedMs": 57649,
+          "observedMediaTime": 57.666999999999994,
+          "attempt": 5,
+          "windowStart": 44.84170833333334,
+          "windowEnd": 56.84170833333334,
+          "inferenceSeconds": 1.074507541,
+          "inferenceBackend": "portable-cpu",
+          "validPrefixOnly": false,
+          "match": "matched",
+          "contextWindows": 1,
+          "segmentedMatch": false,
+          "transcriptWords": 18,
+          "wordsInSubtitleVocabulary": 18,
+          "contextWords": 31,
+          "segmentBounds": [
+            {
+              "start": 44.84170833333334,
+              "end": 46.84170833333334,
+              "timedTokens": 4,
+              "firstToken": 46.521708333333336,
+              "lastToken": 46.881708333333336
+            },
+            {
+              "start": 48.84170833333334,
+              "end": 50.84170833333334,
+              "timedTokens": 8,
+              "firstToken": 48.961708333333334,
+              "lastToken": 51.58170833333334
+            },
+            {
+              "start": 52.84170833333334,
+              "end": 54.84170833333334,
+              "timedTokens": 12,
+              "firstToken": 53.12170833333334,
+              "lastToken": 54.84170833333334
+            }
+          ],
+          "similarity": 1.0,
+          "anchors": [
+            {
+              "cue": 10,
+              "offset": -99.88829166666666
+            },
+            {
+              "cue": 11,
+              "offset": -99.82829166666664
+            }
+          ],
+          "anchorRejections": {},
+          "speechTimingRejected": false,
+          "speechSupportCounts": {
+            "unknown": 0,
+            "supported": 19,
+            "unsupported": 5
+          },
+          "cueBeginningMatches": [
+            {
+              "cue": 10,
+              "wordInCue": 0,
+              "transcriptWord": 0,
+              "exact": true
+            },
+            {
+              "cue": 10,
+              "wordInCue": 1,
+              "transcriptWord": 1,
+              "exact": true
+            },
+            {
+              "cue": 10,
+              "wordInCue": 2,
+              "transcriptWord": 2,
+              "exact": true
+            },
+            {
+              "cue": 10,
+              "wordInCue": 3,
+              "transcriptWord": 3,
+              "exact": true
+            },
+            {
+              "cue": 10,
+              "wordInCue": 4,
+              "transcriptWord": 4,
+              "exact": true
+            },
+            {
+              "cue": 11,
+              "wordInCue": 0,
+              "transcriptWord": 7,
+              "exact": true
+            },
+            {
+              "cue": 11,
+              "wordInCue": 1,
+              "transcriptWord": 8,
+              "exact": true
+            },
+            {
+              "cue": 11,
+              "wordInCue": 2,
+              "transcriptWord": 9,
+              "exact": true
+            },
+            {
+              "cue": 11,
+              "wordInCue": 3,
+              "transcriptWord": 10,
+              "exact": true
+            },
+            {
+              "cue": 11,
+              "wordInCue": 4,
+              "transcriptWord": 11,
+              "exact": true
+            }
+          ],
+          "regions": [
+            {
+              "start": 7.045708333333337,
+              "end": 52.74570933333332,
+              "slope": 1.0,
+              "offset": -100.20429166666666,
+              "anchors": 9
+            }
+          ]
+        },
+        {
+          "observedElapsedMs": 69581,
+          "observedMediaTime": 69.583,
+          "attempt": 6,
+          "windowStart": 56.959020833333334,
+          "windowEnd": 68.95902083333334,
+          "inferenceSeconds": 0.996551791,
+          "inferenceBackend": "portable-cpu",
+          "validPrefixOnly": false,
+          "match": "insufficientDialogue",
+          "contextWindows": 1,
+          "segmentedMatch": false,
+          "transcriptWords": 0,
+          "wordsInSubtitleVocabulary": 0,
+          "contextWords": 0,
+          "segmentBounds": [],
+          "similarity": null,
+          "anchors": [],
+          "anchorRejections": {},
+          "speechTimingRejected": false,
+          "speechSupportCounts": {
+            "unknown": 0,
+            "supported": 0,
+            "unsupported": 0
+          },
+          "regions": [
+            {
+              "start": 7.045708333333337,
+              "end": 52.74570933333332,
+              "slope": 1.0,
+              "offset": -100.20429166666666,
+              "anchors": 9
+            }
+          ]
+        }
+      ],
+      "acousticCollection": {
+        "calls": 145,
+        "totalMicros": 141319,
+        "maximumMicros": 2410,
+        "peakFrames": 7408,
+        "maximumFrames": 18000,
+        "maximumSeconds": 180
+      },
+      "productionPlayerValidated": false,
+      "audiblePlaybackValidated": false,
+      "pcmOrTranscriptPersisted": false,
+      "mainIsolateHeartbeatTicks": 3002
+    },
+    "omittedNumericFields": [
+      "acousticFrames",
+      "wordEvidence",
+      "contextWordEvidence"
+    ]
+  },
+  "experimentalSmallMetalLater": {
+    "sha256": "6b65b474e716c2550004dd58217d96be58ef7ddcfcb6e3d0e18350eba0e1f818",
+    "data": {
+      "kind": "native-active-pcm-real-asr-and-domain-alignment",
+      "platform": "macos",
+      "inferenceBackend": "metal-preferred",
+      "alignmentEngine": "bounded-affine-timeline",
+      "acquiredMediaPosition": 21.041999999999998,
+      "learnedSegments": 2,
+      "learnedGaps": [],
+      "activityChecks": 205,
+      "activityVoiceChecks": 196,
+      "activityTimingMismatchChecks": 69,
+      "analysisRequests": [
+        {
+          "elapsedMs": 8423,
+          "mediaTime": 8.417,
+          "intervalMs": 12000,
+          "windowSeconds": 12.0,
+          "voicePresent": true,
+          "timingMismatch": false,
+          "established": false
+        },
+        {
+          "elapsedMs": 20458,
+          "mediaTime": 20.458,
+          "intervalMs": 12000,
+          "windowSeconds": 15.0,
+          "voicePresent": true,
+          "timingMismatch": false,
+          "established": false
+        },
+        {
+          "elapsedMs": 32496,
+          "mediaTime": 32.5,
+          "intervalMs": 12000,
+          "windowSeconds": 12.0,
+          "voicePresent": true,
+          "timingMismatch": false,
+          "established": false
+        },
+        {
+          "elapsedMs": 44528,
+          "mediaTime": 44.5,
+          "intervalMs": 12000,
+          "windowSeconds": 12.0,
+          "voicePresent": true,
+          "timingMismatch": false,
+          "established": false
+        },
+        {
+          "elapsedMs": 56565,
+          "mediaTime": 56.541999999999994,
+          "intervalMs": 12000,
+          "windowSeconds": 12.0,
+          "voicePresent": true,
+          "timingMismatch": false,
+          "established": false
+        },
+        {
+          "elapsedMs": 68599,
+          "mediaTime": 68.583,
+          "intervalMs": 12000,
+          "windowSeconds": 15.0,
+          "voicePresent": true,
+          "timingMismatch": true,
+          "established": false
+        },
+        {
+          "elapsedMs": 80633,
+          "mediaTime": 80.625,
+          "intervalMs": 12000,
+          "windowSeconds": 15.0,
+          "voicePresent": true,
+          "timingMismatch": true,
+          "established": false
+        },
+        {
+          "elapsedMs": 81356,
+          "mediaTime": 81.333,
+          "intervalMs": 0,
+          "windowSeconds": 8.0,
+          "voicePresent": true,
+          "timingMismatch": true,
+          "established": false
+        },
+        {
+          "elapsedMs": 93388,
+          "mediaTime": 93.375,
+          "intervalMs": 12000,
+          "windowSeconds": 15.0,
+          "voicePresent": true,
+          "timingMismatch": true,
+          "established": false
+        }
+      ],
+      "activityTotalMicros": 317806,
+      "activityMaxMicros": 2834,
+      "actualOffset": -69.80499999999998,
+      "acquisitionMs": 21076,
+      "evaluationMs": 105010,
+      "expectedOffset": -100.0,
+      "expectNoLock": false,
+      "completedAnalyses": 9,
+      "validPrefixAnalyses": 0,
+      "rejectedAnalyses": 0,
+      "absoluteOffsetError": 30.19499969482422,
+      "maximumOffsetError": 0.75,
+      "reference": "fixture SRT timings, not precise acoustic-onset ground truth",
+      "passed": false,
+      "expectedSlope": 1.0,
+      "slopeConfirmed": true,
+      "affineAcquisitionMs": "none",
+      "trackingErrorP95": 30.19499969482422,
+      "trackingErrorMaximum": 30.19499969482422,
+      "trackingSamples": [
+        {
+          "mediaTime": 21.041999999999998,
+          "regionKind": "aligned",
+          "presentationSuppressionRequested": false,
+          "automaticDelay": -100.179625,
+          "mappingAvailable": true,
+          "nativeDelay": -100.17962646484375,
+          "expectedDelay": -100.0,
+          "error": 0.17962646484375
+        },
+        {
+          "mediaTime": 22.083,
+          "regionKind": "aligned",
+          "presentationSuppressionRequested": false,
+          "automaticDelay": -100.179625,
+          "mappingAvailable": true,
+          "nativeDelay": -100.17962646484375,
+          "expectedDelay": -100.0,
+          "error": 0.17962646484375
+        },
+        {
+          "mediaTime": 23.125,
+          "regionKind": "aligned",
+          "presentationSuppressionRequested": false,
+          "automaticDelay": -100.179625,
+          "mappingAvailable": true,
+          "nativeDelay": -100.17962646484375,
+          "expectedDelay": -100.0,
+          "error": 0.17962646484375
+        },
+        {
+          "mediaTime": 24.166999999999998,
+          "regionKind": "aligned",
+          "presentationSuppressionRequested": false,
+          "automaticDelay": -100.179625,
+          "mappingAvailable": true,
+          "nativeDelay": -100.17962646484375,
+          "expectedDelay": -100.0,
+          "error": 0.17962646484375
+        },
+        {
+          "mediaTime": 25.166999999999998,
+          "regionKind": "aligned",
+          "presentationSuppressionRequested": false,
+          "automaticDelay": -100.179625,
+          "mappingAvailable": true,
+          "nativeDelay": -100.17962646484375,
+          "expectedDelay": -100.0,
+          "error": 0.17962646484375
+        },
+        {
+          "mediaTime": 26.208,
+          "regionKind": "aligned",
+          "presentationSuppressionRequested": false,
+          "automaticDelay": -100.179625,
+          "mappingAvailable": true,
+          "nativeDelay": -100.17962646484375,
+          "expectedDelay": -100.0,
+          "error": 0.17962646484375
+        },
+        {
+          "mediaTime": 27.25,
+          "regionKind": "aligned",
+          "presentationSuppressionRequested": false,
+          "automaticDelay": -100.179625,
+          "mappingAvailable": true,
+          "nativeDelay": -100.17962646484375,
+          "expectedDelay": -100.0,
+          "error": 0.17962646484375
+        },
+        {
+          "mediaTime": 28.25,
+          "regionKind": "aligned",
+          "presentationSuppressionRequested": false,
+          "automaticDelay": -100.17962499999999,
+          "mappingAvailable": true,
+          "nativeDelay": -100.17962646484375,
+          "expectedDelay": -100.0,
+          "error": 0.17962646484375
+        },
+        {
+          "mediaTime": 29.291999999999998,
+          "regionKind": "aligned",
+          "presentationSuppressionRequested": false,
+          "automaticDelay": -100.17962499999999,
+          "mappingAvailable": true,
+          "nativeDelay": -100.17962646484375,
+          "expectedDelay": -100.0,
+          "error": 0.17962646484375
+        },
+        {
+          "mediaTime": 30.333,
+          "regionKind": "aligned",
+          "presentationSuppressionRequested": false,
+          "automaticDelay": -100.17962500000002,
+          "mappingAvailable": true,
+          "nativeDelay": -100.17962646484375,
+          "expectedDelay": -100.0,
+          "error": 0.17962646484375
+        },
+        {
+          "mediaTime": 31.333,
+          "regionKind": "aligned",
+          "presentationSuppressionRequested": false,
+          "automaticDelay": -100.17962500000002,
+          "mappingAvailable": true,
+          "nativeDelay": -100.17962646484375,
+          "expectedDelay": -100.0,
+          "error": 0.17962646484375
+        },
+        {
+          "mediaTime": 32.375,
+          "regionKind": "aligned",
+          "presentationSuppressionRequested": false,
+          "automaticDelay": -100.17962499999999,
+          "mappingAvailable": true,
+          "nativeDelay": -100.17962646484375,
+          "expectedDelay": -100.0,
+          "error": 0.17962646484375
+        },
+        {
+          "mediaTime": 33.417,
+          "regionKind": "aligned",
+          "presentationSuppressionRequested": false,
+          "automaticDelay": -100.17962500000002,
+          "mappingAvailable": true,
+          "nativeDelay": -100.17962646484375,
+          "expectedDelay": -100.0,
+          "error": 0.17962646484375
+        },
+        {
+          "mediaTime": 34.417,
+          "regionKind": "aligned",
+          "presentationSuppressionRequested": false,
+          "automaticDelay": -100.17962500000002,
+          "mappingAvailable": true,
+          "nativeDelay": -100.17962646484375,
+          "expectedDelay": -100.0,
+          "error": 0.17962646484375
+        },
+        {
+          "mediaTime": 35.458,
+          "regionKind": "aligned",
+          "presentationSuppressionRequested": false,
+          "automaticDelay": -100.17962500000002,
+          "mappingAvailable": true,
+          "nativeDelay": -100.17962646484375,
+          "expectedDelay": -100.0,
+          "error": 0.17962646484375
+        },
+        {
+          "mediaTime": 36.5,
+          "regionKind": "aligned",
+          "presentationSuppressionRequested": false,
+          "automaticDelay": -100.17962499999999,
+          "mappingAvailable": true,
+          "nativeDelay": -100.17962646484375,
+          "expectedDelay": -100.0,
+          "error": 0.17962646484375
+        },
+        {
+          "mediaTime": 37.5,
+          "regionKind": "aligned",
+          "presentationSuppressionRequested": false,
+          "automaticDelay": -100.17962499999999,
+          "mappingAvailable": true,
+          "nativeDelay": -100.17962646484375,
+          "expectedDelay": -100.0,
+          "error": 0.17962646484375
+        },
+        {
+          "mediaTime": 38.542,
+          "regionKind": "aligned",
+          "presentationSuppressionRequested": false,
+          "automaticDelay": -100.17962500000002,
+          "mappingAvailable": true,
+          "nativeDelay": -100.17962646484375,
+          "expectedDelay": -100.0,
+          "error": 0.17962646484375
+        },
+        {
+          "mediaTime": 39.583,
+          "regionKind": "aligned",
+          "presentationSuppressionRequested": false,
+          "automaticDelay": -100.17962500000002,
+          "mappingAvailable": true,
+          "nativeDelay": -100.17962646484375,
+          "expectedDelay": -100.0,
+          "error": 0.17962646484375
+        },
+        {
+          "mediaTime": 40.583,
+          "regionKind": "aligned",
+          "presentationSuppressionRequested": false,
+          "automaticDelay": -100.17962500000002,
+          "mappingAvailable": true,
+          "nativeDelay": -100.17962646484375,
+          "expectedDelay": -100.0,
+          "error": 0.17962646484375
+        },
+        {
+          "mediaTime": 41.625,
+          "regionKind": "aligned",
+          "presentationSuppressionRequested": false,
+          "automaticDelay": -100.17962499999999,
+          "mappingAvailable": true,
+          "nativeDelay": -100.17962646484375,
+          "expectedDelay": -100.0,
+          "error": 0.17962646484375
+        },
+        {
+          "mediaTime": 42.667,
+          "regionKind": "aligned",
+          "presentationSuppressionRequested": false,
+          "automaticDelay": -100.17962500000002,
+          "mappingAvailable": true,
+          "nativeDelay": -100.17962646484375,
+          "expectedDelay": -100.0,
+          "error": 0.17962646484375
+        },
+        {
+          "mediaTime": 43.666999999999994,
+          "regionKind": "aligned",
+          "presentationSuppressionRequested": false,
+          "automaticDelay": -100.17962499999999,
+          "mappingAvailable": true,
+          "nativeDelay": -100.17962646484375,
+          "expectedDelay": -100.0,
+          "error": 0.17962646484375
+        },
+        {
+          "mediaTime": 44.708,
+          "regionKind": "aligned",
+          "presentationSuppressionRequested": false,
+          "automaticDelay": -100.17962500000002,
+          "mappingAvailable": true,
+          "nativeDelay": -100.17962646484375,
+          "expectedDelay": -100.0,
+          "error": 0.17962646484375
+        },
+        {
+          "mediaTime": 45.75,
+          "regionKind": "aligned",
+          "presentationSuppressionRequested": false,
+          "automaticDelay": -100.1303125,
+          "mappingAvailable": true,
+          "nativeDelay": -100.13031005859375,
+          "expectedDelay": -100.0,
+          "error": 0.13031005859375
+        },
+        {
+          "mediaTime": 46.791999999999994,
+          "regionKind": "aligned",
+          "presentationSuppressionRequested": false,
+          "automaticDelay": -100.1303125,
+          "mappingAvailable": true,
+          "nativeDelay": -100.13031005859375,
+          "expectedDelay": -100.0,
+          "error": 0.13031005859375
+        },
+        {
+          "mediaTime": 47.833,
+          "regionKind": "aligned",
+          "presentationSuppressionRequested": false,
+          "automaticDelay": -100.1303125,
+          "mappingAvailable": true,
+          "nativeDelay": -100.13031005859375,
+          "expectedDelay": -100.0,
+          "error": 0.13031005859375
+        },
+        {
+          "mediaTime": 48.833,
+          "regionKind": "aligned",
+          "presentationSuppressionRequested": false,
+          "automaticDelay": -100.1303125,
+          "mappingAvailable": true,
+          "nativeDelay": -100.13031005859375,
+          "expectedDelay": -100.0,
+          "error": 0.13031005859375
+        },
+        {
+          "mediaTime": 49.875,
+          "regionKind": "aligned",
+          "presentationSuppressionRequested": false,
+          "automaticDelay": -100.1303125,
+          "mappingAvailable": true,
+          "nativeDelay": -100.13031005859375,
+          "expectedDelay": -100.0,
+          "error": 0.13031005859375
+        },
+        {
+          "mediaTime": 50.916999999999994,
+          "regionKind": "aligned",
+          "presentationSuppressionRequested": false,
+          "automaticDelay": -100.1303125,
+          "mappingAvailable": true,
+          "nativeDelay": -100.13031005859375,
+          "expectedDelay": -100.0,
+          "error": 0.13031005859375
+        },
+        {
+          "mediaTime": 51.916999999999994,
+          "regionKind": "aligned",
+          "presentationSuppressionRequested": false,
+          "automaticDelay": -100.1303125,
+          "mappingAvailable": true,
+          "nativeDelay": -100.13031005859375,
+          "expectedDelay": -100.0,
+          "error": 0.13031005859375
+        },
+        {
+          "mediaTime": 52.958,
+          "regionKind": "aligned",
+          "presentationSuppressionRequested": false,
+          "automaticDelay": -100.1303125,
+          "mappingAvailable": true,
+          "nativeDelay": -100.13031005859375,
+          "expectedDelay": -100.0,
+          "error": 0.13031005859375
+        },
+        {
+          "mediaTime": 54.0,
+          "regionKind": "aligned",
+          "presentationSuppressionRequested": false,
+          "automaticDelay": -100.1303125,
+          "mappingAvailable": true,
+          "nativeDelay": -100.13031005859375,
+          "expectedDelay": -100.0,
+          "error": 0.13031005859375
+        },
+        {
+          "mediaTime": 55.0,
+          "regionKind": "aligned",
+          "presentationSuppressionRequested": false,
+          "automaticDelay": -100.1303125,
+          "mappingAvailable": true,
+          "nativeDelay": -100.13031005859375,
+          "expectedDelay": -100.0,
+          "error": 0.13031005859375
+        },
+        {
+          "mediaTime": 56.041999999999994,
+          "regionKind": "aligned",
+          "presentationSuppressionRequested": false,
+          "automaticDelay": -100.1303125,
+          "mappingAvailable": true,
+          "nativeDelay": -100.13031005859375,
+          "expectedDelay": -100.0,
+          "error": 0.13031005859375
+        },
+        {
+          "mediaTime": 57.083,
+          "regionKind": "aligned",
+          "presentationSuppressionRequested": false,
+          "automaticDelay": -100.1303125,
+          "mappingAvailable": true,
+          "nativeDelay": -100.13031005859375,
+          "expectedDelay": -100.0,
+          "error": 0.13031005859375
+        },
+        {
+          "mediaTime": 58.083,
+          "regionKind": "aligned",
+          "presentationSuppressionRequested": false,
+          "automaticDelay": -100.1303125,
+          "mappingAvailable": true,
+          "nativeDelay": -100.13031005859375,
+          "expectedDelay": -100.0,
+          "error": 0.13031005859375
+        },
+        {
+          "mediaTime": 59.125,
+          "regionKind": "aligned",
+          "presentationSuppressionRequested": false,
+          "automaticDelay": -100.1303125,
+          "mappingAvailable": true,
+          "nativeDelay": -100.13031005859375,
+          "expectedDelay": -100.0,
+          "error": 0.13031005859375
+        },
+        {
+          "mediaTime": 60.166999999999994,
+          "regionKind": "aligned",
+          "presentationSuppressionRequested": false,
+          "automaticDelay": -100.1303125,
+          "mappingAvailable": true,
+          "nativeDelay": -100.13031005859375,
+          "expectedDelay": -100.0,
+          "error": 0.13031005859375
+        },
+        {
+          "mediaTime": 61.166999999999994,
+          "regionKind": "aligned",
+          "presentationSuppressionRequested": false,
+          "automaticDelay": -100.1303125,
+          "mappingAvailable": true,
+          "nativeDelay": -100.13031005859375,
+          "expectedDelay": -100.0,
+          "error": 0.13031005859375
+        },
+        {
+          "mediaTime": 62.208,
+          "regionKind": "aligned",
+          "presentationSuppressionRequested": false,
+          "automaticDelay": -100.1303125,
+          "mappingAvailable": true,
+          "nativeDelay": -100.13031005859375,
+          "expectedDelay": -100.0,
+          "error": 0.13031005859375
+        },
+        {
+          "mediaTime": 63.208,
+          "regionKind": "aligned",
+          "presentationSuppressionRequested": false,
+          "automaticDelay": -100.1303125,
+          "mappingAvailable": true,
+          "nativeDelay": -100.13031005859375,
+          "expectedDelay": -100.0,
+          "error": 0.13031005859375
+        },
+        {
+          "mediaTime": 64.25,
+          "regionKind": "aligned",
+          "presentationSuppressionRequested": false,
+          "automaticDelay": -100.1303125,
+          "mappingAvailable": true,
+          "nativeDelay": -100.13031005859375,
+          "expectedDelay": -100.0,
+          "error": 0.13031005859375
+        },
+        {
+          "mediaTime": 65.292,
+          "regionKind": "aligned",
+          "presentationSuppressionRequested": false,
+          "automaticDelay": -100.1303125,
+          "mappingAvailable": true,
+          "nativeDelay": -100.13031005859375,
+          "expectedDelay": -100.0,
+          "error": 0.13031005859375
+        },
+        {
+          "mediaTime": 66.292,
+          "regionKind": "aligned",
+          "presentationSuppressionRequested": false,
+          "automaticDelay": -100.1303125,
+          "mappingAvailable": true,
+          "nativeDelay": -100.13031005859375,
+          "expectedDelay": -100.0,
+          "error": 0.13031005859375
+        },
+        {
+          "mediaTime": 67.375,
+          "regionKind": "aligned",
+          "presentationSuppressionRequested": false,
+          "automaticDelay": -100.1303125,
+          "mappingAvailable": true,
+          "nativeDelay": -100.13031005859375,
+          "expectedDelay": -100.0,
+          "error": 0.13031005859375
+        },
+        {
+          "mediaTime": 68.375,
+          "regionKind": "aligned",
+          "presentationSuppressionRequested": false,
+          "automaticDelay": -100.1303125,
+          "mappingAvailable": true,
+          "nativeDelay": -100.13031005859375,
+          "expectedDelay": -100.0,
+          "error": 0.13031005859375
+        },
+        {
+          "mediaTime": 69.417,
+          "regionKind": "aligned",
+          "presentationSuppressionRequested": false,
+          "automaticDelay": -100.1303125,
+          "mappingAvailable": true,
+          "nativeDelay": -100.13031005859375,
+          "expectedDelay": -100.0,
+          "error": 0.13031005859375
+        },
+        {
+          "mediaTime": 70.417,
+          "regionKind": "aligned",
+          "presentationSuppressionRequested": false,
+          "automaticDelay": -100.1303125,
+          "mappingAvailable": true,
+          "nativeDelay": -100.13031005859375,
+          "expectedDelay": -100.0,
+          "error": 0.13031005859375
+        },
+        {
+          "mediaTime": 71.458,
+          "regionKind": "aligned",
+          "presentationSuppressionRequested": false,
+          "automaticDelay": -100.1303125,
+          "mappingAvailable": true,
+          "nativeDelay": -100.13031005859375,
+          "expectedDelay": -100.0,
+          "error": 0.13031005859375
+        },
+        {
+          "mediaTime": 72.5,
+          "regionKind": "aligned",
+          "presentationSuppressionRequested": false,
+          "automaticDelay": -100.1303125,
+          "mappingAvailable": true,
+          "nativeDelay": -100.13031005859375,
+          "expectedDelay": -100.0,
+          "error": 0.13031005859375
+        },
+        {
+          "mediaTime": 73.542,
+          "regionKind": "aligned",
+          "presentationSuppressionRequested": false,
+          "automaticDelay": -100.1303125,
+          "mappingAvailable": true,
+          "nativeDelay": -100.13031005859375,
+          "expectedDelay": -100.0,
+          "error": 0.13031005859375
+        },
+        {
+          "mediaTime": 74.542,
+          "regionKind": "aligned",
+          "presentationSuppressionRequested": false,
+          "automaticDelay": -100.1303125,
+          "mappingAvailable": true,
+          "nativeDelay": -100.13031005859375,
+          "expectedDelay": -100.0,
+          "error": 0.13031005859375
+        },
+        {
+          "mediaTime": 75.583,
+          "regionKind": "aligned",
+          "presentationSuppressionRequested": false,
+          "automaticDelay": -100.1303125,
+          "mappingAvailable": true,
+          "nativeDelay": -100.13031005859375,
+          "expectedDelay": -100.0,
+          "error": 0.13031005859375
+        },
+        {
+          "mediaTime": 76.625,
+          "regionKind": "aligned",
+          "presentationSuppressionRequested": false,
+          "automaticDelay": -100.1303125,
+          "mappingAvailable": true,
+          "nativeDelay": -100.13031005859375,
+          "expectedDelay": -100.0,
+          "error": 0.13031005859375
+        },
+        {
+          "mediaTime": 77.625,
+          "regionKind": "aligned",
+          "presentationSuppressionRequested": false,
+          "automaticDelay": -100.1303125,
+          "mappingAvailable": true,
+          "nativeDelay": -100.13031005859375,
+          "expectedDelay": -100.0,
+          "error": 0.13031005859375
+        },
+        {
+          "mediaTime": 78.667,
+          "regionKind": "aligned",
+          "presentationSuppressionRequested": false,
+          "automaticDelay": -100.1303125,
+          "mappingAvailable": true,
+          "nativeDelay": -100.13031005859375,
+          "expectedDelay": -100.0,
+          "error": 0.13031005859375
+        },
+        {
+          "mediaTime": 79.708,
+          "regionKind": "aligned",
+          "presentationSuppressionRequested": false,
+          "automaticDelay": -100.1303125,
+          "mappingAvailable": true,
+          "nativeDelay": -100.13031005859375,
+          "expectedDelay": -100.0,
+          "error": 0.13031005859375
+        },
+        {
+          "mediaTime": 80.708,
+          "regionKind": "aligned",
+          "presentationSuppressionRequested": false,
+          "automaticDelay": -100.1303125,
+          "mappingAvailable": true,
+          "nativeDelay": -100.13031005859375,
+          "expectedDelay": -100.0,
+          "error": 0.13031005859375
+        },
+        {
+          "mediaTime": 81.75,
+          "regionKind": "aligned",
+          "presentationSuppressionRequested": false,
+          "automaticDelay": -100.1303125,
+          "mappingAvailable": true,
+          "nativeDelay": -100.13031005859375,
+          "expectedDelay": -100.0,
+          "error": 0.13031005859375
+        },
+        {
+          "mediaTime": 82.792,
+          "regionKind": "aligned",
+          "presentationSuppressionRequested": false,
+          "automaticDelay": -100.1303125,
+          "mappingAvailable": true,
+          "nativeDelay": -100.13031005859375,
+          "expectedDelay": -100.0,
+          "error": 0.13031005859375
+        },
+        {
+          "mediaTime": 83.792,
+          "regionKind": "aligned",
+          "presentationSuppressionRequested": false,
+          "automaticDelay": -100.1303125,
+          "mappingAvailable": true,
+          "nativeDelay": -100.13031005859375,
+          "expectedDelay": -100.0,
+          "error": 0.13031005859375
+        },
+        {
+          "mediaTime": 84.833,
+          "regionKind": "aligned",
+          "presentationSuppressionRequested": false,
+          "automaticDelay": -100.1303125,
+          "mappingAvailable": true,
+          "nativeDelay": -100.13031005859375,
+          "expectedDelay": -100.0,
+          "error": 0.13031005859375
+        },
+        {
+          "mediaTime": 85.875,
+          "regionKind": "aligned",
+          "presentationSuppressionRequested": false,
+          "automaticDelay": -100.1303125,
+          "mappingAvailable": true,
+          "nativeDelay": -100.13031005859375,
+          "expectedDelay": -100.0,
+          "error": 0.13031005859375
+        },
+        {
+          "mediaTime": 86.875,
+          "regionKind": "aligned",
+          "presentationSuppressionRequested": false,
+          "automaticDelay": -100.1303125,
+          "mappingAvailable": true,
+          "nativeDelay": -100.13031005859375,
+          "expectedDelay": -100.0,
+          "error": 0.13031005859375
+        },
+        {
+          "mediaTime": 87.917,
+          "regionKind": "aligned",
+          "presentationSuppressionRequested": false,
+          "automaticDelay": -100.1303125,
+          "mappingAvailable": true,
+          "nativeDelay": -100.13031005859375,
+          "expectedDelay": -100.0,
+          "error": 0.13031005859375
+        },
+        {
+          "mediaTime": 88.917,
+          "regionKind": "aligned",
+          "presentationSuppressionRequested": false,
+          "automaticDelay": -100.1303125,
+          "mappingAvailable": true,
+          "nativeDelay": -100.13031005859375,
+          "expectedDelay": -100.0,
+          "error": 0.13031005859375
+        },
+        {
+          "mediaTime": 89.958,
+          "regionKind": "aligned",
+          "presentationSuppressionRequested": false,
+          "automaticDelay": -100.1303125,
+          "mappingAvailable": true,
+          "nativeDelay": -100.13031005859375,
+          "expectedDelay": -100.0,
+          "error": 0.13031005859375
+        },
+        {
+          "mediaTime": 91.0,
+          "regionKind": "aligned",
+          "presentationSuppressionRequested": false,
+          "automaticDelay": -100.1303125,
+          "mappingAvailable": true,
+          "nativeDelay": -100.13031005859375,
+          "expectedDelay": -100.0,
+          "error": 0.13031005859375
+        },
+        {
+          "mediaTime": 92.042,
+          "regionKind": "aligned",
+          "presentationSuppressionRequested": false,
+          "automaticDelay": -100.1303125,
+          "mappingAvailable": true,
+          "nativeDelay": -100.13031005859375,
+          "expectedDelay": -100.0,
+          "error": 0.13031005859375
+        },
+        {
+          "mediaTime": 93.083,
+          "regionKind": "aligned",
+          "presentationSuppressionRequested": false,
+          "automaticDelay": -100.1303125,
+          "mappingAvailable": true,
+          "nativeDelay": -100.13031005859375,
+          "expectedDelay": -100.0,
+          "error": 0.13031005859375
+        },
+        {
+          "mediaTime": 94.083,
+          "regionKind": "aligned",
+          "presentationSuppressionRequested": false,
+          "automaticDelay": -69.80499999999998,
+          "mappingAvailable": true,
+          "nativeDelay": -69.80500030517578,
+          "expectedDelay": -100.0,
+          "error": 30.19499969482422
+        },
+        {
+          "mediaTime": 95.125,
+          "regionKind": "aligned",
+          "presentationSuppressionRequested": false,
+          "automaticDelay": -69.80499999999998,
+          "mappingAvailable": true,
+          "nativeDelay": -69.80500030517578,
+          "expectedDelay": -100.0,
+          "error": 30.19499969482422
+        },
+        {
+          "mediaTime": 96.167,
+          "regionKind": "aligned",
+          "presentationSuppressionRequested": false,
+          "automaticDelay": -69.80499999999998,
+          "mappingAvailable": true,
+          "nativeDelay": -69.80500030517578,
+          "expectedDelay": -100.0,
+          "error": 30.19499969482422
+        },
+        {
+          "mediaTime": 97.167,
+          "regionKind": "aligned",
+          "presentationSuppressionRequested": false,
+          "automaticDelay": -69.80499999999998,
+          "mappingAvailable": true,
+          "nativeDelay": -69.80500030517578,
+          "expectedDelay": -100.0,
+          "error": 30.19499969482422
+        },
+        {
+          "mediaTime": 98.208,
+          "regionKind": "aligned",
+          "presentationSuppressionRequested": false,
+          "automaticDelay": -69.80499999999998,
+          "mappingAvailable": true,
+          "nativeDelay": -69.80500030517578,
+          "expectedDelay": -100.0,
+          "error": 30.19499969482422
+        },
+        {
+          "mediaTime": 99.25,
+          "regionKind": "aligned",
+          "presentationSuppressionRequested": false,
+          "automaticDelay": -69.80499999999998,
+          "mappingAvailable": true,
+          "nativeDelay": -69.80500030517578,
+          "expectedDelay": -100.0,
+          "error": 30.19499969482422
+        },
+        {
+          "mediaTime": 100.292,
+          "regionKind": "aligned",
+          "presentationSuppressionRequested": false,
+          "automaticDelay": -69.80499999999998,
+          "mappingAvailable": true,
+          "nativeDelay": -69.80500030517578,
+          "expectedDelay": -100.0,
+          "error": 30.19499969482422
+        },
+        {
+          "mediaTime": 101.292,
+          "regionKind": "aligned",
+          "presentationSuppressionRequested": false,
+          "automaticDelay": -69.80499999999998,
+          "mappingAvailable": true,
+          "nativeDelay": -69.80500030517578,
+          "expectedDelay": -100.0,
+          "error": 30.19499969482422
+        },
+        {
+          "mediaTime": 102.333,
+          "regionKind": "aligned",
+          "presentationSuppressionRequested": false,
+          "automaticDelay": -69.80499999999998,
+          "mappingAvailable": true,
+          "nativeDelay": -69.80500030517578,
+          "expectedDelay": -100.0,
+          "error": 30.19499969482422
+        },
+        {
+          "mediaTime": 103.375,
+          "regionKind": "aligned",
+          "presentationSuppressionRequested": false,
+          "automaticDelay": -69.80499999999998,
+          "mappingAvailable": true,
+          "nativeDelay": -69.80500030517578,
+          "expectedDelay": -100.0,
+          "error": 30.19499969482422
+        },
+        {
+          "mediaTime": 104.375,
+          "regionKind": "aligned",
+          "presentationSuppressionRequested": false,
+          "automaticDelay": -69.80499999999998,
+          "mappingAvailable": true,
+          "nativeDelay": -69.80500030517578,
+          "expectedDelay": -100.0,
+          "error": 30.19499969482422
+        }
+      ],
+      "trackingReference": "Correlated playback-time samples after first lock, including unknown regions at zero automatic delay. Ideal fixture transform, not independent acoustic annotations.",
+      "analyses": [
+        {
+          "observedElapsedMs": 9040,
+          "observedMediaTime": 9.042,
+          "attempt": 1,
+          "windowStart": 0.7690000000000001,
+          "windowEnd": 8.788375,
+          "inferenceSeconds": 0.386006,
+          "inferenceBackend": "metal-preferred",
+          "validPrefixOnly": false,
+          "match": "noCandidate",
+          "contextWindows": 1,
+          "segmentedMatch": false,
+          "transcriptWords": 6,
+          "wordsInSubtitleVocabulary": 5,
+          "contextWords": 0,
+          "segmentBounds": [
+            {
+              "start": 0.7690000000000001,
+              "end": 2.769,
+              "timedTokens": 4,
+              "firstToken": 4.389,
+              "lastToken": 6.1690000000000005
+            },
+            {
+              "start": 6.769,
+              "end": 8.769,
+              "timedTokens": 7,
+              "firstToken": 7.189,
+              "lastToken": 8.769
+            }
+          ],
+          "similarity": null,
+          "anchors": [],
+          "anchorRejections": {},
+          "speechTimingRejected": false,
+          "speechSupportCounts": {
+            "unknown": 0,
+            "supported": 7,
+            "unsupported": 4
+          },
+          "regions": []
+        },
+        {
+          "observedElapsedMs": 21076,
+          "observedMediaTime": 21.041999999999998,
+          "attempt": 2,
+          "windowStart": 5.820374999999999,
+          "windowEnd": 20.820375,
+          "inferenceSeconds": 0.569625958,
+          "inferenceBackend": "metal-preferred",
+          "validPrefixOnly": false,
+          "match": "matched",
+          "contextWindows": 1,
+          "segmentedMatch": false,
+          "transcriptWords": 22,
+          "wordsInSubtitleVocabulary": 21,
+          "contextWords": 0,
+          "segmentBounds": [
+            {
+              "start": 5.820374999999999,
+              "end": 9.820374999999999,
+              "timedTokens": 7,
+              "firstToken": 7.180375,
+              "lastToken": 10.580375
+            },
+            {
+              "start": 10.820374999999999,
+              "end": 14.820374999999999,
+              "timedTokens": 7,
+              "firstToken": 11.620375,
+              "lastToken": 15.820374999999999
+            },
+            {
+              "start": 16.820375,
+              "end": 20.820375,
+              "timedTokens": 11,
+              "firstToken": 17.820375,
+              "lastToken": 20.500375
+            }
+          ],
+          "similarity": 0.9772727272727273,
+          "anchors": [
+            {
+              "cue": 0,
+              "offset": -100.069625
+            },
+            {
+              "cue": 1,
+              "offset": -100.179625
+            },
+            {
+              "cue": 2,
+              "offset": -100.179625
+            }
+          ],
+          "anchorRejections": {},
+          "speechTimingRejected": false,
+          "speechSupportCounts": {
+            "unknown": 0,
+            "supported": 23,
+            "unsupported": 2
+          },
+          "cueBeginningMatches": [
+            {
+              "cue": 0,
+              "wordInCue": 0,
+              "transcriptWord": 0,
+              "exact": true
+            },
+            {
+              "cue": 0,
+              "wordInCue": 1,
+              "transcriptWord": 1,
+              "exact": true
+            },
+            {
+              "cue": 0,
+              "wordInCue": 2,
+              "transcriptWord": 2,
+              "exact": true
+            },
+            {
+              "cue": 0,
+              "wordInCue": 3,
+              "transcriptWord": 3,
+              "exact": true
+            },
+            {
+              "cue": 0,
+              "wordInCue": 4,
+              "transcriptWord": 4,
+              "exact": true
+            },
+            {
+              "cue": 1,
+              "wordInCue": 0,
+              "transcriptWord": 6,
+              "exact": true
+            },
+            {
+              "cue": 1,
+              "wordInCue": 1,
+              "transcriptWord": 7,
+              "exact": true
+            },
+            {
+              "cue": 1,
+              "wordInCue": 2,
+              "transcriptWord": 8,
+              "exact": true
+            },
+            {
+              "cue": 1,
+              "wordInCue": 3,
+              "transcriptWord": 9,
+              "exact": true
+            },
+            {
+              "cue": 1,
+              "wordInCue": 4,
+              "transcriptWord": 10,
+              "exact": true
+            },
+            {
+              "cue": 2,
+              "wordInCue": 0,
+              "transcriptWord": 12,
+              "exact": true
+            },
+            {
+              "cue": 2,
+              "wordInCue": 1,
+              "transcriptWord": 13,
+              "exact": true
+            },
+            {
+              "cue": 2,
+              "wordInCue": 2,
+              "transcriptWord": 14,
+              "exact": true
+            },
+            {
+              "cue": 2,
+              "wordInCue": 3,
+              "transcriptWord": 15,
+              "exact": true
+            },
+            {
+              "cue": 2,
+              "wordInCue": 4,
+              "transcriptWord": 16,
+              "exact": true
+            }
+          ],
+          "regions": [
+            {
+              "start": 7.0703749999999985,
+              "end": 17.820375999999996,
+              "slope": 1.0,
+              "offset": -100.179625,
+              "anchors": 3
+            }
+          ]
+        },
+        {
+          "observedElapsedMs": 33109,
+          "observedMediaTime": 33.083,
+          "attempt": 3,
+          "windowStart": 20.767,
+          "windowEnd": 32.766999999999996,
+          "inferenceSeconds": 0.565976458,
+          "inferenceBackend": "metal-preferred",
+          "validPrefixOnly": false,
+          "match": "matched",
+          "contextWindows": 1,
+          "segmentedMatch": false,
+          "transcriptWords": 19,
+          "wordsInSubtitleVocabulary": 19,
+          "contextWords": 31,
+          "segmentBounds": [
+            {
+              "start": 20.767,
+              "end": 23.767,
+              "timedTokens": 9,
+              "firstToken": 21.467,
+              "lastToken": 24.826999999999998
+            },
+            {
+              "start": 24.767,
+              "end": 26.767,
+              "timedTokens": 3,
+              "firstToken": 25.186999999999998,
+              "lastToken": 27.127
+            },
+            {
+              "start": 26.767,
+              "end": 31.767,
+              "timedTokens": 13,
+              "firstToken": 27.667,
+              "lastToken": 31.767
+            }
+          ],
+          "similarity": 1.0,
+          "anchors": [
+            {
+              "cue": 3,
+              "offset": -100.283
+            },
+            {
+              "cue": 6,
+              "offset": -100.013
+            }
+          ],
+          "anchorRejections": {
+            "phraseNotMatched": 2
+          },
+          "speechTimingRejected": false,
+          "speechSupportCounts": {
+            "unknown": 0,
+            "supported": 24,
+            "unsupported": 1
+          },
+          "cueBeginningMatches": [
+            {
+              "cue": 3,
+              "wordInCue": 0,
+              "transcriptWord": 0,
+              "exact": true
+            },
+            {
+              "cue": 3,
+              "wordInCue": 1,
+              "transcriptWord": 1,
+              "exact": true
+            },
+            {
+              "cue": 3,
+              "wordInCue": 2,
+              "transcriptWord": 2,
+              "exact": true
+            },
+            {
+              "cue": 3,
+              "wordInCue": 3,
+              "transcriptWord": 3,
+              "exact": true
+            },
+            {
+              "cue": 3,
+              "wordInCue": 4,
+              "transcriptWord": 4,
+              "exact": true
+            },
+            {
+              "cue": 4,
+              "wordInCue": 0,
+              "transcriptWord": 7,
+              "exact": true
+            },
+            {
+              "cue": 4,
+              "wordInCue": 1,
+              "transcriptWord": 8,
+              "exact": true
+            },
+            {
+              "cue": 5,
+              "wordInCue": 0,
+              "transcriptWord": 9,
+              "exact": true
+            },
+            {
+              "cue": 6,
+              "wordInCue": 0,
+              "transcriptWord": 10,
+              "exact": true
+            },
+            {
+              "cue": 6,
+              "wordInCue": 1,
+              "transcriptWord": 11,
+              "exact": true
+            },
+            {
+              "cue": 6,
+              "wordInCue": 2,
+              "transcriptWord": 12,
+              "exact": true
+            },
+            {
+              "cue": 6,
+              "wordInCue": 3,
+              "transcriptWord": 13,
+              "exact": true
+            },
+            {
+              "cue": 6,
+              "wordInCue": 4,
+              "transcriptWord": 14,
+              "exact": true
+            }
+          ],
+          "regions": [
+            {
+              "start": 7.0703749999999985,
+              "end": 29.220376,
+              "slope": 1.0,
+              "offset": -100.179625,
+              "anchors": 5
+            }
+          ]
+        },
+        {
+          "observedElapsedMs": 45148,
+          "observedMediaTime": 45.125,
+          "attempt": 4,
+          "windowStart": 32.9696875,
+          "windowEnd": 44.9696875,
+          "inferenceSeconds": 0.540081875,
+          "inferenceBackend": "metal-preferred",
+          "validPrefixOnly": false,
+          "match": "matched",
+          "contextWindows": 1,
+          "segmentedMatch": false,
+          "transcriptWords": 15,
+          "wordsInSubtitleVocabulary": 15,
+          "contextWords": 34,
+          "segmentBounds": [
+            {
+              "start": 32.9696875,
+              "end": 36.5696875,
+              "timedTokens": 9,
+              "firstToken": 33.3496875,
+              "lastToken": 37.6696875
+            },
+            {
+              "start": 37.5696875,
+              "end": 41.169687499999995,
+              "timedTokens": 9,
+              "firstToken": 37.8696875,
+              "lastToken": 41.9096875
+            },
+            {
+              "start": 43.1696875,
+              "end": 44.3696875,
+              "timedTokens": 3,
+              "firstToken": 43.3896875,
+              "lastToken": 44.3696875
+            }
+          ],
+          "similarity": 0.8666666666666667,
+          "anchors": [
+            {
+              "cue": 7,
+              "offset": -99.8903125
+            },
+            {
+              "cue": 8,
+              "offset": -100.1303125
+            }
+          ],
+          "anchorRejections": {
+            "phraseNotMatched": 1
+          },
+          "speechTimingRejected": false,
+          "speechSupportCounts": {
+            "unknown": 0,
+            "supported": 17,
+            "unsupported": 4
+          },
+          "cueBeginningMatches": [
+            {
+              "cue": 7,
+              "wordInCue": 0,
+              "transcriptWord": 2,
+              "exact": true
+            },
+            {
+              "cue": 7,
+              "wordInCue": 1,
+              "transcriptWord": 3,
+              "exact": true
+            },
+            {
+              "cue": 7,
+              "wordInCue": 2,
+              "transcriptWord": 4,
+              "exact": true
+            },
+            {
+              "cue": 7,
+              "wordInCue": 3,
+              "transcriptWord": 5,
+              "exact": true
+            },
+            {
+              "cue": 7,
+              "wordInCue": 4,
+              "transcriptWord": 6,
+              "exact": true
+            },
+            {
+              "cue": 8,
+              "wordInCue": 0,
+              "transcriptWord": 7,
+              "exact": true
+            },
+            {
+              "cue": 8,
+              "wordInCue": 1,
+              "transcriptWord": 8,
+              "exact": true
+            },
+            {
+              "cue": 8,
+              "wordInCue": 2,
+              "transcriptWord": 9,
+              "exact": true
+            },
+            {
+              "cue": 8,
+              "wordInCue": 3,
+              "transcriptWord": 10,
+              "exact": true
+            },
+            {
+              "cue": 8,
+              "wordInCue": 4,
+              "transcriptWord": 11,
+              "exact": true
+            },
+            {
+              "cue": 9,
+              "wordInCue": 0,
+              "transcriptWord": 13,
+              "exact": true
+            },
+            {
+              "cue": 9,
+              "wordInCue": 1,
+              "transcriptWord": 14,
+              "exact": true
+            }
+          ],
+          "regions": [
+            {
+              "start": 7.119687499999998,
+              "end": 37.869688499999995,
+              "slope": 1.0,
+              "offset": -100.1303125,
+              "anchors": 7
+            }
+          ]
+        },
+        {
+          "observedElapsedMs": 57185,
+          "observedMediaTime": 57.166999999999994,
+          "attempt": 5,
+          "windowStart": 44.831,
+          "windowEnd": 56.831,
+          "inferenceSeconds": 0.541345208,
+          "inferenceBackend": "metal-preferred",
+          "validPrefixOnly": false,
+          "match": "matched",
+          "contextWindows": 2,
+          "segmentedMatch": false,
+          "transcriptWords": 0,
+          "wordsInSubtitleVocabulary": 0,
+          "contextWords": 15,
+          "segmentBounds": [
+            {
+              "start": 44.831,
+              "end": 51.831,
+              "timedTokens": 1,
+              "firstToken": 49.611000000000004,
+              "lastToken": 49.631
+            },
+            {
+              "start": 51.831,
+              "end": 56.831,
+              "timedTokens": 23,
+              "firstToken": 49.611000000000004,
+              "lastToken": 56.81100000000001
+            }
+          ],
+          "similarity": 0.8666666666666667,
+          "anchors": [
+            {
+              "cue": 7,
+              "offset": -99.8903125
+            },
+            {
+              "cue": 8,
+              "offset": -100.1303125
+            }
+          ],
+          "anchorRejections": {
+            "phraseNotMatched": 1
+          },
+          "speechTimingRejected": false,
+          "speechSupportCounts": {
+            "unknown": 0,
+            "supported": 22,
+            "unsupported": 2
+          },
+          "regions": [
+            {
+              "start": 7.119687499999998,
+              "end": 37.869688499999995,
+              "slope": 1.0,
+              "offset": -100.1303125,
+              "anchors": 7
+            }
+          ]
+        },
+        {
+          "observedElapsedMs": 69219,
+          "observedMediaTime": 69.208,
+          "attempt": 6,
+          "windowStart": 53.948375,
+          "windowEnd": 68.948375,
+          "inferenceSeconds": 0.535627333,
+          "inferenceBackend": "metal-preferred",
+          "validPrefixOnly": false,
+          "match": "noCandidate",
+          "contextWindows": 1,
+          "segmentedMatch": false,
+          "transcriptWords": 15,
+          "wordsInSubtitleVocabulary": 5,
+          "contextWords": 15,
+          "segmentBounds": [
+            {
+              "start": 53.948375,
+              "end": 59.548375,
+              "timedTokens": 17,
+              "firstToken": 54.228375,
+              "lastToken": 59.948375
+            },
+            {
+              "start": 59.548375,
+              "end": 61.548375,
+              "timedTokens": 6,
+              "firstToken": 59.948375,
+              "lastToken": 61.548375
+            }
+          ],
+          "similarity": null,
+          "anchors": [],
+          "anchorRejections": {},
+          "speechTimingRejected": false,
+          "speechSupportCounts": {
+            "unknown": 0,
+            "supported": 23,
+            "unsupported": 0
+          },
+          "regions": [
+            {
+              "start": 7.119687499999998,
+              "end": 37.869688499999995,
+              "slope": 1.0,
+              "offset": -100.1303125,
+              "anchors": 7
+            }
+          ]
+        },
+        {
+          "observedElapsedMs": 81353,
+          "observedMediaTime": 81.333,
+          "attempt": 7,
+          "windowStart": 65.980375,
+          "windowEnd": 80.980375,
+          "inferenceSeconds": 0.626002417,
+          "inferenceBackend": "metal-preferred",
+          "validPrefixOnly": false,
+          "match": "matched",
+          "contextWindows": 1,
+          "segmentedMatch": false,
+          "transcriptWords": 7,
+          "wordsInSubtitleVocabulary": 7,
+          "contextWords": 22,
+          "segmentBounds": [
+            {
+              "start": 65.980375,
+              "end": 78.78037499999999,
+              "timedTokens": 3,
+              "firstToken": 69.200375,
+              "lastToken": 69.22037499999999
+            },
+            {
+              "start": 78.78037499999999,
+              "end": 80.86037499999999,
+              "timedTokens": 8,
+              "firstToken": 79.020375,
+              "lastToken": 80.86037499999999
+            }
+          ],
+          "similarity": 1.0,
+          "anchors": [],
+          "anchorRejections": {
+            "beginningUnsupportedSpeech": 1
+          },
+          "speechTimingRejected": true,
+          "speechSupportCounts": {
+            "unknown": 0,
+            "supported": 0,
+            "unsupported": 11
+          },
+          "cueBeginningMatches": [
+            {
+              "cue": 10,
+              "wordInCue": 0,
+              "transcriptWord": 0,
+              "exact": true
+            },
+            {
+              "cue": 10,
+              "wordInCue": 1,
+              "transcriptWord": 1,
+              "exact": true
+            },
+            {
+              "cue": 10,
+              "wordInCue": 2,
+              "transcriptWord": 2,
+              "exact": true
+            },
+            {
+              "cue": 10,
+              "wordInCue": 3,
+              "transcriptWord": 3,
+              "exact": true
+            },
+            {
+              "cue": 10,
+              "wordInCue": 4,
+              "transcriptWord": 4,
+              "exact": true
+            }
+          ],
+          "regions": [
+            {
+              "start": 7.119687499999998,
+              "end": 37.869688499999995,
+              "slope": 1.0,
+              "offset": -100.1303125,
+              "anchors": 7
+            }
+          ]
+        },
+        {
+          "observedElapsedMs": 81766,
+          "observedMediaTime": 81.75,
+          "attempt": 8,
+          "windowStart": 73.663,
+          "windowEnd": 81.663,
+          "inferenceSeconds": 0.402941333,
+          "inferenceBackend": "metal-preferred",
+          "validPrefixOnly": false,
+          "match": "matched",
+          "contextWindows": 1,
+          "segmentedMatch": false,
+          "transcriptWords": 7,
+          "wordsInSubtitleVocabulary": 7,
+          "contextWords": 0,
+          "segmentBounds": [
+            {
+              "start": 73.663,
+              "end": 80.90299999999999,
+              "timedTokens": 8,
+              "firstToken": 79.04299999999999,
+              "lastToken": 80.90299999999999
+            }
+          ],
+          "similarity": 1.0,
+          "anchors": [],
+          "anchorRejections": {
+            "beginningLowConfidence": 1
+          },
+          "speechTimingRejected": false,
+          "speechSupportCounts": {
+            "unknown": 0,
+            "supported": 8,
+            "unsupported": 0
+          },
+          "cueBeginningMatches": [
+            {
+              "cue": 10,
+              "wordInCue": 0,
+              "transcriptWord": 0,
+              "exact": true
+            },
+            {
+              "cue": 10,
+              "wordInCue": 1,
+              "transcriptWord": 1,
+              "exact": true
+            },
+            {
+              "cue": 10,
+              "wordInCue": 2,
+              "transcriptWord": 2,
+              "exact": true
+            },
+            {
+              "cue": 10,
+              "wordInCue": 3,
+              "transcriptWord": 3,
+              "exact": true
+            },
+            {
+              "cue": 10,
+              "wordInCue": 4,
+              "transcriptWord": 4,
+              "exact": true
+            }
+          ],
+          "regions": [
+            {
+              "start": 7.119687499999998,
+              "end": 37.869688499999995,
+              "slope": 1.0,
+              "offset": -100.1303125,
+              "anchors": 7
+            }
+          ]
+        },
+        {
+          "observedElapsedMs": 94005,
+          "observedMediaTime": 94.0,
+          "attempt": 9,
+          "windowStart": 78.69500000000001,
+          "windowEnd": 93.69500000000001,
+          "inferenceSeconds": 0.518996792,
+          "inferenceBackend": "metal-preferred",
+          "validPrefixOnly": false,
+          "match": "matched",
+          "contextWindows": 1,
+          "segmentedMatch": false,
+          "transcriptWords": 18,
+          "wordsInSubtitleVocabulary": 18,
+          "contextWords": 0,
+          "segmentBounds": [
+            {
+              "start": 78.69500000000001,
+              "end": 80.69500000000001,
+              "timedTokens": 8,
+              "firstToken": 79.03500000000001,
+              "lastToken": 81.635
+            },
+            {
+              "start": 82.69500000000001,
+              "end": 85.69500000000001,
+              "timedTokens": 12,
+              "firstToken": 83.155,
+              "lastToken": 85.69500000000001
+            }
+          ],
+          "similarity": 1.0,
+          "anchors": [
+            {
+              "cue": 10,
+              "offset": -69.81499999999998
+            },
+            {
+              "cue": 11,
+              "offset": -69.79499999999999
+            }
+          ],
+          "anchorRejections": {},
+          "speechTimingRejected": false,
+          "speechSupportCounts": {
+            "unknown": 0,
+            "supported": 18,
+            "unsupported": 2
+          },
+          "cueBeginningMatches": [
+            {
+              "cue": 10,
+              "wordInCue": 0,
+              "transcriptWord": 0,
+              "exact": true
+            },
+            {
+              "cue": 10,
+              "wordInCue": 1,
+              "transcriptWord": 1,
+              "exact": true
+            },
+            {
+              "cue": 10,
+              "wordInCue": 2,
+              "transcriptWord": 2,
+              "exact": true
+            },
+            {
+              "cue": 10,
+              "wordInCue": 3,
+              "transcriptWord": 3,
+              "exact": true
+            },
+            {
+              "cue": 10,
+              "wordInCue": 4,
+              "transcriptWord": 4,
+              "exact": true
+            },
+            {
+              "cue": 11,
+              "wordInCue": 0,
+              "transcriptWord": 7,
+              "exact": true
+            },
+            {
+              "cue": 11,
+              "wordInCue": 1,
+              "transcriptWord": 8,
+              "exact": true
+            },
+            {
+              "cue": 11,
+              "wordInCue": 2,
+              "transcriptWord": 9,
+              "exact": true
+            },
+            {
+              "cue": 11,
+              "wordInCue": 3,
+              "transcriptWord": 10,
+              "exact": true
+            },
+            {
+              "cue": 11,
+              "wordInCue": 4,
+              "transcriptWord": 11,
+              "exact": true
+            }
+          ],
+          "regions": [
+            {
+              "start": 7.119687499999998,
+              "end": 37.869688499999995,
+              "slope": 1.0,
+              "offset": -100.1303125,
+              "anchors": 7
+            },
+            {
+              "start": 79.04500000000002,
+              "end": 83.14500100000001,
+              "slope": 1.0,
+              "offset": -69.80499999999998,
+              "anchors": 2
+            }
+          ]
+        }
+      ],
+      "acousticCollection": {
+        "calls": 204,
+        "totalMicros": 215406,
+        "maximumMicros": 2504,
+        "peakFrames": 10407,
+        "maximumFrames": 18000,
+        "maximumSeconds": 180
+      },
+      "productionPlayerValidated": false,
+      "audiblePlaybackValidated": false,
+      "pcmOrTranscriptPersisted": false,
+      "mainIsolateHeartbeatTicks": 4203
+    },
+    "omittedNumericFields": [
+      "acousticFrames",
+      "wordEvidence",
+      "contextWordEvidence"
+    ]
+  },
+  "experimentalSmallMetalLaterAssessment": {
+    "sha256": "8e48c2becd48a5de5f9ccb26bd83d8f68afc1fcb4d6aa2735e8cf133648a2794",
+    "data": {
+      "scope": "native PCM/ASR and domain tracking only; no production controller or renderer claim",
+      "initialAcquisitionBeforeEdit": true,
+      "postEditRecoveryMediaSeconds": 15.332999999999998,
+      "alignedTrackingMedianErrorSeconds": 0.17962646484375,
+      "alignedTrackingP95ErrorSeconds": 30.13031005859375,
+      "alignedSampleCount": 52,
+      "gapChecks": [
+        {
+          "expected": {
+            "kind": "videoOnly",
+            "start": 48.75,
+            "end": 78.75
+          },
+          "matched": false
+        }
+      ],
+      "unexpectedGapCount": 0,
+      "gapPlaybackSamples": [
+        {
+          "mediaTime": 48.833,
+          "actualRegion": "aligned"
+        },
+        {
+          "mediaTime": 49.875,
+          "actualRegion": "aligned"
+        },
+        {
+          "mediaTime": 50.916999999999994,
+          "actualRegion": "aligned"
+        },
+        {
+          "mediaTime": 51.916999999999994,
+          "actualRegion": "aligned"
+        },
+        {
+          "mediaTime": 52.958,
+          "actualRegion": "aligned"
+        },
+        {
+          "mediaTime": 54.0,
+          "actualRegion": "aligned"
+        },
+        {
+          "mediaTime": 55.0,
+          "actualRegion": "aligned"
+        },
+        {
+          "mediaTime": 56.041999999999994,
+          "actualRegion": "aligned"
+        },
+        {
+          "mediaTime": 57.083,
+          "actualRegion": "aligned"
+        },
+        {
+          "mediaTime": 58.083,
+          "actualRegion": "aligned"
+        },
+        {
+          "mediaTime": 59.125,
+          "actualRegion": "aligned"
+        },
+        {
+          "mediaTime": 60.166999999999994,
+          "actualRegion": "aligned"
+        },
+        {
+          "mediaTime": 61.166999999999994,
+          "actualRegion": "aligned"
+        },
+        {
+          "mediaTime": 62.208,
+          "actualRegion": "aligned"
+        },
+        {
+          "mediaTime": 63.208,
+          "actualRegion": "aligned"
+        },
+        {
+          "mediaTime": 64.25,
+          "actualRegion": "aligned"
+        },
+        {
+          "mediaTime": 65.292,
+          "actualRegion": "aligned"
+        },
+        {
+          "mediaTime": 66.292,
+          "actualRegion": "aligned"
+        },
+        {
+          "mediaTime": 67.375,
+          "actualRegion": "aligned"
+        },
+        {
+          "mediaTime": 68.375,
+          "actualRegion": "aligned"
+        },
+        {
+          "mediaTime": 69.417,
+          "actualRegion": "aligned"
+        },
+        {
+          "mediaTime": 70.417,
+          "actualRegion": "aligned"
+        },
+        {
+          "mediaTime": 71.458,
+          "actualRegion": "aligned"
+        },
+        {
+          "mediaTime": 72.5,
+          "actualRegion": "aligned"
+        },
+        {
+          "mediaTime": 73.542,
+          "actualRegion": "aligned"
+        },
+        {
+          "mediaTime": 74.542,
+          "actualRegion": "aligned"
+        },
+        {
+          "mediaTime": 75.583,
+          "actualRegion": "aligned"
+        },
+        {
+          "mediaTime": 76.625,
+          "actualRegion": "aligned"
+        },
+        {
+          "mediaTime": 77.625,
+          "actualRegion": "aligned"
+        },
+        {
+          "mediaTime": 78.667,
+          "actualRegion": "aligned"
+        }
+      ],
+      "alignedPlaybackSamples": [
+        {
+          "mediaTime": 21.041999999999998,
+          "expectedDelay": -100.0,
+          "actualDelay": -100.17962646484375,
+          "actualRegion": "aligned",
+          "mappingAvailable": true,
+          "error": 0.17962646484375
+        },
+        {
+          "mediaTime": 22.083,
+          "expectedDelay": -100.0,
+          "actualDelay": -100.17962646484375,
+          "actualRegion": "aligned",
+          "mappingAvailable": true,
+          "error": 0.17962646484375
+        },
+        {
+          "mediaTime": 23.125,
+          "expectedDelay": -100.0,
+          "actualDelay": -100.17962646484375,
+          "actualRegion": "aligned",
+          "mappingAvailable": true,
+          "error": 0.17962646484375
+        },
+        {
+          "mediaTime": 24.166999999999998,
+          "expectedDelay": -100.0,
+          "actualDelay": -100.17962646484375,
+          "actualRegion": "aligned",
+          "mappingAvailable": true,
+          "error": 0.17962646484375
+        },
+        {
+          "mediaTime": 25.166999999999998,
+          "expectedDelay": -100.0,
+          "actualDelay": -100.17962646484375,
+          "actualRegion": "aligned",
+          "mappingAvailable": true,
+          "error": 0.17962646484375
+        },
+        {
+          "mediaTime": 26.208,
+          "expectedDelay": -100.0,
+          "actualDelay": -100.17962646484375,
+          "actualRegion": "aligned",
+          "mappingAvailable": true,
+          "error": 0.17962646484375
+        },
+        {
+          "mediaTime": 27.25,
+          "expectedDelay": -100.0,
+          "actualDelay": -100.17962646484375,
+          "actualRegion": "aligned",
+          "mappingAvailable": true,
+          "error": 0.17962646484375
+        },
+        {
+          "mediaTime": 28.25,
+          "expectedDelay": -100.0,
+          "actualDelay": -100.17962646484375,
+          "actualRegion": "aligned",
+          "mappingAvailable": true,
+          "error": 0.17962646484375
+        },
+        {
+          "mediaTime": 29.291999999999998,
+          "expectedDelay": -100.0,
+          "actualDelay": -100.17962646484375,
+          "actualRegion": "aligned",
+          "mappingAvailable": true,
+          "error": 0.17962646484375
+        },
+        {
+          "mediaTime": 30.333,
+          "expectedDelay": -100.0,
+          "actualDelay": -100.17962646484375,
+          "actualRegion": "aligned",
+          "mappingAvailable": true,
+          "error": 0.17962646484375
+        },
+        {
+          "mediaTime": 31.333,
+          "expectedDelay": -100.0,
+          "actualDelay": -100.17962646484375,
+          "actualRegion": "aligned",
+          "mappingAvailable": true,
+          "error": 0.17962646484375
+        },
+        {
+          "mediaTime": 32.375,
+          "expectedDelay": -100.0,
+          "actualDelay": -100.17962646484375,
+          "actualRegion": "aligned",
+          "mappingAvailable": true,
+          "error": 0.17962646484375
+        },
+        {
+          "mediaTime": 33.417,
+          "expectedDelay": -100.0,
+          "actualDelay": -100.17962646484375,
+          "actualRegion": "aligned",
+          "mappingAvailable": true,
+          "error": 0.17962646484375
+        },
+        {
+          "mediaTime": 34.417,
+          "expectedDelay": -100.0,
+          "actualDelay": -100.17962646484375,
+          "actualRegion": "aligned",
+          "mappingAvailable": true,
+          "error": 0.17962646484375
+        },
+        {
+          "mediaTime": 35.458,
+          "expectedDelay": -100.0,
+          "actualDelay": -100.17962646484375,
+          "actualRegion": "aligned",
+          "mappingAvailable": true,
+          "error": 0.17962646484375
+        },
+        {
+          "mediaTime": 36.5,
+          "expectedDelay": -100.0,
+          "actualDelay": -100.17962646484375,
+          "actualRegion": "aligned",
+          "mappingAvailable": true,
+          "error": 0.17962646484375
+        },
+        {
+          "mediaTime": 37.5,
+          "expectedDelay": -100.0,
+          "actualDelay": -100.17962646484375,
+          "actualRegion": "aligned",
+          "mappingAvailable": true,
+          "error": 0.17962646484375
+        },
+        {
+          "mediaTime": 38.542,
+          "expectedDelay": -100.0,
+          "actualDelay": -100.17962646484375,
+          "actualRegion": "aligned",
+          "mappingAvailable": true,
+          "error": 0.17962646484375
+        },
+        {
+          "mediaTime": 39.583,
+          "expectedDelay": -100.0,
+          "actualDelay": -100.17962646484375,
+          "actualRegion": "aligned",
+          "mappingAvailable": true,
+          "error": 0.17962646484375
+        },
+        {
+          "mediaTime": 40.583,
+          "expectedDelay": -100.0,
+          "actualDelay": -100.17962646484375,
+          "actualRegion": "aligned",
+          "mappingAvailable": true,
+          "error": 0.17962646484375
+        },
+        {
+          "mediaTime": 41.625,
+          "expectedDelay": -100.0,
+          "actualDelay": -100.17962646484375,
+          "actualRegion": "aligned",
+          "mappingAvailable": true,
+          "error": 0.17962646484375
+        },
+        {
+          "mediaTime": 42.667,
+          "expectedDelay": -100.0,
+          "actualDelay": -100.17962646484375,
+          "actualRegion": "aligned",
+          "mappingAvailable": true,
+          "error": 0.17962646484375
+        },
+        {
+          "mediaTime": 43.666999999999994,
+          "expectedDelay": -100.0,
+          "actualDelay": -100.17962646484375,
+          "actualRegion": "aligned",
+          "mappingAvailable": true,
+          "error": 0.17962646484375
+        },
+        {
+          "mediaTime": 44.708,
+          "expectedDelay": -100.0,
+          "actualDelay": -100.17962646484375,
+          "actualRegion": "aligned",
+          "mappingAvailable": true,
+          "error": 0.17962646484375
+        },
+        {
+          "mediaTime": 45.75,
+          "expectedDelay": -100.0,
+          "actualDelay": -100.13031005859375,
+          "actualRegion": "aligned",
+          "mappingAvailable": true,
+          "error": 0.13031005859375
+        },
+        {
+          "mediaTime": 46.791999999999994,
+          "expectedDelay": -100.0,
+          "actualDelay": -100.13031005859375,
+          "actualRegion": "aligned",
+          "mappingAvailable": true,
+          "error": 0.13031005859375
+        },
+        {
+          "mediaTime": 47.833,
+          "expectedDelay": -100.0,
+          "actualDelay": -100.13031005859375,
+          "actualRegion": "aligned",
+          "mappingAvailable": true,
+          "error": 0.13031005859375
+        },
+        {
+          "mediaTime": 79.708,
+          "expectedDelay": -70.0,
+          "actualDelay": -100.13031005859375,
+          "actualRegion": "aligned",
+          "mappingAvailable": true,
+          "error": 30.13031005859375
+        },
+        {
+          "mediaTime": 80.708,
+          "expectedDelay": -70.0,
+          "actualDelay": -100.13031005859375,
+          "actualRegion": "aligned",
+          "mappingAvailable": true,
+          "error": 30.13031005859375
+        },
+        {
+          "mediaTime": 81.75,
+          "expectedDelay": -70.0,
+          "actualDelay": -100.13031005859375,
+          "actualRegion": "aligned",
+          "mappingAvailable": true,
+          "error": 30.13031005859375
+        },
+        {
+          "mediaTime": 82.792,
+          "expectedDelay": -70.0,
+          "actualDelay": -100.13031005859375,
+          "actualRegion": "aligned",
+          "mappingAvailable": true,
+          "error": 30.13031005859375
+        },
+        {
+          "mediaTime": 83.792,
+          "expectedDelay": -70.0,
+          "actualDelay": -100.13031005859375,
+          "actualRegion": "aligned",
+          "mappingAvailable": true,
+          "error": 30.13031005859375
+        },
+        {
+          "mediaTime": 84.833,
+          "expectedDelay": -70.0,
+          "actualDelay": -100.13031005859375,
+          "actualRegion": "aligned",
+          "mappingAvailable": true,
+          "error": 30.13031005859375
+        },
+        {
+          "mediaTime": 85.875,
+          "expectedDelay": -70.0,
+          "actualDelay": -100.13031005859375,
+          "actualRegion": "aligned",
+          "mappingAvailable": true,
+          "error": 30.13031005859375
+        },
+        {
+          "mediaTime": 86.875,
+          "expectedDelay": -70.0,
+          "actualDelay": -100.13031005859375,
+          "actualRegion": "aligned",
+          "mappingAvailable": true,
+          "error": 30.13031005859375
+        },
+        {
+          "mediaTime": 87.917,
+          "expectedDelay": -70.0,
+          "actualDelay": -100.13031005859375,
+          "actualRegion": "aligned",
+          "mappingAvailable": true,
+          "error": 30.13031005859375
+        },
+        {
+          "mediaTime": 88.917,
+          "expectedDelay": -70.0,
+          "actualDelay": -100.13031005859375,
+          "actualRegion": "aligned",
+          "mappingAvailable": true,
+          "error": 30.13031005859375
+        },
+        {
+          "mediaTime": 89.958,
+          "expectedDelay": -70.0,
+          "actualDelay": -100.13031005859375,
+          "actualRegion": "aligned",
+          "mappingAvailable": true,
+          "error": 30.13031005859375
+        },
+        {
+          "mediaTime": 91.0,
+          "expectedDelay": -70.0,
+          "actualDelay": -100.13031005859375,
+          "actualRegion": "aligned",
+          "mappingAvailable": true,
+          "error": 30.13031005859375
+        },
+        {
+          "mediaTime": 92.042,
+          "expectedDelay": -70.0,
+          "actualDelay": -100.13031005859375,
+          "actualRegion": "aligned",
+          "mappingAvailable": true,
+          "error": 30.13031005859375
+        },
+        {
+          "mediaTime": 93.083,
+          "expectedDelay": -70.0,
+          "actualDelay": -100.13031005859375,
+          "actualRegion": "aligned",
+          "mappingAvailable": true,
+          "error": 30.13031005859375
+        },
+        {
+          "mediaTime": 94.083,
+          "expectedDelay": -70.0,
+          "actualDelay": -69.80500030517578,
+          "actualRegion": "aligned",
+          "mappingAvailable": true,
+          "error": 0.19499969482421875
+        },
+        {
+          "mediaTime": 95.125,
+          "expectedDelay": -70.0,
+          "actualDelay": -69.80500030517578,
+          "actualRegion": "aligned",
+          "mappingAvailable": true,
+          "error": 0.19499969482421875
+        },
+        {
+          "mediaTime": 96.167,
+          "expectedDelay": -70.0,
+          "actualDelay": -69.80500030517578,
+          "actualRegion": "aligned",
+          "mappingAvailable": true,
+          "error": 0.19499969482421875
+        },
+        {
+          "mediaTime": 97.167,
+          "expectedDelay": -70.0,
+          "actualDelay": -69.80500030517578,
+          "actualRegion": "aligned",
+          "mappingAvailable": true,
+          "error": 0.19499969482421875
+        },
+        {
+          "mediaTime": 98.208,
+          "expectedDelay": -70.0,
+          "actualDelay": -69.80500030517578,
+          "actualRegion": "aligned",
+          "mappingAvailable": true,
+          "error": 0.19499969482421875
+        },
+        {
+          "mediaTime": 99.25,
+          "expectedDelay": -70.0,
+          "actualDelay": -69.80500030517578,
+          "actualRegion": "aligned",
+          "mappingAvailable": true,
+          "error": 0.19499969482421875
+        },
+        {
+          "mediaTime": 100.292,
+          "expectedDelay": -70.0,
+          "actualDelay": -69.80500030517578,
+          "actualRegion": "aligned",
+          "mappingAvailable": true,
+          "error": 0.19499969482421875
+        },
+        {
+          "mediaTime": 101.292,
+          "expectedDelay": -70.0,
+          "actualDelay": -69.80500030517578,
+          "actualRegion": "aligned",
+          "mappingAvailable": true,
+          "error": 0.19499969482421875
+        },
+        {
+          "mediaTime": 102.333,
+          "expectedDelay": -70.0,
+          "actualDelay": -69.80500030517578,
+          "actualRegion": "aligned",
+          "mappingAvailable": true,
+          "error": 0.19499969482421875
+        },
+        {
+          "mediaTime": 103.375,
+          "expectedDelay": -70.0,
+          "actualDelay": -69.80500030517578,
+          "actualRegion": "aligned",
+          "mappingAvailable": true,
+          "error": 0.19499969482421875
+        },
+        {
+          "mediaTime": 104.375,
+          "expectedDelay": -70.0,
+          "actualDelay": -69.80500030517578,
+          "actualRegion": "aligned",
+          "mappingAvailable": true,
+          "error": 0.19499969482421875
+        }
+      ],
+      "cueBoundaryRenderingValidated": false,
+      "backwardSeekValidated": false,
+      "satisfiesSceneDomainChecks": false,
+      "probeSha256": "6b65b474e716c2550004dd58217d96be58ef7ddcfcb6e3d0e18350eba0e1f818",
+      "expectedTimelineSha256": "04015ca685a65b721ef394b12ed034e8697c72b15cd8f8f99ec6b96bd4b147cd"
+    }
+  },
+  "probeSha256": "c07ba70d07171704e44e3bcf3a82c90dfe8fc90d34a3f490c1444945513c9cfb",
+  "ci": {
+    "url": "https://github.com/DwennK/Plezy-SubtitleFix/actions/runs/35179494854",
+    "status": "success",
+    "downloadedEvidence": [
+      {
+        "artifact": "livesync-dart-macos-26-a9222184cafae5780b670cfee9b40dcc299c11e1",
+        "sourceSha": "a9222184cafae5780b670cfee9b40dcc299c11e1",
+        "passed": 177,
+        "failed": 0,
+        "skipped": [
+          "reads all authored cues from the hash-pinned real Sintel fixture"
+        ],
+        "fixtureTests": ".................\n----------------------------------------------------------------------\nRan 17 tests in 0.002s\n\nOK",
+        "reportSha256": "1c1e046d6cf02e74632dc7db74c0bbd946c2fa1637695d0e74cf94fbbe1832d0"
+      },
+      {
+        "artifact": "livesync-dart-windows-latest-a9222184cafae5780b670cfee9b40dcc299c11e1",
+        "sourceSha": "a9222184cafae5780b670cfee9b40dcc299c11e1",
+        "passed": 176,
+        "failed": 0,
+        "skipped": [
+          "track changes retry a requested session, but a user stop wins during teardown",
+          "reads all authored cues from the hash-pinned real Sintel fixture"
+        ],
+        "fixtureTests": ".................\n----------------------------------------------------------------------\nRan 17 tests in 0.008s\n\nOK",
+        "reportSha256": "613fd35c1bd7c6f346cfedec7f2a07b10604d8732d43e4597cbaf299088f47a9"
+      }
+    ]
+  },
+  "interpretation": [
+    "On one identical native result, the old code rejects normalization, while the corrected code reaches and retains the speech-support rejection. This proves the normalization fix without silently accepting an unsupported onset.",
+    "The normal base.en CPU replay passes: acquisition 21.585 s, one region, no gaps, authored-SRT tracking p95 0.214 s and six completed analyses without native rejection.",
+    "The experimental small.en Metal-preferred replay now eventually learns a second region, recovering in 15.333 s. Whole-scene p95 is still 30.130 s and no gap is learned. This is not scene acceptance.",
+    "The two complete small-model replays use different window phases after initial setup: the first request takes 14.254 s before versus 0.617 s in the later run. Their recovery difference cannot be attributed solely to the annotation fix. Only the same-result comparison isolates that change."
+  ],
+  "installedApplicationChanged": false,
+  "productionModelChanged": false,
+  "fullApplicationBuiltAtThisCommit": false,
+  "fullProductAcceptance": false,
+  "pcmOrTranscriptPersisted": false
+}

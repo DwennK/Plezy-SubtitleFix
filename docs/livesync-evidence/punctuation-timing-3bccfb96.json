@@ -1,0 +1,423 @@
+{
+  "schema": 1,
+  "sourceSha": "3bccfb969c297ba5d89983c59b6d060c2bf8f724",
+  "change": "Punctuation-only pieces do not contribute to a spoken word onset or confidence. Lexical pieces, including combining marks, numbers and spoken ampersands, retain all previous gates. Original text and normalization remain unchanged.",
+  "regression": {
+    "failedBeforeFix": true,
+    "testsPassed": 174,
+    "existingSkip": 1,
+    "focusedAnalysisPassed": true,
+    "cases": [
+      "Missing or low-confidence punctuation must not discard a timed word.",
+      "A valid but unrelated punctuation timestamp must not move a word onset.",
+      "Low-confidence or untimed lexical pieces still reject the anchor."
+    ]
+  },
+  "reports": {
+    "punctuation-ordinary.json": {
+      "sha256": "c682b774e0b2c8af5cd4288cce4a01965598f83fafccc6a069dc78e7dbf16080",
+      "summary": {
+        "kind": "native-active-pcm-real-asr-and-domain-alignment",
+        "platform": "macos",
+        "inferenceBackend": "portable-cpu",
+        "alignmentEngine": "bounded-affine-timeline",
+        "acquiredMediaPosition": 21.541999999999998,
+        "learnedSegments": 1,
+        "activityChecks": 147,
+        "activityVoiceChecks": 138,
+        "activityTimingMismatchChecks": 0,
+        "activityTotalMicros": 68991,
+        "activityMaxMicros": 714,
+        "actualOffset": -100.20929166666667,
+        "acquisitionMs": 21552,
+        "evaluationMs": 75023,
+        "expectedOffset": -100.0,
+        "expectNoLock": false,
+        "completedAnalyses": 6,
+        "validPrefixAnalyses": 0,
+        "rejectedAnalyses": 0,
+        "absoluteOffsetError": 0.20928955078125,
+        "maximumOffsetError": 0.75,
+        "reference": "fixture SRT timings, not precise acoustic-onset ground truth",
+        "passed": true,
+        "expectedSlope": 1.0,
+        "slopeConfirmed": true,
+        "affineAcquisitionMs": "none",
+        "trackingErrorP95": 0.21429443359375,
+        "trackingErrorMaximum": 0.21429443359375,
+        "trackingReference": "Correlated playback-time samples after first lock, including unknown regions at zero automatic delay. Ideal fixture transform, not independent acoustic annotations.",
+        "productionPlayerValidated": false,
+        "audiblePlaybackValidated": false,
+        "pcmOrTranscriptPersisted": false,
+        "mainIsolateHeartbeatTicks": 3003
+      },
+      "learnedGaps": [],
+      "analysisOutcomes": [
+        {
+          "match": "noCandidate",
+          "anchors": []
+        },
+        {
+          "match": "matched",
+          "anchors": [
+            {
+              "cue": 0,
+              "offset": -100.20429166666666
+            },
+            {
+              "cue": 1,
+              "offset": -100.21429166666667
+            },
+            {
+              "cue": 2,
+              "offset": -100.23429166666666
+            }
+          ]
+        },
+        {
+          "match": "matched",
+          "anchors": [
+            {
+              "cue": 3,
+              "offset": -100.29766666666667
+            },
+            {
+              "cue": 6,
+              "offset": -100.06766666666667
+            }
+          ]
+        },
+        {
+          "match": "matched",
+          "anchors": [
+            {
+              "cue": 7,
+              "offset": -99.91029166666667
+            },
+            {
+              "cue": 8,
+              "offset": -100.23029166666666
+            }
+          ]
+        },
+        {
+          "match": "matched",
+          "anchors": [
+            {
+              "cue": 10,
+              "offset": -99.87366666666665
+            }
+          ]
+        },
+        {
+          "match": "insufficientDialogue",
+          "anchors": []
+        }
+      ]
+    },
+    "punctuation-crossing.json": {
+      "sha256": "c9dc9ccfa70a2e652884a0808b837ae9c71b613940369b2a19a5452487258199",
+      "summary": {
+        "kind": "native-active-pcm-real-asr-and-domain-alignment",
+        "platform": "macos",
+        "inferenceBackend": "portable-cpu",
+        "alignmentEngine": "bounded-affine-timeline",
+        "acquiredMediaPosition": 21.541999999999998,
+        "learnedSegments": 2,
+        "activityChecks": 205,
+        "activityVoiceChecks": 196,
+        "activityTimingMismatchChecks": 50,
+        "activityTotalMicros": 105777,
+        "activityMaxMicros": 816,
+        "actualOffset": -70.02531250000001,
+        "acquisitionMs": 21548,
+        "evaluationMs": 105070,
+        "expectedOffset": -100.0,
+        "expectNoLock": false,
+        "completedAnalyses": 10,
+        "validPrefixAnalyses": 0,
+        "rejectedAnalyses": 0,
+        "absoluteOffsetError": 29.974685668945312,
+        "maximumOffsetError": 0.75,
+        "reference": "fixture SRT timings, not precise acoustic-onset ground truth",
+        "passed": false,
+        "expectedSlope": 1.0,
+        "slopeConfirmed": true,
+        "affineAcquisitionMs": "none",
+        "trackingErrorP95": 29.974685668945312,
+        "trackingErrorMaximum": 29.974685668945312,
+        "trackingReference": "Correlated playback-time samples after first lock, including unknown regions at zero automatic delay. Ideal fixture transform, not independent acoustic annotations.",
+        "productionPlayerValidated": false,
+        "audiblePlaybackValidated": false,
+        "pcmOrTranscriptPersisted": false,
+        "mainIsolateHeartbeatTicks": 4204
+      },
+      "learnedGaps": [],
+      "analysisOutcomes": [
+        {
+          "match": "noCandidate",
+          "anchors": []
+        },
+        {
+          "match": "matched",
+          "anchors": [
+            {
+              "cue": 0,
+              "offset": -100.209625
+            },
+            {
+              "cue": 1,
+              "offset": -100.219625
+            },
+            {
+              "cue": 2,
+              "offset": -100.21962500000001
+            }
+          ]
+        },
+        {
+          "match": "matched",
+          "anchors": [
+            {
+              "cue": 3,
+              "offset": -100.29231250000001
+            },
+            {
+              "cue": 6,
+              "offset": -100.0823125
+            }
+          ]
+        },
+        {
+          "match": "matched",
+          "anchors": [
+            {
+              "cue": 3,
+              "offset": -100.29231250000001
+            },
+            {
+              "cue": 6,
+              "offset": -100.0823125
+            }
+          ]
+        },
+        {
+          "match": "noCandidate",
+          "anchors": []
+        },
+        {
+          "match": "noCandidate",
+          "anchors": []
+        },
+        {
+          "match": "insufficientDialogue",
+          "anchors": []
+        },
+        {
+          "match": "matched",
+          "anchors": [
+            {
+              "cue": 8,
+              "offset": -70.165
+            }
+          ]
+        },
+        {
+          "match": "matched",
+          "anchors": [
+            {
+              "cue": 10,
+              "offset": -69.88562499999999
+            }
+          ]
+        },
+        {
+          "match": "matched",
+          "anchors": []
+        }
+      ]
+    },
+    "punctuation-negative.json": {
+      "sha256": "338e24d2db6e50b4f922ea0212b7803ce9dc69f45c5a8cc2de979d5a1669fd12",
+      "summary": {
+        "kind": "native-active-pcm-real-asr-and-domain-alignment",
+        "platform": "macos",
+        "inferenceBackend": "portable-cpu",
+        "alignmentEngine": "bounded-affine-timeline",
+        "acquiredMediaPosition": "none",
+        "learnedSegments": 0,
+        "activityChecks": 465,
+        "activityVoiceChecks": 456,
+        "activityTimingMismatchChecks": 0,
+        "activityTotalMicros": 243391,
+        "activityMaxMicros": 817,
+        "actualOffset": "none",
+        "acquisitionMs": 238058,
+        "evaluationMs": 238058,
+        "expectedOffset": "none",
+        "expectNoLock": true,
+        "completedAnalyses": 9,
+        "validPrefixAnalyses": 0,
+        "rejectedAnalyses": 2,
+        "absoluteOffsetError": "unavailable",
+        "maximumOffsetError": 0.75,
+        "reference": "fixture SRT timings, not precise acoustic-onset ground truth",
+        "passed": true,
+        "productionPlayerValidated": false,
+        "audiblePlaybackValidated": false,
+        "pcmOrTranscriptPersisted": false,
+        "mainIsolateHeartbeatTicks": 9523
+      },
+      "learnedGaps": [],
+      "analysisOutcomes": [
+        {
+          "match": "insufficientDialogue",
+          "anchors": []
+        },
+        {
+          "match": "insufficientDialogue",
+          "anchors": []
+        },
+        {
+          "match": "insufficientDialogue",
+          "anchors": []
+        },
+        {
+          "match": "insufficientDialogue",
+          "anchors": []
+        },
+        {
+          "match": "noCandidate",
+          "anchors": []
+        },
+        {
+          "match": "insufficientDialogue",
+          "anchors": []
+        },
+        {
+          "match": "noCandidate",
+          "anchors": []
+        },
+        {
+          "match": null,
+          "anchors": []
+        },
+        {
+          "match": null,
+          "anchors": []
+        },
+        {
+          "match": "noCandidate",
+          "anchors": []
+        },
+        {
+          "match": "noCandidate",
+          "anchors": []
+        }
+      ]
+    }
+  },
+  "crossingAssessment": {
+    "scope": "native PCM/ASR and domain tracking only; no production controller or renderer claim",
+    "initialAcquisitionBeforeEdit": true,
+    "postEditRecoveryMediaSeconds": 17.917,
+    "alignedTrackingMedianErrorSeconds": 0.21962738037109375,
+    "alignedTrackingP95ErrorSeconds": 30.219627380371094,
+    "alignedSampleCount": 53,
+    "gapChecks": [
+      {
+        "expected": {
+          "kind": "videoOnly",
+          "start": 36.25,
+          "end": 66.25
+        },
+        "matched": false
+      }
+    ],
+    "unexpectedGapCount": 0,
+    "cueBoundaryRenderingValidated": false,
+    "backwardSeekValidated": false,
+    "satisfiesSceneDomainChecks": false,
+    "probeSha256": "c9dc9ccfa70a2e652884a0808b837ae9c71b613940369b2a19a5452487258199",
+    "expectedTimelineSha256": "c9a8a41feef99bd7d069d10111678a3d210a7d269b1bd0401025333095d9e70f"
+  },
+  "filesSha256": {
+    "probe-punctuation": "62cc474706c75e2e1314398611bd17deefb9e2bb694159c1a3877436f79cc66f",
+    "punctuation-before.log": "e036814cc0792013e308449571976fb1112457287d5fc8f72b6526f82af4924f",
+    "punctuation-feature-tests-final.log": "ab21d45e67740dd26631e9983accfe8511a7b9cb420b25bd83e281c22f856b9c",
+    "punctuation-analyze-final.log": "cfeb158a5e6e63a85790d75464057ed593cc1045d7ff49c78f4d6ac2d6d11a33",
+    "observations.json": "9ce77a5bccb36f87e9a27a9326e8797f56dcd5456de14742000834cd87e86262"
+  },
+  "causalAbsenceDiagnostic": {
+    "insertedLexicalRunWords": [
+      8,
+      8,
+      7
+    ],
+    "afterRecognitionGateWords": [
+      4,
+      2,
+      2
+    ],
+    "remainingGatesReduceTheseRuns": false,
+    "recognitionThreshold": 0.7,
+    "requiredRunWords": 6,
+    "productionThresholdsChanged": false,
+    "punctuationExplainsTheseRejections": "not established; no transcript was retained"
+  },
+  "desktopRunId": 35174437102,
+  "desktopConclusion": "success",
+  "fullProductAcceptance": false,
+  "limitations": [
+    "Consumed public fixtures, authored SRT timing, no independent acoustic-onset or audible playback validation.",
+    "Crossing recovery is 17.917 s, but whole-scene p95 remains 30.220 s and the expected video-only gap is not learned.",
+    "The 238-second unmatched control passes with zero offset, segments and gaps; this does not establish a population false-positive rate.",
+    "An initial negative-control invocation was rejected before analysis because tracking and negative modes are mutually exclusive; the corrected invocation completed once.",
+    "No installed application was changed."
+  ],
+  "desktopReports": [
+    {
+      "artifact": "livesync-dart-macos-26-3bccfb969c297ba5d89983c59b6d060c2bf8f724",
+      "sha256": "80a9cf8f82263a04330eefcc3a4cdff9c0fdc702fd4fe8642ab0429c5411a084",
+      "success": true,
+      "passed": 174,
+      "skippedTests": [
+        "reads all authored cues from the hash-pinned real Sintel fixture"
+      ],
+      "punctuationCases": [
+        {
+          "name": "punctuation-only tokens do not invalidate or move the spoken cue beginning",
+          "result": "success",
+          "skipped": false
+        },
+        {
+          "name": "ignoring punctuation never rescues an unreliable lexical token",
+          "result": "success",
+          "skipped": false
+        }
+      ]
+    },
+    {
+      "artifact": "livesync-dart-windows-latest-3bccfb969c297ba5d89983c59b6d060c2bf8f724",
+      "sha256": "bfaf8a08b58e226836dbfa9870be07e04029dc0f18cef7ad71396c622eea77c9",
+      "success": true,
+      "passed": 173,
+      "skippedTests": [
+        "track changes retry a requested session, but a user stop wins during teardown",
+        "reads all authored cues from the hash-pinned real Sintel fixture"
+      ],
+      "punctuationCases": [
+        {
+          "name": "punctuation-only tokens do not invalidate or move the spoken cue beginning",
+          "result": "success",
+          "skipped": false
+        },
+        {
+          "name": "ignoring punctuation never rescues an unreliable lexical token",
+          "result": "success",
+          "skipped": false
+        }
+      ]
+    }
+  ]
+}

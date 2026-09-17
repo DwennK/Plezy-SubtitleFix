@@ -8,7 +8,7 @@ import shutil
 import subprocess
 from pathlib import Path
 
-from prepare_native import checkout, digest
+from prepare_native import checkout, digest, download_model
 
 ROOT = Path(__file__).resolve().parents[2]
 NATIVE = ROOT / "native/live_subtitle_sync"
@@ -24,14 +24,15 @@ def settings(target):
         names = ["livesync_capture_bridge.dll", "livesync_inference_bridge.dll", "livesync_inference_bridge_avx2.dll"]
     else:
         raise ValueError("Unsupported analysis runtime target")
-    sources = sorted([*NATIVE.glob("*.cpp"), *NATIVE.glob("*.h"), NATIVE / "CMakeLists.txt", Path(__file__)])
+    sources = sorted([*NATIVE.glob("*.cpp"), *NATIVE.glob("*.h"), NATIVE / "CMakeLists.txt", NATIVE / "SILERO-LICENSE", Path(__file__), ROOT / "scripts/livesync/embed_speech_model.py"])
     hasher = hashlib.sha256()
     for source in sources:
         hasher.update(str(source.relative_to(ROOT)).replace("\\", "/").encode() + b"\0" + source.read_bytes())
     return include, names, {
         "schema": 1, "target": target,
         "profile": "portable-and-guarded-avx2-cpu" if target == "windows-x64" else "portable-cpu",
-        "captureAbi": 1, "inferenceAbi": 1,
+        "captureAbi": 1, "inferenceAbi": 2,
+        "speechDetectorSha256": manifest["speechDetector"]["sha256"],
         "whisperRevision": manifest["whisper"]["revision"], "mpvRevision": manifest["native"]["commit"],
         "mpvHeaderSha256": digest(include / "mpv/client.h"), "sourceSha256": hasher.hexdigest(),
     }
@@ -41,7 +42,7 @@ def verify(target):
     _, names, expected = settings(target)
     directory = ROOT / "build/livesync/runtime" / target
     record = json.loads((directory / "provenance.json").read_text())
-    if record["inputs"] != expected or set(record["files"]) != set(names + ["whisper-ggml-LICENSE"]):
+    if record["inputs"] != expected or set(record["files"]) != set(names + ["whisper-ggml-LICENSE", "SILERO-LICENSE"]):
         raise ValueError("Analysis runtime inputs changed; rebuild before packaging")
     for name, checksum in record["files"].items():
         path = directory / name
@@ -66,6 +67,8 @@ def main():
     ):
         raise ValueError("Build this runtime on its target architecture")
     include, names, inputs = settings(args.target)
+    manifest = json.loads((ROOT / "docs/live-subtitle-sync-versions.json").read_text())
+    speech_model = download_model(manifest["speechDetector"], ROOT / "build/livesync/models")
     source = checkout("https://github.com/ggml-org/whisper.cpp.git", inputs["whisperRevision"],
                       args.whisper_source or ROOT / "build/livesync/whisper-source")
     subprocess.run(["git", "-C", str(source), "diff", "--exit-code", "HEAD", "--"], check=True)
@@ -73,7 +76,7 @@ def main():
     configure = [args.cmake, "-S", str(NATIVE), "-B", str(build), "-DCMAKE_BUILD_TYPE=Release",
                  "-DGGML_METAL=OFF", "-DGGML_VULKAN=OFF", "-DGGML_CUDA=OFF", "-DGGML_BLAS=OFF", "-DGGML_OPENMP=OFF",
                  "-DLIVESYNC_CPU_PROFILE=portable", f"-DLIVESYNC_WHISPER_SOURCE={source}",
-                 f"-DLIVESYNC_MPV_INCLUDE={include}"]
+                 f"-DLIVESYNC_MPV_INCLUDE={include}", f"-DLIVESYNC_SPEECH_MODEL={speech_model}"]
     if args.target == "macos-arm64":
         configure += ["-DCMAKE_OSX_ARCHITECTURES=arm64", "-DCMAKE_OSX_DEPLOYMENT_TARGET=11.0"]
     subprocess.run(configure, check=True)
@@ -95,7 +98,7 @@ def main():
         subprocess.run([args.cmake, "--build", str(accelerated_build), "--config", "Release", "--parallel", "3",
                         "--target", "livesync_inference_bridge"], check=True)
         paths["livesync_inference_bridge_avx2.dll"] = accelerated_build / "Release/livesync_inference_bridge.dll"
-    paths.update({"whisper-ggml-LICENSE": source / "LICENSE"})
+    paths.update({"whisper-ggml-LICENSE": source / "LICENSE", "SILERO-LICENSE": NATIVE / "SILERO-LICENSE"})
     for name, path in paths.items():
         temporary = directory / (name + ".partial")
         shutil.copyfile(path, temporary)

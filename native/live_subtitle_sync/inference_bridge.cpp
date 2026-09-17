@@ -5,7 +5,7 @@
 
 #include "inference_worker.h"
 
-uint32_t ls_inference_abi_version(void) { return 1; }
+uint32_t ls_inference_abi_version(void) { return 2; }
 size_t ls_inference_result_size(void) { return sizeof(ls_inference_result); }
 
 void* ls_inference_create(const char* model_path, int threads) {
@@ -74,6 +74,7 @@ int ls_inference_take_result(void* handle, ls_inference_result* output, size_t s
         target.media_end = token.media_end;
         target.recognition_score = token.recognition_score;
         target.has_timestamp = token.has_timestamp ? 1 : 0;
+        target.speech_support = static_cast<uint32_t>(token.speech_support);
         copy_text(token.text, target.text_offset, target.text_length);
         ++destination.token_count;
       }

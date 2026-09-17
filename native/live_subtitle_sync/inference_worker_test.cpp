@@ -37,12 +37,14 @@ livesync::InferenceResult check_result(
   require(!result->segments.empty(), "empty reference transcript");
   std::string transcript;
   int timed_tokens = 0;
+  int supported_tokens = 0;
   for (const auto& segment : result->segments) {
     require(
         segment.media_start >= origin && segment.media_end <= origin + 11 * scale + 0.03,
         "segment did not retain the media clock");
     transcript += segment.text;
     for (const auto& token : segment.tokens) {
+      if (token.speech_support == livesync::SpeechSupport::supported) ++supported_tokens;
       if (token.has_timestamp) {
         ++timed_tokens;
         require(
@@ -51,6 +53,11 @@ livesync::InferenceResult check_result(
       }
     }
   }
+#ifdef LIVESYNC_EXPECT_SPEECH_SUPPORT
+  require(supported_tokens > 0, "embedded detector did not reach transcript tokens");
+#else
+  require(supported_tokens == 0, "unexpected detector in a model-free test build");
+#endif
   auto words = [](std::string text) {
     std::transform(text.begin(), text.end(), text.begin(), [](unsigned char c) {
       return static_cast<char>(std::isalpha(c) ? std::tolower(c) : ' ');

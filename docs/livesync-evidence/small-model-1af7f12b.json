@@ -1,0 +1,3695 @@
+{
+  "schema": 1,
+  "sourceSha": "1af7f12b54f012d93f8472283abe23262aa86f28",
+  "model": {
+    "sha256": "8397dd2d54f0d45f1cfafe6d7447b250a734f7879f59b7de7bc16e1fa3c4de8d",
+    "data": {
+      "file": "ggml-small.en-q5_1.bin",
+      "revision": "5359861c739e955e79d9a303bcbc70fb988958b1",
+      "sha256": "bfdff4894dcb76bbf647d56263ea2a96645423f1669176f4844a1bf8e478ad30",
+      "bytes": 190098681,
+      "pointerUrl": "https://huggingface.co/ggerganov/whisper.cpp/raw/5359861c739e955e79d9a303bcbc70fb988958b1/ggml-small.en-q5_1.bin",
+      "url": "https://huggingface.co/ggerganov/whisper.cpp/resolve/5359861c739e955e79d9a303bcbc70fb988958b1/ggml-small.en-q5_1.bin",
+      "role": "local development comparison only; not an application model change"
+    }
+  },
+  "cpuBuild": {
+    "sha256": "414936b8842db70e403e56bb41786ec93bf891792e4a87d1d4cef9a831a8a0b5",
+    "data": {
+      "baselineSourceSha256": "160388fad6baf6c74c1f687e3cfba78cbd6b964fe8329a8e39cc23659d43f9be",
+      "experimentSourceSha256": "458a8faa8df6a66bf61d7d3edeab40d5f9dcf9e6793884cb9cc704ad40b26e1d",
+      "librarySha256": "f8ecb4cb8b02612aaff9d44d3a0ffcf84f88e58d6629dc9562fca404f6250b1f",
+      "modelArchitecture": "small.en",
+      "alignmentHeads": "WHISPER_AHEADS_SMALL_EN",
+      "dtwMemoryBytes": 134217728,
+      "decoder": "unchanged greedy",
+      "backend": "CPU",
+      "threads": 2,
+      "compileCommand": [
+        "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++",
+        "-DGGML_USE_CPU",
+        "-DLIVESYNC_EMBEDDED_SPEECH_MODEL",
+        "-I/Users/dwenn/.codex/worktrees/plezy-livesync-vad-refinement/build/livesync/analysis-build-macos-arm64",
+        "-I/Users/dwenn/.codex/worktrees/plezy-livesync-vad-refinement/native/live_subtitle_sync",
+        "-I/Users/dwenn/.codex/worktrees/plezy-livesync-timeline/build/livesync/whisper-source/src/.",
+        "-I/Users/dwenn/.codex/worktrees/plezy-livesync-timeline/build/livesync/whisper-source/src/../include",
+        "-I/Users/dwenn/.codex/worktrees/plezy-livesync-timeline/build/livesync/whisper-source/ggml/src/../include",
+        "-O3",
+        "-DNDEBUG",
+        "-std=gnu++17",
+        "-arch",
+        "arm64",
+        "-isysroot",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX27.0.sdk",
+        "-mmacosx-version-min=11.0",
+        "-fPIC",
+        "-Wall",
+        "-Wextra",
+        "-Werror",
+        "-c",
+        "/Users/dwenn/.codex/worktrees/plezy-livesync-vad-refinement/build/livesync/small-model-diagnostic/inference_worker_small.cpp",
+        "-o",
+        "/Users/dwenn/.codex/worktrees/plezy-livesync-vad-refinement/build/livesync/small-model-diagnostic/inference_worker_small.o"
+      ],
+      "linkCommand": [
+        "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++",
+        "-O3",
+        "-DNDEBUG",
+        "-arch",
+        "arm64",
+        "-isysroot",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX27.0.sdk",
+        "-mmacosx-version-min=11.0",
+        "-dynamiclib",
+        "-Wl,-headerpad_max_install_names",
+        "-o",
+        "/Users/dwenn/.codex/worktrees/plezy-livesync-vad-refinement/build/livesync/small-model-diagnostic/liblivesync_inference_bridge.dylib",
+        "-install_name",
+        "@rpath/liblivesync_inference_bridge.dylib",
+        "CMakeFiles/livesync_inference_bridge.dir/inference_bridge.cpp.o",
+        "/Users/dwenn/.codex/worktrees/plezy-livesync-vad-refinement/build/livesync/small-model-diagnostic/inference_worker_small.o",
+        "liblivesync_pcm.a",
+        "liblivesync_speech_support.a",
+        "whisper-build/src/libwhisper.a",
+        "whisper-build/ggml/src/libggml.a",
+        "whisper-build/ggml/src/libggml-cpu.a",
+        "whisper-build/ggml/src/libggml-base.a",
+        "-lm",
+        "-framework",
+        "Accelerate"
+      ],
+      "productionRuntimeModified": false
+    }
+  },
+  "metalBuild": {
+    "sha256": "bb3c704abbaa9f70e750aa50cc0b19c839cc718e022df697cda7ce4b745751ea",
+    "data": {
+      "baselineSourceSha256": "3cd8fd52e29cf90b3aa4cc4ac7c0cd08970985a59c31f1c0a7a0fd6bf92160ae",
+      "baselineSourceCommit": "0ceaab5f7c0830c58b6815af1c0ffe517936063d",
+      "experimentSourceSha256": "f5b766172fb57554311f6297679498c893dd8639db4c617a1cb6e2699b756d5b",
+      "librarySha256": "888031137d86846d51064ec5b05acd5b52795b48ea021bbf475dae941433ece2",
+      "modelArchitecture": "small.en",
+      "alignmentHeads": "WHISPER_AHEADS_SMALL_EN",
+      "dtwMemoryBytes": 134217728,
+      "decoder": "unchanged greedy",
+      "backend": "Metal preferred with CPU fallback",
+      "threads": 2,
+      "compileCommand": [
+        "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++",
+        "-DGGML_USE_CPU",
+        "-DGGML_USE_METAL",
+        "-DLIVESYNC_EMBEDDED_SPEECH_MODEL",
+        "-DLIVESYNC_USE_METAL",
+        "-I/Users/dwenn/.codex/worktrees/plezy-livesync-metal-runtime/build/livesync/analysis-build-macos-arm64",
+        "-I/Users/dwenn/.codex/worktrees/plezy-livesync-metal-runtime/native/live_subtitle_sync",
+        "-I/Users/dwenn/.codex/worktrees/plezy-livesync-timeline/build/livesync/whisper-source/src/.",
+        "-I/Users/dwenn/.codex/worktrees/plezy-livesync-timeline/build/livesync/whisper-source/src/../include",
+        "-I/Users/dwenn/.codex/worktrees/plezy-livesync-timeline/build/livesync/whisper-source/ggml/src/../include",
+        "-O3",
+        "-DNDEBUG",
+        "-std=gnu++17",
+        "-arch",
+        "arm64",
+        "-isysroot",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX27.0.sdk",
+        "-mmacosx-version-min=11.0",
+        "-fPIC",
+        "-Wall",
+        "-Wextra",
+        "-Werror",
+        "-c",
+        "/Users/dwenn/.codex/worktrees/plezy-livesync-vad-refinement/build/livesync/small-model-metal-diagnostic/inference_worker_small.cpp",
+        "-o",
+        "/Users/dwenn/.codex/worktrees/plezy-livesync-vad-refinement/build/livesync/small-model-metal-diagnostic/inference_worker_small.o"
+      ],
+      "linkCommand": [
+        "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++",
+        "-O3",
+        "-DNDEBUG",
+        "-arch",
+        "arm64",
+        "-isysroot",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX27.0.sdk",
+        "-mmacosx-version-min=11.0",
+        "-dynamiclib",
+        "-Wl,-headerpad_max_install_names",
+        "-o",
+        "/Users/dwenn/.codex/worktrees/plezy-livesync-vad-refinement/build/livesync/small-model-metal-diagnostic/liblivesync_inference_bridge.dylib",
+        "-install_name",
+        "@rpath/liblivesync_inference_bridge.dylib",
+        "CMakeFiles/livesync_inference_bridge.dir/inference_bridge.cpp.o",
+        "/Users/dwenn/.codex/worktrees/plezy-livesync-vad-refinement/build/livesync/small-model-metal-diagnostic/inference_worker_small.o",
+        "liblivesync_pcm.a",
+        "liblivesync_speech_support.a",
+        "whisper-build/src/libwhisper.a",
+        "whisper-build/ggml/src/libggml.a",
+        "whisper-build/ggml/src/libggml-cpu.a",
+        "-framework",
+        "Accelerate",
+        "whisper-build/ggml/src/ggml-metal/libggml-metal.a",
+        "whisper-build/ggml/src/libggml-base.a",
+        "-lm",
+        "-framework",
+        "Foundation",
+        "-framework",
+        "Metal",
+        "-framework",
+        "MetalKit"
+      ],
+      "productionRuntimeModified": false
+    }
+  },
+  "cpu": {
+    "sha256": "96bcb8bb920db57d60ecbae3a2ec6180ae15a61749622024869501c8ce3b40c5",
+    "data": {
+      "scope": "small.en q5_1 with native PCM conversion on consumed public fixture; no production gap decision",
+      "sourceSha": "1af7f12b",
+      "model": "ggml-small.en-q5_1.bin",
+      "alignmentHeads": "WHISPER_AHEADS_SMALL_EN",
+      "productionModelChanged": false,
+      "fixtureSha256": "8c8a1be4f19c666fe3509cf38e704f27f0134302363b775a378d8b98faf27098",
+      "frozenObservationCriteria": {
+        "windowSeconds": [
+          8
+        ],
+        "conversion": "production native equal-channel average and FIR resampling; bounded offline packet input",
+        "shiftSeconds": 2,
+        "minimumTokenScore": 0.7,
+        "maximumTimingDifferenceSeconds": 0.75,
+        "minimumContiguousReliableWords": 6,
+        "minimumUniqueWords": 3,
+        "positiveSpeechSupportRequired": true
+      },
+      "wordNormalization": "diagnostic ASCII words with apostrophes; not the production DialogueNormalizer",
+      "reports": [
+        {
+          "case": "inserted-dialogue",
+          "windowSeconds": 8,
+          "start": 38.164375,
+          "end": 46.164375,
+          "inferenceSeconds": 3.803405916,
+          "validPrefixOnly": false,
+          "clippedSamples": null,
+          "match": "noCandidate",
+          "anchors": []
+        },
+        {
+          "case": "inserted-dialogue",
+          "windowSeconds": 8,
+          "start": 40.164375,
+          "end": 48.164375,
+          "inferenceSeconds": 3.838605916,
+          "validPrefixOnly": false,
+          "clippedSamples": null,
+          "match": "noCandidate",
+          "anchors": [],
+          "legacyOverlap": {
+            "leftWords": 18,
+            "rightWords": 15,
+            "gates": {
+              "lexicalOnly": {
+                "words": 8,
+                "uniqueWords": 7
+              },
+              "recognitionScore": {
+                "words": 2,
+                "uniqueWords": 2
+              },
+              "positiveSpeechSupport": {
+                "words": 2,
+                "uniqueWords": 2
+              },
+              "validTokenTimes": {
+                "words": 2,
+                "uniqueWords": 2
+              },
+              "insideSharedWindow": {
+                "words": 2,
+                "uniqueWords": 2
+              },
+              "repeatTimingAgreement": {
+                "words": 2,
+                "uniqueWords": 2
+              }
+            },
+            "candidateRepeatedSpeech": false
+          },
+          "lexicalOverlap": {
+            "leftWords": 18,
+            "rightWords": 15,
+            "gates": {
+              "lexicalOnly": {
+                "words": 8,
+                "uniqueWords": 7
+              },
+              "recognitionScore": {
+                "words": 2,
+                "uniqueWords": 2
+              },
+              "positiveSpeechSupport": {
+                "words": 2,
+                "uniqueWords": 2
+              },
+              "validTokenTimes": {
+                "words": 2,
+                "uniqueWords": 2
+              },
+              "insideSharedWindow": {
+                "words": 2,
+                "uniqueWords": 2
+              },
+              "repeatTimingAgreement": {
+                "words": 2,
+                "uniqueWords": 2
+              }
+            },
+            "candidateRepeatedSpeech": false
+          },
+          "bothUnmatched": true
+        },
+        {
+          "case": "inserted-dialogue",
+          "windowSeconds": 8,
+          "start": 42.164375,
+          "end": 50.164375,
+          "inferenceSeconds": 3.8821295,
+          "validPrefixOnly": false,
+          "clippedSamples": null,
+          "match": "noCandidate",
+          "anchors": [],
+          "legacyOverlap": {
+            "leftWords": 15,
+            "rightWords": 10,
+            "gates": {
+              "lexicalOnly": {
+                "words": 9,
+                "uniqueWords": 8
+              },
+              "recognitionScore": {
+                "words": 2,
+                "uniqueWords": 2
+              },
+              "positiveSpeechSupport": {
+                "words": 2,
+                "uniqueWords": 2
+              },
+              "validTokenTimes": {
+                "words": 2,
+                "uniqueWords": 2
+              },
+              "insideSharedWindow": {
+                "words": 2,
+                "uniqueWords": 2
+              },
+              "repeatTimingAgreement": {
+                "words": 2,
+                "uniqueWords": 2
+              }
+            },
+            "candidateRepeatedSpeech": false
+          },
+          "lexicalOverlap": {
+            "leftWords": 15,
+            "rightWords": 10,
+            "gates": {
+              "lexicalOnly": {
+                "words": 9,
+                "uniqueWords": 8
+              },
+              "recognitionScore": {
+                "words": 6,
+                "uniqueWords": 5
+              },
+              "positiveSpeechSupport": {
+                "words": 6,
+                "uniqueWords": 5
+              },
+              "validTokenTimes": {
+                "words": 6,
+                "uniqueWords": 5
+              },
+              "insideSharedWindow": {
+                "words": 6,
+                "uniqueWords": 5
+              },
+              "repeatTimingAgreement": {
+                "words": 6,
+                "uniqueWords": 5
+              }
+            },
+            "candidateRepeatedSpeech": true
+          },
+          "bothUnmatched": true
+        },
+        {
+          "case": "inserted-dialogue",
+          "windowSeconds": 8,
+          "start": 44.164375,
+          "end": 52.164375,
+          "inferenceSeconds": 4.1420315,
+          "validPrefixOnly": false,
+          "clippedSamples": null,
+          "match": "noCandidate",
+          "anchors": [],
+          "legacyOverlap": {
+            "leftWords": 10,
+            "rightWords": 7,
+            "gates": {
+              "lexicalOnly": {
+                "words": 7,
+                "uniqueWords": 5
+              },
+              "recognitionScore": {
+                "words": 2,
+                "uniqueWords": 2
+              },
+              "positiveSpeechSupport": {
+                "words": 2,
+                "uniqueWords": 2
+              },
+              "validTokenTimes": {
+                "words": 2,
+                "uniqueWords": 2
+              },
+              "insideSharedWindow": {
+                "words": 2,
+                "uniqueWords": 2
+              },
+              "repeatTimingAgreement": {
+                "words": 2,
+                "uniqueWords": 2
+              }
+            },
+            "candidateRepeatedSpeech": false
+          },
+          "lexicalOverlap": {
+            "leftWords": 10,
+            "rightWords": 7,
+            "gates": {
+              "lexicalOnly": {
+                "words": 7,
+                "uniqueWords": 5
+              },
+              "recognitionScore": {
+                "words": 7,
+                "uniqueWords": 5
+              },
+              "positiveSpeechSupport": {
+                "words": 7,
+                "uniqueWords": 5
+              },
+              "validTokenTimes": {
+                "words": 7,
+                "uniqueWords": 5
+              },
+              "insideSharedWindow": {
+                "words": 7,
+                "uniqueWords": 5
+              },
+              "repeatTimingAgreement": {
+                "words": 7,
+                "uniqueWords": 5
+              }
+            },
+            "candidateRepeatedSpeech": true
+          },
+          "bothUnmatched": true
+        },
+        {
+          "case": "aligned-dialogue",
+          "windowSeconds": 8,
+          "start": 7.196375,
+          "end": 15.196375,
+          "inferenceSeconds": 3.767142417,
+          "validPrefixOnly": false,
+          "clippedSamples": null,
+          "match": "matched",
+          "anchors": [
+            {
+              "cue": 1,
+              "offset": -100.18362499999999
+            }
+          ]
+        },
+        {
+          "case": "aligned-dialogue",
+          "windowSeconds": 8,
+          "start": 9.196375,
+          "end": 17.196375,
+          "inferenceSeconds": 3.697465458,
+          "validPrefixOnly": false,
+          "clippedSamples": null,
+          "match": "matched",
+          "anchors": [
+            {
+              "cue": 1,
+              "offset": -100.18362499999999
+            }
+          ],
+          "legacyOverlap": {
+            "leftWords": 12,
+            "rightWords": 6,
+            "gates": {
+              "lexicalOnly": {
+                "words": 6,
+                "uniqueWords": 6
+              },
+              "recognitionScore": {
+                "words": 5,
+                "uniqueWords": 5
+              },
+              "positiveSpeechSupport": {
+                "words": 5,
+                "uniqueWords": 5
+              },
+              "validTokenTimes": {
+                "words": 5,
+                "uniqueWords": 5
+              },
+              "insideSharedWindow": {
+                "words": 5,
+                "uniqueWords": 5
+              },
+              "repeatTimingAgreement": {
+                "words": 5,
+                "uniqueWords": 5
+              }
+            },
+            "candidateRepeatedSpeech": false
+          },
+          "lexicalOverlap": {
+            "leftWords": 12,
+            "rightWords": 6,
+            "gates": {
+              "lexicalOnly": {
+                "words": 6,
+                "uniqueWords": 6
+              },
+              "recognitionScore": {
+                "words": 5,
+                "uniqueWords": 5
+              },
+              "positiveSpeechSupport": {
+                "words": 5,
+                "uniqueWords": 5
+              },
+              "validTokenTimes": {
+                "words": 5,
+                "uniqueWords": 5
+              },
+              "insideSharedWindow": {
+                "words": 5,
+                "uniqueWords": 5
+              },
+              "repeatTimingAgreement": {
+                "words": 5,
+                "uniqueWords": 5
+              }
+            },
+            "candidateRepeatedSpeech": false
+          },
+          "bothUnmatched": false
+        },
+        {
+          "case": "aligned-dialogue",
+          "windowSeconds": 8,
+          "start": 11.196375,
+          "end": 19.196375,
+          "inferenceSeconds": 3.793437042,
+          "validPrefixOnly": false,
+          "clippedSamples": null,
+          "match": "matched",
+          "anchors": [
+            {
+              "cue": 1,
+              "offset": -100.18362499999999
+            },
+            {
+              "cue": 2,
+              "offset": -100.203625
+            }
+          ],
+          "legacyOverlap": {
+            "leftWords": 6,
+            "rightWords": 13,
+            "gates": {
+              "lexicalOnly": {
+                "words": 6,
+                "uniqueWords": 6
+              },
+              "recognitionScore": {
+                "words": 5,
+                "uniqueWords": 5
+              },
+              "positiveSpeechSupport": {
+                "words": 5,
+                "uniqueWords": 5
+              },
+              "validTokenTimes": {
+                "words": 5,
+                "uniqueWords": 5
+              },
+              "insideSharedWindow": {
+                "words": 5,
+                "uniqueWords": 5
+              },
+              "repeatTimingAgreement": {
+                "words": 4,
+                "uniqueWords": 4
+              }
+            },
+            "candidateRepeatedSpeech": false
+          },
+          "lexicalOverlap": {
+            "leftWords": 6,
+            "rightWords": 13,
+            "gates": {
+              "lexicalOnly": {
+                "words": 6,
+                "uniqueWords": 6
+              },
+              "recognitionScore": {
+                "words": 5,
+                "uniqueWords": 5
+              },
+              "positiveSpeechSupport": {
+                "words": 5,
+                "uniqueWords": 5
+              },
+              "validTokenTimes": {
+                "words": 5,
+                "uniqueWords": 5
+              },
+              "insideSharedWindow": {
+                "words": 5,
+                "uniqueWords": 5
+              },
+              "repeatTimingAgreement": {
+                "words": 5,
+                "uniqueWords": 5
+              }
+            },
+            "candidateRepeatedSpeech": false
+          },
+          "bothUnmatched": false
+        },
+        {
+          "case": "aligned-dialogue",
+          "windowSeconds": 8,
+          "start": 13.196375,
+          "end": 21.196375,
+          "inferenceSeconds": 3.734006625,
+          "validPrefixOnly": false,
+          "clippedSamples": null,
+          "match": "matched",
+          "anchors": [],
+          "legacyOverlap": {
+            "leftWords": 13,
+            "rightWords": 9,
+            "gates": {
+              "lexicalOnly": {
+                "words": 6,
+                "uniqueWords": 6
+              },
+              "recognitionScore": {
+                "words": 3,
+                "uniqueWords": 3
+              },
+              "positiveSpeechSupport": {
+                "words": 3,
+                "uniqueWords": 3
+              },
+              "validTokenTimes": {
+                "words": 3,
+                "uniqueWords": 3
+              },
+              "insideSharedWindow": {
+                "words": 3,
+                "uniqueWords": 3
+              },
+              "repeatTimingAgreement": {
+                "words": 3,
+                "uniqueWords": 3
+              }
+            },
+            "candidateRepeatedSpeech": false
+          },
+          "lexicalOverlap": {
+            "leftWords": 13,
+            "rightWords": 9,
+            "gates": {
+              "lexicalOnly": {
+                "words": 6,
+                "uniqueWords": 6
+              },
+              "recognitionScore": {
+                "words": 3,
+                "uniqueWords": 3
+              },
+              "positiveSpeechSupport": {
+                "words": 3,
+                "uniqueWords": 3
+              },
+              "validTokenTimes": {
+                "words": 3,
+                "uniqueWords": 3
+              },
+              "insideSharedWindow": {
+                "words": 3,
+                "uniqueWords": 3
+              },
+              "repeatTimingAgreement": {
+                "words": 3,
+                "uniqueWords": 3
+              }
+            },
+            "candidateRepeatedSpeech": false
+          },
+          "bothUnmatched": false
+        },
+        {
+          "case": "quiet-added-region",
+          "windowSeconds": 8,
+          "start": 52.0,
+          "end": 60.0,
+          "inferenceSeconds": 3.817800875,
+          "validPrefixOnly": false,
+          "clippedSamples": null,
+          "match": "insufficientDialogue",
+          "anchors": []
+        },
+        {
+          "case": "quiet-added-region",
+          "windowSeconds": 8,
+          "start": 54.0,
+          "end": 62.0,
+          "inferenceSeconds": 3.673093417,
+          "validPrefixOnly": false,
+          "clippedSamples": null,
+          "match": "insufficientDialogue",
+          "anchors": [],
+          "legacyOverlap": {
+            "leftWords": 0,
+            "rightWords": 0,
+            "gates": {
+              "lexicalOnly": {
+                "words": 0,
+                "uniqueWords": 0
+              },
+              "recognitionScore": {
+                "words": 0,
+                "uniqueWords": 0
+              },
+              "positiveSpeechSupport": {
+                "words": 0,
+                "uniqueWords": 0
+              },
+              "validTokenTimes": {
+                "words": 0,
+                "uniqueWords": 0
+              },
+              "insideSharedWindow": {
+                "words": 0,
+                "uniqueWords": 0
+              },
+              "repeatTimingAgreement": {
+                "words": 0,
+                "uniqueWords": 0
+              }
+            },
+            "candidateRepeatedSpeech": false
+          },
+          "lexicalOverlap": {
+            "leftWords": 0,
+            "rightWords": 0,
+            "gates": {
+              "lexicalOnly": {
+                "words": 0,
+                "uniqueWords": 0
+              },
+              "recognitionScore": {
+                "words": 0,
+                "uniqueWords": 0
+              },
+              "positiveSpeechSupport": {
+                "words": 0,
+                "uniqueWords": 0
+              },
+              "validTokenTimes": {
+                "words": 0,
+                "uniqueWords": 0
+              },
+              "insideSharedWindow": {
+                "words": 0,
+                "uniqueWords": 0
+              },
+              "repeatTimingAgreement": {
+                "words": 0,
+                "uniqueWords": 0
+              }
+            },
+            "candidateRepeatedSpeech": false
+          },
+          "bothUnmatched": false
+        },
+        {
+          "case": "quiet-added-region",
+          "windowSeconds": 8,
+          "start": 56.0,
+          "end": 64.0,
+          "nativeStatus": 4,
+          "rejected": true,
+          "inferenceSeconds": 3.761838084
+        }
+      ],
+      "pcmOrTranscriptPersisted": false,
+      "gapBoundariesLearned": false
+    }
+  },
+  "metal": {
+    "sha256": "67f5eaa806338883542b7852387e4bac6ef01c1fef5d3ec4d6ef7da229578a11",
+    "data": {
+      "scope": "small.en q5_1 with native PCM conversion on consumed public fixture; no production gap decision",
+      "sourceSha": "1af7f12b",
+      "model": "ggml-small.en-q5_1.bin",
+      "alignmentHeads": "WHISPER_AHEADS_SMALL_EN",
+      "productionModelChanged": false,
+      "fixtureSha256": "8c8a1be4f19c666fe3509cf38e704f27f0134302363b775a378d8b98faf27098",
+      "frozenObservationCriteria": {
+        "windowSeconds": [
+          8
+        ],
+        "conversion": "production native equal-channel average and FIR resampling; bounded offline packet input",
+        "shiftSeconds": 2,
+        "minimumTokenScore": 0.7,
+        "maximumTimingDifferenceSeconds": 0.75,
+        "minimumContiguousReliableWords": 6,
+        "minimumUniqueWords": 3,
+        "positiveSpeechSupportRequired": true
+      },
+      "wordNormalization": "diagnostic ASCII words with apostrophes; not the production DialogueNormalizer",
+      "reports": [
+        {
+          "case": "inserted-dialogue",
+          "windowSeconds": 8,
+          "start": 38.164375,
+          "end": 46.164375,
+          "inferenceSeconds": 0.567787375,
+          "validPrefixOnly": false,
+          "clippedSamples": null,
+          "match": "noCandidate",
+          "anchors": []
+        },
+        {
+          "case": "inserted-dialogue",
+          "windowSeconds": 8,
+          "start": 40.164375,
+          "end": 48.164375,
+          "inferenceSeconds": 0.427533958,
+          "validPrefixOnly": false,
+          "clippedSamples": null,
+          "match": "noCandidate",
+          "anchors": [],
+          "legacyOverlap": {
+            "leftWords": 18,
+            "rightWords": 15,
+            "gates": {
+              "lexicalOnly": {
+                "words": 8,
+                "uniqueWords": 7
+              },
+              "recognitionScore": {
+                "words": 2,
+                "uniqueWords": 2
+              },
+              "positiveSpeechSupport": {
+                "words": 2,
+                "uniqueWords": 2
+              },
+              "validTokenTimes": {
+                "words": 2,
+                "uniqueWords": 2
+              },
+              "insideSharedWindow": {
+                "words": 2,
+                "uniqueWords": 2
+              },
+              "repeatTimingAgreement": {
+                "words": 2,
+                "uniqueWords": 2
+              }
+            },
+            "candidateRepeatedSpeech": false
+          },
+          "lexicalOverlap": {
+            "leftWords": 18,
+            "rightWords": 15,
+            "gates": {
+              "lexicalOnly": {
+                "words": 8,
+                "uniqueWords": 7
+              },
+              "recognitionScore": {
+                "words": 2,
+                "uniqueWords": 2
+              },
+              "positiveSpeechSupport": {
+                "words": 2,
+                "uniqueWords": 2
+              },
+              "validTokenTimes": {
+                "words": 2,
+                "uniqueWords": 2
+              },
+              "insideSharedWindow": {
+                "words": 2,
+                "uniqueWords": 2
+              },
+              "repeatTimingAgreement": {
+                "words": 2,
+                "uniqueWords": 2
+              }
+            },
+            "candidateRepeatedSpeech": false
+          },
+          "bothUnmatched": true
+        },
+        {
+          "case": "inserted-dialogue",
+          "windowSeconds": 8,
+          "start": 42.164375,
+          "end": 50.164375,
+          "inferenceSeconds": 0.472519125,
+          "validPrefixOnly": false,
+          "clippedSamples": null,
+          "match": "noCandidate",
+          "anchors": [],
+          "legacyOverlap": {
+            "leftWords": 15,
+            "rightWords": 10,
+            "gates": {
+              "lexicalOnly": {
+                "words": 9,
+                "uniqueWords": 8
+              },
+              "recognitionScore": {
+                "words": 2,
+                "uniqueWords": 2
+              },
+              "positiveSpeechSupport": {
+                "words": 2,
+                "uniqueWords": 2
+              },
+              "validTokenTimes": {
+                "words": 2,
+                "uniqueWords": 2
+              },
+              "insideSharedWindow": {
+                "words": 2,
+                "uniqueWords": 2
+              },
+              "repeatTimingAgreement": {
+                "words": 2,
+                "uniqueWords": 2
+              }
+            },
+            "candidateRepeatedSpeech": false
+          },
+          "lexicalOverlap": {
+            "leftWords": 15,
+            "rightWords": 10,
+            "gates": {
+              "lexicalOnly": {
+                "words": 9,
+                "uniqueWords": 8
+              },
+              "recognitionScore": {
+                "words": 6,
+                "uniqueWords": 5
+              },
+              "positiveSpeechSupport": {
+                "words": 6,
+                "uniqueWords": 5
+              },
+              "validTokenTimes": {
+                "words": 6,
+                "uniqueWords": 5
+              },
+              "insideSharedWindow": {
+                "words": 6,
+                "uniqueWords": 5
+              },
+              "repeatTimingAgreement": {
+                "words": 6,
+                "uniqueWords": 5
+              }
+            },
+            "candidateRepeatedSpeech": true
+          },
+          "bothUnmatched": true
+        },
+        {
+          "case": "inserted-dialogue",
+          "windowSeconds": 8,
+          "start": 44.164375,
+          "end": 52.164375,
+          "inferenceSeconds": 0.607142208,
+          "validPrefixOnly": false,
+          "clippedSamples": null,
+          "match": "noCandidate",
+          "anchors": [],
+          "legacyOverlap": {
+            "leftWords": 10,
+            "rightWords": 7,
+            "gates": {
+              "lexicalOnly": {
+                "words": 7,
+                "uniqueWords": 5
+              },
+              "recognitionScore": {
+                "words": 2,
+                "uniqueWords": 2
+              },
+              "positiveSpeechSupport": {
+                "words": 2,
+                "uniqueWords": 2
+              },
+              "validTokenTimes": {
+                "words": 2,
+                "uniqueWords": 2
+              },
+              "insideSharedWindow": {
+                "words": 2,
+                "uniqueWords": 2
+              },
+              "repeatTimingAgreement": {
+                "words": 2,
+                "uniqueWords": 2
+              }
+            },
+            "candidateRepeatedSpeech": false
+          },
+          "lexicalOverlap": {
+            "leftWords": 10,
+            "rightWords": 7,
+            "gates": {
+              "lexicalOnly": {
+                "words": 7,
+                "uniqueWords": 5
+              },
+              "recognitionScore": {
+                "words": 7,
+                "uniqueWords": 5
+              },
+              "positiveSpeechSupport": {
+                "words": 7,
+                "uniqueWords": 5
+              },
+              "validTokenTimes": {
+                "words": 7,
+                "uniqueWords": 5
+              },
+              "insideSharedWindow": {
+                "words": 7,
+                "uniqueWords": 5
+              },
+              "repeatTimingAgreement": {
+                "words": 7,
+                "uniqueWords": 5
+              }
+            },
+            "candidateRepeatedSpeech": true
+          },
+          "bothUnmatched": true
+        },
+        {
+          "case": "aligned-dialogue",
+          "windowSeconds": 8,
+          "start": 7.196375,
+          "end": 15.196375,
+          "inferenceSeconds": 0.389423917,
+          "validPrefixOnly": false,
+          "clippedSamples": null,
+          "match": "matched",
+          "anchors": [
+            {
+              "cue": 1,
+              "offset": -100.18362499999999
+            }
+          ]
+        },
+        {
+          "case": "aligned-dialogue",
+          "windowSeconds": 8,
+          "start": 9.196375,
+          "end": 17.196375,
+          "inferenceSeconds": 0.347495875,
+          "validPrefixOnly": false,
+          "clippedSamples": null,
+          "match": "matched",
+          "anchors": [
+            {
+              "cue": 1,
+              "offset": -100.18362499999999
+            }
+          ],
+          "legacyOverlap": {
+            "leftWords": 12,
+            "rightWords": 6,
+            "gates": {
+              "lexicalOnly": {
+                "words": 6,
+                "uniqueWords": 6
+              },
+              "recognitionScore": {
+                "words": 5,
+                "uniqueWords": 5
+              },
+              "positiveSpeechSupport": {
+                "words": 5,
+                "uniqueWords": 5
+              },
+              "validTokenTimes": {
+                "words": 5,
+                "uniqueWords": 5
+              },
+              "insideSharedWindow": {
+                "words": 5,
+                "uniqueWords": 5
+              },
+              "repeatTimingAgreement": {
+                "words": 5,
+                "uniqueWords": 5
+              }
+            },
+            "candidateRepeatedSpeech": false
+          },
+          "lexicalOverlap": {
+            "leftWords": 12,
+            "rightWords": 6,
+            "gates": {
+              "lexicalOnly": {
+                "words": 6,
+                "uniqueWords": 6
+              },
+              "recognitionScore": {
+                "words": 5,
+                "uniqueWords": 5
+              },
+              "positiveSpeechSupport": {
+                "words": 5,
+                "uniqueWords": 5
+              },
+              "validTokenTimes": {
+                "words": 5,
+                "uniqueWords": 5
+              },
+              "insideSharedWindow": {
+                "words": 5,
+                "uniqueWords": 5
+              },
+              "repeatTimingAgreement": {
+                "words": 5,
+                "uniqueWords": 5
+              }
+            },
+            "candidateRepeatedSpeech": false
+          },
+          "bothUnmatched": false
+        },
+        {
+          "case": "aligned-dialogue",
+          "windowSeconds": 8,
+          "start": 11.196375,
+          "end": 19.196375,
+          "inferenceSeconds": 0.403847709,
+          "validPrefixOnly": false,
+          "clippedSamples": null,
+          "match": "matched",
+          "anchors": [
+            {
+              "cue": 1,
+              "offset": -100.18362499999999
+            },
+            {
+              "cue": 2,
+              "offset": -100.203625
+            }
+          ],
+          "legacyOverlap": {
+            "leftWords": 6,
+            "rightWords": 13,
+            "gates": {
+              "lexicalOnly": {
+                "words": 6,
+                "uniqueWords": 6
+              },
+              "recognitionScore": {
+                "words": 5,
+                "uniqueWords": 5
+              },
+              "positiveSpeechSupport": {
+                "words": 5,
+                "uniqueWords": 5
+              },
+              "validTokenTimes": {
+                "words": 5,
+                "uniqueWords": 5
+              },
+              "insideSharedWindow": {
+                "words": 5,
+                "uniqueWords": 5
+              },
+              "repeatTimingAgreement": {
+                "words": 4,
+                "uniqueWords": 4
+              }
+            },
+            "candidateRepeatedSpeech": false
+          },
+          "lexicalOverlap": {
+            "leftWords": 6,
+            "rightWords": 13,
+            "gates": {
+              "lexicalOnly": {
+                "words": 6,
+                "uniqueWords": 6
+              },
+              "recognitionScore": {
+                "words": 5,
+                "uniqueWords": 5
+              },
+              "positiveSpeechSupport": {
+                "words": 5,
+                "uniqueWords": 5
+              },
+              "validTokenTimes": {
+                "words": 5,
+                "uniqueWords": 5
+              },
+              "insideSharedWindow": {
+                "words": 5,
+                "uniqueWords": 5
+              },
+              "repeatTimingAgreement": {
+                "words": 5,
+                "uniqueWords": 5
+              }
+            },
+            "candidateRepeatedSpeech": false
+          },
+          "bothUnmatched": false
+        },
+        {
+          "case": "aligned-dialogue",
+          "windowSeconds": 8,
+          "start": 13.196375,
+          "end": 21.196375,
+          "inferenceSeconds": 0.370200916,
+          "validPrefixOnly": false,
+          "clippedSamples": null,
+          "match": "matched",
+          "anchors": [],
+          "legacyOverlap": {
+            "leftWords": 13,
+            "rightWords": 9,
+            "gates": {
+              "lexicalOnly": {
+                "words": 6,
+                "uniqueWords": 6
+              },
+              "recognitionScore": {
+                "words": 3,
+                "uniqueWords": 3
+              },
+              "positiveSpeechSupport": {
+                "words": 3,
+                "uniqueWords": 3
+              },
+              "validTokenTimes": {
+                "words": 3,
+                "uniqueWords": 3
+              },
+              "insideSharedWindow": {
+                "words": 3,
+                "uniqueWords": 3
+              },
+              "repeatTimingAgreement": {
+                "words": 3,
+                "uniqueWords": 3
+              }
+            },
+            "candidateRepeatedSpeech": false
+          },
+          "lexicalOverlap": {
+            "leftWords": 13,
+            "rightWords": 9,
+            "gates": {
+              "lexicalOnly": {
+                "words": 6,
+                "uniqueWords": 6
+              },
+              "recognitionScore": {
+                "words": 3,
+                "uniqueWords": 3
+              },
+              "positiveSpeechSupport": {
+                "words": 3,
+                "uniqueWords": 3
+              },
+              "validTokenTimes": {
+                "words": 3,
+                "uniqueWords": 3
+              },
+              "insideSharedWindow": {
+                "words": 3,
+                "uniqueWords": 3
+              },
+              "repeatTimingAgreement": {
+                "words": 3,
+                "uniqueWords": 3
+              }
+            },
+            "candidateRepeatedSpeech": false
+          },
+          "bothUnmatched": false
+        },
+        {
+          "case": "quiet-added-region",
+          "windowSeconds": 8,
+          "start": 52.0,
+          "end": 60.0,
+          "inferenceSeconds": 0.423266584,
+          "validPrefixOnly": false,
+          "clippedSamples": null,
+          "match": "insufficientDialogue",
+          "anchors": []
+        },
+        {
+          "case": "quiet-added-region",
+          "windowSeconds": 8,
+          "start": 54.0,
+          "end": 62.0,
+          "inferenceSeconds": 0.325808459,
+          "validPrefixOnly": false,
+          "clippedSamples": null,
+          "match": "insufficientDialogue",
+          "anchors": [],
+          "legacyOverlap": {
+            "leftWords": 0,
+            "rightWords": 0,
+            "gates": {
+              "lexicalOnly": {
+                "words": 0,
+                "uniqueWords": 0
+              },
+              "recognitionScore": {
+                "words": 0,
+                "uniqueWords": 0
+              },
+              "positiveSpeechSupport": {
+                "words": 0,
+                "uniqueWords": 0
+              },
+              "validTokenTimes": {
+                "words": 0,
+                "uniqueWords": 0
+              },
+              "insideSharedWindow": {
+                "words": 0,
+                "uniqueWords": 0
+              },
+              "repeatTimingAgreement": {
+                "words": 0,
+                "uniqueWords": 0
+              }
+            },
+            "candidateRepeatedSpeech": false
+          },
+          "lexicalOverlap": {
+            "leftWords": 0,
+            "rightWords": 0,
+            "gates": {
+              "lexicalOnly": {
+                "words": 0,
+                "uniqueWords": 0
+              },
+              "recognitionScore": {
+                "words": 0,
+                "uniqueWords": 0
+              },
+              "positiveSpeechSupport": {
+                "words": 0,
+                "uniqueWords": 0
+              },
+              "validTokenTimes": {
+                "words": 0,
+                "uniqueWords": 0
+              },
+              "insideSharedWindow": {
+                "words": 0,
+                "uniqueWords": 0
+              },
+              "repeatTimingAgreement": {
+                "words": 0,
+                "uniqueWords": 0
+              }
+            },
+            "candidateRepeatedSpeech": false
+          },
+          "bothUnmatched": false
+        },
+        {
+          "case": "quiet-added-region",
+          "windowSeconds": 8,
+          "start": 56.0,
+          "end": 64.0,
+          "nativeStatus": 4,
+          "rejected": true,
+          "inferenceSeconds": 0.346953083
+        }
+      ],
+      "pcmOrTranscriptPersisted": false,
+      "gapBoundariesLearned": false
+    }
+  },
+  "summary": {
+    "cpu": {
+      "inferenceP95Seconds": 4.1420315,
+      "completed": 10,
+      "rejected": 1,
+      "insertedReliableRuns": [
+        2,
+        6,
+        7
+      ],
+      "unchangedSixWordGatePassedPairs": 2
+    },
+    "metalPreferred": {
+      "inferenceP95Seconds": 0.607142208,
+      "completed": 10,
+      "rejected": 1,
+      "insertedReliableRuns": [
+        2,
+        6,
+        7
+      ],
+      "unchangedSixWordGatePassedPairs": 2
+    }
+  },
+  "activeLaterBeforeFix": {
+    "sha256": "0bda972b78c85a4c658b332204bcaa7c3a771eefbe7995ab5aa831bda0fd9bed",
+    "data": {
+      "kind": "native-active-pcm-real-asr-and-domain-alignment",
+      "platform": "macos",
+      "inferenceBackend": "metal-preferred",
+      "alignmentEngine": "bounded-affine-timeline",
+      "acquiredMediaPosition": 23.291999999999998,
+      "learnedSegments": 1,
+      "learnedGaps": [],
+      "activityChecks": 205,
+      "activityVoiceChecks": 196,
+      "activityTimingMismatchChecks": 74,
+      "analysisRequests": [
+        {
+          "elapsedMs": 8330,
+          "mediaTime": 8.292,
+          "intervalMs": 12000,
+          "windowSeconds": 12.0,
+          "voicePresent": true,
+          "timingMismatch": false,
+          "established": false
+        },
+        {
+          "elapsedMs": 22588,
+          "mediaTime": 22.541999999999998,
+          "intervalMs": 12000,
+          "windowSeconds": 15.0,
+          "voicePresent": true,
+          "timingMismatch": false,
+          "established": false
+        },
+        {
+          "elapsedMs": 34621,
+          "mediaTime": 34.583,
+          "intervalMs": 12000,
+          "windowSeconds": 12.0,
+          "voicePresent": true,
+          "timingMismatch": false,
+          "established": false
+        },
+        {
+          "elapsedMs": 46651,
+          "mediaTime": 46.625,
+          "intervalMs": 12000,
+          "windowSeconds": 12.0,
+          "voicePresent": true,
+          "timingMismatch": false,
+          "established": false
+        },
+        {
+          "elapsedMs": 58683,
+          "mediaTime": 58.666999999999994,
+          "intervalMs": 12000,
+          "windowSeconds": 12.0,
+          "voicePresent": true,
+          "timingMismatch": false,
+          "established": false
+        },
+        {
+          "elapsedMs": 70709,
+          "mediaTime": 70.708,
+          "intervalMs": 12000,
+          "windowSeconds": 15.0,
+          "voicePresent": true,
+          "timingMismatch": true,
+          "established": false
+        },
+        {
+          "elapsedMs": 82742,
+          "mediaTime": 82.708,
+          "intervalMs": 12000,
+          "windowSeconds": 15.0,
+          "voicePresent": true,
+          "timingMismatch": true,
+          "established": false
+        },
+        {
+          "elapsedMs": 94767,
+          "mediaTime": 94.75,
+          "intervalMs": 12000,
+          "windowSeconds": 15.0,
+          "voicePresent": true,
+          "timingMismatch": true,
+          "established": false
+        }
+      ],
+      "activityTotalMicros": 285692,
+      "activityMaxMicros": 2868,
+      "actualOffset": -100.12233333333333,
+      "acquisitionMs": 23307,
+      "evaluationMs": 105060,
+      "expectedOffset": -100.0,
+      "expectNoLock": false,
+      "completedAnalyses": 8,
+      "validPrefixAnalyses": 1,
+      "rejectedAnalyses": 0,
+      "absoluteOffsetError": 0.1223297119140625,
+      "maximumOffsetError": 0.75,
+      "reference": "fixture SRT timings, not precise acoustic-onset ground truth",
+      "passed": true,
+      "expectedSlope": 1.0,
+      "slopeConfirmed": true,
+      "affineAcquisitionMs": "none",
+      "trackingErrorP95": 0.18164825439453125,
+      "trackingErrorMaximum": 0.18164825439453125,
+      "trackingSamples": [
+        {
+          "mediaTime": 23.583,
+          "regionKind": "aligned",
+          "presentationSuppressionRequested": false,
+          "automaticDelay": -100.18164583333333,
+          "mappingAvailable": true,
+          "nativeDelay": -100.18164825439453,
+          "expectedDelay": -100.0,
+          "error": 0.18164825439453125
+        },
+        {
+          "mediaTime": 24.625,
+          "regionKind": "aligned",
+          "presentationSuppressionRequested": false,
+          "automaticDelay": -100.18164583333333,
+          "mappingAvailable": true,
+          "nativeDelay": -100.18164825439453,
+          "expectedDelay": -100.0,
+          "error": 0.18164825439453125
+        },
+        {
+          "mediaTime": 25.666999999999998,
+          "regionKind": "aligned",
+          "presentationSuppressionRequested": false,
+          "automaticDelay": -100.18164583333333,
+          "mappingAvailable": true,
+          "nativeDelay": -100.18164825439453,
+          "expectedDelay": -100.0,
+          "error": 0.18164825439453125
+        },
+        {
+          "mediaTime": 26.666999999999998,
+          "regionKind": "aligned",
+          "presentationSuppressionRequested": false,
+          "automaticDelay": -100.18164583333333,
+          "mappingAvailable": true,
+          "nativeDelay": -100.18164825439453,
+          "expectedDelay": -100.0,
+          "error": 0.18164825439453125
+        },
+        {
+          "mediaTime": 27.708,
+          "regionKind": "aligned",
+          "presentationSuppressionRequested": false,
+          "automaticDelay": -100.18164583333333,
+          "mappingAvailable": true,
+          "nativeDelay": -100.18164825439453,
+          "expectedDelay": -100.0,
+          "error": 0.18164825439453125
+        },
+        {
+          "mediaTime": 28.75,
+          "regionKind": "aligned",
+          "presentationSuppressionRequested": false,
+          "automaticDelay": -100.18164583333333,
+          "mappingAvailable": true,
+          "nativeDelay": -100.18164825439453,
+          "expectedDelay": -100.0,
+          "error": 0.18164825439453125
+        },
+        {
+          "mediaTime": 29.75,
+          "regionKind": "aligned",
+          "presentationSuppressionRequested": false,
+          "automaticDelay": -100.18164583333333,
+          "mappingAvailable": true,
+          "nativeDelay": -100.18164825439453,
+          "expectedDelay": -100.0,
+          "error": 0.18164825439453125
+        },
+        {
+          "mediaTime": 30.791999999999998,
+          "regionKind": "aligned",
+          "presentationSuppressionRequested": false,
+          "automaticDelay": -100.18164583333333,
+          "mappingAvailable": true,
+          "nativeDelay": -100.18164825439453,
+          "expectedDelay": -100.0,
+          "error": 0.18164825439453125
+        },
+        {
+          "mediaTime": 31.833,
+          "regionKind": "aligned",
+          "presentationSuppressionRequested": false,
+          "automaticDelay": -100.18164583333333,
+          "mappingAvailable": true,
+          "nativeDelay": -100.18164825439453,
+          "expectedDelay": -100.0,
+          "error": 0.18164825439453125
+        },
+        {
+          "mediaTime": 32.833,
+          "regionKind": "aligned",
+          "presentationSuppressionRequested": false,
+          "automaticDelay": -100.18164583333333,
+          "mappingAvailable": true,
+          "nativeDelay": -100.18164825439453,
+          "expectedDelay": -100.0,
+          "error": 0.18164825439453125
+        },
+        {
+          "mediaTime": 33.875,
+          "regionKind": "aligned",
+          "presentationSuppressionRequested": false,
+          "automaticDelay": -100.18164583333333,
+          "mappingAvailable": true,
+          "nativeDelay": -100.18164825439453,
+          "expectedDelay": -100.0,
+          "error": 0.18164825439453125
+        },
+        {
+          "mediaTime": 34.917,
+          "regionKind": "aligned",
+          "presentationSuppressionRequested": false,
+          "automaticDelay": -100.18164583333333,
+          "mappingAvailable": true,
+          "nativeDelay": -100.18164825439453,
+          "expectedDelay": -100.0,
+          "error": 0.18164825439453125
+        },
+        {
+          "mediaTime": 35.917,
+          "regionKind": "aligned",
+          "presentationSuppressionRequested": false,
+          "automaticDelay": -100.17164583333332,
+          "mappingAvailable": true,
+          "nativeDelay": -100.17164611816406,
+          "expectedDelay": -100.0,
+          "error": 0.1716461181640625
+        },
+        {
+          "mediaTime": 36.958,
+          "regionKind": "aligned",
+          "presentationSuppressionRequested": false,
+          "automaticDelay": -100.17164583333332,
+          "mappingAvailable": true,
+          "nativeDelay": -100.17164611816406,
+          "expectedDelay": -100.0,
+          "error": 0.1716461181640625
+        },
+        {
+          "mediaTime": 38.0,
+          "regionKind": "aligned",
+          "presentationSuppressionRequested": false,
+          "automaticDelay": -100.17164583333334,
+          "mappingAvailable": true,
+          "nativeDelay": -100.17164611816406,
+          "expectedDelay": -100.0,
+          "error": 0.1716461181640625
+        },
+        {
+          "mediaTime": 39.0,
+          "regionKind": "aligned",
+          "presentationSuppressionRequested": false,
+          "automaticDelay": -100.17164583333334,
+          "mappingAvailable": true,
+          "nativeDelay": -100.17164611816406,
+          "expectedDelay": -100.0,
+          "error": 0.1716461181640625
+        },
+        {
+          "mediaTime": 40.042,
+          "regionKind": "aligned",
+          "presentationSuppressionRequested": false,
+          "automaticDelay": -100.17164583333332,
+          "mappingAvailable": true,
+          "nativeDelay": -100.17164611816406,
+          "expectedDelay": -100.0,
+          "error": 0.1716461181640625
+        },
+        {
+          "mediaTime": 41.083,
+          "regionKind": "aligned",
+          "presentationSuppressionRequested": false,
+          "automaticDelay": -100.17164583333332,
+          "mappingAvailable": true,
+          "nativeDelay": -100.17164611816406,
+          "expectedDelay": -100.0,
+          "error": 0.1716461181640625
+        },
+        {
+          "mediaTime": 42.083,
+          "regionKind": "aligned",
+          "presentationSuppressionRequested": false,
+          "automaticDelay": -100.17164583333332,
+          "mappingAvailable": true,
+          "nativeDelay": -100.17164611816406,
+          "expectedDelay": -100.0,
+          "error": 0.1716461181640625
+        },
+        {
+          "mediaTime": 43.125,
+          "regionKind": "aligned",
+          "presentationSuppressionRequested": false,
+          "automaticDelay": -100.17164583333334,
+          "mappingAvailable": true,
+          "nativeDelay": -100.17164611816406,
+          "expectedDelay": -100.0,
+          "error": 0.1716461181640625
+        },
+        {
+          "mediaTime": 44.166999999999994,
+          "regionKind": "aligned",
+          "presentationSuppressionRequested": false,
+          "automaticDelay": -100.17164583333332,
+          "mappingAvailable": true,
+          "nativeDelay": -100.17164611816406,
+          "expectedDelay": -100.0,
+          "error": 0.1716461181640625
+        },
+        {
+          "mediaTime": 45.166999999999994,
+          "regionKind": "aligned",
+          "presentationSuppressionRequested": false,
+          "automaticDelay": -100.17164583333332,
+          "mappingAvailable": true,
+          "nativeDelay": -100.17164611816406,
+          "expectedDelay": -100.0,
+          "error": 0.1716461181640625
+        },
+        {
+          "mediaTime": 46.208,
+          "regionKind": "aligned",
+          "presentationSuppressionRequested": false,
+          "automaticDelay": -100.17164583333332,
+          "mappingAvailable": true,
+          "nativeDelay": -100.17164611816406,
+          "expectedDelay": -100.0,
+          "error": 0.1716461181640625
+        },
+        {
+          "mediaTime": 47.25,
+          "regionKind": "aligned",
+          "presentationSuppressionRequested": false,
+          "automaticDelay": -100.12233333333333,
+          "mappingAvailable": true,
+          "nativeDelay": -100.12232971191406,
+          "expectedDelay": -100.0,
+          "error": 0.1223297119140625
+        },
+        {
+          "mediaTime": 48.25,
+          "regionKind": "aligned",
+          "presentationSuppressionRequested": false,
+          "automaticDelay": -100.12233333333333,
+          "mappingAvailable": true,
+          "nativeDelay": -100.12232971191406,
+          "expectedDelay": -100.0,
+          "error": 0.1223297119140625
+        },
+        {
+          "mediaTime": 49.291999999999994,
+          "regionKind": "aligned",
+          "presentationSuppressionRequested": false,
+          "automaticDelay": -100.12233333333333,
+          "mappingAvailable": true,
+          "nativeDelay": -100.12232971191406,
+          "expectedDelay": -100.0,
+          "error": 0.1223297119140625
+        },
+        {
+          "mediaTime": 50.333,
+          "regionKind": "aligned",
+          "presentationSuppressionRequested": false,
+          "automaticDelay": -100.12233333333333,
+          "mappingAvailable": true,
+          "nativeDelay": -100.12232971191406,
+          "expectedDelay": -100.0,
+          "error": 0.1223297119140625
+        },
+        {
+          "mediaTime": 51.375,
+          "regionKind": "aligned",
+          "presentationSuppressionRequested": false,
+          "automaticDelay": -100.12233333333333,
+          "mappingAvailable": true,
+          "nativeDelay": -100.12232971191406,
+          "expectedDelay": -100.0,
+          "error": 0.1223297119140625
+        },
+        {
+          "mediaTime": 52.375,
+          "regionKind": "aligned",
+          "presentationSuppressionRequested": false,
+          "automaticDelay": -100.12233333333333,
+          "mappingAvailable": true,
+          "nativeDelay": -100.12232971191406,
+          "expectedDelay": -100.0,
+          "error": 0.1223297119140625
+        },
+        {
+          "mediaTime": 53.416999999999994,
+          "regionKind": "aligned",
+          "presentationSuppressionRequested": false,
+          "automaticDelay": -100.12233333333333,
+          "mappingAvailable": true,
+          "nativeDelay": -100.12232971191406,
+          "expectedDelay": -100.0,
+          "error": 0.1223297119140625
+        },
+        {
+          "mediaTime": 54.416999999999994,
+          "regionKind": "aligned",
+          "presentationSuppressionRequested": false,
+          "automaticDelay": -100.12233333333333,
+          "mappingAvailable": true,
+          "nativeDelay": -100.12232971191406,
+          "expectedDelay": -100.0,
+          "error": 0.1223297119140625
+        },
+        {
+          "mediaTime": 55.458,
+          "regionKind": "aligned",
+          "presentationSuppressionRequested": false,
+          "automaticDelay": -100.12233333333333,
+          "mappingAvailable": true,
+          "nativeDelay": -100.12232971191406,
+          "expectedDelay": -100.0,
+          "error": 0.1223297119140625
+        },
+        {
+          "mediaTime": 56.5,
+          "regionKind": "aligned",
+          "presentationSuppressionRequested": false,
+          "automaticDelay": -100.12233333333333,
+          "mappingAvailable": true,
+          "nativeDelay": -100.12232971191406,
+          "expectedDelay": -100.0,
+          "error": 0.1223297119140625
+        },
+        {
+          "mediaTime": 57.541999999999994,
+          "regionKind": "aligned",
+          "presentationSuppressionRequested": false,
+          "automaticDelay": -100.12233333333333,
+          "mappingAvailable": true,
+          "nativeDelay": -100.12232971191406,
+          "expectedDelay": -100.0,
+          "error": 0.1223297119140625
+        },
+        {
+          "mediaTime": 58.541999999999994,
+          "regionKind": "aligned",
+          "presentationSuppressionRequested": false,
+          "automaticDelay": -100.12233333333333,
+          "mappingAvailable": true,
+          "nativeDelay": -100.12232971191406,
+          "expectedDelay": -100.0,
+          "error": 0.1223297119140625
+        },
+        {
+          "mediaTime": 59.583,
+          "regionKind": "aligned",
+          "presentationSuppressionRequested": false,
+          "automaticDelay": -100.12233333333333,
+          "mappingAvailable": true,
+          "nativeDelay": -100.12232971191406,
+          "expectedDelay": -100.0,
+          "error": 0.1223297119140625
+        },
+        {
+          "mediaTime": 60.625,
+          "regionKind": "aligned",
+          "presentationSuppressionRequested": false,
+          "automaticDelay": -100.12233333333333,
+          "mappingAvailable": true,
+          "nativeDelay": -100.12232971191406,
+          "expectedDelay": -100.0,
+          "error": 0.1223297119140625
+        },
+        {
+          "mediaTime": 61.625,
+          "regionKind": "aligned",
+          "presentationSuppressionRequested": false,
+          "automaticDelay": -100.12233333333333,
+          "mappingAvailable": true,
+          "nativeDelay": -100.12232971191406,
+          "expectedDelay": -100.0,
+          "error": 0.1223297119140625
+        },
+        {
+          "mediaTime": 62.666999999999994,
+          "regionKind": "aligned",
+          "presentationSuppressionRequested": false,
+          "automaticDelay": -100.12233333333333,
+          "mappingAvailable": true,
+          "nativeDelay": -100.12232971191406,
+          "expectedDelay": -100.0,
+          "error": 0.1223297119140625
+        },
+        {
+          "mediaTime": 63.708,
+          "regionKind": "aligned",
+          "presentationSuppressionRequested": false,
+          "automaticDelay": -100.12233333333333,
+          "mappingAvailable": true,
+          "nativeDelay": -100.12232971191406,
+          "expectedDelay": -100.0,
+          "error": 0.1223297119140625
+        },
+        {
+          "mediaTime": 64.708,
+          "regionKind": "aligned",
+          "presentationSuppressionRequested": false,
+          "automaticDelay": -100.12233333333333,
+          "mappingAvailable": true,
+          "nativeDelay": -100.12232971191406,
+          "expectedDelay": -100.0,
+          "error": 0.1223297119140625
+        },
+        {
+          "mediaTime": 65.75,
+          "regionKind": "aligned",
+          "presentationSuppressionRequested": false,
+          "automaticDelay": -100.12233333333333,
+          "mappingAvailable": true,
+          "nativeDelay": -100.12232971191406,
+          "expectedDelay": -100.0,
+          "error": 0.1223297119140625
+        },
+        {
+          "mediaTime": 66.792,
+          "regionKind": "aligned",
+          "presentationSuppressionRequested": false,
+          "automaticDelay": -100.12233333333333,
+          "mappingAvailable": true,
+          "nativeDelay": -100.12232971191406,
+          "expectedDelay": -100.0,
+          "error": 0.1223297119140625
+        },
+        {
+          "mediaTime": 67.792,
+          "regionKind": "aligned",
+          "presentationSuppressionRequested": false,
+          "automaticDelay": -100.12233333333333,
+          "mappingAvailable": true,
+          "nativeDelay": -100.12232971191406,
+          "expectedDelay": -100.0,
+          "error": 0.1223297119140625
+        },
+        {
+          "mediaTime": 68.833,
+          "regionKind": "aligned",
+          "presentationSuppressionRequested": false,
+          "automaticDelay": -100.12233333333333,
+          "mappingAvailable": true,
+          "nativeDelay": -100.12232971191406,
+          "expectedDelay": -100.0,
+          "error": 0.1223297119140625
+        },
+        {
+          "mediaTime": 69.875,
+          "regionKind": "aligned",
+          "presentationSuppressionRequested": false,
+          "automaticDelay": -100.12233333333333,
+          "mappingAvailable": true,
+          "nativeDelay": -100.12232971191406,
+          "expectedDelay": -100.0,
+          "error": 0.1223297119140625
+        },
+        {
+          "mediaTime": 70.875,
+          "regionKind": "aligned",
+          "presentationSuppressionRequested": false,
+          "automaticDelay": -100.12233333333333,
+          "mappingAvailable": true,
+          "nativeDelay": -100.12232971191406,
+          "expectedDelay": -100.0,
+          "error": 0.1223297119140625
+        },
+        {
+          "mediaTime": 71.917,
+          "regionKind": "aligned",
+          "presentationSuppressionRequested": false,
+          "automaticDelay": -100.12233333333333,
+          "mappingAvailable": true,
+          "nativeDelay": -100.12232971191406,
+          "expectedDelay": -100.0,
+          "error": 0.1223297119140625
+        },
+        {
+          "mediaTime": 72.958,
+          "regionKind": "aligned",
+          "presentationSuppressionRequested": false,
+          "automaticDelay": -100.12233333333333,
+          "mappingAvailable": true,
+          "nativeDelay": -100.12232971191406,
+          "expectedDelay": -100.0,
+          "error": 0.1223297119140625
+        },
+        {
+          "mediaTime": 74.0,
+          "regionKind": "aligned",
+          "presentationSuppressionRequested": false,
+          "automaticDelay": -100.12233333333333,
+          "mappingAvailable": true,
+          "nativeDelay": -100.12232971191406,
+          "expectedDelay": -100.0,
+          "error": 0.1223297119140625
+        },
+        {
+          "mediaTime": 75.042,
+          "regionKind": "aligned",
+          "presentationSuppressionRequested": false,
+          "automaticDelay": -100.12233333333333,
+          "mappingAvailable": true,
+          "nativeDelay": -100.12232971191406,
+          "expectedDelay": -100.0,
+          "error": 0.1223297119140625
+        },
+        {
+          "mediaTime": 76.042,
+          "regionKind": "aligned",
+          "presentationSuppressionRequested": false,
+          "automaticDelay": -100.12233333333333,
+          "mappingAvailable": true,
+          "nativeDelay": -100.12232971191406,
+          "expectedDelay": -100.0,
+          "error": 0.1223297119140625
+        },
+        {
+          "mediaTime": 77.083,
+          "regionKind": "aligned",
+          "presentationSuppressionRequested": false,
+          "automaticDelay": -100.12233333333333,
+          "mappingAvailable": true,
+          "nativeDelay": -100.12232971191406,
+          "expectedDelay": -100.0,
+          "error": 0.1223297119140625
+        },
+        {
+          "mediaTime": 78.083,
+          "regionKind": "aligned",
+          "presentationSuppressionRequested": false,
+          "automaticDelay": -100.12233333333333,
+          "mappingAvailable": true,
+          "nativeDelay": -100.12232971191406,
+          "expectedDelay": -100.0,
+          "error": 0.1223297119140625
+        },
+        {
+          "mediaTime": 79.125,
+          "regionKind": "aligned",
+          "presentationSuppressionRequested": false,
+          "automaticDelay": -100.12233333333333,
+          "mappingAvailable": true,
+          "nativeDelay": -100.12232971191406,
+          "expectedDelay": -100.0,
+          "error": 0.1223297119140625
+        },
+        {
+          "mediaTime": 80.167,
+          "regionKind": "aligned",
+          "presentationSuppressionRequested": false,
+          "automaticDelay": -100.12233333333333,
+          "mappingAvailable": true,
+          "nativeDelay": -100.12232971191406,
+          "expectedDelay": -100.0,
+          "error": 0.1223297119140625
+        },
+        {
+          "mediaTime": 81.167,
+          "regionKind": "aligned",
+          "presentationSuppressionRequested": false,
+          "automaticDelay": -100.12233333333333,
+          "mappingAvailable": true,
+          "nativeDelay": -100.12232971191406,
+          "expectedDelay": -100.0,
+          "error": 0.1223297119140625
+        },
+        {
+          "mediaTime": 82.208,
+          "regionKind": "aligned",
+          "presentationSuppressionRequested": false,
+          "automaticDelay": -100.12233333333333,
+          "mappingAvailable": true,
+          "nativeDelay": -100.12232971191406,
+          "expectedDelay": -100.0,
+          "error": 0.1223297119140625
+        },
+        {
+          "mediaTime": 83.25,
+          "regionKind": "aligned",
+          "presentationSuppressionRequested": false,
+          "automaticDelay": -100.12233333333333,
+          "mappingAvailable": true,
+          "nativeDelay": -100.12232971191406,
+          "expectedDelay": -100.0,
+          "error": 0.1223297119140625
+        },
+        {
+          "mediaTime": 84.25,
+          "regionKind": "aligned",
+          "presentationSuppressionRequested": false,
+          "automaticDelay": -100.12233333333333,
+          "mappingAvailable": true,
+          "nativeDelay": -100.12232971191406,
+          "expectedDelay": -100.0,
+          "error": 0.1223297119140625
+        },
+        {
+          "mediaTime": 85.292,
+          "regionKind": "aligned",
+          "presentationSuppressionRequested": false,
+          "automaticDelay": -100.12233333333333,
+          "mappingAvailable": true,
+          "nativeDelay": -100.12232971191406,
+          "expectedDelay": -100.0,
+          "error": 0.1223297119140625
+        },
+        {
+          "mediaTime": 86.333,
+          "regionKind": "aligned",
+          "presentationSuppressionRequested": false,
+          "automaticDelay": -100.12233333333333,
+          "mappingAvailable": true,
+          "nativeDelay": -100.12232971191406,
+          "expectedDelay": -100.0,
+          "error": 0.1223297119140625
+        },
+        {
+          "mediaTime": 87.333,
+          "regionKind": "aligned",
+          "presentationSuppressionRequested": false,
+          "automaticDelay": -100.12233333333333,
+          "mappingAvailable": true,
+          "nativeDelay": -100.12232971191406,
+          "expectedDelay": -100.0,
+          "error": 0.1223297119140625
+        },
+        {
+          "mediaTime": 88.375,
+          "regionKind": "aligned",
+          "presentationSuppressionRequested": false,
+          "automaticDelay": -100.12233333333333,
+          "mappingAvailable": true,
+          "nativeDelay": -100.12232971191406,
+          "expectedDelay": -100.0,
+          "error": 0.1223297119140625
+        },
+        {
+          "mediaTime": 89.417,
+          "regionKind": "aligned",
+          "presentationSuppressionRequested": false,
+          "automaticDelay": -100.12233333333333,
+          "mappingAvailable": true,
+          "nativeDelay": -100.12232971191406,
+          "expectedDelay": -100.0,
+          "error": 0.1223297119140625
+        },
+        {
+          "mediaTime": 90.417,
+          "regionKind": "aligned",
+          "presentationSuppressionRequested": false,
+          "automaticDelay": -100.12233333333333,
+          "mappingAvailable": true,
+          "nativeDelay": -100.12232971191406,
+          "expectedDelay": -100.0,
+          "error": 0.1223297119140625
+        },
+        {
+          "mediaTime": 91.458,
+          "regionKind": "aligned",
+          "presentationSuppressionRequested": false,
+          "automaticDelay": -100.12233333333333,
+          "mappingAvailable": true,
+          "nativeDelay": -100.12232971191406,
+          "expectedDelay": -100.0,
+          "error": 0.1223297119140625
+        },
+        {
+          "mediaTime": 92.5,
+          "regionKind": "aligned",
+          "presentationSuppressionRequested": false,
+          "automaticDelay": -100.12233333333333,
+          "mappingAvailable": true,
+          "nativeDelay": -100.12232971191406,
+          "expectedDelay": -100.0,
+          "error": 0.1223297119140625
+        },
+        {
+          "mediaTime": 93.5,
+          "regionKind": "aligned",
+          "presentationSuppressionRequested": false,
+          "automaticDelay": -100.12233333333333,
+          "mappingAvailable": true,
+          "nativeDelay": -100.12232971191406,
+          "expectedDelay": -100.0,
+          "error": 0.1223297119140625
+        },
+        {
+          "mediaTime": 94.542,
+          "regionKind": "aligned",
+          "presentationSuppressionRequested": false,
+          "automaticDelay": -100.12233333333333,
+          "mappingAvailable": true,
+          "nativeDelay": -100.12232971191406,
+          "expectedDelay": -100.0,
+          "error": 0.1223297119140625
+        },
+        {
+          "mediaTime": 95.583,
+          "regionKind": "aligned",
+          "presentationSuppressionRequested": false,
+          "automaticDelay": -100.12233333333333,
+          "mappingAvailable": true,
+          "nativeDelay": -100.12232971191406,
+          "expectedDelay": -100.0,
+          "error": 0.1223297119140625
+        },
+        {
+          "mediaTime": 96.625,
+          "regionKind": "aligned",
+          "presentationSuppressionRequested": false,
+          "automaticDelay": -100.12233333333333,
+          "mappingAvailable": true,
+          "nativeDelay": -100.12232971191406,
+          "expectedDelay": -100.0,
+          "error": 0.1223297119140625
+        },
+        {
+          "mediaTime": 97.625,
+          "regionKind": "aligned",
+          "presentationSuppressionRequested": false,
+          "automaticDelay": -100.12233333333333,
+          "mappingAvailable": true,
+          "nativeDelay": -100.12232971191406,
+          "expectedDelay": -100.0,
+          "error": 0.1223297119140625
+        },
+        {
+          "mediaTime": 98.667,
+          "regionKind": "aligned",
+          "presentationSuppressionRequested": false,
+          "automaticDelay": -100.12233333333333,
+          "mappingAvailable": true,
+          "nativeDelay": -100.12232971191406,
+          "expectedDelay": -100.0,
+          "error": 0.1223297119140625
+        },
+        {
+          "mediaTime": 99.667,
+          "regionKind": "aligned",
+          "presentationSuppressionRequested": false,
+          "automaticDelay": -100.12233333333333,
+          "mappingAvailable": true,
+          "nativeDelay": -100.12232971191406,
+          "expectedDelay": -100.0,
+          "error": 0.1223297119140625
+        },
+        {
+          "mediaTime": 100.708,
+          "regionKind": "aligned",
+          "presentationSuppressionRequested": false,
+          "automaticDelay": -100.12233333333333,
+          "mappingAvailable": true,
+          "nativeDelay": -100.12232971191406,
+          "expectedDelay": -100.0,
+          "error": 0.1223297119140625
+        },
+        {
+          "mediaTime": 101.75,
+          "regionKind": "aligned",
+          "presentationSuppressionRequested": false,
+          "automaticDelay": -100.12233333333333,
+          "mappingAvailable": true,
+          "nativeDelay": -100.12232971191406,
+          "expectedDelay": -100.0,
+          "error": 0.1223297119140625
+        },
+        {
+          "mediaTime": 102.792,
+          "regionKind": "aligned",
+          "presentationSuppressionRequested": false,
+          "automaticDelay": -100.12233333333333,
+          "mappingAvailable": true,
+          "nativeDelay": -100.12232971191406,
+          "expectedDelay": -100.0,
+          "error": 0.1223297119140625
+        },
+        {
+          "mediaTime": 103.833,
+          "regionKind": "aligned",
+          "presentationSuppressionRequested": false,
+          "automaticDelay": -100.12233333333333,
+          "mappingAvailable": true,
+          "nativeDelay": -100.12232971191406,
+          "expectedDelay": -100.0,
+          "error": 0.1223297119140625
+        },
+        {
+          "mediaTime": 104.833,
+          "regionKind": "aligned",
+          "presentationSuppressionRequested": false,
+          "automaticDelay": -100.12233333333333,
+          "mappingAvailable": true,
+          "nativeDelay": -100.12232971191406,
+          "expectedDelay": -100.0,
+          "error": 0.1223297119140625
+        }
+      ],
+      "trackingReference": "Correlated playback-time samples after first lock, including unknown regions at zero automatic delay. Ideal fixture transform, not independent acoustic annotations.",
+      "analyses": [
+        {
+          "observedElapsedMs": 22584,
+          "observedMediaTime": 22.541999999999998,
+          "attempt": 1,
+          "windowStart": 0.6836666666666668,
+          "windowEnd": 8.703041666666667,
+          "inferenceSeconds": 0.495034291,
+          "inferenceBackend": "metal-preferred",
+          "validPrefixOnly": false,
+          "match": "noCandidate",
+          "contextWindows": 1,
+          "segmentedMatch": false,
+          "transcriptWords": 6,
+          "wordsInSubtitleVocabulary": 5,
+          "contextWords": 0,
+          "segmentBounds": [
+            {
+              "start": 0.6836666666666668,
+              "end": 2.683666666666667,
+              "timedTokens": 4,
+              "firstToken": 3.923666666666667,
+              "lastToken": 6.163666666666667
+            },
+            {
+              "start": 6.683666666666666,
+              "end": 8.683666666666667,
+              "timedTokens": 7,
+              "firstToken": 7.183666666666666,
+              "lastToken": 8.683666666666667
+            }
+          ],
+          "similarity": null,
+          "anchors": [],
+          "anchorRejections": {},
+          "speechTimingRejected": false,
+          "speechSupportCounts": {
+            "unknown": 0,
+            "supported": 7,
+            "unsupported": 4
+          },
+          "regions": []
+        },
+        {
+          "observedElapsedMs": 23307,
+          "observedMediaTime": 23.291999999999998,
+          "attempt": 2,
+          "windowStart": 7.868354166666667,
+          "windowEnd": 22.868354166666666,
+          "inferenceSeconds": 0.668705167,
+          "inferenceBackend": "metal-preferred",
+          "validPrefixOnly": true,
+          "match": "matched",
+          "contextWindows": 1,
+          "segmentedMatch": false,
+          "transcriptWords": 21,
+          "wordsInSubtitleVocabulary": 21,
+          "contextWords": 21,
+          "segmentBounds": [
+            {
+              "start": 7.868354166666667,
+              "end": 9.868354166666666,
+              "timedTokens": 6,
+              "firstToken": 8.128354166666668,
+              "lastToken": 11.048354166666668
+            },
+            {
+              "start": 11.368354166666666,
+              "end": 14.368354166666666,
+              "timedTokens": 7,
+              "firstToken": 11.628354166666668,
+              "lastToken": 15.748354166666667
+            },
+            {
+              "start": 17.368354166666666,
+              "end": 20.368354166666666,
+              "timedTokens": 11,
+              "firstToken": 17.808354166666668,
+              "lastToken": 21.228354166666666
+            }
+          ],
+          "similarity": 0.9523809523809523,
+          "anchors": [
+            {
+              "cue": 1,
+              "offset": -100.17164583333333
+            },
+            {
+              "cue": 2,
+              "offset": -100.19164583333333
+            }
+          ],
+          "anchorRejections": {
+            "cueBeginningAbsent": 1
+          },
+          "speechTimingRejected": false,
+          "speechSupportCounts": {
+            "unknown": 0,
+            "supported": 21,
+            "unsupported": 3
+          },
+          "cueBeginningMatches": [
+            {
+              "cue": 0,
+              "wordInCue": 2,
+              "transcriptWord": 1,
+              "exact": true
+            },
+            {
+              "cue": 0,
+              "wordInCue": 3,
+              "transcriptWord": 2,
+              "exact": true
+            },
+            {
+              "cue": 0,
+              "wordInCue": 4,
+              "transcriptWord": 3,
+              "exact": true
+            },
+            {
+              "cue": 1,
+              "wordInCue": 0,
+              "transcriptWord": 5,
+              "exact": true
+            },
+            {
+              "cue": 1,
+              "wordInCue": 1,
+              "transcriptWord": 6,
+              "exact": true
+            },
+            {
+              "cue": 1,
+              "wordInCue": 2,
+              "transcriptWord": 7,
+              "exact": true
+            },
+            {
+              "cue": 1,
+              "wordInCue": 3,
+              "transcriptWord": 8,
+              "exact": true
+            },
+            {
+              "cue": 1,
+              "wordInCue": 4,
+              "transcriptWord": 9,
+              "exact": true
+            },
+            {
+              "cue": 2,
+              "wordInCue": 0,
+              "transcriptWord": 11,
+              "exact": true
+            },
+            {
+              "cue": 2,
+              "wordInCue": 1,
+              "transcriptWord": 12,
+              "exact": true
+            },
+            {
+              "cue": 2,
+              "wordInCue": 2,
+              "transcriptWord": 13,
+              "exact": true
+            },
+            {
+              "cue": 2,
+              "wordInCue": 3,
+              "transcriptWord": 14,
+              "exact": true
+            },
+            {
+              "cue": 2,
+              "wordInCue": 4,
+              "transcriptWord": 15,
+              "exact": true
+            }
+          ],
+          "regions": [
+            {
+              "start": 11.618354166666663,
+              "end": 17.818355166666663,
+              "slope": 1.0,
+              "offset": -100.18164583333333,
+              "anchors": 2
+            }
+          ]
+        },
+        {
+          "observedElapsedMs": 35135,
+          "observedMediaTime": 35.125,
+          "attempt": 3,
+          "windowStart": 22.900354166666666,
+          "windowEnd": 34.900354166666666,
+          "inferenceSeconds": 0.51220275,
+          "inferenceBackend": "metal-preferred",
+          "validPrefixOnly": false,
+          "match": "matched",
+          "contextWindows": 1,
+          "segmentedMatch": false,
+          "transcriptWords": 13,
+          "wordsInSubtitleVocabulary": 12,
+          "contextWords": 0,
+          "segmentBounds": [
+            {
+              "start": 22.900354166666666,
+              "end": 24.900354166666666,
+              "timedTokens": 3,
+              "firstToken": 25.180354166666667,
+              "lastToken": 27.220354166666667
+            },
+            {
+              "start": 24.900354166666666,
+              "end": 29.900354166666666,
+              "timedTokens": 13,
+              "firstToken": 27.660354166666664,
+              "lastToken": 31.900354166666666
+            },
+            {
+              "start": 29.900354166666666,
+              "end": 31.900354166666666,
+              "timedTokens": 2,
+              "firstToken": 31.880354166666667,
+              "lastToken": 31.900354166666666
+            }
+          ],
+          "similarity": 0.9230769230769231,
+          "anchors": [
+            {
+              "cue": 6,
+              "offset": -100.01964583333334
+            }
+          ],
+          "anchorRejections": {
+            "phraseNotMatched": 2
+          },
+          "speechTimingRejected": false,
+          "speechSupportCounts": {
+            "unknown": 0,
+            "supported": 14,
+            "unsupported": 4
+          },
+          "cueBeginningMatches": [
+            {
+              "cue": 4,
+              "wordInCue": 0,
+              "transcriptWord": 0,
+              "exact": true
+            },
+            {
+              "cue": 4,
+              "wordInCue": 1,
+              "transcriptWord": 1,
+              "exact": true
+            },
+            {
+              "cue": 5,
+              "wordInCue": 0,
+              "transcriptWord": 2,
+              "exact": true
+            },
+            {
+              "cue": 6,
+              "wordInCue": 0,
+              "transcriptWord": 3,
+              "exact": true
+            },
+            {
+              "cue": 6,
+              "wordInCue": 1,
+              "transcriptWord": 4,
+              "exact": true
+            },
+            {
+              "cue": 6,
+              "wordInCue": 2,
+              "transcriptWord": 5,
+              "exact": true
+            },
+            {
+              "cue": 6,
+              "wordInCue": 3,
+              "transcriptWord": 6,
+              "exact": true
+            },
+            {
+              "cue": 6,
+              "wordInCue": 4,
+              "transcriptWord": 7,
+              "exact": true
+            }
+          ],
+          "regions": [
+            {
+              "start": 11.628354166666668,
+              "end": 29.228355166666674,
+              "slope": 1.0,
+              "offset": -100.17164583333333,
+              "anchors": 3
+            }
+          ]
+        },
+        {
+          "observedElapsedMs": 47161,
+          "observedMediaTime": 47.125,
+          "attempt": 4,
+          "windowStart": 35.01766666666667,
+          "windowEnd": 47.01766666666667,
+          "inferenceSeconds": 0.456568375,
+          "inferenceBackend": "metal-preferred",
+          "validPrefixOnly": false,
+          "match": "matched",
+          "contextWindows": 1,
+          "segmentedMatch": false,
+          "transcriptWords": 13,
+          "wordsInSubtitleVocabulary": 13,
+          "contextWords": 26,
+          "segmentBounds": [
+            {
+              "start": 35.01766666666667,
+              "end": 37.57766666666667,
+              "timedTokens": 6,
+              "firstToken": 35.11766666666667,
+              "lastToken": 37.65766666666667
+            },
+            {
+              "start": 37.57766666666667,
+              "end": 39.83766666666667,
+              "timedTokens": 4,
+              "firstToken": 37.87766666666667,
+              "lastToken": 39.77766666666667
+            },
+            {
+              "start": 39.83766666666667,
+              "end": 43.25766666666667,
+              "timedTokens": 4,
+              "firstToken": 39.97766666666667,
+              "lastToken": 41.91766666666667
+            },
+            {
+              "start": 43.25766666666667,
+              "end": 45.09766666666667,
+              "timedTokens": 3,
+              "firstToken": 43.39766666666667,
+              "lastToken": 45.09766666666667
+            }
+          ],
+          "similarity": 1.0,
+          "anchors": [
+            {
+              "cue": 7,
+              "offset": -99.88233333333332
+            },
+            {
+              "cue": 8,
+              "offset": -100.12233333333333
+            }
+          ],
+          "anchorRejections": {
+            "phraseNotMatched": 1
+          },
+          "speechTimingRejected": false,
+          "speechSupportCounts": {
+            "unknown": 0,
+            "supported": 15,
+            "unsupported": 2
+          },
+          "cueBeginningMatches": [
+            {
+              "cue": 7,
+              "wordInCue": 0,
+              "transcriptWord": 0,
+              "exact": true
+            },
+            {
+              "cue": 7,
+              "wordInCue": 1,
+              "transcriptWord": 1,
+              "exact": true
+            },
+            {
+              "cue": 7,
+              "wordInCue": 2,
+              "transcriptWord": 2,
+              "exact": true
+            },
+            {
+              "cue": 7,
+              "wordInCue": 3,
+              "transcriptWord": 3,
+              "exact": true
+            },
+            {
+              "cue": 7,
+              "wordInCue": 4,
+              "transcriptWord": 4,
+              "exact": true
+            },
+            {
+              "cue": 8,
+              "wordInCue": 0,
+              "transcriptWord": 5,
+              "exact": true
+            },
+            {
+              "cue": 8,
+              "wordInCue": 1,
+              "transcriptWord": 6,
+              "exact": true
+            },
+            {
+              "cue": 8,
+              "wordInCue": 2,
+              "transcriptWord": 7,
+              "exact": true
+            },
+            {
+              "cue": 8,
+              "wordInCue": 3,
+              "transcriptWord": 8,
+              "exact": true
+            },
+            {
+              "cue": 8,
+              "wordInCue": 4,
+              "transcriptWord": 9,
+              "exact": true
+            },
+            {
+              "cue": 9,
+              "wordInCue": 0,
+              "transcriptWord": 11,
+              "exact": true
+            },
+            {
+              "cue": 9,
+              "wordInCue": 1,
+              "transcriptWord": 12,
+              "exact": true
+            }
+          ],
+          "regions": [
+            {
+              "start": 11.677666666666667,
+              "end": 37.87766766666667,
+              "slope": 1.0,
+              "offset": -100.12233333333333,
+              "anchors": 5
+            }
+          ]
+        },
+        {
+          "observedElapsedMs": 59299,
+          "observedMediaTime": 59.291999999999994,
+          "attempt": 5,
+          "windowStart": 47.04966666666667,
+          "windowEnd": 59.04966666666667,
+          "inferenceSeconds": 0.597731917,
+          "inferenceBackend": "metal-preferred",
+          "validPrefixOnly": false,
+          "match": "matched",
+          "contextWindows": 2,
+          "segmentedMatch": false,
+          "transcriptWords": 0,
+          "wordsInSubtitleVocabulary": 0,
+          "contextWords": 13,
+          "segmentBounds": [
+            {
+              "start": 47.04966666666667,
+              "end": 57.04966666666667,
+              "timedTokens": 5,
+              "firstToken": 56.56966666666666,
+              "lastToken": 56.64966666666667
+            }
+          ],
+          "similarity": 1.0,
+          "anchors": [
+            {
+              "cue": 7,
+              "offset": -99.88233333333332
+            },
+            {
+              "cue": 8,
+              "offset": -100.12233333333333
+            }
+          ],
+          "anchorRejections": {
+            "phraseNotMatched": 1
+          },
+          "speechTimingRejected": false,
+          "speechSupportCounts": {
+            "unknown": 0,
+            "supported": 5,
+            "unsupported": 0
+          },
+          "regions": [
+            {
+              "start": 11.677666666666667,
+              "end": 37.87766766666667,
+              "slope": 1.0,
+              "offset": -100.12233333333333,
+              "anchors": 5
+            }
+          ]
+        },
+        {
+          "observedElapsedMs": 71226,
+          "observedMediaTime": 71.208,
+          "attempt": 6,
+          "windowStart": 56.08166666666667,
+          "windowEnd": 71.08166666666668,
+          "inferenceSeconds": 0.460989833,
+          "inferenceBackend": "metal-preferred",
+          "validPrefixOnly": false,
+          "match": "noCandidate",
+          "contextWindows": 1,
+          "segmentedMatch": false,
+          "transcriptWords": 7,
+          "wordsInSubtitleVocabulary": 0,
+          "contextWords": 0,
+          "segmentBounds": [
+            {
+              "start": 56.08166666666667,
+              "end": 59.08166666666667,
+              "timedTokens": 7,
+              "firstToken": 57.24166666666667,
+              "lastToken": 59.94166666666667
+            },
+            {
+              "start": 59.08166666666667,
+              "end": 61.08166666666667,
+              "timedTokens": 6,
+              "firstToken": 59.96166666666667,
+              "lastToken": 61.08166666666667
+            }
+          ],
+          "similarity": null,
+          "anchors": [],
+          "anchorRejections": {},
+          "speechTimingRejected": false,
+          "speechSupportCounts": {
+            "unknown": 0,
+            "supported": 13,
+            "unsupported": 0
+          },
+          "regions": [
+            {
+              "start": 11.677666666666667,
+              "end": 37.87766766666667,
+              "slope": 1.0,
+              "offset": -100.12233333333333,
+              "anchors": 5
+            }
+          ]
+        },
+        {
+          "observedElapsedMs": 83561,
+          "observedMediaTime": 83.542,
+          "attempt": 7,
+          "windowStart": 68.11366666666666,
+          "windowEnd": 83.11366666666666,
+          "inferenceSeconds": 0.783238416,
+          "inferenceBackend": "metal-preferred",
+          "validPrefixOnly": false,
+          "match": "matched",
+          "contextWindows": 1,
+          "segmentedMatch": false,
+          "transcriptWords": 7,
+          "wordsInSubtitleVocabulary": 7,
+          "contextWords": 14,
+          "segmentBounds": [
+            {
+              "start": 68.11366666666666,
+              "end": 70.11366666666666,
+              "timedTokens": 7,
+              "firstToken": 68.61366666666666,
+              "lastToken": 69.43366666666665
+            },
+            {
+              "start": 70.11366666666666,
+              "end": 78.11366666666666,
+              "timedTokens": 7,
+              "firstToken": 73.27366666666666,
+              "lastToken": 74.59366666666666
+            },
+            {
+              "start": 78.11366666666666,
+              "end": 81.11366666666666,
+              "timedTokens": 8,
+              "firstToken": 79.03366666666666,
+              "lastToken": 81.11366666666666
+            }
+          ],
+          "similarity": 1.0,
+          "anchors": [],
+          "anchorRejections": {
+            "normalizationMismatch": 1
+          },
+          "speechTimingRejected": false,
+          "speechSupportCounts": {
+            "unknown": 0,
+            "supported": 4,
+            "unsupported": 18
+          },
+          "cueBeginningMatches": [
+            {
+              "cue": 10,
+              "wordInCue": 0,
+              "transcriptWord": 0,
+              "exact": true
+            },
+            {
+              "cue": 10,
+              "wordInCue": 1,
+              "transcriptWord": 1,
+              "exact": true
+            },
+            {
+              "cue": 10,
+              "wordInCue": 2,
+              "transcriptWord": 2,
+              "exact": true
+            },
+            {
+              "cue": 10,
+              "wordInCue": 3,
+              "transcriptWord": 3,
+              "exact": true
+            },
+            {
+              "cue": 10,
+              "wordInCue": 4,
+              "transcriptWord": 4,
+              "exact": true
+            }
+          ],
+          "regions": [
+            {
+              "start": 11.677666666666667,
+              "end": 37.87766766666667,
+              "slope": 1.0,
+              "offset": -100.12233333333333,
+              "anchors": 5
+            }
+          ]
+        },
+        {
+          "observedElapsedMs": 95282,
+          "observedMediaTime": 95.25,
+          "attempt": 8,
+          "windowStart": 80.14566666666666,
+          "windowEnd": 95.14566666666666,
+          "inferenceSeconds": 0.506435958,
+          "inferenceBackend": "metal-preferred",
+          "validPrefixOnly": false,
+          "match": "matched",
+          "contextWindows": 1,
+          "segmentedMatch": false,
+          "transcriptWords": 16,
+          "wordsInSubtitleVocabulary": 16,
+          "contextWords": 16,
+          "segmentBounds": [
+            {
+              "start": 80.14566666666666,
+              "end": 82.14566666666666,
+              "timedTokens": 6,
+              "firstToken": 80.14566666666666,
+              "lastToken": 82.14566666666666
+            },
+            {
+              "start": 83.14566666666666,
+              "end": 86.14566666666666,
+              "timedTokens": 12,
+              "firstToken": 83.14566666666666,
+              "lastToken": 86.14566666666666
+            }
+          ],
+          "similarity": 0.875,
+          "anchors": [
+            {
+              "cue": 11,
+              "offset": -69.80433333333333
+            }
+          ],
+          "anchorRejections": {
+            "cueBeginningAbsent": 1
+          },
+          "speechTimingRejected": false,
+          "speechSupportCounts": {
+            "unknown": 0,
+            "supported": 16,
+            "unsupported": 2
+          },
+          "cueBeginningMatches": [
+            {
+              "cue": 10,
+              "wordInCue": 4,
+              "transcriptWord": 2,
+              "exact": true
+            },
+            {
+              "cue": 11,
+              "wordInCue": 0,
+              "transcriptWord": 5,
+              "exact": true
+            },
+            {
+              "cue": 11,
+              "wordInCue": 1,
+              "transcriptWord": 6,
+              "exact": true
+            },
+            {
+              "cue": 11,
+              "wordInCue": 2,
+              "transcriptWord": 7,
+              "exact": true
+            },
+            {
+              "cue": 11,
+              "wordInCue": 3,
+              "transcriptWord": 8,
+              "exact": true
+            },
+            {
+              "cue": 11,
+              "wordInCue": 4,
+              "transcriptWord": 9,
+              "exact": true
+            }
+          ],
+          "regions": [
+            {
+              "start": 11.677666666666667,
+              "end": 37.87766766666667,
+              "slope": 1.0,
+              "offset": -100.12233333333333,
+              "anchors": 5
+            }
+          ]
+        }
+      ],
+      "acousticCollection": {
+        "calls": 204,
+        "totalMicros": 193149,
+        "maximumMicros": 2554,
+        "peakFrames": 10415,
+        "maximumFrames": 18000,
+        "maximumSeconds": 180
+      },
+      "productionPlayerValidated": false,
+      "audiblePlaybackValidated": false,
+      "pcmOrTranscriptPersisted": false,
+      "mainIsolateHeartbeatTicks": 4204
+    },
+    "omittedNumericFields": [
+      "acousticFrames",
+      "wordEvidence",
+      "contextWordEvidence"
+    ]
+  },
+  "activeLaterBeforeFixAssessment": {
+    "sha256": "e57dd295e8e28f76db7f4d99a18744dd1d08cffaa77bc422e36653a931a53425",
+    "data": {
+      "scope": "native PCM/ASR and domain tracking only; no production controller or renderer claim",
+      "initialAcquisitionBeforeEdit": true,
+      "postEditRecoveryMediaSeconds": null,
+      "alignedTrackingMedianErrorSeconds": 30.122329711914062,
+      "alignedTrackingP95ErrorSeconds": 30.122329711914062,
+      "alignedSampleCount": 51,
+      "gapChecks": [
+        {
+          "expected": {
+            "kind": "videoOnly",
+            "start": 48.75,
+            "end": 78.75
+          },
+          "matched": false
+        }
+      ],
+      "unexpectedGapCount": 0,
+      "gapPlaybackSamples": [
+        {
+          "mediaTime": 49.291999999999994,
+          "actualRegion": "aligned"
+        },
+        {
+          "mediaTime": 50.333,
+          "actualRegion": "aligned"
+        },
+        {
+          "mediaTime": 51.375,
+          "actualRegion": "aligned"
+        },
+        {
+          "mediaTime": 52.375,
+          "actualRegion": "aligned"
+        },
+        {
+          "mediaTime": 53.416999999999994,
+          "actualRegion": "aligned"
+        },
+        {
+          "mediaTime": 54.416999999999994,
+          "actualRegion": "aligned"
+        },
+        {
+          "mediaTime": 55.458,
+          "actualRegion": "aligned"
+        },
+        {
+          "mediaTime": 56.5,
+          "actualRegion": "aligned"
+        },
+        {
+          "mediaTime": 57.541999999999994,
+          "actualRegion": "aligned"
+        },
+        {
+          "mediaTime": 58.541999999999994,
+          "actualRegion": "aligned"
+        },
+        {
+          "mediaTime": 59.583,
+          "actualRegion": "aligned"
+        },
+        {
+          "mediaTime": 60.625,
+          "actualRegion": "aligned"
+        },
+        {
+          "mediaTime": 61.625,
+          "actualRegion": "aligned"
+        },
+        {
+          "mediaTime": 62.666999999999994,
+          "actualRegion": "aligned"
+        },
+        {
+          "mediaTime": 63.708,
+          "actualRegion": "aligned"
+        },
+        {
+          "mediaTime": 64.708,
+          "actualRegion": "aligned"
+        },
+        {
+          "mediaTime": 65.75,
+          "actualRegion": "aligned"
+        },
+        {
+          "mediaTime": 66.792,
+          "actualRegion": "aligned"
+        },
+        {
+          "mediaTime": 67.792,
+          "actualRegion": "aligned"
+        },
+        {
+          "mediaTime": 68.833,
+          "actualRegion": "aligned"
+        },
+        {
+          "mediaTime": 69.875,
+          "actualRegion": "aligned"
+        },
+        {
+          "mediaTime": 70.875,
+          "actualRegion": "aligned"
+        },
+        {
+          "mediaTime": 71.917,
+          "actualRegion": "aligned"
+        },
+        {
+          "mediaTime": 72.958,
+          "actualRegion": "aligned"
+        },
+        {
+          "mediaTime": 74.0,
+          "actualRegion": "aligned"
+        },
+        {
+          "mediaTime": 75.042,
+          "actualRegion": "aligned"
+        },
+        {
+          "mediaTime": 76.042,
+          "actualRegion": "aligned"
+        },
+        {
+          "mediaTime": 77.083,
+          "actualRegion": "aligned"
+        },
+        {
+          "mediaTime": 78.083,
+          "actualRegion": "aligned"
+        }
+      ],
+      "alignedPlaybackSamples": [
+        {
+          "mediaTime": 23.583,
+          "expectedDelay": -100.0,
+          "actualDelay": -100.18164825439453,
+          "actualRegion": "aligned",
+          "mappingAvailable": true,
+          "error": 0.18164825439453125
+        },
+        {
+          "mediaTime": 24.625,
+          "expectedDelay": -100.0,
+          "actualDelay": -100.18164825439453,
+          "actualRegion": "aligned",
+          "mappingAvailable": true,
+          "error": 0.18164825439453125
+        },
+        {
+          "mediaTime": 25.666999999999998,
+          "expectedDelay": -100.0,
+          "actualDelay": -100.18164825439453,
+          "actualRegion": "aligned",
+          "mappingAvailable": true,
+          "error": 0.18164825439453125
+        },
+        {
+          "mediaTime": 26.666999999999998,
+          "expectedDelay": -100.0,
+          "actualDelay": -100.18164825439453,
+          "actualRegion": "aligned",
+          "mappingAvailable": true,
+          "error": 0.18164825439453125
+        },
+        {
+          "mediaTime": 27.708,
+          "expectedDelay": -100.0,
+          "actualDelay": -100.18164825439453,
+          "actualRegion": "aligned",
+          "mappingAvailable": true,
+          "error": 0.18164825439453125
+        },
+        {
+          "mediaTime": 28.75,
+          "expectedDelay": -100.0,
+          "actualDelay": -100.18164825439453,
+          "actualRegion": "aligned",
+          "mappingAvailable": true,
+          "error": 0.18164825439453125
+        },
+        {
+          "mediaTime": 29.75,
+          "expectedDelay": -100.0,
+          "actualDelay": -100.18164825439453,
+          "actualRegion": "aligned",
+          "mappingAvailable": true,
+          "error": 0.18164825439453125
+        },
+        {
+          "mediaTime": 30.791999999999998,
+          "expectedDelay": -100.0,
+          "actualDelay": -100.18164825439453,
+          "actualRegion": "aligned",
+          "mappingAvailable": true,
+          "error": 0.18164825439453125
+        },
+        {
+          "mediaTime": 31.833,
+          "expectedDelay": -100.0,
+          "actualDelay": -100.18164825439453,
+          "actualRegion": "aligned",
+          "mappingAvailable": true,
+          "error": 0.18164825439453125
+        },
+        {
+          "mediaTime": 32.833,
+          "expectedDelay": -100.0,
+          "actualDelay": -100.18164825439453,
+          "actualRegion": "aligned",
+          "mappingAvailable": true,
+          "error": 0.18164825439453125
+        },
+        {
+          "mediaTime": 33.875,
+          "expectedDelay": -100.0,
+          "actualDelay": -100.18164825439453,
+          "actualRegion": "aligned",
+          "mappingAvailable": true,
+          "error": 0.18164825439453125
+        },
+        {
+          "mediaTime": 34.917,
+          "expectedDelay": -100.0,
+          "actualDelay": -100.18164825439453,
+          "actualRegion": "aligned",
+          "mappingAvailable": true,
+          "error": 0.18164825439453125
+        },
+        {
+          "mediaTime": 35.917,
+          "expectedDelay": -100.0,
+          "actualDelay": -100.17164611816406,
+          "actualRegion": "aligned",
+          "mappingAvailable": true,
+          "error": 0.1716461181640625
+        },
+        {
+          "mediaTime": 36.958,
+          "expectedDelay": -100.0,
+          "actualDelay": -100.17164611816406,
+          "actualRegion": "aligned",
+          "mappingAvailable": true,
+          "error": 0.1716461181640625
+        },
+        {
+          "mediaTime": 38.0,
+          "expectedDelay": -100.0,
+          "actualDelay": -100.17164611816406,
+          "actualRegion": "aligned",
+          "mappingAvailable": true,
+          "error": 0.1716461181640625
+        },
+        {
+          "mediaTime": 39.0,
+          "expectedDelay": -100.0,
+          "actualDelay": -100.17164611816406,
+          "actualRegion": "aligned",
+          "mappingAvailable": true,
+          "error": 0.1716461181640625
+        },
+        {
+          "mediaTime": 40.042,
+          "expectedDelay": -100.0,
+          "actualDelay": -100.17164611816406,
+          "actualRegion": "aligned",
+          "mappingAvailable": true,
+          "error": 0.1716461181640625
+        },
+        {
+          "mediaTime": 41.083,
+          "expectedDelay": -100.0,
+          "actualDelay": -100.17164611816406,
+          "actualRegion": "aligned",
+          "mappingAvailable": true,
+          "error": 0.1716461181640625
+        },
+        {
+          "mediaTime": 42.083,
+          "expectedDelay": -100.0,
+          "actualDelay": -100.17164611816406,
+          "actualRegion": "aligned",
+          "mappingAvailable": true,
+          "error": 0.1716461181640625
+        },
+        {
+          "mediaTime": 43.125,
+          "expectedDelay": -100.0,
+          "actualDelay": -100.17164611816406,
+          "actualRegion": "aligned",
+          "mappingAvailable": true,
+          "error": 0.1716461181640625
+        },
+        {
+          "mediaTime": 44.166999999999994,
+          "expectedDelay": -100.0,
+          "actualDelay": -100.17164611816406,
+          "actualRegion": "aligned",
+          "mappingAvailable": true,
+          "error": 0.1716461181640625
+        },
+        {
+          "mediaTime": 45.166999999999994,
+          "expectedDelay": -100.0,
+          "actualDelay": -100.17164611816406,
+          "actualRegion": "aligned",
+          "mappingAvailable": true,
+          "error": 0.1716461181640625
+        },
+        {
+          "mediaTime": 46.208,
+          "expectedDelay": -100.0,
+          "actualDelay": -100.17164611816406,
+          "actualRegion": "aligned",
+          "mappingAvailable": true,
+          "error": 0.1716461181640625
+        },
+        {
+          "mediaTime": 47.25,
+          "expectedDelay": -100.0,
+          "actualDelay": -100.12232971191406,
+          "actualRegion": "aligned",
+          "mappingAvailable": true,
+          "error": 0.1223297119140625
+        },
+        {
+          "mediaTime": 48.25,
+          "expectedDelay": -100.0,
+          "actualDelay": -100.12232971191406,
+          "actualRegion": "aligned",
+          "mappingAvailable": true,
+          "error": 0.1223297119140625
+        },
+        {
+          "mediaTime": 79.125,
+          "expectedDelay": -70.0,
+          "actualDelay": -100.12232971191406,
+          "actualRegion": "aligned",
+          "mappingAvailable": true,
+          "error": 30.122329711914062
+        },
+        {
+          "mediaTime": 80.167,
+          "expectedDelay": -70.0,
+          "actualDelay": -100.12232971191406,
+          "actualRegion": "aligned",
+          "mappingAvailable": true,
+          "error": 30.122329711914062
+        },
+        {
+          "mediaTime": 81.167,
+          "expectedDelay": -70.0,
+          "actualDelay": -100.12232971191406,
+          "actualRegion": "aligned",
+          "mappingAvailable": true,
+          "error": 30.122329711914062
+        },
+        {
+          "mediaTime": 82.208,
+          "expectedDelay": -70.0,
+          "actualDelay": -100.12232971191406,
+          "actualRegion": "aligned",
+          "mappingAvailable": true,
+          "error": 30.122329711914062
+        },
+        {
+          "mediaTime": 83.25,
+          "expectedDelay": -70.0,
+          "actualDelay": -100.12232971191406,
+          "actualRegion": "aligned",
+          "mappingAvailable": true,
+          "error": 30.122329711914062
+        },
+        {
+          "mediaTime": 84.25,
+          "expectedDelay": -70.0,
+          "actualDelay": -100.12232971191406,
+          "actualRegion": "aligned",
+          "mappingAvailable": true,
+          "error": 30.122329711914062
+        },
+        {
+          "mediaTime": 85.292,
+          "expectedDelay": -70.0,
+          "actualDelay": -100.12232971191406,
+          "actualRegion": "aligned",
+          "mappingAvailable": true,
+          "error": 30.122329711914062
+        },
+        {
+          "mediaTime": 86.333,
+          "expectedDelay": -70.0,
+          "actualDelay": -100.12232971191406,
+          "actualRegion": "aligned",
+          "mappingAvailable": true,
+          "error": 30.122329711914062
+        },
+        {
+          "mediaTime": 87.333,
+          "expectedDelay": -70.0,
+          "actualDelay": -100.12232971191406,
+          "actualRegion": "aligned",
+          "mappingAvailable": true,
+          "error": 30.122329711914062
+        },
+        {
+          "mediaTime": 88.375,
+          "expectedDelay": -70.0,
+          "actualDelay": -100.12232971191406,
+          "actualRegion": "aligned",
+          "mappingAvailable": true,
+          "error": 30.122329711914062
+        },
+        {
+          "mediaTime": 89.417,
+          "expectedDelay": -70.0,
+          "actualDelay": -100.12232971191406,
+          "actualRegion": "aligned",
+          "mappingAvailable": true,
+          "error": 30.122329711914062
+        },
+        {
+          "mediaTime": 90.417,
+          "expectedDelay": -70.0,
+          "actualDelay": -100.12232971191406,
+          "actualRegion": "aligned",
+          "mappingAvailable": true,
+          "error": 30.122329711914062
+        },
+        {
+          "mediaTime": 91.458,
+          "expectedDelay": -70.0,
+          "actualDelay": -100.12232971191406,
+          "actualRegion": "aligned",
+          "mappingAvailable": true,
+          "error": 30.122329711914062
+        },
+        {
+          "mediaTime": 92.5,
+          "expectedDelay": -70.0,
+          "actualDelay": -100.12232971191406,
+          "actualRegion": "aligned",
+          "mappingAvailable": true,
+          "error": 30.122329711914062
+        },
+        {
+          "mediaTime": 93.5,
+          "expectedDelay": -70.0,
+          "actualDelay": -100.12232971191406,
+          "actualRegion": "aligned",
+          "mappingAvailable": true,
+          "error": 30.122329711914062
+        },
+        {
+          "mediaTime": 94.542,
+          "expectedDelay": -70.0,
+          "actualDelay": -100.12232971191406,
+          "actualRegion": "aligned",
+          "mappingAvailable": true,
+          "error": 30.122329711914062
+        },
+        {
+          "mediaTime": 95.583,
+          "expectedDelay": -70.0,
+          "actualDelay": -100.12232971191406,
+          "actualRegion": "aligned",
+          "mappingAvailable": true,
+          "error": 30.122329711914062
+        },
+        {
+          "mediaTime": 96.625,
+          "expectedDelay": -70.0,
+          "actualDelay": -100.12232971191406,
+          "actualRegion": "aligned",
+          "mappingAvailable": true,
+          "error": 30.122329711914062
+        },
+        {
+          "mediaTime": 97.625,
+          "expectedDelay": -70.0,
+          "actualDelay": -100.12232971191406,
+          "actualRegion": "aligned",
+          "mappingAvailable": true,
+          "error": 30.122329711914062
+        },
+        {
+          "mediaTime": 98.667,
+          "expectedDelay": -70.0,
+          "actualDelay": -100.12232971191406,
+          "actualRegion": "aligned",
+          "mappingAvailable": true,
+          "error": 30.122329711914062
+        },
+        {
+          "mediaTime": 99.667,
+          "expectedDelay": -70.0,
+          "actualDelay": -100.12232971191406,
+          "actualRegion": "aligned",
+          "mappingAvailable": true,
+          "error": 30.122329711914062
+        },
+        {
+          "mediaTime": 100.708,
+          "expectedDelay": -70.0,
+          "actualDelay": -100.12232971191406,
+          "actualRegion": "aligned",
+          "mappingAvailable": true,
+          "error": 30.122329711914062
+        },
+        {
+          "mediaTime": 101.75,
+          "expectedDelay": -70.0,
+          "actualDelay": -100.12232971191406,
+          "actualRegion": "aligned",
+          "mappingAvailable": true,
+          "error": 30.122329711914062
+        },
+        {
+          "mediaTime": 102.792,
+          "expectedDelay": -70.0,
+          "actualDelay": -100.12232971191406,
+          "actualRegion": "aligned",
+          "mappingAvailable": true,
+          "error": 30.122329711914062
+        },
+        {
+          "mediaTime": 103.833,
+          "expectedDelay": -70.0,
+          "actualDelay": -100.12232971191406,
+          "actualRegion": "aligned",
+          "mappingAvailable": true,
+          "error": 30.122329711914062
+        },
+        {
+          "mediaTime": 104.833,
+          "expectedDelay": -70.0,
+          "actualDelay": -100.12232971191406,
+          "actualRegion": "aligned",
+          "mappingAvailable": true,
+          "error": 30.122329711914062
+        }
+      ],
+      "cueBoundaryRenderingValidated": false,
+      "backwardSeekValidated": false,
+      "satisfiesSceneDomainChecks": false,
+      "probeSha256": "0bda972b78c85a4c658b332204bcaa7c3a771eefbe7995ab5aa831bda0fd9bed",
+      "expectedTimelineSha256": "04015ca685a65b721ef394b12ed034e8697c72b15cd8f8f99ec6b96bd4b147cd"
+    }
+  },
+  "normalizationDiagnosis": {
+    "sha256": "9f6f93a586e1c786da24ce12bd5fc97d618e5435dbd5ed52f0d290c6c05f0ff5",
+    "data": {
+      "start": 68.1136875,
+      "end": 83.1136875,
+      "inferenceSeconds": 0.692744333,
+      "nativeStatus": 0,
+      "normalization": {
+        "segments": [
+          {
+            "wholeWords": 0,
+            "spanWords": 3,
+            "mismatch": true,
+            "wholeEmpty": true,
+            "tokenTextEqualsSegment": true,
+            "squareAnnotations": 1,
+            "parenthesisAnnotations": 0,
+            "musicCharacters": false,
+            "uppercaseSpeaker": false
+          },
+          {
+            "wholeWords": 0,
+            "spanWords": 4,
+            "mismatch": true,
+            "wholeEmpty": true,
+            "tokenTextEqualsSegment": true,
+            "squareAnnotations": 1,
+            "parenthesisAnnotations": 0,
+            "musicCharacters": false,
+            "uppercaseSpeaker": false
+          },
+          {
+            "wholeWords": 7,
+            "spanWords": 7,
+            "mismatch": false,
+            "wholeEmpty": false,
+            "tokenTextEqualsSegment": true,
+            "squareAnnotations": 0,
+            "parenthesisAnnotations": 0,
+            "musicCharacters": false,
+            "uppercaseSpeaker": false
+          }
+        ]
+      },
+      "pcmOrTranscriptPersisted": false
+    }
+  },
+  "firstActiveRequest": {
+    "requestToObservedResultSeconds": 14.254,
+    "reportedInferenceSeconds": 0.495034291,
+    "startupComponentsNotIsolated": true
+  },
+  "conclusions": [
+    "With the unchanged six-word, 0.7 lexical confidence, speech support and repeat-timing gates, small.en q5_1 produces reliable inserted-dialogue runs 2/6/7 on both CPU and Metal-preferred workers. The earlier native-converted base.en runs were 4/3/2.",
+    "Aligned-dialogue controls still match the SRT. Quiet controls never qualify as repeated absent speech; one quiet result is rejected for invalid timestamps on both profiles.",
+    "CPU p95 4.142 s exceeds the frozen 3 s budget. Reported Metal-preferred inference p95 is 0.607 s, but the first active request takes 14.254 s including unisolated setup/polling. Backend preference does not independently prove physical GPU use.",
+    "The full active late-insertion replay still learns only one region and fails recovery. A recognized window contains two ignored multiword annotation segments whose split normalization discards temporal alignment; subsequent timing checks remain relevant."
+  ],
+  "limitations": [
+    "Consumed development audio only. The overlapping word comparison uses diagnostic ASCII normalization; it is not a production absence learner.",
+    "No model manager, settings, manifest model list, distributed native runtime or installed app is changed.",
+    "No small-model fallback fault, Windows GPU, full application playback-impact or independent acoustic-onset validation is claimed."
+  ],
+  "productionModelChanged": false,
+  "acceptedForProduction": false,
+  "fullProductAcceptance": false,
+  "pcmOrTranscriptPersisted": false
+}

@@ -24,6 +24,7 @@ on:
       - 'scripts/livesync/evaluate_scene_probe.py'
       - 'scripts/livesync/test_scene_fixture.py'
       - 'test/fixtures/livesync/scene-edits-development.json'
+      - 'test/fixtures/livesync/boundary-development-matrix.json'
       - 'scripts/livesync/probe_pcm.py'
       - 'scripts/livesync/test_pcm_probe.py'
       - 'scripts/livesync/upstream_sync.py'

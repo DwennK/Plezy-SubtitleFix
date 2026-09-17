@@ -1,0 +1,132 @@
+{
+  "schemaVersion": 1,
+  "id": "boundary-development-matrix-v1",
+  "role": "development-regression-only",
+  "mainSource": {
+    "id": "sintel-stereo-en",
+    "media": {
+      "name": "sintel-master-st.flac",
+      "url": "https://media.xiph.org/sintel/sintel-master-st.flac",
+      "bytes": 71533398,
+      "sha256": "49b279400b6fcad23f6a8862ae65a2a22f21f249cd7576b09991880da221412b",
+      "checksumSource": "https://media.xiph.org/sintel/SHA256SUMS.txt"
+    },
+    "subtitles": {
+      "name": "sintel_en.srt",
+      "url": "https://media.xiph.org/sintel/subtitles/sintel_en.srt",
+      "bytes": 1514,
+      "sha256": "4ed7e1f1bc5ff69fe33606960e4c048ba6766237bf33b132fef76e1a92cb64b2"
+    },
+    "attribution": "Copyright (c) Blender Foundation | durian.blender.org",
+    "license": "CC-BY-3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/3.0/",
+    "partitionSeconds": [
+      100,
+      175
+    ]
+  },
+  "insertSource": {
+    "id": "elephants-dream-commons-en",
+    "media": {
+      "name": "Elephants_Dream.ogv",
+      "url": "https://upload.wikimedia.org/wikipedia/commons/d/d5/Elephants_Dream.ogv",
+      "sourcePage": "https://commons.wikimedia.org/wiki/File:Elephants_Dream.ogv",
+      "publishedAt": "2009-12-24T02:08:36Z",
+      "bytes": 35614993,
+      "sha256": "a4b7c7888645d54255a2eeb0d509146b83761b1ac03dd0eff546994832fa3a18",
+      "publishedSha1": "9a6272dc01919e2b891f0dadb8cbabf9a61d23ad",
+      "license": "CC-BY-SA-2.5",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.5/",
+      "attribution": "(c) copyright 2006, Blender Foundation / Netherlands Media Art Institute / www.elephantsdream.org; Commons Ogg encoding by Mdale"
+    },
+    "partitionSeconds": [
+      14,
+      44
+    ]
+  },
+  "sampleRate": 48000,
+  "channels": 2,
+  "sampleFormat": "signed-16-bit-little-endian",
+  "cases": {
+    "insert-earlier": {
+      "kind": "insert",
+      "atSubtitleSeconds": 122.5
+    },
+    "insert-later": {
+      "kind": "insert",
+      "atSubtitleSeconds": 148.75
+    },
+    "insert-fade-through-silence": {
+      "kind": "insert",
+      "atSubtitleSeconds": 136.25,
+      "gainEnvelope": [
+        [
+          0,
+          1
+        ],
+        [
+          36.15,
+          1
+        ],
+        [
+          36.25,
+          0
+        ],
+        [
+          36.35,
+          1
+        ],
+        [
+          66.15,
+          1
+        ],
+        [
+          66.25,
+          0
+        ],
+        [
+          66.35,
+          1
+        ],
+        [
+          105,
+          1
+        ]
+      ]
+    },
+    "continuous-paired-gain": {
+      "kind": "continuous",
+      "gainEnvelope": [
+        [
+          0,
+          1
+        ],
+        [
+          23.999979166666666,
+          1
+        ],
+        [
+          24,
+          0.25
+        ],
+        [
+          53.99997916666667,
+          0.25
+        ],
+        [
+          54,
+          1
+        ],
+        [
+          75,
+          1
+        ]
+      ]
+    }
+  },
+  "reference": "Exact sample-domain transforms with the full unchanged original SRT. The fade case uses 100 ms fade-out/fade-in around each nominal edit, not an overlapping crossfade. The continuous control changes gain without inserting or removing audio.",
+  "heldoutStatus": "All used partitions were previously consumed for development. Elephants Dream 360-540 s remains untouched.",
+  "sourceMaterialDecodedOnlyForFixturePreparation": true,
+  "inferencePerformed": false,
+  "evaluation": "Freeze the four cases before recognition. Keep the existing matcher, cadence and three acoustic feature rankings unchanged; assess missing proposals as unavailable, never fabricate gap confirmation. This is additional development evidence, not held-out acceptance."
+}

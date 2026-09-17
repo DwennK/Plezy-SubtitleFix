@@ -5,10 +5,13 @@ This offline test helper does not run ASR. Production never uses it to fetch or
 decode another stream. Each output retains the complete, original Sintel SRT.
 """
 import argparse
+import array
 import json
+import math
 import re
 import shutil
 import subprocess
+import sys
 import tempfile
 import wave
 from pathlib import Path
@@ -53,12 +56,17 @@ def edit_plan(manifest, case):
         segments = [(start, cut_start, -start), (cut_end, end, -start - duration)]
         gap = {'kind': 'subtitleOnly', 'start': cut_start, 'end': cut_end}
         boundaries = [cut_start, cut_end]
+    elif edit['kind'] == 'continuous':
+        copies = [('main', 0, frames(end - start, rate))]
+        segments = [(start, end, -start)]
+        gap = None
+        boundaries = []
     else:
         raise ValueError('Unknown edit')
     return copies, {
         'segments': [{'subtitleStart': a, 'subtitleEnd': b, 'slope': 1, 'offset': offset}
                      for a, b, offset in segments],
-        'gaps': [gap], 'sourceBoundaries': boundaries,
+        'gaps': [] if gap is None else [gap], 'sourceBoundaries': boundaries,
         'expectedFrames': sum(b - a for _, a, b in copies),
     }
 
@@ -71,6 +79,35 @@ def edit_pcm(buffers, copies, frame_bytes):
             raise ValueError('Invalid source sample range')
         chunks.append(data[start * frame_bytes:end * frame_bytes])
     return b''.join(chunks)
+
+
+def apply_envelope(data, points, rate, channels):
+    """Apply a declared sample-domain gain without moving any source sample."""
+    if not points:
+        return data
+    if channels <= 0 or len(data) % (channels * 2):
+        raise ValueError('Invalid interleaved PCM')
+    knots = [(frames(time, rate), gain) for time, gain in points]
+    count = len(data) // (channels * 2)
+    if (len(knots) < 2 or knots[0][0] != 0 or knots[-1][0] != count
+            or any(not math.isfinite(gain) or not 0 <= gain <= 1 for _, gain in knots)
+            or any(a[0] >= b[0] for a, b in zip(knots, knots[1:]))):
+        raise ValueError('Envelope must cover PCM once with increasing finite knots')
+    samples = array.array('h')
+    samples.frombytes(data)
+    if sys.byteorder != 'little':
+        samples.byteswap()
+    for (start, left), (end, right) in zip(knots, knots[1:]):
+        if left == right == 1:
+            continue
+        for frame in range(start, end):
+            gain = left + (right - left) * (frame - start) / (end - start)
+            for channel in range(channels):
+                i = frame * channels + channel
+                samples[i] = round(samples[i] * gain)
+    if sys.byteorder != 'little':
+        samples.byteswap()
+    return samples.tobytes()
 
 
 def cue_projection(srt, truth):
@@ -123,11 +160,15 @@ def main():
     parser.add_argument('--sintel-source', type=Path, required=True)
     parser.add_argument('--elephants-source', type=Path, required=True)
     parser.add_argument('--output', type=Path, required=True)
-    parser.add_argument('--case', choices=['added-scene', 'removed-scene', 'added-scene-crossing-cue'], required=True)
+    parser.add_argument('--case', required=True)
+    parser.add_argument('--manifest', type=Path,
+                        default=ROOT / 'test/fixtures/livesync/scene-edits-development.json')
     parser.add_argument('--video', action='store_true', help='Also mux a neutral video for native player probes')
     args = parser.parse_args()
-    manifest_path = ROOT / 'test/fixtures/livesync/scene-edits-development.json'
+    manifest_path = args.manifest
     manifest = json.loads(manifest_path.read_text())
+    if args.case not in manifest['cases']:
+        parser.error('Case is not declared in the fixture manifest')
     main_source, insert_source = manifest['mainSource'], manifest['insertSource']
     main_path = args.sintel_source / main_source['media']['name']
     srt_path = args.sintel_source / main_source['subtitles']['name']
@@ -147,6 +188,7 @@ def main():
         if has_insert:
             buffers['insert'] = decode(insert_path, insert_source['partitionSeconds'], scratch / 'insert.wav', rate, channels)
         data = edit_pcm(buffers, copies, channels * 2)
+        data = apply_envelope(data, manifest['cases'][args.case].get('gainEnvelope'), rate, channels)
     assert len(data) == truth['expectedFrames'] * channels * 2
     args.output.mkdir(parents=True, exist_ok=True)
     with wave.open(str(args.output / 'fixture.wav'), 'wb') as stream:
@@ -158,6 +200,9 @@ def main():
     notices = [main_source['attribution'] + '\n' + main_source['licenseUrl']
                + '\nAudio changes: extract Sintel 100-175 s; stereo 48 kHz PCM; sample edits described in provenance. '
                + 'Subtitle changes: none; complete original bytes retained.']
+    if manifest['cases'][args.case].get('gainEnvelope'):
+        notices.append('Additional audio changes: the sample-domain gain envelope declared in '
+                       'fixture-provenance.json; sample timing and subtitle bytes are unchanged.')
     if has_insert:
         extra = insert_source['media']
         notices.append(extra['attribution'] + '\n' + extra['licenseUrl'] + '\n' + extra['sourcePage']

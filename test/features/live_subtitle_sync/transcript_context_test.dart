@@ -13,10 +13,18 @@ NativeTranscript window(
   double speech, {
   int generation = 1,
   int continuity = 2,
+  NativeSpeechSupport support = NativeSpeechSupport.unknown,
 }) => NativeTranscript(generation, continuity, start, end, 0.1, [
   NativeTranscriptSegment(phrase, speech, speech + 2, [
     for (var i = 0; i < phrase.split(' ').length; i++)
-      NativeTranscriptToken(' ${phrase.split(' ')[i]}', speech + i * 0.4, speech + i * 0.4 + 0.3, 0.95, true),
+      NativeTranscriptToken(
+        ' ${phrase.split(' ')[i]}',
+        speech + i * 0.4,
+        speech + i * 0.4 + 0.3,
+        0.95,
+        true,
+        speechSupport: support,
+      ),
   ]),
 ]);
 
@@ -34,6 +42,63 @@ void main() {
         ),
     ]),
   );
+
+  test('a whole-window match retains timing beside ignored multiword annotations', () {
+    final source = NativeTranscript(1, 2, 0, 15, 0.1, [
+      NativeTranscriptSegment('[distant heavy breathing]', 0, 1, [
+        for (final piece in ['[distant', 'heavy', 'breathing]']) NativeTranscriptToken(' $piece', 0, 0, 0.01, false),
+      ]),
+      ...window(0, 15, 'Carry the lantern', 2).segments,
+      ...window(0, 15, 'Cross the bridge', 7).segments,
+    ]);
+    final evidence = matchTranscriptEvidence(source, index, diagnostics: true);
+    expect(evidence.match.status, TranscriptMatchStatus.matched);
+    expect(evidence.segmented, isFalse);
+    expect(evidence.windowCount, 1);
+    expect(evidence.anchors.map((a) => a.mediaTime), [2, 7]);
+    expect(evidence.anchorRejections, isEmpty);
+  });
+
+  test('ignored sound segments do not split independent dialogue context', () {
+    final subtitles = SubtitleIndex(
+      ParsedSubtitles(SubtitleEncoding.utf8, [
+        SubtitleCue(
+          ordinal: 0,
+          sourceId: null,
+          start: const Duration(seconds: 2),
+          end: const Duration(seconds: 4),
+          text: 'Carry the heavy lantern',
+          timingSuffix: '',
+        ),
+        SubtitleCue(
+          ordinal: 1,
+          sourceId: null,
+          start: const Duration(seconds: 10),
+          end: const Duration(seconds: 13),
+          text: 'Cross the bright bridge before sunrise',
+          timingSuffix: '',
+        ),
+      ]),
+    );
+    final earlier = window(90, 96, 'Carry the heavy lantern', 92);
+    final current = NativeTranscript(1, 2, 96.2, 115, 0.1, [
+      ...window(96.2, 115, '[music]', 97).segments,
+      ...window(96.2, 115, '[noise]', 98).segments,
+      ...window(96.2, 115, '(sighs)', 99).segments,
+      ...window(96.2, 115, 'Cross the wide bridge before sunrise', 100).segments,
+      ...window(96.2, 115, 'Astronauts explore distant planets orbiting unfamiliar stars tonight', 106).segments,
+    ]);
+    // The six-word recognition with one substitution is not enough alone.
+    expect(matchTranscriptEvidence(current, subtitles).match.status, isNot(TranscriptMatchStatus.matched));
+    final context = TranscriptContext()..add(earlier);
+    final evidence = matchTranscriptEvidence(current, subtitles, context: context.add(current));
+    expect(evidence.windowCount, 2);
+    expect(evidence.segmented, isTrue);
+    expect(evidence.match.status, TranscriptMatchStatus.matched);
+    expect(evidence.anchors.map((a) => a.cue), [0, 1]);
+    expect(evidence.anchors.map((a) => a.mediaTime), [92, 100]);
+    expect(const TimelineFitter().fit(evidence.anchors)?.offset, 90);
+  });
 
   test('two short adjacent windows identify a passage without lowering match thresholds', () {
     final context = TranscriptContext();
@@ -55,6 +120,20 @@ void main() {
     final evidence = matchTranscriptEvidence(second, index, context: context.add(second));
     expect(evidence.match.status, TranscriptMatchStatus.matched);
     expect(evidence.anchors.map((anchor) => anchor.cue), [0]);
+    expect(const TimelineFitter().fit(evidence.anchors)?.offset, isNull);
+  });
+
+  test('context retains speech rejection and requests retry without diagnostics', () {
+    final first = window(90, 96, 'Carry the lantern', 92, support: NativeSpeechSupport.unsupported);
+    final second = window(96.2, 102, 'Cross the bridge', 97, support: NativeSpeechSupport.supported);
+    final context = TranscriptContext()..add(first);
+    final combined = context.add(second)!;
+    expect(combined.segments.first.tokens.first.speechSupport, NativeSpeechSupport.unsupported);
+    final evidence = matchTranscriptEvidence(second, index, context: combined);
+    expect(evidence.match.status, TranscriptMatchStatus.matched);
+    expect(evidence.anchors.map((a) => a.cue), [1]);
+    expect(evidence.speechTimingRejected, isTrue);
+    expect(evidence.anchorRejections, isEmpty);
     expect(const TimelineFitter().fit(evidence.anchors)?.offset, isNull);
   });
 

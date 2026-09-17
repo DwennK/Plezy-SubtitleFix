@@ -18,12 +18,13 @@ class SubtitleAnchor {
 }
 
 class _TimedWord {
-  const _TimedWord(this.text, this.start, this.end, this.score, this.valid);
+  const _TimedWord(this.text, this.start, this.end, this.score, this.valid, this.speechUnsupported);
   final String text;
   final double start;
   final double end;
   final double score;
   final bool valid;
+  final bool speechUnsupported;
 }
 
 /// Convert token pieces into words without assigning uniform cue word timing.
@@ -31,6 +32,11 @@ class _TimedWord {
 /// must establish accuracy before treating these as precise timing evidence.
 class TemporalAligner {
   const TemporalAligner();
+
+  // Punctuation has no spoken onset. Keep every lexical subword (including
+  // combining marks and the normalizer's spoken "and" for '&') under the
+  // existing confidence/timestamp gates; discard only nonlexical pieces.
+  static final _lexicalPiece = RegExp(r'[\p{L}\p{M}\p{N}&]', unicode: true);
 
   List<SubtitleAnchor> anchors(
     NativeTranscript transcript,
@@ -46,6 +52,12 @@ class TemporalAligner {
     const normalizer = DialogueNormalizer();
     for (final segment in transcript.segments) {
       final text = segment.tokens.map((token) => token.text).join();
+      final expectedWords = normalizer.words(segment.text);
+      // A multiword annotation must be normalized as a whole: splitting
+      // "[heavy breathing]" first would invent two spoken words and discard
+      // every neighboring anchor. Require agreement with the token text too,
+      // so an ignored segment cannot hide inconsistent lexical content.
+      if (expectedWords.isEmpty && normalizer.words(text).isEmpty) continue;
       final starts = <int>[];
       var offset = 0;
       for (final token in segment.tokens) {
@@ -56,7 +68,9 @@ class TemporalAligner {
       for (final span in RegExp(r'\S+').allMatches(text)) {
         final contributors = <NativeTranscriptToken>[];
         for (var i = 0; i < segment.tokens.length; i++) {
-          if (starts[i] < span.end && starts[i] + segment.tokens[i].text.length > span.start) {
+          if (starts[i] < span.end &&
+              starts[i] + segment.tokens[i].text.length > span.start &&
+              _lexicalPiece.hasMatch(segment.tokens[i].text)) {
             contributors.add(segment.tokens[i]);
           }
         }
@@ -65,13 +79,16 @@ class TemporalAligner {
         final start = contributors.map((token) => token.start).reduce(math.min);
         final end = contributors.map((token) => token.end).reduce(math.max);
         final score = contributors.map((token) => token.score).reduce(math.min);
+        final speechUnsupported = contributors.any(
+          (token) => token.start == start && token.speechSupport == NativeSpeechSupport.unsupported,
+        );
         for (final word in normalizer.words(span[0]!)) {
-          segmentWords.add(_TimedWord(word, start, end, score, valid && end > start));
+          segmentWords.add(_TimedWord(word, start, end, score, valid && end > start, speechUnsupported));
         }
       }
       // Normalization can remove entire sound/music lines. Do not use an index
       // if independently normalizing the token spans changed word correspondence.
-      if (segmentWords.map((word) => word.text).join(' ') != normalizer.words(segment.text).join(' ')) {
+      if (segmentWords.map((word) => word.text).join(' ') != expectedWords.join(' ')) {
         rejected('normalizationMismatch');
         return [];
       }
@@ -149,6 +166,12 @@ class TemporalAligner {
           rejected(failure ?? 'phraseNotMatched');
           continue;
         }
+      }
+      // Retain recognized text; reject only its unsupported cue-start timing.
+      // Never snap an anchor to a voice edge or alter the recognition gates.
+      if (beginning.speechUnsupported) {
+        rejected('beginningUnsupportedSpeech');
+        continue;
       }
       result.add(
         SubtitleAnchor(

@@ -2,6 +2,88 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:plezy/features/live_subtitle_sync/analysis_cadence.dart';
 
 void main() {
+  test('timing mismatch never postpones initial confirmation or native recovery', () {
+    final cadence = AnalysisCadence()..evidence(recognizedPassage: true, learned: true);
+    int delay({bool mismatch = false, bool established = false, bool? voice}) =>
+        cadence.intervalMs(synced: true, established: established, voicePresent: voice, timingMismatch: mismatch);
+    cadence.submitted();
+    expect(delay(voice: true), 12000);
+    expect(delay(mismatch: true, voice: true), 12000);
+    // An initial estimate still needs its bounded confirmation phase when
+    // subtitles predict speech but the activity check reports quiet audio.
+    expect(delay(mismatch: true, voice: false), 12000);
+    cadence.rejectedInference();
+    expect(delay(established: true, voice: true), 12000);
+    expect(delay(mismatch: true, established: true, voice: true), 12000);
+    cadence.evidence(recognizedPassage: true, learned: true);
+    for (var i = 0; i < 10; i++) {
+      cadence.submitted();
+      cadence.evidence(recognizedPassage: true, learned: true);
+    }
+    expect(delay(mismatch: true, voice: true), 30000);
+    expect(delay(established: true, voice: true), 90000);
+    expect(delay(mismatch: true, established: true, voice: true), 30000);
+    expect(delay(established: true, voice: false), 90000);
+    expect(delay(mismatch: true, established: true, voice: false), 30000);
+  });
+
+  test('a fresh accepted anchor rearms speech retry only beyond the previously analyzed audio', () {
+    final cadence = AnalysisCadence();
+    void rejected(double end, double? anchor) => cadence.evidence(
+      recognizedPassage: true,
+      learned: false,
+      speechTimingRejected: true,
+      windowEnd: end,
+      latestAnchorMediaTime: anchor,
+    );
+    int delay() => cadence.intervalMs(synced: true, established: true);
+    rejected(45, 29);
+    expect(delay(), 0);
+    cadence.submitted();
+    // The short result itself cannot start another immediate retry, even if
+    // its tiny new tail contains a later cue. Extend the covered-audio bound.
+    rejected(46, 45.5);
+    expect(delay(), isNot(0));
+    for (final anchor in <double?>[null, 29, 46, 83, double.nan]) {
+      rejected(82, anchor);
+      expect(delay(), isNot(0));
+    }
+    rejected(82, 68);
+    expect(delay(), 0);
+    cadence.submitted();
+    for (var i = 0; i < 10; i++) {
+      rejected(83 + i.toDouble(), 78);
+      expect(delay(), isNot(0));
+      cadence.submitted();
+    }
+    rejected(95, 84);
+    expect(delay(), 0);
+    cadence.submitted();
+    cadence.clear();
+    rejected(20, 12);
+    expect(delay(), 0);
+  });
+
+  test('a speech-rejected timestamp permits only one short retry while an old mapping remains active', () {
+    final cadence = AnalysisCadence()..evidence(recognizedPassage: true, learned: true);
+    cadence.submitted();
+    cadence.evidence(recognizedPassage: true, learned: false, speechTimingRejected: true);
+    expect(cadence.windowSeconds, 8);
+    expect(cadence.intervalMs(synced: true, established: true, voicePresent: false), 0);
+    cadence.submitted();
+    for (var i = 0; i < 5; i++) {
+      cadence.evidence(recognizedPassage: true, learned: false, speechTimingRejected: true);
+      expect(cadence.windowSeconds, 15);
+      expect(cadence.intervalMs(synced: true, established: true), isNot(0));
+      cadence.submitted();
+    }
+    cadence.evidence(recognizedPassage: true, learned: true, speechTimingRejected: true);
+    expect(cadence.windowSeconds, 12);
+    expect(cadence.intervalMs(synced: true, established: true), isNot(0));
+    cadence.evidence(recognizedPassage: true, learned: false, speechTimingRejected: true);
+    expect(cadence.intervalMs(synced: true, established: true), 0);
+  });
+
   test('continuous music-like activity cannot force fast transcription forever', () {
     final cadence = AnalysisCadence();
     for (var i = 0; i < 5; i++) {

@@ -1,0 +1,146 @@
+{
+  "schema": 1,
+  "kind": "unquantized-model-repeated-absence-control",
+  "matcherProductionSource": "a072170ade52285bd5d69e7802ac2bc7ecf4cf38",
+  "documentationBaseSha": "eb86c5043cc8d1cd79c49fe6c0543a3ad90361d8",
+  "model": "base.en",
+  "modelSha256": "a03779c86df3323075f5e796cb2ce5029f00ec8869eee3fdfb897afe36c6d002",
+  "fixtureSha256": "8c8a1be4f19c666fe3509cf38e704f27f0134302363b775a378d8b98faf27098",
+  "frozenObservationCriteria": {
+    "windowSeconds": 8,
+    "shiftSeconds": 2,
+    "minimumTokenScore": 0.7,
+    "maximumTimingDifferenceSeconds": 0.75,
+    "minimumContiguousReliableWords": 6,
+    "minimumUniqueWords": 3,
+    "positiveSpeechSupportRequired": true
+  },
+  "reports": [
+    {
+      "case": "inserted-dialogue",
+      "start": 38.164375,
+      "end": 46.164375,
+      "quantizedMatch": "noCandidate",
+      "baseMatch": "noCandidate",
+      "quantizedReliableRun": null,
+      "baseReliableRun": null,
+      "baseRepeatedSpeechCandidate": false
+    },
+    {
+      "case": "inserted-dialogue",
+      "start": 40.164375,
+      "end": 48.164375,
+      "quantizedMatch": "noCandidate",
+      "baseMatch": "noCandidate",
+      "quantizedReliableRun": 4,
+      "baseReliableRun": 2,
+      "baseRepeatedSpeechCandidate": false
+    },
+    {
+      "case": "inserted-dialogue",
+      "start": 42.164375,
+      "end": 50.164375,
+      "quantizedMatch": "noCandidate",
+      "baseMatch": "noCandidate",
+      "quantizedReliableRun": 2,
+      "baseReliableRun": 2,
+      "baseRepeatedSpeechCandidate": false
+    },
+    {
+      "case": "inserted-dialogue",
+      "start": 44.164375,
+      "end": 52.164375,
+      "quantizedMatch": "noCandidate",
+      "baseMatch": "noCandidate",
+      "quantizedReliableRun": 2,
+      "baseReliableRun": 1,
+      "baseRepeatedSpeechCandidate": false
+    },
+    {
+      "case": "aligned-dialogue",
+      "start": 7.196375,
+      "end": 15.196375,
+      "quantizedMatch": "matched",
+      "baseMatch": "matched",
+      "quantizedReliableRun": null,
+      "baseReliableRun": null,
+      "baseRepeatedSpeechCandidate": false
+    },
+    {
+      "case": "aligned-dialogue",
+      "start": 9.196375,
+      "end": 17.196375,
+      "quantizedMatch": "matched",
+      "baseMatch": "matched",
+      "quantizedReliableRun": 3,
+      "baseReliableRun": 1,
+      "baseRepeatedSpeechCandidate": false
+    },
+    {
+      "case": "aligned-dialogue",
+      "start": 11.196375,
+      "end": 19.196375,
+      "quantizedMatch": "matched",
+      "baseMatch": "matched",
+      "quantizedReliableRun": 3,
+      "baseReliableRun": 3,
+      "baseRepeatedSpeechCandidate": false
+    },
+    {
+      "case": "aligned-dialogue",
+      "start": 13.196375,
+      "end": 21.196375,
+      "quantizedMatch": "matched",
+      "baseMatch": "matched",
+      "quantizedReliableRun": 3,
+      "baseReliableRun": 3,
+      "baseRepeatedSpeechCandidate": false
+    },
+    {
+      "case": "quiet-added-region",
+      "start": 52.0,
+      "end": 60.0,
+      "quantizedMatch": "insufficientDialogue",
+      "baseMatch": "insufficientDialogue",
+      "quantizedReliableRun": null,
+      "baseReliableRun": null,
+      "baseRepeatedSpeechCandidate": false
+    },
+    {
+      "case": "quiet-added-region",
+      "start": 54.0,
+      "end": 62.0,
+      "quantizedMatch": "insufficientDialogue",
+      "baseMatch": "insufficientDialogue",
+      "quantizedReliableRun": 0,
+      "baseReliableRun": 0,
+      "baseRepeatedSpeechCandidate": false
+    },
+    {
+      "case": "quiet-added-region",
+      "start": 56.0,
+      "end": 64.0,
+      "quantizedMatch": "insufficientDialogue",
+      "baseMatch": "insufficientDialogue",
+      "quantizedReliableRun": 0,
+      "baseReliableRun": 0,
+      "baseRepeatedSpeechCandidate": false
+    }
+  ],
+  "reportHashes": {
+    "quantized": "c1e854a327608d5bb9f5e42f471ba12de53a7479e9337684de89883ad8e5ed4f",
+    "base": "d5f7bc8c48baa4bc4bf986d6a3656acd8c2b10121c82340c669a2e48d5b0acdd"
+  },
+  "diagnosticScriptSha256": "4a388bd736abff33f99f0395cc5e333ae7c8dd219ba3546da843a04fb96bfae0",
+  "inferenceLibrarySha256": "366cb2ac8c34cc38a59ac5ae99ec57f8334af7c74b78aaef507b33badefeb3e6",
+  "conclusion": "Unquantized base.en does not make the fixed repeated-absence criterion usable. Inserted-dialogue reliable runs are 2,2,1 words versus 4,2,2 quantized; neither reaches six.",
+  "productionModelChanged": false,
+  "gapBoundariesLearned": false,
+  "heldOutCorpusConsumed": false,
+  "pcmOrTranscriptPersisted": false,
+  "fullProductAcceptance": false,
+  "limitations": [
+    "Consumed development windows, offline bounded re-decodes, diagnostic ASCII normalization.",
+    "Repeated views of the same phrase are correlated and cannot establish independent gap confirmation."
+  ]
+}
