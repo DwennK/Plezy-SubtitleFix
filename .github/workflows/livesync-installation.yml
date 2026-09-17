@@ -96,6 +96,18 @@ jobs:
           $run | ConvertTo-Json -Depth 20 | Set-Content build/livesync/installation/evidence/application-run.json
           gh run download $env:APP_RUN_ID --repo $env:GITHUB_REPOSITORY --name "livesync-windows-app-$env:APP_SOURCE_SHA-release" --dir build/livesync/installation/bundle
           if ($LASTEXITCODE -ne 0) { throw 'Exact release bundle download failed' }
+          gh run download $env:APP_RUN_ID --repo $env:GITHUB_REPOSITORY --name "livesync-windows-contracts-$env:APP_SOURCE_SHA-release" --dir build/livesync/installation/source-contracts
+          if ($LASTEXITCODE -ne 0) { throw 'Exact validation evidence download failed' }
+          $capture = Get-Content build/livesync/installation/source-contracts/renderer/capture-provenance.json -Raw | ConvertFrom-Json
+          $mode = if (Test-Path build/livesync/installation/source-contracts/renderer/native-fault-provenance.json) { 'vectored-diagnostic' } elseif ($capture.nativeDebugger) { 'external-debugger' } else { 'normal' }
+          @{
+            applicationRunId=$env:APP_RUN_ID
+            applicationSourceSha=$env:APP_SOURCE_SHA
+            sourceRendererMode=$mode
+            installationTrialScope='packaging, launch, coexistence and removal only'
+            fullProductAcceptance=$false
+            normalRendererStabilityEstablished=$false
+          } | ConvertTo-Json | Set-Content build/livesync/installation/evidence/source-validation-scope.json
       - name: Verify and package the preserved application
         shell: pwsh
         run: |
