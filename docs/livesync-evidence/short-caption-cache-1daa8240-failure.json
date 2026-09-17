@@ -1,0 +1,37 @@
+{
+  "source": "1daa82409eafd9772fc0e26e410d9e8fe4ea8600",
+  "runId": 35189716772,
+  "runUrl": "https://github.com/DwennK/Plezy-SubtitleFix/actions/runs/35189716772",
+  "conclusion": "failure",
+  "nativeContracts": {
+    "passed": 14,
+    "failed": 0
+  },
+  "controller": {
+    "case": "calibration",
+    "failure": "cache-not-restored",
+    "initialRestoredSegments": 1,
+    "initialRestoredGaps": 1,
+    "firstSyncedObservedMs": 25574,
+    "reactivationRestoredSegments": 0,
+    "intro90Executed": false
+  },
+  "diagnosis": "The third analysis accepted short-caption cue 4 using disjoint context. The cache decoder still required three words in the same cue and discarded the complete mapping. A short-caption cache round-trip regression fails before the fix and passes after it.",
+  "artifacts": {
+    "application": 10483918518,
+    "contracts": 10483769932
+  },
+  "evidenceSha256": {
+    "calibration-player-calibration.json": "a5370bc57abb75e4d6a3857acc4c28684ea0530a7617d54aba495abd4ca29609",
+    "controller-runner-calibration.json": "9945b9894004f254ef28e809d33435b9cbd0a33e457313c8b4e9127f06a8893b",
+    "native-contracts.json": "f8d21a915a01f1b43ddaf2050451393eb57ea32d6aa7b7244c61f6113b06be46"
+  },
+  "fixValidation": {
+    "targetedTestsPassed": 24,
+    "liveSyncTestsPassed": 189,
+    "skipped": 1,
+    "nativeRerunPending": true
+  },
+  "accuracyAccepted": false,
+  "mentalistFailureResolved": false
+}

@@ -37,7 +37,9 @@ class TemporalAligner {
   /// Choose disjoint evidence from the full SRT, before seeing recognition,
   /// so overlapping windows cannot count the same words as independent proof.
   /// Reserve existing long-cue evidence first, including its five-word retry.
-  Set<int> _shortCueBeginnings(SubtitleIndex index) {
+  /// Cache restoration uses this same selection to reconstruct phrase identity
+  /// without retaining dialogue or accepting overlapping evidence.
+  Set<int> shortCueContextStarts(SubtitleIndex index) {
     final starts = <int>[
       for (var i = 0; i < index.words.length; i++)
         if (index.words[i].wordInCue == 0) i,
@@ -137,7 +139,7 @@ class TemporalAligner {
       }
     }
     final result = <SubtitleAnchor>[];
-    final shortCueBeginnings = _shortCueBeginnings(index);
+    final shortCueBeginnings = shortCueContextStarts(index);
     for (final pair in passage.words) {
       final source = index.words[pair.subtitleWord];
       if (source.wordInCue != 0) continue;
