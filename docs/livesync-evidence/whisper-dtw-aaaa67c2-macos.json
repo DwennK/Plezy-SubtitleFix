@@ -1,0 +1,129 @@
+{
+  "sourceSha": "aaaa67c239b507db55c598588f3824a9635b43ac",
+  "run": 35183945258,
+  "archiveSha256": "47ad2f9c68bd2ad4146388acbdbde2ad1bb8718f04acb6ec79a0bbb9e424aa32",
+  "executableSha256": "018b88ddd34c4da5151591dc3c4599512808d68598345e89d2f627da5c5fdaaf",
+  "identity": {
+    "CFBundleIdentifier": "com.dwennk.plezy.livesync",
+    "CFBundleShortVersionString": "2.20.0",
+    "CFBundleVersion": "150"
+  },
+  "codesignDeepStrict": true,
+  "allBundledChecksumsPassed": true,
+  "nativeSourceInputsMatch": true,
+  "runtime": {
+    "source": {
+      "inputs": {
+        "schema": 1,
+        "target": "macos-arm64",
+        "profile": "portable-cpu",
+        "captureAbi": 1,
+        "inferenceAbi": 2,
+        "speechDetectorSha256": "2aa269b785eeb53a82983a20501ddf7c1d9c48e33ab63a41391ac6c9f7fb6987",
+        "whisperRevision": "927cfce34f31707e17f2bff35c349632fb9e2c3a",
+        "mpvRevision": "0bdf5a7963a7b8338dd28f056f34e22d14edfdd8",
+        "mpvHeaderSha256": "3c073236a09cb456c6e80587d5523c8771c32fb22ca014e0f99cc3d43905b75c",
+        "sourceSha256": "36a36d23ce61493a6ece4c8f11c99fe61df1d30f1ffb38caacaec2215a06506f"
+      },
+      "files": {
+        "liblivesync_capture_bridge.dylib": "9f583eca42988827add88a6858b7174c515c5ccb33d59622cc22864fc5d43d3d",
+        "liblivesync_inference_bridge.dylib": "de38097440ed448cfd1382a6d3a5920adf4a4c46ee0dad6d1b69680748255746",
+        "whisper-ggml-LICENSE": "94f29bbed6a22c35b992c5c6ebf0e7c92f13b836b90f36f461c9cf2f0f1d010d",
+        "SILERO-LICENSE": "2e63e9a38b6e8fc0c7bc37ce174caca1862870856c6daf5697cfb785e925520b"
+      },
+      "cmakeVersion": "cmake version 4.4.3",
+      "configureArguments": [
+        "-DCMAKE_BUILD_TYPE=Release",
+        "-DGGML_METAL=OFF",
+        "-DGGML_VULKAN=OFF",
+        "-DGGML_CUDA=OFF",
+        "-DGGML_BLAS=OFF",
+        "-DGGML_OPENMP=OFF",
+        "-DLIVESYNC_CPU_PROFILE=portable",
+        "-DLIVESYNC_WHISPER_SOURCE=/Users/runner/work/Plezy-SubtitleFix/Plezy-SubtitleFix/build/livesync/whisper-source",
+        "-DLIVESYNC_MPV_INCLUDE=/Users/runner/work/Plezy-SubtitleFix/Plezy-SubtitleFix/macos/LiveSyncMPV/Artifacts/Libmpv.xcframework/macos-arm64_x86_64/Libmpv.framework/Headers",
+        "-DLIVESYNC_SPEECH_MODEL=/Users/runner/work/Plezy-SubtitleFix/Plezy-SubtitleFix/build/livesync/models/ggml-silero-v6.2.0.bin",
+        "-DCMAKE_OSX_ARCHITECTURES=arm64",
+        "-DCMAKE_OSX_DEPLOYMENT_TARGET=11.0"
+      ],
+      "acceleratedConfigureArguments": null
+    },
+    "bundledSha256": {
+      "liblivesync_capture_bridge.dylib": "05e9f053adf7197c191c566f9c63173d05fce282f140e09787d2394fa59f26aa",
+      "liblivesync_inference_bridge.dylib": "4a6380b0b5492e6cd3850b69102c5a6655abb90da747e3bbc60076f1e111a0c9",
+      "whisper-ggml-LICENSE": "94f29bbed6a22c35b992c5c6ebf0e7c92f13b836b90f36f461c9cf2f0f1d010d",
+      "SILERO-LICENSE": "2e63e9a38b6e8fc0c7bc37ce174caca1862870856c6daf5697cfb785e925520b"
+    }
+  },
+  "installed": true,
+  "launched": false,
+  "appArtifact": 10481119970,
+  "contractsArtifact": 10482510269,
+  "upstreamCheck": {
+    "checkedAt": "2026-09-17T05:26:30.183881+00:00",
+    "latestSha": "efbfd01ac3755395c13d8fd6acb60f7a115957d4",
+    "integratedSha": "efbfd01ac3755395c13d8fd6acb60f7a115957d4",
+    "matches": true
+  },
+  "nativeContractsPassed": 14,
+  "controllerCases": {
+    "calibration": {
+      "acquisitionMs": 24570,
+      "absoluteOffsetError": 0.2189999999999941,
+      "cacheRestoreMs": 750,
+      "wrongCachedGapRecoveryValidated": true,
+      "knownRegionRestoredAfterSeek": true,
+      "unknownSeekClearsAutomaticOnly": true,
+      "audioDelayCompositionAndPreservation": true,
+      "manualDelayDuringAndAfter": true,
+      "tapDisabledOnClose": true,
+      "audioOutput": "null",
+      "reference": "authored Sintel SRT, not precise acoustic-onset ground truth",
+      "audiblePlaybackValidated": false,
+      "inferenceSeconds": [
+        2.048819708,
+        2.385649125
+      ]
+    },
+    "intro-90": {
+      "acquisitionMs": 118748,
+      "absoluteOffsetError": 0.24099999999998545,
+      "cacheRestoreMs": 588,
+      "wrongCachedGapRecoveryValidated": true,
+      "knownRegionRestoredAfterSeek": true,
+      "unknownSeekClearsAutomaticOnly": true,
+      "audioDelayCompositionAndPreservation": true,
+      "manualDelayDuringAndAfter": true,
+      "tapDisabledOnClose": true,
+      "audioOutput": "null",
+      "reference": "authored Sintel SRT, not precise acoustic-onset ground truth",
+      "audiblePlaybackValidated": false,
+      "inferenceSeconds": [
+        2.526781375,
+        2.574289458,
+        2.556578917,
+        2.207487208
+      ]
+    }
+  },
+  "installation": {
+    "sourceSha": "aaaa67c239b507db55c598588f3824a9635b43ac",
+    "appWorkflow": 35183945258,
+    "installedPath": "/Applications/PlezyLiveSync.app",
+    "backupPath": "/Users/dwenn/.codex/worktrees/plezy-livesync-whisper-dtw-guard/build/livesync/app-aaaa67c2/previous-installed-before-aaaa67c2.app",
+    "oldExecutableSha256": "5a39ea31209465649b23feaf21dd1d38263d2df0c43d9b1bce077a3135d9ab0d",
+    "newExecutableSha256": "018b88ddd34c4da5151591dc3c4599512808d68598345e89d2f627da5c5fdaaf",
+    "codesignDeepStrictPassed": true,
+    "backupVerified": true,
+    "runningForkPidsBeforeInstall": [],
+    "userDataModified": false,
+    "officialAppModified": false,
+    "launched": false,
+    "visualAndAudibleValidation": false,
+    "recordedAt": "2026-09-17T05:25:51.896207+00:00",
+    "upstreamSha": "efbfd01ac3755395c13d8fd6acb60f7a115957d4",
+    "upstreamRecheckedThisTurn": true,
+    "fullProductAcceptance": false
+  },
+  "fullProductAcceptance": false
+}
