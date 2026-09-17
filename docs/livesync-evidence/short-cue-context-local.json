@@ -1,0 +1,32 @@
+{
+  "sourceBase": "6a7c43af",
+  "scope": "Short-cue context implementation with original DTW point semantics; not installed",
+  "changedSourceSha256": "781a454af68b119d9371fdaeaa9ec1957895ba6f6b198cb5f7e63535f93ad94c",
+  "featureTestsPassed": 184,
+  "featureTestsSkipped": 1,
+  "fullAnalyzerPassed": true,
+  "newShortCueTests": 7,
+  "nativeFilmFaster": {
+    "acquisitionMs": 33705,
+    "affineAcquisitionMs": "none",
+    "trackingErrorP95": 4.520270760854089,
+    "trackingErrorMaximum": 4.780065552520739,
+    "completedAnalyses": 13,
+    "rejectedAnalyses": 0,
+    "passed": false
+  },
+  "nativeMedianErrorSeconds": 2.3421457608540805,
+  "nativeReportSha256": "5302718cd9141a4f795092ea7186ecbecbeff7ecdb434c1a665d1b0648f51046",
+  "originalBudgetAccepted": false,
+  "limitations": [
+    "The live baseline and changed run have slightly different capture phases; numerical improvement cannot be solely attributed to this patch.",
+    "Acoustic onset accuracy, automatic gaps, audible playback and product acceptance remain unproven."
+  ],
+  "recognizedAnchorCues": [
+    1,
+    3,
+    11,
+    13,
+    14
+  ]
+}

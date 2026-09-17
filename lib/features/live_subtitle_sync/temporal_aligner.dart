@@ -33,6 +33,37 @@ class _TimedWord {
 class TemporalAligner {
   const TemporalAligner();
 
+  /// Short captions can borrow consecutive dialogue from the next caption.
+  /// Choose disjoint evidence from the full SRT, before seeing recognition,
+  /// so overlapping windows cannot count the same words as independent proof.
+  /// Reserve existing long-cue evidence first, including its five-word retry.
+  Set<int> _shortCueBeginnings(SubtitleIndex index) {
+    final starts = <int>[
+      for (var i = 0; i < index.words.length; i++)
+        if (index.words[i].wordInCue == 0) i,
+      index.words.length,
+    ];
+    final reserved = <int>{};
+    for (var i = 0; i + 1 < starts.length; i++) {
+      final count = starts[i + 1] - starts[i];
+      if (count >= 3) {
+        reserved.addAll(List.generate(math.min(5, count), (j) => starts[i] + j));
+      }
+    }
+    final accepted = <int>{};
+    for (var i = 0; i + 1 < starts.length; i++) {
+      final first = starts[i];
+      if (starts[i + 1] - first >= 3 || first + 3 > index.words.length) continue;
+      final span = index.words[first + 2].cueStart - index.words[first].cueStart;
+      if (span.isNegative || span > const Duration(seconds: 5)) continue;
+      final evidence = List.generate(3, (j) => first + j);
+      if (evidence.any(reserved.contains)) continue;
+      accepted.add(first);
+      reserved.addAll(evidence);
+    }
+    return accepted;
+  }
+
   // Punctuation has no spoken onset. Keep every lexical subword (including
   // combining marks and the normalizer's spoken "and" for '&') under the
   // existing confidence/timestamp gates; discard only nonlexical pieces.
@@ -106,6 +137,7 @@ class TemporalAligner {
       }
     }
     final result = <SubtitleAnchor>[];
+    final shortCueBeginnings = _shortCueBeginnings(index);
     for (final pair in passage.words) {
       final source = index.words[pair.subtitleWord];
       if (source.wordInCue != 0) continue;
@@ -133,7 +165,8 @@ class TemporalAligner {
             !next.exact ||
             next.transcriptWord != pair.transcriptWord + i ||
             next.transcriptWord >= words.length ||
-            index.words[next.subtitleWord].cueOrdinal != source.cueOrdinal) {
+            (index.words[next.subtitleWord].cueOrdinal != source.cueOrdinal &&
+                !shortCueBeginnings.contains(pair.subtitleWord))) {
           return 'phraseNotMatched';
         }
         if (!words[next.transcriptWord].valid) {
@@ -154,7 +187,8 @@ class TemporalAligner {
         // two on each side, plus valid monotonic times throughout. Insertions,
         // deletions, a missing first word or a repeated beginning do not qualify.
         const flanks = [0, 1, 3, 4];
-        final canCheck = flanks.every((i) => matchFailure(i) == null);
+        final canCheck =
+            !shortCueBeginnings.contains(pair.subtitleWord) && flanks.every((i) => matchFailure(i) == null);
         final local = canCheck ? words.sublist(pair.transcriptWord, pair.transcriptWord + 5) : <_TimedWord>[];
         final validSubstitution =
             local.length == 5 &&
@@ -164,6 +198,16 @@ class TemporalAligner {
             List.generate(4, (i) => local[i + 1].start >= local[i].start).every((value) => value);
         if (!validSubstitution) {
           rejected(failure ?? 'phraseNotMatched');
+          continue;
+        }
+      }
+      if (shortCueBeginnings.contains(pair.subtitleWord)) {
+        final context = words.sublist(pair.transcriptWord, pair.transcriptWord + 3);
+        if (context.last.start - beginning.start > 5 ||
+            context.any((word) => word.start < beginning.start || word.end > transcript.windowEnd) ||
+            context[1].start < context[0].start ||
+            context[2].start < context[1].start) {
+          rejected('shortCueContextDiscontinuous');
           continue;
         }
       }
