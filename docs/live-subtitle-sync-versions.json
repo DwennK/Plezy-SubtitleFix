@@ -2,20 +2,20 @@
   "schemaVersion": 1,
   "product": "Plezy + LiveSync",
   "status": "integration-candidate-not-validated",
-  "recordedAt": "2026-09-17T06:16:16.441816+00:00",
+  "recordedAt": "2026-09-17T07:04:28.948881+00:00",
   "upstream": {
     "repository": "edde746/plezy",
     "branch": "main",
-    "sha": "f88feaa8e34fcb2141e34e619054a1f30590a266",
-    "commitDate": "2026-09-17T07:47:14+02:00",
+    "sha": "64dca5962a3dd24feee829235ed811298a74309b",
+    "commitDate": "2026-09-17T08:05:05+02:00",
     "plezyVersion": "2.20.0+150",
     "stableRelease": "2.20.0",
     "latestCheck": {
-      "checkedAt": "2026-09-17T05:56:52.463227+00:00",
-      "latestSha": "f88feaa8e34fcb2141e34e619054a1f30590a266",
-      "integratedSha": "f88feaa8e34fcb2141e34e619054a1f30590a266",
+      "checkedAt": "2026-09-17T06:58:47.359434+00:00",
+      "latestSha": "64dca5962a3dd24feee829235ed811298a74309b",
+      "integratedSha": "64dca5962a3dd24feee829235ed811298a74309b",
       "unintegratedCommits": 0,
-      "scope": "Local integration candidate; merge validation and rebuilt desktop applications pending. Remote was fetched at 2026-09-17T05:56:52Z."
+      "scope": "Integration candidate. Selected upstream fetched at 06:58:47 UTC; local validation pending. Installed 9ef25905 still includes f88feaa8."
     }
   },
   "flutter": {
