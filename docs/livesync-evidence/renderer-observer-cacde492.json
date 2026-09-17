@@ -1,0 +1,277 @@
+{
+  "schema": 1,
+  "sourceSha": "cacde49299e451d5c0c2ad6a0d87dd069082911e",
+  "runId": 35166138354,
+  "conclusion": "success",
+  "artifactId": 10475685759,
+  "mode": "renderer-only, test-only in-process vectored observer",
+  "nativeContracts": {
+    "sha256": "51e9ad710fde0de3aace18f339c8d915350d8594855552a2df48a4fd78981b3d",
+    "data": {
+      "passed": true,
+      "cases": [
+        {
+          "case": "handled",
+          "passed": true,
+          "observerExitCode": 0
+        },
+        {
+          "case": "crash",
+          "passed": true,
+          "observerExitCode": 1
+        },
+        {
+          "case": "hang",
+          "passed": true,
+          "observerExitCode": 124
+        },
+        {
+          "case": "vectored-handled",
+          "passed": true,
+          "targetExitCode": 0,
+          "debuggerPresent": false
+        },
+        {
+          "case": "vectored-crash",
+          "passed": true,
+          "targetExitCode": 3221225477,
+          "debuggerPresent": false
+        },
+        {
+          "case": "vectored-log-unavailable",
+          "passed": true
+        },
+        {
+          "case": "missing-executable",
+          "passed": true
+        }
+      ]
+    }
+  },
+  "capture": {
+    "sha256": "0c3932943b08c2bc6e013d472276a8631b117e7e4bde6f37e49afaf5f6a3c9d3",
+    "data": {
+      "automaticSynchronizationValidated": false,
+      "visualInspectionRequired": true,
+      "screenHeight": 720,
+      "nativeDebugger": false,
+      "screenWidth": 1024,
+      "captures": [
+        {
+          "height": 720,
+          "sha256": "70d94cc6dbe1dce83a3b7e3cda4ac422f9f3650c58ab86ab9c8cd13abe14d1e8",
+          "state": "baseline",
+          "width": 1024
+        },
+        {
+          "height": 720,
+          "sha256": "be6cd0ed84aa2a93a5bc2f440310838ea32fb7821b75a06987a470a791e5112c",
+          "state": "positive",
+          "width": 1024
+        },
+        {
+          "height": 720,
+          "sha256": "b5149c7637c1f4d746d0a25dcb2c5f30717ae32d134bf37db046fca0c26977a9",
+          "state": "negative",
+          "width": 1024
+        },
+        {
+          "height": 720,
+          "sha256": "20f87e1f1dbaace355b40c1dceb29512afbba45aee5ae1df07449fe9ed5ef75b",
+          "state": "restored",
+          "width": 1024
+        },
+        {
+          "height": 720,
+          "sha256": "18c0bee532a7be474614a0b9e51ff127e13f3c6b9dde33595696d84d43039ba5",
+          "state": "gap-hidden",
+          "width": 1024
+        },
+        {
+          "height": 720,
+          "sha256": "9c6bb2a06b2db233f24eacc6e6f536a77133ade343a26e44e9613c5ccf07f7d5",
+          "state": "gap-shown-manual",
+          "width": 1024
+        },
+        {
+          "height": 720,
+          "sha256": "fe778181a7e4c6be2fcec92d694b69a568c0388584f2cff73c81f20db2b6a121",
+          "state": "gap-restored",
+          "width": 1024
+        },
+        {
+          "height": 720,
+          "sha256": "7a82631916ab531783e7b16c7eb5028dda3dfb61cb710ee98c419bd25d59ceea",
+          "state": "gap-hidden-again",
+          "width": 1024
+        },
+        {
+          "height": 720,
+          "sha256": "b55764c061923140cc35300abd58b40f74c695f8cf2eee72d247c4a77fae6645",
+          "state": "gap-manual-hidden",
+          "width": 1024
+        },
+        {
+          "height": 720,
+          "sha256": "a832529a1af51bbf88084544c6fae682c2bc999ddf0474453eb36357907f8d5f",
+          "state": "gap-release-manual-hidden",
+          "width": 1024
+        },
+        {
+          "height": 720,
+          "sha256": "75266a2a5faae0a4a8737d4986c626be81a4ad0c6a28d993cb1ef194da7b73b1",
+          "state": "manual-shown",
+          "width": 1024
+        },
+        {
+          "height": 720,
+          "sha256": "d5831c61325be9f456fec4b2b16bd690d54ef143f6e5cc671f9bd1eb1fbddf0d",
+          "state": "prediction-contradicted",
+          "width": 1024
+        },
+        {
+          "height": 720,
+          "sha256": "dac79813ff8454fa40b604d5175bb16782d0539bb6d50cf90ed1f9a37f74743d",
+          "state": "prediction-manual-shown",
+          "width": 1024
+        },
+        {
+          "height": 720,
+          "sha256": "1b5b94816898512668beec1d24715e4f8ab29367173b221e55e2e52ae1931d4d",
+          "state": "prediction-recovered",
+          "width": 1024
+        },
+        {
+          "height": 720,
+          "sha256": "9ee0d461d8300f074e98592bfc7b3dc75f5b4ff40d56a5ee3578ca48e67a4864",
+          "state": "capture-on",
+          "width": 1024
+        },
+        {
+          "height": 720,
+          "sha256": "4313488d0a354a009937887d2dc4a6da769a2000ca0e0d112d41d2a8a475243a",
+          "state": "capture-off",
+          "width": 1024
+        }
+      ],
+      "kind": "native-windows-renderer-synthetic-fixture"
+    }
+  },
+  "binaries": {
+    "sha256": "3c3d959e93df257bb47744198ad777ea74655c1ada4f3867bfe0a967456c62cd",
+    "data": {
+      "binaries": [
+        {
+          "name": "plezy_livesync.exe",
+          "sha256": "b49472fb89e1c72a90218b25e34599d47097788b6f30d2f9fc7623bfb05b2e54"
+        },
+        {
+          "name": "flutter_windows.dll",
+          "sha256": "1f9fcfa3003b64af53154fb3ffe4d1b60d5462dfaacd78b3b2b2ebd5b75de18e"
+        },
+        {
+          "name": "libmpv-2.dll",
+          "sha256": "e0abf158f4ab736843bf9fd3002955b44c2e8f43f5dadfefc0d4e69627e182ec"
+        }
+      ],
+      "mechanism": "test-only vectored first-chance observer"
+    }
+  },
+  "exceptionLogSha256": "40d4a8cb3de70298831a13bf5158270cb3de98185583a460bb4c3d10116f668d",
+  "exceptionCodes": {
+    "0xe06d7363": 3,
+    "0x4001000a": 1,
+    "0x40010006": 1,
+    "0xe24c4a02": 1
+  },
+  "handlerStackModuleSets": [
+    {
+      "sequence": 1,
+      "code": "0xe06d7363",
+      "modules": [
+        "plezy_livesync.exe",
+        "ntdll.dll",
+        "KERNELBASE.dll",
+        "ucrtbase.dll",
+        "d3d11.dll",
+        "libmpv-2.dll",
+        "KERNEL32.DLL"
+      ]
+    },
+    {
+      "sequence": 2,
+      "code": "0xe06d7363",
+      "modules": [
+        "plezy_livesync.exe",
+        "ntdll.dll",
+        "KERNELBASE.dll",
+        "ucrtbase.dll",
+        "d3d11.dll",
+        "libmpv-2.dll",
+        "KERNEL32.DLL"
+      ]
+    },
+    {
+      "sequence": 3,
+      "code": "0xe06d7363",
+      "modules": [
+        "plezy_livesync.exe",
+        "ntdll.dll",
+        "KERNELBASE.dll",
+        "ucrtbase.dll",
+        "d3d11.dll",
+        "libmpv-2.dll",
+        "KERNEL32.DLL"
+      ]
+    },
+    {
+      "sequence": 4,
+      "code": "0x4001000a",
+      "modules": [
+        "plezy_livesync.exe",
+        "ntdll.dll",
+        "KERNELBASE.dll",
+        "os_media_controls_plugin.dll",
+        "ucrtbase.dll",
+        "KERNEL32.DLL"
+      ]
+    },
+    {
+      "sequence": 5,
+      "code": "0x40010006",
+      "modules": [
+        "plezy_livesync.exe",
+        "ntdll.dll",
+        "KERNELBASE.dll",
+        "os_media_controls_plugin.dll",
+        "ucrtbase.dll",
+        "KERNEL32.DLL"
+      ]
+    },
+    {
+      "sequence": 6,
+      "code": "0xe24c4a02",
+      "modules": [
+        "plezy_livesync.exe",
+        "ntdll.dll",
+        "KERNELBASE.dll",
+        "libmpv-2.dll",
+        "ucrtbase.dll",
+        "KERNEL32.DLL"
+      ]
+    }
+  ],
+  "baselineAndHiddenScreenshotsInspected": true,
+  "crashReproduced": false,
+  "crashFixed": false,
+  "automaticSynchronizationValidated": false,
+  "fullProductAcceptance": false,
+  "limitations": [
+    "No debugger was attached, but the in-process observer still changes execution timing.",
+    "Only the standalone renderer ran. The preceding full application, native and isolate steps were skipped.",
+    "Three recent renderer-only modes passed while several full runs failed before baseline. This is a possible precondition difference, not a proven cause.",
+    "The matched full-path observer run 35167800776 uses 3ccb1be7 (only a documentation commit after this source).",
+    "Handler stacks contain numeric module metadata only; first-chance exceptions in a successful process do not establish the cause of another run failure.",
+    "Hosted screenshots are 1024x720; actual audio and physical GPU behavior remain unvalidated."
+  ]
+}

@@ -1,5 +1,6 @@
 """Native contracts for the disposable Windows exception observer."""
 import json
+import os
 from pathlib import Path
 import subprocess
 import sys
@@ -47,6 +48,31 @@ with tempfile.TemporaryDirectory(prefix="livesync-debugger-") as temporary:
                 finally:
                     kernel.CloseHandle(handle)
         reports.append({"case": mode, "passed": True, "observerExitCode": process.returncode})
+    # Observe normal Windows dispatch without DEBUG_ONLY_THIS_PROCESS. The
+    # handled exception must remain handled; the fatal one must still terminate.
+    for mode in ("handled", "crash"):
+        fault_log = root / f"vectored-{mode}.jsonl"
+        environment = dict(os.environ, LIVESYNC_RENDERER_EXCEPTION_LOG=str(fault_log))
+        process = subprocess.run([str(exe), f"--fixture-{mode}"], env=environment,
+                                 timeout=20, capture_output=True)
+        events = [json.loads(line) for line in fault_log.read_text().splitlines()]
+        assert events[0] == {"event": "installed", "debuggerPresent": False}, events
+        raised = [e for e in events if e["event"] == "first-chance"]
+        expected = "0xe0421001" if mode == "handled" else "0xc0000005"
+        assert any(e["code"] == expected for e in raised), events
+        fault = next(e for e in raised if e["code"] == expected)
+        assert fault["fault"]["module"] != "unknown", events
+        assert any(frame["module"].lower() == exe.name.lower() for frame in fault["handlerStack"]), events
+        expected_exit = 0 if mode == "handled" else 0xc0000005
+        assert (process.returncode & 0xffffffff) == expected_exit, events
+        reports.append({"case": f"vectored-{mode}", "passed": True,
+                        "targetExitCode": process.returncode, "debuggerPresent": False})
+    # A requested but unavailable log is an instrumentation failure, not a
+    # silently unobserved successful fixture run.
+    environment = dict(os.environ, LIVESYNC_RENDERER_EXCEPTION_LOG=str(root / "missing" / "fault.jsonl"))
+    process = subprocess.run([str(exe), "--fixture-handled"], env=environment, timeout=20)
+    assert process.returncode == 2
+    reports.append({"case": "vectored-log-unavailable", "passed": True})
     # Failed startup must produce a diagnostic error, not a successful empty log.
     missing = root / "missing"
     missing.mkdir()

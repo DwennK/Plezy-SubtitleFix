@@ -16,6 +16,11 @@ add_executable(${BINARY_NAME} WIN32
 
 apply_standard_settings(${BINARY_NAME})
 
+option(PLEZY_LIVESYNC_EXCEPTION_DIAGNOSTIC "Observe synthetic renderer faults without a debugger; test builds only" OFF)
+if(PLEZY_LIVESYNC_EXCEPTION_DIAGNOSTIC)
+  target_compile_definitions(${BINARY_NAME} PRIVATE PLEZY_LIVESYNC_EXCEPTION_DIAGNOSTIC)
+endif()
+
 target_precompile_headers(${BINARY_NAME} PRIVATE "pch.h")
 
 target_compile_definitions(${BINARY_NAME} PRIVATE "FLUTTER_VERSION=\"${FLUTTER_VERSION}\"")

@@ -1,0 +1,279 @@
+{
+  "schema": 1,
+  "sourceSha": "2ad19a10164ab96d518432147e1b321842c7ecee",
+  "run": 35163985976,
+  "artifact": 10474048973,
+  "conclusion": "success",
+  "rendererOnly": true,
+  "debuggerContracts": {
+    "passed": true,
+    "cases": [
+      {
+        "case": "handled",
+        "passed": true,
+        "observerExitCode": 0
+      },
+      {
+        "case": "crash",
+        "passed": true,
+        "observerExitCode": 1
+      },
+      {
+        "case": "hang",
+        "passed": true,
+        "observerExitCode": 124
+      },
+      {
+        "case": "missing-executable",
+        "passed": true
+      }
+    ]
+  },
+  "capture": {
+    "captures": [
+      {
+        "height": 720,
+        "sha256": "b84bc7875badfca9b4165fa5a322f450fc467ab9867dd739940a98671624e34a",
+        "state": "baseline",
+        "width": 1024
+      },
+      {
+        "height": 720,
+        "sha256": "9bd9ac568677173a6060a4d8d5587933380b21f15f57d533cfa1a3d4b889d5fe",
+        "state": "positive",
+        "width": 1024
+      },
+      {
+        "height": 720,
+        "sha256": "423aea1b50cd1a117cbaa23daab4482a85878e1d567732c692bad4a8a475dd7a",
+        "state": "negative",
+        "width": 1024
+      },
+      {
+        "height": 720,
+        "sha256": "532b840a496b9090d52610abdec69b19fb1638c41115b8224f9df7f091dc1c17",
+        "state": "restored",
+        "width": 1024
+      },
+      {
+        "height": 720,
+        "sha256": "76c41246331a7fa4dca610f20a470491d61f969ba77137c95eac250f21324d8f",
+        "state": "gap-hidden",
+        "width": 1024
+      },
+      {
+        "height": 720,
+        "sha256": "68002be5232b8d5d4dd611adc8d17d571d2c86b2bc77d04c8b1fcaefd149cc62",
+        "state": "gap-shown-manual",
+        "width": 1024
+      },
+      {
+        "height": 720,
+        "sha256": "51562c228af23bd345cbc8013baec56d73457a5d876727154b5e913af3b9de14",
+        "state": "gap-restored",
+        "width": 1024
+      },
+      {
+        "height": 720,
+        "sha256": "278c2d80a85688d973ebc3e859116e2af73829cd20c7fb71f7bfe59b07561628",
+        "state": "gap-hidden-again",
+        "width": 1024
+      },
+      {
+        "height": 720,
+        "sha256": "26d57d87106418a8db07c0c498a1b0b010f584950ffb9c5644856f66482aeab8",
+        "state": "gap-manual-hidden",
+        "width": 1024
+      },
+      {
+        "height": 720,
+        "sha256": "f961f2a32f57b0fdda575ae8c04ebcfb57031bd314bf9d91a4626381009fdb70",
+        "state": "gap-release-manual-hidden",
+        "width": 1024
+      },
+      {
+        "height": 720,
+        "sha256": "fe457981e5aa22ad03ed1d9769bc1cbfa26896997363f4d7c003c6044b2cdb62",
+        "state": "manual-shown",
+        "width": 1024
+      },
+      {
+        "height": 720,
+        "sha256": "a698727c22927fb6c0b8c100bc8e22761587bd22aa12f94e793636e311911729",
+        "state": "prediction-contradicted",
+        "width": 1024
+      },
+      {
+        "height": 720,
+        "sha256": "84a159c15da7eb541ab880a16976b15ca022fada14ae608ded36053455717149",
+        "state": "prediction-manual-shown",
+        "width": 1024
+      },
+      {
+        "height": 720,
+        "sha256": "9ada5771f8480e1de24bbeffb38fc1788a5cc75b8cfbc96cf558f1dc2f53f812",
+        "state": "prediction-recovered",
+        "width": 1024
+      },
+      {
+        "height": 720,
+        "sha256": "a63b5a67f4e3f4895f6229822d3ceedfb10f294344d95d8186e258e57e545f45",
+        "state": "capture-on",
+        "width": 1024
+      },
+      {
+        "height": 720,
+        "sha256": "425e0f3185e7aae5856cf3c3b94af1ead8f43bba9d8ad37d4c6846279f54d0f8",
+        "state": "capture-off",
+        "width": 1024
+      }
+    ],
+    "kind": "native-windows-renderer-synthetic-fixture",
+    "screenWidth": 1024,
+    "screenHeight": 720,
+    "visualInspectionRequired": true,
+    "automaticSynchronizationValidated": false,
+    "nativeDebugger": true
+  },
+  "debugEventsSha256": "021ea073b10b2b698b4a05f31bf90b89eb21c8984f3910792462f51379a70b87",
+  "debugEvents": {
+    "moduleEvents": 113,
+    "exceptions": [
+      {
+        "event": "exception",
+        "code": "0x80000003",
+        "firstChance": true,
+        "loaderBreakpoint": true,
+        "thread": 7812,
+        "address": "0x7fff9bdff5ed",
+        "module": "ntdll.dll",
+        "moduleOffset": "0x11f5ed"
+      },
+      {
+        "event": "exception",
+        "code": "0x406d1388",
+        "firstChance": true,
+        "loaderBreakpoint": false,
+        "thread": 4596,
+        "address": "0x7fff990075fa",
+        "module": "KernelBase.dll",
+        "moduleOffset": "0xc75fa"
+      },
+      {
+        "event": "exception",
+        "code": "0x406d1388",
+        "firstChance": true,
+        "loaderBreakpoint": false,
+        "thread": 5900,
+        "address": "0x7fff990075fa",
+        "module": "KernelBase.dll",
+        "moduleOffset": "0xc75fa"
+      },
+      {
+        "event": "exception",
+        "code": "0x406d1388",
+        "firstChance": true,
+        "loaderBreakpoint": false,
+        "thread": 952,
+        "address": "0x7fff990075fa",
+        "module": "KernelBase.dll",
+        "moduleOffset": "0xc75fa"
+      },
+      {
+        "event": "exception",
+        "code": "0x406d1388",
+        "firstChance": true,
+        "loaderBreakpoint": false,
+        "thread": 836,
+        "address": "0x7fff990075fa",
+        "module": "KernelBase.dll",
+        "moduleOffset": "0xc75fa"
+      },
+      {
+        "event": "exception",
+        "code": "0x406d1388",
+        "firstChance": true,
+        "loaderBreakpoint": false,
+        "thread": 9232,
+        "address": "0x7fff990075fa",
+        "module": "KernelBase.dll",
+        "moduleOffset": "0xc75fa"
+      },
+      {
+        "event": "exception",
+        "code": "0x406d1388",
+        "firstChance": true,
+        "loaderBreakpoint": false,
+        "thread": 5808,
+        "address": "0x7fff990075fa",
+        "module": "KernelBase.dll",
+        "moduleOffset": "0xc75fa"
+      },
+      {
+        "event": "exception",
+        "code": "0xe24c4a02",
+        "firstChance": true,
+        "loaderBreakpoint": false,
+        "thread": 9424,
+        "address": "0x7fff990075fa",
+        "module": "KernelBase.dll",
+        "moduleOffset": "0xc75fa"
+      },
+      {
+        "event": "exception",
+        "code": "0xe06d7363",
+        "firstChance": true,
+        "loaderBreakpoint": false,
+        "thread": 6756,
+        "address": "0x7fff990075fa",
+        "module": "KernelBase.dll",
+        "moduleOffset": "0xc75fa"
+      },
+      {
+        "event": "exception",
+        "code": "0xe06d7363",
+        "firstChance": true,
+        "loaderBreakpoint": false,
+        "thread": 6756,
+        "address": "0x7fff990075fa",
+        "module": "KernelBase.dll",
+        "moduleOffset": "0xc75fa"
+      },
+      {
+        "event": "exception",
+        "code": "0xe06d7363",
+        "firstChance": true,
+        "loaderBreakpoint": false,
+        "thread": 6756,
+        "address": "0x7fff990075fa",
+        "module": "KernelBase.dll",
+        "moduleOffset": "0xc75fa"
+      }
+    ],
+    "exit": [
+      {
+        "event": "exit",
+        "code": "0x0"
+      }
+    ]
+  },
+  "crashReproduced": false,
+  "crashFixed": false,
+  "limitations": [
+    "The observer changes scheduling and IsDebuggerPresent; a successful observed run does not explain or fix earlier uninstrumented 0xc000041d failures.",
+    "All recorded exceptions were first chance; no access violation or fatal callback termination occurred. Application exception dispatch and termination behavior passed independent native contracts.",
+    "Synthetic renderer states do not establish automatic synchronization, acoustic precision, or audible output.",
+    "Later Windows registry isolation 7c971ae6 is absent from this exact source.",
+    "Hosted desktop constrained captures to 1024x720 despite the driver requesting up to 1440x900."
+  ],
+  "visualInspection": {
+    "states": [
+      "baseline",
+      "gap-hidden"
+    ],
+    "baselineSubtitleVisible": true,
+    "videoOnlySubtitleHidden": true,
+    "captureWidth": 1024,
+    "captureHeight": 720
+  }
+}

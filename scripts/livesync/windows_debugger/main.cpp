@@ -9,6 +9,8 @@
 #include <sstream>
 #include <string>
 
+#include "windows/runner/livesync_exception_observer.h"
+
 static std::string Hex(uintptr_t value) {
   std::ostringstream out;
   out << "\"0x" << std::hex << value << "\"";
@@ -30,6 +32,7 @@ static std::string ModuleName(HANDLE file) {
 
 // Kept outside C++ scopes with destructors for MSVC's SEH restriction.
 static int FaultFixture(const wchar_t* mode) {
+  if (!livesync_diagnostic::Install()) return 2;
   SetErrorMode(SEM_FAILCRITICALERRORS | SEM_NOGPFAULTERRORBOX);
   if (wcscmp(mode, L"--fixture-handled") == 0) {
     __try {
