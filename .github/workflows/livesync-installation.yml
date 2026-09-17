@@ -1,0 +1,154 @@
+name: LiveSync Windows installation proof
+
+on:
+  push:
+    branches: [codex/livesync-installation-proof]
+    paths:
+      - .github/workflows/livesync-installation.yml
+      - windows/build-installer.ps1
+      - scripts/livesync/verify_windows_installation.ps1
+  workflow_dispatch:
+    inputs:
+      app_run_id:
+        description: Completed successful full Windows release application run
+        required: true
+        type: string
+      source_sha:
+        description: Exact application source SHA from that run
+        required: true
+        type: string
+
+permissions:
+  contents: read
+  actions: read
+
+concurrency:
+  group: livesync-installation-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  packaging:
+    runs-on: windows-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          persist-credentials: false
+      - name: Parse the trial and compile an installer into the requested directory
+        shell: pwsh
+        run: |
+          $tokens = $null
+          $errors = $null
+          [System.Management.Automation.Language.Parser]::ParseFile((Join-Path $PWD 'scripts/livesync/verify_windows_installation.ps1'), [ref]$tokens, [ref]$errors) | Out-Null
+          if ($errors.Count) { throw ($errors | Out-String) }
+          python scripts/checks/check_windows_installer.py
+          if ($LASTEXITCODE -ne 0) { throw 'Installer contract failed' }
+          New-Item -ItemType Directory -Force build/livesync/installer-fixture, build/livesync/installer-output | Out-Null
+          # An inert placeholder checks actual Inno compilation and output
+          # placement. This fixture is never launched, installed or distributed.
+          Set-Content build/livesync/installer-fixture/plezy_livesync.exe 'Installer output-path fixture only'
+          $bundle = (Resolve-Path build/livesync/installer-fixture).Path
+          $output = (Resolve-Path build/livesync/installer-output).Path
+          ./windows/build-installer.ps1 -X64BuildDir $bundle -OutputDir $output -Version '2.20.0+150'
+          if ($LASTEXITCODE -ne 0) { throw 'Actual Inno compilation failed' }
+          foreach ($name in @('setup.iss', 'plezy-windows-installer.exe', 'plezy-windows-x64-portable.7z')) {
+            if (-not (Test-Path (Join-Path $output $name))) { throw "Requested output is missing: $name" }
+            if (Test-Path (Join-Path $PWD $name)) { throw "Output escaped the requested directory: $name" }
+          }
+
+  install:
+    if: github.event_name == 'workflow_dispatch'
+    needs: packaging
+    runs-on: windows-latest
+    timeout-minutes: 25
+    env:
+      APP_RUN_ID: ${{ inputs.app_run_id }}
+      APP_SOURCE_SHA: ${{ inputs.source_sha }}
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - name: Require the exact successful full application run
+        shell: pwsh
+        run: |
+          if ($env:APP_RUN_ID -notmatch '^\d+$' -or $env:APP_SOURCE_SHA -notmatch '^[0-9a-f]{40}$') { throw 'Invalid run or source identity' }
+          $run = gh api "repos/$env:GITHUB_REPOSITORY/actions/runs/$env:APP_RUN_ID" | ConvertFrom-Json
+          if ($LASTEXITCODE -ne 0) { throw 'Run lookup failed' }
+          if ($run.status -ne 'completed' -or $run.conclusion -ne 'success' -or $run.head_sha -ne $env:APP_SOURCE_SHA -or $run.path -ne '.github/workflows/livesync-windows.yml') { throw 'Only the exact successful full Windows application run is eligible' }
+          $jobs = gh api "repos/$env:GITHUB_REPOSITORY/actions/runs/$env:APP_RUN_ID/jobs?per_page=100" | ConvertFrom-Json
+          if ($LASTEXITCODE -ne 0) { throw 'Job lookup failed' }
+          $app = @($jobs.jobs | Where-Object name -eq 'app')
+          if ($app.Count -ne 1) { throw 'Application job is ambiguous' }
+          foreach ($name in @('Verify actual CPU inference from active-playback PCM', 'Build and capture the dedicated native renderer harness', 'Verify actual automatic correction in the production controller')) {
+            $step = @($app[0].steps | Where-Object name -eq $name)
+            if ($step.Count -ne 1 -or $step[0].conclusion -ne 'success') { throw "Required full application proof missing: $name" }
+          }
+          # Packaging commits may differ, but application inputs must not.
+          git diff --exit-code $env:APP_SOURCE_SHA HEAD -- lib pubspec.yaml pubspec.lock windows/runner windows/CMakeLists.txt windows/flutter native versions.json scripts/livesync/prepare_native.py
+          if ($LASTEXITCODE -ne 0) { throw 'Application sources differ from the validated build' }
+          New-Item -ItemType Directory -Force build/livesync/installation/evidence, build/livesync/installation/packages | Out-Null
+          $run | ConvertTo-Json -Depth 20 | Set-Content build/livesync/installation/evidence/application-run.json
+          gh run download $env:APP_RUN_ID --repo $env:GITHUB_REPOSITORY --name "livesync-windows-app-$env:APP_SOURCE_SHA-release" --dir build/livesync/installation/bundle
+          if ($LASTEXITCODE -ne 0) { throw 'Exact release bundle download failed' }
+      - name: Verify and package the preserved application
+        shell: pwsh
+        run: |
+          $bundle = (Resolve-Path build/livesync/installation/bundle).Path
+          $evidence = (Resolve-Path build/livesync/installation/evidence).Path
+          $runtime = Get-Content (Join-Path $bundle 'data/livesync/provenance.json') -Raw | ConvertFrom-Json
+          $required = @('livesync_capture_bridge.dll', 'livesync_inference_bridge.dll', 'livesync_inference_bridge_avx2.dll', 'whisper-ggml-LICENSE', 'SILERO-LICENSE')
+          if ($runtime.inputs.inferenceAbi -ne 2 -or $runtime.inputs.target -ne 'windows-x64') { throw 'Unexpected analysis runtime ABI or target' }
+          foreach ($name in $required) {
+            if ($runtime.files.PSObject.Properties.Name -notcontains $name) { throw 'Runtime provenance is incomplete' }
+          }
+          foreach ($entry in $runtime.files.PSObject.Properties) {
+            if ($entry.Name -notmatch '^[a-zA-Z0-9_.-]+$') { throw 'Invalid runtime file name' }
+            $file = if ($entry.Name.EndsWith('.dll')) { Join-Path $bundle $entry.Name } else { Join-Path $bundle "data/livesync/$($entry.Name)" }
+            if ((Get-FileHash $file -Algorithm SHA256).Hash.ToLowerInvariant() -ne $entry.Value) { throw 'Bundled runtime checksum mismatch' }
+          }
+          $excluded = @()
+          foreach ($name in @('mpv_property_result_contract_test', 'mpv_player_property_contract_test', 'display_mode_manager_test')) {
+            foreach ($extension in @('exe', 'pdb')) {
+              $path = Join-Path $bundle "$name.$extension"
+              if (Test-Path $path) {
+                $excluded += @{name="$name.$extension"; sha256=(Get-FileHash $path -Algorithm SHA256).Hash.ToLowerInvariant()}
+                Remove-Item $path
+              }
+            }
+          }
+          $version = python scripts/pubspec_version.py
+          if ($LASTEXITCODE -ne 0) { throw 'Version lookup failed' }
+          $output = (Resolve-Path build/livesync/installation/packages).Path
+          ./windows/build-installer.ps1 -X64BuildDir $bundle -OutputDir $output -Version $version
+          if ($LASTEXITCODE -ne 0) { throw 'Installer compilation failed' }
+          @{
+            applicationSourceSha=$env:APP_SOURCE_SHA
+            packagingSourceSha=$env:GITHUB_SHA
+            applicationRunId=$env:APP_RUN_ID
+            excludedNativeContractFiles=$excluded
+            runtimeHashesVerified=$true
+            automaticSynchronizationValidatedByInstallationTrial=$false
+          } | ConvertTo-Json -Depth 8 | Set-Content "$evidence/packaging-provenance.json"
+      - name: Install, launch alongside official Plezy, and uninstall
+        shell: pwsh
+        run: |
+          $official = Join-Path $env:RUNNER_TEMP 'plezy-official-2.20.0-installer.exe'
+          Invoke-WebRequest 'https://github.com/edde746/plezy/releases/download/2.20.0/plezy-windows-installer.exe' -OutFile $official
+          ./scripts/livesync/verify_windows_installation.ps1 -ForkInstaller build/livesync/installation/packages/plezy-windows-installer.exe -OfficialInstaller $official -Bundle build/livesync/installation/bundle -OutputDirectory build/livesync/installation/evidence
+      - name: Preserve installation evidence
+        if: always()
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7
+        with:
+          name: livesync-windows-installation-evidence-${{ github.sha }}
+          path: build/livesync/installation/evidence/
+          if-no-files-found: warn
+      - name: Preserve tested fork packages
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7
+        with:
+          name: livesync-windows-installation-packages-${{ github.sha }}
+          path: |
+            build/livesync/installation/packages/plezy-windows-installer.exe
+            build/livesync/installation/packages/plezy-windows-x64-portable.7z
+          if-no-files-found: error
