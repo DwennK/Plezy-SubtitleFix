@@ -1,0 +1,35 @@
+{
+  "observedAt": "2026-09-17T05:55:22.341826+00:00",
+  "sourceCommit": "aaaa67c239b507db55c598588f3824a9635b43ac",
+  "executableSha256": "018b88ddd34c4da5151591dc3c4599512808d68598345e89d2f627da5c5fdaaf",
+  "application": "/Applications/PlezyLiveSync.app",
+  "scenario": "User-reported English episode and English SRT, ordinary production player, existing server session",
+  "initialLiveSyncState": "off",
+  "activationObserved": true,
+  "fullSubtitleLoadingObserved": true,
+  "playbackAdvanced": true,
+  "syncedStateObserved": true,
+  "displayedAutomaticDelaySeconds": 3.72,
+  "manualSubtitleDelayMilliseconds": 0,
+  "manualAudioDelayMilliseconds": 0,
+  "persistedNumericalMappingObserved": true,
+  "earlierCachedOffsetsSeconds": [
+    3.427,
+    4.456
+  ],
+  "shortCaptionFixIncluded": false,
+  "dtwTimingExperimentsIncluded": false,
+  "audibleAccuracyValidated": false,
+  "automaticDelayRendererMagnitudeIndependentlyMeasured": false,
+  "medianErrorMeasured": false,
+  "acquisitionTimeMeasured": false,
+  "productAccepted": false,
+  "limitations": [
+    "Computer Use initially lost accessibility and coordinate control after playback controls were hidden; keyboard play/pause worked, and normal accessibility later returned. No app crash observed.",
+    "A forward ten-second keyboard seek and pause/resume occurred during inspection; this is not an uninterrupted acquisition benchmark.",
+    "The Synced label and numerical cache establish that recognition and mapping ran; they do not establish accurate audible synchronization.",
+    "User listening feedback was requested and is pending."
+  ],
+  "privatePcmOrTranscriptSaved": false,
+  "privateMediaUrlOrCredentialsIncluded": false
+}
