@@ -1,0 +1,1824 @@
+{
+  "schema": 1,
+  "sourceSha": "f999a33cc83bc083a608c9a9aa1e01638c14258a",
+  "kind": "lexically-constrained acoustic boundary development diagnostic",
+  "reports": {
+    "flank-boundary-diagnostic/flanks.json": {
+      "sha256": "8c6e6435d42147ce4159cb83d93f884f6aa300c6a7449ff84a50f114afcdf313",
+      "data": {
+        "criteria": {
+          "globalPassageMatch": "unchanged production matcher",
+          "minimumContiguousExactWords": 3,
+          "minimumLexicalTokenScore": 0.35,
+          "positiveSpeechSupport": true,
+          "repeatedOnsetToleranceSeconds": 0.75,
+          "onsetUncertaintySeconds": 0.35,
+          "cueDomainToleranceSeconds": 0.8
+        },
+        "rows": [
+          {
+            "case": "added-scene-crossing-cue",
+            "fixtureSha256": "8c8a1be4f19c666fe3509cf38e704f27f0134302363b775a378d8b98faf27098",
+            "sourceAsrReportSha256": "57be61dc75d94f8da5c02ef2d26799aa185d51c443a345687fa962c3e56b060a",
+            "offsetDifference": 30.170312499999994,
+            "lastBefore": {
+              "subtitleWord": 45,
+              "cue": 7,
+              "inCue": 4,
+              "onsetLower": 35.63,
+              "onsetUpper": 36.410000000000004
+            },
+            "firstAfter": null,
+            "orderedFlanks": false,
+            "boundarySearchConstraints": null
+          },
+          {
+            "case": "added-scene",
+            "fixtureSha256": "2440f309bfa82a91de92d9f1b4a1ed215789bc8e6bccd327cadfb29cdf4716ab",
+            "sourceAsrReportSha256": "6d6350cf0655bdc534ac6a7a2995ddd636ea0ac5e5f9bca0baab96d9a9405a87",
+            "offsetDifference": 30.3083125,
+            "lastBefore": {
+              "subtitleWord": 37,
+              "cue": 6,
+              "inCue": 5,
+              "onsetLower": 29.99,
+              "onsetUpper": 30.71
+            },
+            "firstAfter": {
+              "subtitleWord": 41,
+              "cue": 7,
+              "inCue": 0,
+              "onsetLower": 64.73,
+              "onsetUpper": 65.44999999999999
+            },
+            "orderedFlanks": true,
+            "boundarySearchConstraints": {
+              "startAtLeast": 29.99,
+              "endAtMost": 65.44999999999999
+            }
+          }
+        ]
+      }
+    },
+    "flank-boundary-diagnostic/flanks-extended.json": {
+      "sha256": "ac55f60cf3fd71491feef4d9e472db7fe9cc368dce6f64cac34c7aff24e3fda1",
+      "data": {
+        "criteria": {
+          "globalPassageMatch": "unchanged production matcher",
+          "minimumContiguousExactWords": 3,
+          "minimumLexicalTokenScore": 0.35,
+          "positiveSpeechSupport": true,
+          "repeatedOnsetToleranceSeconds": 0.75,
+          "onsetUncertaintySeconds": 0.35,
+          "cueDomainToleranceSeconds": 0.8
+        },
+        "rows": [
+          {
+            "case": "added-scene-crossing-cue",
+            "fixtureSha256": "8c8a1be4f19c666fe3509cf38e704f27f0134302363b775a378d8b98faf27098",
+            "sourceAsrReportSha256": "57be61dc75d94f8da5c02ef2d26799aa185d51c443a345687fa962c3e56b060a",
+            "offsetDifference": 30.170312499999994,
+            "lastBefore": {
+              "subtitleWord": 45,
+              "cue": 7,
+              "inCue": 4,
+              "onsetLower": 35.63,
+              "onsetUpper": 36.410000000000004
+            },
+            "firstAfter": {
+              "subtitleWord": 46,
+              "cue": 8,
+              "inCue": 0,
+              "onsetLower": 67.41000000000001,
+              "onsetUpper": 68.14999999999999
+            },
+            "orderedFlanks": true,
+            "boundarySearchConstraints": {
+              "startAtLeast": 35.63,
+              "endAtMost": 68.14999999999999
+            }
+          },
+          {
+            "case": "added-scene",
+            "fixtureSha256": "2440f309bfa82a91de92d9f1b4a1ed215789bc8e6bccd327cadfb29cdf4716ab",
+            "sourceAsrReportSha256": "6d6350cf0655bdc534ac6a7a2995ddd636ea0ac5e5f9bca0baab96d9a9405a87",
+            "offsetDifference": 30.3083125,
+            "lastBefore": {
+              "subtitleWord": 37,
+              "cue": 6,
+              "inCue": 5,
+              "onsetLower": 29.99,
+              "onsetUpper": 30.71
+            },
+            "firstAfter": {
+              "subtitleWord": 41,
+              "cue": 7,
+              "inCue": 0,
+              "onsetLower": 64.73,
+              "onsetUpper": 65.44999999999999
+            },
+            "orderedFlanks": true,
+            "boundarySearchConstraints": {
+              "startAtLeast": 29.99,
+              "endAtMost": 65.44999999999999
+            }
+          }
+        ]
+      }
+    },
+    "flank-boundary-diagnostic/anchor-flanks.json": {
+      "sha256": "0d122215d7b25a1b939d59a5b5377dc532baa49d590de4c3a006bcc69de74b91",
+      "data": {
+        "reports": [
+          {
+            "case": "added-scene-crossing-cue",
+            "lastBefore": {
+              "cue": 6,
+              "subtitleStart": 129.4,
+              "mediaStart": 29.337666666666664,
+              "offset": -100.06233333333334
+            },
+            "firstAfter": {
+              "cue": 8,
+              "subtitleStart": 138.0,
+              "mediaStart": 67.82566666666666,
+              "offset": -70.17433333333334
+            },
+            "orderedFlanks": true,
+            "boundarySearchConstraints": {
+              "startAtLeast": 28.987666666666662,
+              "endAtMost": 68.17566666666666
+            },
+            "offsetDifference": 30.170312499999994
+          },
+          {
+            "case": "added-scene",
+            "lastBefore": {
+              "cue": 6,
+              "subtitleStart": 129.4,
+              "mediaStart": 29.32166666666666,
+              "offset": -100.07833333333335
+            },
+            "firstAfter": {
+              "cue": 7,
+              "subtitleStart": 135.0,
+              "mediaStart": 65.09366666666666,
+              "offset": -69.90633333333334
+            },
+            "orderedFlanks": true,
+            "boundarySearchConstraints": {
+              "startAtLeast": 28.971666666666657,
+              "endAtMost": 65.44366666666666
+            },
+            "offsetDifference": 30.3083125
+          }
+        ],
+        "scope": "Use only existing accepted cue starts and mappings from the active native replay; no extra ASR lookahead windows."
+      }
+    },
+    "flank-boundary-diagnostic/crossing-ranked.json": {
+      "sha256": "b99355e1bfb0924301036c09ce48543311429ff52ebb9a20ca2eca159b9e0925",
+      "data": {
+        "kind": "paired-acoustic-change-development-diagnostic",
+        "fixtureSha256": "8c8a1be4f19c666fe3509cf38e704f27f0134302363b775a378d8b98faf27098",
+        "windows": [
+          [
+            24.0,
+            49.0
+          ],
+          [
+            54.0,
+            79.0
+          ]
+        ],
+        "lexicalConstraints": {
+          "startAtLeast": 35.63,
+          "endAtMost": 68.14999999999999
+        },
+        "offsetDifferenceFromPriorAsr": 30.170312499999994,
+        "pairDurationToleranceSeconds": 0.7,
+        "frameHopSeconds": 0.01,
+        "energySideSeconds": 0.08,
+        "ranking": "Minimum of the two endpoint scores; fixed 0.5 s pair suppression; no truth used in proposal ranking",
+        "proposals": {
+          "energyChange": [
+            {
+              "start": 35.9,
+              "end": 66.24,
+              "score": 1.3034389189281725,
+              "durationResidual": 0.169687500000002,
+              "maximumBoundaryError": 0.3500000000000014
+            },
+            {
+              "start": 38.17,
+              "end": 67.68,
+              "score": 1.1574034663208237,
+              "durationResidual": -0.6603124999999892,
+              "maximumBoundaryError": 1.9200000000000017
+            },
+            {
+              "start": 37.47,
+              "end": 67.55,
+              "score": 0.8331588428692038,
+              "durationResidual": -0.09031249999999602,
+              "maximumBoundaryError": 1.2999999999999972
+            },
+            {
+              "start": 36.15,
+              "end": 67.01,
+              "score": 0.6764749062063151,
+              "durationResidual": 0.6896875000000122,
+              "maximumBoundaryError": 0.7600000000000051
+            },
+            {
+              "start": 37.46,
+              "end": 67.01,
+              "score": 0.6764749062063151,
+              "durationResidual": -0.62031249999999,
+              "maximumBoundaryError": 1.2100000000000009
+            },
+            {
+              "start": 37.3,
+              "end": 68.09,
+              "score": 0.645905267693341,
+              "durationResidual": 0.6196875000000119,
+              "maximumBoundaryError": 1.8400000000000034
+            },
+            {
+              "start": 35.63,
+              "end": 65.46000000000001,
+              "score": 0.4826009730873143,
+              "durationResidual": -0.3403124999999889,
+              "maximumBoundaryError": 0.789999999999992
+            },
+            {
+              "start": 36.15,
+              "end": 65.63,
+              "score": 0.44396792422869147,
+              "durationResidual": -0.6903124999999974,
+              "maximumBoundaryError": 0.6200000000000045
+            },
+            {
+              "start": 36.62,
+              "end": 66.22,
+              "score": 0.33201672639676594,
+              "durationResidual": -0.5703124999999929,
+              "maximumBoundaryError": 0.36999999999999744
+            },
+            {
+              "start": 36.72,
+              "end": 66.96000000000001,
+              "score": 0.3156293506464103,
+              "durationResidual": 0.06968750000001478,
+              "maximumBoundaryError": 0.710000000000008
+            }
+          ],
+          "spectralTiltChange": [
+            {
+              "start": 36.19,
+              "end": 66.37,
+              "score": 1.5258166378694524,
+              "durationResidual": 0.009687500000012506,
+              "maximumBoundaryError": 0.12000000000000455
+            },
+            {
+              "start": 36.12,
+              "end": 66.99,
+              "score": 1.0423308221538,
+              "durationResidual": 0.6996875000000031,
+              "maximumBoundaryError": 0.7399999999999949
+            },
+            {
+              "start": 36.86,
+              "end": 66.36,
+              "score": 1.036344973190772,
+              "durationResidual": -0.6703124999999943,
+              "maximumBoundaryError": 0.6099999999999994
+            },
+            {
+              "start": 36.86,
+              "end": 66.99,
+              "score": 1.036344973190772,
+              "durationResidual": -0.04031249999999886,
+              "maximumBoundaryError": 0.7399999999999949
+            },
+            {
+              "start": 36.86,
+              "end": 67.52,
+              "score": 1.036344973190772,
+              "durationResidual": 0.4896875000000023,
+              "maximumBoundaryError": 1.269999999999996
+            },
+            {
+              "start": 35.66,
+              "end": 66.36,
+              "score": 0.9979847759921843,
+              "durationResidual": 0.5296875000000085,
+              "maximumBoundaryError": 0.5900000000000034
+            },
+            {
+              "start": 37.37,
+              "end": 66.98,
+              "score": 0.956216917862786,
+              "durationResidual": -0.5603124999999878,
+              "maximumBoundaryError": 1.1199999999999974
+            },
+            {
+              "start": 37.37,
+              "end": 67.52,
+              "score": 0.956216917862786,
+              "durationResidual": -0.020312499999995737,
+              "maximumBoundaryError": 1.269999999999996
+            },
+            {
+              "start": 38.1,
+              "end": 67.58,
+              "score": 0.809560425374784,
+              "durationResidual": -0.6903124999999974,
+              "maximumBoundaryError": 1.8500000000000014
+            },
+            {
+              "start": 35.65,
+              "end": 65.14,
+              "score": 0.7615966535407187,
+              "durationResidual": -0.6803124999999923,
+              "maximumBoundaryError": 1.1099999999999994
+            }
+          ],
+          "sampleShock": [
+            {
+              "start": 35.99,
+              "end": 66.35,
+              "score": 9.057287065877238,
+              "durationResidual": 0.189687499999998,
+              "maximumBoundaryError": 0.259999999999998
+            },
+            {
+              "start": 36.14,
+              "end": 66.91,
+              "score": 4.267454495195938,
+              "durationResidual": 0.5996875000000017,
+              "maximumBoundaryError": 0.6599999999999966
+            },
+            {
+              "start": 38.15,
+              "end": 67.63,
+              "score": 2.7039540405082056,
+              "durationResidual": -0.6903124999999974,
+              "maximumBoundaryError": 1.8999999999999986
+            },
+            {
+              "start": 35.69,
+              "end": 65.17,
+              "score": 2.0886569410297846,
+              "durationResidual": -0.6903124999999903,
+              "maximumBoundaryError": 1.0799999999999983
+            },
+            {
+              "start": 36.91,
+              "end": 66.61,
+              "score": 1.6265935686246187,
+              "durationResidual": -0.4703124999999915,
+              "maximumBoundaryError": 0.6599999999999966
+            },
+            {
+              "start": 36.91,
+              "end": 67.2,
+              "score": 1.6265935686246187,
+              "durationResidual": 0.11968750000001194,
+              "maximumBoundaryError": 0.9500000000000028
+            },
+            {
+              "start": 35.64,
+              "end": 65.72,
+              "score": 1.2065321988412692,
+              "durationResidual": -0.09031249999999602,
+              "maximumBoundaryError": 0.6099999999999994
+            },
+            {
+              "start": 36.14,
+              "end": 65.72,
+              "score": 1.2065321988412692,
+              "durationResidual": -0.590312499999996,
+              "maximumBoundaryError": 0.5300000000000011
+            },
+            {
+              "start": 36.9,
+              "end": 67.77,
+              "score": 1.1205688684044777,
+              "durationResidual": 0.6996875000000031,
+              "maximumBoundaryError": 1.519999999999996
+            },
+            {
+              "start": 37.47,
+              "end": 66.95,
+              "score": 0.6292940564346852,
+              "durationResidual": -0.6903124999999903,
+              "maximumBoundaryError": 1.2199999999999989
+            }
+          ]
+        },
+        "trueBoundaries": [
+          36.25,
+          66.25
+        ],
+        "productionAlgorithmChanged": false,
+        "heldOutValidation": false,
+        "pcmOrTranscriptPersisted": false
+      }
+    },
+    "flank-boundary-diagnostic/added-ranked.json": {
+      "sha256": "2ff24c511490161ae66c8d43d545c5d8cae0bd8906e8096bdfe7090172e3074c",
+      "data": {
+        "kind": "paired-acoustic-change-development-diagnostic",
+        "fixtureSha256": "2440f309bfa82a91de92d9f1b4a1ed215789bc8e6bccd327cadfb29cdf4716ab",
+        "windows": [
+          [
+            24.0,
+            49.0
+          ],
+          [
+            54.0,
+            79.0
+          ]
+        ],
+        "lexicalConstraints": {
+          "startAtLeast": 29.99,
+          "endAtMost": 65.44999999999999
+        },
+        "offsetDifferenceFromPriorAsr": 30.3083125,
+        "pairDurationToleranceSeconds": 0.7,
+        "frameHopSeconds": 0.01,
+        "energySideSeconds": 0.08,
+        "ranking": "Minimum of the two endpoint scores; fixed 0.5 s pair suppression; no truth used in proposal ranking",
+        "proposals": {
+          "energyChange": [
+            {
+              "start": 33.09,
+              "end": 62.87,
+              "score": 0.6639556017982978,
+              "durationResidual": -0.5283125000000055,
+              "maximumBoundaryError": 1.6300000000000026
+            },
+            {
+              "start": 30.68,
+              "end": 61.39,
+              "score": 0.5726239204769104,
+              "durationResidual": 0.4016875000000013,
+              "maximumBoundaryError": 3.8200000000000003
+            },
+            {
+              "start": 31.33,
+              "end": 61.39,
+              "score": 0.5726239204769104,
+              "durationResidual": -0.24831249999999727,
+              "maximumBoundaryError": 3.1700000000000017
+            },
+            {
+              "start": 33.75,
+              "end": 64.48,
+              "score": 0.5468457719768869,
+              "durationResidual": 0.42168750000000443,
+              "maximumBoundaryError": 0.75
+            },
+            {
+              "start": 32.01,
+              "end": 62.86,
+              "score": 0.5327790589014149,
+              "durationResidual": 0.5416875000000019,
+              "maximumBoundaryError": 2.490000000000002
+            },
+            {
+              "start": 30.1,
+              "end": 60.2,
+              "score": 0.5269447132100515,
+              "durationResidual": -0.20831249999999812,
+              "maximumBoundaryError": 4.399999999999999
+            },
+            {
+              "start": 35.31,
+              "end": 64.96000000000001,
+              "score": 0.5254081865019627,
+              "durationResidual": -0.6583124999999939,
+              "maximumBoundaryError": 0.8100000000000023
+            },
+            {
+              "start": 33.08,
+              "end": 64.07,
+              "score": 0.4851045698974954,
+              "durationResidual": 0.6816874999999953,
+              "maximumBoundaryError": 1.4200000000000017
+            },
+            {
+              "start": 33.67,
+              "end": 63.71,
+              "score": 0.4826009730940723,
+              "durationResidual": -0.2683125000000004,
+              "maximumBoundaryError": 0.8299999999999983
+            },
+            {
+              "start": 30.68,
+              "end": 60.61,
+              "score": 0.46713899292307126,
+              "durationResidual": -0.37831249999999983,
+              "maximumBoundaryError": 3.8900000000000006
+            }
+          ],
+          "spectralTiltChange": [
+            {
+              "start": 35.11,
+              "end": 64.96000000000001,
+              "score": 1.036344973341635,
+              "durationResidual": -0.458312499999991,
+              "maximumBoundaryError": 0.6099999999999994
+            },
+            {
+              "start": 35.62,
+              "end": 65.32,
+              "score": 0.9562169178760709,
+              "durationResidual": -0.6083125000000038,
+              "maximumBoundaryError": 1.1199999999999974
+            },
+            {
+              "start": 31.87,
+              "end": 62.72,
+              "score": 0.9212926572176713,
+              "durationResidual": 0.5416874999999983,
+              "maximumBoundaryError": 2.629999999999999
+            },
+            {
+              "start": 32.96,
+              "end": 62.71,
+              "score": 0.8423670104022335,
+              "durationResidual": -0.5583124999999995,
+              "maximumBoundaryError": 1.7899999999999991
+            },
+            {
+              "start": 34.480000000000004,
+              "end": 64.52,
+              "score": 0.8274011532765042,
+              "durationResidual": -0.2683125000000075,
+              "maximumBoundaryError": 0.01999999999999602
+            },
+            {
+              "start": 34.480000000000004,
+              "end": 65.02,
+              "score": 0.8274011532765042,
+              "durationResidual": 0.2316874999999925,
+              "maximumBoundaryError": 0.519999999999996
+            },
+            {
+              "start": 33.67,
+              "end": 64.52,
+              "score": 0.7785460272726015,
+              "durationResidual": 0.5416874999999948,
+              "maximumBoundaryError": 0.8299999999999983
+            },
+            {
+              "start": 31.3,
+              "end": 62.3,
+              "score": 0.7728898207552259,
+              "durationResidual": 0.6916874999999969,
+              "maximumBoundaryError": 3.1999999999999993
+            },
+            {
+              "start": 32.96,
+              "end": 63.39,
+              "score": 0.7615966535362981,
+              "durationResidual": 0.12168750000000017,
+              "maximumBoundaryError": 1.5399999999999991
+            },
+            {
+              "start": 33.67,
+              "end": 63.39,
+              "score": 0.7615966535362981,
+              "durationResidual": -0.5883125000000007,
+              "maximumBoundaryError": 1.1099999999999994
+            }
+          ],
+          "sampleShock": [
+            {
+              "start": 33.7,
+              "end": 64.62,
+              "score": 4.582313981635931,
+              "durationResidual": 0.6116875000000022,
+              "maximumBoundaryError": 0.7999999999999972
+            },
+            {
+              "start": 34.18,
+              "end": 65.18,
+              "score": 2.7722582005603025,
+              "durationResidual": 0.6916875000000076,
+              "maximumBoundaryError": 0.6800000000000068
+            },
+            {
+              "start": 32.56,
+              "end": 63.42,
+              "score": 2.0886569410215694,
+              "durationResidual": 0.5516874999999999,
+              "maximumBoundaryError": 1.9399999999999977
+            },
+            {
+              "start": 33.7,
+              "end": 63.42,
+              "score": 2.0886569410215694,
+              "durationResidual": -0.5883125000000007,
+              "maximumBoundaryError": 1.0799999999999983
+            },
+            {
+              "start": 30.41,
+              "end": 60.8,
+              "score": 1.9945933829560873,
+              "durationResidual": 0.08168749999999747,
+              "maximumBoundaryError": 4.09
+            },
+            {
+              "start": 30.91,
+              "end": 60.8,
+              "score": 1.9945933829560873,
+              "durationResidual": -0.41831250000000253,
+              "maximumBoundaryError": 3.700000000000003
+            },
+            {
+              "start": 33.13,
+              "end": 63.42,
+              "score": 1.9120630347555068,
+              "durationResidual": -0.018312500000000398,
+              "maximumBoundaryError": 1.3699999999999974
+            },
+            {
+              "start": 30.58,
+              "end": 61.58,
+              "score": 1.8548386966531736,
+              "durationResidual": 0.6916875000000005,
+              "maximumBoundaryError": 3.9200000000000017
+            },
+            {
+              "start": 31.23,
+              "end": 61.58,
+              "score": 1.8548386966531736,
+              "durationResidual": 0.04168749999999832,
+              "maximumBoundaryError": 3.2699999999999996
+            },
+            {
+              "start": 31.77,
+              "end": 61.58,
+              "score": 1.8548386966531736,
+              "durationResidual": -0.4983125000000008,
+              "maximumBoundaryError": 2.9200000000000017
+            }
+          ]
+        },
+        "trueBoundaries": [
+          34.5,
+          64.5
+        ],
+        "productionAlgorithmChanged": false,
+        "heldOutValidation": false,
+        "pcmOrTranscriptPersisted": false
+      }
+    },
+    "flank-boundary-diagnostic/crossing-anchor-ranked.json": {
+      "sha256": "145e4c595a208797bf8decf1020dbfd217edcf8affe90cdf59f76ad0a03f003e",
+      "data": {
+        "kind": "paired-acoustic-change-development-diagnostic",
+        "fixtureSha256": "8c8a1be4f19c666fe3509cf38e704f27f0134302363b775a378d8b98faf27098",
+        "windows": [
+          [
+            24.0,
+            49.0
+          ],
+          [
+            54.0,
+            79.0
+          ]
+        ],
+        "lexicalConstraints": {
+          "startAtLeast": 28.987666666666662,
+          "endAtMost": 68.17566666666666
+        },
+        "offsetDifferenceFromPriorAsr": 30.170312499999994,
+        "pairDurationToleranceSeconds": 0.7,
+        "frameHopSeconds": 0.01,
+        "energySideSeconds": 0.08,
+        "ranking": "Minimum of the two endpoint scores; fixed 0.5 s pair suppression; no truth used in proposal ranking",
+        "proposals": {
+          "energyChange": [
+            {
+              "start": 35.9,
+              "end": 66.24,
+              "score": 1.3034389189281725,
+              "durationResidual": 0.169687500000002,
+              "maximumBoundaryError": 0.3500000000000014
+            },
+            {
+              "start": 38.17,
+              "end": 67.68,
+              "score": 1.1574034663208237,
+              "durationResidual": -0.6603124999999892,
+              "maximumBoundaryError": 1.9200000000000017
+            },
+            {
+              "start": 37.47,
+              "end": 67.55,
+              "score": 0.8331588428692038,
+              "durationResidual": -0.09031249999999602,
+              "maximumBoundaryError": 1.2999999999999972
+            },
+            {
+              "start": 36.15,
+              "end": 67.01,
+              "score": 0.6764749062063151,
+              "durationResidual": 0.6896875000000122,
+              "maximumBoundaryError": 0.7600000000000051
+            },
+            {
+              "start": 37.46,
+              "end": 67.01,
+              "score": 0.6764749062063151,
+              "durationResidual": -0.62031249999999,
+              "maximumBoundaryError": 1.2100000000000009
+            },
+            {
+              "start": 34.91,
+              "end": 64.62,
+              "score": 0.6639556017956062,
+              "durationResidual": -0.46031249999998636,
+              "maximumBoundaryError": 1.6299999999999955
+            },
+            {
+              "start": 37.3,
+              "end": 68.09,
+              "score": 0.645905267693341,
+              "durationResidual": 0.6196875000000119,
+              "maximumBoundaryError": 1.8400000000000034
+            },
+            {
+              "start": 29.12,
+              "end": 59.21,
+              "score": 0.6377569186669768,
+              "durationResidual": -0.08031249999999446,
+              "maximumBoundaryError": 7.129999999999999
+            },
+            {
+              "start": 32.87,
+              "end": 63.14,
+              "score": 0.5726239204790957,
+              "durationResidual": 0.09968750000000881,
+              "maximumBoundaryError": 3.3800000000000026
+            },
+            {
+              "start": 29.66,
+              "end": 59.18,
+              "score": 0.5549389638922044,
+              "durationResidual": -0.6503124999999947,
+              "maximumBoundaryError": 7.07
+            }
+          ],
+          "spectralTiltChange": [
+            {
+              "start": 36.19,
+              "end": 66.37,
+              "score": 1.5258166378694524,
+              "durationResidual": 0.009687500000012506,
+              "maximumBoundaryError": 0.12000000000000455
+            },
+            {
+              "start": 35.58,
+              "end": 66.36,
+              "score": 1.3957180081758465,
+              "durationResidual": 0.6096875000000068,
+              "maximumBoundaryError": 0.6700000000000017
+            },
+            {
+              "start": 30.73,
+              "end": 61.34,
+              "score": 1.164367350330856,
+              "durationResidual": 0.43968750000000867,
+              "maximumBoundaryError": 5.52
+            },
+            {
+              "start": 31.32,
+              "end": 61.34,
+              "score": 1.164367350330856,
+              "durationResidual": -0.1503124999999912,
+              "maximumBoundaryError": 4.93
+            },
+            {
+              "start": 36.12,
+              "end": 66.99,
+              "score": 1.0423308221538,
+              "durationResidual": 0.6996875000000031,
+              "maximumBoundaryError": 0.7399999999999949
+            },
+            {
+              "start": 36.86,
+              "end": 66.36,
+              "score": 1.036344973190772,
+              "durationResidual": -0.6703124999999943,
+              "maximumBoundaryError": 0.6099999999999994
+            },
+            {
+              "start": 36.86,
+              "end": 66.99,
+              "score": 1.036344973190772,
+              "durationResidual": -0.04031249999999886,
+              "maximumBoundaryError": 0.7399999999999949
+            },
+            {
+              "start": 36.86,
+              "end": 67.52,
+              "score": 1.036344973190772,
+              "durationResidual": 0.4896875000000023,
+              "maximumBoundaryError": 1.269999999999996
+            },
+            {
+              "start": 31.87,
+              "end": 61.35,
+              "score": 0.9977790543571888,
+              "durationResidual": -0.6903124999999939,
+              "maximumBoundaryError": 4.899999999999999
+            },
+            {
+              "start": 37.37,
+              "end": 66.98,
+              "score": 0.956216917862786,
+              "durationResidual": -0.5603124999999878,
+              "maximumBoundaryError": 1.1199999999999974
+            }
+          ],
+          "sampleShock": [
+            {
+              "start": 35.99,
+              "end": 66.35,
+              "score": 9.057287065877238,
+              "durationResidual": 0.189687499999998,
+              "maximumBoundaryError": 0.259999999999998
+            },
+            {
+              "start": 35.480000000000004,
+              "end": 66.35,
+              "score": 4.6938203501252955,
+              "durationResidual": 0.699687499999996,
+              "maximumBoundaryError": 0.769999999999996
+            },
+            {
+              "start": 36.14,
+              "end": 66.91,
+              "score": 4.267454495195938,
+              "durationResidual": 0.5996875000000017,
+              "maximumBoundaryError": 0.6599999999999966
+            },
+            {
+              "start": 38.15,
+              "end": 67.63,
+              "score": 2.7039540405082056,
+              "durationResidual": -0.6903124999999974,
+              "maximumBoundaryError": 1.8999999999999986
+            },
+            {
+              "start": 34.56,
+              "end": 65.17,
+              "score": 2.0886569410297846,
+              "durationResidual": 0.4396875000000051,
+              "maximumBoundaryError": 1.6899999999999977
+            },
+            {
+              "start": 35.13,
+              "end": 65.17,
+              "score": 2.0886569410297846,
+              "durationResidual": -0.13031249999999517,
+              "maximumBoundaryError": 1.1199999999999974
+            },
+            {
+              "start": 35.69,
+              "end": 65.17,
+              "score": 2.0886569410297846,
+              "durationResidual": -0.6903124999999903,
+              "maximumBoundaryError": 1.0799999999999983
+            },
+            {
+              "start": 31.77,
+              "end": 62.55,
+              "score": 1.994593382983543,
+              "durationResidual": 0.6096875000000033,
+              "maximumBoundaryError": 4.48
+            },
+            {
+              "start": 32.33,
+              "end": 62.55,
+              "score": 1.994593382983543,
+              "durationResidual": 0.04968750000000455,
+              "maximumBoundaryError": 3.9200000000000017
+            },
+            {
+              "start": 32.87,
+              "end": 62.55,
+              "score": 1.994593382983543,
+              "durationResidual": -0.4903124999999946,
+              "maximumBoundaryError": 3.700000000000003
+            }
+          ]
+        },
+        "trueBoundaries": [
+          36.25,
+          66.25
+        ],
+        "productionAlgorithmChanged": false,
+        "heldOutValidation": false,
+        "pcmOrTranscriptPersisted": false
+      }
+    },
+    "flank-boundary-diagnostic/added-anchor-ranked.json": {
+      "sha256": "1c1d13d9db681c823b9bac09f3cdef8fd5ebf292561c3c7d332fef9bd620d28c",
+      "data": {
+        "kind": "paired-acoustic-change-development-diagnostic",
+        "fixtureSha256": "2440f309bfa82a91de92d9f1b4a1ed215789bc8e6bccd327cadfb29cdf4716ab",
+        "windows": [
+          [
+            24.0,
+            49.0
+          ],
+          [
+            54.0,
+            79.0
+          ]
+        ],
+        "lexicalConstraints": {
+          "startAtLeast": 28.971666666666657,
+          "endAtMost": 65.44366666666666
+        },
+        "offsetDifferenceFromPriorAsr": 30.3083125,
+        "pairDurationToleranceSeconds": 0.7,
+        "frameHopSeconds": 0.01,
+        "energySideSeconds": 0.08,
+        "ranking": "Minimum of the two endpoint scores; fixed 0.5 s pair suppression; no truth used in proposal ranking",
+        "proposals": {
+          "energyChange": [
+            {
+              "start": 33.09,
+              "end": 62.87,
+              "score": 0.6639556017982978,
+              "durationResidual": -0.5283125000000055,
+              "maximumBoundaryError": 1.6300000000000026
+            },
+            {
+              "start": 30.68,
+              "end": 61.39,
+              "score": 0.5726239204769104,
+              "durationResidual": 0.4016875000000013,
+              "maximumBoundaryError": 3.8200000000000003
+            },
+            {
+              "start": 31.33,
+              "end": 61.39,
+              "score": 0.5726239204769104,
+              "durationResidual": -0.24831249999999727,
+              "maximumBoundaryError": 3.1700000000000017
+            },
+            {
+              "start": 33.75,
+              "end": 64.48,
+              "score": 0.5468457719768869,
+              "durationResidual": 0.42168750000000443,
+              "maximumBoundaryError": 0.75
+            },
+            {
+              "start": 32.01,
+              "end": 62.86,
+              "score": 0.5327790589014149,
+              "durationResidual": 0.5416875000000019,
+              "maximumBoundaryError": 2.490000000000002
+            },
+            {
+              "start": 29.2,
+              "end": 60.2,
+              "score": 0.5269447132100515,
+              "durationResidual": 0.691687500000004,
+              "maximumBoundaryError": 5.300000000000001
+            },
+            {
+              "start": 30.1,
+              "end": 60.2,
+              "score": 0.5269447132100515,
+              "durationResidual": -0.20831249999999812,
+              "maximumBoundaryError": 4.399999999999999
+            },
+            {
+              "start": 35.31,
+              "end": 64.96000000000001,
+              "score": 0.5254081865019627,
+              "durationResidual": -0.6583124999999939,
+              "maximumBoundaryError": 0.8100000000000023
+            },
+            {
+              "start": 33.08,
+              "end": 64.07,
+              "score": 0.4851045698974954,
+              "durationResidual": 0.6816874999999953,
+              "maximumBoundaryError": 1.4200000000000017
+            },
+            {
+              "start": 33.67,
+              "end": 63.71,
+              "score": 0.4826009730940723,
+              "durationResidual": -0.2683125000000004,
+              "maximumBoundaryError": 0.8299999999999983
+            }
+          ],
+          "spectralTiltChange": [
+            {
+              "start": 29.62,
+              "end": 59.59,
+              "score": 1.1643673503254703,
+              "durationResidual": -0.33831249999999713,
+              "maximumBoundaryError": 4.909999999999997
+            },
+            {
+              "start": 35.11,
+              "end": 64.96000000000001,
+              "score": 1.036344973341635,
+              "durationResidual": -0.458312499999991,
+              "maximumBoundaryError": 0.6099999999999994
+            },
+            {
+              "start": 35.62,
+              "end": 65.32,
+              "score": 0.9562169178760709,
+              "durationResidual": -0.6083125000000038,
+              "maximumBoundaryError": 1.1199999999999974
+            },
+            {
+              "start": 31.87,
+              "end": 62.72,
+              "score": 0.9212926572176713,
+              "durationResidual": 0.5416874999999983,
+              "maximumBoundaryError": 2.629999999999999
+            },
+            {
+              "start": 32.96,
+              "end": 62.71,
+              "score": 0.8423670104022335,
+              "durationResidual": -0.5583124999999995,
+              "maximumBoundaryError": 1.7899999999999991
+            },
+            {
+              "start": 29.12,
+              "end": 59.56,
+              "score": 0.8420065202604766,
+              "durationResidual": 0.13168750000000173,
+              "maximumBoundaryError": 5.379999999999999
+            },
+            {
+              "start": 34.480000000000004,
+              "end": 64.52,
+              "score": 0.8274011532765042,
+              "durationResidual": -0.2683125000000075,
+              "maximumBoundaryError": 0.01999999999999602
+            },
+            {
+              "start": 34.480000000000004,
+              "end": 65.02,
+              "score": 0.8274011532765042,
+              "durationResidual": 0.2316874999999925,
+              "maximumBoundaryError": 0.519999999999996
+            },
+            {
+              "start": 33.67,
+              "end": 64.52,
+              "score": 0.7785460272726015,
+              "durationResidual": 0.5416874999999948,
+              "maximumBoundaryError": 0.8299999999999983
+            },
+            {
+              "start": 31.3,
+              "end": 62.3,
+              "score": 0.7728898207552259,
+              "durationResidual": 0.6916874999999969,
+              "maximumBoundaryError": 3.1999999999999993
+            }
+          ],
+          "sampleShock": [
+            {
+              "start": 33.7,
+              "end": 64.62,
+              "score": 4.582313981635931,
+              "durationResidual": 0.6116875000000022,
+              "maximumBoundaryError": 0.7999999999999972
+            },
+            {
+              "start": 34.18,
+              "end": 65.18,
+              "score": 2.7722582005603025,
+              "durationResidual": 0.6916875000000076,
+              "maximumBoundaryError": 0.6800000000000068
+            },
+            {
+              "start": 32.56,
+              "end": 63.42,
+              "score": 2.0886569410215694,
+              "durationResidual": 0.5516874999999999,
+              "maximumBoundaryError": 1.9399999999999977
+            },
+            {
+              "start": 33.7,
+              "end": 63.42,
+              "score": 2.0886569410215694,
+              "durationResidual": -0.5883125000000007,
+              "maximumBoundaryError": 1.0799999999999983
+            },
+            {
+              "start": 29.83,
+              "end": 60.8,
+              "score": 1.9945933829560873,
+              "durationResidual": 0.6616874999999993,
+              "maximumBoundaryError": 4.670000000000002
+            },
+            {
+              "start": 30.41,
+              "end": 60.8,
+              "score": 1.9945933829560873,
+              "durationResidual": 0.08168749999999747,
+              "maximumBoundaryError": 4.09
+            },
+            {
+              "start": 30.91,
+              "end": 60.8,
+              "score": 1.9945933829560873,
+              "durationResidual": -0.41831250000000253,
+              "maximumBoundaryError": 3.700000000000003
+            },
+            {
+              "start": 33.13,
+              "end": 63.42,
+              "score": 1.9120630347555068,
+              "durationResidual": -0.018312500000000398,
+              "maximumBoundaryError": 1.3699999999999974
+            },
+            {
+              "start": 30.58,
+              "end": 61.58,
+              "score": 1.8548386966531736,
+              "durationResidual": 0.6916875000000005,
+              "maximumBoundaryError": 3.9200000000000017
+            },
+            {
+              "start": 31.23,
+              "end": 61.58,
+              "score": 1.8548386966531736,
+              "durationResidual": 0.04168749999999832,
+              "maximumBoundaryError": 3.2699999999999996
+            }
+          ]
+        },
+        "trueBoundaries": [
+          34.5,
+          64.5
+        ],
+        "productionAlgorithmChanged": false,
+        "heldOutValidation": false,
+        "pcmOrTranscriptPersisted": false
+      }
+    },
+    "flank-native-conversion-diagnostic/flanks.json": {
+      "sha256": "52cd0db5297f2990558cd8f70d9ec2a9c1f327592f1c6f90a05f171ec85c8d5e",
+      "data": {
+        "criteria": {
+          "globalPassageMatch": "unchanged production matcher",
+          "minimumContiguousExactWords": 3,
+          "minimumLexicalTokenScore": 0.35,
+          "positiveSpeechSupport": true,
+          "repeatedOnsetToleranceSeconds": 0.75,
+          "onsetUncertaintySeconds": 0.35,
+          "cueDomainToleranceSeconds": 0.8
+        },
+        "rows": [
+          {
+            "case": "added-scene-crossing-cue",
+            "fixtureSha256": "8c8a1be4f19c666fe3509cf38e704f27f0134302363b775a378d8b98faf27098",
+            "sourceAsrReportSha256": "57be61dc75d94f8da5c02ef2d26799aa185d51c443a345687fa962c3e56b060a",
+            "offsetDifference": 30.170312499999994,
+            "lastBefore": {
+              "subtitleWord": 45,
+              "cue": 7,
+              "inCue": 4,
+              "onsetLower": 35.71,
+              "onsetUpper": 36.43
+            },
+            "firstAfter": null,
+            "orderedFlanks": false,
+            "boundarySearchConstraints": null
+          },
+          {
+            "case": "added-scene",
+            "fixtureSha256": "2440f309bfa82a91de92d9f1b4a1ed215789bc8e6bccd327cadfb29cdf4716ab",
+            "sourceAsrReportSha256": "6d6350cf0655bdc534ac6a7a2995ddd636ea0ac5e5f9bca0baab96d9a9405a87",
+            "offsetDifference": 30.3083125,
+            "lastBefore": {
+              "subtitleWord": 37,
+              "cue": 6,
+              "inCue": 5,
+              "onsetLower": 29.99,
+              "onsetUpper": 30.71
+            },
+            "firstAfter": {
+              "subtitleWord": 41,
+              "cue": 7,
+              "inCue": 0,
+              "onsetLower": 64.73,
+              "onsetUpper": 65.44999999999999
+            },
+            "orderedFlanks": true,
+            "boundarySearchConstraints": {
+              "startAtLeast": 29.99,
+              "endAtMost": 65.44999999999999
+            }
+          }
+        ]
+      }
+    },
+    "flank-native-conversion-diagnostic/flanks-extended.json": {
+      "sha256": "fd563927524d439d5a40c732f9d6f560d06fb2e1139952ea2968ba11e8185ceb",
+      "data": {
+        "criteria": {
+          "globalPassageMatch": "unchanged production matcher",
+          "minimumContiguousExactWords": 3,
+          "minimumLexicalTokenScore": 0.35,
+          "positiveSpeechSupport": true,
+          "repeatedOnsetToleranceSeconds": 0.75,
+          "onsetUncertaintySeconds": 0.35,
+          "cueDomainToleranceSeconds": 0.8
+        },
+        "rows": [
+          {
+            "case": "added-scene-crossing-cue",
+            "fixtureSha256": "8c8a1be4f19c666fe3509cf38e704f27f0134302363b775a378d8b98faf27098",
+            "sourceAsrReportSha256": "57be61dc75d94f8da5c02ef2d26799aa185d51c443a345687fa962c3e56b060a",
+            "offsetDifference": 30.170312499999994,
+            "lastBefore": {
+              "subtitleWord": 45,
+              "cue": 7,
+              "inCue": 4,
+              "onsetLower": 35.71,
+              "onsetUpper": 36.43
+            },
+            "firstAfter": {
+              "subtitleWord": 46,
+              "cue": 8,
+              "inCue": 0,
+              "onsetLower": 67.41000000000001,
+              "onsetUpper": 68.14999999999999
+            },
+            "orderedFlanks": true,
+            "boundarySearchConstraints": {
+              "startAtLeast": 35.71,
+              "endAtMost": 68.14999999999999
+            }
+          },
+          {
+            "case": "added-scene",
+            "fixtureSha256": "2440f309bfa82a91de92d9f1b4a1ed215789bc8e6bccd327cadfb29cdf4716ab",
+            "sourceAsrReportSha256": "6d6350cf0655bdc534ac6a7a2995ddd636ea0ac5e5f9bca0baab96d9a9405a87",
+            "offsetDifference": 30.3083125,
+            "lastBefore": {
+              "subtitleWord": 37,
+              "cue": 6,
+              "inCue": 5,
+              "onsetLower": 29.99,
+              "onsetUpper": 30.71
+            },
+            "firstAfter": {
+              "subtitleWord": 41,
+              "cue": 7,
+              "inCue": 0,
+              "onsetLower": 64.73,
+              "onsetUpper": 65.44999999999999
+            },
+            "orderedFlanks": true,
+            "boundarySearchConstraints": {
+              "startAtLeast": 29.99,
+              "endAtMost": 65.44999999999999
+            }
+          }
+        ]
+      }
+    },
+    "flank-native-conversion-diagnostic/ranked.json": {
+      "sha256": "5b41b0553d8f7bed3767f53c4fb45f559e156f6559ac02de70943611c5f7ac8f",
+      "data": {
+        "scope": "native-converted bounded public audio, text-constrained acoustic proposals; no production gap insertion",
+        "pairDurationToleranceSeconds": 0.7,
+        "frameHopSeconds": 0.01,
+        "energySideSeconds": 0.08,
+        "ranking": "minimum endpoint score, fixed .5-second pair suppression",
+        "reports": [
+          {
+            "case": "added-scene-crossing-cue",
+            "flankConstraints": {
+              "startAtLeast": 35.71,
+              "endAtMost": 68.14999999999999
+            },
+            "offsetDifference": 30.170312499999994,
+            "acousticWindows": [
+              [
+                35.62,
+                50.62
+              ],
+              [
+                65.09025,
+                80.09025
+              ]
+            ],
+            "proposals": {
+              "energyChange": [
+                {
+                  "start": 35.82,
+                  "end": 66.26,
+                  "score": 1.2956663216835758,
+                  "durationResidual": 0.2696875000000105,
+                  "maximumBoundaryError": 0.4299999999999997
+                },
+                {
+                  "start": 38.150000000000006,
+                  "end": 67.63000000000001,
+                  "score": 0.8994881417113214,
+                  "durationResidual": -0.6903124999999903,
+                  "maximumBoundaryError": 1.9000000000000057
+                },
+                {
+                  "start": 37.53,
+                  "end": 67.57000000000001,
+                  "score": 0.8590371194922337,
+                  "durationResidual": -0.13031249999998806,
+                  "maximumBoundaryError": 1.3200000000000074
+                },
+                {
+                  "start": 36.220000000000006,
+                  "end": 67.03,
+                  "score": 0.6439691154665809,
+                  "durationResidual": 0.6396875000000009,
+                  "maximumBoundaryError": 0.7800000000000011
+                },
+                {
+                  "start": 37.36,
+                  "end": 67.03,
+                  "score": 0.6439691154665809,
+                  "durationResidual": -0.5003124999999926,
+                  "maximumBoundaryError": 1.1099999999999994
+                },
+                {
+                  "start": 37.36,
+                  "end": 68.10000000000001,
+                  "score": 0.6307520481248211,
+                  "durationResidual": 0.5696875000000148,
+                  "maximumBoundaryError": 1.8500000000000085
+                },
+                {
+                  "start": 35.71,
+                  "end": 65.47000000000001,
+                  "score": 0.463313128090027,
+                  "durationResidual": -0.4103124999999821,
+                  "maximumBoundaryError": 0.7799999999999869
+                },
+                {
+                  "start": 36.68,
+                  "end": 66.23,
+                  "score": 0.3476280869859007,
+                  "durationResidual": -0.62031249999999,
+                  "maximumBoundaryError": 0.4299999999999997
+                },
+                {
+                  "start": 36.68,
+                  "end": 67.54,
+                  "score": 0.3476280869859007,
+                  "durationResidual": 0.6896875000000122,
+                  "maximumBoundaryError": 1.2900000000000063
+                },
+                {
+                  "start": 37.86,
+                  "end": 68.13000000000001,
+                  "score": 0.3443873708918,
+                  "durationResidual": 0.09968750000001592,
+                  "maximumBoundaryError": 1.8800000000000097
+                }
+              ],
+              "spectralTiltChange": [
+                {
+                  "start": 36.25,
+                  "end": 66.39,
+                  "score": 1.5581946859449183,
+                  "durationResidual": -0.030312499999993747,
+                  "maximumBoundaryError": 0.14000000000000057
+                },
+                {
+                  "start": 36.150000000000006,
+                  "end": 67.01,
+                  "score": 1.0534854671073437,
+                  "durationResidual": 0.6896875000000051,
+                  "maximumBoundaryError": 0.7600000000000051
+                },
+                {
+                  "start": 36.93,
+                  "end": 66.41000000000001,
+                  "score": 1.0249397792168282,
+                  "durationResidual": -0.6903124999999832,
+                  "maximumBoundaryError": 0.6799999999999997
+                },
+                {
+                  "start": 36.93,
+                  "end": 67.0,
+                  "score": 1.0249397792168282,
+                  "durationResidual": -0.10031249999999403,
+                  "maximumBoundaryError": 0.75
+                },
+                {
+                  "start": 36.93,
+                  "end": 67.53,
+                  "score": 1.0249397792168282,
+                  "durationResidual": 0.4296875000000071,
+                  "maximumBoundaryError": 1.2800000000000011
+                },
+                {
+                  "start": 35.730000000000004,
+                  "end": 66.37,
+                  "score": 0.9813187585272277,
+                  "durationResidual": 0.46968750000000625,
+                  "maximumBoundaryError": 0.519999999999996
+                },
+                {
+                  "start": 37.440000000000005,
+                  "end": 67.0,
+                  "score": 0.976521218330531,
+                  "durationResidual": -0.6103124999999991,
+                  "maximumBoundaryError": 1.1900000000000048
+                },
+                {
+                  "start": 37.440000000000005,
+                  "end": 67.53,
+                  "score": 0.976521218330531,
+                  "durationResidual": -0.08031249999999801,
+                  "maximumBoundaryError": 1.2800000000000011
+                },
+                {
+                  "start": 38.17,
+                  "end": 67.65,
+                  "score": 0.8955831946475675,
+                  "durationResidual": -0.6903124999999903,
+                  "maximumBoundaryError": 1.9200000000000017
+                },
+                {
+                  "start": 35.71,
+                  "end": 65.49000000000001,
+                  "score": 0.5597517748708529,
+                  "durationResidual": -0.3903124999999861,
+                  "maximumBoundaryError": 0.7599999999999909
+                }
+              ],
+              "sampleShock": [
+                {
+                  "start": 36.050000000000004,
+                  "end": 66.36000000000001,
+                  "score": 8.726841135463744,
+                  "durationResidual": 0.13968750000001506,
+                  "maximumBoundaryError": 0.19999999999999574
+                },
+                {
+                  "start": 36.06,
+                  "end": 66.93,
+                  "score": 3.606138175893503,
+                  "durationResidual": 0.6996875000000102,
+                  "maximumBoundaryError": 0.6800000000000068
+                },
+                {
+                  "start": 35.75,
+                  "end": 65.59,
+                  "score": 1.7204387422657095,
+                  "durationResidual": -0.3303124999999909,
+                  "maximumBoundaryError": 0.6599999999999966
+                },
+                {
+                  "start": 36.980000000000004,
+                  "end": 66.62,
+                  "score": 1.5876894592870174,
+                  "durationResidual": -0.5303124999999937,
+                  "maximumBoundaryError": 0.730000000000004
+                },
+                {
+                  "start": 36.980000000000004,
+                  "end": 67.21000000000001,
+                  "score": 1.5876894592870174,
+                  "durationResidual": 0.05968750000000966,
+                  "maximumBoundaryError": 0.960000000000008
+                },
+                {
+                  "start": 38.21,
+                  "end": 67.69000000000001,
+                  "score": 1.3632432803681942,
+                  "durationResidual": -0.6903124999999832,
+                  "maximumBoundaryError": 1.9600000000000009
+                },
+                {
+                  "start": 36.25,
+                  "end": 65.73,
+                  "score": 1.285773614803896,
+                  "durationResidual": -0.6903124999999903,
+                  "maximumBoundaryError": 0.519999999999996
+                },
+                {
+                  "start": 36.970000000000006,
+                  "end": 67.71000000000001,
+                  "score": 1.1021664931644486,
+                  "durationResidual": 0.5696875000000077,
+                  "maximumBoundaryError": 1.460000000000008
+                },
+                {
+                  "start": 37.53,
+                  "end": 67.01,
+                  "score": 0.7433098485298968,
+                  "durationResidual": -0.6903124999999903,
+                  "maximumBoundaryError": 1.2800000000000011
+                },
+                {
+                  "start": 37.53,
+                  "end": 67.51,
+                  "score": 0.7433098485298968,
+                  "durationResidual": -0.19031249999999034,
+                  "maximumBoundaryError": 1.2800000000000011
+                }
+              ]
+            },
+            "trueBoundaries": [
+              36.25,
+              66.25
+            ]
+          },
+          {
+            "case": "added-scene",
+            "flankConstraints": {
+              "startAtLeast": 29.99,
+              "endAtMost": 65.44999999999999
+            },
+            "offsetDifference": 30.3083125,
+            "acousticWindows": [
+              [
+                29.9,
+                44.9
+              ],
+              [
+                59.50825,
+                74.50825
+              ]
+            ],
+            "proposals": {
+              "energyChange": [
+                {
+                  "start": 33.15,
+                  "end": 62.89,
+                  "score": 0.6472780419878978,
+                  "durationResidual": -0.5683124999999976,
+                  "maximumBoundaryError": 1.6099999999999994
+                },
+                {
+                  "start": 33.82,
+                  "end": 64.49000000000001,
+                  "score": 0.5931271063793897,
+                  "durationResidual": 0.36168750000000927,
+                  "maximumBoundaryError": 0.6799999999999997
+                },
+                {
+                  "start": 30.740000000000002,
+                  "end": 61.410000000000004,
+                  "score": 0.5850577133715701,
+                  "durationResidual": 0.36168750000000216,
+                  "maximumBoundaryError": 3.759999999999998
+                },
+                {
+                  "start": 31.39,
+                  "end": 61.410000000000004,
+                  "score": 0.575982481215274,
+                  "durationResidual": -0.2883124999999964,
+                  "maximumBoundaryError": 3.1099999999999994
+                },
+                {
+                  "start": 32.08,
+                  "end": 62.86000000000001,
+                  "score": 0.5278833936844272,
+                  "durationResidual": 0.4716875000000087,
+                  "maximumBoundaryError": 2.4200000000000017
+                },
+                {
+                  "start": 30.150000000000002,
+                  "end": 60.220000000000006,
+                  "score": 0.5252895188217704,
+                  "durationResidual": -0.2383124999999957,
+                  "maximumBoundaryError": 4.349999999999998
+                },
+                {
+                  "start": 35.59,
+                  "end": 65.21000000000001,
+                  "score": 0.5212637015744408,
+                  "durationResidual": -0.688312499999995,
+                  "maximumBoundaryError": 1.0900000000000034
+                },
+                {
+                  "start": 32.92,
+                  "end": 63.720000000000006,
+                  "score": 0.4633131280901515,
+                  "durationResidual": 0.4916875000000047,
+                  "maximumBoundaryError": 1.5799999999999983
+                },
+                {
+                  "start": 33.730000000000004,
+                  "end": 63.720000000000006,
+                  "score": 0.4633131280901515,
+                  "durationResidual": -0.31831249999999756,
+                  "maximumBoundaryError": 0.779999999999994
+                },
+                {
+                  "start": 30.2,
+                  "end": 61.2,
+                  "score": 0.4329527537511016,
+                  "durationResidual": 0.691687500000004,
+                  "maximumBoundaryError": 4.300000000000001
+                }
+              ],
+              "spectralTiltChange": [
+                {
+                  "start": 35.18,
+                  "end": 64.98,
+                  "score": 1.0249397792181278,
+                  "durationResidual": -0.5083124999999953,
+                  "maximumBoundaryError": 0.6799999999999997
+                },
+                {
+                  "start": 35.69,
+                  "end": 65.34,
+                  "score": 0.9765212183557657,
+                  "durationResidual": -0.6583124999999939,
+                  "maximumBoundaryError": 1.1899999999999977
+                },
+                {
+                  "start": 31.93,
+                  "end": 62.730000000000004,
+                  "score": 0.9279112131609922,
+                  "durationResidual": 0.4916875000000047,
+                  "maximumBoundaryError": 2.5700000000000003
+                },
+                {
+                  "start": 29.990000000000002,
+                  "end": 59.6,
+                  "score": 0.9182247639737208,
+                  "durationResidual": -0.6983125000000001,
+                  "maximumBoundaryError": 4.899999999999999
+                },
+                {
+                  "start": 33.74,
+                  "end": 64.54,
+                  "score": 0.8373494961025445,
+                  "durationResidual": 0.4916875000000047,
+                  "maximumBoundaryError": 0.759999999999998
+                },
+                {
+                  "start": 34.54,
+                  "end": 64.54,
+                  "score": 0.8216696992825834,
+                  "durationResidual": -0.30831249999999244,
+                  "maximumBoundaryError": 0.04000000000000625
+                },
+                {
+                  "start": 34.54,
+                  "end": 65.04,
+                  "score": 0.8216696992825834,
+                  "durationResidual": 0.19168750000000756,
+                  "maximumBoundaryError": 0.5400000000000063
+                },
+                {
+                  "start": 33.03,
+                  "end": 62.720000000000006,
+                  "score": 0.801535770060659,
+                  "durationResidual": -0.6183124999999947,
+                  "maximumBoundaryError": 1.779999999999994
+                },
+                {
+                  "start": 31.36,
+                  "end": 62.32,
+                  "score": 0.7508331563032633,
+                  "durationResidual": 0.6516875000000013,
+                  "maximumBoundaryError": 3.1400000000000006
+                },
+                {
+                  "start": 33.03,
+                  "end": 63.39,
+                  "score": 0.7465036403558407,
+                  "durationResidual": 0.051687499999999886,
+                  "maximumBoundaryError": 1.4699999999999989
+                }
+              ],
+              "sampleShock": [
+                {
+                  "start": 33.76,
+                  "end": 64.51,
+                  "score": 6.224793912400318,
+                  "durationResidual": 0.44168750000000756,
+                  "maximumBoundaryError": 0.740000000000002
+                },
+                {
+                  "start": 34.24,
+                  "end": 65.05,
+                  "score": 2.8478709438742182,
+                  "durationResidual": 0.5016874999999956,
+                  "maximumBoundaryError": 0.5499999999999972
+                },
+                {
+                  "start": 32.62,
+                  "end": 63.43000000000001,
+                  "score": 2.3542274273264914,
+                  "durationResidual": 0.5016875000000098,
+                  "maximumBoundaryError": 1.8800000000000026
+                },
+                {
+                  "start": 33.76,
+                  "end": 63.43000000000001,
+                  "score": 2.3542274273264914,
+                  "durationResidual": -0.6383124999999907,
+                  "maximumBoundaryError": 1.0699999999999932
+                },
+                {
+                  "start": 30.97,
+                  "end": 61.82,
+                  "score": 2.0303853432025205,
+                  "durationResidual": 0.5416875000000019,
+                  "maximumBoundaryError": 3.530000000000001
+                },
+                {
+                  "start": 31.84,
+                  "end": 61.82,
+                  "score": 2.0303853432025205,
+                  "durationResidual": -0.3283124999999991,
+                  "maximumBoundaryError": 2.6799999999999997
+                },
+                {
+                  "start": 33.2,
+                  "end": 63.43000000000001,
+                  "score": 1.9125834573522378,
+                  "durationResidual": -0.07831249999999557,
+                  "maximumBoundaryError": 1.2999999999999972
+                },
+                {
+                  "start": 34.32,
+                  "end": 64.5,
+                  "score": 1.6802048933785292,
+                  "durationResidual": -0.12831249999999983,
+                  "maximumBoundaryError": 0.17999999999999972
+                },
+                {
+                  "start": 31.84,
+                  "end": 62.39,
+                  "score": 1.5936431374833837,
+                  "durationResidual": 0.24168750000000117,
+                  "maximumBoundaryError": 2.66
+                },
+                {
+                  "start": 32.38,
+                  "end": 62.39,
+                  "score": 1.5936431374833837,
+                  "durationResidual": -0.29831250000000153,
+                  "maximumBoundaryError": 2.1199999999999974
+                }
+              ]
+            },
+            "trueBoundaries": [
+              34.5,
+              64.5
+            ]
+          }
+        ],
+        "productionAlgorithmChanged": false,
+        "heldOutValidation": false,
+        "pcmOrTranscriptPersisted": false
+      }
+    }
+  },
+  "conclusions": [
+    "Repeated positively speech-supported words constrain boundary searches more narrowly than cue-start anchors alone. Three contiguous exact words retain the production lexical score gate of 0.35; this is not a replacement for the six-word/0.7 absent-dialogue gate.",
+    "The initial crossing after-flank pair is unavailable. One additional fixed 15-second decode starting at 66 seconds provides matching words across the two later windows. The initial failure is retained.",
+    "With those word constraints and the production native converter, top spectral-tilt boundary errors are 0.14 seconds for the crossing-cue insertion and 0.68 seconds for the other insertion. Energy alone still fails the latter at 1.61 seconds.",
+    "Replacing word flanks with only the existing accepted cue starts produces a wrong spectral-tilt candidate, 4.91 seconds from the second insertion. Cue clusters alone are insufficient."
+  ],
+  "acceptedForProduction": false,
+  "fullProductAcceptance": false,
+  "limitations": [
+    "Two consumed development fixtures with hard edits; no held-out or crossfade validation.",
+    "Feature selection and confidence/ambiguity rejection are not calibrated. These rankings are proposals, not confirmed gaps.",
+    "The richer word evidence currently comes from bounded offline re-decodes; its reliable availability in the live pipeline is unproven.",
+    "The proposal is available after post-edit matches. No early suppression or first-playback recovery improvement is demonstrated.",
+    "A production implementation would need bounded retained feature metadata after PCM eviction; no audio may be retained for later full-episode reanalysis.",
+    "Whole-scene tracking p95 remains failed in the actual active-player replay."
+  ],
+  "nextRequiredEvidence": [
+    "Obtain equivalent word flanks from the real active-PCM analysis sequence.",
+    "Verify causal bounded feature collection and candidate rejection without truth boundaries.",
+    "Evaluate additional development edits and negative controls before freezing a method for held-out evaluation."
+  ],
+  "pcmOrTranscriptPersisted": false
+}
