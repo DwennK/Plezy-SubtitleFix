@@ -273,3 +273,25 @@ two cores/four logical processors, the same 11-second sample took 25.49/22.67 s
 with portable base/q5, versus 1.69/2.15 s with AVX2. These are single trials,
 excluding model load, not p95 or playback-impact results. The large improvement
 supports implementing runtime CPU dispatch while retaining the portable option.
+
+### Optional Metal evaluation profile
+
+The native worker can be built on macOS arm64 with
+`-DLIVESYNC_USE_METAL=ON -DGGML_METAL=ON -DGGML_METAL_EMBED_LIBRARY=ON`.
+Use the same pinned whisper source and embedded Silero model as the CPU runtime.
+DTW, alignment heads, the 128 MiB DTW budget, disabled flash attention, model
+context length and two-thread caller configuration stay unchanged. Only Whisper
+ASR requests a GPU; the speech detector remains CPU-only.
+
+This option defaults off. `build_analysis_runtime.py` explicitly forces it off
+for the existing portable/AVX2 packages, including reused CMake caches. Invalid
+platform/architecture, a disabled Metal backend, or external shader lookup are
+rejected at configuration time. The option is an evaluation build path; no
+application dispatch, GPU-error retry policy or distribution change is enabled.
+Those require explicit backend reporting, CPU fallback and native app validation.
+
+The M4 measurements in `docs/livesync-evidence/metal-dtw-262bf882.json` show a
+substantial inference-time reduction with retained anchors on the selected
+consumed windows. The active ordinary control passes, but the crossing-scene
+assessment still fails. This does not establish production playback impact or
+resolve scene boundaries.

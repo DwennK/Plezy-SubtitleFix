@@ -74,6 +74,7 @@ def main():
     subprocess.run(["git", "-C", str(source), "diff", "--exit-code", "HEAD", "--"], check=True)
     build = ROOT / "build/livesync" / ("analysis-build-" + args.target)
     configure = [args.cmake, "-S", str(NATIVE), "-B", str(build), "-DCMAKE_BUILD_TYPE=Release",
+                 "-DLIVESYNC_USE_METAL=OFF",
                  "-DGGML_METAL=OFF", "-DGGML_VULKAN=OFF", "-DGGML_CUDA=OFF", "-DGGML_BLAS=OFF", "-DGGML_OPENMP=OFF",
                  "-DLIVESYNC_CPU_PROFILE=portable", f"-DLIVESYNC_WHISPER_SOURCE={source}",
                  f"-DLIVESYNC_MPV_INCLUDE={include}", f"-DLIVESYNC_SPEECH_MODEL={speech_model}"]

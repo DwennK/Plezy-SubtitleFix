@@ -196,7 +196,11 @@ class InferenceWorker::Impl {
         if (!cancelled()) {
           if (!context) {
             auto options = whisper_context_default_params();
+#ifdef LIVESYNC_USE_METAL
+            options.use_gpu = true;
+#else
             options.use_gpu = false;
+#endif
             // Both pinned models use the base.en architecture/alignment heads.
             // Flash attention silently disables DTW in this whisper revision.
             options.flash_attn = false;
