@@ -91,6 +91,22 @@ class SceneFixtureTests(unittest.TestCase):
         self.assertEqual(truth['segments'], [
             {'subtitleStart': 100, 'subtitleEnd': 175, 'slope': 1, 'offset': -100}])
 
+    def test_frozen_boundary_matrix_has_distinct_edits_and_an_unedited_control(self):
+        matrix = json.loads((ROOT / 'test/fixtures/livesync/boundary-development-matrix.json').read_text())
+        self.assertEqual(matrix['mainSource'], self.manifest['mainSource'])
+        self.assertEqual(matrix['insertSource'], self.manifest['insertSource'])
+        expected = {'insert-earlier': (22.5, 52.5), 'insert-later': (48.75, 78.75),
+                    'insert-fade-through-silence': (36.25, 66.25), 'continuous-paired-gain': None}
+        self.assertEqual(set(matrix['cases']), set(expected))
+        for case, boundary in expected.items():
+            with self.subTest(case=case):
+                _, truth = edit_plan(matrix, case)
+                self.assertEqual(truth['gaps'], [] if boundary is None else [
+                    {'kind': 'videoOnly', 'start': boundary[0], 'end': boundary[1]}])
+                self.assertEqual(truth['expectedFrames'], (75 if boundary is None else 105) * 48000)
+                for time, _ in matrix['cases'][case].get('gainEnvelope', []):
+                    self.assertLessEqual(frames(time, 48000), truth['expectedFrames'])
+
     def test_gain_changes_keep_stereo_pairs_and_exact_sample_times(self):
         original = struct.pack('<12h', 100, -100, 200, -200, 400, -400, 400, -400, 400, -400, 200, -200)
         self.assertEqual(apply_envelope(original, None, 2, 2), original)
