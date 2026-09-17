@@ -1,0 +1,85 @@
+{
+  "scope": "Development film matrix; standalone mpv and guarded CPU worker, not installed app or audible acceptance",
+  "engineSource": "3947d586",
+  "workerSource": "aaaa67c2",
+  "sourceManifest": "test/fixtures/livesync/film-drift-development.json",
+  "sourceManifestSha256": "453fcd1d956e7597a4283711f7bf9e2258e471e036d72253ef4c0ec9592f01e1",
+  "runtime": {
+    "probeSource": "3947d586 integration source before guard",
+    "inferenceSource": "aaaa67c2",
+    "scope": "Standalone mpv with installed capture and locally built guarded worker; not production app or audible test",
+    "files": {
+      "/Users/dwenn/.codex/worktrees/plezy-livesync-desktop-integration/build/livesync/drift-3947d586/native-probe": "357afb2be003ecfdb3458d24458e1f99723faa9ac45c57910580155703703820",
+      "/Users/dwenn/.codex/worktrees/plezy-livesync-timeline/build/livesync/libmpv-current-probe.dylib": "5e8c9610775f9e41db8fc18d5e178ecc24396bebc249bbe3b95a494cb18e2aa5",
+      "/Users/dwenn/.codex/worktrees/plezy-livesync-whisper-dtw-guard/build/livesync/dtw-guard-native/liblivesync_inference_bridge.dylib": "2acb28b97d8247a1f07cbf549560c31e22d9908980b1f02925b03dafc1457169",
+      "/Applications/PlezyLiveSync.app/Contents/Frameworks/liblivesync_capture_bridge.dylib": "05e9f053adf7197c191c566f9c63173d05fce282f140e09787d2394fa59f26aa",
+      "/Users/dwenn/Library/Caches/plezy-livesync/models/ggml-base.en-q5_1.bin": "4baf70dd0d7c4247ba2b81fafd9c01005ac77c2f9ef064e00dcf195d0e2fdd2f"
+    }
+  },
+  "maximumAcquisitionMs": 45000,
+  "maximumMedianErrorSeconds": 0.25,
+  "maximumP95ErrorSeconds": 0.75,
+  "cases": {
+    "aligned": {
+      "processExit": 0,
+      "probePassed": true,
+      "acquisitionMs": 33641,
+      "affineAcquisitionMs": "none",
+      "medianErrorSeconds": 0.5659999847412109,
+      "p95ErrorSeconds": 0.5659999847412109,
+      "maximumErrorSeconds": 0.5659999847412109,
+      "completedAnalyses": 13,
+      "rejectedAnalyses": 0,
+      "acceptedByOriginalBudgets": false,
+      "numericReportSha256": "9c153257a35c8ac6e04a0845386e8292ff46a15e36e665007954ea0957cb8a55",
+      "fixtureFiles": {
+        "fixture.wav": "339c8b1f912cc0c94ed4334a83dba21a9e0f053892b8ae6facd68b1a3b6841ce",
+        "fixture.mkv": "4e553a6811461aeec669fb4d4f4daab75c06009f66cd267fa58685c4b46dac2a",
+        "fixture.srt": "7d3f512795e58c83710d3867b853d6e6ec8c9f01d616c594ba65599c5856cd01"
+      }
+    },
+    "faster": {
+      "processExit": 255,
+      "probePassed": false,
+      "acquisitionMs": 33643,
+      "affineAcquisitionMs": "none",
+      "medianErrorSeconds": 3.960580209763833,
+      "p95ErrorSeconds": 6.749710416666659,
+      "maximumErrorSeconds": 7.011298958333327,
+      "completedAnalyses": 12,
+      "rejectedAnalyses": 0,
+      "acceptedByOriginalBudgets": false,
+      "numericReportSha256": "7c768e8bdd4bd7371225bdf18af88ab08993a53f5b79ef4239aae33566a66ebf",
+      "fixtureFiles": {
+        "fixture.wav": "cca6753db1b9dc41cd6490097204a382a6461959570dcf3a1853fcff11af1442",
+        "fixture.mkv": "42495528ae8083d04237167b38913fc716131bb1257fcd77c79b478cb065a8d5",
+        "fixture.srt": "7d3f512795e58c83710d3867b853d6e6ec8c9f01d616c594ba65599c5856cd01"
+      }
+    },
+    "slower": {
+      "processExit": 255,
+      "probePassed": false,
+      "acquisitionMs": 33636,
+      "affineAcquisitionMs": "none",
+      "medianErrorSeconds": 2.101545406861746,
+      "p95ErrorSeconds": 4.521528423844757,
+      "maximumErrorSeconds": 4.77240254971889,
+      "completedAnalyses": 13,
+      "rejectedAnalyses": 0,
+      "acceptedByOriginalBudgets": false,
+      "numericReportSha256": "2132ff75fb936a326e656c0cfb5a5c6fcc948e7fecf7a1d131b490cffe54d1ac",
+      "fixtureFiles": {
+        "fixture.wav": "57a4d410d5c071555a0bed2d7bea8cc4fd651da0dbbd7290d3d9efeb877f0e22",
+        "fixture.mkv": "58db8be685f416e3f103ad95a51253eb2ee931a31504cfc2f1dcc72897354b0b",
+        "fixture.srt": "7d3f512795e58c83710d3867b853d6e6ec8c9f01d616c594ba65599c5856cd01"
+      }
+    }
+  },
+  "productAccepted": false,
+  "limitations": [
+    "Tracking samples begin after initial acquisition; no independent word-onset gold.",
+    "The older native probe does not enforce the median budget. Its aligned passed flag is not product acceptance.",
+    "New generator reproduced faster WAV and SRT bytes; Matroska container IDs are nondeterministic.",
+    "No new held-out audio was consumed."
+  ]
+}
