@@ -29,3 +29,25 @@ failed run and require an explained fix plus uninstrumented validation.
 
 API semantics: [debugger exception handling](https://learn.microsoft.com/en-us/windows/win32/debug/debugger-exception-handling),
 [ContinueDebugEvent](https://learn.microsoft.com/en-us/windows/win32/api/debugapi/nf-debugapi-continuedebugevent).
+
+## Observe without a debugger
+
+`observe_renderer_faults=true` enables a separate, test-only native runner
+option for the synthetic harness. Its vectored exception observer records at
+most 32 first-chance notifications with a fault PC and up to 24 handler-stack
+PCs, resolved to module basenames and offsets. It returns
+`EXCEPTION_CONTINUE_SEARCH`; handled application exceptions remain handled and
+fatal exceptions remain fatal. Native contracts verify both behaviors without
+an attached debugger, including the stack's presence and failed log startup.
+
+This observer is best effort. It skips debugger/thread-name, guard-page and
+stack-overflow notifications, plus recursive or concurrent observations. Stack
+lookup faults are locally contained so they do not replace the original
+exception. Instrumentation can still affect scheduling; a passing run is not a
+crash fix. No stack memory, registers, dump, media or transcript is written.
+
+The CMake option defaults off. The workflow preserves the normal application
+before enabling it, sets the log path only for the owned renderer process, and
+turns the option off in `finally` before a later controller rebuild. It records
+hashes of the observed executable, Flutter DLL and mpv DLL. The observer and the
+external debugger modes are mutually exclusive.
