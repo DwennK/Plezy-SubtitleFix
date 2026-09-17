@@ -1,0 +1,130 @@
+{
+  "source": "fd6f20e72d27992bb636ed7de6957e110bf6477e",
+  "upstream": "64dca5962a3dd24feee829235ed811298a74309b",
+  "episode": "Mentalist S2E16",
+  "executableSha256": "7ea655e751b6253abbfb329eecb47ad0a82f0b14ef9b258aee711196727e8cbc",
+  "startedAt": "2026-09-17T08:04:30.761486Z",
+  "collectorExitCode": 0,
+  "appExitedBeforeCollectorDeadline": true,
+  "exitCause": "not established",
+  "audioOrTranscriptPersisted": false,
+  "secondMediaStreamOpened": false,
+  "sourcePreparationMs": 46828,
+  "pausedDuringSourcePreparation": true,
+  "resumeContinuityEventMs": 82034,
+  "firstSyncedEventMs": 92545,
+  "resumeToFirstSyncedMs": 10511,
+  "firstCorrectionSeconds": 3.808500000005779,
+  "firstLossEventMs": 273536,
+  "firstRecoveryEventMs": 320547,
+  "firstRecoveryMs": 47011,
+  "secondSustainedLossEventMs": 603540,
+  "secondLossRecoveredBeforeExit": false,
+  "invalidOutputEvents": 2,
+  "eventCount": 66,
+  "completedAnalyses": 18,
+  "eventSha256": "6f49bbc4ba4afbd11a163ce458b102f942b9dda5e98d74c4862e52775db9b36b",
+  "phases": [
+    {
+      "sequence": 1,
+      "elapsedMs": 9203,
+      "phase": "loadingSubtitles",
+      "generation": 1
+    },
+    {
+      "sequence": 2,
+      "elapsedMs": 9205,
+      "phase": "downloading",
+      "generation": 1
+    },
+    {
+      "sequence": 4,
+      "elapsedMs": 9549,
+      "phase": "loadingSubtitles",
+      "generation": 1
+    },
+    {
+      "sequence": 6,
+      "elapsedMs": 56033,
+      "phase": "analyzing",
+      "generation": 1
+    },
+    {
+      "sequence": 10,
+      "elapsedMs": 82034,
+      "phase": "resyncing",
+      "generation": 1
+    },
+    {
+      "sequence": 16,
+      "elapsedMs": 92545,
+      "phase": "synced",
+      "automaticOffset": 3.808500000005779,
+      "generation": 1
+    },
+    {
+      "sequence": 34,
+      "elapsedMs": 273536,
+      "phase": "resyncing",
+      "generation": 1
+    },
+    {
+      "sequence": 37,
+      "elapsedMs": 277535,
+      "phase": "unable",
+      "reason": "nativeRuntime",
+      "generation": 1
+    },
+    {
+      "sequence": 40,
+      "elapsedMs": 290041,
+      "phase": "unable",
+      "reason": "noMatch",
+      "generation": 1
+    },
+    {
+      "sequence": 44,
+      "elapsedMs": 320547,
+      "phase": "synced",
+      "automaticOffset": 5.19900000000564,
+      "generation": 1
+    },
+    {
+      "sequence": 52,
+      "elapsedMs": 473035,
+      "phase": "unable",
+      "reason": "nativeRuntime",
+      "automaticOffset": 5.290000000005534,
+      "generation": 1
+    },
+    {
+      "sequence": 53,
+      "elapsedMs": 473536,
+      "phase": "synced",
+      "automaticOffset": 5.290000000005534,
+      "generation": 1
+    },
+    {
+      "sequence": 59,
+      "elapsedMs": 603540,
+      "phase": "resyncing",
+      "generation": 1
+    },
+    {
+      "sequence": 62,
+      "elapsedMs": 605037,
+      "phase": "unable",
+      "reason": "noMatch",
+      "generation": 1
+    }
+  ],
+  "observations": [
+    "The session resumed from approximately 11:38; no seek after enabling/resuming. Fullscreen display was toggled once while playing; capture continuity stayed 3.",
+    "Initial acquisition occurred quickly, but capture windows differ from the preceding session; this is not an isolated causal comparison.",
+    "At analysis 9 the established mapping did not renew; the 120-second prediction expired before a successful replacement.",
+    "Recovery exceeded the frozen 30-second target. Further loss occurred after 20 minutes media time.",
+    "Two invalid native output results were rejected; no crash causality is inferred from them.",
+    "No audible alignment, exact offset accuracy, or complete acceptance claim."
+  ],
+  "productAccepted": false
+}

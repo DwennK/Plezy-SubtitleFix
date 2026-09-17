@@ -1,0 +1,12 @@
+{
+  "source": "fd6f20e72d27992bb636ed7de6957e110bf6477e",
+  "upstream": "64dca5962a3dd24feee829235ed811298a74309b",
+  "installedAt": "2026-09-17T08:04:30.687484+00:00",
+  "executableSha256": "7ea655e751b6253abbfb329eecb47ad0a82f0b14ef9b258aee711196727e8cbc",
+  "installedPath": "/Applications/PlezyLiveSync.app",
+  "backupPath": "/Users/dwenn/.codex/worktrees/plezy-livesync-runtime-diagnostics/build/livesync/installed-before-fd6f20e7/PlezyLiveSync.app",
+  "signatureVerified": true,
+  "runtimeInputsVerified": true,
+  "nativeLibrariesIdenticalToValidated9ef25905": true,
+  "nativePlaybackValidationPending": true
+}
