@@ -402,7 +402,8 @@ extension _VideoPlayerOpenMethods on VideoPlayerScreenState {
 
     // Everything below drives pause/play transitions the viewer did not ask
     // for (the measurement window, the hold around the switch); a bound
-    // Watch Together room would broadcast them as intents.
+    // Watch Together room would broadcast them as intents and service remote
+    // requests against the player mid-measurement.
     await _withWatchTogetherDetached(startupHold: watchTogetherStartupHold, () async {
       try {
         if (PlatformDetector.isAppleTV()) {
