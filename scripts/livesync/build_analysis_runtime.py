@@ -24,7 +24,7 @@ def settings(target):
         names = ["livesync_capture_bridge.dll", "livesync_inference_bridge.dll", "livesync_inference_bridge_avx2.dll"]
     else:
         raise ValueError("Unsupported analysis runtime target")
-    sources = sorted([*NATIVE.glob("*.cpp"), *NATIVE.glob("*.h"), NATIVE / "CMakeLists.txt", NATIVE / "SILERO-LICENSE", Path(__file__), ROOT / "scripts/livesync/embed_speech_model.py"])
+    sources = sorted([*NATIVE.glob("*.cpp"), *NATIVE.glob("*.h"), NATIVE / "CMakeLists.txt", NATIVE / "SILERO-LICENSE", Path(__file__), ROOT / "scripts/livesync/embed_speech_model.py", ROOT / "scripts/livesync/patch_whisper_dtw.py"])
     hasher = hashlib.sha256()
     for source in sources:
         hasher.update(str(source.relative_to(ROOT)).replace("\\", "/").encode() + b"\0" + source.read_bytes())

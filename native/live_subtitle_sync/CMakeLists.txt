@@ -58,6 +58,26 @@ if(LIVESYNC_WHISPER_SOURCE)
   set(WHISPER_BUILD_EXAMPLES OFF CACHE BOOL "" FORCE)
   set(WHISPER_BUILD_SERVER OFF CACHE BOOL "" FORCE)
   add_subdirectory("${LIVESYNC_WHISPER_SOURCE}" whisper-build)
+  # Keep the pinned checkout pristine. Only the compiled translation unit gets
+  # the reviewed short-tail guard; source drift fails closed at configure time.
+  find_package(Python3 REQUIRED COMPONENTS Interpreter)
+  set(LIVESYNC_DTW_PATCHER "${CMAKE_CURRENT_SOURCE_DIR}/../../scripts/livesync/patch_whisper_dtw.py")
+  set(LIVESYNC_DTW_SOURCE "${CMAKE_CURRENT_BINARY_DIR}/whisper-dtw/whisper.cpp")
+  set_property(DIRECTORY APPEND PROPERTY CMAKE_CONFIGURE_DEPENDS
+    "${LIVESYNC_DTW_PATCHER}" "${LIVESYNC_WHISPER_SOURCE}/src/whisper.cpp")
+  execute_process(COMMAND "${Python3_EXECUTABLE}" "${LIVESYNC_DTW_PATCHER}"
+    --source "${LIVESYNC_WHISPER_SOURCE}/src/whisper.cpp" --output "${LIVESYNC_DTW_SOURCE}"
+    RESULT_VARIABLE LIVESYNC_DTW_PATCH_RESULT)
+  if(NOT LIVESYNC_DTW_PATCH_RESULT EQUAL 0)
+    message(FATAL_ERROR "Unable to prepare the reviewed Whisper DTW guard")
+  endif()
+  get_target_property(LIVESYNC_WHISPER_SOURCES whisper SOURCES)
+  if(NOT "whisper.cpp" IN_LIST LIVESYNC_WHISPER_SOURCES)
+    message(FATAL_ERROR "Whisper build layout changed; review the DTW guard integration")
+  endif()
+  list(REMOVE_ITEM LIVESYNC_WHISPER_SOURCES "whisper.cpp")
+  list(APPEND LIVESYNC_WHISPER_SOURCES "${LIVESYNC_DTW_SOURCE}")
+  set_property(TARGET whisper PROPERTY SOURCES "${LIVESYNC_WHISPER_SOURCES}")
   find_package(Threads REQUIRED)
   add_library(livesync_speech_support STATIC speech_support.cpp)
   target_compile_features(livesync_speech_support PUBLIC cxx_std_17)
@@ -109,6 +129,22 @@ if(BUILD_TESTING)
   add_executable(livesync_pcm_test pcm_buffer_test.cpp)
   target_link_libraries(livesync_pcm_test PRIVATE livesync_pcm)
   add_test(NAME livesync_pcm_test COMMAND livesync_pcm_test)
+  if(TARGET whisper)
+    # Compile the actual guarded upstream implementation so this exercises its
+    # private DTW entrypoint, including token invalidation and prefix retention.
+    add_executable(livesync_whisper_dtw_guard_test whisper_dtw_guard_test.cpp)
+    target_compile_features(livesync_whisper_dtw_guard_test PRIVATE cxx_std_17)
+    target_include_directories(livesync_whisper_dtw_guard_test PRIVATE
+      "${CMAKE_CURRENT_BINARY_DIR}/whisper-dtw" "${LIVESYNC_WHISPER_SOURCE}/src"
+      "${LIVESYNC_WHISPER_SOURCE}/include")
+    get_target_property(LIVESYNC_WHISPER_DEFINITIONS whisper COMPILE_DEFINITIONS)
+    target_compile_definitions(livesync_whisper_dtw_guard_test PRIVATE ${LIVESYNC_WHISPER_DEFINITIONS})
+    target_link_libraries(livesync_whisper_dtw_guard_test PRIVATE ggml Threads::Threads)
+    add_test(NAME livesync_whisper_dtw_guard_test COMMAND livesync_whisper_dtw_guard_test)
+    add_test(NAME livesync_whisper_dtw_patch_test COMMAND "${Python3_EXECUTABLE}"
+      "${CMAKE_CURRENT_SOURCE_DIR}/../../scripts/livesync/test_whisper_dtw_patch.py"
+      --source "${LIVESYNC_WHISPER_SOURCE}/src/whisper.cpp")
+  endif()
 endif()
 
 set(LIVESYNC_VAD_TEST_MODEL "" CACHE FILEPATH "Pinned Silero model for speech-support contracts")

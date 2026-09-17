@@ -1,0 +1,64 @@
+{
+  "scope": "Local CPU guard validation; no installed app or audible validation",
+  "sourceBase": "071549b1",
+  "whisperRevision": "927cfce34f31707e17f2bff35c349632fb9e2c3a",
+  "nativeContractsPassed": 4,
+  "negativeFilterProof": {
+    "returnCode": -6,
+    "audioWidthAssertion": true,
+    "scope": "Upstream filter precondition proof; not a reproduction of the original audio window"
+  },
+  "jfk": {
+    "kind": "fixture-native-worker-abi",
+    "fixtureSha256": "59dfb9a4acb36fe2a2affc14bacbee2920ff435cb13cc314a08c13f66ba7860e",
+    "modelSha256": "4baf70dd0d7c4247ba2b81fafd9c01005ac77c2f9ef064e00dcf195d0e2fdd2f",
+    "workerSha256": "2acb28b97d8247a1f07cbf549560c31e22d9908980b1f02925b03dafc1457169",
+    "capture": {
+      "samples": 176000,
+      "mediaStart": 100,
+      "generation": 1,
+      "continuity": 1
+    },
+    "threads": 2,
+    "wordErrorRate": 0.0,
+    "referenceScope": "full fixture",
+    "inferenceSecondsExcludingModelLoad": 1.188186709,
+    "segments": [
+      {
+        "mediaStart": 100.0,
+        "mediaEnd": 111.0
+      }
+    ],
+    "validPrefixOnly": false,
+    "speechSupportCounts": {
+      "0": 0,
+      "1": 25,
+      "2": 0
+    },
+    "timestampAccuracyValidated": false,
+    "srtAlignmentValidated": false,
+    "productionAppValidated": false,
+    "audiblePlaybackValidated": false,
+    "retainedCapturedAudio": false,
+    "retainedTranscript": false
+  },
+  "fasterDrift": {
+    "acquisitionMs": 9790,
+    "affineAcquisitionMs": 81746,
+    "trackingErrorP95": 3.5364343661785114,
+    "trackingErrorMaximum": 3.79802290784518,
+    "completedAnalyses": 7,
+    "rejectedAnalyses": 0,
+    "learnedSegments": 1,
+    "passed": false
+  },
+  "fasterDriftProcessExit": 255,
+  "fasterDriftAborted": false,
+  "exactOriginalCrashReproduced": false,
+  "productAccepted": false,
+  "files": {
+    "dtw-guard-faster.json": "18f63e56be89ca75c3ed8b1f904e9e3dfbc0d9c3fc413f7aa8b46b6feb84b768",
+    "dtw-guard-jfk.json": "a4698004603c6640aa3e81af13ffb9c5414edf3bc3c9ddcb55405d8f4f7337e7",
+    "dtw-guard-ctest.xml": "4d6851b72ecf1893456a534799be8d7ac2f709760970f5364d4383522f4dc0c1"
+  }
+}
