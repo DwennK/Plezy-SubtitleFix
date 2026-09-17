@@ -4,6 +4,7 @@ class AnalysisCadence {
   static const confirmationRequests = 10;
   int attempts = 0;
   int _nativeFailures = 0;
+  int _unconfirmedChecks = 0;
   bool _retrySoon = false;
   bool? _previousVoicePresent;
   bool _activityWake = false;
@@ -17,6 +18,7 @@ class AnalysisCadence {
   void clear() {
     attempts = 0;
     _nativeFailures = 0;
+    _unconfirmedChecks = 0;
     _retrySoon = false;
     _previousVoicePresent = null;
     _activityWake = false;
@@ -52,6 +54,11 @@ class AnalysisCadence {
     _awaitingTightRetryResult = false;
     if (shortResult && windowEnd != null && windowEnd.isFinite) _tightRetryThrough = windowEnd;
     _nativeFailures = 0;
+    if (learned) {
+      _unconfirmedChecks = 0;
+    } else if (_confirmationRequests != null) {
+      _unconfirmedChecks++;
+    }
     _retrySoon = recognizedPassage && !learned;
     windowSeconds = learned ? 12 : 15;
     if (learned) {
@@ -108,6 +115,11 @@ class AnalysisCadence {
       // A failed inference must also get its recovery attempts while a previous
       // correction remains active; otherwise it ages for another 30–90 s.
       if (_nativeFailures > 0 && _nativeFailures <= 2) return 12000;
+      // A sparse steady-state check can recognize too little to renew the
+      // bounded prediction. While speech continues, give it two wider-window
+      // retries before the current correction expires. Quiet sections still
+      // back off above; persistent music/no-match cannot force a fast loop.
+      if (_unconfirmedChecks > 0 && _unconfirmedChecks <= 2 && (voicePresent == true || _retrySoon)) return 12000;
       if (!established &&
           _nativeFailures == 0 &&
           (_confirmationRequests ?? confirmationRequests) < confirmationRequests) {

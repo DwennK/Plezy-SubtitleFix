@@ -2,6 +2,29 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:plezy/features/live_subtitle_sync/analysis_cadence.dart';
 
 void main() {
+  test('an unconfirmed steady-state check gets two voice-backed renewal retries', () {
+    final cadence = AnalysisCadence()..evidence(recognizedPassage: true, learned: true);
+    int delay(bool voice) => cadence.intervalMs(synced: true, established: true, voicePresent: voice);
+    expect(delay(true), 90000);
+    for (var i = 0; i < 2; i++) {
+      cadence.submitted();
+      cadence.evidence(recognizedPassage: false, learned: false);
+      expect(delay(true), 12000);
+      expect(delay(false), 90000);
+    }
+    for (var i = 0; i < 5; i++) {
+      cadence.submitted();
+      cadence.evidence(recognizedPassage: false, learned: false);
+      expect(delay(true), 90000);
+    }
+    cadence.evidence(recognizedPassage: true, learned: true);
+    expect(delay(true), 90000);
+    cadence.evidence(recognizedPassage: true, learned: false);
+    expect(delay(true), 12000);
+    cadence.clear();
+    expect(delay(true), 90000);
+  });
+
   test('timing mismatch never postpones initial confirmation or native recovery', () {
     final cadence = AnalysisCadence()..evidence(recognizedPassage: true, learned: true);
     int delay({bool mismatch = false, bool established = false, bool? voice}) =>
