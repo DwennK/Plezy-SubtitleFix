@@ -8,6 +8,30 @@ SubtitleAnchor anchor(int cue, double subtitle, double media) =>
     SubtitleAnchor(cue, subtitle, media, 0.35, 'distinct phrase number $cue');
 
 void main() {
+  test('inconsistent earlier observations cannot block an independently confirmed later region', () {
+    final tracker = TimelineTracker();
+    expect(tracker.observe([anchor(0, 100, 100), anchor(1, 110, 114), anchor(2, 120, 128)]), isFalse);
+    expect(tracker.observe([anchor(3, 200, 202), anchor(4, 210, 212)]), isTrue);
+    expect(tracker.correctionAt(215).position.automaticDelay, 2);
+    expect(tracker.map.segments.single.subtitleStart, 200);
+    expect(tracker.map.atMedia(150).kind, TimelineRegionKind.unknown);
+    expect(tracker.map.gaps, isEmpty);
+  });
+
+  test('fresh evidence still needs independent, spaced and consistent cue starts', () {
+    for (final recent in [
+      [anchor(3, 200, 202)],
+      [anchor(3, 200, 202), anchor(4, 202, 204)],
+      [anchor(3, 200, 202), anchor(4, 210, 216), anchor(5, 220, 230)],
+    ]) {
+      final tracker = TimelineTracker();
+      tracker.observe([anchor(0, 100, 100), anchor(1, 110, 114), anchor(2, 120, 128)]);
+      expect(tracker.observe(recent), isFalse);
+      expect(tracker.map.segments, isEmpty);
+      expect(tracker.correctionAt(240).position.kind, TimelineRegionKind.unknown);
+    }
+  });
+
   test('replayed context does not rewrite a mapping or count as fresh timing evidence', () {
     final tracker = TimelineTracker();
     final observations = [anchor(0, 100, 104), anchor(1, 110, 114)];

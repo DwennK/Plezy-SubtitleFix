@@ -230,6 +230,7 @@ void main() {
       // the new detector would reject; its valid checksum cannot authorize reuse.
       (p) => p['algorithm'] = 'bounded-affine-titles-v2',
       (p) => p['algorithm'] = 'bounded-affine-speech-v3',
+      (p) => p['algorithm'] = 'bounded-affine-short-context-v4',
       (p) => p['segments'][0]['end'] = 900.0,
       (p) => p['segments'][0]['anchors'][0]['cue'] = 999,
       (p) => p['segments'][0]['anchors'][0]['subtitle'] = 3.0,

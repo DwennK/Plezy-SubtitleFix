@@ -65,6 +65,7 @@ class TimelineTracker {
 
   bool observe(List<SubtitleAnchor> anchors) {
     var changed = false;
+    final fresh = <int, SubtitleAnchor>{};
     for (final anchor in anchors) {
       if (_predictionBlockedUntilSubtitle != null &&
           (_agreesWithKnownDomain(anchor) || _precedesContradiction(anchor))) {
@@ -81,6 +82,7 @@ class TimelineTracker {
         continue;
       }
       _pending[anchor.cue] = anchor;
+      fresh[anchor.cue] = anchor;
       changed = true;
     }
     // Adjacent transcript context can repeat the exact previous cue starts.
@@ -106,6 +108,12 @@ class TimelineTracker {
         fitted = combined;
       }
     }
+    // Unresolved older timestamps must not veto a separately confirmed
+    // passage forever. Fit every fresh cue from this analysis with the same
+    // independence, spacing and inlier requirements; never select just an
+    // agreeing pair. Replayed context cannot grant this fallback. Retain the
+    // older pending observations so a later baseline can still establish drift.
+    fitted ??= _fitter.fit(fresh.values.toList());
     if (fitted == null) return false;
     var candidate = fitted;
 
