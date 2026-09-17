@@ -28,8 +28,19 @@
     "Computer Use initially lost accessibility and coordinate control after playback controls were hidden; keyboard play/pause worked, and normal accessibility later returned. No app crash observed.",
     "A forward ten-second keyboard seek and pause/resume occurred during inspection; this is not an uninterrupted acquisition benchmark.",
     "The Synced label and numerical cache establish that recognition and mapping ran; they do not establish accurate audible synchronization.",
-    "User listening feedback was requested and is pending."
+    "User listening feedback was requested and is pending.",
+    "After further playback, the UI changed from Synced to Unable to sync. The failure is reproduced; its cause still needs per-analysis numerical diagnostics."
   ],
   "privatePcmOrTranscriptSaved": false,
-  "privateMediaUrlOrCredentialsIncluded": false
+  "privateMediaUrlOrCredentialsIncluded": false,
+  "laterObservation": {
+    "position": "18:08",
+    "phase": "Unable to sync",
+    "reason": "No reliable dialogue match yet.",
+    "paused": true,
+    "enabled": true,
+    "manualSubtitleDelayMilliseconds": 0,
+    "manualAudioDelayMilliseconds": 0
+  },
+  "sustainedSynchronizationValidated": false
 }
