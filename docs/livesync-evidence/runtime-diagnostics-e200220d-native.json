@@ -26,12 +26,25 @@
     "observedInferenceRequests": 0,
     "closureCause": "Unknown; user was asked whether the normal closure was intentional.",
     "privatePcmOrTranscriptSaved": false,
-    "accuracyAccepted": false
+    "accuracyAccepted": false,
+    "startupSubtitlesScope": "Combined retrieval, parsing, media identity and mapping-cache restoration; individual stages were not measured."
   },
   "limitations": [
     "The process exited normally before its first observed analysis request. No matching-failure diagnosis is established.",
     "A subsequent Computer Use state query automatically relaunched the diagnostic app without the collection environment. That new process is not being recorded.",
     "The installed application at /Applications/PlezyLiveSync.app remains aaaa67c2.",
     "The newer upstream f88feaa8 is not included in this diagnostic build."
-  ]
+  ],
+  "secondSession": {
+    "startedAt": "2026-09-17T06:34:28.200736+00:00",
+    "exitCode": -15,
+    "terminationCause": "Collector enforced its configured 600-second deadline.",
+    "events": 0,
+    "eventFileSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "observedInferenceRequests": 0,
+    "liveSyncActivated": false,
+    "uiObservation": "Playback resumed, then was paused at 37:34. Automated attempts to open the subtitle panel did not expose its controls. Escape returned to Home. No application-crash cause was established.",
+    "privatePcmOrTranscriptSaved": false,
+    "accuracyAccepted": false
+  }
 }
