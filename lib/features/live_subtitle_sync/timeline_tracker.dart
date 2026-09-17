@@ -116,8 +116,10 @@ class TimelineTracker {
     // Even a successful pending fit cannot bridge through incompatible known
     // history: an old outlier may agree with the latest passage but contradict
     // an already confirmed region in between.
+    // Discard that historical fit if neither passage is confirmed. Prediction
+    // revocation above still checks actual independent later contradictions.
     if (fitted == null || _contradictsKnownRegion(fitted)) {
-      fitted = _fitter.fit(fresh.values.toList()) ?? fitted;
+      fitted = _fitter.fit(fresh.values.toList()) ?? _fitUnmappedPassage(fresh);
     }
     if (fitted == null) return false;
     var candidate = fitted;
@@ -218,12 +220,41 @@ class TimelineTracker {
   }
 
   bool _contradictsKnownRegion(TimelineSegment candidate) => _map.segments.any((previous) {
+    // Provisional cache regions are invalidated separately below, after enough
+    // new anchors accumulate. They must not prevent that confirmation.
+    if (_restored.contains(previous)) return false;
     final sourceOverlap =
         candidate.subtitleStart < previous.subtitleEnd && previous.subtitleStart < candidate.subtitleEnd;
     final mediaOverlap = candidate.mediaStart < previous.mediaEnd && previous.mediaStart < candidate.mediaEnd;
     return (sourceOverlap || mediaOverlap) &&
         previous.anchors.any((anchor) => (candidate.mediaFor(anchor.subtitleTime) - anchor.mediaTime).abs() > 0.8);
   });
+
+  /// A known region separates unresolved earlier observations from a later
+  /// passage. Accumulate every pending cue in that unknown source interval,
+  /// including disagreeing ones, so sparse windows can establish a fit without
+  /// borrowing an old outlier across intervening confirmed history. Boundaries
+  /// come only from observed domains, never from offset clustering or silence.
+  TimelineSegment? _fitUnmappedPassage(Map<int, SubtitleAnchor> fresh) {
+    if (_map.segments.isEmpty || fresh.isEmpty) return null;
+    final latest = fresh.values.reduce((a, b) => a.subtitleTime > b.subtitleTime ? a : b);
+    var start = 0.0;
+    var end = double.infinity;
+    for (final known in _map.segments) {
+      if (known.containsSubtitle(latest.subtitleTime)) return null;
+      if (known.subtitleEnd <= latest.subtitleTime && known.subtitleEnd > start) start = known.subtitleEnd;
+      if (known.subtitleStart > latest.subtitleTime && known.subtitleStart < end) end = known.subtitleStart;
+    }
+    final passage = _pending.values.where((a) => a.subtitleTime >= start && a.subtitleTime < end).toList();
+    final fitted = _fitter.fit(passage);
+    if (fitted == null ||
+        !fitted.anchors.any((a) => fresh.containsKey(a.cue)) ||
+        !_hasContinuousEvidence(fitted) ||
+        _contradictsKnownRegion(fitted)) {
+      return null;
+    }
+    return fitted;
+  }
 
   bool _agreesWithKnownDomain(SubtitleAnchor anchor) => _map.segments.any(
     (segment) =>

@@ -8,6 +8,49 @@ SubtitleAnchor anchor(int cue, double subtitle, double media) =>
     SubtitleAnchor(cue, subtitle, media, 0.35, 'distinct phrase number $cue');
 
 void main() {
+  test('a later unknown passage accumulates independent anchors across short windows', () {
+    final tracker = TimelineTracker();
+    tracker.observe([anchor(0, 100, 104.245), anchor(1, 102.219, 105.405)]);
+    expect(tracker.observe([anchor(2, 113.361, 116.579), anchor(3, 116.016, 118.659)]), isTrue);
+    expect(tracker.observe([anchor(4, 125.678, 128.951), anchor(5, 128.898, 133.411)]), isTrue);
+    final earlier = tracker.map.segments.toList();
+    expect(earlier, hasLength(2));
+    final shortPassage = [anchor(6, 148.657, 152.623), anchor(7, 150.572, 153.903)];
+    expect(tracker.observe(shortPassage), isFalse);
+    // The invalid historical fit is not new evidence against extrapolation.
+    expect(tracker.correctionAt(155).position.automaticDelay, closeTo(3.893, 1e-9));
+    expect(tracker.observe(shortPassage), isFalse);
+    expect(tracker.observe([anchor(8, 163.933, 166.919)]), isTrue);
+    expect(tracker.correctionAt(170).position.automaticDelay, closeTo(3.331, 1e-9));
+    expect(tracker.map.segments.take(2), orderedEquals(earlier));
+    expect(tracker.map.segments.last.anchors.map((a) => a.cue), [6, 7, 8]);
+    expect(tracker.map.atMedia(140).kind, TimelineRegionKind.unknown);
+    expect(tracker.map.gaps, isEmpty);
+  });
+
+  test('unknown-passage accumulation retains independence, consistency and continuity gates', () {
+    for (final later in [
+      [anchor(6, 150, 154), anchor(7, 151, 159), anchor(8, 165, 177)],
+      [anchor(6, 150, 154), anchor(7, 151, 155), anchor(8, 152, 156)],
+      [anchor(6, 150, 154), anchor(7, 151, 155), anchor(8, 300, 304)],
+      [
+        const SubtitleAnchor(6, 150, 154, 0.35, 'one repeated phrase'),
+        const SubtitleAnchor(7, 151, 155, 0.35, 'one repeated phrase'),
+        const SubtitleAnchor(8, 165, 169, 0.35, 'one repeated phrase'),
+      ],
+    ]) {
+      final tracker = TimelineTracker();
+      tracker.observe([anchor(0, 100, 104.245), anchor(1, 102.219, 105.405)]);
+      tracker.observe([anchor(2, 113.361, 116.579), anchor(3, 116.016, 118.659)]);
+      tracker.observe([anchor(4, 125.678, 128.951), anchor(5, 128.898, 133.411)]);
+      final earlier = tracker.map.segments.toList();
+      expect(tracker.observe(later.take(2).toList()), isFalse);
+      expect(tracker.observe([later.last]), isFalse);
+      expect(tracker.map.segments, orderedEquals(earlier));
+      expect(tracker.map.gaps, isEmpty);
+    }
+  });
+
   test('an old outlier cannot bridge contradictory history and block a fresh later region', () {
     final tracker = TimelineTracker();
     expect(tracker.observe([anchor(0, 100, 104.25), anchor(1, 102, 105.19)]), isFalse);
