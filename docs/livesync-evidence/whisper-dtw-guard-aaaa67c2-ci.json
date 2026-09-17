@@ -1,0 +1,119 @@
+{
+  "sourceCommit": "aaaa67c239b507db55c598588f3824a9635b43ac",
+  "workflow": 35183815774,
+  "conclusion": "success",
+  "platforms": {
+    "windows-x64": {
+      "contracts": [
+        {
+          "name": "livesync_cpu_capabilities_test",
+          "failed": false
+        },
+        {
+          "name": "livesync_pcm_test",
+          "failed": false
+        },
+        {
+          "name": "livesync_whisper_dtw_guard_test",
+          "failed": false
+        },
+        {
+          "name": "livesync_whisper_dtw_patch_test",
+          "failed": false
+        },
+        {
+          "name": "livesync_speech_support_test",
+          "failed": false
+        }
+      ],
+      "workers": {
+        "worker-abi-base.en.json": {
+          "workerSha256": "5d4f0c72da7486fa20954357b14ba7b5955f01d80db3a8f0696010d6b1f46752",
+          "threads": 4,
+          "wordErrorRate": 0.0,
+          "inferenceSecondsExcludingModelLoad": 29.2407235,
+          "speechSupportCounts": {
+            "0": 0,
+            "1": 25,
+            "2": 0
+          }
+        },
+        "worker-abi-base.en-q5_1.json": {
+          "workerSha256": "5d4f0c72da7486fa20954357b14ba7b5955f01d80db3a8f0696010d6b1f46752",
+          "threads": 4,
+          "wordErrorRate": 0.0,
+          "inferenceSecondsExcludingModelLoad": 23.0376458,
+          "speechSupportCounts": {
+            "0": 0,
+            "1": 25,
+            "2": 0
+          }
+        },
+        "worker-avx2-2threads-base.en-q5_1.json": {
+          "workerSha256": "1788a52961d645b438201368e2a69b44d48fa7f80f5be53953abb55c35aa8193",
+          "threads": 2,
+          "wordErrorRate": 0.0,
+          "inferenceSecondsExcludingModelLoad": 3.0114248,
+          "speechSupportCounts": {
+            "0": 0,
+            "1": 25,
+            "2": 0
+          }
+        }
+      },
+      "contractsSha256": "cb6dabb570d447cf7ae36bdeb7c2a810a008e44a04a096980257bf61db0874ef"
+    },
+    "macos-arm64": {
+      "contracts": [
+        {
+          "name": "livesync_cpu_capabilities_test",
+          "failed": false
+        },
+        {
+          "name": "livesync_pcm_test",
+          "failed": false
+        },
+        {
+          "name": "livesync_whisper_dtw_guard_test",
+          "failed": false
+        },
+        {
+          "name": "livesync_whisper_dtw_patch_test",
+          "failed": false
+        },
+        {
+          "name": "livesync_speech_support_test",
+          "failed": false
+        }
+      ],
+      "workers": {
+        "worker-abi-base.en.json": {
+          "workerSha256": "a7145325fb6904bed6a0290b0ee1d74b36af2d04e95b1cd9de1796129ef7a377",
+          "threads": 4,
+          "wordErrorRate": 0.0,
+          "inferenceSecondsExcludingModelLoad": 25.105774417,
+          "speechSupportCounts": {
+            "0": 0,
+            "1": 25,
+            "2": 0
+          }
+        },
+        "worker-abi-base.en-q5_1.json": {
+          "workerSha256": "a7145325fb6904bed6a0290b0ee1d74b36af2d04e95b1cd9de1796129ef7a377",
+          "threads": 4,
+          "wordErrorRate": 0.0,
+          "inferenceSecondsExcludingModelLoad": 22.871131125,
+          "speechSupportCounts": {
+            "0": 0,
+            "1": 25,
+            "2": 0
+          }
+        }
+      },
+      "contractsSha256": "c296e59ee8869a07ca53e61e1dedeeb8b3e0b69ce55d15e0a70d36273656bcb2"
+    }
+  },
+  "productionAppValidated": false,
+  "audiblePlaybackValidated": false,
+  "driftAccuracyValidated": false
+}
