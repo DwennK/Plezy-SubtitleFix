@@ -1,0 +1,87 @@
+{
+  "source": "9ef259057bde1453ce35c6a8f321a8609dd08fa7",
+  "builtAt": "2026-09-17T06:55:32.735847+00:00",
+  "exeSha256": "325b2372e3fb3f480ce70fe4374aab56d1613cb88be913b411e480ec760c2d25",
+  "signatureVerified": true,
+  "runtimeInputsVerified": true,
+  "bundledHashesVerified": true,
+  "runtimeSourceHash": "36a36d23ce61493a6ece4c8f11c99fe61df1d30f1ffb38caacaec2215a06506f",
+  "installed": true,
+  "installation": {
+    "source": "9ef259057bde1453ce35c6a8f321a8609dd08fa7",
+    "installedAt": "2026-09-17T07:00:49.735692+00:00",
+    "installedBundle": "/Applications/PlezyLiveSync.app",
+    "exeSha256": "325b2372e3fb3f480ce70fe4374aab56d1613cb88be913b411e480ec760c2d25",
+    "previousBundle": "/Users/dwenn/.codex/worktrees/plezy-livesync-runtime-diagnostics/build/livesync/installed-before-9ef25905/PlezyLiveSync.app",
+    "previousExeSha256": "018b88ddd34c4da5151591dc3c4599512808d68598345e89d2f627da5c5fdaaf",
+    "signatureVerified": true,
+    "userDataUntouched": true
+  },
+  "upstreamCheck": {
+    "checkedAt": "2026-09-17T06:58:47.359434+00:00",
+    "upstream": "64dca5962a3dd24feee829235ed811298a74309b",
+    "candidate": "9ef259057bde1453ce35c6a8f321a8609dd08fa7"
+  },
+  "upstreamIncluded": "f88feaa8e34fcb2141e34e619054a1f30590a266",
+  "upstreamNewerCommitNotIncluded": "64dca5962a3dd24feee829235ed811298a74309b",
+  "controller": {
+    "calibration": {
+      "passed": true,
+      "acquisitionMs": 23039,
+      "absoluteOffsetError": 0.22031250000000568,
+      "cacheRestoreMs": 1676,
+      "persistentCacheKnownAndUnknownRegions": true,
+      "wrongCachedGapRecoveryValidated": true,
+      "knownRegionRestoredAfterSeek": true,
+      "unknownSeekClearsAutomaticOnly": true,
+      "audioDelayCompositionAndPreservation": true,
+      "manualDelayDuringAndAfter": true,
+      "tapDisabledOnClose": true,
+      "inferenceSeconds": [
+        1.029327625,
+        1.14289325
+      ],
+      "evidenceSha256": "b5c819f379344b0c055d726c01497e51a33a85f4f1f4a917f1ca8b0dceea2a1a"
+    },
+    "intro-90": {
+      "passed": true,
+      "acquisitionMs": 116714,
+      "absoluteOffsetError": 0.23166666666665492,
+      "cacheRestoreMs": 1661,
+      "persistentCacheKnownAndUnknownRegions": true,
+      "wrongCachedGapRecoveryValidated": true,
+      "knownRegionRestoredAfterSeek": true,
+      "unknownSeekClearsAutomaticOnly": true,
+      "audioDelayCompositionAndPreservation": true,
+      "manualDelayDuringAndAfter": true,
+      "tapDisabledOnClose": true,
+      "inferenceSeconds": [
+        1.001607792,
+        1.021457292,
+        1.070177292,
+        1.133813583
+      ],
+      "evidenceSha256": "08eb58ffdad9c373c76589aedc248ac5b170929e669393b3ae4c21ee3cdb87f7"
+    }
+  },
+  "desktopComponentsCi": {
+    "runId": 35191848481,
+    "macos": "success",
+    "windows": "success"
+  },
+  "ciNativeRunsPending": [
+    35191846196,
+    35191882234
+  ],
+  "limitations": [
+    "Controller uses null audio and the public calibration partition; authored-SRT error is not acoustic precision acceptance.",
+    "The sustained Mentalist synchronization failure remains unresolved; the cache fix addresses a separate reproduced restart regression.",
+    "Windows native build and full latest general CI are pending.",
+    "Upstream advanced by one commit during validation; the installed candidate contains f88feaa8, not 64dca596."
+  ],
+  "productAccepted": false,
+  "installedUiLaunch": {
+    "validated": false,
+    "limitation": "Computer Use reported that the Mac was locked and could not be unlocked automatically."
+  }
+}
