@@ -1,0 +1,350 @@
+{
+  "schema": 1,
+  "recordedAt": "2026-09-17T04:22:50.907566+00:00",
+  "sourceSha": "3947d5865b5b6866d42326f0347935ec0fe8fc96",
+  "upstreamSha": "efbfd01ac3755395c13d8fd6acb60f7a115957d4",
+  "upstreamCheckedAt": "2026-09-17T04:04:17.794346+00:00",
+  "nativeRevision": "0bdf5a7963a7b8338dd28f056f34e22d14edfdd8",
+  "mergeReview": {
+    "androidConflicts": "Use upstream removal/replacement of functions; prior fork differences were only formatting.",
+    "macosConflicts": "Retain local patched MPV package and omit remote mpv-build SwiftPM pins. Rebuild from new native pin.",
+    "integrationBase": "8a67385a069607a3ea76b2d746ffafa67acbe574",
+    "maintainedFeatureBranchPromoted": false
+  },
+  "localChecks": {
+    "targetedTestsPassed": 496,
+    "targetedTestsSkipped": 1,
+    "fullAnalysisPassed": true,
+    "codegenPassed": true,
+    "upstreamScriptGuardsPassed": true,
+    "updaterTestsPassed": 13,
+    "appleLocksPassed": true,
+    "nativePatchPreparationPassed": true,
+    "fullTests": {
+      "passed": 7449,
+      "skipped": 7,
+      "failed": 3,
+      "exitCode": 1,
+      "failures": [
+        "player_startup_failure_test.dart",
+        "playback_open_failure_test.dart",
+        "ambient_lighting_startup_restore_test.dart"
+      ],
+      "failure": "No loadfile observed within pumpUntil deadline.",
+      "isolatedCandidateRerun": {
+        "passed": 3,
+        "failed": 0
+      },
+      "isolatedOfficialUpstream": {
+        "passed": 3,
+        "failed": 0
+      },
+      "causeIsolated": false
+    }
+  },
+  "linuxCiUnitTests": {
+    "run": 35180635456,
+    "job": 105071807627,
+    "passed": 7440,
+    "skipped": 19,
+    "extraPackageSuitesPassed": [
+      8,
+      13,
+      26,
+      26
+    ]
+  },
+  "desktopComponentTests": {
+    "run": 35180609564,
+    "macos": {
+      "passed": 177,
+      "skipped": 1,
+      "plexLifecyclePassed": 1
+    },
+    "windows": {
+      "passed": 176,
+      "skipped": 2,
+      "plexLifecyclePassed": 1
+    }
+  },
+  "runsAtSnapshot": {
+    "macos": {
+      "run": 35180606140,
+      "attempt": 1,
+      "conclusion": "success",
+      "headSha": "3947d5865b5b6866d42326f0347935ec0fe8fc96",
+      "status": "completed"
+    },
+    "windowsNative": {
+      "run": 35180607915,
+      "attempt": 1,
+      "conclusion": "",
+      "headSha": "3947d5865b5b6866d42326f0347935ec0fe8fc96",
+      "status": "in_progress"
+    },
+    "windowsApp": {
+      "run": 35180633990,
+      "attempt": 1,
+      "conclusion": "",
+      "headSha": "3947d5865b5b6866d42326f0347935ec0fe8fc96",
+      "status": "in_progress"
+    },
+    "components": {
+      "run": 35180609564,
+      "attempt": 1,
+      "conclusion": "success",
+      "headSha": "3947d5865b5b6866d42326f0347935ec0fe8fc96",
+      "status": "completed"
+    },
+    "general": {
+      "run": 35180635456,
+      "attempt": 2,
+      "conclusion": "",
+      "headSha": "3947d5865b5b6866d42326f0347935ec0fe8fc96",
+      "status": "in_progress"
+    }
+  },
+  "generalCiAttempt1": {
+    "conclusion": "failure",
+    "windowsX64": "Native staging was started before native build success; rerun required after 35180607915 completes.",
+    "ios": "testPendingSetPropertyIsCancelledExactlyOnceOnDispose failed; same test passed in official upstream run 35172959791. One isolated job rerun dispatched; result pending.",
+    "allOtherExecutedJobs": "success",
+    "skippedJob": "Linux package smoke build"
+  },
+  "macos": {
+    "nativeContractTestsPassed": 14,
+    "nativeContractTestsFailed": 0,
+    "appArtifact": {
+      "id": 10480616221,
+      "sizeBytes": 94882551
+    },
+    "contractArtifact": {
+      "id": 10480562759,
+      "sizeBytes": 251090
+    },
+    "nativePackage": {
+      "nativeRevision": "0bdf5a7963a7b8338dd28f056f34e22d14edfdd8",
+      "xcframeworkSha256": "6abf5475efde1c4e91b73edcb5aed93f6cb110809e6b5d316bbc7417c739a371",
+      "liveSyncPatchSha256": "6a2e0e12b3e61c6f846127c90e75361a20cbfef9c822d56a0ecac55b6803a977",
+      "packageSource": "Pinned upstream Package.swift; only Libmpv target uses a local path"
+    },
+    "packageVerification": {
+      "sourceSha": "3947d5865b5b6866d42326f0347935ec0fe8fc96",
+      "run": 35180606140,
+      "artifact": 10480616221,
+      "archiveSha256": "04060004e1072c85840c0c837c594fc91e3f6d1c3c9daf3f8294e2bbeee95691",
+      "executableSha256": "5a39ea31209465649b23feaf21dd1d38263d2df0c43d9b1bce077a3135d9ab0d",
+      "identity": {
+        "CFBundleIdentifier": "com.dwennk.plezy.livesync",
+        "CFBundleShortVersionString": "2.20.0",
+        "CFBundleVersion": "150"
+      },
+      "codesignDeepStrict": true,
+      "allBundledChecksumsPassed": true,
+      "nativeSourceInputsMatch": true,
+      "runtime": {
+        "source": {
+          "inputs": {
+            "schema": 1,
+            "target": "macos-arm64",
+            "profile": "portable-cpu",
+            "captureAbi": 1,
+            "inferenceAbi": 2,
+            "speechDetectorSha256": "2aa269b785eeb53a82983a20501ddf7c1d9c48e33ab63a41391ac6c9f7fb6987",
+            "whisperRevision": "927cfce34f31707e17f2bff35c349632fb9e2c3a",
+            "mpvRevision": "0bdf5a7963a7b8338dd28f056f34e22d14edfdd8",
+            "mpvHeaderSha256": "3c073236a09cb456c6e80587d5523c8771c32fb22ca014e0f99cc3d43905b75c",
+            "sourceSha256": "b85c6138c1f5f719024b05242bd2fe87754a97e80519583c795873b86be32c5d"
+          },
+          "files": {
+            "liblivesync_capture_bridge.dylib": "9f583eca42988827add88a6858b7174c515c5ccb33d59622cc22864fc5d43d3d",
+            "liblivesync_inference_bridge.dylib": "513137fd8c5cb6a5b3d5fba7b9106fa58289bde7898a788fe9ff62f5dc9222ac",
+            "whisper-ggml-LICENSE": "94f29bbed6a22c35b992c5c6ebf0e7c92f13b836b90f36f461c9cf2f0f1d010d",
+            "SILERO-LICENSE": "2e63e9a38b6e8fc0c7bc37ce174caca1862870856c6daf5697cfb785e925520b"
+          },
+          "cmakeVersion": "cmake version 4.4.3",
+          "configureArguments": [
+            "-DCMAKE_BUILD_TYPE=Release",
+            "-DGGML_METAL=OFF",
+            "-DGGML_VULKAN=OFF",
+            "-DGGML_CUDA=OFF",
+            "-DGGML_BLAS=OFF",
+            "-DGGML_OPENMP=OFF",
+            "-DLIVESYNC_CPU_PROFILE=portable",
+            "-DLIVESYNC_WHISPER_SOURCE=/Users/runner/work/Plezy-SubtitleFix/Plezy-SubtitleFix/build/livesync/whisper-source",
+            "-DLIVESYNC_MPV_INCLUDE=/Users/runner/work/Plezy-SubtitleFix/Plezy-SubtitleFix/macos/LiveSyncMPV/Artifacts/Libmpv.xcframework/macos-arm64_x86_64/Libmpv.framework/Headers",
+            "-DLIVESYNC_SPEECH_MODEL=/Users/runner/work/Plezy-SubtitleFix/Plezy-SubtitleFix/build/livesync/models/ggml-silero-v6.2.0.bin",
+            "-DCMAKE_OSX_ARCHITECTURES=arm64",
+            "-DCMAKE_OSX_DEPLOYMENT_TARGET=11.0"
+          ],
+          "acceleratedConfigureArguments": null
+        },
+        "bundledSha256": {
+          "liblivesync_capture_bridge.dylib": "05e9f053adf7197c191c566f9c63173d05fce282f140e09787d2394fa59f26aa",
+          "liblivesync_inference_bridge.dylib": "e246c1e43802e2e4383544de715775385f847bbea7bb67fd4580e417edc36c23",
+          "whisper-ggml-LICENSE": "94f29bbed6a22c35b992c5c6ebf0e7c92f13b836b90f36f461c9cf2f0f1d010d",
+          "SILERO-LICENSE": "2e63e9a38b6e8fc0c7bc37ce174caca1862870856c6daf5697cfb785e925520b"
+        }
+      },
+      "installed": false,
+      "launched": false
+    },
+    "productionController": {
+      "calibration": {
+        "kind": "actual-plezy-production-controller-calibration",
+        "subtitleLoadDelayMs": 0,
+        "seekDuringStartupValidated": false,
+        "wrongCachedGapRecoveryValidated": true,
+        "cacheAlgorithm": "bounded-affine-speech-v3",
+        "cacheFixtureIsSynthetic": true,
+        "seededGapEndSeconds": 75,
+        "captureDuringSubtitleLoadValidated": false,
+        "platform": "macos",
+        "flutterBuildMode": "release",
+        "inferenceBackend": "portable-cpu",
+        "expectedOffset": -100.0,
+        "absoluteOffsetError": 0.20764583333333064,
+        "maximumOffsetError": 0.75,
+        "modelId": "base.en-q5_1",
+        "modelSha256": "4baf70dd0d7c4247ba2b81fafd9c01005ac77c2f9ef064e00dcf195d0e2fdd2f",
+        "fixtureCase": "calibration",
+        "introSilenceSeconds": 0,
+        "actualOffset": -100.20764583333333,
+        "reference": "authored Sintel SRT, not precise acoustic-onset ground truth",
+        "acquisitionMs": 23462,
+        "acquisitionTargetMs": 45000,
+        "acquisitionTargetPassed": true,
+        "nativeDelay": -100.082649,
+        "audioPartitionSeconds": [
+          100,
+          175
+        ],
+        "audioOutput": "null",
+        "audiblePlaybackValidated": false,
+        "pcmOrTranscriptPersisted": false,
+        "postConfirmationOffset": -100.20764583333333,
+        "knownRegionRestoredAfterSeek": true,
+        "unknownSeekClearsAutomaticOnly": true,
+        "audioDelayCompositionAndPreservation": true,
+        "cacheRestoreMs": 550,
+        "persistentCacheKnownAndUnknownRegions": true,
+        "manualDelayDuringAndAfter": true,
+        "tapDisabledOnClose": true,
+        "passed": true,
+        "inferenceSeconds": [
+          1.607253542,
+          1.978754708
+        ]
+      },
+      "intro-90": {
+        "kind": "actual-plezy-production-controller-calibration",
+        "subtitleLoadDelayMs": 0,
+        "seekDuringStartupValidated": false,
+        "wrongCachedGapRecoveryValidated": true,
+        "cacheAlgorithm": "bounded-affine-speech-v3",
+        "cacheFixtureIsSynthetic": true,
+        "seededGapEndSeconds": 165,
+        "captureDuringSubtitleLoadValidated": false,
+        "platform": "macos",
+        "flutterBuildMode": "release",
+        "inferenceBackend": "portable-cpu",
+        "expectedOffset": 90.0,
+        "absoluteOffsetError": 0.23833333333332973,
+        "maximumOffsetError": 0.75,
+        "modelId": "base.en-q5_1",
+        "modelSha256": "4baf70dd0d7c4247ba2b81fafd9c01005ac77c2f9ef064e00dcf195d0e2fdd2f",
+        "fixtureCase": "intro-90",
+        "introSilenceSeconds": 90,
+        "actualOffset": 89.76166666666667,
+        "reference": "authored Sintel SRT, not precise acoustic-onset ground truth",
+        "acquisitionMs": 117234,
+        "acquisitionTargetMs": 135000,
+        "acquisitionTargetPassed": true,
+        "nativeDelay": 89.886665,
+        "audioPartitionSeconds": [
+          100,
+          175
+        ],
+        "audioOutput": "null",
+        "audiblePlaybackValidated": false,
+        "pcmOrTranscriptPersisted": false,
+        "postConfirmationOffset": 89.76166666666667,
+        "knownRegionRestoredAfterSeek": true,
+        "unknownSeekClearsAutomaticOnly": true,
+        "audioDelayCompositionAndPreservation": true,
+        "cacheRestoreMs": 549,
+        "persistentCacheKnownAndUnknownRegions": true,
+        "manualDelayDuringAndAfter": true,
+        "tapDisabledOnClose": true,
+        "passed": true,
+        "inferenceSeconds": [
+          1.515992208,
+          1.62341325,
+          1.825988083,
+          1.715785333
+        ]
+      }
+    },
+    "packagedLocalWorker": {
+      "kind": "fixture-native-worker-abi",
+      "fixtureSha256": "59dfb9a4acb36fe2a2affc14bacbee2920ff435cb13cc314a08c13f66ba7860e",
+      "modelSha256": "4baf70dd0d7c4247ba2b81fafd9c01005ac77c2f9ef064e00dcf195d0e2fdd2f",
+      "workerSha256": "e246c1e43802e2e4383544de715775385f847bbea7bb67fd4580e417edc36c23",
+      "capture": {
+        "samples": 176000,
+        "mediaStart": 100,
+        "generation": 1,
+        "continuity": 1
+      },
+      "threads": 2,
+      "wordErrorRate": 0.0,
+      "referenceScope": "full fixture",
+      "inferenceSecondsExcludingModelLoad": 1.067762625,
+      "segments": [
+        {
+          "mediaStart": 100.0,
+          "mediaEnd": 111.0
+        }
+      ],
+      "validPrefixOnly": false,
+      "speechSupportCounts": {
+        "0": 0,
+        "1": 25,
+        "2": 0
+      },
+      "timestampAccuracyValidated": false,
+      "srtAlignmentValidated": false,
+      "productionAppValidated": false,
+      "audiblePlaybackValidated": false,
+      "retainedCapturedAudio": false,
+      "retainedTranscript": false
+    },
+    "standalonePackagedPcmProbe": {
+      "passed": false,
+      "failure": "Framework stub does not export mpv_create; actual app executable contains the linked symbol. Separate library probe cannot test this packaged static mpv image. App-linked native contracts and production-controller tests above passed."
+    }
+  },
+  "installedAppUpdated": false,
+  "visualVerification": "Mac locked; user unlock requested. Existing app remains b18c9891.",
+  "fullProductAcceptance": false,
+  "remaining": [
+    "Windows native and application candidate builds",
+    "General CI iOS failure and Windows dependency ordering rerun",
+    "Installed application update and native visual/audible Mentalist test",
+    "Automatic scene gaps, real drift and independent acoustic precision",
+    "Hardware performance budgets"
+  ],
+  "localLogSha256": {
+    "upstream-efbfd01a-tests.log": "fa7e4740dc0af80b748b33a8c9a10f02dafa5ca13fdc62727d06afb7b05d8184",
+    "upstream-efbfd01a-analyze.log": "281de6971351fb8b66479b3b2d534b1929a4ce2c589368a1bfaab619612502a9",
+    "upstream-efbfd01a-codegen.log": "9728eccf54678d6fc8a69e35950576c2c94fb892e7d0de51cee344379109e1bf",
+    "upstream-efbfd01a-guards.log": "2fbc4e389497c0c305e5d487b2389efb71a32e78a68143c5283c87671e15c102",
+    "upstream-efbfd01a-full-tests.log": "5d29b46821831887a02fda5d58924241ac8c5a2c00c41d63637694eb3de47ec4",
+    "upstream-efbfd01a-targeted-startup.log": "b72ebfe15a397982bf3a147739e4569cb9be93112e6a3df2ef6ddfcf3f65bf7b",
+    "upstream-efbfd01a-linux-tests.log": "a49366c0021a97a23ce7eb9592eb97b65fda59019071980fdd3b5b98fcb002bc",
+    "upstream-efbfd01a-ios.log": "2a06bf376167a3e92252e1e97ef895a98d05c09df47a4483c495d8bce039ff7a",
+    "upstream-efbfd01a-windows-config.log": "cd1e18f81334e28bd06e3fd78dfb955f0c41bbc657dd9b2b7a7ef02d95224473"
+  },
+  "officialUpstreamRegressionLogSha256": "9e9ff63ecdfa3e8f842a09232a10fa8521c97566728e76ea1ee525f79ed33784",
+  "mentalistAudibleAccuracyValidated": false
+}
