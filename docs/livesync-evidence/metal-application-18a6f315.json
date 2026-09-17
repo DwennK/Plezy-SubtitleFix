@@ -1,0 +1,289 @@
+{
+  "schema": 1,
+  "sourceSha": "18a6f31534840f5dd1075606420b0823f4829c0b",
+  "runId": 35172262697,
+  "runConclusion": "failure",
+  "applicationArtifactId": 10478035219,
+  "contractsArtifactId": 10477293883,
+  "reports": {
+    "build-mode.json": {
+      "sha256": "3a8d1d9f4996aa5f4e1554b117dabd6a6d18a9aeb26b1fdfc9848857ff68497e",
+      "data": {
+        "flutterMode": "release",
+        "nativeConfiguration": "Release",
+        "inferenceProfile": "metal",
+        "contractTestabilityOverride": true,
+        "artifactPreservedBeforeContractRebuild": true
+      }
+    },
+    "analysis-runtime-source.json": {
+      "sha256": "ed0fd79127f8ce49da55c28f782d65cf27725005ab8fa8e0da2edc383d1df7aa",
+      "data": {
+        "inputs": {
+          "schema": 1,
+          "target": "macos-arm64",
+          "profile": "metal-preferred-with-cpu-fallback",
+          "captureAbi": 1,
+          "inferenceAbi": 2,
+          "speechDetectorSha256": "2aa269b785eeb53a82983a20501ddf7c1d9c48e33ab63a41391ac6c9f7fb6987",
+          "whisperRevision": "927cfce34f31707e17f2bff35c349632fb9e2c3a",
+          "mpvRevision": "6855ea3776b437a922c0c7841560842e799fc152",
+          "mpvHeaderSha256": "3c073236a09cb456c6e80587d5523c8771c32fb22ca014e0f99cc3d43905b75c",
+          "sourceSha256": "da44624f5ed084b9afa56e4c591b1a9b43d583f9abd935e89c55e7dfa711eec5"
+        },
+        "files": {
+          "liblivesync_capture_bridge.dylib": "9f583eca42988827add88a6858b7174c515c5ccb33d59622cc22864fc5d43d3d",
+          "liblivesync_inference_bridge.dylib": "3e3ac820c216f585987e43e5f2cb7bd722bd9633fc81ede9597539c090f551df",
+          "whisper-ggml-LICENSE": "94f29bbed6a22c35b992c5c6ebf0e7c92f13b836b90f36f461c9cf2f0f1d010d",
+          "SILERO-LICENSE": "2e63e9a38b6e8fc0c7bc37ce174caca1862870856c6daf5697cfb785e925520b"
+        },
+        "cmakeVersion": "cmake version 4.4.3",
+        "configureArguments": [
+          "-DCMAKE_BUILD_TYPE=Release",
+          "-DLIVESYNC_USE_METAL=ON",
+          "-DGGML_METAL=ON",
+          "-DGGML_METAL_EMBED_LIBRARY=ON",
+          "-DGGML_VULKAN=OFF",
+          "-DGGML_CUDA=OFF",
+          "-DGGML_BLAS=OFF",
+          "-DGGML_OPENMP=OFF",
+          "-DLIVESYNC_CPU_PROFILE=portable",
+          "-DLIVESYNC_WHISPER_SOURCE=/Users/runner/work/Plezy-SubtitleFix/Plezy-SubtitleFix/build/livesync/whisper-source",
+          "-DLIVESYNC_MPV_INCLUDE=/Users/runner/work/Plezy-SubtitleFix/Plezy-SubtitleFix/macos/LiveSyncMPV/Artifacts/Libmpv.xcframework/macos-arm64_x86_64/Libmpv.framework/Headers",
+          "-DLIVESYNC_SPEECH_MODEL=/Users/runner/work/Plezy-SubtitleFix/Plezy-SubtitleFix/build/livesync/models/ggml-silero-v6.2.0.bin",
+          "-DCMAKE_OSX_ARCHITECTURES=arm64",
+          "-DCMAKE_OSX_DEPLOYMENT_TARGET=11.0"
+        ],
+        "acceleratedConfigureArguments": null
+      }
+    },
+    "native-contracts.json": {
+      "sha256": "12d6cfe63a45d0c4936a5ebf8c3e799af4da7fb7593eca88a6e39bf12990919c",
+      "data": {
+        "devicesAndConfigurations": [
+          {
+            "device": {
+              "architecture": "arm64",
+              "deviceId": "70168561d68d6d225be0c455dff3358ac2b6d397",
+              "deviceName": "My Mac",
+              "modelName": "Apple Virtual Machine 1",
+              "osBuildNumber": "25G83",
+              "osVersion": "26.6.2",
+              "platform": "macOS"
+            },
+            "expectedFailures": 0,
+            "failedTests": 0,
+            "passedTests": 14,
+            "skippedTests": 0,
+            "testPlanConfiguration": {
+              "configurationId": "1",
+              "configurationName": "Test Scheme Action"
+            }
+          }
+        ],
+        "environmentDescription": "Runner \u00b7 Built with macOS 26.6.2",
+        "expectedFailures": 0,
+        "failedTests": 0,
+        "finishTime": 1789611046.737,
+        "passedTests": 14,
+        "result": "Passed",
+        "skippedTests": 0,
+        "startTime": 1789610946.778,
+        "statistics": [],
+        "testFailures": [],
+        "title": "Test - Runner",
+        "topInsights": [],
+        "totalTestCount": 14
+      }
+    },
+    "controller-runner-calibration.json": {
+      "sha256": "c1ee7e937d3a6b86153d8599fc4c6b3c03c79eac76ad4ca62ad82fcde4034824",
+      "data": {
+        "case": "calibration",
+        "passed": false,
+        "scope": "native production controller; null audio output",
+        "failure": "acquisition-budget"
+      }
+    },
+    "calibration-player-calibration.json": {
+      "sha256": "addc878135e86c0dd61bc26659bccf3a7e47aa8c3334e0a0c673a87174bd2f15",
+      "data": {
+        "kind": "actual-plezy-production-controller-calibration",
+        "subtitleLoadDelayMs": 0,
+        "seekDuringStartupValidated": false,
+        "wrongCachedGapRecoveryValidated": true,
+        "cacheAlgorithm": "bounded-affine-speech-v3",
+        "cacheFixtureIsSynthetic": true,
+        "seededGapEndSeconds": 75,
+        "startupDiagnostics": [
+          {
+            "observedElapsedMs": 23,
+            "startupSubtitlesMs": 20,
+            "mappingCacheEligible": true,
+            "restoredSegments": 1,
+            "restoredGaps": 1
+          },
+          {
+            "observedElapsedMs": 810,
+            "startupCaptureMs": 807,
+            "captureReadyBeforeSubtitles": false
+          },
+          {
+            "observedElapsedMs": 810,
+            "startupReadyMs": 807,
+            "startupBufferedSamples": 0
+          }
+        ],
+        "acquisitionDiagnostics": [
+          {
+            "selectedAudioLanguage": "eng",
+            "selectedSubtitleLanguage": "eng",
+            "subtitleExternal": true,
+            "subtitleSourceMatchesFixture": true
+          },
+          {
+            "observedElapsedMs": 23,
+            "startupSubtitlesMs": 20,
+            "mappingCacheEligible": true,
+            "restoredSegments": 1,
+            "restoredGaps": 1
+          },
+          {
+            "observedElapsedMs": 810,
+            "startupCaptureMs": 807,
+            "captureReadyBeforeSubtitles": false
+          },
+          {
+            "observedElapsedMs": 810,
+            "startupReadyMs": 807,
+            "startupBufferedSamples": 0
+          },
+          {
+            "observedElapsedMs": 810,
+            "inferenceBackend": "metal-preferred"
+          },
+          {
+            "observedElapsedMs": 9321,
+            "analysisRequest": 1,
+            "generation": 1,
+            "continuity": 3,
+            "activityVoicePresent": null,
+            "activityTimingMismatch": false,
+            "analysisIntervalMs": 12000,
+            "analysisWindowSeconds": 12.0
+          },
+          {
+            "observedElapsedMs": 45817,
+            "attempt": 1,
+            "generation": 1,
+            "continuity": 3,
+            "inferenceSeconds": 4.099294875,
+            "inferenceBackend": "metal-preferred",
+            "matchingMs": 2,
+            "windowStart": 1.2916666666666665,
+            "windowEnd": 9.652354166666667,
+            "validPrefixOnly": false,
+            "match": "matched",
+            "similarity": 1.0,
+            "competitor": null,
+            "contextWindows": 1,
+            "segmentedMatch": false,
+            "anchors": [
+              {
+                "cue": 0,
+                "offset": -100.15833333333333
+              }
+            ]
+          },
+          {
+            "observedElapsedMs": 45819,
+            "analysisRequest": 2,
+            "generation": 1,
+            "continuity": 3,
+            "activityVoicePresent": true,
+            "activityTimingMismatch": false,
+            "analysisIntervalMs": 12000,
+            "analysisWindowSeconds": 15.0
+          },
+          {
+            "observedElapsedMs": 51818,
+            "attempt": 2,
+            "generation": 1,
+            "continuity": 3,
+            "inferenceSeconds": 5.680152917,
+            "inferenceBackend": "metal-preferred",
+            "matchingMs": 4,
+            "windowStart": 30.748354166666665,
+            "windowEnd": 45.748354166666665,
+            "validPrefixOnly": false,
+            "match": "matched",
+            "similarity": 1.0,
+            "competitor": null,
+            "contextWindows": 1,
+            "segmentedMatch": true,
+            "anchors": [
+              {
+                "cue": 8,
+                "offset": -100.23164583333333
+              }
+            ]
+          },
+          {
+            "observedElapsedMs": 51818,
+            "learnedMediaStart": 7.055010416666676,
+            "learnedMediaEnd": 37.80501141666667,
+            "learnedSlope": 1.0,
+            "learnedSegments": 2
+          }
+        ],
+        "captureDuringSubtitleLoadValidated": false,
+        "platform": "macos",
+        "flutterBuildMode": "release",
+        "inferenceBackend": "metal-preferred",
+        "expectedOffset": -100.0,
+        "absoluteOffsetError": 0.1949895833333244,
+        "maximumOffsetError": 0.75,
+        "modelId": "base.en-q5_1",
+        "modelSha256": "4baf70dd0d7c4247ba2b81fafd9c01005ac77c2f9ef064e00dcf195d0e2fdd2f",
+        "fixtureCase": "calibration",
+        "introSilenceSeconds": 0,
+        "actualOffset": -100.19498958333332,
+        "reference": "authored Sintel SRT, not precise acoustic-onset ground truth",
+        "acquisitionMs": 51922,
+        "acquisitionTargetMs": 45000,
+        "acquisitionTargetPassed": false,
+        "nativeDelay": -100.069992,
+        "audioPartitionSeconds": [
+          100,
+          175
+        ],
+        "audioOutput": "null",
+        "audiblePlaybackValidated": false,
+        "pcmOrTranscriptPersisted": false,
+        "postConfirmationOffset": -100.15833333333333,
+        "knownRegionRestoredAfterSeek": true,
+        "unknownSeekClearsAutomaticOnly": true,
+        "audioDelayCompositionAndPreservation": true,
+        "cacheRestoreMs": 641,
+        "persistentCacheKnownAndUnknownRegions": true,
+        "manualDelayDuringAndAfter": true,
+        "tapDisabledOnClose": true,
+        "passed": true
+      }
+    }
+  },
+  "firstRequestToResultSeconds": 36.496,
+  "firstReportedInferenceSeconds": 4.099294875,
+  "intro90Executed": false,
+  "fullApplicationAccepted": false,
+  "installed": false,
+  "fullProductAcceptance": false,
+  "limitations": [
+    "Calibration exceeded the unchanged 45-second acquisition budget at 51.922 seconds. The runner failed despite later functional checks passing.",
+    "The 36.496-second first request-to-result interval includes initialization and polling; the native timer reports 4.099 seconds of inference only. No separate model-load measurement was collected.",
+    "Embedded Metal source is compiled at runtime in the pinned ggml revision, but this run does not isolate shader compilation as the cause.",
+    "Metal preferred is a request, not evidence of physical GPU execution on this virtualized runner.",
+    "The 90-second intro was not executed after calibration failure.",
+    "Authored SRT timing and null audio do not validate independent acoustic-onset precision or audible playback."
+  ]
+}
