@@ -2,20 +2,20 @@
   "schemaVersion": 1,
   "product": "Plezy + LiveSync",
   "status": "integration-candidate-not-validated",
-  "recordedAt": "2026-09-17T04:04:17.794346+00:00",
+  "recordedAt": "2026-09-17T06:16:16.441816+00:00",
   "upstream": {
     "repository": "edde746/plezy",
     "branch": "main",
-    "sha": "efbfd01ac3755395c13d8fd6acb60f7a115957d4",
-    "commitDate": "2026-09-17T04:01:48+02:00",
+    "sha": "f88feaa8e34fcb2141e34e619054a1f30590a266",
+    "commitDate": "2026-09-17T07:47:14+02:00",
     "plezyVersion": "2.20.0+150",
     "stableRelease": "2.20.0",
     "latestCheck": {
-      "checkedAt": "2026-09-17T04:04:17.794346+00:00",
-      "latestSha": "efbfd01ac3755395c13d8fd6acb60f7a115957d4",
-      "integratedSha": "efbfd01ac3755395c13d8fd6acb60f7a115957d4",
+      "checkedAt": "2026-09-17T05:56:52.463227+00:00",
+      "latestSha": "f88feaa8e34fcb2141e34e619054a1f30590a266",
+      "integratedSha": "f88feaa8e34fcb2141e34e619054a1f30590a266",
       "unintegratedCommits": 0,
-      "scope": "Integration candidate only; maintained branch unchanged. Builds pending."
+      "scope": "Local integration candidate; merge validation and rebuilt desktop applications pending. Remote was fetched at 2026-09-17T05:56:52Z."
     }
   },
   "flutter": {
