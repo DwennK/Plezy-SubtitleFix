@@ -118,6 +118,37 @@ void main() {
     }
   });
 
+  test('ignored multiword sound segments cannot discard neighboring dialogue anchors', () {
+    for (final annotation in ['[heavy breathing]', '(music grows louder)', '♪ soft distant melody ♪']) {
+      final original = transcript(90);
+      final source = NativeTranscript(1, 2, 90, 105, 0.2, [
+        NativeTranscriptSegment(annotation, 90, 91, [
+          for (final piece in annotation.split(' ')) NativeTranscriptToken(' $piece', 90, 90, 0.01, false),
+        ]),
+        ...original.segments,
+      ]);
+      // The search layer already omits this non-dialogue segment. Timed
+      // alignment must retain the same word indices and real spoken onsets.
+      final rejected = <String, int>{};
+      final anchors = const TemporalAligner().anchors(source, index, passage, rejectionCounts: rejected);
+      expect(anchors.map((a) => a.mediaTime), [92, 97]);
+      expect(rejected, isEmpty);
+      expect(source.segments.first.text, annotation);
+    }
+  });
+
+  test('an ignored segment cannot conceal disagreement with its lexical tokens', () {
+    final source = NativeTranscript(1, 2, 90, 105, 0.2, [
+      NativeTranscriptSegment('[heavy breathing]', 90, 91, [
+        const NativeTranscriptToken(' Different spoken text', 90.2, 90.9, 0.95, true),
+      ]),
+      ...transcript(90).segments,
+    ]);
+    final rejected = <String, int>{};
+    expect(const TemporalAligner().anchors(source, index, passage, rejectionCounts: rejected), isEmpty);
+    expect(rejected['normalizationMismatch'], 1);
+  });
+
   test('one interior substitution has four exact flanks and retains canonical cue identity', () {
     final anchors = align(alteredFirst(['Please', 'bring', 'that', 'silver', 'lantern']));
     expect(anchors, hasLength(2));

@@ -52,6 +52,12 @@ class TemporalAligner {
     const normalizer = DialogueNormalizer();
     for (final segment in transcript.segments) {
       final text = segment.tokens.map((token) => token.text).join();
+      final expectedWords = normalizer.words(segment.text);
+      // A multiword annotation must be normalized as a whole: splitting
+      // "[heavy breathing]" first would invent two spoken words and discard
+      // every neighboring anchor. Require agreement with the token text too,
+      // so an ignored segment cannot hide inconsistent lexical content.
+      if (expectedWords.isEmpty && normalizer.words(text).isEmpty) continue;
       final starts = <int>[];
       var offset = 0;
       for (final token in segment.tokens) {
@@ -82,7 +88,7 @@ class TemporalAligner {
       }
       // Normalization can remove entire sound/music lines. Do not use an index
       // if independently normalizing the token spans changed word correspondence.
-      if (segmentWords.map((word) => word.text).join(' ') != normalizer.words(segment.text).join(' ')) {
+      if (segmentWords.map((word) => word.text).join(' ') != expectedWords.join(' ')) {
         rejected('normalizationMismatch');
         return [];
       }

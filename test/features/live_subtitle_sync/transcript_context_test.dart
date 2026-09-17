@@ -43,6 +43,22 @@ void main() {
     ]),
   );
 
+  test('a whole-window match retains timing beside ignored multiword annotations', () {
+    final source = NativeTranscript(1, 2, 0, 15, 0.1, [
+      NativeTranscriptSegment('[distant heavy breathing]', 0, 1, [
+        for (final piece in ['[distant', 'heavy', 'breathing]']) NativeTranscriptToken(' $piece', 0, 0, 0.01, false),
+      ]),
+      ...window(0, 15, 'Carry the lantern', 2).segments,
+      ...window(0, 15, 'Cross the bridge', 7).segments,
+    ]);
+    final evidence = matchTranscriptEvidence(source, index, diagnostics: true);
+    expect(evidence.match.status, TranscriptMatchStatus.matched);
+    expect(evidence.segmented, isFalse);
+    expect(evidence.windowCount, 1);
+    expect(evidence.anchors.map((a) => a.mediaTime), [2, 7]);
+    expect(evidence.anchorRejections, isEmpty);
+  });
+
   test('ignored sound segments do not split independent dialogue context', () {
     final subtitles = SubtitleIndex(
       ParsedSubtitles(SubtitleEncoding.utf8, [
