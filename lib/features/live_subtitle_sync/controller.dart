@@ -100,6 +100,7 @@ class LiveSubtitleSyncController extends ChangeNotifier {
   final _timeline = TimelineTracker();
   final _pcmAvailability = PcmAvailability();
   final _transcriptContext = TranscriptContext();
+  final _diagnosticIdentities = LiveSyncDiagnosticIdentities();
   final _clock = Stopwatch()..start();
   LiveSyncPhase phase = LiveSyncPhase.off;
   LiveSyncReason? reason;
@@ -416,7 +417,18 @@ class LiveSubtitleSyncController extends ChangeNotifier {
           'anchorRejections': evidence.anchorRejections,
           'speechTimingRejected': evidence.speechTimingRejected,
           'latestAnchorMediaTime': evidence.latestAnchorMediaTime,
-          'anchors': anchors.map((anchor) => {'cue': anchor.cue, 'offset': anchor.offset}).toList(),
+          'anchors': anchors
+              .map(
+                (anchor) => {
+                  'cue': anchor.cue,
+                  'offset': anchor.offset,
+                  'subtitleTime': anchor.subtitleTime,
+                  'mediaTime': anchor.mediaTime,
+                  'uncertainty': anchor.uncertainty,
+                  'phraseId': _diagnosticIdentities.identify(anchor.phrase),
+                },
+              )
+              .toList(),
         });
         // A wider prompt retry can recover cue beginnings when a recognized
         // passage lacks enough independent timing anchors. Matching and
@@ -484,8 +496,9 @@ class LiveSubtitleSyncController extends ChangeNotifier {
         voicePresent: voicePresent,
         timingMismatch: mismatch,
       );
+      final requestedWindowSeconds = _cadence.windowSeconds;
       if (_clock.elapsedMilliseconds - _lastAnalysisMs >= intervalMs &&
-          await worker.submitRecent(seconds: _cadence.windowSeconds)) {
+          await worker.submitRecent(seconds: requestedWindowSeconds)) {
         // A seek can clear cadence while the native acknowledgement is pending.
         // The old request must not rate-limit or count as work in the new run.
         if (!enabled || generation != _generation) return;
@@ -498,7 +511,7 @@ class LiveSubtitleSyncController extends ChangeNotifier {
           'activityVoicePresent': voicePresent,
           'activityTimingMismatch': mismatch,
           'analysisIntervalMs': intervalMs,
-          'analysisWindowSeconds': _cadence.windowSeconds,
+          'analysisWindowSeconds': requestedWindowSeconds,
         });
       }
     } catch (error) {
@@ -579,6 +592,7 @@ class LiveSubtitleSyncController extends ChangeNotifier {
   Future<void> _reset({Duration? target}) async {
     if (!enabled || _worker == null) return;
     final generation = ++_generation;
+    _diagnosticIdentities.clear();
     _timeline.discontinuity();
     _transcriptContext.clear();
     _continuity = null;
@@ -658,6 +672,7 @@ class LiveSubtitleSyncController extends ChangeNotifier {
   Future<void> _stop() async {
     enabled = false;
     ++_generation;
+    _diagnosticIdentities.clear();
     _timer?.cancel();
     _timer = null;
     _sourceAbort?.abort();

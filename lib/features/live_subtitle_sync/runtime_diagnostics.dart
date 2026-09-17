@@ -1,5 +1,22 @@
 import 'dart:convert';
 
+/// Process-local equivalence labels let a numerical replay preserve phrase
+/// independence without persisting dialogue or a reversible text fingerprint.
+class LiveSyncDiagnosticIdentities {
+  LiveSyncDiagnosticIdentities({this.maximumEntries = 4096});
+  final int maximumEntries;
+  final _phrases = <String, int>{};
+
+  int? identify(String phrase) {
+    final existing = _phrases[phrase];
+    if (existing != null) return existing;
+    if (_phrases.length >= maximumEntries) return null;
+    return _phrases[phrase] = _phrases.length;
+  }
+
+  void clear() => _phrases.clear();
+}
+
 /// Bounded, opt-in developer output. Unknown fields and all free text are
 /// discarded before encoding; this must never become an application log sink.
 class LiveSyncRuntimeDiagnostics {
@@ -113,7 +130,7 @@ class LiveSyncRuntimeDiagnostics {
         for (final anchor in anchors.take(64))
           if (anchor is Map)
             {
-              for (final key in const ['cue', 'offset'])
+              for (final key in const ['cue', 'offset', 'subtitleTime', 'mediaTime', 'uncertainty', 'phraseId'])
                 if (anchor[key] is num && (anchor[key] as num).isFinite) key: anchor[key],
             },
       ];

@@ -4,6 +4,16 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:plezy/features/live_subtitle_sync/runtime_diagnostics.dart';
 
 void main() {
+  test('phrase equivalence uses bounded local labels and resets between generations', () {
+    final identities = LiveSyncDiagnosticIdentities(maximumEntries: 2);
+    expect(identities.identify('private phrase one'), 0);
+    expect(identities.identify('private phrase two'), 1);
+    expect(identities.identify('private phrase one'), 0);
+    expect(identities.identify('private phrase three'), isNull);
+    identities.clear();
+    expect(identities.identify('private phrase three'), 0);
+  });
+
   test('diagnostic output retains numerical evidence and rejects dialogue and credentials', () {
     final lines = <String>[];
     final diagnostics = LiveSyncRuntimeDiagnostics(lines.add);
@@ -16,7 +26,15 @@ void main() {
       'url': 'https://private.test/?token=private-secret',
       'transcript': 'private-dialogue',
       'anchors': [
-        {'cue': 4, 'offset': 3.72, 'phrase': 'private-dialogue'},
+        {
+          'cue': 4,
+          'offset': 3.72,
+          'subtitleTime': 100.0,
+          'mediaTime': 103.72,
+          'uncertainty': 0.35,
+          'phraseId': 0,
+          'phrase': 'private-dialogue',
+        },
       ],
       'anchorRejections': {'beginningLowConfidence': 2, 'private-dialogue': 1},
     });
@@ -28,7 +46,7 @@ void main() {
       'match': 'matched',
       'inferenceSeconds': 1.2,
       'anchors': [
-        {'cue': 4, 'offset': 3.72},
+        {'cue': 4, 'offset': 3.72, 'subtitleTime': 100.0, 'mediaTime': 103.72, 'uncertainty': 0.35, 'phraseId': 0},
       ],
       'anchorRejections': {'beginningLowConfidence': 2},
     });
