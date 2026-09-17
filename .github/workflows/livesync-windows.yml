@@ -40,7 +40,7 @@ on:
         type: boolean
         default: false
       compare_renderer_observer:
-        description: Six fixed same-binary trials with observer off/on/on/off/off/on (requires observation)
+        description: Six fixed launches (normal build, or observer off/on/on/off/off/on when enabled)
         type: boolean
         default: false
       seed_wrong_gap:
@@ -86,7 +86,7 @@ jobs:
         shell: pwsh
         run: |
           if ('${{ inputs.debug_renderer }}' -eq 'true' -and '${{ inputs.observe_renderer_faults }}' -eq 'true') { throw 'Select one observation mechanism' }
-          if ('${{ inputs.compare_renderer_observer }}' -eq 'true' -and '${{ inputs.observe_renderer_faults }}' -ne 'true') { throw 'Comparison requires the vectored observer build' }
+          if ('${{ inputs.compare_renderer_observer }}' -eq 'true' -and '${{ inputs.debug_renderer }}' -eq 'true') { throw 'Fixed trials do not run under an external debugger' }
           foreach ($script in @('capture_windows_renderer.ps1', 'compare_windows_renderer_observer.ps1')) {
             $tokens = $null; $parseErrors = $null
             $null = [System.Management.Automation.Language.Parser]::ParseFile((Join-Path $PWD "scripts/livesync/$script"), [ref]$tokens, [ref]$parseErrors)
@@ -258,7 +258,6 @@ jobs:
           ffmpeg -version > build/livesync/evidence/renderer/fixture-generator.txt
           $observeFaults = '${{ inputs.observe_renderer_faults }}' -eq 'true'
           $compareObserver = '${{ inputs.compare_renderer_observer }}' -eq 'true'
-          if ($compareObserver -and -not $observeFaults) { throw 'Comparison requires the vectored observer build' }
           $automation = if ($compareObserver) { Join-Path $evidence 'active' } else { $evidence }
           $buildArguments = @('build', 'windows', "--$env:FLUTTER_BUILD_MODE", '--no-pub', '--target', 'tool/livesync_player_probe.dart', "--dart-define=LIVESYNC_FIXTURE_DIR=$fixture", "--dart-define=LIVESYNC_RENDERER_AUTOMATION_DIR=$automation")
           try {
@@ -270,6 +269,9 @@ jobs:
             }
             flutter @buildArguments
             if ($LASTEXITCODE -ne 0) { throw 'Dedicated renderer build failed' }
+            $observerFlags = @(Get-Content build/windows/x64/CMakeCache.txt | Where-Object { $_ -match '^PLEZY_LIVESYNC_EXCEPTION_DIAGNOSTIC:BOOL=' })
+            $expectedFlag = if ($observeFaults) { 'ON' } else { 'OFF' }
+            if ($observerFlags.Count -ne 1 -or $observerFlags[0] -ne "PLEZY_LIVESYNC_EXCEPTION_DIAGNOSTIC:BOOL=$expectedFlag") { throw 'Compiled observer mode does not match the trial' }
             if ($observeFaults) {
               $env:LIVESYNC_RENDERER_EXCEPTION_LOG = Join-Path $evidence 'native-faults.jsonl'
               @{ mechanism = 'test-only vectored first-chance observer'; binaries = @(
@@ -280,7 +282,7 @@ jobs:
             }
             $debugger = if ('${{ inputs.debug_renderer }}' -eq 'true') { 'build/livesync/windows-debugger/Release/livesync_windows_debugger.exe' } else { '' }
             if ($compareObserver) {
-              ./scripts/livesync/compare_windows_renderer_observer.ps1 -Executable "$env:APP_BUNDLE/plezy_livesync.exe" -OutputDirectory $evidence
+              ./scripts/livesync/compare_windows_renderer_observer.ps1 -Executable "$env:APP_BUNDLE/plezy_livesync.exe" -OutputDirectory $evidence -ObserverCompiledIn $observeFaults
             } else {
               ./scripts/livesync/capture_windows_renderer.ps1 -Executable "$env:APP_BUNDLE/plezy_livesync.exe" -OutputDirectory $evidence -DebuggerExecutable $debugger
             }

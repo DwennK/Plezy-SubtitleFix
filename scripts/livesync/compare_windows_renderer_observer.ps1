@@ -1,6 +1,7 @@
 param(
   [Parameter(Mandatory=$true)][string]$Executable,
-  [Parameter(Mandatory=$true)][string]$OutputDirectory
+  [Parameter(Mandatory=$true)][string]$OutputDirectory,
+  [bool]$ObserverCompiledIn = $true
 )
 $ErrorActionPreference = 'Stop'
 if ($env:GITHUB_ACTIONS -ne 'true' -or $env:RUNNER_ENVIRONMENT -ne 'github-hosted') {
@@ -30,10 +31,12 @@ function Assert-RendererStopped {
 $trials = @()
 $previousLog = $env:LIVESYNC_RENDERER_EXCEPTION_LOG
 try {
-  # Fixed balanced order, not retry-until-green. Keep all failures. All launches
-  # use the same compiled runner; only observer registration changes. Warm OS
-  # caches and persisted window geometry are not reset between trials.
-  foreach ($enabled in @($false, $true, $true, $false, $false, $true)) {
+  # Fixed trial count, not retry-until-green. Keep all failures. Normal builds
+  # repeat six observer-free launches; diagnostic builds balance off/on order.
+  # OS caches and persisted window geometry are not reset between trials.
+  $sequence = if ($ObserverCompiledIn) { @($false, $true, $true, $false, $false, $true) }
+              else { @($false, $false, $false, $false, $false, $false) }
+  foreach ($enabled in $sequence) {
     $ordinal = $trials.Count + 1
     $mode = if ($enabled) { 'on' } else { 'off' }
     $destination = Join-Path $root ("trial-{0}-{1}" -f $ordinal, $mode)
@@ -71,12 +74,12 @@ try {
   if ($null -eq $previousLog) { Remove-Item Env:LIVESYNC_RENDERER_EXCEPTION_LOG -ErrorAction SilentlyContinue }
   else { $env:LIVESYNC_RENDERER_EXCEPTION_LOG = $previousLog }
   @{
-    kind = 'same-binary-renderer-observer-comparison'; binaries = $baseline
+    kind = if ($ObserverCompiledIn) { 'same-binary-renderer-observer-comparison' } else { 'normal-renderer-fixed-repetition' }
+    binaries = $baseline; observerCompiledIn = $ObserverCompiledIn
     expectedTrials = 6; completedTrials = $trials.Count; trials = $trials
     allTrialsPassed = $trials.Count -eq 6 -and @($trials | Where-Object { -not $_.passed }).Count -eq 0
-    normalUninstrumentedBinaryValidated = $false; automaticSynchronizationValidated = $false
-    limitations = @('Observer code is compiled into both modes; this does not compare binary layout.',
-      'Fixed off/on/on/off/off/on order, shared OS caches and persisted window geometry.',
+    normalUninstrumentedBinaryUsed = -not $ObserverCompiledIn; automaticSynchronizationValidated = $false
+    limitations = @('Fixed trial count with shared OS caches and persisted window geometry; intermittent failures may remain.',
       'Synthetic renderer on a hosted WARP desktop; no physical GPU or audible playback proof.')
   } | ConvertTo-Json -Depth 6 | Set-Content $reportPath
 }
