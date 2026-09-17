@@ -1,17 +1,20 @@
-"""Exercise the patch against the actual pinned source supplied by CMake."""
+"""Test offline patch contracts, or the pinned source supplied by CMake."""
 
 import argparse
 import hashlib
 import tempfile
 from pathlib import Path
+from unittest.mock import patch
+
+import patch_whisper_dtw
 
 from patch_whisper_dtw import GUARD, MARKER, SOURCE_SHA256, generate
 
 
-def check(source: Path):
+def check(source: Path, expected_sha: str = SOURCE_SHA256):
     original = source.read_bytes()
     canonical = original.replace(b"\r\n", b"\n")
-    assert hashlib.sha256(canonical).hexdigest() == SOURCE_SHA256
+    assert hashlib.sha256(canonical).hexdigest() == expected_sha
     with tempfile.TemporaryDirectory() as temporary:
         root = Path(temporary)
         output = root / "generated" / "whisper.cpp"
@@ -42,10 +45,33 @@ def check(source: Path):
         else:
             raise AssertionError("In-place modification was accepted")
     assert source.read_bytes() == original
-    print("Pinned DTW patch, idempotence, source-drift rejection and pristine checkout passed")
+
+
+def check_offline():
+    # The generic script roster has no native checkout. Exercise file-safety
+    # and idempotence with a synthetic source; CTest still supplies --source
+    # to verify the actual pinned Whisper implementation without mocking it.
+    with tempfile.TemporaryDirectory() as temporary:
+        source = Path(temporary) / "synthetic.cpp"
+        source.write_text("// synthetic fixture\n" + MARKER + "}\n", encoding="utf-8")
+        digest = hashlib.sha256(source.read_bytes()).hexdigest()
+        with patch.object(patch_whisper_dtw, "SOURCE_SHA256", digest):
+            check(source, digest)
+        try:
+            generate(source, source.with_name("output.cpp"))
+        except ValueError:
+            pass
+        else:
+            raise AssertionError("Synthetic source passed the real upstream pin")
+    print("Offline DTW patch file-safety, idempotence and checksum contracts passed")
 
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--source", type=Path, required=True)
-    check(parser.parse_args().source)
+    parser.add_argument("--source", type=Path)
+    source = parser.parse_args().source
+    if source is None:
+        check_offline()
+    else:
+        check(source)
+        print("Pinned DTW patch, idempotence, source-drift rejection and pristine checkout passed")
