@@ -3,7 +3,7 @@ import json
 import struct
 import unittest
 
-from create_scene_fixture import cue_projection, edit_pcm, edit_plan, frames
+from create_scene_fixture import apply_envelope, cue_projection, edit_pcm, edit_plan, frames
 from prepare_native import ROOT
 from evaluate_scene_probe import evaluate
 
@@ -81,6 +81,33 @@ class SceneFixtureTests(unittest.TestCase):
             edit_plan(manifest, 'added-scene')
         with self.assertRaises(ValueError):
             frames(0.00001, 48000)
+
+    def test_continuous_negative_retains_the_entire_source_and_has_no_gap(self):
+        self.manifest['cases']['control'] = {'kind': 'continuous'}
+        copies, truth = edit_plan(self.manifest, 'control')
+        self.assertEqual(copies, [('main', 0, 75 * 48000)])
+        self.assertEqual(truth['gaps'], [])
+        self.assertEqual(truth['sourceBoundaries'], [])
+        self.assertEqual(truth['segments'], [
+            {'subtitleStart': 100, 'subtitleEnd': 175, 'slope': 1, 'offset': -100}])
+
+    def test_gain_changes_keep_stereo_pairs_and_exact_sample_times(self):
+        original = struct.pack('<12h', 100, -100, 200, -200, 400, -400, 400, -400, 400, -400, 200, -200)
+        self.assertEqual(apply_envelope(original, None, 2, 2), original)
+        self.assertEqual(apply_envelope(original, [[0, 1], [3, 1]], 2, 2), original)
+        changed = apply_envelope(original, [[0, 1], [1, 1], [1.5, 0], [2, 1], [3, 1]], 2, 2)
+        self.assertEqual(len(changed), len(original))
+        self.assertEqual(struct.unpack('<12h', changed),
+                         (100, -100, 200, -200, 400, -400, 0, 0, 400, -400, 200, -200))
+
+    def test_bad_gain_envelopes_fail_before_producing_a_fixture(self):
+        data = struct.pack('<8h', *([100] * 8))
+        for points in ([[0, 1], [2, 2]], [[0, 1], [2, float('nan')]],
+                       [[0.5, 1], [2, 1]], [[0, 1], [1, 1]],
+                       [[0, 1], [1, 1], [1, 0], [2, 1]],
+                       [[0, 1], [0.1, 0], [2, 1]]):
+            with self.subTest(points=points), self.assertRaises(ValueError):
+                apply_envelope(data, points, 2, 2)
 
 
 if __name__ == '__main__':
