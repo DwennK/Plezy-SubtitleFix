@@ -1,0 +1,3120 @@
+{
+  "schema": 1,
+  "sourceSha": "4a922dc6f7e00a5ea40f5903b3ed4088b00177e1",
+  "kind": "causal active-PCM word and acoustic boundary diagnostic",
+  "implementation": {
+    "productionAlgorithmChanged": false,
+    "scratchOnly": true,
+    "nativeEngineCopy": "Identical native ownership, timestamp and inference paths; public result types are reused. Only the activity snapshot adds bounded numeric feature collection before its PCM is erased.",
+    "capture": "One active mpv decoder, the existing 2-second native mono 16 kHz snapshot every approximately 500 ms; no offline audio extraction.",
+    "boundedHistory": {
+      "maximumSeconds": 180,
+      "maximumFrames": 18000,
+      "pcmRetained": false,
+      "features": [
+        "energyChange",
+        "spectralTiltChange",
+        "sampleShock"
+      ],
+      "frameHopSeconds": 0.01,
+      "endpointContextSeconds": 0.08
+    },
+    "wordEvidence": "Current and preceding nonoverlapping ASR context with unchanged global matcher, three contiguous exact words, lexical token score >=0.35, positive speech support and original timestamp-edge checks. No word is assigned uniform SRT time.",
+    "repeatObservationGate": "The earlier repeated-decode diagnostic gate is not met before the insertion. Single matched-word observations constrain these proposals only; no production absence gate is replaced.",
+    "candidateTiming": "Use only words available by the first two-region confirmation and feature times before that observed media position minus 80 ms. Expected boundaries are read after all candidates are ranked.",
+    "confidence": "No calibrated feature choice, ambiguity threshold or gap-confirmation rule; none is inferred from these two results.",
+    "wordPassLimitation": "A separate diagnostic enumerates word matches; it does not replace production cross-group ambiguity handling or independent-anchor confirmation. Returned word rows can repeat across groups, and counts are observation rows, not counts of distinct spoken words."
+  },
+  "reports": {
+    "crossing-flanks.json": {
+      "sha256": "784407179fbfdfacabe4e239356bc7d81b272853b31aa858772f84ebd0bdaa6b",
+      "data": {
+        "case": "crossing",
+        "kind": "word evidence from real active PCM under unchanged production cadence",
+        "acquisitionMs": 21572,
+        "offsetDifference": 30.180999999999997,
+        "currentWindowsOnly": true,
+        "contextIsNotIndependentRepeat": true,
+        "oneObservationFlanks": {
+          "before": {
+            "subtitleWord": 40,
+            "cue": 6,
+            "inCue": 8,
+            "onsetLower": 30.491666666666664,
+            "onsetUpper": 31.191666666666666,
+            "observedByWindowEnd": 32.681666666666665
+          },
+          "after": {
+            "subtitleWord": 46,
+            "cue": 8,
+            "inCue": 0,
+            "onsetLower": 67.46904166666667,
+            "onsetUpper": 68.16904166666666,
+            "observedByWindowEnd": 81.91904166666666
+          },
+          "orderedFlanks": true,
+          "boundarySearchConstraints": {
+            "startAtLeast": 30.491666666666664,
+            "endAtMost": 68.16904166666666
+          }
+        },
+        "twoObservationFlanks": {
+          "before": null,
+          "after": {
+            "subtitleWord": 55,
+            "cue": 10,
+            "inCue": 1,
+            "onsetLower": 78.94904166666666,
+            "onsetUpper": 79.66366666666666,
+            "observedByWindowEnd": 83.11366666666666
+          },
+          "orderedFlanks": false,
+          "boundarySearchConstraints": null
+        },
+        "windows": [
+          {
+            "start": 0.6836666666666668,
+            "end": 8.788354166666668,
+            "match": "noCandidate",
+            "currentWords": 0,
+            "contextWords": 0
+          },
+          {
+            "start": 5.820354166666667,
+            "end": 20.820354166666668,
+            "match": "matched",
+            "currentWords": 72,
+            "contextWords": 0
+          },
+          {
+            "start": 20.681666666666665,
+            "end": 32.681666666666665,
+            "match": "matched",
+            "currentWords": 39,
+            "contextWords": 160
+          },
+          {
+            "start": 32.71366666666667,
+            "end": 44.71366666666667,
+            "match": "matched",
+            "currentWords": 0,
+            "contextWords": 67
+          },
+          {
+            "start": 37.90835416666667,
+            "end": 45.90835416666667,
+            "match": "noCandidate",
+            "currentWords": 0,
+            "contextWords": 0
+          },
+          {
+            "start": 42.94035416666667,
+            "end": 57.94035416666667,
+            "match": "noCandidate",
+            "currentWords": 0,
+            "contextWords": 0
+          },
+          {
+            "start": 54.88704166666667,
+            "end": 69.88704166666668,
+            "match": "insufficientDialogue",
+            "currentWords": 0,
+            "contextWords": 0
+          },
+          {
+            "start": 66.91904166666666,
+            "end": 81.91904166666666,
+            "match": "matched",
+            "currentWords": 40,
+            "contextWords": 48
+          },
+          {
+            "start": 75.11366666666666,
+            "end": 83.11366666666666,
+            "match": "matched",
+            "currentWords": 4,
+            "contextWords": 10
+          },
+          {
+            "start": 83.14566666666666,
+            "end": 95.14566666666666,
+            "match": "matched",
+            "currentWords": 9,
+            "contextWords": 26
+          }
+        ],
+        "productionAlgorithmChanged": false,
+        "pcmOrTranscriptPersisted": false,
+        "fullProductAcceptance": false
+      }
+    },
+    "added-flanks.json": {
+      "sha256": "b9b369fd69eb704d7783a8d3dd6a8ac2239d3b406524e4a36b1709168b398fb0",
+      "data": {
+        "case": "added",
+        "kind": "word evidence from real active PCM under unchanged production cadence",
+        "acquisitionMs": 21743,
+        "offsetDifference": 30.118687499999993,
+        "currentWindowsOnly": true,
+        "contextIsNotIndependentRepeat": true,
+        "oneObservationFlanks": {
+          "before": {
+            "subtitleWord": 37,
+            "cue": 6,
+            "inCue": 5,
+            "onsetLower": 29.9876875,
+            "onsetUpper": 30.687687500000003,
+            "observedByWindowEnd": 32.937687499999996
+          },
+          "after": {
+            "subtitleWord": 41,
+            "cue": 7,
+            "inCue": 0,
+            "onsetLower": 64.7396875,
+            "onsetUpper": 65.43968749999999,
+            "observedByWindowEnd": 69.2896875
+          },
+          "orderedFlanks": true,
+          "boundarySearchConstraints": {
+            "startAtLeast": 29.9876875,
+            "endAtMost": 65.43968749999999
+          }
+        },
+        "twoObservationFlanks": {
+          "before": null,
+          "after": {
+            "subtitleWord": 55,
+            "cue": 10,
+            "inCue": 1,
+            "onsetLower": 78.9716875,
+            "onsetUpper": 79.686375,
+            "observedByWindowEnd": 82.516375
+          },
+          "orderedFlanks": false,
+          "boundarySearchConstraints": null
+        },
+        "windows": [
+          {
+            "start": 0.7690000000000001,
+            "end": 8.959,
+            "match": "noCandidate",
+            "currentWords": 0,
+            "contextWords": 0
+          },
+          {
+            "start": 5.991,
+            "end": 20.991,
+            "match": "matched",
+            "currentWords": 72,
+            "contextWords": 0
+          },
+          {
+            "start": 20.9376875,
+            "end": 32.937687499999996,
+            "match": "matched",
+            "currentWords": 30,
+            "contextWords": 151
+          },
+          {
+            "start": 33.055,
+            "end": 45.055,
+            "match": "matched",
+            "currentWords": 0,
+            "contextWords": 30
+          },
+          {
+            "start": 42.172375,
+            "end": 57.172375,
+            "match": "noCandidate",
+            "currentWords": 0,
+            "contextWords": 0
+          },
+          {
+            "start": 54.2896875,
+            "end": 69.2896875,
+            "match": "matched",
+            "currentWords": 8,
+            "contextWords": 16
+          },
+          {
+            "start": 69.3216875,
+            "end": 81.3216875,
+            "match": "matched",
+            "currentWords": 23,
+            "contextWords": 56
+          },
+          {
+            "start": 74.516375,
+            "end": 82.516375,
+            "match": "matched",
+            "currentWords": 7,
+            "contextWords": 14
+          },
+          {
+            "start": 79.719,
+            "end": 94.719,
+            "match": "matched",
+            "currentWords": 23,
+            "contextWords": 23
+          }
+        ],
+        "productionAlgorithmChanged": false,
+        "pcmOrTranscriptPersisted": false,
+        "fullProductAcceptance": false
+      }
+    },
+    "crossing-assessment.json": {
+      "sha256": "d7ad59c91510fe24b23db90e7e8822b044d137f2cd5dc0688a0541906e288429",
+      "data": {
+        "scope": "native PCM/ASR and domain tracking only; no production controller or renderer claim",
+        "initialAcquisitionBeforeEdit": true,
+        "postEditRecoveryMediaSeconds": 17.917,
+        "alignedTrackingMedianErrorSeconds": 0.21964263916015625,
+        "alignedTrackingP95ErrorSeconds": 30.219642639160156,
+        "alignedSampleCount": 53,
+        "gapChecks": [
+          {
+            "expected": {
+              "kind": "videoOnly",
+              "start": 36.25,
+              "end": 66.25
+            },
+            "matched": false
+          }
+        ],
+        "unexpectedGapCount": 0,
+        "gapPlaybackSamples": [
+          {
+            "mediaTime": 36.958,
+            "actualRegion": "aligned"
+          },
+          {
+            "mediaTime": 37.958,
+            "actualRegion": "aligned"
+          },
+          {
+            "mediaTime": 39.0,
+            "actualRegion": "aligned"
+          },
+          {
+            "mediaTime": 40.0,
+            "actualRegion": "aligned"
+          },
+          {
+            "mediaTime": 41.042,
+            "actualRegion": "aligned"
+          },
+          {
+            "mediaTime": 42.083,
+            "actualRegion": "aligned"
+          },
+          {
+            "mediaTime": 43.083,
+            "actualRegion": "aligned"
+          },
+          {
+            "mediaTime": 44.125,
+            "actualRegion": "aligned"
+          },
+          {
+            "mediaTime": 45.166999999999994,
+            "actualRegion": "aligned"
+          },
+          {
+            "mediaTime": 46.166999999999994,
+            "actualRegion": "aligned"
+          },
+          {
+            "mediaTime": 47.208,
+            "actualRegion": "aligned"
+          },
+          {
+            "mediaTime": 48.25,
+            "actualRegion": "aligned"
+          },
+          {
+            "mediaTime": 49.25,
+            "actualRegion": "aligned"
+          },
+          {
+            "mediaTime": 50.291999999999994,
+            "actualRegion": "aligned"
+          },
+          {
+            "mediaTime": 51.333,
+            "actualRegion": "aligned"
+          },
+          {
+            "mediaTime": 52.333,
+            "actualRegion": "aligned"
+          },
+          {
+            "mediaTime": 53.375,
+            "actualRegion": "aligned"
+          },
+          {
+            "mediaTime": 54.375,
+            "actualRegion": "aligned"
+          },
+          {
+            "mediaTime": 55.416999999999994,
+            "actualRegion": "aligned"
+          },
+          {
+            "mediaTime": 56.416999999999994,
+            "actualRegion": "aligned"
+          },
+          {
+            "mediaTime": 57.458,
+            "actualRegion": "aligned"
+          },
+          {
+            "mediaTime": 58.5,
+            "actualRegion": "aligned"
+          },
+          {
+            "mediaTime": 59.5,
+            "actualRegion": "aligned"
+          },
+          {
+            "mediaTime": 60.541999999999994,
+            "actualRegion": "aligned"
+          },
+          {
+            "mediaTime": 61.583,
+            "actualRegion": "aligned"
+          },
+          {
+            "mediaTime": 62.625,
+            "actualRegion": "aligned"
+          },
+          {
+            "mediaTime": 63.625,
+            "actualRegion": "aligned"
+          },
+          {
+            "mediaTime": 64.667,
+            "actualRegion": "aligned"
+          },
+          {
+            "mediaTime": 65.667,
+            "actualRegion": "aligned"
+          }
+        ],
+        "alignedPlaybackSamples": [
+          {
+            "mediaTime": 21.541999999999998,
+            "expectedDelay": -100.0,
+            "actualDelay": -100.21964263916016,
+            "actualRegion": "aligned",
+            "mappingAvailable": true,
+            "error": 0.21964263916015625
+          },
+          {
+            "mediaTime": 22.583,
+            "expectedDelay": -100.0,
+            "actualDelay": -100.21964263916016,
+            "actualRegion": "aligned",
+            "mappingAvailable": true,
+            "error": 0.21964263916015625
+          },
+          {
+            "mediaTime": 23.625,
+            "expectedDelay": -100.0,
+            "actualDelay": -100.21964263916016,
+            "actualRegion": "aligned",
+            "mappingAvailable": true,
+            "error": 0.21964263916015625
+          },
+          {
+            "mediaTime": 24.625,
+            "expectedDelay": -100.0,
+            "actualDelay": -100.21964263916016,
+            "actualRegion": "aligned",
+            "mappingAvailable": true,
+            "error": 0.21964263916015625
+          },
+          {
+            "mediaTime": 25.666999999999998,
+            "expectedDelay": -100.0,
+            "actualDelay": -100.21964263916016,
+            "actualRegion": "aligned",
+            "mappingAvailable": true,
+            "error": 0.21964263916015625
+          },
+          {
+            "mediaTime": 26.666999999999998,
+            "expectedDelay": -100.0,
+            "actualDelay": -100.21964263916016,
+            "actualRegion": "aligned",
+            "mappingAvailable": true,
+            "error": 0.21964263916015625
+          },
+          {
+            "mediaTime": 27.708,
+            "expectedDelay": -100.0,
+            "actualDelay": -100.21964263916016,
+            "actualRegion": "aligned",
+            "mappingAvailable": true,
+            "error": 0.21964263916015625
+          },
+          {
+            "mediaTime": 28.75,
+            "expectedDelay": -100.0,
+            "actualDelay": -100.21964263916016,
+            "actualRegion": "aligned",
+            "mappingAvailable": true,
+            "error": 0.21964263916015625
+          },
+          {
+            "mediaTime": 29.75,
+            "expectedDelay": -100.0,
+            "actualDelay": -100.21964263916016,
+            "actualRegion": "aligned",
+            "mappingAvailable": true,
+            "error": 0.21964263916015625
+          },
+          {
+            "mediaTime": 30.791999999999998,
+            "expectedDelay": -100.0,
+            "actualDelay": -100.21964263916016,
+            "actualRegion": "aligned",
+            "mappingAvailable": true,
+            "error": 0.21964263916015625
+          },
+          {
+            "mediaTime": 31.791999999999998,
+            "expectedDelay": -100.0,
+            "actualDelay": -100.21964263916016,
+            "actualRegion": "aligned",
+            "mappingAvailable": true,
+            "error": 0.21964263916015625
+          },
+          {
+            "mediaTime": 32.833,
+            "expectedDelay": -100.0,
+            "actualDelay": -100.21964263916016,
+            "actualRegion": "aligned",
+            "mappingAvailable": true,
+            "error": 0.21964263916015625
+          },
+          {
+            "mediaTime": 33.875,
+            "expectedDelay": -100.0,
+            "actualDelay": -100.21964263916016,
+            "actualRegion": "aligned",
+            "mappingAvailable": true,
+            "error": 0.21964263916015625
+          },
+          {
+            "mediaTime": 34.875,
+            "expectedDelay": -100.0,
+            "actualDelay": -100.21964263916016,
+            "actualRegion": "aligned",
+            "mappingAvailable": true,
+            "error": 0.21964263916015625
+          },
+          {
+            "mediaTime": 35.917,
+            "expectedDelay": -100.0,
+            "actualDelay": -100.21964263916016,
+            "actualRegion": "aligned",
+            "mappingAvailable": true,
+            "error": 0.21964263916015625
+          },
+          {
+            "mediaTime": 66.708,
+            "expectedDelay": -70.0,
+            "actualDelay": -100.21964263916016,
+            "actualRegion": "aligned",
+            "mappingAvailable": true,
+            "error": 30.219642639160156
+          },
+          {
+            "mediaTime": 67.75,
+            "expectedDelay": -70.0,
+            "actualDelay": -100.21964263916016,
+            "actualRegion": "aligned",
+            "mappingAvailable": true,
+            "error": 30.219642639160156
+          },
+          {
+            "mediaTime": 68.75,
+            "expectedDelay": -70.0,
+            "actualDelay": -100.21964263916016,
+            "actualRegion": "aligned",
+            "mappingAvailable": true,
+            "error": 30.219642639160156
+          },
+          {
+            "mediaTime": 69.792,
+            "expectedDelay": -70.0,
+            "actualDelay": -100.21964263916016,
+            "actualRegion": "aligned",
+            "mappingAvailable": true,
+            "error": 30.219642639160156
+          },
+          {
+            "mediaTime": 70.792,
+            "expectedDelay": -70.0,
+            "actualDelay": -100.21964263916016,
+            "actualRegion": "aligned",
+            "mappingAvailable": true,
+            "error": 30.219642639160156
+          },
+          {
+            "mediaTime": 71.833,
+            "expectedDelay": -70.0,
+            "actualDelay": -100.21964263916016,
+            "actualRegion": "aligned",
+            "mappingAvailable": true,
+            "error": 30.219642639160156
+          },
+          {
+            "mediaTime": 72.875,
+            "expectedDelay": -70.0,
+            "actualDelay": -100.21964263916016,
+            "actualRegion": "aligned",
+            "mappingAvailable": true,
+            "error": 30.219642639160156
+          },
+          {
+            "mediaTime": 73.875,
+            "expectedDelay": -70.0,
+            "actualDelay": -100.21964263916016,
+            "actualRegion": "aligned",
+            "mappingAvailable": true,
+            "error": 30.219642639160156
+          },
+          {
+            "mediaTime": 74.917,
+            "expectedDelay": -70.0,
+            "actualDelay": -100.21964263916016,
+            "actualRegion": "aligned",
+            "mappingAvailable": true,
+            "error": 30.219642639160156
+          },
+          {
+            "mediaTime": 75.917,
+            "expectedDelay": -70.0,
+            "actualDelay": -100.21964263916016,
+            "actualRegion": "aligned",
+            "mappingAvailable": true,
+            "error": 30.219642639160156
+          },
+          {
+            "mediaTime": 76.958,
+            "expectedDelay": -70.0,
+            "actualDelay": -100.21964263916016,
+            "actualRegion": "aligned",
+            "mappingAvailable": true,
+            "error": 30.219642639160156
+          },
+          {
+            "mediaTime": 78.0,
+            "expectedDelay": -70.0,
+            "actualDelay": -100.21964263916016,
+            "actualRegion": "aligned",
+            "mappingAvailable": true,
+            "error": 30.219642639160156
+          },
+          {
+            "mediaTime": 79.0,
+            "expectedDelay": -70.0,
+            "actualDelay": -100.21964263916016,
+            "actualRegion": "aligned",
+            "mappingAvailable": true,
+            "error": 30.219642639160156
+          },
+          {
+            "mediaTime": 80.042,
+            "expectedDelay": -70.0,
+            "actualDelay": -100.21964263916016,
+            "actualRegion": "aligned",
+            "mappingAvailable": true,
+            "error": 30.219642639160156
+          },
+          {
+            "mediaTime": 81.083,
+            "expectedDelay": -70.0,
+            "actualDelay": -100.21964263916016,
+            "actualRegion": "aligned",
+            "mappingAvailable": true,
+            "error": 30.219642639160156
+          },
+          {
+            "mediaTime": 82.125,
+            "expectedDelay": -70.0,
+            "actualDelay": -100.21964263916016,
+            "actualRegion": "aligned",
+            "mappingAvailable": true,
+            "error": 30.219642639160156
+          },
+          {
+            "mediaTime": 83.125,
+            "expectedDelay": -70.0,
+            "actualDelay": -100.21964263916016,
+            "actualRegion": "aligned",
+            "mappingAvailable": true,
+            "error": 30.219642639160156
+          },
+          {
+            "mediaTime": 84.167,
+            "expectedDelay": -70.0,
+            "actualDelay": -70.03864288330078,
+            "actualRegion": "aligned",
+            "mappingAvailable": true,
+            "error": 0.03864288330078125
+          },
+          {
+            "mediaTime": 85.208,
+            "expectedDelay": -70.0,
+            "actualDelay": -70.03864288330078,
+            "actualRegion": "aligned",
+            "mappingAvailable": true,
+            "error": 0.03864288330078125
+          },
+          {
+            "mediaTime": 86.208,
+            "expectedDelay": -70.0,
+            "actualDelay": -70.03864288330078,
+            "actualRegion": "aligned",
+            "mappingAvailable": true,
+            "error": 0.03864288330078125
+          },
+          {
+            "mediaTime": 87.208,
+            "expectedDelay": -70.0,
+            "actualDelay": -70.03864288330078,
+            "actualRegion": "aligned",
+            "mappingAvailable": true,
+            "error": 0.03864288330078125
+          },
+          {
+            "mediaTime": 88.25,
+            "expectedDelay": -70.0,
+            "actualDelay": -70.03864288330078,
+            "actualRegion": "aligned",
+            "mappingAvailable": true,
+            "error": 0.03864288330078125
+          },
+          {
+            "mediaTime": 89.292,
+            "expectedDelay": -70.0,
+            "actualDelay": -70.03864288330078,
+            "actualRegion": "aligned",
+            "mappingAvailable": true,
+            "error": 0.03864288330078125
+          },
+          {
+            "mediaTime": 90.333,
+            "expectedDelay": -70.0,
+            "actualDelay": -70.03864288330078,
+            "actualRegion": "aligned",
+            "mappingAvailable": true,
+            "error": 0.03864288330078125
+          },
+          {
+            "mediaTime": 91.333,
+            "expectedDelay": -70.0,
+            "actualDelay": -70.03864288330078,
+            "actualRegion": "aligned",
+            "mappingAvailable": true,
+            "error": 0.03864288330078125
+          },
+          {
+            "mediaTime": 92.375,
+            "expectedDelay": -70.0,
+            "actualDelay": -70.03864288330078,
+            "actualRegion": "aligned",
+            "mappingAvailable": true,
+            "error": 0.03864288330078125
+          },
+          {
+            "mediaTime": 93.417,
+            "expectedDelay": -70.0,
+            "actualDelay": -70.03864288330078,
+            "actualRegion": "aligned",
+            "mappingAvailable": true,
+            "error": 0.03864288330078125
+          },
+          {
+            "mediaTime": 94.417,
+            "expectedDelay": -70.0,
+            "actualDelay": -70.03864288330078,
+            "actualRegion": "aligned",
+            "mappingAvailable": true,
+            "error": 0.03864288330078125
+          },
+          {
+            "mediaTime": 95.458,
+            "expectedDelay": -70.0,
+            "actualDelay": -70.03864288330078,
+            "actualRegion": "aligned",
+            "mappingAvailable": true,
+            "error": 0.03864288330078125
+          },
+          {
+            "mediaTime": 96.458,
+            "expectedDelay": -70.0,
+            "actualDelay": -70.03864288330078,
+            "actualRegion": "aligned",
+            "mappingAvailable": true,
+            "error": 0.03864288330078125
+          },
+          {
+            "mediaTime": 97.5,
+            "expectedDelay": -70.0,
+            "actualDelay": -70.03864288330078,
+            "actualRegion": "aligned",
+            "mappingAvailable": true,
+            "error": 0.03864288330078125
+          },
+          {
+            "mediaTime": 98.5,
+            "expectedDelay": -70.0,
+            "actualDelay": -70.03864288330078,
+            "actualRegion": "aligned",
+            "mappingAvailable": true,
+            "error": 0.03864288330078125
+          },
+          {
+            "mediaTime": 99.542,
+            "expectedDelay": -70.0,
+            "actualDelay": -70.03864288330078,
+            "actualRegion": "aligned",
+            "mappingAvailable": true,
+            "error": 0.03864288330078125
+          },
+          {
+            "mediaTime": 100.583,
+            "expectedDelay": -70.0,
+            "actualDelay": -70.03864288330078,
+            "actualRegion": "aligned",
+            "mappingAvailable": true,
+            "error": 0.03864288330078125
+          },
+          {
+            "mediaTime": 101.583,
+            "expectedDelay": -70.0,
+            "actualDelay": -70.03864288330078,
+            "actualRegion": "aligned",
+            "mappingAvailable": true,
+            "error": 0.03864288330078125
+          },
+          {
+            "mediaTime": 102.625,
+            "expectedDelay": -70.0,
+            "actualDelay": -70.03864288330078,
+            "actualRegion": "aligned",
+            "mappingAvailable": true,
+            "error": 0.03864288330078125
+          },
+          {
+            "mediaTime": 103.667,
+            "expectedDelay": -70.0,
+            "actualDelay": -70.03864288330078,
+            "actualRegion": "aligned",
+            "mappingAvailable": true,
+            "error": 0.03864288330078125
+          },
+          {
+            "mediaTime": 104.667,
+            "expectedDelay": -70.0,
+            "actualDelay": -70.03864288330078,
+            "actualRegion": "aligned",
+            "mappingAvailable": true,
+            "error": 0.03864288330078125
+          }
+        ],
+        "cueBoundaryRenderingValidated": false,
+        "backwardSeekValidated": false,
+        "satisfiesSceneDomainChecks": false,
+        "probeSha256": "076bb0c68ce3a5f585c86698062d38d7a090133126d9cfd112f590d8d21dd280",
+        "expectedTimelineSha256": "c9a8a41feef99bd7d069d10111678a3d210a7d269b1bd0401025333095d9e70f"
+      }
+    },
+    "added-assessment.json": {
+      "sha256": "d7dd931241f2206ea821bf33c48073b359e448afc833bcccad03af532e2a91d4",
+      "data": {
+        "scope": "native PCM/ASR and domain tracking only; no production controller or renderer claim",
+        "initialAcquisitionBeforeEdit": true,
+        "postEditRecoveryMediaSeconds": 5.792000000000002,
+        "alignedTrackingMedianErrorSeconds": 0.09030914306640625,
+        "alignedTrackingP95ErrorSeconds": 30.208999633789062,
+        "alignedSampleCount": 52,
+        "gapChecks": [
+          {
+            "expected": {
+              "kind": "videoOnly",
+              "start": 34.5,
+              "end": 64.5
+            },
+            "matched": false
+          }
+        ],
+        "unexpectedGapCount": 0,
+        "gapPlaybackSamples": [
+          {
+            "mediaTime": 35.417,
+            "actualRegion": "aligned"
+          },
+          {
+            "mediaTime": 36.417,
+            "actualRegion": "aligned"
+          },
+          {
+            "mediaTime": 37.458,
+            "actualRegion": "aligned"
+          },
+          {
+            "mediaTime": 38.458,
+            "actualRegion": "aligned"
+          },
+          {
+            "mediaTime": 39.5,
+            "actualRegion": "aligned"
+          },
+          {
+            "mediaTime": 40.542,
+            "actualRegion": "aligned"
+          },
+          {
+            "mediaTime": 41.542,
+            "actualRegion": "aligned"
+          },
+          {
+            "mediaTime": 42.583,
+            "actualRegion": "aligned"
+          },
+          {
+            "mediaTime": 43.625,
+            "actualRegion": "aligned"
+          },
+          {
+            "mediaTime": 44.625,
+            "actualRegion": "aligned"
+          },
+          {
+            "mediaTime": 45.666999999999994,
+            "actualRegion": "aligned"
+          },
+          {
+            "mediaTime": 46.666999999999994,
+            "actualRegion": "aligned"
+          },
+          {
+            "mediaTime": 47.708,
+            "actualRegion": "aligned"
+          },
+          {
+            "mediaTime": 48.708,
+            "actualRegion": "aligned"
+          },
+          {
+            "mediaTime": 49.75,
+            "actualRegion": "aligned"
+          },
+          {
+            "mediaTime": 50.791999999999994,
+            "actualRegion": "aligned"
+          },
+          {
+            "mediaTime": 51.791999999999994,
+            "actualRegion": "aligned"
+          },
+          {
+            "mediaTime": 52.833,
+            "actualRegion": "aligned"
+          },
+          {
+            "mediaTime": 53.875,
+            "actualRegion": "aligned"
+          },
+          {
+            "mediaTime": 54.875,
+            "actualRegion": "aligned"
+          },
+          {
+            "mediaTime": 55.916999999999994,
+            "actualRegion": "aligned"
+          },
+          {
+            "mediaTime": 56.958,
+            "actualRegion": "aligned"
+          },
+          {
+            "mediaTime": 57.958,
+            "actualRegion": "aligned"
+          },
+          {
+            "mediaTime": 59.0,
+            "actualRegion": "aligned"
+          },
+          {
+            "mediaTime": 60.0,
+            "actualRegion": "aligned"
+          },
+          {
+            "mediaTime": 61.041999999999994,
+            "actualRegion": "aligned"
+          },
+          {
+            "mediaTime": 62.083,
+            "actualRegion": "aligned"
+          },
+          {
+            "mediaTime": 63.083,
+            "actualRegion": "aligned"
+          },
+          {
+            "mediaTime": 64.125,
+            "actualRegion": "aligned"
+          }
+        ],
+        "alignedPlaybackSamples": [
+          {
+            "mediaTime": 22.083,
+            "expectedDelay": -100.0,
+            "actualDelay": -100.20899963378906,
+            "actualRegion": "aligned",
+            "mappingAvailable": true,
+            "error": 0.2089996337890625
+          },
+          {
+            "mediaTime": 23.083,
+            "expectedDelay": -100.0,
+            "actualDelay": -100.20899963378906,
+            "actualRegion": "aligned",
+            "mappingAvailable": true,
+            "error": 0.2089996337890625
+          },
+          {
+            "mediaTime": 24.125,
+            "expectedDelay": -100.0,
+            "actualDelay": -100.20899963378906,
+            "actualRegion": "aligned",
+            "mappingAvailable": true,
+            "error": 0.2089996337890625
+          },
+          {
+            "mediaTime": 25.166999999999998,
+            "expectedDelay": -100.0,
+            "actualDelay": -100.20899963378906,
+            "actualRegion": "aligned",
+            "mappingAvailable": true,
+            "error": 0.2089996337890625
+          },
+          {
+            "mediaTime": 26.166999999999998,
+            "expectedDelay": -100.0,
+            "actualDelay": -100.20899963378906,
+            "actualRegion": "aligned",
+            "mappingAvailable": true,
+            "error": 0.2089996337890625
+          },
+          {
+            "mediaTime": 27.208,
+            "expectedDelay": -100.0,
+            "actualDelay": -100.20899963378906,
+            "actualRegion": "aligned",
+            "mappingAvailable": true,
+            "error": 0.2089996337890625
+          },
+          {
+            "mediaTime": 28.208,
+            "expectedDelay": -100.0,
+            "actualDelay": -100.20899963378906,
+            "actualRegion": "aligned",
+            "mappingAvailable": true,
+            "error": 0.2089996337890625
+          },
+          {
+            "mediaTime": 29.25,
+            "expectedDelay": -100.0,
+            "actualDelay": -100.20899963378906,
+            "actualRegion": "aligned",
+            "mappingAvailable": true,
+            "error": 0.2089996337890625
+          },
+          {
+            "mediaTime": 30.291999999999998,
+            "expectedDelay": -100.0,
+            "actualDelay": -100.20899963378906,
+            "actualRegion": "aligned",
+            "mappingAvailable": true,
+            "error": 0.2089996337890625
+          },
+          {
+            "mediaTime": 31.291999999999998,
+            "expectedDelay": -100.0,
+            "actualDelay": -100.20899963378906,
+            "actualRegion": "aligned",
+            "mappingAvailable": true,
+            "error": 0.2089996337890625
+          },
+          {
+            "mediaTime": 32.333,
+            "expectedDelay": -100.0,
+            "actualDelay": -100.20899963378906,
+            "actualRegion": "aligned",
+            "mappingAvailable": true,
+            "error": 0.2089996337890625
+          },
+          {
+            "mediaTime": 33.333,
+            "expectedDelay": -100.0,
+            "actualDelay": -100.20899963378906,
+            "actualRegion": "aligned",
+            "mappingAvailable": true,
+            "error": 0.2089996337890625
+          },
+          {
+            "mediaTime": 34.375,
+            "expectedDelay": -100.0,
+            "actualDelay": -100.20899963378906,
+            "actualRegion": "aligned",
+            "mappingAvailable": true,
+            "error": 0.2089996337890625
+          },
+          {
+            "mediaTime": 65.125,
+            "expectedDelay": -70.0,
+            "actualDelay": -100.20899963378906,
+            "actualRegion": "aligned",
+            "mappingAvailable": true,
+            "error": 30.208999633789062
+          },
+          {
+            "mediaTime": 66.167,
+            "expectedDelay": -70.0,
+            "actualDelay": -100.20899963378906,
+            "actualRegion": "aligned",
+            "mappingAvailable": true,
+            "error": 30.208999633789062
+          },
+          {
+            "mediaTime": 67.208,
+            "expectedDelay": -70.0,
+            "actualDelay": -100.20899963378906,
+            "actualRegion": "aligned",
+            "mappingAvailable": true,
+            "error": 30.208999633789062
+          },
+          {
+            "mediaTime": 68.208,
+            "expectedDelay": -70.0,
+            "actualDelay": -100.20899963378906,
+            "actualRegion": "aligned",
+            "mappingAvailable": true,
+            "error": 30.208999633789062
+          },
+          {
+            "mediaTime": 69.25,
+            "expectedDelay": -70.0,
+            "actualDelay": -100.20899963378906,
+            "actualRegion": "aligned",
+            "mappingAvailable": true,
+            "error": 30.208999633789062
+          },
+          {
+            "mediaTime": 70.292,
+            "expectedDelay": -70.0,
+            "actualDelay": -70.0903091430664,
+            "actualRegion": "aligned",
+            "mappingAvailable": true,
+            "error": 0.09030914306640625
+          },
+          {
+            "mediaTime": 71.292,
+            "expectedDelay": -70.0,
+            "actualDelay": -70.0903091430664,
+            "actualRegion": "aligned",
+            "mappingAvailable": true,
+            "error": 0.09030914306640625
+          },
+          {
+            "mediaTime": 72.333,
+            "expectedDelay": -70.0,
+            "actualDelay": -70.0903091430664,
+            "actualRegion": "aligned",
+            "mappingAvailable": true,
+            "error": 0.09030914306640625
+          },
+          {
+            "mediaTime": 73.333,
+            "expectedDelay": -70.0,
+            "actualDelay": -70.0903091430664,
+            "actualRegion": "aligned",
+            "mappingAvailable": true,
+            "error": 0.09030914306640625
+          },
+          {
+            "mediaTime": 74.375,
+            "expectedDelay": -70.0,
+            "actualDelay": -70.0903091430664,
+            "actualRegion": "aligned",
+            "mappingAvailable": true,
+            "error": 0.09030914306640625
+          },
+          {
+            "mediaTime": 75.417,
+            "expectedDelay": -70.0,
+            "actualDelay": -70.0903091430664,
+            "actualRegion": "aligned",
+            "mappingAvailable": true,
+            "error": 0.09030914306640625
+          },
+          {
+            "mediaTime": 76.417,
+            "expectedDelay": -70.0,
+            "actualDelay": -70.0903091430664,
+            "actualRegion": "aligned",
+            "mappingAvailable": true,
+            "error": 0.09030914306640625
+          },
+          {
+            "mediaTime": 77.458,
+            "expectedDelay": -70.0,
+            "actualDelay": -70.0903091430664,
+            "actualRegion": "aligned",
+            "mappingAvailable": true,
+            "error": 0.09030914306640625
+          },
+          {
+            "mediaTime": 78.458,
+            "expectedDelay": -70.0,
+            "actualDelay": -70.0903091430664,
+            "actualRegion": "aligned",
+            "mappingAvailable": true,
+            "error": 0.09030914306640625
+          },
+          {
+            "mediaTime": 79.5,
+            "expectedDelay": -70.0,
+            "actualDelay": -70.0903091430664,
+            "actualRegion": "aligned",
+            "mappingAvailable": true,
+            "error": 0.09030914306640625
+          },
+          {
+            "mediaTime": 80.542,
+            "expectedDelay": -70.0,
+            "actualDelay": -70.0903091430664,
+            "actualRegion": "aligned",
+            "mappingAvailable": true,
+            "error": 0.09030914306640625
+          },
+          {
+            "mediaTime": 81.542,
+            "expectedDelay": -70.0,
+            "actualDelay": -70.0903091430664,
+            "actualRegion": "aligned",
+            "mappingAvailable": true,
+            "error": 0.09030914306640625
+          },
+          {
+            "mediaTime": 82.583,
+            "expectedDelay": -70.0,
+            "actualDelay": -70.0903091430664,
+            "actualRegion": "aligned",
+            "mappingAvailable": true,
+            "error": 0.09030914306640625
+          },
+          {
+            "mediaTime": 83.583,
+            "expectedDelay": -70.0,
+            "actualDelay": -70.0903091430664,
+            "actualRegion": "aligned",
+            "mappingAvailable": true,
+            "error": 0.09030914306640625
+          },
+          {
+            "mediaTime": 84.625,
+            "expectedDelay": -70.0,
+            "actualDelay": -70.0903091430664,
+            "actualRegion": "aligned",
+            "mappingAvailable": true,
+            "error": 0.09030914306640625
+          },
+          {
+            "mediaTime": 85.625,
+            "expectedDelay": -70.0,
+            "actualDelay": -70.0903091430664,
+            "actualRegion": "aligned",
+            "mappingAvailable": true,
+            "error": 0.09030914306640625
+          },
+          {
+            "mediaTime": 86.667,
+            "expectedDelay": -70.0,
+            "actualDelay": -70.0903091430664,
+            "actualRegion": "aligned",
+            "mappingAvailable": true,
+            "error": 0.09030914306640625
+          },
+          {
+            "mediaTime": 87.708,
+            "expectedDelay": -70.0,
+            "actualDelay": -70.0903091430664,
+            "actualRegion": "aligned",
+            "mappingAvailable": true,
+            "error": 0.09030914306640625
+          },
+          {
+            "mediaTime": 88.75,
+            "expectedDelay": -70.0,
+            "actualDelay": -70.0903091430664,
+            "actualRegion": "aligned",
+            "mappingAvailable": true,
+            "error": 0.09030914306640625
+          },
+          {
+            "mediaTime": 89.75,
+            "expectedDelay": -70.0,
+            "actualDelay": -70.0903091430664,
+            "actualRegion": "aligned",
+            "mappingAvailable": true,
+            "error": 0.09030914306640625
+          },
+          {
+            "mediaTime": 90.792,
+            "expectedDelay": -70.0,
+            "actualDelay": -70.0903091430664,
+            "actualRegion": "aligned",
+            "mappingAvailable": true,
+            "error": 0.09030914306640625
+          },
+          {
+            "mediaTime": 91.792,
+            "expectedDelay": -70.0,
+            "actualDelay": -70.0903091430664,
+            "actualRegion": "aligned",
+            "mappingAvailable": true,
+            "error": 0.09030914306640625
+          },
+          {
+            "mediaTime": 92.833,
+            "expectedDelay": -70.0,
+            "actualDelay": -70.0903091430664,
+            "actualRegion": "aligned",
+            "mappingAvailable": true,
+            "error": 0.09030914306640625
+          },
+          {
+            "mediaTime": 93.833,
+            "expectedDelay": -70.0,
+            "actualDelay": -70.0903091430664,
+            "actualRegion": "aligned",
+            "mappingAvailable": true,
+            "error": 0.09030914306640625
+          },
+          {
+            "mediaTime": 94.875,
+            "expectedDelay": -70.0,
+            "actualDelay": -70.0903091430664,
+            "actualRegion": "aligned",
+            "mappingAvailable": true,
+            "error": 0.09030914306640625
+          },
+          {
+            "mediaTime": 95.917,
+            "expectedDelay": -70.0,
+            "actualDelay": -70.0903091430664,
+            "actualRegion": "aligned",
+            "mappingAvailable": true,
+            "error": 0.09030914306640625
+          },
+          {
+            "mediaTime": 96.917,
+            "expectedDelay": -70.0,
+            "actualDelay": -70.0903091430664,
+            "actualRegion": "aligned",
+            "mappingAvailable": true,
+            "error": 0.09030914306640625
+          },
+          {
+            "mediaTime": 97.958,
+            "expectedDelay": -70.0,
+            "actualDelay": -70.0903091430664,
+            "actualRegion": "aligned",
+            "mappingAvailable": true,
+            "error": 0.09030914306640625
+          },
+          {
+            "mediaTime": 99.0,
+            "expectedDelay": -70.0,
+            "actualDelay": -70.0903091430664,
+            "actualRegion": "aligned",
+            "mappingAvailable": true,
+            "error": 0.09030914306640625
+          },
+          {
+            "mediaTime": 100.0,
+            "expectedDelay": -70.0,
+            "actualDelay": -70.0903091430664,
+            "actualRegion": "aligned",
+            "mappingAvailable": true,
+            "error": 0.09030914306640625
+          },
+          {
+            "mediaTime": 101.042,
+            "expectedDelay": -70.0,
+            "actualDelay": -70.0903091430664,
+            "actualRegion": "aligned",
+            "mappingAvailable": true,
+            "error": 0.09030914306640625
+          },
+          {
+            "mediaTime": 102.042,
+            "expectedDelay": -70.0,
+            "actualDelay": -70.0903091430664,
+            "actualRegion": "aligned",
+            "mappingAvailable": true,
+            "error": 0.09030914306640625
+          },
+          {
+            "mediaTime": 103.083,
+            "expectedDelay": -70.0,
+            "actualDelay": -70.0903091430664,
+            "actualRegion": "aligned",
+            "mappingAvailable": true,
+            "error": 0.09030914306640625
+          },
+          {
+            "mediaTime": 104.125,
+            "expectedDelay": -70.0,
+            "actualDelay": -70.0903091430664,
+            "actualRegion": "aligned",
+            "mappingAvailable": true,
+            "error": 0.09030914306640625
+          }
+        ],
+        "cueBoundaryRenderingValidated": false,
+        "backwardSeekValidated": false,
+        "satisfiesSceneDomainChecks": false,
+        "probeSha256": "8d8caa824f41c524bff8a36701cfb18751c8f84549c8e28c5d1d60c5697fc6dc",
+        "expectedTimelineSha256": "70ef67a058f97d8199c8006da9ea733628908bb8a76730e55c2c2effc66f2fe5"
+      }
+    },
+    "acoustic-crossing-ranked.json": {
+      "sha256": "e2f90ef4af74b5703f558f718ee984bc51949fbe7716b6ccf71e83feff601a09",
+      "data": {
+        "kind": "active-PCM acoustic proposals constrained by observed matched words",
+        "probeSha256": "f286a67236619638916059fe0ce75aa19fb93992b7fff2d83e829d7f6b7b6054",
+        "confirmedMappingAnalysis": 8,
+        "collection": {
+          "calls": 204,
+          "totalMicros": 200222,
+          "maximumMicros": 2557,
+          "peakFrames": 10407,
+          "maximumFrames": 18000,
+          "maximumSeconds": 180
+        },
+        "heldOutValidation": false,
+        "acceptedForProduction": false,
+        "fullProductAcceptance": false,
+        "pcmOrTranscriptPersisted": false,
+        "offsetDifference": 30.176375000000007,
+        "wordFlanks": {
+          "before": {
+            "subtitleWord": 45,
+            "lower": 35.770374999999994,
+            "upper": 36.470375,
+            "onsetSpread": 0.0
+          },
+          "after": {
+            "subtitleWord": 46,
+            "lower": 67.470375,
+            "upper": 68.17037499999999,
+            "onsetSpread": 0.0
+          }
+        },
+        "proposalAvailableMediaTime": 84.042,
+        "proposalAvailableElapsedMs": 84045,
+        "sourceWordObservationsRequireRepeatedDecoding": false,
+        "boundarySearchConstraints": {
+          "startAtLeast": 35.770374999999994,
+          "endAtMost": 68.17037499999999
+        },
+        "proposals": {
+          "energyChange": [
+            {
+              "start": 35.82,
+              "end": 66.26,
+              "score": 1.2956663216835653,
+              "durationResidual": 0.26362499999999756,
+              "maximumBoundaryError": 0.4299999999999997
+            },
+            {
+              "start": 38.15,
+              "end": 67.63,
+              "score": 0.8994881417113774,
+              "durationResidual": -0.6963750000000104,
+              "maximumBoundaryError": 1.8999999999999986
+            },
+            {
+              "start": 37.53,
+              "end": 67.57,
+              "score": 0.8590371194922337,
+              "durationResidual": -0.13637500000001523,
+              "maximumBoundaryError": 1.3199999999999932
+            },
+            {
+              "start": 36.22,
+              "end": 67.03,
+              "score": 0.6439691154662995,
+              "durationResidual": 0.633624999999995,
+              "maximumBoundaryError": 0.7800000000000011
+            },
+            {
+              "start": 37.36,
+              "end": 67.03,
+              "score": 0.6439691154662995,
+              "durationResidual": -0.5063750000000056,
+              "maximumBoundaryError": 1.1099999999999994
+            },
+            {
+              "start": 37.36,
+              "end": 68.1,
+              "score": 0.6307520481247948,
+              "durationResidual": 0.5636249999999876,
+              "maximumBoundaryError": 1.8499999999999943
+            },
+            {
+              "start": 35.78,
+              "end": 65.47,
+              "score": 0.4633131280900032,
+              "durationResidual": -0.48637500000000955,
+              "maximumBoundaryError": 0.7800000000000011
+            },
+            {
+              "start": 36.68,
+              "end": 66.23,
+              "score": 0.34762808698315956,
+              "durationResidual": -0.626375000000003,
+              "maximumBoundaryError": 0.4299999999999997
+            },
+            {
+              "start": 36.68,
+              "end": 67.54,
+              "score": 0.34762808698315956,
+              "durationResidual": 0.6836249999999993,
+              "maximumBoundaryError": 1.2900000000000063
+            },
+            {
+              "start": 37.86,
+              "end": 68.13,
+              "score": 0.3443873708918184,
+              "durationResidual": 0.09362499999998875,
+              "maximumBoundaryError": 1.8799999999999955
+            }
+          ],
+          "spectralTiltChange": [
+            {
+              "start": 36.25,
+              "end": 66.39,
+              "score": 1.5581946859449183,
+              "durationResidual": -0.03637500000000671,
+              "maximumBoundaryError": 0.14000000000000057
+            },
+            {
+              "start": 36.15,
+              "end": 67.01,
+              "score": 1.0534854671069849,
+              "durationResidual": 0.6836249999999993,
+              "maximumBoundaryError": 0.7600000000000051
+            },
+            {
+              "start": 36.93,
+              "end": 66.41,
+              "score": 1.0249397791490766,
+              "durationResidual": -0.6963750000000104,
+              "maximumBoundaryError": 0.6799999999999997
+            },
+            {
+              "start": 36.93,
+              "end": 67.0,
+              "score": 1.0249397791490766,
+              "durationResidual": -0.10637500000000699,
+              "maximumBoundaryError": 0.75
+            },
+            {
+              "start": 36.93,
+              "end": 67.53,
+              "score": 1.0249397791490766,
+              "durationResidual": 0.42362499999999415,
+              "maximumBoundaryError": 1.2800000000000011
+            },
+            {
+              "start": 37.44,
+              "end": 67.0,
+              "score": 0.9765212183488019,
+              "durationResidual": -0.616375000000005,
+              "maximumBoundaryError": 1.1899999999999977
+            },
+            {
+              "start": 37.44,
+              "end": 67.53,
+              "score": 0.9765212183488019,
+              "durationResidual": -0.08637500000000387,
+              "maximumBoundaryError": 1.2800000000000011
+            },
+            {
+              "start": 38.17,
+              "end": 67.65,
+              "score": 0.8955831946502513,
+              "durationResidual": -0.6963750000000033,
+              "maximumBoundaryError": 1.9200000000000017
+            },
+            {
+              "start": 35.83,
+              "end": 65.49,
+              "score": 0.559751774870842,
+              "durationResidual": -0.5163750000000107,
+              "maximumBoundaryError": 0.7600000000000051
+            },
+            {
+              "start": 37.33,
+              "end": 68.03,
+              "score": 0.3862318542569776,
+              "durationResidual": 0.5236249999999956,
+              "maximumBoundaryError": 1.7800000000000011
+            }
+          ],
+          "sampleShock": [
+            {
+              "start": 36.05,
+              "end": 66.36,
+              "score": 8.726841135466872,
+              "durationResidual": 0.133624999999995,
+              "maximumBoundaryError": 0.20000000000000284
+            },
+            {
+              "start": 36.06,
+              "end": 66.93,
+              "score": 3.6061381758812394,
+              "durationResidual": 0.6936249999999973,
+              "maximumBoundaryError": 0.6800000000000068
+            },
+            {
+              "start": 35.78,
+              "end": 65.59,
+              "score": 1.7204387422656733,
+              "durationResidual": -0.366375000000005,
+              "maximumBoundaryError": 0.6599999999999966
+            },
+            {
+              "start": 36.98,
+              "end": 66.62,
+              "score": 1.5876894592912478,
+              "durationResidual": -0.5363749999999996,
+              "maximumBoundaryError": 0.7299999999999969
+            },
+            {
+              "start": 36.98,
+              "end": 67.21,
+              "score": 1.5876894592912478,
+              "durationResidual": 0.0536249999999896,
+              "maximumBoundaryError": 0.9599999999999937
+            },
+            {
+              "start": 38.21,
+              "end": 67.69,
+              "score": 1.3632432803681853,
+              "durationResidual": -0.6963750000000104,
+              "maximumBoundaryError": 1.9600000000000009
+            },
+            {
+              "start": 36.97,
+              "end": 67.71,
+              "score": 1.102166493164449,
+              "durationResidual": 0.5636249999999876,
+              "maximumBoundaryError": 1.4599999999999937
+            },
+            {
+              "start": 37.53,
+              "end": 67.01,
+              "score": 0.7433098485298968,
+              "durationResidual": -0.6963750000000033,
+              "maximumBoundaryError": 1.2800000000000011
+            },
+            {
+              "start": 37.53,
+              "end": 67.51,
+              "score": 0.7433098485298968,
+              "durationResidual": -0.1963750000000033,
+              "maximumBoundaryError": 1.2800000000000011
+            },
+            {
+              "start": 37.53,
+              "end": 68.03,
+              "score": 0.6784096061332037,
+              "durationResidual": 0.3236249999999927,
+              "maximumBoundaryError": 1.7800000000000011
+            }
+          ]
+        },
+        "trueBoundaries": [
+          36.25,
+          66.25
+        ],
+        "limitations": [
+          "Single matched-word onsets constrain proposals; they do not establish precise word boundaries or confirmed absent dialogue.",
+          "Only consumed hard-edit development fixtures; ambiguity rejection and negative specificity are not calibrated.",
+          "Proposals become available after post-edit mapping confirmation and do not improve first-playback suppression.",
+          "Features come from bounded live snapshots; current output is a numeric diagnostic. No application suppression or cache learning is enabled."
+        ]
+      }
+    },
+    "acoustic-added-ranked.json": {
+      "sha256": "efdb0e61e452defdad27c4421d3d3997d2a8a97c1270a2370a53398d4c20ef46",
+      "data": {
+        "kind": "active-PCM acoustic proposals constrained by observed matched words",
+        "probeSha256": "155f3290cb63a8b27556f34a11559ccaf234cf30908f3ec471ff6f84ff87ee46",
+        "confirmedMappingAnalysis": 5,
+        "collection": {
+          "calls": 204,
+          "totalMicros": 199735,
+          "maximumMicros": 2709,
+          "peakFrames": 10415,
+          "maximumFrames": 18000,
+          "maximumSeconds": 180
+        },
+        "heldOutValidation": false,
+        "acceptedForProduction": false,
+        "fullProductAcceptance": false,
+        "pcmOrTranscriptPersisted": false,
+        "offsetDifference": 30.157312500000003,
+        "wordFlanks": {
+          "before": {
+            "subtitleWord": 40,
+            "lower": 30.491666666666664,
+            "upper": 31.191666666666666,
+            "onsetSpread": 0.0
+          },
+          "after": {
+            "subtitleWord": 41,
+            "lower": 64.74766666666667,
+            "upper": 65.44766666666666,
+            "onsetSpread": 0.0
+          }
+        },
+        "proposalAvailableMediaTime": 69.625,
+        "proposalAvailableElapsedMs": 69604,
+        "sourceWordObservationsRequireRepeatedDecoding": false,
+        "boundarySearchConstraints": {
+          "startAtLeast": 30.491666666666664,
+          "endAtMost": 65.44766666666666
+        },
+        "proposals": {
+          "energyChange": [
+            {
+              "start": 35.62,
+              "end": 65.08,
+              "score": 0.664226656414206,
+              "durationResidual": -0.6973125000000024,
+              "maximumBoundaryError": 1.1199999999999974
+            },
+            {
+              "start": 33.15,
+              "end": 62.89,
+              "score": 0.6469806763682038,
+              "durationResidual": -0.4173125000000013,
+              "maximumBoundaryError": 1.6099999999999994
+            },
+            {
+              "start": 33.82,
+              "end": 64.49,
+              "score": 0.5930685141925205,
+              "durationResidual": 0.5126874999999913,
+              "maximumBoundaryError": 0.6799999999999997
+            },
+            {
+              "start": 30.74,
+              "end": 61.41,
+              "score": 0.5848225916979735,
+              "durationResidual": 0.5126874999999949,
+              "maximumBoundaryError": 3.7600000000000016
+            },
+            {
+              "start": 31.39,
+              "end": 61.41,
+              "score": 0.5750651620779016,
+              "durationResidual": -0.13731250000000728,
+              "maximumBoundaryError": 3.1099999999999994
+            },
+            {
+              "start": 32.08,
+              "end": 62.86,
+              "score": 0.5283939201710203,
+              "durationResidual": 0.6226874999999978,
+              "maximumBoundaryError": 2.4200000000000017
+            },
+            {
+              "start": 30.74,
+              "end": 60.22,
+              "score": 0.5253930379121042,
+              "durationResidual": -0.6773125000000029,
+              "maximumBoundaryError": 4.280000000000001
+            },
+            {
+              "start": 31.91,
+              "end": 61.41,
+              "score": 0.5132319579456344,
+              "durationResidual": -0.6573125000000068,
+              "maximumBoundaryError": 3.0900000000000034
+            },
+            {
+              "start": 32.92,
+              "end": 63.72,
+              "score": 0.46302365683183033,
+              "durationResidual": 0.6426874999999939,
+              "maximumBoundaryError": 1.5799999999999983
+            },
+            {
+              "start": 33.73,
+              "end": 63.72,
+              "score": 0.46302365683183033,
+              "durationResidual": -0.1673125000000013,
+              "maximumBoundaryError": 0.7800000000000011
+            }
+          ],
+          "spectralTiltChange": [
+            {
+              "start": 35.18,
+              "end": 64.98,
+              "score": 1.025525750306735,
+              "durationResidual": -0.35731249999999903,
+              "maximumBoundaryError": 0.6799999999999997
+            },
+            {
+              "start": 35.69,
+              "end": 65.15,
+              "score": 0.976473358670126,
+              "durationResidual": -0.6973124999999953,
+              "maximumBoundaryError": 1.1899999999999977
+            },
+            {
+              "start": 31.93,
+              "end": 62.73,
+              "score": 0.9280117300816666,
+              "durationResidual": 0.6426874999999939,
+              "maximumBoundaryError": 2.5700000000000003
+            },
+            {
+              "start": 33.74,
+              "end": 64.54,
+              "score": 0.8368973559178957,
+              "durationResidual": 0.642687500000001,
+              "maximumBoundaryError": 0.759999999999998
+            },
+            {
+              "start": 34.54,
+              "end": 64.54,
+              "score": 0.8216016751756607,
+              "durationResidual": -0.1573124999999962,
+              "maximumBoundaryError": 0.04000000000000625
+            },
+            {
+              "start": 34.54,
+              "end": 65.04,
+              "score": 0.8216016751756607,
+              "durationResidual": 0.3426875000000038,
+              "maximumBoundaryError": 0.5400000000000063
+            },
+            {
+              "start": 33.03,
+              "end": 62.72,
+              "score": 0.802827933404736,
+              "durationResidual": -0.46731250000000557,
+              "maximumBoundaryError": 1.7800000000000011
+            },
+            {
+              "start": 32.95,
+              "end": 63.39,
+              "score": 0.74660743886953,
+              "durationResidual": 0.28268749999999443,
+              "maximumBoundaryError": 1.5499999999999972
+            },
+            {
+              "start": 33.73,
+              "end": 63.39,
+              "score": 0.74660743886953,
+              "durationResidual": -0.4973124999999996,
+              "maximumBoundaryError": 1.1099999999999994
+            },
+            {
+              "start": 30.57,
+              "end": 60.32,
+              "score": 0.5981876122262404,
+              "durationResidual": -0.4073125000000033,
+              "maximumBoundaryError": 4.18
+            }
+          ],
+          "sampleShock": [
+            {
+              "start": 33.76,
+              "end": 64.51,
+              "score": 6.282237018296995,
+              "durationResidual": 0.5926875000000038,
+              "maximumBoundaryError": 0.740000000000002
+            },
+            {
+              "start": 34.24,
+              "end": 65.05,
+              "score": 3.279168871977692,
+              "durationResidual": 0.6526874999999919,
+              "maximumBoundaryError": 0.5499999999999972
+            },
+            {
+              "start": 32.62,
+              "end": 63.43,
+              "score": 2.2404295884687673,
+              "durationResidual": 0.652687499999999,
+              "maximumBoundaryError": 1.8800000000000026
+            },
+            {
+              "start": 33.76,
+              "end": 63.43,
+              "score": 2.2404295884687673,
+              "durationResidual": -0.4873125000000016,
+              "maximumBoundaryError": 1.0700000000000003
+            },
+            {
+              "start": 30.97,
+              "end": 61.82,
+              "score": 1.9172069966790701,
+              "durationResidual": 0.6926874999999981,
+              "maximumBoundaryError": 3.530000000000001
+            },
+            {
+              "start": 31.84,
+              "end": 61.82,
+              "score": 1.9172069966790701,
+              "durationResidual": -0.17731250000000287,
+              "maximumBoundaryError": 2.6799999999999997
+            },
+            {
+              "start": 33.2,
+              "end": 63.43,
+              "score": 1.8845524089743368,
+              "durationResidual": 0.07268749999999358,
+              "maximumBoundaryError": 1.2999999999999972
+            },
+            {
+              "start": 35.23,
+              "end": 64.74,
+              "score": 1.6669074246529476,
+              "durationResidual": -0.6473125000000053,
+              "maximumBoundaryError": 0.7299999999999969
+            },
+            {
+              "start": 35.23,
+              "end": 65.24,
+              "score": 1.6669074246529476,
+              "durationResidual": -0.1473125000000053,
+              "maximumBoundaryError": 0.7399999999999949
+            },
+            {
+              "start": 31.66,
+              "end": 62.33,
+              "score": 1.6624272332993446,
+              "durationResidual": 0.5126874999999949,
+              "maximumBoundaryError": 2.84
+            }
+          ]
+        },
+        "trueBoundaries": [
+          34.5,
+          64.5
+        ],
+        "limitations": [
+          "Single matched-word onsets constrain proposals; they do not establish precise word boundaries or confirmed absent dialogue.",
+          "Only consumed hard-edit development fixtures; ambiguity rejection and negative specificity are not calibrated.",
+          "Proposals become available after post-edit mapping confirmation and do not improve first-playback suppression.",
+          "Features come from bounded live snapshots; current output is a numeric diagnostic. No application suppression or cache learning is enabled."
+        ]
+      }
+    },
+    "acoustic-crossing-assessment.json": {
+      "sha256": "4d15634bb12d7cd231d034530e2bae928dd678aa41a0ea28e8037c3af487748c",
+      "data": {
+        "scope": "native PCM/ASR and domain tracking only; no production controller or renderer claim",
+        "initialAcquisitionBeforeEdit": true,
+        "postEditRecoveryMediaSeconds": 18.625,
+        "alignedTrackingMedianErrorSeconds": 0.2089996337890625,
+        "alignedTrackingP95ErrorSeconds": 30.208999633789062,
+        "alignedSampleCount": 52,
+        "gapChecks": [
+          {
+            "expected": {
+              "kind": "videoOnly",
+              "start": 36.25,
+              "end": 66.25
+            },
+            "matched": false
+          }
+        ],
+        "unexpectedGapCount": 0,
+        "gapPlaybackSamples": [
+          {
+            "mediaTime": 36.542,
+            "actualRegion": "aligned"
+          },
+          {
+            "mediaTime": 37.583,
+            "actualRegion": "aligned"
+          },
+          {
+            "mediaTime": 38.583,
+            "actualRegion": "aligned"
+          },
+          {
+            "mediaTime": 39.625,
+            "actualRegion": "aligned"
+          },
+          {
+            "mediaTime": 40.667,
+            "actualRegion": "aligned"
+          },
+          {
+            "mediaTime": 41.708,
+            "actualRegion": "aligned"
+          },
+          {
+            "mediaTime": 42.708,
+            "actualRegion": "aligned"
+          },
+          {
+            "mediaTime": 43.75,
+            "actualRegion": "aligned"
+          },
+          {
+            "mediaTime": 44.791999999999994,
+            "actualRegion": "aligned"
+          },
+          {
+            "mediaTime": 45.791999999999994,
+            "actualRegion": "aligned"
+          },
+          {
+            "mediaTime": 46.833,
+            "actualRegion": "aligned"
+          },
+          {
+            "mediaTime": 47.875,
+            "actualRegion": "aligned"
+          },
+          {
+            "mediaTime": 48.875,
+            "actualRegion": "aligned"
+          },
+          {
+            "mediaTime": 49.916999999999994,
+            "actualRegion": "aligned"
+          },
+          {
+            "mediaTime": 50.958,
+            "actualRegion": "aligned"
+          },
+          {
+            "mediaTime": 52.0,
+            "actualRegion": "aligned"
+          },
+          {
+            "mediaTime": 53.0,
+            "actualRegion": "aligned"
+          },
+          {
+            "mediaTime": 54.041999999999994,
+            "actualRegion": "aligned"
+          },
+          {
+            "mediaTime": 55.083,
+            "actualRegion": "aligned"
+          },
+          {
+            "mediaTime": 56.083,
+            "actualRegion": "aligned"
+          },
+          {
+            "mediaTime": 57.125,
+            "actualRegion": "aligned"
+          },
+          {
+            "mediaTime": 58.166999999999994,
+            "actualRegion": "aligned"
+          },
+          {
+            "mediaTime": 59.166999999999994,
+            "actualRegion": "aligned"
+          },
+          {
+            "mediaTime": 60.208,
+            "actualRegion": "aligned"
+          },
+          {
+            "mediaTime": 61.25,
+            "actualRegion": "aligned"
+          },
+          {
+            "mediaTime": 62.25,
+            "actualRegion": "aligned"
+          },
+          {
+            "mediaTime": 63.291999999999994,
+            "actualRegion": "aligned"
+          },
+          {
+            "mediaTime": 64.292,
+            "actualRegion": "aligned"
+          },
+          {
+            "mediaTime": 65.333,
+            "actualRegion": "aligned"
+          }
+        ],
+        "alignedPlaybackSamples": [
+          {
+            "mediaTime": 22.166999999999998,
+            "expectedDelay": -100.0,
+            "actualDelay": -100.20899963378906,
+            "actualRegion": "aligned",
+            "mappingAvailable": true,
+            "error": 0.2089996337890625
+          },
+          {
+            "mediaTime": 23.166999999999998,
+            "expectedDelay": -100.0,
+            "actualDelay": -100.20899963378906,
+            "actualRegion": "aligned",
+            "mappingAvailable": true,
+            "error": 0.2089996337890625
+          },
+          {
+            "mediaTime": 24.208,
+            "expectedDelay": -100.0,
+            "actualDelay": -100.20899963378906,
+            "actualRegion": "aligned",
+            "mappingAvailable": true,
+            "error": 0.2089996337890625
+          },
+          {
+            "mediaTime": 25.25,
+            "expectedDelay": -100.0,
+            "actualDelay": -100.20899963378906,
+            "actualRegion": "aligned",
+            "mappingAvailable": true,
+            "error": 0.2089996337890625
+          },
+          {
+            "mediaTime": 26.25,
+            "expectedDelay": -100.0,
+            "actualDelay": -100.20899963378906,
+            "actualRegion": "aligned",
+            "mappingAvailable": true,
+            "error": 0.2089996337890625
+          },
+          {
+            "mediaTime": 27.291999999999998,
+            "expectedDelay": -100.0,
+            "actualDelay": -100.20899963378906,
+            "actualRegion": "aligned",
+            "mappingAvailable": true,
+            "error": 0.2089996337890625
+          },
+          {
+            "mediaTime": 28.333,
+            "expectedDelay": -100.0,
+            "actualDelay": -100.20899963378906,
+            "actualRegion": "aligned",
+            "mappingAvailable": true,
+            "error": 0.2089996337890625
+          },
+          {
+            "mediaTime": 29.333,
+            "expectedDelay": -100.0,
+            "actualDelay": -100.20899963378906,
+            "actualRegion": "aligned",
+            "mappingAvailable": true,
+            "error": 0.2089996337890625
+          },
+          {
+            "mediaTime": 30.375,
+            "expectedDelay": -100.0,
+            "actualDelay": -100.20899963378906,
+            "actualRegion": "aligned",
+            "mappingAvailable": true,
+            "error": 0.2089996337890625
+          },
+          {
+            "mediaTime": 31.416999999999998,
+            "expectedDelay": -100.0,
+            "actualDelay": -100.20899963378906,
+            "actualRegion": "aligned",
+            "mappingAvailable": true,
+            "error": 0.2089996337890625
+          },
+          {
+            "mediaTime": 32.417,
+            "expectedDelay": -100.0,
+            "actualDelay": -100.20899963378906,
+            "actualRegion": "aligned",
+            "mappingAvailable": true,
+            "error": 0.2089996337890625
+          },
+          {
+            "mediaTime": 33.458,
+            "expectedDelay": -100.0,
+            "actualDelay": -100.20899963378906,
+            "actualRegion": "aligned",
+            "mappingAvailable": true,
+            "error": 0.2089996337890625
+          },
+          {
+            "mediaTime": 34.5,
+            "expectedDelay": -100.0,
+            "actualDelay": -100.20899963378906,
+            "actualRegion": "aligned",
+            "mappingAvailable": true,
+            "error": 0.2089996337890625
+          },
+          {
+            "mediaTime": 35.542,
+            "expectedDelay": -100.0,
+            "actualDelay": -100.20899963378906,
+            "actualRegion": "aligned",
+            "mappingAvailable": true,
+            "error": 0.2089996337890625
+          },
+          {
+            "mediaTime": 66.375,
+            "expectedDelay": -70.0,
+            "actualDelay": -100.20899963378906,
+            "actualRegion": "aligned",
+            "mappingAvailable": true,
+            "error": 30.208999633789062
+          },
+          {
+            "mediaTime": 67.417,
+            "expectedDelay": -70.0,
+            "actualDelay": -100.20899963378906,
+            "actualRegion": "aligned",
+            "mappingAvailable": true,
+            "error": 30.208999633789062
+          },
+          {
+            "mediaTime": 68.417,
+            "expectedDelay": -70.0,
+            "actualDelay": -100.20899963378906,
+            "actualRegion": "aligned",
+            "mappingAvailable": true,
+            "error": 30.208999633789062
+          },
+          {
+            "mediaTime": 69.458,
+            "expectedDelay": -70.0,
+            "actualDelay": -100.20899963378906,
+            "actualRegion": "aligned",
+            "mappingAvailable": true,
+            "error": 30.208999633789062
+          },
+          {
+            "mediaTime": 70.458,
+            "expectedDelay": -70.0,
+            "actualDelay": -100.20899963378906,
+            "actualRegion": "aligned",
+            "mappingAvailable": true,
+            "error": 30.208999633789062
+          },
+          {
+            "mediaTime": 71.5,
+            "expectedDelay": -70.0,
+            "actualDelay": -100.20899963378906,
+            "actualRegion": "aligned",
+            "mappingAvailable": true,
+            "error": 30.208999633789062
+          },
+          {
+            "mediaTime": 72.542,
+            "expectedDelay": -70.0,
+            "actualDelay": -100.20899963378906,
+            "actualRegion": "aligned",
+            "mappingAvailable": true,
+            "error": 30.208999633789062
+          },
+          {
+            "mediaTime": 73.583,
+            "expectedDelay": -70.0,
+            "actualDelay": -100.20899963378906,
+            "actualRegion": "aligned",
+            "mappingAvailable": true,
+            "error": 30.208999633789062
+          },
+          {
+            "mediaTime": 74.583,
+            "expectedDelay": -70.0,
+            "actualDelay": -100.20899963378906,
+            "actualRegion": "aligned",
+            "mappingAvailable": true,
+            "error": 30.208999633789062
+          },
+          {
+            "mediaTime": 75.625,
+            "expectedDelay": -70.0,
+            "actualDelay": -100.20899963378906,
+            "actualRegion": "aligned",
+            "mappingAvailable": true,
+            "error": 30.208999633789062
+          },
+          {
+            "mediaTime": 76.667,
+            "expectedDelay": -70.0,
+            "actualDelay": -100.20899963378906,
+            "actualRegion": "aligned",
+            "mappingAvailable": true,
+            "error": 30.208999633789062
+          },
+          {
+            "mediaTime": 77.667,
+            "expectedDelay": -70.0,
+            "actualDelay": -100.20899963378906,
+            "actualRegion": "aligned",
+            "mappingAvailable": true,
+            "error": 30.208999633789062
+          },
+          {
+            "mediaTime": 78.708,
+            "expectedDelay": -70.0,
+            "actualDelay": -100.20899963378906,
+            "actualRegion": "aligned",
+            "mappingAvailable": true,
+            "error": 30.208999633789062
+          },
+          {
+            "mediaTime": 79.75,
+            "expectedDelay": -70.0,
+            "actualDelay": -100.20899963378906,
+            "actualRegion": "aligned",
+            "mappingAvailable": true,
+            "error": 30.208999633789062
+          },
+          {
+            "mediaTime": 80.75,
+            "expectedDelay": -70.0,
+            "actualDelay": -100.20899963378906,
+            "actualRegion": "aligned",
+            "mappingAvailable": true,
+            "error": 30.208999633789062
+          },
+          {
+            "mediaTime": 81.792,
+            "expectedDelay": -70.0,
+            "actualDelay": -100.20899963378906,
+            "actualRegion": "aligned",
+            "mappingAvailable": true,
+            "error": 30.208999633789062
+          },
+          {
+            "mediaTime": 82.833,
+            "expectedDelay": -70.0,
+            "actualDelay": -100.20899963378906,
+            "actualRegion": "aligned",
+            "mappingAvailable": true,
+            "error": 30.208999633789062
+          },
+          {
+            "mediaTime": 83.875,
+            "expectedDelay": -70.0,
+            "actualDelay": -100.20899963378906,
+            "actualRegion": "aligned",
+            "mappingAvailable": true,
+            "error": 30.208999633789062
+          },
+          {
+            "mediaTime": 84.875,
+            "expectedDelay": -70.0,
+            "actualDelay": -70.03262329101562,
+            "actualRegion": "aligned",
+            "mappingAvailable": true,
+            "error": 0.032623291015625
+          },
+          {
+            "mediaTime": 85.917,
+            "expectedDelay": -70.0,
+            "actualDelay": -70.03262329101562,
+            "actualRegion": "aligned",
+            "mappingAvailable": true,
+            "error": 0.032623291015625
+          },
+          {
+            "mediaTime": 86.917,
+            "expectedDelay": -70.0,
+            "actualDelay": -70.03262329101562,
+            "actualRegion": "aligned",
+            "mappingAvailable": true,
+            "error": 0.032623291015625
+          },
+          {
+            "mediaTime": 87.958,
+            "expectedDelay": -70.0,
+            "actualDelay": -70.03262329101562,
+            "actualRegion": "aligned",
+            "mappingAvailable": true,
+            "error": 0.032623291015625
+          },
+          {
+            "mediaTime": 89.0,
+            "expectedDelay": -70.0,
+            "actualDelay": -70.03262329101562,
+            "actualRegion": "aligned",
+            "mappingAvailable": true,
+            "error": 0.032623291015625
+          },
+          {
+            "mediaTime": 90.0,
+            "expectedDelay": -70.0,
+            "actualDelay": -70.03262329101562,
+            "actualRegion": "aligned",
+            "mappingAvailable": true,
+            "error": 0.032623291015625
+          },
+          {
+            "mediaTime": 91.042,
+            "expectedDelay": -70.0,
+            "actualDelay": -70.03262329101562,
+            "actualRegion": "aligned",
+            "mappingAvailable": true,
+            "error": 0.032623291015625
+          },
+          {
+            "mediaTime": 92.083,
+            "expectedDelay": -70.0,
+            "actualDelay": -70.03262329101562,
+            "actualRegion": "aligned",
+            "mappingAvailable": true,
+            "error": 0.032623291015625
+          },
+          {
+            "mediaTime": 93.125,
+            "expectedDelay": -70.0,
+            "actualDelay": -70.03262329101562,
+            "actualRegion": "aligned",
+            "mappingAvailable": true,
+            "error": 0.032623291015625
+          },
+          {
+            "mediaTime": 94.125,
+            "expectedDelay": -70.0,
+            "actualDelay": -70.03262329101562,
+            "actualRegion": "aligned",
+            "mappingAvailable": true,
+            "error": 0.032623291015625
+          },
+          {
+            "mediaTime": 95.167,
+            "expectedDelay": -70.0,
+            "actualDelay": -70.03262329101562,
+            "actualRegion": "aligned",
+            "mappingAvailable": true,
+            "error": 0.032623291015625
+          },
+          {
+            "mediaTime": 96.167,
+            "expectedDelay": -70.0,
+            "actualDelay": -70.03262329101562,
+            "actualRegion": "aligned",
+            "mappingAvailable": true,
+            "error": 0.032623291015625
+          },
+          {
+            "mediaTime": 97.208,
+            "expectedDelay": -70.0,
+            "actualDelay": -70.03262329101562,
+            "actualRegion": "aligned",
+            "mappingAvailable": true,
+            "error": 0.032623291015625
+          },
+          {
+            "mediaTime": 98.25,
+            "expectedDelay": -70.0,
+            "actualDelay": -70.03262329101562,
+            "actualRegion": "aligned",
+            "mappingAvailable": true,
+            "error": 0.032623291015625
+          },
+          {
+            "mediaTime": 99.292,
+            "expectedDelay": -70.0,
+            "actualDelay": -70.03262329101562,
+            "actualRegion": "aligned",
+            "mappingAvailable": true,
+            "error": 0.032623291015625
+          },
+          {
+            "mediaTime": 100.292,
+            "expectedDelay": -70.0,
+            "actualDelay": -70.03262329101562,
+            "actualRegion": "aligned",
+            "mappingAvailable": true,
+            "error": 0.032623291015625
+          },
+          {
+            "mediaTime": 101.333,
+            "expectedDelay": -70.0,
+            "actualDelay": -70.03262329101562,
+            "actualRegion": "aligned",
+            "mappingAvailable": true,
+            "error": 0.032623291015625
+          },
+          {
+            "mediaTime": 102.375,
+            "expectedDelay": -70.0,
+            "actualDelay": -70.03262329101562,
+            "actualRegion": "aligned",
+            "mappingAvailable": true,
+            "error": 0.032623291015625
+          },
+          {
+            "mediaTime": 103.375,
+            "expectedDelay": -70.0,
+            "actualDelay": -70.03262329101562,
+            "actualRegion": "aligned",
+            "mappingAvailable": true,
+            "error": 0.032623291015625
+          },
+          {
+            "mediaTime": 104.417,
+            "expectedDelay": -70.0,
+            "actualDelay": -70.03262329101562,
+            "actualRegion": "aligned",
+            "mappingAvailable": true,
+            "error": 0.032623291015625
+          }
+        ],
+        "cueBoundaryRenderingValidated": false,
+        "backwardSeekValidated": false,
+        "satisfiesSceneDomainChecks": false,
+        "probeSha256": "f286a67236619638916059fe0ce75aa19fb93992b7fff2d83e829d7f6b7b6054",
+        "expectedTimelineSha256": "c9a8a41feef99bd7d069d10111678a3d210a7d269b1bd0401025333095d9e70f"
+      }
+    },
+    "acoustic-added-assessment.json": {
+      "sha256": "efc4e7daebadf18dd73277ce6ed626725414a5a2da634622e6ac738cdbc8097c",
+      "data": {
+        "scope": "native PCM/ASR and domain tracking only; no production controller or renderer claim",
+        "initialAcquisitionBeforeEdit": true,
+        "postEditRecoveryMediaSeconds": 5.417000000000002,
+        "alignedTrackingMedianErrorSeconds": 0.10335540771484375,
+        "alignedTrackingP95ErrorSeconds": 30.219642639160156,
+        "alignedSampleCount": 53,
+        "gapChecks": [
+          {
+            "expected": {
+              "kind": "videoOnly",
+              "start": 34.5,
+              "end": 64.5
+            },
+            "matched": false
+          }
+        ],
+        "unexpectedGapCount": 0,
+        "gapPlaybackSamples": [
+          {
+            "mediaTime": 34.958,
+            "actualRegion": "aligned"
+          },
+          {
+            "mediaTime": 36.0,
+            "actualRegion": "aligned"
+          },
+          {
+            "mediaTime": 37.042,
+            "actualRegion": "aligned"
+          },
+          {
+            "mediaTime": 38.042,
+            "actualRegion": "aligned"
+          },
+          {
+            "mediaTime": 39.083,
+            "actualRegion": "aligned"
+          },
+          {
+            "mediaTime": 40.125,
+            "actualRegion": "aligned"
+          },
+          {
+            "mediaTime": 41.125,
+            "actualRegion": "aligned"
+          },
+          {
+            "mediaTime": 42.167,
+            "actualRegion": "aligned"
+          },
+          {
+            "mediaTime": 43.208,
+            "actualRegion": "aligned"
+          },
+          {
+            "mediaTime": 44.208,
+            "actualRegion": "aligned"
+          },
+          {
+            "mediaTime": 45.25,
+            "actualRegion": "aligned"
+          },
+          {
+            "mediaTime": 46.291999999999994,
+            "actualRegion": "aligned"
+          },
+          {
+            "mediaTime": 47.333,
+            "actualRegion": "aligned"
+          },
+          {
+            "mediaTime": 48.333,
+            "actualRegion": "aligned"
+          },
+          {
+            "mediaTime": 49.375,
+            "actualRegion": "aligned"
+          },
+          {
+            "mediaTime": 50.375,
+            "actualRegion": "aligned"
+          },
+          {
+            "mediaTime": 51.416999999999994,
+            "actualRegion": "aligned"
+          },
+          {
+            "mediaTime": 52.458,
+            "actualRegion": "aligned"
+          },
+          {
+            "mediaTime": 53.5,
+            "actualRegion": "aligned"
+          },
+          {
+            "mediaTime": 54.5,
+            "actualRegion": "aligned"
+          },
+          {
+            "mediaTime": 55.541999999999994,
+            "actualRegion": "aligned"
+          },
+          {
+            "mediaTime": 56.541999999999994,
+            "actualRegion": "aligned"
+          },
+          {
+            "mediaTime": 57.583,
+            "actualRegion": "aligned"
+          },
+          {
+            "mediaTime": 58.625,
+            "actualRegion": "aligned"
+          },
+          {
+            "mediaTime": 59.625,
+            "actualRegion": "aligned"
+          },
+          {
+            "mediaTime": 60.666999999999994,
+            "actualRegion": "aligned"
+          },
+          {
+            "mediaTime": 61.708,
+            "actualRegion": "aligned"
+          },
+          {
+            "mediaTime": 62.708,
+            "actualRegion": "aligned"
+          },
+          {
+            "mediaTime": 63.75,
+            "actualRegion": "aligned"
+          }
+        ],
+        "alignedPlaybackSamples": [
+          {
+            "mediaTime": 21.625,
+            "expectedDelay": -100.0,
+            "actualDelay": -100.21964263916016,
+            "actualRegion": "aligned",
+            "mappingAvailable": true,
+            "error": 0.21964263916015625
+          },
+          {
+            "mediaTime": 22.625,
+            "expectedDelay": -100.0,
+            "actualDelay": -100.21964263916016,
+            "actualRegion": "aligned",
+            "mappingAvailable": true,
+            "error": 0.21964263916015625
+          },
+          {
+            "mediaTime": 23.666999999999998,
+            "expectedDelay": -100.0,
+            "actualDelay": -100.21964263916016,
+            "actualRegion": "aligned",
+            "mappingAvailable": true,
+            "error": 0.21964263916015625
+          },
+          {
+            "mediaTime": 24.708,
+            "expectedDelay": -100.0,
+            "actualDelay": -100.21964263916016,
+            "actualRegion": "aligned",
+            "mappingAvailable": true,
+            "error": 0.21964263916015625
+          },
+          {
+            "mediaTime": 25.75,
+            "expectedDelay": -100.0,
+            "actualDelay": -100.21964263916016,
+            "actualRegion": "aligned",
+            "mappingAvailable": true,
+            "error": 0.21964263916015625
+          },
+          {
+            "mediaTime": 26.75,
+            "expectedDelay": -100.0,
+            "actualDelay": -100.21964263916016,
+            "actualRegion": "aligned",
+            "mappingAvailable": true,
+            "error": 0.21964263916015625
+          },
+          {
+            "mediaTime": 27.791999999999998,
+            "expectedDelay": -100.0,
+            "actualDelay": -100.21964263916016,
+            "actualRegion": "aligned",
+            "mappingAvailable": true,
+            "error": 0.21964263916015625
+          },
+          {
+            "mediaTime": 28.791999999999998,
+            "expectedDelay": -100.0,
+            "actualDelay": -100.21964263916016,
+            "actualRegion": "aligned",
+            "mappingAvailable": true,
+            "error": 0.21964263916015625
+          },
+          {
+            "mediaTime": 29.833,
+            "expectedDelay": -100.0,
+            "actualDelay": -100.21964263916016,
+            "actualRegion": "aligned",
+            "mappingAvailable": true,
+            "error": 0.21964263916015625
+          },
+          {
+            "mediaTime": 30.875,
+            "expectedDelay": -100.0,
+            "actualDelay": -100.21964263916016,
+            "actualRegion": "aligned",
+            "mappingAvailable": true,
+            "error": 0.21964263916015625
+          },
+          {
+            "mediaTime": 31.875,
+            "expectedDelay": -100.0,
+            "actualDelay": -100.21964263916016,
+            "actualRegion": "aligned",
+            "mappingAvailable": true,
+            "error": 0.21964263916015625
+          },
+          {
+            "mediaTime": 32.917,
+            "expectedDelay": -100.0,
+            "actualDelay": -100.21964263916016,
+            "actualRegion": "aligned",
+            "mappingAvailable": true,
+            "error": 0.21964263916015625
+          },
+          {
+            "mediaTime": 33.958,
+            "expectedDelay": -100.0,
+            "actualDelay": -100.21964263916016,
+            "actualRegion": "aligned",
+            "mappingAvailable": true,
+            "error": 0.21964263916015625
+          },
+          {
+            "mediaTime": 64.792,
+            "expectedDelay": -70.0,
+            "actualDelay": -100.21964263916016,
+            "actualRegion": "aligned",
+            "mappingAvailable": true,
+            "error": 30.219642639160156
+          },
+          {
+            "mediaTime": 65.833,
+            "expectedDelay": -70.0,
+            "actualDelay": -100.21964263916016,
+            "actualRegion": "aligned",
+            "mappingAvailable": true,
+            "error": 30.219642639160156
+          },
+          {
+            "mediaTime": 66.833,
+            "expectedDelay": -70.0,
+            "actualDelay": -100.21964263916016,
+            "actualRegion": "aligned",
+            "mappingAvailable": true,
+            "error": 30.219642639160156
+          },
+          {
+            "mediaTime": 67.875,
+            "expectedDelay": -70.0,
+            "actualDelay": -100.21964263916016,
+            "actualRegion": "aligned",
+            "mappingAvailable": true,
+            "error": 30.219642639160156
+          },
+          {
+            "mediaTime": 68.917,
+            "expectedDelay": -70.0,
+            "actualDelay": -100.21964263916016,
+            "actualRegion": "aligned",
+            "mappingAvailable": true,
+            "error": 30.219642639160156
+          },
+          {
+            "mediaTime": 69.917,
+            "expectedDelay": -70.0,
+            "actualDelay": -70.06233215332031,
+            "actualRegion": "aligned",
+            "mappingAvailable": true,
+            "error": 0.0623321533203125
+          },
+          {
+            "mediaTime": 70.958,
+            "expectedDelay": -70.0,
+            "actualDelay": -70.06233215332031,
+            "actualRegion": "aligned",
+            "mappingAvailable": true,
+            "error": 0.0623321533203125
+          },
+          {
+            "mediaTime": 72.0,
+            "expectedDelay": -70.0,
+            "actualDelay": -70.06233215332031,
+            "actualRegion": "aligned",
+            "mappingAvailable": true,
+            "error": 0.0623321533203125
+          },
+          {
+            "mediaTime": 73.0,
+            "expectedDelay": -70.0,
+            "actualDelay": -70.06233215332031,
+            "actualRegion": "aligned",
+            "mappingAvailable": true,
+            "error": 0.0623321533203125
+          },
+          {
+            "mediaTime": 74.042,
+            "expectedDelay": -70.0,
+            "actualDelay": -70.06233215332031,
+            "actualRegion": "aligned",
+            "mappingAvailable": true,
+            "error": 0.0623321533203125
+          },
+          {
+            "mediaTime": 75.083,
+            "expectedDelay": -70.0,
+            "actualDelay": -70.06233215332031,
+            "actualRegion": "aligned",
+            "mappingAvailable": true,
+            "error": 0.0623321533203125
+          },
+          {
+            "mediaTime": 76.083,
+            "expectedDelay": -70.0,
+            "actualDelay": -70.06233215332031,
+            "actualRegion": "aligned",
+            "mappingAvailable": true,
+            "error": 0.0623321533203125
+          },
+          {
+            "mediaTime": 77.125,
+            "expectedDelay": -70.0,
+            "actualDelay": -70.06233215332031,
+            "actualRegion": "aligned",
+            "mappingAvailable": true,
+            "error": 0.0623321533203125
+          },
+          {
+            "mediaTime": 78.167,
+            "expectedDelay": -70.0,
+            "actualDelay": -70.06233215332031,
+            "actualRegion": "aligned",
+            "mappingAvailable": true,
+            "error": 0.0623321533203125
+          },
+          {
+            "mediaTime": 79.167,
+            "expectedDelay": -70.0,
+            "actualDelay": -70.06233215332031,
+            "actualRegion": "aligned",
+            "mappingAvailable": true,
+            "error": 0.0623321533203125
+          },
+          {
+            "mediaTime": 80.208,
+            "expectedDelay": -70.0,
+            "actualDelay": -70.06233215332031,
+            "actualRegion": "aligned",
+            "mappingAvailable": true,
+            "error": 0.0623321533203125
+          },
+          {
+            "mediaTime": 81.25,
+            "expectedDelay": -70.0,
+            "actualDelay": -70.06233215332031,
+            "actualRegion": "aligned",
+            "mappingAvailable": true,
+            "error": 0.0623321533203125
+          },
+          {
+            "mediaTime": 82.25,
+            "expectedDelay": -70.0,
+            "actualDelay": -70.06233215332031,
+            "actualRegion": "aligned",
+            "mappingAvailable": true,
+            "error": 0.0623321533203125
+          },
+          {
+            "mediaTime": 83.292,
+            "expectedDelay": -70.0,
+            "actualDelay": -70.06233215332031,
+            "actualRegion": "aligned",
+            "mappingAvailable": true,
+            "error": 0.0623321533203125
+          },
+          {
+            "mediaTime": 84.292,
+            "expectedDelay": -70.0,
+            "actualDelay": -70.06233215332031,
+            "actualRegion": "aligned",
+            "mappingAvailable": true,
+            "error": 0.0623321533203125
+          },
+          {
+            "mediaTime": 85.333,
+            "expectedDelay": -70.0,
+            "actualDelay": -70.06233215332031,
+            "actualRegion": "aligned",
+            "mappingAvailable": true,
+            "error": 0.0623321533203125
+          },
+          {
+            "mediaTime": 86.375,
+            "expectedDelay": -70.0,
+            "actualDelay": -70.06233215332031,
+            "actualRegion": "aligned",
+            "mappingAvailable": true,
+            "error": 0.0623321533203125
+          },
+          {
+            "mediaTime": 87.417,
+            "expectedDelay": -70.0,
+            "actualDelay": -70.06233215332031,
+            "actualRegion": "aligned",
+            "mappingAvailable": true,
+            "error": 0.0623321533203125
+          },
+          {
+            "mediaTime": 88.417,
+            "expectedDelay": -70.0,
+            "actualDelay": -70.06233215332031,
+            "actualRegion": "aligned",
+            "mappingAvailable": true,
+            "error": 0.0623321533203125
+          },
+          {
+            "mediaTime": 89.458,
+            "expectedDelay": -70.0,
+            "actualDelay": -70.06233215332031,
+            "actualRegion": "aligned",
+            "mappingAvailable": true,
+            "error": 0.0623321533203125
+          },
+          {
+            "mediaTime": 90.5,
+            "expectedDelay": -70.0,
+            "actualDelay": -70.06233215332031,
+            "actualRegion": "aligned",
+            "mappingAvailable": true,
+            "error": 0.0623321533203125
+          },
+          {
+            "mediaTime": 91.5,
+            "expectedDelay": -70.0,
+            "actualDelay": -70.06233215332031,
+            "actualRegion": "aligned",
+            "mappingAvailable": true,
+            "error": 0.0623321533203125
+          },
+          {
+            "mediaTime": 92.5,
+            "expectedDelay": -70.0,
+            "actualDelay": -70.06233215332031,
+            "actualRegion": "aligned",
+            "mappingAvailable": true,
+            "error": 0.0623321533203125
+          },
+          {
+            "mediaTime": 93.542,
+            "expectedDelay": -70.0,
+            "actualDelay": -70.06233215332031,
+            "actualRegion": "aligned",
+            "mappingAvailable": true,
+            "error": 0.0623321533203125
+          },
+          {
+            "mediaTime": 94.583,
+            "expectedDelay": -70.0,
+            "actualDelay": -70.06233215332031,
+            "actualRegion": "aligned",
+            "mappingAvailable": true,
+            "error": 0.0623321533203125
+          },
+          {
+            "mediaTime": 95.625,
+            "expectedDelay": -70.0,
+            "actualDelay": -69.89664459228516,
+            "actualRegion": "aligned",
+            "mappingAvailable": true,
+            "error": 0.10335540771484375
+          },
+          {
+            "mediaTime": 96.625,
+            "expectedDelay": -70.0,
+            "actualDelay": -69.89664459228516,
+            "actualRegion": "aligned",
+            "mappingAvailable": true,
+            "error": 0.10335540771484375
+          },
+          {
+            "mediaTime": 97.667,
+            "expectedDelay": -70.0,
+            "actualDelay": -69.89664459228516,
+            "actualRegion": "aligned",
+            "mappingAvailable": true,
+            "error": 0.10335540771484375
+          },
+          {
+            "mediaTime": 98.667,
+            "expectedDelay": -70.0,
+            "actualDelay": -69.89664459228516,
+            "actualRegion": "aligned",
+            "mappingAvailable": true,
+            "error": 0.10335540771484375
+          },
+          {
+            "mediaTime": 99.708,
+            "expectedDelay": -70.0,
+            "actualDelay": -69.89664459228516,
+            "actualRegion": "aligned",
+            "mappingAvailable": true,
+            "error": 0.10335540771484375
+          },
+          {
+            "mediaTime": 100.75,
+            "expectedDelay": -70.0,
+            "actualDelay": -69.89664459228516,
+            "actualRegion": "aligned",
+            "mappingAvailable": true,
+            "error": 0.10335540771484375
+          },
+          {
+            "mediaTime": 101.792,
+            "expectedDelay": -70.0,
+            "actualDelay": -69.89664459228516,
+            "actualRegion": "aligned",
+            "mappingAvailable": true,
+            "error": 0.10335540771484375
+          },
+          {
+            "mediaTime": 102.792,
+            "expectedDelay": -70.0,
+            "actualDelay": -69.89664459228516,
+            "actualRegion": "aligned",
+            "mappingAvailable": true,
+            "error": 0.10335540771484375
+          },
+          {
+            "mediaTime": 103.833,
+            "expectedDelay": -70.0,
+            "actualDelay": -69.89664459228516,
+            "actualRegion": "aligned",
+            "mappingAvailable": true,
+            "error": 0.10335540771484375
+          },
+          {
+            "mediaTime": 104.875,
+            "expectedDelay": -70.0,
+            "actualDelay": -69.89664459228516,
+            "actualRegion": "aligned",
+            "mappingAvailable": true,
+            "error": 0.10335540771484375
+          }
+        ],
+        "cueBoundaryRenderingValidated": false,
+        "backwardSeekValidated": false,
+        "satisfiesSceneDomainChecks": false,
+        "probeSha256": "155f3290cb63a8b27556f34a11559ccaf234cf30908f3ec471ff6f84ff87ee46",
+        "expectedTimelineSha256": "70ef67a058f97d8199c8006da9ea733628908bb8a76730e55c2c2effc66f2fe5"
+      }
+    }
+  },
+  "artifactSha256": {
+    "probe.dart": "828e7349df3c313728a5f44a74983b58e78ecd2aef81bbce9f9e759582011258",
+    "word_evidence.dart": "e93474b509a8f0a43faf21167e941e80f6983b786028d9c59062d562c06118cd",
+    "probe": "4b8ab31c9535566b8e7f9b0be2cdaa03b15bd69da555b5cad104a65a8136651e",
+    "assess.py": "f4a9eb2bb732794d843f0f7c7697fee7c82687b33fc4bc25749fda12811d7e40",
+    "acoustic_history.dart": "805e31d5acc152026ebc8e934e13f63b50ed91364b853c29e9e014943cd98f5e",
+    "native_engine.dart": "7c4fa8329cc3d9f84205270ff229f113f0c90c20c74aae3cf11c2d28aae246e0",
+    "acoustic_probe.dart": "1c48a129735cd9d61ebd9bb9f8364b88ca80adcf12cf04ab9ae21641bc9facdd",
+    "acoustic-probe": "4bc83523aa63b8cdc144c6c63f790d47e7a97a76410d2685e10e7b249ff6e9cf",
+    "check_history.dart": "342df1a6ab6692d1de04d3880e79585d193024f8bf9918a04eb30c7b12b97bee",
+    "rank_causal.py": "3682a9144e98d11b124057cb000fd5c66100b1a1944c144015ad83cc3e2ac1e3",
+    "history-check-count-corrected.log": "b35a690c92ebc22714004125d069ee3ef90191eb750d3529972456ddcbbcfac2"
+  },
+  "historyChecks": {
+    "passed": 9,
+    "checks": [
+      "known spectral change timing",
+      "duplicate snapshot",
+      "overlapping snapshot tick uniqueness",
+      "generation reset",
+      "continuity reset",
+      "dropped-block reset",
+      "nonfinite PCM reset",
+      "frame count bound",
+      "time horizon bound"
+    ],
+    "initialOutputLabelCorrection": "The first successful check log said seven; the script contained nine assertions. The output label was corrected and all nine rerun successfully."
+  },
+  "conclusions": [
+    "Normal active analysis yields the crossing cue word flank only through adjacent context; extra post-hoc decoding is not necessary to obtain that single observation.",
+    "The earlier two-recognition before-flank condition is not satisfied by the normal cadence on either insertion. Context reuse is not counted as independent recognition.",
+    "With live bounded acoustic features, the highest spectral-tilt proposals remain 36.25/66.39 and 35.18/64.98 seconds, respectively 0.14 and 0.68 seconds from the authored hard-edit boundaries.",
+    "Those proposals are only available at media 84.042 and 69.625 seconds, after post-edit mapping confirmation. They do not fix first-playback suppression.",
+    "Feature collection peaks at 2.557/2.709 ms per activity call in these diagnostic runs, about 0.200 seconds total per 105-second run. This is not full application CPU/GPU/memory or playback-impact proof.",
+    "Both actual scene assessments still fail: no learned gaps and tracking p95 approximately 30.2 seconds."
+  ],
+  "nextRequiredEvidence": [
+    "Keep numeric proposals separate from confirmed gaps.",
+    "Calibrate ambiguity rejection on additional development edits and negative controls, including continuous audio and crossfades, before consuming held-out fixtures.",
+    "Design causal absence detection separately from later boundary recovery; do not exclude errors before recovery to make the frozen p95 pass."
+  ],
+  "installedApplicationChanged": false,
+  "acceptedForProduction": false,
+  "fullProductAcceptance": false,
+  "pcmOrTranscriptPersisted": false
+}
