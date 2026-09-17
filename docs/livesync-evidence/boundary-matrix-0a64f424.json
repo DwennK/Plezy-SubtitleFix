@@ -1,0 +1,3216 @@
+{
+  "schema": 1,
+  "sourceSha": "0a64f4247ea88fc1a80781782094bf354fa0a909",
+  "fixtureDefinitionCommit": "ef8201f8",
+  "probeBuildSourceSha": "4a922dc6f7e00a5ea40f5903b3ed4088b00177e1",
+  "probeBuildSourceShaNote": "run.json sourceSha records the worktree head at report completion. Recognition/native source files were unchanged by the subsequent fixture-only commits.",
+  "frozenManifestSha256": "c415c844a4e729b653460325b29107bf2f1f0f7ba5d3541090807e709b4b7079",
+  "probeSha256": "4bc83523aa63b8cdc144c6c63f790d47e7a97a76410d2685e10e7b249ff6e9cf",
+  "methodUnchangedFrom": "docs/livesync-evidence/causal-boundaries-4a922dc6.json",
+  "matrixScope": "Four fixed consumed-development cases: two edit positions, fades through silence at the original crossing edit, and uninterrupted audio with paired gain changes. This does not validate overlapping crossfades or held-out accuracy.",
+  "summary": [
+    {
+      "case": "insert-earlier",
+      "initialAcquisitionMs": 21497,
+      "confirmedSegments": 2,
+      "learnedGaps": [],
+      "constantOffsetOraclePassed": false,
+      "sceneAssessmentPassed": false,
+      "sceneRecoverySeconds": 17.417,
+      "sceneTrackingP95Seconds": 30.21495819091797,
+      "proposalUnavailableReason": null,
+      "proposalAvailableMediaTime": 69.583,
+      "topProposalMaximumErrorsSeconds": {
+        "energyChange": 0.4099999999999966,
+        "spectralTiltChange": 0.28999999999999915,
+        "sampleShock": 0.23000000000000043
+      }
+    },
+    {
+      "case": "insert-later",
+      "initialAcquisitionMs": 21491,
+      "confirmedSegments": 1,
+      "learnedGaps": [],
+      "constantOffsetOraclePassed": true,
+      "sceneAssessmentPassed": false,
+      "sceneRecoverySeconds": null,
+      "sceneTrackingP95Seconds": 30.219627380371094,
+      "proposalUnavailableReason": "no confirmed mapping jump",
+      "proposalAvailableMediaTime": null,
+      "topProposalMaximumErrorsSeconds": {}
+    },
+    {
+      "case": "insert-fade-through-silence",
+      "initialAcquisitionMs": 21680,
+      "confirmedSegments": 2,
+      "learnedGaps": [],
+      "constantOffsetOraclePassed": false,
+      "sceneAssessmentPassed": false,
+      "sceneRecoverySeconds": 18.542,
+      "sceneTrackingP95Seconds": 30.21429443359375,
+      "proposalUnavailableReason": null,
+      "proposalAvailableMediaTime": 83.958,
+      "topProposalMaximumErrorsSeconds": {
+        "energyChange": 0.030000000000001137,
+        "spectralTiltChange": 0.14000000000000057,
+        "sampleShock": 0.10999999999999943
+      }
+    },
+    {
+      "case": "continuous-paired-gain",
+      "initialAcquisitionMs": 21595,
+      "confirmedSegments": 1,
+      "learnedGaps": [],
+      "constantOffsetOraclePassed": true,
+      "sceneAssessmentPassed": null,
+      "sceneRecoverySeconds": null,
+      "sceneTrackingP95Seconds": null,
+      "proposalUnavailableReason": "no confirmed mapping jump",
+      "proposalAvailableMediaTime": null,
+      "topProposalMaximumErrorsSeconds": {},
+      "continuousControlTrackingP95Seconds": 0.2050018310546875
+    }
+  ],
+  "cases": [
+    {
+      "case": "insert-earlier",
+      "reports": {
+        "fixture-provenance.json": {
+          "sha256": "65e7d8f0c974e834c498e226d6c25e76a96384ad743bee4f6608ce5aa63f31a4",
+          "data": {
+            "sourceManifest": {
+              "schemaVersion": 1,
+              "id": "boundary-development-matrix-v1",
+              "role": "development-regression-only",
+              "mainSource": {
+                "id": "sintel-stereo-en",
+                "media": {
+                  "name": "sintel-master-st.flac",
+                  "url": "https://media.xiph.org/sintel/sintel-master-st.flac",
+                  "bytes": 71533398,
+                  "sha256": "49b279400b6fcad23f6a8862ae65a2a22f21f249cd7576b09991880da221412b",
+                  "checksumSource": "https://media.xiph.org/sintel/SHA256SUMS.txt"
+                },
+                "subtitles": {
+                  "name": "sintel_en.srt",
+                  "url": "https://media.xiph.org/sintel/subtitles/sintel_en.srt",
+                  "bytes": 1514,
+                  "sha256": "4ed7e1f1bc5ff69fe33606960e4c048ba6766237bf33b132fef76e1a92cb64b2"
+                },
+                "attribution": "Copyright (c) Blender Foundation | durian.blender.org",
+                "license": "CC-BY-3.0",
+                "licenseUrl": "https://creativecommons.org/licenses/by/3.0/",
+                "partitionSeconds": [
+                  100,
+                  175
+                ]
+              },
+              "insertSource": {
+                "id": "elephants-dream-commons-en",
+                "media": {
+                  "name": "Elephants_Dream.ogv",
+                  "url": "https://upload.wikimedia.org/wikipedia/commons/d/d5/Elephants_Dream.ogv",
+                  "sourcePage": "https://commons.wikimedia.org/wiki/File:Elephants_Dream.ogv",
+                  "publishedAt": "2009-12-24T02:08:36Z",
+                  "bytes": 35614993,
+                  "sha256": "a4b7c7888645d54255a2eeb0d509146b83761b1ac03dd0eff546994832fa3a18",
+                  "publishedSha1": "9a6272dc01919e2b891f0dadb8cbabf9a61d23ad",
+                  "license": "CC-BY-SA-2.5",
+                  "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.5/",
+                  "attribution": "(c) copyright 2006, Blender Foundation / Netherlands Media Art Institute / www.elephantsdream.org; Commons Ogg encoding by Mdale"
+                },
+                "partitionSeconds": [
+                  14,
+                  44
+                ]
+              },
+              "sampleRate": 48000,
+              "channels": 2,
+              "sampleFormat": "signed-16-bit-little-endian",
+              "cases": {
+                "insert-earlier": {
+                  "kind": "insert",
+                  "atSubtitleSeconds": 122.5
+                },
+                "insert-later": {
+                  "kind": "insert",
+                  "atSubtitleSeconds": 148.75
+                },
+                "insert-fade-through-silence": {
+                  "kind": "insert",
+                  "atSubtitleSeconds": 136.25,
+                  "gainEnvelope": [
+                    [
+                      0,
+                      1
+                    ],
+                    [
+                      36.15,
+                      1
+                    ],
+                    [
+                      36.25,
+                      0
+                    ],
+                    [
+                      36.35,
+                      1
+                    ],
+                    [
+                      66.15,
+                      1
+                    ],
+                    [
+                      66.25,
+                      0
+                    ],
+                    [
+                      66.35,
+                      1
+                    ],
+                    [
+                      105,
+                      1
+                    ]
+                  ]
+                },
+                "continuous-paired-gain": {
+                  "kind": "continuous",
+                  "gainEnvelope": [
+                    [
+                      0,
+                      1
+                    ],
+                    [
+                      23.999979166666666,
+                      1
+                    ],
+                    [
+                      24,
+                      0.25
+                    ],
+                    [
+                      53.99997916666667,
+                      0.25
+                    ],
+                    [
+                      54,
+                      1
+                    ],
+                    [
+                      75,
+                      1
+                    ]
+                  ]
+                }
+              },
+              "reference": "Exact sample-domain transforms with the full unchanged original SRT. The fade case uses 100 ms fade-out/fade-in around each nominal edit, not an overlapping crossfade. The continuous control changes gain without inserting or removing audio.",
+              "heldoutStatus": "All used partitions were previously consumed for development. Elephants Dream 360-540 s remains untouched.",
+              "sourceMaterialDecodedOnlyForFixturePreparation": true,
+              "inferencePerformed": false,
+              "evaluation": "Freeze the four cases before recognition. Keep the existing matcher, cadence and three acoustic feature rankings unchanged; assess missing proposals as unavailable, never fabricate gap confirmation. This is additional development evidence, not held-out acceptance."
+            },
+            "sourceManifestSha256": "c415c844a4e729b653460325b29107bf2f1f0f7ba5d3541090807e709b4b7079",
+            "case": "insert-earlier",
+            "sampleCopies": [
+              [
+                "main",
+                0,
+                1080000
+              ],
+              [
+                "insert",
+                0,
+                1440000
+              ],
+              [
+                "main",
+                1080000,
+                3600000
+              ]
+            ],
+            "inferencePerformed": false,
+            "fullFilmDecoded": false,
+            "expectedFrames": 5040000,
+            "durationSeconds": 105.0,
+            "ffmpeg": "ffmpeg version 9.0.1 Copyright (c) 2000-2026 the FFmpeg developers",
+            "files": {
+              "fixture.wav": "78e85b39d97d6ef895fe437e521e971b791ed9bfa45c66c2b73e2feda80ca18c",
+              "fixture.srt": "4ed7e1f1bc5ff69fe33606960e4c048ba6766237bf33b132fef76e1a92cb64b2",
+              "expected-timeline.json": "89449cd52e2e999d9abdf65f6a5cb5406113f89047fa367bee43aacbce710b6a",
+              "ATTRIBUTION.txt": "963c5a12e51bdf9dbe2e1fab37072c657a8a752c2ffaa53b80a7d2789a20f51a",
+              "fixture.mkv": "0d734e1989e7164b007526aeda29f53b40375d369fa4ea7e478721d45726fe37"
+            }
+          }
+        },
+        "ranked.json": {
+          "sha256": "1069276f7494525c435a165146e6abf8c55a661dc354df368c4d063e989016c2",
+          "data": {
+            "kind": "active-PCM acoustic proposals constrained by observed matched words",
+            "probeSha256": "5af18b8d8da6cf8dff30c3c5674e1a9f4ed3a9fad181a331f1ee222fb0d0c1be",
+            "confirmedMappingAnalysis": 5,
+            "collection": {
+              "calls": 204,
+              "totalMicros": 199744,
+              "maximumMicros": 2956,
+              "peakFrames": 10415,
+              "maximumFrames": 18000,
+              "maximumSeconds": 180
+            },
+            "heldOutValidation": false,
+            "acceptedForProduction": false,
+            "fullProductAcceptance": false,
+            "pcmOrTranscriptPersisted": false,
+            "offsetDifference": 30.127312499999988,
+            "wordFlanks": {
+              "before": {
+                "subtitleWord": 24,
+                "lower": 21.317041666666665,
+                "upper": 22.017041666666668,
+                "onsetSpread": 0.0
+              },
+              "after": {
+                "subtitleWord": 29,
+                "lower": 54.782354166666664,
+                "upper": 55.48235416666667,
+                "onsetSpread": 0.0
+              }
+            },
+            "proposalAvailableMediaTime": 69.583,
+            "proposalAvailableElapsedMs": 69575,
+            "sourceWordObservationsRequireRepeatedDecoding": false,
+            "boundarySearchConstraints": {
+              "startAtLeast": 21.317041666666665,
+              "endAtMost": 55.48235416666667
+            },
+            "proposals": {
+              "energyChange": [
+                {
+                  "start": 22.5,
+                  "end": 52.91,
+                  "score": 1.3037512329540892,
+                  "durationResidual": 0.28268750000000864,
+                  "maximumBoundaryError": 0.4099999999999966
+                },
+                {
+                  "start": 24.49,
+                  "end": 55.07,
+                  "score": 1.1688819352550521,
+                  "durationResidual": 0.4526875000000139,
+                  "maximumBoundaryError": 2.5700000000000003
+                },
+                {
+                  "start": 25.49,
+                  "end": 55.07,
+                  "score": 1.1688819352550521,
+                  "durationResidual": -0.5473124999999861,
+                  "maximumBoundaryError": 2.9899999999999984
+                },
+                {
+                  "start": 21.32,
+                  "end": 50.89,
+                  "score": 0.6469806763682038,
+                  "durationResidual": -0.5573124999999877,
+                  "maximumBoundaryError": 1.6099999999999994
+                },
+                {
+                  "start": 23.61,
+                  "end": 54.11,
+                  "score": 0.605203396090263,
+                  "durationResidual": 0.37268750000001205,
+                  "maximumBoundaryError": 1.6099999999999994
+                },
+                {
+                  "start": 24.11,
+                  "end": 54.11,
+                  "score": 0.605203396090263,
+                  "durationResidual": -0.12731249999998795,
+                  "maximumBoundaryError": 1.6099999999999994
+                },
+                {
+                  "start": 24.61,
+                  "end": 54.11,
+                  "score": 0.605203396090263,
+                  "durationResidual": -0.627312499999988,
+                  "maximumBoundaryError": 2.1099999999999994
+                },
+                {
+                  "start": 23.6,
+                  "end": 53.13,
+                  "score": 0.5700966125935206,
+                  "durationResidual": -0.5973124999999868,
+                  "maximumBoundaryError": 1.1000000000000014
+                },
+                {
+                  "start": 21.92,
+                  "end": 52.66,
+                  "score": 0.49575199903822403,
+                  "durationResidual": 0.6126875000000069,
+                  "maximumBoundaryError": 0.5799999999999983
+                },
+                {
+                  "start": 21.32,
+                  "end": 51.72,
+                  "score": 0.46302365683183033,
+                  "durationResidual": 0.27268750000001063,
+                  "maximumBoundaryError": 1.1799999999999997
+                }
+              ],
+              "spectralTiltChange": [
+                {
+                  "start": 22.21,
+                  "end": 52.66,
+                  "score": 1.4738959084216563,
+                  "durationResidual": 0.3226875000000078,
+                  "maximumBoundaryError": 0.28999999999999915
+                },
+                {
+                  "start": 25.29,
+                  "end": 55.09,
+                  "score": 1.244682531835691,
+                  "durationResidual": -0.3273124999999837,
+                  "maximumBoundaryError": 2.789999999999999
+                },
+                {
+                  "start": 24.65,
+                  "end": 55.08,
+                  "score": 1.1857399836600124,
+                  "durationResidual": 0.30268750000001177,
+                  "maximumBoundaryError": 2.5799999999999983
+                },
+                {
+                  "start": 23.18,
+                  "end": 52.62,
+                  "score": 1.0255257502610893,
+                  "durationResidual": -0.6873124999999902,
+                  "maximumBoundaryError": 0.6799999999999997
+                },
+                {
+                  "start": 25.83,
+                  "end": 55.32,
+                  "score": 0.7700475861321227,
+                  "durationResidual": -0.637312499999986,
+                  "maximumBoundaryError": 3.3299999999999983
+                },
+                {
+                  "start": 21.33,
+                  "end": 51.39,
+                  "score": 0.74660743886953,
+                  "durationResidual": -0.06731249999998568,
+                  "maximumBoundaryError": 1.1700000000000017
+                },
+                {
+                  "start": 21.33,
+                  "end": 50.76,
+                  "score": 0.6567640795243082,
+                  "durationResidual": -0.6973124999999882,
+                  "maximumBoundaryError": 1.740000000000002
+                },
+                {
+                  "start": 23.13,
+                  "end": 53.84,
+                  "score": 0.6131612370113014,
+                  "durationResidual": 0.5826875000000165,
+                  "maximumBoundaryError": 1.3400000000000034
+                },
+                {
+                  "start": 23.68,
+                  "end": 53.84,
+                  "score": 0.6131612370113014,
+                  "durationResidual": 0.032687500000015746,
+                  "maximumBoundaryError": 1.3400000000000034
+                },
+                {
+                  "start": 24.4,
+                  "end": 53.84,
+                  "score": 0.6131612370113014,
+                  "durationResidual": -0.6873124999999831,
+                  "maximumBoundaryError": 1.8999999999999986
+                }
+              ],
+              "sampleShock": [
+                {
+                  "start": 22.27,
+                  "end": 52.62,
+                  "score": 4.8507945963382415,
+                  "durationResidual": 0.22268750000000992,
+                  "maximumBoundaryError": 0.23000000000000043
+                },
+                {
+                  "start": 22.33,
+                  "end": 53.14,
+                  "score": 4.528624159135619,
+                  "durationResidual": 0.6826875000000143,
+                  "maximumBoundaryError": 0.6400000000000006
+                },
+                {
+                  "start": 24.46,
+                  "end": 54.83,
+                  "score": 3.7972465422145043,
+                  "durationResidual": 0.2426875000000095,
+                  "maximumBoundaryError": 2.3299999999999983
+                },
+                {
+                  "start": 21.73,
+                  "end": 52.55,
+                  "score": 3.697595707913315,
+                  "durationResidual": 0.6926875000000088,
+                  "maximumBoundaryError": 0.7699999999999996
+                },
+                {
+                  "start": 25.89,
+                  "end": 55.46,
+                  "score": 2.5285271454579004,
+                  "durationResidual": -0.5573124999999877,
+                  "maximumBoundaryError": 3.3900000000000006
+                },
+                {
+                  "start": 25.2,
+                  "end": 54.7,
+                  "score": 2.2998157245158124,
+                  "durationResidual": -0.6273124999999844,
+                  "maximumBoundaryError": 2.6999999999999993
+                },
+                {
+                  "start": 25.2,
+                  "end": 55.21,
+                  "score": 2.2998157245158124,
+                  "durationResidual": -0.11731249999998639,
+                  "maximumBoundaryError": 2.710000000000001
+                },
+                {
+                  "start": 21.35,
+                  "end": 51.43,
+                  "score": 2.2404295884687673,
+                  "durationResidual": -0.047312499999989654,
+                  "maximumBoundaryError": 1.1499999999999986
+                },
+                {
+                  "start": 24.46,
+                  "end": 54.0,
+                  "score": 2.076523459100982,
+                  "durationResidual": -0.5873124999999888,
+                  "maximumBoundaryError": 1.9600000000000009
+                },
+                {
+                  "start": 22.05,
+                  "end": 51.48,
+                  "score": 1.825752792426034,
+                  "durationResidual": -0.6973124999999918,
+                  "maximumBoundaryError": 1.0200000000000031
+                }
+              ]
+            },
+            "trueBoundaries": [
+              22.5,
+              52.5
+            ],
+            "limitations": [
+              "Single matched-word onsets constrain proposals; they do not establish precise word boundaries or confirmed absent dialogue.",
+              "Only consumed hard-edit development fixtures; ambiguity rejection and negative specificity are not calibrated.",
+              "Proposals become available after post-edit mapping confirmation and do not improve first-playback suppression.",
+              "Features come from bounded live snapshots; current output is a numeric diagnostic. No application suppression or cache learning is enabled."
+            ]
+          }
+        },
+        "assessment.json": {
+          "sha256": "118a9eaa932e79b9a01b8cb0685444f8ed76745b812a33721be5422e277080ea",
+          "data": {
+            "scope": "native PCM/ASR and domain tracking only; no production controller or renderer claim",
+            "initialAcquisitionBeforeEdit": true,
+            "postEditRecoveryMediaSeconds": 17.417,
+            "alignedTrackingMedianErrorSeconds": 0.09235382080078125,
+            "alignedTrackingP95ErrorSeconds": 30.21495819091797,
+            "alignedSampleCount": 52,
+            "gapChecks": [
+              {
+                "expected": {
+                  "kind": "videoOnly",
+                  "start": 22.5,
+                  "end": 52.5
+                },
+                "matched": false
+              }
+            ],
+            "unexpectedGapCount": 0,
+            "gapPlaybackSamples": [
+              {
+                "mediaTime": 22.666999999999998,
+                "actualRegion": "aligned"
+              },
+              {
+                "mediaTime": 23.666999999999998,
+                "actualRegion": "aligned"
+              },
+              {
+                "mediaTime": 24.666999999999998,
+                "actualRegion": "aligned"
+              },
+              {
+                "mediaTime": 25.708,
+                "actualRegion": "aligned"
+              },
+              {
+                "mediaTime": 26.75,
+                "actualRegion": "aligned"
+              },
+              {
+                "mediaTime": 27.791999999999998,
+                "actualRegion": "aligned"
+              },
+              {
+                "mediaTime": 28.791999999999998,
+                "actualRegion": "aligned"
+              },
+              {
+                "mediaTime": 29.833,
+                "actualRegion": "aligned"
+              },
+              {
+                "mediaTime": 30.875,
+                "actualRegion": "aligned"
+              },
+              {
+                "mediaTime": 31.875,
+                "actualRegion": "aligned"
+              },
+              {
+                "mediaTime": 32.917,
+                "actualRegion": "aligned"
+              },
+              {
+                "mediaTime": 33.958,
+                "actualRegion": "aligned"
+              },
+              {
+                "mediaTime": 34.958,
+                "actualRegion": "aligned"
+              },
+              {
+                "mediaTime": 36.0,
+                "actualRegion": "aligned"
+              },
+              {
+                "mediaTime": 37.042,
+                "actualRegion": "aligned"
+              },
+              {
+                "mediaTime": 38.042,
+                "actualRegion": "aligned"
+              },
+              {
+                "mediaTime": 39.083,
+                "actualRegion": "aligned"
+              },
+              {
+                "mediaTime": 40.125,
+                "actualRegion": "aligned"
+              },
+              {
+                "mediaTime": 41.125,
+                "actualRegion": "aligned"
+              },
+              {
+                "mediaTime": 42.167,
+                "actualRegion": "aligned"
+              },
+              {
+                "mediaTime": 43.208,
+                "actualRegion": "aligned"
+              },
+              {
+                "mediaTime": 44.25,
+                "actualRegion": "aligned"
+              },
+              {
+                "mediaTime": 45.25,
+                "actualRegion": "aligned"
+              },
+              {
+                "mediaTime": 46.291999999999994,
+                "actualRegion": "aligned"
+              },
+              {
+                "mediaTime": 47.291999999999994,
+                "actualRegion": "aligned"
+              },
+              {
+                "mediaTime": 48.333,
+                "actualRegion": "aligned"
+              },
+              {
+                "mediaTime": 49.375,
+                "actualRegion": "aligned"
+              },
+              {
+                "mediaTime": 50.375,
+                "actualRegion": "aligned"
+              },
+              {
+                "mediaTime": 51.416999999999994,
+                "actualRegion": "aligned"
+              },
+              {
+                "mediaTime": 52.416999999999994,
+                "actualRegion": "aligned"
+              }
+            ],
+            "alignedPlaybackSamples": [
+              {
+                "mediaTime": 21.625,
+                "expectedDelay": -100.0,
+                "actualDelay": -100.2049560546875,
+                "actualRegion": "aligned",
+                "mappingAvailable": true,
+                "error": 0.2049560546875
+              },
+              {
+                "mediaTime": 53.458,
+                "expectedDelay": -70.0,
+                "actualDelay": -100.21495819091797,
+                "actualRegion": "aligned",
+                "mappingAvailable": true,
+                "error": 30.21495819091797
+              },
+              {
+                "mediaTime": 54.5,
+                "expectedDelay": -70.0,
+                "actualDelay": -100.21495819091797,
+                "actualRegion": "aligned",
+                "mappingAvailable": true,
+                "error": 30.21495819091797
+              },
+              {
+                "mediaTime": 55.5,
+                "expectedDelay": -70.0,
+                "actualDelay": -100.21495819091797,
+                "actualRegion": "aligned",
+                "mappingAvailable": true,
+                "error": 30.21495819091797
+              },
+              {
+                "mediaTime": 56.541999999999994,
+                "expectedDelay": -70.0,
+                "actualDelay": -100.21495819091797,
+                "actualRegion": "aligned",
+                "mappingAvailable": true,
+                "error": 30.21495819091797
+              },
+              {
+                "mediaTime": 57.583,
+                "expectedDelay": -70.0,
+                "actualDelay": -100.21495819091797,
+                "actualRegion": "aligned",
+                "mappingAvailable": true,
+                "error": 30.21495819091797
+              },
+              {
+                "mediaTime": 58.583,
+                "expectedDelay": -70.0,
+                "actualDelay": -100.21495819091797,
+                "actualRegion": "aligned",
+                "mappingAvailable": true,
+                "error": 30.21495819091797
+              },
+              {
+                "mediaTime": 59.625,
+                "expectedDelay": -70.0,
+                "actualDelay": -100.21495819091797,
+                "actualRegion": "aligned",
+                "mappingAvailable": true,
+                "error": 30.21495819091797
+              },
+              {
+                "mediaTime": 60.666999999999994,
+                "expectedDelay": -70.0,
+                "actualDelay": -100.21495819091797,
+                "actualRegion": "aligned",
+                "mappingAvailable": true,
+                "error": 30.21495819091797
+              },
+              {
+                "mediaTime": 61.666999999999994,
+                "expectedDelay": -70.0,
+                "actualDelay": -100.21495819091797,
+                "actualRegion": "aligned",
+                "mappingAvailable": true,
+                "error": 30.21495819091797
+              },
+              {
+                "mediaTime": 62.708,
+                "expectedDelay": -70.0,
+                "actualDelay": -100.21495819091797,
+                "actualRegion": "aligned",
+                "mappingAvailable": true,
+                "error": 30.21495819091797
+              },
+              {
+                "mediaTime": 63.75,
+                "expectedDelay": -70.0,
+                "actualDelay": -100.21495819091797,
+                "actualRegion": "aligned",
+                "mappingAvailable": true,
+                "error": 30.21495819091797
+              },
+              {
+                "mediaTime": 64.75,
+                "expectedDelay": -70.0,
+                "actualDelay": -100.21495819091797,
+                "actualRegion": "aligned",
+                "mappingAvailable": true,
+                "error": 30.21495819091797
+              },
+              {
+                "mediaTime": 65.792,
+                "expectedDelay": -70.0,
+                "actualDelay": -100.21495819091797,
+                "actualRegion": "aligned",
+                "mappingAvailable": true,
+                "error": 30.21495819091797
+              },
+              {
+                "mediaTime": 66.833,
+                "expectedDelay": -70.0,
+                "actualDelay": -100.21495819091797,
+                "actualRegion": "aligned",
+                "mappingAvailable": true,
+                "error": 30.21495819091797
+              },
+              {
+                "mediaTime": 67.875,
+                "expectedDelay": -70.0,
+                "actualDelay": -100.21495819091797,
+                "actualRegion": "aligned",
+                "mappingAvailable": true,
+                "error": 30.21495819091797
+              },
+              {
+                "mediaTime": 68.875,
+                "expectedDelay": -70.0,
+                "actualDelay": -100.21495819091797,
+                "actualRegion": "aligned",
+                "mappingAvailable": true,
+                "error": 30.21495819091797
+              },
+              {
+                "mediaTime": 69.917,
+                "expectedDelay": -70.0,
+                "actualDelay": -70.087646484375,
+                "actualRegion": "aligned",
+                "mappingAvailable": true,
+                "error": 0.087646484375
+              },
+              {
+                "mediaTime": 70.917,
+                "expectedDelay": -70.0,
+                "actualDelay": -70.087646484375,
+                "actualRegion": "aligned",
+                "mappingAvailable": true,
+                "error": 0.087646484375
+              },
+              {
+                "mediaTime": 71.958,
+                "expectedDelay": -70.0,
+                "actualDelay": -70.087646484375,
+                "actualRegion": "aligned",
+                "mappingAvailable": true,
+                "error": 0.087646484375
+              },
+              {
+                "mediaTime": 73.0,
+                "expectedDelay": -70.0,
+                "actualDelay": -70.087646484375,
+                "actualRegion": "aligned",
+                "mappingAvailable": true,
+                "error": 0.087646484375
+              },
+              {
+                "mediaTime": 74.0,
+                "expectedDelay": -70.0,
+                "actualDelay": -70.087646484375,
+                "actualRegion": "aligned",
+                "mappingAvailable": true,
+                "error": 0.087646484375
+              },
+              {
+                "mediaTime": 75.042,
+                "expectedDelay": -70.0,
+                "actualDelay": -70.087646484375,
+                "actualRegion": "aligned",
+                "mappingAvailable": true,
+                "error": 0.087646484375
+              },
+              {
+                "mediaTime": 76.083,
+                "expectedDelay": -70.0,
+                "actualDelay": -70.087646484375,
+                "actualRegion": "aligned",
+                "mappingAvailable": true,
+                "error": 0.087646484375
+              },
+              {
+                "mediaTime": 77.083,
+                "expectedDelay": -70.0,
+                "actualDelay": -70.087646484375,
+                "actualRegion": "aligned",
+                "mappingAvailable": true,
+                "error": 0.087646484375
+              },
+              {
+                "mediaTime": 78.125,
+                "expectedDelay": -70.0,
+                "actualDelay": -70.087646484375,
+                "actualRegion": "aligned",
+                "mappingAvailable": true,
+                "error": 0.087646484375
+              },
+              {
+                "mediaTime": 79.167,
+                "expectedDelay": -70.0,
+                "actualDelay": -70.087646484375,
+                "actualRegion": "aligned",
+                "mappingAvailable": true,
+                "error": 0.087646484375
+              },
+              {
+                "mediaTime": 80.208,
+                "expectedDelay": -70.0,
+                "actualDelay": -70.087646484375,
+                "actualRegion": "aligned",
+                "mappingAvailable": true,
+                "error": 0.087646484375
+              },
+              {
+                "mediaTime": 81.208,
+                "expectedDelay": -70.0,
+                "actualDelay": -70.087646484375,
+                "actualRegion": "aligned",
+                "mappingAvailable": true,
+                "error": 0.087646484375
+              },
+              {
+                "mediaTime": 82.25,
+                "expectedDelay": -70.0,
+                "actualDelay": -70.087646484375,
+                "actualRegion": "aligned",
+                "mappingAvailable": true,
+                "error": 0.087646484375
+              },
+              {
+                "mediaTime": 83.25,
+                "expectedDelay": -70.0,
+                "actualDelay": -70.087646484375,
+                "actualRegion": "aligned",
+                "mappingAvailable": true,
+                "error": 0.087646484375
+              },
+              {
+                "mediaTime": 84.292,
+                "expectedDelay": -70.0,
+                "actualDelay": -70.087646484375,
+                "actualRegion": "aligned",
+                "mappingAvailable": true,
+                "error": 0.087646484375
+              },
+              {
+                "mediaTime": 85.292,
+                "expectedDelay": -70.0,
+                "actualDelay": -70.087646484375,
+                "actualRegion": "aligned",
+                "mappingAvailable": true,
+                "error": 0.087646484375
+              },
+              {
+                "mediaTime": 86.333,
+                "expectedDelay": -70.0,
+                "actualDelay": -70.087646484375,
+                "actualRegion": "aligned",
+                "mappingAvailable": true,
+                "error": 0.087646484375
+              },
+              {
+                "mediaTime": 87.375,
+                "expectedDelay": -70.0,
+                "actualDelay": -70.087646484375,
+                "actualRegion": "aligned",
+                "mappingAvailable": true,
+                "error": 0.087646484375
+              },
+              {
+                "mediaTime": 88.375,
+                "expectedDelay": -70.0,
+                "actualDelay": -70.087646484375,
+                "actualRegion": "aligned",
+                "mappingAvailable": true,
+                "error": 0.087646484375
+              },
+              {
+                "mediaTime": 89.417,
+                "expectedDelay": -70.0,
+                "actualDelay": -70.087646484375,
+                "actualRegion": "aligned",
+                "mappingAvailable": true,
+                "error": 0.087646484375
+              },
+              {
+                "mediaTime": 90.458,
+                "expectedDelay": -70.0,
+                "actualDelay": -70.087646484375,
+                "actualRegion": "aligned",
+                "mappingAvailable": true,
+                "error": 0.087646484375
+              },
+              {
+                "mediaTime": 91.458,
+                "expectedDelay": -70.0,
+                "actualDelay": -70.087646484375,
+                "actualRegion": "aligned",
+                "mappingAvailable": true,
+                "error": 0.087646484375
+              },
+              {
+                "mediaTime": 92.5,
+                "expectedDelay": -70.0,
+                "actualDelay": -70.087646484375,
+                "actualRegion": "aligned",
+                "mappingAvailable": true,
+                "error": 0.087646484375
+              },
+              {
+                "mediaTime": 93.542,
+                "expectedDelay": -70.0,
+                "actualDelay": -70.087646484375,
+                "actualRegion": "aligned",
+                "mappingAvailable": true,
+                "error": 0.087646484375
+              },
+              {
+                "mediaTime": 94.542,
+                "expectedDelay": -70.0,
+                "actualDelay": -70.087646484375,
+                "actualRegion": "aligned",
+                "mappingAvailable": true,
+                "error": 0.087646484375
+              },
+              {
+                "mediaTime": 95.583,
+                "expectedDelay": -70.0,
+                "actualDelay": -69.90764617919922,
+                "actualRegion": "aligned",
+                "mappingAvailable": true,
+                "error": 0.09235382080078125
+              },
+              {
+                "mediaTime": 96.625,
+                "expectedDelay": -70.0,
+                "actualDelay": -69.90764617919922,
+                "actualRegion": "aligned",
+                "mappingAvailable": true,
+                "error": 0.09235382080078125
+              },
+              {
+                "mediaTime": 97.667,
+                "expectedDelay": -70.0,
+                "actualDelay": -69.90764617919922,
+                "actualRegion": "aligned",
+                "mappingAvailable": true,
+                "error": 0.09235382080078125
+              },
+              {
+                "mediaTime": 98.667,
+                "expectedDelay": -70.0,
+                "actualDelay": -69.90764617919922,
+                "actualRegion": "aligned",
+                "mappingAvailable": true,
+                "error": 0.09235382080078125
+              },
+              {
+                "mediaTime": 99.708,
+                "expectedDelay": -70.0,
+                "actualDelay": -69.90764617919922,
+                "actualRegion": "aligned",
+                "mappingAvailable": true,
+                "error": 0.09235382080078125
+              },
+              {
+                "mediaTime": 100.708,
+                "expectedDelay": -70.0,
+                "actualDelay": -69.90764617919922,
+                "actualRegion": "aligned",
+                "mappingAvailable": true,
+                "error": 0.09235382080078125
+              },
+              {
+                "mediaTime": 101.75,
+                "expectedDelay": -70.0,
+                "actualDelay": -69.90764617919922,
+                "actualRegion": "aligned",
+                "mappingAvailable": true,
+                "error": 0.09235382080078125
+              },
+              {
+                "mediaTime": 102.792,
+                "expectedDelay": -70.0,
+                "actualDelay": -69.90764617919922,
+                "actualRegion": "aligned",
+                "mappingAvailable": true,
+                "error": 0.09235382080078125
+              },
+              {
+                "mediaTime": 103.792,
+                "expectedDelay": -70.0,
+                "actualDelay": -69.90764617919922,
+                "actualRegion": "aligned",
+                "mappingAvailable": true,
+                "error": 0.09235382080078125
+              },
+              {
+                "mediaTime": 104.833,
+                "expectedDelay": -70.0,
+                "actualDelay": -69.90764617919922,
+                "actualRegion": "aligned",
+                "mappingAvailable": true,
+                "error": 0.09235382080078125
+              }
+            ],
+            "cueBoundaryRenderingValidated": false,
+            "backwardSeekValidated": false,
+            "satisfiesSceneDomainChecks": false,
+            "probeSha256": "5af18b8d8da6cf8dff30c3c5674e1a9f4ed3a9fad181a331f1ee222fb0d0c1be",
+            "expectedTimelineSha256": "89449cd52e2e999d9abdf65f6a5cb5406113f89047fa367bee43aacbce710b6a"
+          }
+        },
+        "run.json": {
+          "sha256": "85671d1f0645ffb14b048387fe2b4d46db2b1eccebc29960681084096612e95a",
+          "data": {
+            "case": "insert-earlier",
+            "probeExitCode": 255,
+            "wallSeconds": 105.12226937500236,
+            "sourceSha": "0a64f4247ea88fc1a80781782094bf354fa0a909",
+            "probeSha256": "4bc83523aa63b8cdc144c6c63f790d47e7a97a76410d2685e10e7b249ff6e9cf",
+            "fixtureSha256": "0d734e1989e7164b007526aeda29f53b40375d369fa4ea7e478721d45726fe37",
+            "manifestSha256": "c415c844a4e729b653460325b29107bf2f1f0f7ba5d3541090807e709b4b7079",
+            "subtitleBytesUnchanged": true,
+            "exactFrameCountVerified": true,
+            "acquisitionMs": 21497,
+            "learnedSegments": 2,
+            "learnedGaps": [],
+            "trackingErrorP95": 30.09235382080078,
+            "passed": false,
+            "collection": {
+              "calls": 204,
+              "totalMicros": 199744,
+              "maximumMicros": 2956,
+              "peakFrames": 10415,
+              "maximumFrames": 18000,
+              "maximumSeconds": 180
+            }
+          }
+        }
+      },
+      "probeReportSha256": "5af18b8d8da6cf8dff30c3c5674e1a9f4ed3a9fad181a331f1ee222fb0d0c1be"
+    },
+    {
+      "case": "insert-later",
+      "reports": {
+        "fixture-provenance.json": {
+          "sha256": "aed0851faf0f6967f8fc0e86f647e6ed4397102277ad60edbee3f92ac52cda52",
+          "data": {
+            "sourceManifest": {
+              "schemaVersion": 1,
+              "id": "boundary-development-matrix-v1",
+              "role": "development-regression-only",
+              "mainSource": {
+                "id": "sintel-stereo-en",
+                "media": {
+                  "name": "sintel-master-st.flac",
+                  "url": "https://media.xiph.org/sintel/sintel-master-st.flac",
+                  "bytes": 71533398,
+                  "sha256": "49b279400b6fcad23f6a8862ae65a2a22f21f249cd7576b09991880da221412b",
+                  "checksumSource": "https://media.xiph.org/sintel/SHA256SUMS.txt"
+                },
+                "subtitles": {
+                  "name": "sintel_en.srt",
+                  "url": "https://media.xiph.org/sintel/subtitles/sintel_en.srt",
+                  "bytes": 1514,
+                  "sha256": "4ed7e1f1bc5ff69fe33606960e4c048ba6766237bf33b132fef76e1a92cb64b2"
+                },
+                "attribution": "Copyright (c) Blender Foundation | durian.blender.org",
+                "license": "CC-BY-3.0",
+                "licenseUrl": "https://creativecommons.org/licenses/by/3.0/",
+                "partitionSeconds": [
+                  100,
+                  175
+                ]
+              },
+              "insertSource": {
+                "id": "elephants-dream-commons-en",
+                "media": {
+                  "name": "Elephants_Dream.ogv",
+                  "url": "https://upload.wikimedia.org/wikipedia/commons/d/d5/Elephants_Dream.ogv",
+                  "sourcePage": "https://commons.wikimedia.org/wiki/File:Elephants_Dream.ogv",
+                  "publishedAt": "2009-12-24T02:08:36Z",
+                  "bytes": 35614993,
+                  "sha256": "a4b7c7888645d54255a2eeb0d509146b83761b1ac03dd0eff546994832fa3a18",
+                  "publishedSha1": "9a6272dc01919e2b891f0dadb8cbabf9a61d23ad",
+                  "license": "CC-BY-SA-2.5",
+                  "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.5/",
+                  "attribution": "(c) copyright 2006, Blender Foundation / Netherlands Media Art Institute / www.elephantsdream.org; Commons Ogg encoding by Mdale"
+                },
+                "partitionSeconds": [
+                  14,
+                  44
+                ]
+              },
+              "sampleRate": 48000,
+              "channels": 2,
+              "sampleFormat": "signed-16-bit-little-endian",
+              "cases": {
+                "insert-earlier": {
+                  "kind": "insert",
+                  "atSubtitleSeconds": 122.5
+                },
+                "insert-later": {
+                  "kind": "insert",
+                  "atSubtitleSeconds": 148.75
+                },
+                "insert-fade-through-silence": {
+                  "kind": "insert",
+                  "atSubtitleSeconds": 136.25,
+                  "gainEnvelope": [
+                    [
+                      0,
+                      1
+                    ],
+                    [
+                      36.15,
+                      1
+                    ],
+                    [
+                      36.25,
+                      0
+                    ],
+                    [
+                      36.35,
+                      1
+                    ],
+                    [
+                      66.15,
+                      1
+                    ],
+                    [
+                      66.25,
+                      0
+                    ],
+                    [
+                      66.35,
+                      1
+                    ],
+                    [
+                      105,
+                      1
+                    ]
+                  ]
+                },
+                "continuous-paired-gain": {
+                  "kind": "continuous",
+                  "gainEnvelope": [
+                    [
+                      0,
+                      1
+                    ],
+                    [
+                      23.999979166666666,
+                      1
+                    ],
+                    [
+                      24,
+                      0.25
+                    ],
+                    [
+                      53.99997916666667,
+                      0.25
+                    ],
+                    [
+                      54,
+                      1
+                    ],
+                    [
+                      75,
+                      1
+                    ]
+                  ]
+                }
+              },
+              "reference": "Exact sample-domain transforms with the full unchanged original SRT. The fade case uses 100 ms fade-out/fade-in around each nominal edit, not an overlapping crossfade. The continuous control changes gain without inserting or removing audio.",
+              "heldoutStatus": "All used partitions were previously consumed for development. Elephants Dream 360-540 s remains untouched.",
+              "sourceMaterialDecodedOnlyForFixturePreparation": true,
+              "inferencePerformed": false,
+              "evaluation": "Freeze the four cases before recognition. Keep the existing matcher, cadence and three acoustic feature rankings unchanged; assess missing proposals as unavailable, never fabricate gap confirmation. This is additional development evidence, not held-out acceptance."
+            },
+            "sourceManifestSha256": "c415c844a4e729b653460325b29107bf2f1f0f7ba5d3541090807e709b4b7079",
+            "case": "insert-later",
+            "sampleCopies": [
+              [
+                "main",
+                0,
+                2340000
+              ],
+              [
+                "insert",
+                0,
+                1440000
+              ],
+              [
+                "main",
+                2340000,
+                3600000
+              ]
+            ],
+            "inferencePerformed": false,
+            "fullFilmDecoded": false,
+            "expectedFrames": 5040000,
+            "durationSeconds": 105.0,
+            "ffmpeg": "ffmpeg version 9.0.1 Copyright (c) 2000-2026 the FFmpeg developers",
+            "files": {
+              "fixture.wav": "cc8a2d41f8e859288aa2291abf9ce718576ddcf4071b4b44e8ce602cd14e2ef0",
+              "fixture.srt": "4ed7e1f1bc5ff69fe33606960e4c048ba6766237bf33b132fef76e1a92cb64b2",
+              "expected-timeline.json": "04015ca685a65b721ef394b12ed034e8697c72b15cd8f8f99ec6b96bd4b147cd",
+              "ATTRIBUTION.txt": "963c5a12e51bdf9dbe2e1fab37072c657a8a752c2ffaa53b80a7d2789a20f51a",
+              "fixture.mkv": "eb37ebd7073f3de19ea7322d613457d55d8ef964388f2d766e8045291aa64121"
+            }
+          }
+        },
+        "ranked.json": {
+          "sha256": "ba63ceb5524c9c449bacfcb13d2c33afa9bada7ca746bb7de93134412c315bd7",
+          "data": {
+            "kind": "active-PCM acoustic proposals constrained by observed matched words",
+            "probeSha256": "9f1840234c76a8eb8ad03bf33665dcab781b983e84ab65be40f6134af0e24b1d",
+            "confirmedMappingAnalysis": null,
+            "collection": {
+              "calls": 204,
+              "totalMicros": 198304,
+              "maximumMicros": 2703,
+              "peakFrames": 10407,
+              "maximumFrames": 18000,
+              "maximumSeconds": 180
+            },
+            "heldOutValidation": false,
+            "acceptedForProduction": false,
+            "fullProductAcceptance": false,
+            "pcmOrTranscriptPersisted": false,
+            "failure": "no confirmed mapping jump",
+            "limitations": [
+              "Single matched-word onsets constrain proposals; they do not establish precise word boundaries or confirmed absent dialogue.",
+              "Only consumed hard-edit development fixtures; ambiguity rejection and negative specificity are not calibrated.",
+              "Proposals become available after post-edit mapping confirmation and do not improve first-playback suppression.",
+              "Features come from bounded live snapshots; current output is a numeric diagnostic. No application suppression or cache learning is enabled."
+            ]
+          }
+        },
+        "assessment.json": {
+          "sha256": "5a5fd2bb7234bafdc47596baf84a616960fb15baa8cabbc42cf219989a263ccb",
+          "data": {
+            "scope": "native PCM/ASR and domain tracking only; no production controller or renderer claim",
+            "initialAcquisitionBeforeEdit": true,
+            "postEditRecoveryMediaSeconds": null,
+            "alignedTrackingMedianErrorSeconds": 0.21962738037109375,
+            "alignedTrackingP95ErrorSeconds": 30.219627380371094,
+            "alignedSampleCount": 53,
+            "gapChecks": [
+              {
+                "expected": {
+                  "kind": "videoOnly",
+                  "start": 48.75,
+                  "end": 78.75
+                },
+                "matched": false
+              }
+            ],
+            "unexpectedGapCount": 0,
+            "gapPlaybackSamples": [
+              {
+                "mediaTime": 49.375,
+                "actualRegion": "aligned"
+              },
+              {
+                "mediaTime": 50.416999999999994,
+                "actualRegion": "aligned"
+              },
+              {
+                "mediaTime": 51.416999999999994,
+                "actualRegion": "aligned"
+              },
+              {
+                "mediaTime": 52.458,
+                "actualRegion": "aligned"
+              },
+              {
+                "mediaTime": 53.458,
+                "actualRegion": "aligned"
+              },
+              {
+                "mediaTime": 54.5,
+                "actualRegion": "aligned"
+              },
+              {
+                "mediaTime": 55.541999999999994,
+                "actualRegion": "aligned"
+              },
+              {
+                "mediaTime": 56.541999999999994,
+                "actualRegion": "aligned"
+              },
+              {
+                "mediaTime": 57.583,
+                "actualRegion": "aligned"
+              },
+              {
+                "mediaTime": 58.625,
+                "actualRegion": "aligned"
+              },
+              {
+                "mediaTime": 59.625,
+                "actualRegion": "aligned"
+              },
+              {
+                "mediaTime": 60.666999999999994,
+                "actualRegion": "aligned"
+              },
+              {
+                "mediaTime": 61.708,
+                "actualRegion": "aligned"
+              },
+              {
+                "mediaTime": 62.708,
+                "actualRegion": "aligned"
+              },
+              {
+                "mediaTime": 63.75,
+                "actualRegion": "aligned"
+              },
+              {
+                "mediaTime": 64.792,
+                "actualRegion": "aligned"
+              },
+              {
+                "mediaTime": 65.833,
+                "actualRegion": "aligned"
+              },
+              {
+                "mediaTime": 66.833,
+                "actualRegion": "aligned"
+              },
+              {
+                "mediaTime": 67.875,
+                "actualRegion": "aligned"
+              },
+              {
+                "mediaTime": 68.875,
+                "actualRegion": "aligned"
+              },
+              {
+                "mediaTime": 69.917,
+                "actualRegion": "aligned"
+              },
+              {
+                "mediaTime": 70.958,
+                "actualRegion": "aligned"
+              },
+              {
+                "mediaTime": 72.0,
+                "actualRegion": "aligned"
+              },
+              {
+                "mediaTime": 73.0,
+                "actualRegion": "aligned"
+              },
+              {
+                "mediaTime": 74.042,
+                "actualRegion": "aligned"
+              },
+              {
+                "mediaTime": 75.042,
+                "actualRegion": "aligned"
+              },
+              {
+                "mediaTime": 76.083,
+                "actualRegion": "aligned"
+              },
+              {
+                "mediaTime": 77.125,
+                "actualRegion": "aligned"
+              },
+              {
+                "mediaTime": 78.125,
+                "actualRegion": "aligned"
+              }
+            ],
+            "alignedPlaybackSamples": [
+              {
+                "mediaTime": 21.625,
+                "expectedDelay": -100.0,
+                "actualDelay": -100.2196273803711,
+                "actualRegion": "aligned",
+                "mappingAvailable": true,
+                "error": 0.21962738037109375
+              },
+              {
+                "mediaTime": 22.625,
+                "expectedDelay": -100.0,
+                "actualDelay": -100.2196273803711,
+                "actualRegion": "aligned",
+                "mappingAvailable": true,
+                "error": 0.21962738037109375
+              },
+              {
+                "mediaTime": 23.666999999999998,
+                "expectedDelay": -100.0,
+                "actualDelay": -100.2196273803711,
+                "actualRegion": "aligned",
+                "mappingAvailable": true,
+                "error": 0.21962738037109375
+              },
+              {
+                "mediaTime": 24.708,
+                "expectedDelay": -100.0,
+                "actualDelay": -100.2196273803711,
+                "actualRegion": "aligned",
+                "mappingAvailable": true,
+                "error": 0.21962738037109375
+              },
+              {
+                "mediaTime": 25.708,
+                "expectedDelay": -100.0,
+                "actualDelay": -100.2196273803711,
+                "actualRegion": "aligned",
+                "mappingAvailable": true,
+                "error": 0.21962738037109375
+              },
+              {
+                "mediaTime": 26.75,
+                "expectedDelay": -100.0,
+                "actualDelay": -100.2196273803711,
+                "actualRegion": "aligned",
+                "mappingAvailable": true,
+                "error": 0.21962738037109375
+              },
+              {
+                "mediaTime": 27.791999999999998,
+                "expectedDelay": -100.0,
+                "actualDelay": -100.2196273803711,
+                "actualRegion": "aligned",
+                "mappingAvailable": true,
+                "error": 0.21962738037109375
+              },
+              {
+                "mediaTime": 28.791999999999998,
+                "expectedDelay": -100.0,
+                "actualDelay": -100.2196273803711,
+                "actualRegion": "aligned",
+                "mappingAvailable": true,
+                "error": 0.21962738037109375
+              },
+              {
+                "mediaTime": 29.833,
+                "expectedDelay": -100.0,
+                "actualDelay": -100.2196273803711,
+                "actualRegion": "aligned",
+                "mappingAvailable": true,
+                "error": 0.21962738037109375
+              },
+              {
+                "mediaTime": 30.875,
+                "expectedDelay": -100.0,
+                "actualDelay": -100.2196273803711,
+                "actualRegion": "aligned",
+                "mappingAvailable": true,
+                "error": 0.21962738037109375
+              },
+              {
+                "mediaTime": 31.875,
+                "expectedDelay": -100.0,
+                "actualDelay": -100.2196273803711,
+                "actualRegion": "aligned",
+                "mappingAvailable": true,
+                "error": 0.21962738037109375
+              },
+              {
+                "mediaTime": 32.917,
+                "expectedDelay": -100.0,
+                "actualDelay": -100.2196273803711,
+                "actualRegion": "aligned",
+                "mappingAvailable": true,
+                "error": 0.21962738037109375
+              },
+              {
+                "mediaTime": 33.958,
+                "expectedDelay": -100.0,
+                "actualDelay": -100.2196273803711,
+                "actualRegion": "aligned",
+                "mappingAvailable": true,
+                "error": 0.21962738037109375
+              },
+              {
+                "mediaTime": 34.958,
+                "expectedDelay": -100.0,
+                "actualDelay": -100.2196273803711,
+                "actualRegion": "aligned",
+                "mappingAvailable": true,
+                "error": 0.21962738037109375
+              },
+              {
+                "mediaTime": 36.0,
+                "expectedDelay": -100.0,
+                "actualDelay": -100.2196273803711,
+                "actualRegion": "aligned",
+                "mappingAvailable": true,
+                "error": 0.21962738037109375
+              },
+              {
+                "mediaTime": 37.042,
+                "expectedDelay": -100.0,
+                "actualDelay": -100.2196273803711,
+                "actualRegion": "aligned",
+                "mappingAvailable": true,
+                "error": 0.21962738037109375
+              },
+              {
+                "mediaTime": 38.042,
+                "expectedDelay": -100.0,
+                "actualDelay": -100.2196273803711,
+                "actualRegion": "aligned",
+                "mappingAvailable": true,
+                "error": 0.21962738037109375
+              },
+              {
+                "mediaTime": 39.083,
+                "expectedDelay": -100.0,
+                "actualDelay": -100.2196273803711,
+                "actualRegion": "aligned",
+                "mappingAvailable": true,
+                "error": 0.21962738037109375
+              },
+              {
+                "mediaTime": 40.125,
+                "expectedDelay": -100.0,
+                "actualDelay": -100.2196273803711,
+                "actualRegion": "aligned",
+                "mappingAvailable": true,
+                "error": 0.21962738037109375
+              },
+              {
+                "mediaTime": 41.167,
+                "expectedDelay": -100.0,
+                "actualDelay": -100.2196273803711,
+                "actualRegion": "aligned",
+                "mappingAvailable": true,
+                "error": 0.21962738037109375
+              },
+              {
+                "mediaTime": 42.167,
+                "expectedDelay": -100.0,
+                "actualDelay": -100.2196273803711,
+                "actualRegion": "aligned",
+                "mappingAvailable": true,
+                "error": 0.21962738037109375
+              },
+              {
+                "mediaTime": 43.208,
+                "expectedDelay": -100.0,
+                "actualDelay": -100.2196273803711,
+                "actualRegion": "aligned",
+                "mappingAvailable": true,
+                "error": 0.21962738037109375
+              },
+              {
+                "mediaTime": 44.25,
+                "expectedDelay": -100.0,
+                "actualDelay": -100.2196273803711,
+                "actualRegion": "aligned",
+                "mappingAvailable": true,
+                "error": 0.21962738037109375
+              },
+              {
+                "mediaTime": 45.25,
+                "expectedDelay": -100.0,
+                "actualDelay": -100.2196273803711,
+                "actualRegion": "aligned",
+                "mappingAvailable": true,
+                "error": 0.21962738037109375
+              },
+              {
+                "mediaTime": 46.291999999999994,
+                "expectedDelay": -100.0,
+                "actualDelay": -100.2196273803711,
+                "actualRegion": "aligned",
+                "mappingAvailable": true,
+                "error": 0.21962738037109375
+              },
+              {
+                "mediaTime": 47.333,
+                "expectedDelay": -100.0,
+                "actualDelay": -100.2196273803711,
+                "actualRegion": "aligned",
+                "mappingAvailable": true,
+                "error": 0.21962738037109375
+              },
+              {
+                "mediaTime": 48.333,
+                "expectedDelay": -100.0,
+                "actualDelay": -100.2196273803711,
+                "actualRegion": "aligned",
+                "mappingAvailable": true,
+                "error": 0.21962738037109375
+              },
+              {
+                "mediaTime": 79.167,
+                "expectedDelay": -70.0,
+                "actualDelay": -100.2196273803711,
+                "actualRegion": "aligned",
+                "mappingAvailable": true,
+                "error": 30.219627380371094
+              },
+              {
+                "mediaTime": 80.208,
+                "expectedDelay": -70.0,
+                "actualDelay": -100.2196273803711,
+                "actualRegion": "aligned",
+                "mappingAvailable": true,
+                "error": 30.219627380371094
+              },
+              {
+                "mediaTime": 81.25,
+                "expectedDelay": -70.0,
+                "actualDelay": -100.2196273803711,
+                "actualRegion": "aligned",
+                "mappingAvailable": true,
+                "error": 30.219627380371094
+              },
+              {
+                "mediaTime": 82.25,
+                "expectedDelay": -70.0,
+                "actualDelay": -100.2196273803711,
+                "actualRegion": "aligned",
+                "mappingAvailable": true,
+                "error": 30.219627380371094
+              },
+              {
+                "mediaTime": 83.292,
+                "expectedDelay": -70.0,
+                "actualDelay": -100.2196273803711,
+                "actualRegion": "aligned",
+                "mappingAvailable": true,
+                "error": 30.219627380371094
+              },
+              {
+                "mediaTime": 84.292,
+                "expectedDelay": -70.0,
+                "actualDelay": -100.2196273803711,
+                "actualRegion": "aligned",
+                "mappingAvailable": true,
+                "error": 30.219627380371094
+              },
+              {
+                "mediaTime": 85.333,
+                "expectedDelay": -70.0,
+                "actualDelay": -100.2196273803711,
+                "actualRegion": "aligned",
+                "mappingAvailable": true,
+                "error": 30.219627380371094
+              },
+              {
+                "mediaTime": 86.375,
+                "expectedDelay": -70.0,
+                "actualDelay": -100.2196273803711,
+                "actualRegion": "aligned",
+                "mappingAvailable": true,
+                "error": 30.219627380371094
+              },
+              {
+                "mediaTime": 87.375,
+                "expectedDelay": -70.0,
+                "actualDelay": -100.2196273803711,
+                "actualRegion": "aligned",
+                "mappingAvailable": true,
+                "error": 30.219627380371094
+              },
+              {
+                "mediaTime": 88.417,
+                "expectedDelay": -70.0,
+                "actualDelay": -100.2196273803711,
+                "actualRegion": "aligned",
+                "mappingAvailable": true,
+                "error": 30.219627380371094
+              },
+              {
+                "mediaTime": 89.417,
+                "expectedDelay": -70.0,
+                "actualDelay": -100.2196273803711,
+                "actualRegion": "aligned",
+                "mappingAvailable": true,
+                "error": 30.219627380371094
+              },
+              {
+                "mediaTime": 90.458,
+                "expectedDelay": -70.0,
+                "actualDelay": -100.2196273803711,
+                "actualRegion": "aligned",
+                "mappingAvailable": true,
+                "error": 30.219627380371094
+              },
+              {
+                "mediaTime": 91.5,
+                "expectedDelay": -70.0,
+                "actualDelay": -100.2196273803711,
+                "actualRegion": "aligned",
+                "mappingAvailable": true,
+                "error": 30.219627380371094
+              },
+              {
+                "mediaTime": 92.542,
+                "expectedDelay": -70.0,
+                "actualDelay": -100.2196273803711,
+                "actualRegion": "aligned",
+                "mappingAvailable": true,
+                "error": 30.219627380371094
+              },
+              {
+                "mediaTime": 93.542,
+                "expectedDelay": -70.0,
+                "actualDelay": -100.2196273803711,
+                "actualRegion": "aligned",
+                "mappingAvailable": true,
+                "error": 30.219627380371094
+              },
+              {
+                "mediaTime": 94.583,
+                "expectedDelay": -70.0,
+                "actualDelay": -100.2196273803711,
+                "actualRegion": "aligned",
+                "mappingAvailable": true,
+                "error": 30.219627380371094
+              },
+              {
+                "mediaTime": 95.625,
+                "expectedDelay": -70.0,
+                "actualDelay": -100.2196273803711,
+                "actualRegion": "aligned",
+                "mappingAvailable": true,
+                "error": 30.219627380371094
+              },
+              {
+                "mediaTime": 96.625,
+                "expectedDelay": -70.0,
+                "actualDelay": -100.2196273803711,
+                "actualRegion": "aligned",
+                "mappingAvailable": true,
+                "error": 30.219627380371094
+              },
+              {
+                "mediaTime": 97.667,
+                "expectedDelay": -70.0,
+                "actualDelay": -100.2196273803711,
+                "actualRegion": "aligned",
+                "mappingAvailable": true,
+                "error": 30.219627380371094
+              },
+              {
+                "mediaTime": 98.708,
+                "expectedDelay": -70.0,
+                "actualDelay": -100.2196273803711,
+                "actualRegion": "aligned",
+                "mappingAvailable": true,
+                "error": 30.219627380371094
+              },
+              {
+                "mediaTime": 99.708,
+                "expectedDelay": -70.0,
+                "actualDelay": -100.2196273803711,
+                "actualRegion": "aligned",
+                "mappingAvailable": true,
+                "error": 30.219627380371094
+              },
+              {
+                "mediaTime": 100.75,
+                "expectedDelay": -70.0,
+                "actualDelay": -100.2196273803711,
+                "actualRegion": "aligned",
+                "mappingAvailable": true,
+                "error": 30.219627380371094
+              },
+              {
+                "mediaTime": 101.792,
+                "expectedDelay": -70.0,
+                "actualDelay": -100.2196273803711,
+                "actualRegion": "aligned",
+                "mappingAvailable": true,
+                "error": 30.219627380371094
+              },
+              {
+                "mediaTime": 102.792,
+                "expectedDelay": -70.0,
+                "actualDelay": -100.2196273803711,
+                "actualRegion": "aligned",
+                "mappingAvailable": true,
+                "error": 30.219627380371094
+              },
+              {
+                "mediaTime": 103.833,
+                "expectedDelay": -70.0,
+                "actualDelay": -100.2196273803711,
+                "actualRegion": "aligned",
+                "mappingAvailable": true,
+                "error": 30.219627380371094
+              },
+              {
+                "mediaTime": 104.875,
+                "expectedDelay": -70.0,
+                "actualDelay": -100.2196273803711,
+                "actualRegion": "aligned",
+                "mappingAvailable": true,
+                "error": 30.219627380371094
+              }
+            ],
+            "cueBoundaryRenderingValidated": false,
+            "backwardSeekValidated": false,
+            "satisfiesSceneDomainChecks": false,
+            "probeSha256": "9f1840234c76a8eb8ad03bf33665dcab781b983e84ab65be40f6134af0e24b1d",
+            "expectedTimelineSha256": "04015ca685a65b721ef394b12ed034e8697c72b15cd8f8f99ec6b96bd4b147cd"
+          }
+        },
+        "run.json": {
+          "sha256": "48aa956645610b3aa6f3f736b53c85c0ea511952fe7d8b47079c9a0e678fd770",
+          "data": {
+            "case": "insert-later",
+            "probeExitCode": 0,
+            "wallSeconds": 105.14070516699576,
+            "sourceSha": "0a64f4247ea88fc1a80781782094bf354fa0a909",
+            "probeSha256": "4bc83523aa63b8cdc144c6c63f790d47e7a97a76410d2685e10e7b249ff6e9cf",
+            "fixtureSha256": "eb37ebd7073f3de19ea7322d613457d55d8ef964388f2d766e8045291aa64121",
+            "manifestSha256": "c415c844a4e729b653460325b29107bf2f1f0f7ba5d3541090807e709b4b7079",
+            "subtitleBytesUnchanged": true,
+            "exactFrameCountVerified": true,
+            "acquisitionMs": 21491,
+            "learnedSegments": 1,
+            "learnedGaps": [],
+            "trackingErrorP95": 0.21962738037109375,
+            "passed": true,
+            "collection": {
+              "calls": 204,
+              "totalMicros": 198304,
+              "maximumMicros": 2703,
+              "peakFrames": 10407,
+              "maximumFrames": 18000,
+              "maximumSeconds": 180
+            }
+          }
+        }
+      },
+      "probeReportSha256": "9f1840234c76a8eb8ad03bf33665dcab781b983e84ab65be40f6134af0e24b1d"
+    },
+    {
+      "case": "insert-fade-through-silence",
+      "reports": {
+        "fixture-provenance.json": {
+          "sha256": "5a523ba27cd4778dfc3235ad6c7f8b6dddf072ce48251b4cd49541c9ddeb5127",
+          "data": {
+            "sourceManifest": {
+              "schemaVersion": 1,
+              "id": "boundary-development-matrix-v1",
+              "role": "development-regression-only",
+              "mainSource": {
+                "id": "sintel-stereo-en",
+                "media": {
+                  "name": "sintel-master-st.flac",
+                  "url": "https://media.xiph.org/sintel/sintel-master-st.flac",
+                  "bytes": 71533398,
+                  "sha256": "49b279400b6fcad23f6a8862ae65a2a22f21f249cd7576b09991880da221412b",
+                  "checksumSource": "https://media.xiph.org/sintel/SHA256SUMS.txt"
+                },
+                "subtitles": {
+                  "name": "sintel_en.srt",
+                  "url": "https://media.xiph.org/sintel/subtitles/sintel_en.srt",
+                  "bytes": 1514,
+                  "sha256": "4ed7e1f1bc5ff69fe33606960e4c048ba6766237bf33b132fef76e1a92cb64b2"
+                },
+                "attribution": "Copyright (c) Blender Foundation | durian.blender.org",
+                "license": "CC-BY-3.0",
+                "licenseUrl": "https://creativecommons.org/licenses/by/3.0/",
+                "partitionSeconds": [
+                  100,
+                  175
+                ]
+              },
+              "insertSource": {
+                "id": "elephants-dream-commons-en",
+                "media": {
+                  "name": "Elephants_Dream.ogv",
+                  "url": "https://upload.wikimedia.org/wikipedia/commons/d/d5/Elephants_Dream.ogv",
+                  "sourcePage": "https://commons.wikimedia.org/wiki/File:Elephants_Dream.ogv",
+                  "publishedAt": "2009-12-24T02:08:36Z",
+                  "bytes": 35614993,
+                  "sha256": "a4b7c7888645d54255a2eeb0d509146b83761b1ac03dd0eff546994832fa3a18",
+                  "publishedSha1": "9a6272dc01919e2b891f0dadb8cbabf9a61d23ad",
+                  "license": "CC-BY-SA-2.5",
+                  "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.5/",
+                  "attribution": "(c) copyright 2006, Blender Foundation / Netherlands Media Art Institute / www.elephantsdream.org; Commons Ogg encoding by Mdale"
+                },
+                "partitionSeconds": [
+                  14,
+                  44
+                ]
+              },
+              "sampleRate": 48000,
+              "channels": 2,
+              "sampleFormat": "signed-16-bit-little-endian",
+              "cases": {
+                "insert-earlier": {
+                  "kind": "insert",
+                  "atSubtitleSeconds": 122.5
+                },
+                "insert-later": {
+                  "kind": "insert",
+                  "atSubtitleSeconds": 148.75
+                },
+                "insert-fade-through-silence": {
+                  "kind": "insert",
+                  "atSubtitleSeconds": 136.25,
+                  "gainEnvelope": [
+                    [
+                      0,
+                      1
+                    ],
+                    [
+                      36.15,
+                      1
+                    ],
+                    [
+                      36.25,
+                      0
+                    ],
+                    [
+                      36.35,
+                      1
+                    ],
+                    [
+                      66.15,
+                      1
+                    ],
+                    [
+                      66.25,
+                      0
+                    ],
+                    [
+                      66.35,
+                      1
+                    ],
+                    [
+                      105,
+                      1
+                    ]
+                  ]
+                },
+                "continuous-paired-gain": {
+                  "kind": "continuous",
+                  "gainEnvelope": [
+                    [
+                      0,
+                      1
+                    ],
+                    [
+                      23.999979166666666,
+                      1
+                    ],
+                    [
+                      24,
+                      0.25
+                    ],
+                    [
+                      53.99997916666667,
+                      0.25
+                    ],
+                    [
+                      54,
+                      1
+                    ],
+                    [
+                      75,
+                      1
+                    ]
+                  ]
+                }
+              },
+              "reference": "Exact sample-domain transforms with the full unchanged original SRT. The fade case uses 100 ms fade-out/fade-in around each nominal edit, not an overlapping crossfade. The continuous control changes gain without inserting or removing audio.",
+              "heldoutStatus": "All used partitions were previously consumed for development. Elephants Dream 360-540 s remains untouched.",
+              "sourceMaterialDecodedOnlyForFixturePreparation": true,
+              "inferencePerformed": false,
+              "evaluation": "Freeze the four cases before recognition. Keep the existing matcher, cadence and three acoustic feature rankings unchanged; assess missing proposals as unavailable, never fabricate gap confirmation. This is additional development evidence, not held-out acceptance."
+            },
+            "sourceManifestSha256": "c415c844a4e729b653460325b29107bf2f1f0f7ba5d3541090807e709b4b7079",
+            "case": "insert-fade-through-silence",
+            "sampleCopies": [
+              [
+                "main",
+                0,
+                1740000
+              ],
+              [
+                "insert",
+                0,
+                1440000
+              ],
+              [
+                "main",
+                1740000,
+                3600000
+              ]
+            ],
+            "inferencePerformed": false,
+            "fullFilmDecoded": false,
+            "expectedFrames": 5040000,
+            "durationSeconds": 105.0,
+            "ffmpeg": "ffmpeg version 9.0.1 Copyright (c) 2000-2026 the FFmpeg developers",
+            "files": {
+              "fixture.wav": "b7672d57318f308a3b235651745dd0aec875f53f461cba9141bce9bb37d394db",
+              "fixture.srt": "4ed7e1f1bc5ff69fe33606960e4c048ba6766237bf33b132fef76e1a92cb64b2",
+              "expected-timeline.json": "c9a8a41feef99bd7d069d10111678a3d210a7d269b1bd0401025333095d9e70f",
+              "ATTRIBUTION.txt": "fd70501207a58900dba8e1e301a735dc04e0b78f3bbea8c281faccc2a9218c56",
+              "fixture.mkv": "eb29d98640a4f3a818666d8d41091f0de728de5a40e6aa120c02d2c8c352fdd0"
+            }
+          }
+        },
+        "ranked.json": {
+          "sha256": "c51d0dbae04b1f85403f5052e29e03bf7a3047c2ac3464986d22300f2a028673",
+          "data": {
+            "kind": "active-PCM acoustic proposals constrained by observed matched words",
+            "probeSha256": "583c13e81e94b2ce441dd42158c67ef04b6110bf6207d724ea4917b9f4eb930b",
+            "confirmedMappingAnalysis": 8,
+            "collection": {
+              "calls": 203,
+              "totalMicros": 196798,
+              "maximumMicros": 2525,
+              "peakFrames": 10398,
+              "maximumFrames": 18000,
+              "maximumSeconds": 180
+            },
+            "heldOutValidation": false,
+            "acceptedForProduction": false,
+            "fullProductAcceptance": false,
+            "pcmOrTranscriptPersisted": false,
+            "offsetDifference": 30.180968750000005,
+            "wordFlanks": {
+              "before": {
+                "subtitleWord": 45,
+                "lower": 35.779708333333325,
+                "upper": 36.47970833333333,
+                "onsetSpread": 0.0
+              },
+              "after": {
+                "subtitleWord": 46,
+                "lower": 67.47433333333333,
+                "upper": 68.17433333333332,
+                "onsetSpread": 0.0
+              }
+            },
+            "proposalAvailableMediaTime": 83.958,
+            "proposalAvailableElapsedMs": 83950,
+            "sourceWordObservationsRequireRepeatedDecoding": false,
+            "boundarySearchConstraints": {
+              "startAtLeast": 35.779708333333325,
+              "endAtMost": 68.17433333333332
+            },
+            "proposals": {
+              "energyChange": [
+                {
+                  "start": 36.22,
+                  "end": 66.24,
+                  "score": 1.557919072727382,
+                  "durationResidual": -0.1609687500000092,
+                  "maximumBoundaryError": 0.030000000000001137
+                },
+                {
+                  "start": 38.15,
+                  "end": 67.64,
+                  "score": 0.8990294215519892,
+                  "durationResidual": -0.6909687500000032,
+                  "maximumBoundaryError": 1.8999999999999986
+                },
+                {
+                  "start": 37.53,
+                  "end": 67.57,
+                  "score": 0.859214865468787,
+                  "durationResidual": -0.1409687500000132,
+                  "maximumBoundaryError": 1.3199999999999932
+                },
+                {
+                  "start": 36.17,
+                  "end": 67.03,
+                  "score": 0.6442729664603678,
+                  "durationResidual": 0.6790312499999942,
+                  "maximumBoundaryError": 0.7800000000000011
+                },
+                {
+                  "start": 37.36,
+                  "end": 67.03,
+                  "score": 0.6442729664603678,
+                  "durationResidual": -0.5109687500000035,
+                  "maximumBoundaryError": 1.1099999999999994
+                },
+                {
+                  "start": 37.36,
+                  "end": 68.1,
+                  "score": 0.6303085910421374,
+                  "durationResidual": 0.5590312499999897,
+                  "maximumBoundaryError": 1.8499999999999943
+                },
+                {
+                  "start": 35.78,
+                  "end": 65.47,
+                  "score": 0.46359547769319204,
+                  "durationResidual": -0.4909687500000075,
+                  "maximumBoundaryError": 0.7800000000000011
+                },
+                {
+                  "start": 36.68,
+                  "end": 66.98,
+                  "score": 0.3479493659961884,
+                  "durationResidual": 0.11903124999999903,
+                  "maximumBoundaryError": 0.730000000000004
+                },
+                {
+                  "start": 36.68,
+                  "end": 67.54,
+                  "score": 0.3479493659961884,
+                  "durationResidual": 0.6790312500000013,
+                  "maximumBoundaryError": 1.2900000000000063
+                },
+                {
+                  "start": 36.79,
+                  "end": 66.29,
+                  "score": 0.3104360247138624,
+                  "durationResidual": -0.6809687499999981,
+                  "maximumBoundaryError": 0.5399999999999991
+                }
+              ],
+              "spectralTiltChange": [
+                {
+                  "start": 36.24,
+                  "end": 66.39,
+                  "score": 1.5872366178926052,
+                  "durationResidual": -0.03096875000000665,
+                  "maximumBoundaryError": 0.14000000000000057
+                },
+                {
+                  "start": 36.18,
+                  "end": 67.01,
+                  "score": 1.0531032641353568,
+                  "durationResidual": 0.6490312500000002,
+                  "maximumBoundaryError": 0.7600000000000051
+                },
+                {
+                  "start": 36.93,
+                  "end": 66.42,
+                  "score": 1.0244275870710156,
+                  "durationResidual": -0.6909687500000032,
+                  "maximumBoundaryError": 0.6799999999999997
+                },
+                {
+                  "start": 36.93,
+                  "end": 67.0,
+                  "score": 1.0244275870710156,
+                  "durationResidual": -0.11096875000000495,
+                  "maximumBoundaryError": 0.75
+                },
+                {
+                  "start": 36.93,
+                  "end": 67.53,
+                  "score": 1.0244275870710156,
+                  "durationResidual": 0.4190312499999962,
+                  "maximumBoundaryError": 1.2800000000000011
+                },
+                {
+                  "start": 37.44,
+                  "end": 67.0,
+                  "score": 0.9765364653760342,
+                  "durationResidual": -0.620968750000003,
+                  "maximumBoundaryError": 1.1899999999999977
+                },
+                {
+                  "start": 37.44,
+                  "end": 67.53,
+                  "score": 0.9765364653760342,
+                  "durationResidual": -0.09096875000000182,
+                  "maximumBoundaryError": 1.2800000000000011
+                },
+                {
+                  "start": 38.17,
+                  "end": 67.66,
+                  "score": 0.8952738362094129,
+                  "durationResidual": -0.6909687500000103,
+                  "maximumBoundaryError": 1.9200000000000017
+                },
+                {
+                  "start": 35.83,
+                  "end": 65.49,
+                  "score": 0.5593928008000861,
+                  "durationResidual": -0.5209687500000086,
+                  "maximumBoundaryError": 0.7600000000000051
+                },
+                {
+                  "start": 37.33,
+                  "end": 68.03,
+                  "score": 0.3859885730314401,
+                  "durationResidual": 0.5190312499999976,
+                  "maximumBoundaryError": 1.7800000000000011
+                }
+              ],
+              "sampleShock": [
+                {
+                  "start": 36.24,
+                  "end": 66.36,
+                  "score": 7.348310367588797,
+                  "durationResidual": -0.06096875000000779,
+                  "maximumBoundaryError": 0.10999999999999943
+                },
+                {
+                  "start": 36.05,
+                  "end": 66.93,
+                  "score": 3.4590254885034697,
+                  "durationResidual": 0.6990312500000044,
+                  "maximumBoundaryError": 0.6800000000000068
+                },
+                {
+                  "start": 35.78,
+                  "end": 65.59,
+                  "score": 1.6727956863267162,
+                  "durationResidual": -0.37096875000000296,
+                  "maximumBoundaryError": 0.6599999999999966
+                },
+                {
+                  "start": 36.98,
+                  "end": 66.62,
+                  "score": 1.6527450380454207,
+                  "durationResidual": -0.5409687499999976,
+                  "maximumBoundaryError": 0.7299999999999969
+                },
+                {
+                  "start": 36.98,
+                  "end": 67.25,
+                  "score": 1.6527450380454207,
+                  "durationResidual": 0.0890312499999979,
+                  "maximumBoundaryError": 1.0
+                },
+                {
+                  "start": 36.97,
+                  "end": 67.79,
+                  "score": 1.2958976980290597,
+                  "durationResidual": 0.6390312500000022,
+                  "maximumBoundaryError": 1.5400000000000063
+                },
+                {
+                  "start": 38.21,
+                  "end": 67.79,
+                  "score": 1.2958976980290597,
+                  "durationResidual": -0.6009687499999998,
+                  "maximumBoundaryError": 1.9600000000000009
+                },
+                {
+                  "start": 37.74,
+                  "end": 67.25,
+                  "score": 1.0574309413994036,
+                  "durationResidual": -0.6709687500000072,
+                  "maximumBoundaryError": 1.490000000000002
+                },
+                {
+                  "start": 37.53,
+                  "end": 67.78,
+                  "score": 0.6779179382098981,
+                  "durationResidual": 0.06903124999999477,
+                  "maximumBoundaryError": 1.5300000000000011
+                },
+                {
+                  "start": 36.28,
+                  "end": 65.77,
+                  "score": 0.33012430386109676,
+                  "durationResidual": -0.6909687500000103,
+                  "maximumBoundaryError": 0.480000000000004
+                }
+              ]
+            },
+            "trueBoundaries": [
+              36.25,
+              66.25
+            ],
+            "limitations": [
+              "Single matched-word onsets constrain proposals; they do not establish precise word boundaries or confirmed absent dialogue.",
+              "Only consumed hard-edit development fixtures; ambiguity rejection and negative specificity are not calibrated.",
+              "Proposals become available after post-edit mapping confirmation and do not improve first-playback suppression.",
+              "Features come from bounded live snapshots; current output is a numeric diagnostic. No application suppression or cache learning is enabled."
+            ]
+          }
+        },
+        "assessment.json": {
+          "sha256": "b4e3044031fd86b8686eb47e576d73e683de88eaa8a30f9cf47a1464f5766d4b",
+          "data": {
+            "scope": "native PCM/ASR and domain tracking only; no production controller or renderer claim",
+            "initialAcquisitionBeforeEdit": true,
+            "postEditRecoveryMediaSeconds": 18.542,
+            "alignedTrackingMedianErrorSeconds": 0.21429443359375,
+            "alignedTrackingP95ErrorSeconds": 30.21429443359375,
+            "alignedSampleCount": 52,
+            "gapChecks": [
+              {
+                "expected": {
+                  "kind": "videoOnly",
+                  "start": 36.25,
+                  "end": 66.25
+                },
+                "matched": false
+              }
+            ],
+            "unexpectedGapCount": 0,
+            "gapPlaybackSamples": [
+              {
+                "mediaTime": 36.5,
+                "actualRegion": "aligned"
+              },
+              {
+                "mediaTime": 37.542,
+                "actualRegion": "aligned"
+              },
+              {
+                "mediaTime": 38.583,
+                "actualRegion": "aligned"
+              },
+              {
+                "mediaTime": 39.583,
+                "actualRegion": "aligned"
+              },
+              {
+                "mediaTime": 40.625,
+                "actualRegion": "aligned"
+              },
+              {
+                "mediaTime": 41.625,
+                "actualRegion": "aligned"
+              },
+              {
+                "mediaTime": 42.667,
+                "actualRegion": "aligned"
+              },
+              {
+                "mediaTime": 43.708,
+                "actualRegion": "aligned"
+              },
+              {
+                "mediaTime": 44.75,
+                "actualRegion": "aligned"
+              },
+              {
+                "mediaTime": 45.75,
+                "actualRegion": "aligned"
+              },
+              {
+                "mediaTime": 46.791999999999994,
+                "actualRegion": "aligned"
+              },
+              {
+                "mediaTime": 47.833,
+                "actualRegion": "aligned"
+              },
+              {
+                "mediaTime": 48.833,
+                "actualRegion": "aligned"
+              },
+              {
+                "mediaTime": 49.875,
+                "actualRegion": "aligned"
+              },
+              {
+                "mediaTime": 50.875,
+                "actualRegion": "aligned"
+              },
+              {
+                "mediaTime": 51.916999999999994,
+                "actualRegion": "aligned"
+              },
+              {
+                "mediaTime": 52.958,
+                "actualRegion": "aligned"
+              },
+              {
+                "mediaTime": 53.958,
+                "actualRegion": "aligned"
+              },
+              {
+                "mediaTime": 55.0,
+                "actualRegion": "aligned"
+              },
+              {
+                "mediaTime": 56.041999999999994,
+                "actualRegion": "aligned"
+              },
+              {
+                "mediaTime": 57.041999999999994,
+                "actualRegion": "aligned"
+              },
+              {
+                "mediaTime": 58.083,
+                "actualRegion": "aligned"
+              },
+              {
+                "mediaTime": 59.125,
+                "actualRegion": "aligned"
+              },
+              {
+                "mediaTime": 60.125,
+                "actualRegion": "aligned"
+              },
+              {
+                "mediaTime": 61.166999999999994,
+                "actualRegion": "aligned"
+              },
+              {
+                "mediaTime": 62.208,
+                "actualRegion": "aligned"
+              },
+              {
+                "mediaTime": 63.208,
+                "actualRegion": "aligned"
+              },
+              {
+                "mediaTime": 64.25,
+                "actualRegion": "aligned"
+              },
+              {
+                "mediaTime": 65.292,
+                "actualRegion": "aligned"
+              }
+            ],
+            "alignedPlaybackSamples": [
+              {
+                "mediaTime": 22.125,
+                "expectedDelay": -100.0,
+                "actualDelay": -100.21429443359375,
+                "actualRegion": "aligned",
+                "mappingAvailable": true,
+                "error": 0.21429443359375
+              },
+              {
+                "mediaTime": 23.125,
+                "expectedDelay": -100.0,
+                "actualDelay": -100.21429443359375,
+                "actualRegion": "aligned",
+                "mappingAvailable": true,
+                "error": 0.21429443359375
+              },
+              {
+                "mediaTime": 24.166999999999998,
+                "expectedDelay": -100.0,
+                "actualDelay": -100.21429443359375,
+                "actualRegion": "aligned",
+                "mappingAvailable": true,
+                "error": 0.21429443359375
+              },
+              {
+                "mediaTime": 25.208,
+                "expectedDelay": -100.0,
+                "actualDelay": -100.21429443359375,
+                "actualRegion": "aligned",
+                "mappingAvailable": true,
+                "error": 0.21429443359375
+              },
+              {
+                "mediaTime": 26.208,
+                "expectedDelay": -100.0,
+                "actualDelay": -100.21429443359375,
+                "actualRegion": "aligned",
+                "mappingAvailable": true,
+                "error": 0.21429443359375
+              },
+              {
+                "mediaTime": 27.25,
+                "expectedDelay": -100.0,
+                "actualDelay": -100.21429443359375,
+                "actualRegion": "aligned",
+                "mappingAvailable": true,
+                "error": 0.21429443359375
+              },
+              {
+                "mediaTime": 28.291999999999998,
+                "expectedDelay": -100.0,
+                "actualDelay": -100.21429443359375,
+                "actualRegion": "aligned",
+                "mappingAvailable": true,
+                "error": 0.21429443359375
+              },
+              {
+                "mediaTime": 29.291999999999998,
+                "expectedDelay": -100.0,
+                "actualDelay": -100.21429443359375,
+                "actualRegion": "aligned",
+                "mappingAvailable": true,
+                "error": 0.21429443359375
+              },
+              {
+                "mediaTime": 30.333,
+                "expectedDelay": -100.0,
+                "actualDelay": -100.21429443359375,
+                "actualRegion": "aligned",
+                "mappingAvailable": true,
+                "error": 0.21429443359375
+              },
+              {
+                "mediaTime": 31.375,
+                "expectedDelay": -100.0,
+                "actualDelay": -100.21429443359375,
+                "actualRegion": "aligned",
+                "mappingAvailable": true,
+                "error": 0.21429443359375
+              },
+              {
+                "mediaTime": 32.417,
+                "expectedDelay": -100.0,
+                "actualDelay": -100.21429443359375,
+                "actualRegion": "aligned",
+                "mappingAvailable": true,
+                "error": 0.21429443359375
+              },
+              {
+                "mediaTime": 33.417,
+                "expectedDelay": -100.0,
+                "actualDelay": -100.21429443359375,
+                "actualRegion": "aligned",
+                "mappingAvailable": true,
+                "error": 0.21429443359375
+              },
+              {
+                "mediaTime": 34.458,
+                "expectedDelay": -100.0,
+                "actualDelay": -100.21429443359375,
+                "actualRegion": "aligned",
+                "mappingAvailable": true,
+                "error": 0.21429443359375
+              },
+              {
+                "mediaTime": 35.5,
+                "expectedDelay": -100.0,
+                "actualDelay": -100.21429443359375,
+                "actualRegion": "aligned",
+                "mappingAvailable": true,
+                "error": 0.21429443359375
+              },
+              {
+                "mediaTime": 66.333,
+                "expectedDelay": -70.0,
+                "actualDelay": -100.21429443359375,
+                "actualRegion": "aligned",
+                "mappingAvailable": true,
+                "error": 30.21429443359375
+              },
+              {
+                "mediaTime": 67.333,
+                "expectedDelay": -70.0,
+                "actualDelay": -100.21429443359375,
+                "actualRegion": "aligned",
+                "mappingAvailable": true,
+                "error": 30.21429443359375
+              },
+              {
+                "mediaTime": 68.333,
+                "expectedDelay": -70.0,
+                "actualDelay": -100.21429443359375,
+                "actualRegion": "aligned",
+                "mappingAvailable": true,
+                "error": 30.21429443359375
+              },
+              {
+                "mediaTime": 69.375,
+                "expectedDelay": -70.0,
+                "actualDelay": -100.21429443359375,
+                "actualRegion": "aligned",
+                "mappingAvailable": true,
+                "error": 30.21429443359375
+              },
+              {
+                "mediaTime": 70.417,
+                "expectedDelay": -70.0,
+                "actualDelay": -100.21429443359375,
+                "actualRegion": "aligned",
+                "mappingAvailable": true,
+                "error": 30.21429443359375
+              },
+              {
+                "mediaTime": 71.417,
+                "expectedDelay": -70.0,
+                "actualDelay": -100.21429443359375,
+                "actualRegion": "aligned",
+                "mappingAvailable": true,
+                "error": 30.21429443359375
+              },
+              {
+                "mediaTime": 72.458,
+                "expectedDelay": -70.0,
+                "actualDelay": -100.21429443359375,
+                "actualRegion": "aligned",
+                "mappingAvailable": true,
+                "error": 30.21429443359375
+              },
+              {
+                "mediaTime": 73.5,
+                "expectedDelay": -70.0,
+                "actualDelay": -100.21429443359375,
+                "actualRegion": "aligned",
+                "mappingAvailable": true,
+                "error": 30.21429443359375
+              },
+              {
+                "mediaTime": 74.5,
+                "expectedDelay": -70.0,
+                "actualDelay": -100.21429443359375,
+                "actualRegion": "aligned",
+                "mappingAvailable": true,
+                "error": 30.21429443359375
+              },
+              {
+                "mediaTime": 75.542,
+                "expectedDelay": -70.0,
+                "actualDelay": -100.21429443359375,
+                "actualRegion": "aligned",
+                "mappingAvailable": true,
+                "error": 30.21429443359375
+              },
+              {
+                "mediaTime": 76.542,
+                "expectedDelay": -70.0,
+                "actualDelay": -100.21429443359375,
+                "actualRegion": "aligned",
+                "mappingAvailable": true,
+                "error": 30.21429443359375
+              },
+              {
+                "mediaTime": 77.583,
+                "expectedDelay": -70.0,
+                "actualDelay": -100.21429443359375,
+                "actualRegion": "aligned",
+                "mappingAvailable": true,
+                "error": 30.21429443359375
+              },
+              {
+                "mediaTime": 78.625,
+                "expectedDelay": -70.0,
+                "actualDelay": -100.21429443359375,
+                "actualRegion": "aligned",
+                "mappingAvailable": true,
+                "error": 30.21429443359375
+              },
+              {
+                "mediaTime": 79.667,
+                "expectedDelay": -70.0,
+                "actualDelay": -100.21429443359375,
+                "actualRegion": "aligned",
+                "mappingAvailable": true,
+                "error": 30.21429443359375
+              },
+              {
+                "mediaTime": 80.667,
+                "expectedDelay": -70.0,
+                "actualDelay": -100.21429443359375,
+                "actualRegion": "aligned",
+                "mappingAvailable": true,
+                "error": 30.21429443359375
+              },
+              {
+                "mediaTime": 81.708,
+                "expectedDelay": -70.0,
+                "actualDelay": -100.21429443359375,
+                "actualRegion": "aligned",
+                "mappingAvailable": true,
+                "error": 30.21429443359375
+              },
+              {
+                "mediaTime": 82.708,
+                "expectedDelay": -70.0,
+                "actualDelay": -100.21429443359375,
+                "actualRegion": "aligned",
+                "mappingAvailable": true,
+                "error": 30.21429443359375
+              },
+              {
+                "mediaTime": 83.75,
+                "expectedDelay": -70.0,
+                "actualDelay": -100.21429443359375,
+                "actualRegion": "aligned",
+                "mappingAvailable": true,
+                "error": 30.21429443359375
+              },
+              {
+                "mediaTime": 84.792,
+                "expectedDelay": -70.0,
+                "actualDelay": -70.0333251953125,
+                "actualRegion": "aligned",
+                "mappingAvailable": true,
+                "error": 0.0333251953125
+              },
+              {
+                "mediaTime": 85.792,
+                "expectedDelay": -70.0,
+                "actualDelay": -70.0333251953125,
+                "actualRegion": "aligned",
+                "mappingAvailable": true,
+                "error": 0.0333251953125
+              },
+              {
+                "mediaTime": 86.833,
+                "expectedDelay": -70.0,
+                "actualDelay": -70.0333251953125,
+                "actualRegion": "aligned",
+                "mappingAvailable": true,
+                "error": 0.0333251953125
+              },
+              {
+                "mediaTime": 87.875,
+                "expectedDelay": -70.0,
+                "actualDelay": -70.0333251953125,
+                "actualRegion": "aligned",
+                "mappingAvailable": true,
+                "error": 0.0333251953125
+              },
+              {
+                "mediaTime": 88.917,
+                "expectedDelay": -70.0,
+                "actualDelay": -70.0333251953125,
+                "actualRegion": "aligned",
+                "mappingAvailable": true,
+                "error": 0.0333251953125
+              },
+              {
+                "mediaTime": 89.917,
+                "expectedDelay": -70.0,
+                "actualDelay": -70.0333251953125,
+                "actualRegion": "aligned",
+                "mappingAvailable": true,
+                "error": 0.0333251953125
+              },
+              {
+                "mediaTime": 90.958,
+                "expectedDelay": -70.0,
+                "actualDelay": -70.0333251953125,
+                "actualRegion": "aligned",
+                "mappingAvailable": true,
+                "error": 0.0333251953125
+              },
+              {
+                "mediaTime": 92.0,
+                "expectedDelay": -70.0,
+                "actualDelay": -70.0333251953125,
+                "actualRegion": "aligned",
+                "mappingAvailable": true,
+                "error": 0.0333251953125
+              },
+              {
+                "mediaTime": 93.042,
+                "expectedDelay": -70.0,
+                "actualDelay": -70.0333251953125,
+                "actualRegion": "aligned",
+                "mappingAvailable": true,
+                "error": 0.0333251953125
+              },
+              {
+                "mediaTime": 94.042,
+                "expectedDelay": -70.0,
+                "actualDelay": -70.0333251953125,
+                "actualRegion": "aligned",
+                "mappingAvailable": true,
+                "error": 0.0333251953125
+              },
+              {
+                "mediaTime": 95.083,
+                "expectedDelay": -70.0,
+                "actualDelay": -70.0333251953125,
+                "actualRegion": "aligned",
+                "mappingAvailable": true,
+                "error": 0.0333251953125
+              },
+              {
+                "mediaTime": 96.125,
+                "expectedDelay": -70.0,
+                "actualDelay": -70.0333251953125,
+                "actualRegion": "aligned",
+                "mappingAvailable": true,
+                "error": 0.0333251953125
+              },
+              {
+                "mediaTime": 97.125,
+                "expectedDelay": -70.0,
+                "actualDelay": -70.0333251953125,
+                "actualRegion": "aligned",
+                "mappingAvailable": true,
+                "error": 0.0333251953125
+              },
+              {
+                "mediaTime": 98.167,
+                "expectedDelay": -70.0,
+                "actualDelay": -70.0333251953125,
+                "actualRegion": "aligned",
+                "mappingAvailable": true,
+                "error": 0.0333251953125
+              },
+              {
+                "mediaTime": 99.208,
+                "expectedDelay": -70.0,
+                "actualDelay": -70.0333251953125,
+                "actualRegion": "aligned",
+                "mappingAvailable": true,
+                "error": 0.0333251953125
+              },
+              {
+                "mediaTime": 100.208,
+                "expectedDelay": -70.0,
+                "actualDelay": -70.0333251953125,
+                "actualRegion": "aligned",
+                "mappingAvailable": true,
+                "error": 0.0333251953125
+              },
+              {
+                "mediaTime": 101.25,
+                "expectedDelay": -70.0,
+                "actualDelay": -70.0333251953125,
+                "actualRegion": "aligned",
+                "mappingAvailable": true,
+                "error": 0.0333251953125
+              },
+              {
+                "mediaTime": 102.25,
+                "expectedDelay": -70.0,
+                "actualDelay": -70.0333251953125,
+                "actualRegion": "aligned",
+                "mappingAvailable": true,
+                "error": 0.0333251953125
+              },
+              {
+                "mediaTime": 103.292,
+                "expectedDelay": -70.0,
+                "actualDelay": -70.0333251953125,
+                "actualRegion": "aligned",
+                "mappingAvailable": true,
+                "error": 0.0333251953125
+              },
+              {
+                "mediaTime": 104.333,
+                "expectedDelay": -70.0,
+                "actualDelay": -70.0333251953125,
+                "actualRegion": "aligned",
+                "mappingAvailable": true,
+                "error": 0.0333251953125
+              }
+            ],
+            "cueBoundaryRenderingValidated": false,
+            "backwardSeekValidated": false,
+            "satisfiesSceneDomainChecks": false,
+            "probeSha256": "583c13e81e94b2ce441dd42158c67ef04b6110bf6207d724ea4917b9f4eb930b",
+            "expectedTimelineSha256": "c9a8a41feef99bd7d069d10111678a3d210a7d269b1bd0401025333095d9e70f"
+          }
+        },
+        "run.json": {
+          "sha256": "47a9d40a3ea9d228f0e77bf44f0380fccae446a4e2262d6c52d70b60d4abc186",
+          "data": {
+            "case": "insert-fade-through-silence",
+            "probeExitCode": 255,
+            "wallSeconds": 105.14965599999414,
+            "sourceSha": "0a64f4247ea88fc1a80781782094bf354fa0a909",
+            "probeSha256": "4bc83523aa63b8cdc144c6c63f790d47e7a97a76410d2685e10e7b249ff6e9cf",
+            "fixtureSha256": "eb29d98640a4f3a818666d8d41091f0de728de5a40e6aa120c02d2c8c352fdd0",
+            "manifestSha256": "c415c844a4e729b653460325b29107bf2f1f0f7ba5d3541090807e709b4b7079",
+            "subtitleBytesUnchanged": true,
+            "exactFrameCountVerified": true,
+            "acquisitionMs": 21680,
+            "learnedSegments": 2,
+            "learnedGaps": [],
+            "trackingErrorP95": 29.9666748046875,
+            "passed": false,
+            "collection": {
+              "calls": 203,
+              "totalMicros": 196798,
+              "maximumMicros": 2525,
+              "peakFrames": 10398,
+              "maximumFrames": 18000,
+              "maximumSeconds": 180
+            }
+          }
+        }
+      },
+      "probeReportSha256": "583c13e81e94b2ce441dd42158c67ef04b6110bf6207d724ea4917b9f4eb930b"
+    },
+    {
+      "case": "continuous-paired-gain",
+      "reports": {
+        "fixture-provenance.json": {
+          "sha256": "1b8b5b04faef626fd8916225576a4ad1d3cb952403c0ce39db7b251dc5d6534d",
+          "data": {
+            "sourceManifest": {
+              "schemaVersion": 1,
+              "id": "boundary-development-matrix-v1",
+              "role": "development-regression-only",
+              "mainSource": {
+                "id": "sintel-stereo-en",
+                "media": {
+                  "name": "sintel-master-st.flac",
+                  "url": "https://media.xiph.org/sintel/sintel-master-st.flac",
+                  "bytes": 71533398,
+                  "sha256": "49b279400b6fcad23f6a8862ae65a2a22f21f249cd7576b09991880da221412b",
+                  "checksumSource": "https://media.xiph.org/sintel/SHA256SUMS.txt"
+                },
+                "subtitles": {
+                  "name": "sintel_en.srt",
+                  "url": "https://media.xiph.org/sintel/subtitles/sintel_en.srt",
+                  "bytes": 1514,
+                  "sha256": "4ed7e1f1bc5ff69fe33606960e4c048ba6766237bf33b132fef76e1a92cb64b2"
+                },
+                "attribution": "Copyright (c) Blender Foundation | durian.blender.org",
+                "license": "CC-BY-3.0",
+                "licenseUrl": "https://creativecommons.org/licenses/by/3.0/",
+                "partitionSeconds": [
+                  100,
+                  175
+                ]
+              },
+              "insertSource": {
+                "id": "elephants-dream-commons-en",
+                "media": {
+                  "name": "Elephants_Dream.ogv",
+                  "url": "https://upload.wikimedia.org/wikipedia/commons/d/d5/Elephants_Dream.ogv",
+                  "sourcePage": "https://commons.wikimedia.org/wiki/File:Elephants_Dream.ogv",
+                  "publishedAt": "2009-12-24T02:08:36Z",
+                  "bytes": 35614993,
+                  "sha256": "a4b7c7888645d54255a2eeb0d509146b83761b1ac03dd0eff546994832fa3a18",
+                  "publishedSha1": "9a6272dc01919e2b891f0dadb8cbabf9a61d23ad",
+                  "license": "CC-BY-SA-2.5",
+                  "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.5/",
+                  "attribution": "(c) copyright 2006, Blender Foundation / Netherlands Media Art Institute / www.elephantsdream.org; Commons Ogg encoding by Mdale"
+                },
+                "partitionSeconds": [
+                  14,
+                  44
+                ]
+              },
+              "sampleRate": 48000,
+              "channels": 2,
+              "sampleFormat": "signed-16-bit-little-endian",
+              "cases": {
+                "insert-earlier": {
+                  "kind": "insert",
+                  "atSubtitleSeconds": 122.5
+                },
+                "insert-later": {
+                  "kind": "insert",
+                  "atSubtitleSeconds": 148.75
+                },
+                "insert-fade-through-silence": {
+                  "kind": "insert",
+                  "atSubtitleSeconds": 136.25,
+                  "gainEnvelope": [
+                    [
+                      0,
+                      1
+                    ],
+                    [
+                      36.15,
+                      1
+                    ],
+                    [
+                      36.25,
+                      0
+                    ],
+                    [
+                      36.35,
+                      1
+                    ],
+                    [
+                      66.15,
+                      1
+                    ],
+                    [
+                      66.25,
+                      0
+                    ],
+                    [
+                      66.35,
+                      1
+                    ],
+                    [
+                      105,
+                      1
+                    ]
+                  ]
+                },
+                "continuous-paired-gain": {
+                  "kind": "continuous",
+                  "gainEnvelope": [
+                    [
+                      0,
+                      1
+                    ],
+                    [
+                      23.999979166666666,
+                      1
+                    ],
+                    [
+                      24,
+                      0.25
+                    ],
+                    [
+                      53.99997916666667,
+                      0.25
+                    ],
+                    [
+                      54,
+                      1
+                    ],
+                    [
+                      75,
+                      1
+                    ]
+                  ]
+                }
+              },
+              "reference": "Exact sample-domain transforms with the full unchanged original SRT. The fade case uses 100 ms fade-out/fade-in around each nominal edit, not an overlapping crossfade. The continuous control changes gain without inserting or removing audio.",
+              "heldoutStatus": "All used partitions were previously consumed for development. Elephants Dream 360-540 s remains untouched.",
+              "sourceMaterialDecodedOnlyForFixturePreparation": true,
+              "inferencePerformed": false,
+              "evaluation": "Freeze the four cases before recognition. Keep the existing matcher, cadence and three acoustic feature rankings unchanged; assess missing proposals as unavailable, never fabricate gap confirmation. This is additional development evidence, not held-out acceptance."
+            },
+            "sourceManifestSha256": "c415c844a4e729b653460325b29107bf2f1f0f7ba5d3541090807e709b4b7079",
+            "case": "continuous-paired-gain",
+            "sampleCopies": [
+              [
+                "main",
+                0,
+                3600000
+              ]
+            ],
+            "inferencePerformed": false,
+            "fullFilmDecoded": false,
+            "expectedFrames": 3600000,
+            "durationSeconds": 75.0,
+            "ffmpeg": "ffmpeg version 9.0.1 Copyright (c) 2000-2026 the FFmpeg developers",
+            "files": {
+              "fixture.wav": "ca4bd568734917cf26f27c6ad6e30296f1ef881dff3bf0877f24c032d7fc8212",
+              "fixture.srt": "4ed7e1f1bc5ff69fe33606960e4c048ba6766237bf33b132fef76e1a92cb64b2",
+              "expected-timeline.json": "87b44b876ffbb88a395ad11275c2027d49b5d12736382048253ab90855730dfb",
+              "ATTRIBUTION.txt": "230981a34f478fb5b6ea4d8d30deecea8eddca86f4d525f5207b085fc67b03a4",
+              "fixture.mkv": "4700c58fd2da561a5e6c75eac06d6b22a4fe2d6f4a6ee1406593c0a9072d5424"
+            }
+          }
+        },
+        "ranked.json": {
+          "sha256": "5ca3a25222865d03cb2afc20488df23e45a5eee672e7ac61dc116d58b0ec888f",
+          "data": {
+            "kind": "active-PCM acoustic proposals constrained by observed matched words",
+            "probeSha256": "2d575a69f476f471c3d8d2ca40f05307857d8bac932fb5c1828d92ed862c7b3d",
+            "confirmedMappingAnalysis": null,
+            "collection": {
+              "calls": 145,
+              "totalMicros": 142494,
+              "maximumMicros": 2554,
+              "peakFrames": 7407,
+              "maximumFrames": 18000,
+              "maximumSeconds": 180
+            },
+            "heldOutValidation": false,
+            "acceptedForProduction": false,
+            "fullProductAcceptance": false,
+            "pcmOrTranscriptPersisted": false,
+            "failure": "no confirmed mapping jump",
+            "limitations": [
+              "Single matched-word onsets constrain proposals; they do not establish precise word boundaries or confirmed absent dialogue.",
+              "Only consumed hard-edit development fixtures; ambiguity rejection and negative specificity are not calibrated.",
+              "Proposals become available after post-edit mapping confirmation and do not improve first-playback suppression.",
+              "Features come from bounded live snapshots; current output is a numeric diagnostic. No application suppression or cache learning is enabled."
+            ]
+          }
+        },
+        "run.json": {
+          "sha256": "33ad61cd368a6ec8a72ef89e3d00c053e7710ecbee8798a220f9a1ef689201e3",
+          "data": {
+            "case": "continuous-paired-gain",
+            "probeExitCode": 0,
+            "wallSeconds": 75.13787016700371,
+            "sourceSha": "0a64f4247ea88fc1a80781782094bf354fa0a909",
+            "probeSha256": "4bc83523aa63b8cdc144c6c63f790d47e7a97a76410d2685e10e7b249ff6e9cf",
+            "fixtureSha256": "4700c58fd2da561a5e6c75eac06d6b22a4fe2d6f4a6ee1406593c0a9072d5424",
+            "manifestSha256": "c415c844a4e729b653460325b29107bf2f1f0f7ba5d3541090807e709b4b7079",
+            "subtitleBytesUnchanged": true,
+            "exactFrameCountVerified": true,
+            "acquisitionMs": 21595,
+            "learnedSegments": 1,
+            "learnedGaps": [],
+            "trackingErrorP95": 0.2050018310546875,
+            "passed": true,
+            "collection": {
+              "calls": 145,
+              "totalMicros": 142494,
+              "maximumMicros": 2554,
+              "peakFrames": 7407,
+              "maximumFrames": 18000,
+              "maximumSeconds": 180
+            }
+          }
+        }
+      },
+      "probeReportSha256": "2d575a69f476f471c3d8d2ca40f05307857d8bac932fb5c1828d92ed862c7b3d"
+    }
+  ],
+  "ci": {
+    "url": "https://github.com/DwennK/Plezy-SubtitleFix/actions/runs/35178130982",
+    "status": "success",
+    "downloadedEvidence": [
+      {
+        "artifact": "livesync-dart-macos-26-0a64f4247ea88fc1a80781782094bf354fa0a909",
+        "sourceSha": "0a64f4247ea88fc1a80781782094bf354fa0a909",
+        "passed": 174,
+        "failed": 0,
+        "skipped": [
+          "reads all authored cues from the hash-pinned real Sintel fixture"
+        ],
+        "fixtureTests": ".................\n----------------------------------------------------------------------\nRan 17 tests in 0.007s\n\nOK",
+        "reportHashes": {
+          "dart-tests.jsonl": "75b925efeea90aa9896db5df37b79e8e204dfeb81c4e78a0f382148e86c9d386",
+          "fixture-tests.txt": "138698c126447036d61a488ff1c3040a4d0f4b9a4c8d01f1e654ec76963df600",
+          "fork-sha.txt": "83e998abee58a548f9ab56fdcb19346583d2e60f55a93d1d4f1fc518e3331183"
+        }
+      },
+      {
+        "artifact": "livesync-dart-windows-latest-0a64f4247ea88fc1a80781782094bf354fa0a909",
+        "sourceSha": "0a64f4247ea88fc1a80781782094bf354fa0a909",
+        "passed": 173,
+        "failed": 0,
+        "skipped": [
+          "track changes retry a requested session, but a user stop wins during teardown",
+          "reads all authored cues from the hash-pinned real Sintel fixture"
+        ],
+        "fixtureTests": ".................\n----------------------------------------------------------------------\nRan 17 tests in 0.011s\n\nOK",
+        "reportHashes": {
+          "dart-tests.jsonl": "04f68dcebf2614dddcf83732095543a56ba9fb0cc96743c6d6ac3fa98eb0cd1d",
+          "fixture-tests.txt": "92eda3ee3c977be25455477edf59ca223d3356d8ed14c65738b0bff7c269e930",
+          "fork-sha.txt": "83e998abee58a548f9ab56fdcb19346583d2e60f55a93d1d4f1fc518e3331183"
+        }
+      }
+    ]
+  },
+  "findings": [
+    "The earlier insertion has a top spectral-tilt boundary error of 0.29 seconds; the fade-through-silence insertion has 0.14 seconds. Both proposals arrive after the inserted interval.",
+    "The later insertion yields no confirmed new mapping and no proposal. One post-edit cue is rejected for unsupported timing and then low beginning confidence; only the following cue produces an accepted new offset anchor. The failure is retained.",
+    "The continuous paired-gain control keeps one region, no gap or boundary proposal, and 0.205-second constant-offset tracking p95. One negative control does not calibrate specificity.",
+    "All three inserted-scene assessments fail the unchanged full-scene gates. A correct eventual boundary proposal is not first-playback recovery.",
+    "The late insertion exits the generic probe successfully because that probe scores a constant -100-second oracle. Its separate scene oracle correctly reports no recovery and 30.220-second p95; the generic passed flag is not scene acceptance."
+  ],
+  "nextAction": "Improve post-edit temporal-anchor availability under the unchanged text/timing confidence requirements before relying on a boundary proposal. Keep early causal absence detection and delayed boundary learning as separate unresolved requirements.",
+  "productionAlgorithmChanged": false,
+  "installedApplicationChanged": false,
+  "heldOutPartitionConsumed": false,
+  "acceptedForProduction": false,
+  "fullProductAcceptance": false,
+  "pcmOrTranscriptPersisted": false
+}
