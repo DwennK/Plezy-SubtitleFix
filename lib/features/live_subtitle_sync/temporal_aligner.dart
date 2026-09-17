@@ -33,6 +33,11 @@ class _TimedWord {
 class TemporalAligner {
   const TemporalAligner();
 
+  // Punctuation has no spoken onset. Keep every lexical subword (including
+  // combining marks and the normalizer's spoken "and" for '&') under the
+  // existing confidence/timestamp gates; discard only nonlexical pieces.
+  static final _lexicalPiece = RegExp(r'[\p{L}\p{M}\p{N}&]', unicode: true);
+
   List<SubtitleAnchor> anchors(
     NativeTranscript transcript,
     SubtitleIndex index,
@@ -57,7 +62,9 @@ class TemporalAligner {
       for (final span in RegExp(r'\S+').allMatches(text)) {
         final contributors = <NativeTranscriptToken>[];
         for (var i = 0; i < segment.tokens.length; i++) {
-          if (starts[i] < span.end && starts[i] + segment.tokens[i].text.length > span.start) {
+          if (starts[i] < span.end &&
+              starts[i] + segment.tokens[i].text.length > span.start &&
+              _lexicalPiece.hasMatch(segment.tokens[i].text)) {
             contributors.add(segment.tokens[i]);
           }
         }
