@@ -1,0 +1,3519 @@
+{
+  "schema": 1,
+  "sourceSha": "f999a33cc83bc083a608c9a9aa1e01638c14258a",
+  "experiments": {
+    "absence-context-diagnostic": {
+      "sha256": "b9abbac98419bad2648f0ebcf7296889ce703b3817c4c047810f71f78e4d5e61",
+      "scope": "fixed context-length and punctuation-contributor comparison on consumed public fixture; no production gap decision",
+      "criteria": {
+        "windowSeconds": [
+          8,
+          12,
+          15
+        ],
+        "shiftSeconds": 2,
+        "minimumTokenScore": 0.7,
+        "maximumTimingDifferenceSeconds": 0.75,
+        "minimumContiguousReliableWords": 6,
+        "minimumUniqueWords": 3,
+        "positiveSpeechSupportRequired": true
+      },
+      "rows": [
+        {
+          "case": "inserted-dialogue",
+          "windowSeconds": 8,
+          "start": 38.164375,
+          "end": 46.164375,
+          "inferenceSeconds": 1.021847167,
+          "match": "noCandidate",
+          "validPrefixOnly": false
+        },
+        {
+          "case": "inserted-dialogue",
+          "windowSeconds": 8,
+          "start": 40.164375,
+          "end": 48.164375,
+          "inferenceSeconds": 1.043520875,
+          "match": "noCandidate",
+          "validPrefixOnly": false,
+          "bothUnmatched": true,
+          "legacyOverlap": {
+            "leftWords": 14,
+            "rightWords": 16,
+            "gates": {
+              "lexicalOnly": {
+                "words": 8,
+                "uniqueWords": 7
+              },
+              "recognitionScore": {
+                "words": 4,
+                "uniqueWords": 4
+              },
+              "positiveSpeechSupport": {
+                "words": 4,
+                "uniqueWords": 4
+              },
+              "validTokenTimes": {
+                "words": 4,
+                "uniqueWords": 4
+              },
+              "insideSharedWindow": {
+                "words": 4,
+                "uniqueWords": 4
+              },
+              "repeatTimingAgreement": {
+                "words": 4,
+                "uniqueWords": 4
+              }
+            },
+            "candidateRepeatedSpeech": false
+          },
+          "lexicalOverlap": {
+            "leftWords": 14,
+            "rightWords": 16,
+            "gates": {
+              "lexicalOnly": {
+                "words": 8,
+                "uniqueWords": 7
+              },
+              "recognitionScore": {
+                "words": 4,
+                "uniqueWords": 4
+              },
+              "positiveSpeechSupport": {
+                "words": 4,
+                "uniqueWords": 4
+              },
+              "validTokenTimes": {
+                "words": 4,
+                "uniqueWords": 4
+              },
+              "insideSharedWindow": {
+                "words": 4,
+                "uniqueWords": 4
+              },
+              "repeatTimingAgreement": {
+                "words": 4,
+                "uniqueWords": 4
+              }
+            },
+            "candidateRepeatedSpeech": false
+          }
+        },
+        {
+          "case": "inserted-dialogue",
+          "windowSeconds": 8,
+          "start": 42.164375,
+          "end": 50.164375,
+          "inferenceSeconds": 1.064721458,
+          "match": "noCandidate",
+          "validPrefixOnly": false,
+          "bothUnmatched": true,
+          "legacyOverlap": {
+            "leftWords": 16,
+            "rightWords": 11,
+            "gates": {
+              "lexicalOnly": {
+                "words": 8,
+                "uniqueWords": 7
+              },
+              "recognitionScore": {
+                "words": 2,
+                "uniqueWords": 2
+              },
+              "positiveSpeechSupport": {
+                "words": 2,
+                "uniqueWords": 2
+              },
+              "validTokenTimes": {
+                "words": 2,
+                "uniqueWords": 2
+              },
+              "insideSharedWindow": {
+                "words": 2,
+                "uniqueWords": 2
+              },
+              "repeatTimingAgreement": {
+                "words": 2,
+                "uniqueWords": 2
+              }
+            },
+            "candidateRepeatedSpeech": false
+          },
+          "lexicalOverlap": {
+            "leftWords": 16,
+            "rightWords": 11,
+            "gates": {
+              "lexicalOnly": {
+                "words": 8,
+                "uniqueWords": 7
+              },
+              "recognitionScore": {
+                "words": 5,
+                "uniqueWords": 4
+              },
+              "positiveSpeechSupport": {
+                "words": 5,
+                "uniqueWords": 4
+              },
+              "validTokenTimes": {
+                "words": 5,
+                "uniqueWords": 4
+              },
+              "insideSharedWindow": {
+                "words": 5,
+                "uniqueWords": 4
+              },
+              "repeatTimingAgreement": {
+                "words": 5,
+                "uniqueWords": 4
+              }
+            },
+            "candidateRepeatedSpeech": false
+          }
+        },
+        {
+          "case": "inserted-dialogue",
+          "windowSeconds": 8,
+          "start": 44.164375,
+          "end": 52.164375,
+          "inferenceSeconds": 1.017606709,
+          "match": "noCandidate",
+          "validPrefixOnly": false,
+          "bothUnmatched": true,
+          "legacyOverlap": {
+            "leftWords": 11,
+            "rightWords": 7,
+            "gates": {
+              "lexicalOnly": {
+                "words": 7,
+                "uniqueWords": 5
+              },
+              "recognitionScore": {
+                "words": 2,
+                "uniqueWords": 2
+              },
+              "positiveSpeechSupport": {
+                "words": 2,
+                "uniqueWords": 2
+              },
+              "validTokenTimes": {
+                "words": 2,
+                "uniqueWords": 2
+              },
+              "insideSharedWindow": {
+                "words": 2,
+                "uniqueWords": 2
+              },
+              "repeatTimingAgreement": {
+                "words": 2,
+                "uniqueWords": 2
+              }
+            },
+            "candidateRepeatedSpeech": false
+          },
+          "lexicalOverlap": {
+            "leftWords": 11,
+            "rightWords": 7,
+            "gates": {
+              "lexicalOnly": {
+                "words": 7,
+                "uniqueWords": 5
+              },
+              "recognitionScore": {
+                "words": 4,
+                "uniqueWords": 3
+              },
+              "positiveSpeechSupport": {
+                "words": 4,
+                "uniqueWords": 3
+              },
+              "validTokenTimes": {
+                "words": 4,
+                "uniqueWords": 3
+              },
+              "insideSharedWindow": {
+                "words": 4,
+                "uniqueWords": 3
+              },
+              "repeatTimingAgreement": {
+                "words": 4,
+                "uniqueWords": 3
+              }
+            },
+            "candidateRepeatedSpeech": false
+          }
+        },
+        {
+          "case": "aligned-dialogue",
+          "windowSeconds": 8,
+          "start": 7.196375,
+          "end": 15.196375,
+          "inferenceSeconds": 1.018031583,
+          "match": "matched",
+          "validPrefixOnly": false
+        },
+        {
+          "case": "aligned-dialogue",
+          "windowSeconds": 8,
+          "start": 9.196375,
+          "end": 17.196375,
+          "inferenceSeconds": 0.995150959,
+          "match": "matched",
+          "validPrefixOnly": false,
+          "bothUnmatched": false,
+          "legacyOverlap": {
+            "leftWords": 12,
+            "rightWords": 6,
+            "gates": {
+              "lexicalOnly": {
+                "words": 6,
+                "uniqueWords": 6
+              },
+              "recognitionScore": {
+                "words": 3,
+                "uniqueWords": 3
+              },
+              "positiveSpeechSupport": {
+                "words": 3,
+                "uniqueWords": 3
+              },
+              "validTokenTimes": {
+                "words": 3,
+                "uniqueWords": 3
+              },
+              "insideSharedWindow": {
+                "words": 3,
+                "uniqueWords": 3
+              },
+              "repeatTimingAgreement": {
+                "words": 3,
+                "uniqueWords": 3
+              }
+            },
+            "candidateRepeatedSpeech": false
+          },
+          "lexicalOverlap": {
+            "leftWords": 12,
+            "rightWords": 6,
+            "gates": {
+              "lexicalOnly": {
+                "words": 6,
+                "uniqueWords": 6
+              },
+              "recognitionScore": {
+                "words": 3,
+                "uniqueWords": 3
+              },
+              "positiveSpeechSupport": {
+                "words": 3,
+                "uniqueWords": 3
+              },
+              "validTokenTimes": {
+                "words": 3,
+                "uniqueWords": 3
+              },
+              "insideSharedWindow": {
+                "words": 3,
+                "uniqueWords": 3
+              },
+              "repeatTimingAgreement": {
+                "words": 3,
+                "uniqueWords": 3
+              }
+            },
+            "candidateRepeatedSpeech": false
+          }
+        },
+        {
+          "case": "aligned-dialogue",
+          "windowSeconds": 8,
+          "start": 11.196375,
+          "end": 19.196375,
+          "inferenceSeconds": 1.029111125,
+          "match": "matched",
+          "validPrefixOnly": false,
+          "bothUnmatched": false,
+          "legacyOverlap": {
+            "leftWords": 6,
+            "rightWords": 13,
+            "gates": {
+              "lexicalOnly": {
+                "words": 6,
+                "uniqueWords": 6
+              },
+              "recognitionScore": {
+                "words": 3,
+                "uniqueWords": 3
+              },
+              "positiveSpeechSupport": {
+                "words": 3,
+                "uniqueWords": 3
+              },
+              "validTokenTimes": {
+                "words": 3,
+                "uniqueWords": 3
+              },
+              "insideSharedWindow": {
+                "words": 3,
+                "uniqueWords": 3
+              },
+              "repeatTimingAgreement": {
+                "words": 3,
+                "uniqueWords": 3
+              }
+            },
+            "candidateRepeatedSpeech": false
+          },
+          "lexicalOverlap": {
+            "leftWords": 6,
+            "rightWords": 13,
+            "gates": {
+              "lexicalOnly": {
+                "words": 6,
+                "uniqueWords": 6
+              },
+              "recognitionScore": {
+                "words": 3,
+                "uniqueWords": 3
+              },
+              "positiveSpeechSupport": {
+                "words": 3,
+                "uniqueWords": 3
+              },
+              "validTokenTimes": {
+                "words": 3,
+                "uniqueWords": 3
+              },
+              "insideSharedWindow": {
+                "words": 3,
+                "uniqueWords": 3
+              },
+              "repeatTimingAgreement": {
+                "words": 3,
+                "uniqueWords": 3
+              }
+            },
+            "candidateRepeatedSpeech": false
+          }
+        },
+        {
+          "case": "aligned-dialogue",
+          "windowSeconds": 8,
+          "start": 13.196375,
+          "end": 21.196375,
+          "inferenceSeconds": 1.029186375,
+          "match": "matched",
+          "validPrefixOnly": false,
+          "bothUnmatched": false,
+          "legacyOverlap": {
+            "leftWords": 13,
+            "rightWords": 13,
+            "gates": {
+              "lexicalOnly": {
+                "words": 8,
+                "uniqueWords": 8
+              },
+              "recognitionScore": {
+                "words": 3,
+                "uniqueWords": 3
+              },
+              "positiveSpeechSupport": {
+                "words": 3,
+                "uniqueWords": 3
+              },
+              "validTokenTimes": {
+                "words": 3,
+                "uniqueWords": 3
+              },
+              "insideSharedWindow": {
+                "words": 3,
+                "uniqueWords": 3
+              },
+              "repeatTimingAgreement": {
+                "words": 3,
+                "uniqueWords": 3
+              }
+            },
+            "candidateRepeatedSpeech": false
+          },
+          "lexicalOverlap": {
+            "leftWords": 13,
+            "rightWords": 13,
+            "gates": {
+              "lexicalOnly": {
+                "words": 8,
+                "uniqueWords": 8
+              },
+              "recognitionScore": {
+                "words": 3,
+                "uniqueWords": 3
+              },
+              "positiveSpeechSupport": {
+                "words": 3,
+                "uniqueWords": 3
+              },
+              "validTokenTimes": {
+                "words": 3,
+                "uniqueWords": 3
+              },
+              "insideSharedWindow": {
+                "words": 3,
+                "uniqueWords": 3
+              },
+              "repeatTimingAgreement": {
+                "words": 3,
+                "uniqueWords": 3
+              }
+            },
+            "candidateRepeatedSpeech": false
+          }
+        },
+        {
+          "case": "inserted-dialogue",
+          "windowSeconds": 12,
+          "start": 38.164375,
+          "end": 50.164375,
+          "inferenceSeconds": 1.088041375,
+          "match": "noCandidate",
+          "validPrefixOnly": false
+        },
+        {
+          "case": "inserted-dialogue",
+          "windowSeconds": 12,
+          "start": 40.164375,
+          "end": 52.164375,
+          "inferenceSeconds": 1.115945917,
+          "match": "noCandidate",
+          "validPrefixOnly": false,
+          "bothUnmatched": true,
+          "legacyOverlap": {
+            "leftWords": 19,
+            "rightWords": 21,
+            "gates": {
+              "lexicalOnly": {
+                "words": 8,
+                "uniqueWords": 7
+              },
+              "recognitionScore": {
+                "words": 4,
+                "uniqueWords": 4
+              },
+              "positiveSpeechSupport": {
+                "words": 4,
+                "uniqueWords": 4
+              },
+              "validTokenTimes": {
+                "words": 4,
+                "uniqueWords": 4
+              },
+              "insideSharedWindow": {
+                "words": 4,
+                "uniqueWords": 4
+              },
+              "repeatTimingAgreement": {
+                "words": 4,
+                "uniqueWords": 4
+              }
+            },
+            "candidateRepeatedSpeech": false
+          },
+          "lexicalOverlap": {
+            "leftWords": 19,
+            "rightWords": 21,
+            "gates": {
+              "lexicalOnly": {
+                "words": 8,
+                "uniqueWords": 7
+              },
+              "recognitionScore": {
+                "words": 4,
+                "uniqueWords": 4
+              },
+              "positiveSpeechSupport": {
+                "words": 4,
+                "uniqueWords": 4
+              },
+              "validTokenTimes": {
+                "words": 4,
+                "uniqueWords": 4
+              },
+              "insideSharedWindow": {
+                "words": 4,
+                "uniqueWords": 4
+              },
+              "repeatTimingAgreement": {
+                "words": 4,
+                "uniqueWords": 4
+              }
+            },
+            "candidateRepeatedSpeech": false
+          }
+        },
+        {
+          "case": "inserted-dialogue",
+          "windowSeconds": 12,
+          "start": 42.164375,
+          "end": 54.164375,
+          "inferenceSeconds": 1.28285,
+          "match": "noCandidate",
+          "validPrefixOnly": false,
+          "bothUnmatched": true,
+          "legacyOverlap": {
+            "leftWords": 21,
+            "rightWords": 11,
+            "gates": {
+              "lexicalOnly": {
+                "words": 9,
+                "uniqueWords": 7
+              },
+              "recognitionScore": {
+                "words": 2,
+                "uniqueWords": 2
+              },
+              "positiveSpeechSupport": {
+                "words": 2,
+                "uniqueWords": 2
+              },
+              "validTokenTimes": {
+                "words": 2,
+                "uniqueWords": 2
+              },
+              "insideSharedWindow": {
+                "words": 2,
+                "uniqueWords": 2
+              },
+              "repeatTimingAgreement": {
+                "words": 2,
+                "uniqueWords": 2
+              }
+            },
+            "candidateRepeatedSpeech": false
+          },
+          "lexicalOverlap": {
+            "leftWords": 21,
+            "rightWords": 11,
+            "gates": {
+              "lexicalOnly": {
+                "words": 9,
+                "uniqueWords": 7
+              },
+              "recognitionScore": {
+                "words": 5,
+                "uniqueWords": 4
+              },
+              "positiveSpeechSupport": {
+                "words": 5,
+                "uniqueWords": 4
+              },
+              "validTokenTimes": {
+                "words": 5,
+                "uniqueWords": 4
+              },
+              "insideSharedWindow": {
+                "words": 5,
+                "uniqueWords": 4
+              },
+              "repeatTimingAgreement": {
+                "words": 5,
+                "uniqueWords": 4
+              }
+            },
+            "candidateRepeatedSpeech": false
+          }
+        },
+        {
+          "case": "inserted-dialogue",
+          "windowSeconds": 12,
+          "start": 44.164375,
+          "end": 56.164375,
+          "inferenceSeconds": 1.031036459,
+          "match": "noCandidate",
+          "validPrefixOnly": false,
+          "bothUnmatched": true,
+          "legacyOverlap": {
+            "leftWords": 11,
+            "rightWords": 7,
+            "gates": {
+              "lexicalOnly": {
+                "words": 7,
+                "uniqueWords": 5
+              },
+              "recognitionScore": {
+                "words": 2,
+                "uniqueWords": 2
+              },
+              "positiveSpeechSupport": {
+                "words": 2,
+                "uniqueWords": 2
+              },
+              "validTokenTimes": {
+                "words": 2,
+                "uniqueWords": 2
+              },
+              "insideSharedWindow": {
+                "words": 2,
+                "uniqueWords": 2
+              },
+              "repeatTimingAgreement": {
+                "words": 2,
+                "uniqueWords": 2
+              }
+            },
+            "candidateRepeatedSpeech": false
+          },
+          "lexicalOverlap": {
+            "leftWords": 11,
+            "rightWords": 7,
+            "gates": {
+              "lexicalOnly": {
+                "words": 7,
+                "uniqueWords": 5
+              },
+              "recognitionScore": {
+                "words": 4,
+                "uniqueWords": 3
+              },
+              "positiveSpeechSupport": {
+                "words": 4,
+                "uniqueWords": 3
+              },
+              "validTokenTimes": {
+                "words": 4,
+                "uniqueWords": 3
+              },
+              "insideSharedWindow": {
+                "words": 4,
+                "uniqueWords": 3
+              },
+              "repeatTimingAgreement": {
+                "words": 4,
+                "uniqueWords": 3
+              }
+            },
+            "candidateRepeatedSpeech": false
+          }
+        },
+        {
+          "case": "aligned-dialogue",
+          "windowSeconds": 12,
+          "start": 7.196375,
+          "end": 19.196375,
+          "inferenceSeconds": 1.049020416,
+          "match": "matched",
+          "validPrefixOnly": false
+        },
+        {
+          "case": "aligned-dialogue",
+          "windowSeconds": 12,
+          "start": 9.196375,
+          "end": 21.196375,
+          "inferenceSeconds": 1.044695,
+          "match": "matched",
+          "validPrefixOnly": false,
+          "bothUnmatched": false,
+          "legacyOverlap": {
+            "leftWords": 18,
+            "rightWords": 16,
+            "gates": {
+              "lexicalOnly": {
+                "words": 6,
+                "uniqueWords": 6
+              },
+              "recognitionScore": {
+                "words": 3,
+                "uniqueWords": 3
+              },
+              "positiveSpeechSupport": {
+                "words": 3,
+                "uniqueWords": 3
+              },
+              "validTokenTimes": {
+                "words": 3,
+                "uniqueWords": 3
+              },
+              "insideSharedWindow": {
+                "words": 3,
+                "uniqueWords": 3
+              },
+              "repeatTimingAgreement": {
+                "words": 3,
+                "uniqueWords": 3
+              }
+            },
+            "candidateRepeatedSpeech": false
+          },
+          "lexicalOverlap": {
+            "leftWords": 18,
+            "rightWords": 16,
+            "gates": {
+              "lexicalOnly": {
+                "words": 6,
+                "uniqueWords": 6
+              },
+              "recognitionScore": {
+                "words": 3,
+                "uniqueWords": 3
+              },
+              "positiveSpeechSupport": {
+                "words": 3,
+                "uniqueWords": 3
+              },
+              "validTokenTimes": {
+                "words": 3,
+                "uniqueWords": 3
+              },
+              "insideSharedWindow": {
+                "words": 3,
+                "uniqueWords": 3
+              },
+              "repeatTimingAgreement": {
+                "words": 3,
+                "uniqueWords": 3
+              }
+            },
+            "candidateRepeatedSpeech": false
+          }
+        },
+        {
+          "case": "aligned-dialogue",
+          "windowSeconds": 12,
+          "start": 11.196375,
+          "end": 23.196375,
+          "inferenceSeconds": 1.073040208,
+          "match": "matched",
+          "validPrefixOnly": false,
+          "bothUnmatched": false,
+          "legacyOverlap": {
+            "leftWords": 16,
+            "rightWords": 21,
+            "gates": {
+              "lexicalOnly": {
+                "words": 8,
+                "uniqueWords": 8
+              },
+              "recognitionScore": {
+                "words": 4,
+                "uniqueWords": 4
+              },
+              "positiveSpeechSupport": {
+                "words": 4,
+                "uniqueWords": 4
+              },
+              "validTokenTimes": {
+                "words": 4,
+                "uniqueWords": 4
+              },
+              "insideSharedWindow": {
+                "words": 4,
+                "uniqueWords": 4
+              },
+              "repeatTimingAgreement": {
+                "words": 4,
+                "uniqueWords": 4
+              }
+            },
+            "candidateRepeatedSpeech": false
+          },
+          "lexicalOverlap": {
+            "leftWords": 16,
+            "rightWords": 21,
+            "gates": {
+              "lexicalOnly": {
+                "words": 8,
+                "uniqueWords": 8
+              },
+              "recognitionScore": {
+                "words": 4,
+                "uniqueWords": 4
+              },
+              "positiveSpeechSupport": {
+                "words": 4,
+                "uniqueWords": 4
+              },
+              "validTokenTimes": {
+                "words": 4,
+                "uniqueWords": 4
+              },
+              "insideSharedWindow": {
+                "words": 4,
+                "uniqueWords": 4
+              },
+              "repeatTimingAgreement": {
+                "words": 4,
+                "uniqueWords": 4
+              }
+            },
+            "candidateRepeatedSpeech": false
+          }
+        },
+        {
+          "case": "aligned-dialogue",
+          "windowSeconds": 12,
+          "start": 13.196375,
+          "end": 25.196375,
+          "inferenceSeconds": 1.0830455,
+          "match": "matched",
+          "validPrefixOnly": false,
+          "bothUnmatched": false,
+          "legacyOverlap": {
+            "leftWords": 21,
+            "rightWords": 21,
+            "gates": {
+              "lexicalOnly": {
+                "words": 12,
+                "uniqueWords": 11
+              },
+              "recognitionScore": {
+                "words": 7,
+                "uniqueWords": 7
+              },
+              "positiveSpeechSupport": {
+                "words": 7,
+                "uniqueWords": 7
+              },
+              "validTokenTimes": {
+                "words": 7,
+                "uniqueWords": 7
+              },
+              "insideSharedWindow": {
+                "words": 7,
+                "uniqueWords": 7
+              },
+              "repeatTimingAgreement": {
+                "words": 7,
+                "uniqueWords": 7
+              }
+            },
+            "candidateRepeatedSpeech": true
+          },
+          "lexicalOverlap": {
+            "leftWords": 21,
+            "rightWords": 21,
+            "gates": {
+              "lexicalOnly": {
+                "words": 12,
+                "uniqueWords": 11
+              },
+              "recognitionScore": {
+                "words": 7,
+                "uniqueWords": 7
+              },
+              "positiveSpeechSupport": {
+                "words": 7,
+                "uniqueWords": 7
+              },
+              "validTokenTimes": {
+                "words": 7,
+                "uniqueWords": 7
+              },
+              "insideSharedWindow": {
+                "words": 7,
+                "uniqueWords": 7
+              },
+              "repeatTimingAgreement": {
+                "words": 7,
+                "uniqueWords": 7
+              }
+            },
+            "candidateRepeatedSpeech": true
+          }
+        },
+        {
+          "case": "inserted-dialogue",
+          "windowSeconds": 15,
+          "start": 38.164375,
+          "end": 53.164375,
+          "inferenceSeconds": 1.0871675,
+          "match": "noCandidate",
+          "validPrefixOnly": false
+        },
+        {
+          "case": "inserted-dialogue",
+          "windowSeconds": 15,
+          "start": 40.164375,
+          "end": 55.164375,
+          "inferenceSeconds": 1.12142575,
+          "match": "noCandidate",
+          "validPrefixOnly": false,
+          "bothUnmatched": true,
+          "legacyOverlap": {
+            "leftWords": 18,
+            "rightWords": 17,
+            "gates": {
+              "lexicalOnly": {
+                "words": 8,
+                "uniqueWords": 7
+              },
+              "recognitionScore": {
+                "words": 4,
+                "uniqueWords": 4
+              },
+              "positiveSpeechSupport": {
+                "words": 4,
+                "uniqueWords": 4
+              },
+              "validTokenTimes": {
+                "words": 4,
+                "uniqueWords": 4
+              },
+              "insideSharedWindow": {
+                "words": 4,
+                "uniqueWords": 4
+              },
+              "repeatTimingAgreement": {
+                "words": 4,
+                "uniqueWords": 4
+              }
+            },
+            "candidateRepeatedSpeech": false
+          },
+          "lexicalOverlap": {
+            "leftWords": 18,
+            "rightWords": 17,
+            "gates": {
+              "lexicalOnly": {
+                "words": 8,
+                "uniqueWords": 7
+              },
+              "recognitionScore": {
+                "words": 4,
+                "uniqueWords": 4
+              },
+              "positiveSpeechSupport": {
+                "words": 4,
+                "uniqueWords": 4
+              },
+              "validTokenTimes": {
+                "words": 4,
+                "uniqueWords": 4
+              },
+              "insideSharedWindow": {
+                "words": 4,
+                "uniqueWords": 4
+              },
+              "repeatTimingAgreement": {
+                "words": 4,
+                "uniqueWords": 4
+              }
+            },
+            "candidateRepeatedSpeech": false
+          }
+        },
+        {
+          "case": "inserted-dialogue",
+          "windowSeconds": 15,
+          "start": 42.164375,
+          "end": 57.164375,
+          "inferenceSeconds": 1.339560958,
+          "match": "noCandidate",
+          "validPrefixOnly": false,
+          "bothUnmatched": true,
+          "legacyOverlap": {
+            "leftWords": 17,
+            "rightWords": 11,
+            "gates": {
+              "lexicalOnly": {
+                "words": 9,
+                "uniqueWords": 7
+              },
+              "recognitionScore": {
+                "words": 2,
+                "uniqueWords": 2
+              },
+              "positiveSpeechSupport": {
+                "words": 2,
+                "uniqueWords": 2
+              },
+              "validTokenTimes": {
+                "words": 2,
+                "uniqueWords": 2
+              },
+              "insideSharedWindow": {
+                "words": 2,
+                "uniqueWords": 2
+              },
+              "repeatTimingAgreement": {
+                "words": 2,
+                "uniqueWords": 2
+              }
+            },
+            "candidateRepeatedSpeech": false
+          },
+          "lexicalOverlap": {
+            "leftWords": 17,
+            "rightWords": 11,
+            "gates": {
+              "lexicalOnly": {
+                "words": 9,
+                "uniqueWords": 7
+              },
+              "recognitionScore": {
+                "words": 5,
+                "uniqueWords": 4
+              },
+              "positiveSpeechSupport": {
+                "words": 5,
+                "uniqueWords": 4
+              },
+              "validTokenTimes": {
+                "words": 5,
+                "uniqueWords": 4
+              },
+              "insideSharedWindow": {
+                "words": 5,
+                "uniqueWords": 4
+              },
+              "repeatTimingAgreement": {
+                "words": 5,
+                "uniqueWords": 4
+              }
+            },
+            "candidateRepeatedSpeech": false
+          }
+        },
+        {
+          "case": "inserted-dialogue",
+          "windowSeconds": 15,
+          "start": 44.164375,
+          "end": 59.164375,
+          "inferenceSeconds": 1.040479458,
+          "match": "noCandidate",
+          "validPrefixOnly": false,
+          "bothUnmatched": true,
+          "legacyOverlap": {
+            "leftWords": 11,
+            "rightWords": 7,
+            "gates": {
+              "lexicalOnly": {
+                "words": 7,
+                "uniqueWords": 5
+              },
+              "recognitionScore": {
+                "words": 2,
+                "uniqueWords": 2
+              },
+              "positiveSpeechSupport": {
+                "words": 2,
+                "uniqueWords": 2
+              },
+              "validTokenTimes": {
+                "words": 2,
+                "uniqueWords": 2
+              },
+              "insideSharedWindow": {
+                "words": 2,
+                "uniqueWords": 2
+              },
+              "repeatTimingAgreement": {
+                "words": 2,
+                "uniqueWords": 2
+              }
+            },
+            "candidateRepeatedSpeech": false
+          },
+          "lexicalOverlap": {
+            "leftWords": 11,
+            "rightWords": 7,
+            "gates": {
+              "lexicalOnly": {
+                "words": 7,
+                "uniqueWords": 5
+              },
+              "recognitionScore": {
+                "words": 4,
+                "uniqueWords": 3
+              },
+              "positiveSpeechSupport": {
+                "words": 4,
+                "uniqueWords": 3
+              },
+              "validTokenTimes": {
+                "words": 4,
+                "uniqueWords": 3
+              },
+              "insideSharedWindow": {
+                "words": 4,
+                "uniqueWords": 3
+              },
+              "repeatTimingAgreement": {
+                "words": 4,
+                "uniqueWords": 3
+              }
+            },
+            "candidateRepeatedSpeech": false
+          }
+        },
+        {
+          "case": "aligned-dialogue",
+          "windowSeconds": 15,
+          "start": 7.196375,
+          "end": 22.196375,
+          "inferenceSeconds": 1.088920167,
+          "match": "matched",
+          "validPrefixOnly": false
+        },
+        {
+          "case": "aligned-dialogue",
+          "windowSeconds": 15,
+          "start": 9.196375,
+          "end": 24.196375,
+          "inferenceSeconds": 1.086383292,
+          "match": "matched",
+          "validPrefixOnly": false,
+          "bothUnmatched": false,
+          "legacyOverlap": {
+            "leftWords": 24,
+            "rightWords": 21,
+            "gates": {
+              "lexicalOnly": {
+                "words": 19,
+                "uniqueWords": 16
+              },
+              "recognitionScore": {
+                "words": 8,
+                "uniqueWords": 8
+              },
+              "positiveSpeechSupport": {
+                "words": 8,
+                "uniqueWords": 8
+              },
+              "validTokenTimes": {
+                "words": 8,
+                "uniqueWords": 8
+              },
+              "insideSharedWindow": {
+                "words": 8,
+                "uniqueWords": 8
+              },
+              "repeatTimingAgreement": {
+                "words": 8,
+                "uniqueWords": 8
+              }
+            },
+            "candidateRepeatedSpeech": true
+          },
+          "lexicalOverlap": {
+            "leftWords": 24,
+            "rightWords": 21,
+            "gates": {
+              "lexicalOnly": {
+                "words": 19,
+                "uniqueWords": 16
+              },
+              "recognitionScore": {
+                "words": 8,
+                "uniqueWords": 8
+              },
+              "positiveSpeechSupport": {
+                "words": 8,
+                "uniqueWords": 8
+              },
+              "validTokenTimes": {
+                "words": 8,
+                "uniqueWords": 8
+              },
+              "insideSharedWindow": {
+                "words": 8,
+                "uniqueWords": 8
+              },
+              "repeatTimingAgreement": {
+                "words": 8,
+                "uniqueWords": 8
+              }
+            },
+            "candidateRepeatedSpeech": true
+          }
+        },
+        {
+          "case": "aligned-dialogue",
+          "windowSeconds": 15,
+          "start": 11.196375,
+          "end": 26.196375,
+          "inferenceSeconds": 1.09716275,
+          "match": "matched",
+          "validPrefixOnly": false,
+          "bothUnmatched": false,
+          "legacyOverlap": {
+            "leftWords": 21,
+            "rightWords": 23,
+            "gates": {
+              "lexicalOnly": {
+                "words": 17,
+                "uniqueWords": 16
+              },
+              "recognitionScore": {
+                "words": 10,
+                "uniqueWords": 10
+              },
+              "positiveSpeechSupport": {
+                "words": 10,
+                "uniqueWords": 10
+              },
+              "validTokenTimes": {
+                "words": 10,
+                "uniqueWords": 10
+              },
+              "insideSharedWindow": {
+                "words": 10,
+                "uniqueWords": 10
+              },
+              "repeatTimingAgreement": {
+                "words": 10,
+                "uniqueWords": 10
+              }
+            },
+            "candidateRepeatedSpeech": true
+          },
+          "lexicalOverlap": {
+            "leftWords": 21,
+            "rightWords": 23,
+            "gates": {
+              "lexicalOnly": {
+                "words": 17,
+                "uniqueWords": 16
+              },
+              "recognitionScore": {
+                "words": 10,
+                "uniqueWords": 10
+              },
+              "positiveSpeechSupport": {
+                "words": 10,
+                "uniqueWords": 10
+              },
+              "validTokenTimes": {
+                "words": 10,
+                "uniqueWords": 10
+              },
+              "insideSharedWindow": {
+                "words": 10,
+                "uniqueWords": 10
+              },
+              "repeatTimingAgreement": {
+                "words": 10,
+                "uniqueWords": 10
+              }
+            },
+            "candidateRepeatedSpeech": true
+          }
+        },
+        {
+          "case": "aligned-dialogue",
+          "windowSeconds": 15,
+          "start": 13.196375,
+          "end": 28.196375,
+          "inferenceSeconds": 1.098856833,
+          "match": "matched",
+          "validPrefixOnly": true,
+          "bothUnmatched": false,
+          "legacyOverlap": {
+            "leftWords": 23,
+            "rightWords": 21,
+            "gates": {
+              "lexicalOnly": {
+                "words": 18,
+                "uniqueWords": 17
+              },
+              "recognitionScore": {
+                "words": 7,
+                "uniqueWords": 7
+              },
+              "positiveSpeechSupport": {
+                "words": 7,
+                "uniqueWords": 7
+              },
+              "validTokenTimes": {
+                "words": 7,
+                "uniqueWords": 7
+              },
+              "insideSharedWindow": {
+                "words": 7,
+                "uniqueWords": 7
+              },
+              "repeatTimingAgreement": {
+                "words": 7,
+                "uniqueWords": 7
+              }
+            },
+            "candidateRepeatedSpeech": true
+          },
+          "lexicalOverlap": {
+            "leftWords": 23,
+            "rightWords": 21,
+            "gates": {
+              "lexicalOnly": {
+                "words": 18,
+                "uniqueWords": 17
+              },
+              "recognitionScore": {
+                "words": 7,
+                "uniqueWords": 7
+              },
+              "positiveSpeechSupport": {
+                "words": 7,
+                "uniqueWords": 7
+              },
+              "validTokenTimes": {
+                "words": 7,
+                "uniqueWords": 7
+              },
+              "insideSharedWindow": {
+                "words": 7,
+                "uniqueWords": 7
+              },
+              "repeatTimingAgreement": {
+                "words": 7,
+                "uniqueWords": 7
+              }
+            },
+            "candidateRepeatedSpeech": true
+          }
+        },
+        {
+          "case": "quiet-added-region",
+          "windowSeconds": 8,
+          "start": 52.0,
+          "end": 60.0,
+          "inferenceSeconds": 1.035517083,
+          "match": "insufficientDialogue",
+          "validPrefixOnly": false
+        },
+        {
+          "case": "quiet-added-region",
+          "windowSeconds": 8,
+          "start": 54.0,
+          "end": 62.0,
+          "inferenceSeconds": 1.031666292,
+          "match": "insufficientDialogue",
+          "validPrefixOnly": false,
+          "bothUnmatched": false,
+          "legacyOverlap": {
+            "leftWords": 0,
+            "rightWords": 0,
+            "gates": {
+              "lexicalOnly": {
+                "words": 0,
+                "uniqueWords": 0
+              },
+              "recognitionScore": {
+                "words": 0,
+                "uniqueWords": 0
+              },
+              "positiveSpeechSupport": {
+                "words": 0,
+                "uniqueWords": 0
+              },
+              "validTokenTimes": {
+                "words": 0,
+                "uniqueWords": 0
+              },
+              "insideSharedWindow": {
+                "words": 0,
+                "uniqueWords": 0
+              },
+              "repeatTimingAgreement": {
+                "words": 0,
+                "uniqueWords": 0
+              }
+            },
+            "candidateRepeatedSpeech": false
+          },
+          "lexicalOverlap": {
+            "leftWords": 0,
+            "rightWords": 0,
+            "gates": {
+              "lexicalOnly": {
+                "words": 0,
+                "uniqueWords": 0
+              },
+              "recognitionScore": {
+                "words": 0,
+                "uniqueWords": 0
+              },
+              "positiveSpeechSupport": {
+                "words": 0,
+                "uniqueWords": 0
+              },
+              "validTokenTimes": {
+                "words": 0,
+                "uniqueWords": 0
+              },
+              "insideSharedWindow": {
+                "words": 0,
+                "uniqueWords": 0
+              },
+              "repeatTimingAgreement": {
+                "words": 0,
+                "uniqueWords": 0
+              }
+            },
+            "candidateRepeatedSpeech": false
+          }
+        },
+        {
+          "case": "quiet-added-region",
+          "windowSeconds": 8,
+          "start": 56.0,
+          "end": 64.0,
+          "inferenceSeconds": 0.978137667,
+          "match": "insufficientDialogue",
+          "validPrefixOnly": false,
+          "bothUnmatched": false,
+          "legacyOverlap": {
+            "leftWords": 0,
+            "rightWords": 0,
+            "gates": {
+              "lexicalOnly": {
+                "words": 0,
+                "uniqueWords": 0
+              },
+              "recognitionScore": {
+                "words": 0,
+                "uniqueWords": 0
+              },
+              "positiveSpeechSupport": {
+                "words": 0,
+                "uniqueWords": 0
+              },
+              "validTokenTimes": {
+                "words": 0,
+                "uniqueWords": 0
+              },
+              "insideSharedWindow": {
+                "words": 0,
+                "uniqueWords": 0
+              },
+              "repeatTimingAgreement": {
+                "words": 0,
+                "uniqueWords": 0
+              }
+            },
+            "candidateRepeatedSpeech": false
+          },
+          "lexicalOverlap": {
+            "leftWords": 0,
+            "rightWords": 0,
+            "gates": {
+              "lexicalOnly": {
+                "words": 0,
+                "uniqueWords": 0
+              },
+              "recognitionScore": {
+                "words": 0,
+                "uniqueWords": 0
+              },
+              "positiveSpeechSupport": {
+                "words": 0,
+                "uniqueWords": 0
+              },
+              "validTokenTimes": {
+                "words": 0,
+                "uniqueWords": 0
+              },
+              "insideSharedWindow": {
+                "words": 0,
+                "uniqueWords": 0
+              },
+              "repeatTimingAgreement": {
+                "words": 0,
+                "uniqueWords": 0
+              }
+            },
+            "candidateRepeatedSpeech": false
+          }
+        }
+      ]
+    },
+    "absence-lookback-diagnostic": {
+      "sha256": "b4889db6de0b14d5c6e817fb9c51f838fc5ff8943f702d2ee122342399ecaade",
+      "scope": "fixed end-anchored lookback and punctuation-contributor comparison on consumed public fixture; no production gap decision",
+      "criteria": {
+        "windowSeconds": [
+          12,
+          15
+        ],
+        "sameWindowEndsAsEightSeconds": true,
+        "shiftSeconds": 2,
+        "minimumTokenScore": 0.7,
+        "maximumTimingDifferenceSeconds": 0.75,
+        "minimumContiguousReliableWords": 6,
+        "minimumUniqueWords": 3,
+        "positiveSpeechSupportRequired": true
+      },
+      "rows": [
+        {
+          "case": "inserted-dialogue",
+          "windowSeconds": 12,
+          "start": 34.164375,
+          "end": 46.164375,
+          "inferenceSeconds": 0.991981667,
+          "match": "insufficientDialogue",
+          "validPrefixOnly": false
+        },
+        {
+          "case": "inserted-dialogue",
+          "windowSeconds": 12,
+          "start": 36.164375,
+          "end": 48.164375,
+          "inferenceSeconds": 1.060262084,
+          "match": "noCandidate",
+          "validPrefixOnly": false,
+          "bothUnmatched": false,
+          "legacyOverlap": {
+            "leftWords": 4,
+            "rightWords": 20,
+            "gates": {
+              "lexicalOnly": {
+                "words": 0,
+                "uniqueWords": 0
+              },
+              "recognitionScore": {
+                "words": 0,
+                "uniqueWords": 0
+              },
+              "positiveSpeechSupport": {
+                "words": 0,
+                "uniqueWords": 0
+              },
+              "validTokenTimes": {
+                "words": 0,
+                "uniqueWords": 0
+              },
+              "insideSharedWindow": {
+                "words": 0,
+                "uniqueWords": 0
+              },
+              "repeatTimingAgreement": {
+                "words": 0,
+                "uniqueWords": 0
+              }
+            },
+            "candidateRepeatedSpeech": false
+          },
+          "lexicalOverlap": {
+            "leftWords": 4,
+            "rightWords": 20,
+            "gates": {
+              "lexicalOnly": {
+                "words": 0,
+                "uniqueWords": 0
+              },
+              "recognitionScore": {
+                "words": 0,
+                "uniqueWords": 0
+              },
+              "positiveSpeechSupport": {
+                "words": 0,
+                "uniqueWords": 0
+              },
+              "validTokenTimes": {
+                "words": 0,
+                "uniqueWords": 0
+              },
+              "insideSharedWindow": {
+                "words": 0,
+                "uniqueWords": 0
+              },
+              "repeatTimingAgreement": {
+                "words": 0,
+                "uniqueWords": 0
+              }
+            },
+            "candidateRepeatedSpeech": false
+          }
+        },
+        {
+          "case": "inserted-dialogue",
+          "windowSeconds": 12,
+          "start": 38.164375,
+          "end": 50.164375,
+          "inferenceSeconds": 1.082411167,
+          "match": "noCandidate",
+          "validPrefixOnly": false,
+          "bothUnmatched": true,
+          "legacyOverlap": {
+            "leftWords": 20,
+            "rightWords": 19,
+            "gates": {
+              "lexicalOnly": {
+                "words": 13,
+                "uniqueWords": 11
+              },
+              "recognitionScore": {
+                "words": 5,
+                "uniqueWords": 5
+              },
+              "positiveSpeechSupport": {
+                "words": 5,
+                "uniqueWords": 5
+              },
+              "validTokenTimes": {
+                "words": 5,
+                "uniqueWords": 5
+              },
+              "insideSharedWindow": {
+                "words": 5,
+                "uniqueWords": 5
+              },
+              "repeatTimingAgreement": {
+                "words": 5,
+                "uniqueWords": 5
+              }
+            },
+            "candidateRepeatedSpeech": false
+          },
+          "lexicalOverlap": {
+            "leftWords": 20,
+            "rightWords": 19,
+            "gates": {
+              "lexicalOnly": {
+                "words": 13,
+                "uniqueWords": 11
+              },
+              "recognitionScore": {
+                "words": 5,
+                "uniqueWords": 5
+              },
+              "positiveSpeechSupport": {
+                "words": 5,
+                "uniqueWords": 5
+              },
+              "validTokenTimes": {
+                "words": 5,
+                "uniqueWords": 5
+              },
+              "insideSharedWindow": {
+                "words": 5,
+                "uniqueWords": 5
+              },
+              "repeatTimingAgreement": {
+                "words": 5,
+                "uniqueWords": 5
+              }
+            },
+            "candidateRepeatedSpeech": false
+          }
+        },
+        {
+          "case": "inserted-dialogue",
+          "windowSeconds": 12,
+          "start": 40.164375,
+          "end": 52.164375,
+          "inferenceSeconds": 1.111173375,
+          "match": "noCandidate",
+          "validPrefixOnly": false,
+          "bothUnmatched": true,
+          "legacyOverlap": {
+            "leftWords": 19,
+            "rightWords": 21,
+            "gates": {
+              "lexicalOnly": {
+                "words": 8,
+                "uniqueWords": 7
+              },
+              "recognitionScore": {
+                "words": 4,
+                "uniqueWords": 4
+              },
+              "positiveSpeechSupport": {
+                "words": 4,
+                "uniqueWords": 4
+              },
+              "validTokenTimes": {
+                "words": 4,
+                "uniqueWords": 4
+              },
+              "insideSharedWindow": {
+                "words": 4,
+                "uniqueWords": 4
+              },
+              "repeatTimingAgreement": {
+                "words": 4,
+                "uniqueWords": 4
+              }
+            },
+            "candidateRepeatedSpeech": false
+          },
+          "lexicalOverlap": {
+            "leftWords": 19,
+            "rightWords": 21,
+            "gates": {
+              "lexicalOnly": {
+                "words": 8,
+                "uniqueWords": 7
+              },
+              "recognitionScore": {
+                "words": 4,
+                "uniqueWords": 4
+              },
+              "positiveSpeechSupport": {
+                "words": 4,
+                "uniqueWords": 4
+              },
+              "validTokenTimes": {
+                "words": 4,
+                "uniqueWords": 4
+              },
+              "insideSharedWindow": {
+                "words": 4,
+                "uniqueWords": 4
+              },
+              "repeatTimingAgreement": {
+                "words": 4,
+                "uniqueWords": 4
+              }
+            },
+            "candidateRepeatedSpeech": false
+          }
+        },
+        {
+          "case": "aligned-dialogue",
+          "windowSeconds": 12,
+          "start": 3.196375,
+          "end": 15.196375,
+          "inferenceSeconds": 1.030694583,
+          "match": "matched",
+          "validPrefixOnly": false
+        },
+        {
+          "case": "aligned-dialogue",
+          "windowSeconds": 12,
+          "start": 5.196375,
+          "end": 17.196375,
+          "inferenceSeconds": 1.028797875,
+          "match": "matched",
+          "validPrefixOnly": false,
+          "bothUnmatched": false,
+          "legacyOverlap": {
+            "leftWords": 12,
+            "rightWords": 12,
+            "gates": {
+              "lexicalOnly": {
+                "words": 12,
+                "uniqueWords": 11
+              },
+              "recognitionScore": {
+                "words": 8,
+                "uniqueWords": 8
+              },
+              "positiveSpeechSupport": {
+                "words": 8,
+                "uniqueWords": 8
+              },
+              "validTokenTimes": {
+                "words": 8,
+                "uniqueWords": 8
+              },
+              "insideSharedWindow": {
+                "words": 8,
+                "uniqueWords": 8
+              },
+              "repeatTimingAgreement": {
+                "words": 8,
+                "uniqueWords": 8
+              }
+            },
+            "candidateRepeatedSpeech": true
+          },
+          "lexicalOverlap": {
+            "leftWords": 12,
+            "rightWords": 12,
+            "gates": {
+              "lexicalOnly": {
+                "words": 12,
+                "uniqueWords": 11
+              },
+              "recognitionScore": {
+                "words": 8,
+                "uniqueWords": 8
+              },
+              "positiveSpeechSupport": {
+                "words": 8,
+                "uniqueWords": 8
+              },
+              "validTokenTimes": {
+                "words": 8,
+                "uniqueWords": 8
+              },
+              "insideSharedWindow": {
+                "words": 8,
+                "uniqueWords": 8
+              },
+              "repeatTimingAgreement": {
+                "words": 8,
+                "uniqueWords": 8
+              }
+            },
+            "candidateRepeatedSpeech": true
+          }
+        },
+        {
+          "case": "aligned-dialogue",
+          "windowSeconds": 12,
+          "start": 7.196375,
+          "end": 19.196375,
+          "inferenceSeconds": 1.047054459,
+          "match": "matched",
+          "validPrefixOnly": false,
+          "bothUnmatched": false,
+          "legacyOverlap": {
+            "leftWords": 12,
+            "rightWords": 18,
+            "gates": {
+              "lexicalOnly": {
+                "words": 11,
+                "uniqueWords": 10
+              },
+              "recognitionScore": {
+                "words": 7,
+                "uniqueWords": 7
+              },
+              "positiveSpeechSupport": {
+                "words": 7,
+                "uniqueWords": 7
+              },
+              "validTokenTimes": {
+                "words": 7,
+                "uniqueWords": 7
+              },
+              "insideSharedWindow": {
+                "words": 7,
+                "uniqueWords": 7
+              },
+              "repeatTimingAgreement": {
+                "words": 5,
+                "uniqueWords": 5
+              }
+            },
+            "candidateRepeatedSpeech": false
+          },
+          "lexicalOverlap": {
+            "leftWords": 12,
+            "rightWords": 18,
+            "gates": {
+              "lexicalOnly": {
+                "words": 11,
+                "uniqueWords": 10
+              },
+              "recognitionScore": {
+                "words": 8,
+                "uniqueWords": 8
+              },
+              "positiveSpeechSupport": {
+                "words": 8,
+                "uniqueWords": 8
+              },
+              "validTokenTimes": {
+                "words": 8,
+                "uniqueWords": 8
+              },
+              "insideSharedWindow": {
+                "words": 8,
+                "uniqueWords": 8
+              },
+              "repeatTimingAgreement": {
+                "words": 8,
+                "uniqueWords": 8
+              }
+            },
+            "candidateRepeatedSpeech": true
+          }
+        },
+        {
+          "case": "aligned-dialogue",
+          "windowSeconds": 12,
+          "start": 9.196375,
+          "end": 21.196375,
+          "inferenceSeconds": 1.047246292,
+          "match": "matched",
+          "validPrefixOnly": false,
+          "bothUnmatched": false,
+          "legacyOverlap": {
+            "leftWords": 18,
+            "rightWords": 16,
+            "gates": {
+              "lexicalOnly": {
+                "words": 6,
+                "uniqueWords": 6
+              },
+              "recognitionScore": {
+                "words": 3,
+                "uniqueWords": 3
+              },
+              "positiveSpeechSupport": {
+                "words": 3,
+                "uniqueWords": 3
+              },
+              "validTokenTimes": {
+                "words": 3,
+                "uniqueWords": 3
+              },
+              "insideSharedWindow": {
+                "words": 3,
+                "uniqueWords": 3
+              },
+              "repeatTimingAgreement": {
+                "words": 3,
+                "uniqueWords": 3
+              }
+            },
+            "candidateRepeatedSpeech": false
+          },
+          "lexicalOverlap": {
+            "leftWords": 18,
+            "rightWords": 16,
+            "gates": {
+              "lexicalOnly": {
+                "words": 6,
+                "uniqueWords": 6
+              },
+              "recognitionScore": {
+                "words": 3,
+                "uniqueWords": 3
+              },
+              "positiveSpeechSupport": {
+                "words": 3,
+                "uniqueWords": 3
+              },
+              "validTokenTimes": {
+                "words": 3,
+                "uniqueWords": 3
+              },
+              "insideSharedWindow": {
+                "words": 3,
+                "uniqueWords": 3
+              },
+              "repeatTimingAgreement": {
+                "words": 3,
+                "uniqueWords": 3
+              }
+            },
+            "candidateRepeatedSpeech": false
+          }
+        },
+        {
+          "case": "inserted-dialogue",
+          "windowSeconds": 15,
+          "start": 31.164375,
+          "end": 46.164375,
+          "inferenceSeconds": 1.0112965,
+          "match": "insufficientDialogue",
+          "validPrefixOnly": false
+        },
+        {
+          "case": "inserted-dialogue",
+          "windowSeconds": 15,
+          "start": 33.164375,
+          "end": 48.164375,
+          "inferenceSeconds": 1.108495458,
+          "match": "noCandidate",
+          "validPrefixOnly": false,
+          "bothUnmatched": false,
+          "legacyOverlap": {
+            "leftWords": 4,
+            "rightWords": 25,
+            "gates": {
+              "lexicalOnly": {
+                "words": 4,
+                "uniqueWords": 4
+              },
+              "recognitionScore": {
+                "words": 2,
+                "uniqueWords": 2
+              },
+              "positiveSpeechSupport": {
+                "words": 2,
+                "uniqueWords": 2
+              },
+              "validTokenTimes": {
+                "words": 2,
+                "uniqueWords": 2
+              },
+              "insideSharedWindow": {
+                "words": 0,
+                "uniqueWords": 0
+              },
+              "repeatTimingAgreement": {
+                "words": 0,
+                "uniqueWords": 0
+              }
+            },
+            "candidateRepeatedSpeech": false
+          },
+          "lexicalOverlap": {
+            "leftWords": 4,
+            "rightWords": 25,
+            "gates": {
+              "lexicalOnly": {
+                "words": 4,
+                "uniqueWords": 4
+              },
+              "recognitionScore": {
+                "words": 3,
+                "uniqueWords": 3
+              },
+              "positiveSpeechSupport": {
+                "words": 3,
+                "uniqueWords": 3
+              },
+              "validTokenTimes": {
+                "words": 3,
+                "uniqueWords": 3
+              },
+              "insideSharedWindow": {
+                "words": 0,
+                "uniqueWords": 0
+              },
+              "repeatTimingAgreement": {
+                "words": 0,
+                "uniqueWords": 0
+              }
+            },
+            "candidateRepeatedSpeech": false
+          }
+        },
+        {
+          "case": "inserted-dialogue",
+          "windowSeconds": 15,
+          "start": 35.164375,
+          "end": 50.164375,
+          "inferenceSeconds": 1.005371791,
+          "match": "insufficientDialogue",
+          "validPrefixOnly": false,
+          "bothUnmatched": false,
+          "legacyOverlap": {
+            "leftWords": 25,
+            "rightWords": 3,
+            "gates": {
+              "lexicalOnly": {
+                "words": 3,
+                "uniqueWords": 3
+              },
+              "recognitionScore": {
+                "words": 1,
+                "uniqueWords": 1
+              },
+              "positiveSpeechSupport": {
+                "words": 1,
+                "uniqueWords": 1
+              },
+              "validTokenTimes": {
+                "words": 1,
+                "uniqueWords": 1
+              },
+              "insideSharedWindow": {
+                "words": 1,
+                "uniqueWords": 1
+              },
+              "repeatTimingAgreement": {
+                "words": 1,
+                "uniqueWords": 1
+              }
+            },
+            "candidateRepeatedSpeech": false
+          },
+          "lexicalOverlap": {
+            "leftWords": 25,
+            "rightWords": 3,
+            "gates": {
+              "lexicalOnly": {
+                "words": 3,
+                "uniqueWords": 3
+              },
+              "recognitionScore": {
+                "words": 2,
+                "uniqueWords": 2
+              },
+              "positiveSpeechSupport": {
+                "words": 2,
+                "uniqueWords": 2
+              },
+              "validTokenTimes": {
+                "words": 2,
+                "uniqueWords": 2
+              },
+              "insideSharedWindow": {
+                "words": 2,
+                "uniqueWords": 2
+              },
+              "repeatTimingAgreement": {
+                "words": 2,
+                "uniqueWords": 2
+              }
+            },
+            "candidateRepeatedSpeech": false
+          }
+        },
+        {
+          "case": "inserted-dialogue",
+          "windowSeconds": 15,
+          "start": 37.164375,
+          "end": 52.164375,
+          "inferenceSeconds": 1.121202083,
+          "match": "noCandidate",
+          "validPrefixOnly": false,
+          "bothUnmatched": false,
+          "legacyOverlap": {
+            "leftWords": 3,
+            "rightWords": 23,
+            "gates": {
+              "lexicalOnly": {
+                "words": 0,
+                "uniqueWords": 0
+              },
+              "recognitionScore": {
+                "words": 0,
+                "uniqueWords": 0
+              },
+              "positiveSpeechSupport": {
+                "words": 0,
+                "uniqueWords": 0
+              },
+              "validTokenTimes": {
+                "words": 0,
+                "uniqueWords": 0
+              },
+              "insideSharedWindow": {
+                "words": 0,
+                "uniqueWords": 0
+              },
+              "repeatTimingAgreement": {
+                "words": 0,
+                "uniqueWords": 0
+              }
+            },
+            "candidateRepeatedSpeech": false
+          },
+          "lexicalOverlap": {
+            "leftWords": 3,
+            "rightWords": 23,
+            "gates": {
+              "lexicalOnly": {
+                "words": 0,
+                "uniqueWords": 0
+              },
+              "recognitionScore": {
+                "words": 0,
+                "uniqueWords": 0
+              },
+              "positiveSpeechSupport": {
+                "words": 0,
+                "uniqueWords": 0
+              },
+              "validTokenTimes": {
+                "words": 0,
+                "uniqueWords": 0
+              },
+              "insideSharedWindow": {
+                "words": 0,
+                "uniqueWords": 0
+              },
+              "repeatTimingAgreement": {
+                "words": 0,
+                "uniqueWords": 0
+              }
+            },
+            "candidateRepeatedSpeech": false
+          }
+        },
+        {
+          "case": "aligned-dialogue",
+          "windowSeconds": 15,
+          "start": 0.196375,
+          "end": 15.196375,
+          "inferenceSeconds": 1.03906925,
+          "match": "matched",
+          "validPrefixOnly": false
+        },
+        {
+          "case": "aligned-dialogue",
+          "windowSeconds": 15,
+          "start": 2.196375,
+          "end": 17.196375,
+          "inferenceSeconds": 1.038932833,
+          "match": "matched",
+          "validPrefixOnly": false,
+          "bothUnmatched": false,
+          "legacyOverlap": {
+            "leftWords": 12,
+            "rightWords": 12,
+            "gates": {
+              "lexicalOnly": {
+                "words": 12,
+                "uniqueWords": 11
+              },
+              "recognitionScore": {
+                "words": 6,
+                "uniqueWords": 6
+              },
+              "positiveSpeechSupport": {
+                "words": 6,
+                "uniqueWords": 6
+              },
+              "validTokenTimes": {
+                "words": 6,
+                "uniqueWords": 6
+              },
+              "insideSharedWindow": {
+                "words": 6,
+                "uniqueWords": 6
+              },
+              "repeatTimingAgreement": {
+                "words": 6,
+                "uniqueWords": 6
+              }
+            },
+            "candidateRepeatedSpeech": true
+          },
+          "lexicalOverlap": {
+            "leftWords": 12,
+            "rightWords": 12,
+            "gates": {
+              "lexicalOnly": {
+                "words": 12,
+                "uniqueWords": 11
+              },
+              "recognitionScore": {
+                "words": 8,
+                "uniqueWords": 8
+              },
+              "positiveSpeechSupport": {
+                "words": 8,
+                "uniqueWords": 8
+              },
+              "validTokenTimes": {
+                "words": 8,
+                "uniqueWords": 8
+              },
+              "insideSharedWindow": {
+                "words": 8,
+                "uniqueWords": 8
+              },
+              "repeatTimingAgreement": {
+                "words": 8,
+                "uniqueWords": 8
+              }
+            },
+            "candidateRepeatedSpeech": true
+          }
+        },
+        {
+          "case": "aligned-dialogue",
+          "windowSeconds": 15,
+          "start": 4.196375,
+          "end": 19.196375,
+          "inferenceSeconds": 1.072489084,
+          "match": "matched",
+          "validPrefixOnly": false,
+          "bothUnmatched": false,
+          "legacyOverlap": {
+            "leftWords": 12,
+            "rightWords": 21,
+            "gates": {
+              "lexicalOnly": {
+                "words": 12,
+                "uniqueWords": 11
+              },
+              "recognitionScore": {
+                "words": 8,
+                "uniqueWords": 8
+              },
+              "positiveSpeechSupport": {
+                "words": 8,
+                "uniqueWords": 8
+              },
+              "validTokenTimes": {
+                "words": 8,
+                "uniqueWords": 8
+              },
+              "insideSharedWindow": {
+                "words": 8,
+                "uniqueWords": 8
+              },
+              "repeatTimingAgreement": {
+                "words": 7,
+                "uniqueWords": 7
+              }
+            },
+            "candidateRepeatedSpeech": true
+          },
+          "lexicalOverlap": {
+            "leftWords": 12,
+            "rightWords": 21,
+            "gates": {
+              "lexicalOnly": {
+                "words": 12,
+                "uniqueWords": 11
+              },
+              "recognitionScore": {
+                "words": 8,
+                "uniqueWords": 8
+              },
+              "positiveSpeechSupport": {
+                "words": 8,
+                "uniqueWords": 8
+              },
+              "validTokenTimes": {
+                "words": 8,
+                "uniqueWords": 8
+              },
+              "insideSharedWindow": {
+                "words": 8,
+                "uniqueWords": 8
+              },
+              "repeatTimingAgreement": {
+                "words": 8,
+                "uniqueWords": 8
+              }
+            },
+            "candidateRepeatedSpeech": true
+          }
+        },
+        {
+          "case": "aligned-dialogue",
+          "windowSeconds": 15,
+          "start": 6.196375,
+          "end": 21.196375,
+          "inferenceSeconds": 1.076509083,
+          "match": "matched",
+          "validPrefixOnly": false,
+          "bothUnmatched": false,
+          "legacyOverlap": {
+            "leftWords": 21,
+            "rightWords": 21,
+            "gates": {
+              "lexicalOnly": {
+                "words": 12,
+                "uniqueWords": 11
+              },
+              "recognitionScore": {
+                "words": 11,
+                "uniqueWords": 10
+              },
+              "positiveSpeechSupport": {
+                "words": 11,
+                "uniqueWords": 10
+              },
+              "validTokenTimes": {
+                "words": 11,
+                "uniqueWords": 10
+              },
+              "insideSharedWindow": {
+                "words": 11,
+                "uniqueWords": 10
+              },
+              "repeatTimingAgreement": {
+                "words": 11,
+                "uniqueWords": 10
+              }
+            },
+            "candidateRepeatedSpeech": true
+          },
+          "lexicalOverlap": {
+            "leftWords": 21,
+            "rightWords": 21,
+            "gates": {
+              "lexicalOnly": {
+                "words": 12,
+                "uniqueWords": 11
+              },
+              "recognitionScore": {
+                "words": 11,
+                "uniqueWords": 10
+              },
+              "positiveSpeechSupport": {
+                "words": 11,
+                "uniqueWords": 10
+              },
+              "validTokenTimes": {
+                "words": 11,
+                "uniqueWords": 10
+              },
+              "insideSharedWindow": {
+                "words": 11,
+                "uniqueWords": 10
+              },
+              "repeatTimingAgreement": {
+                "words": 11,
+                "uniqueWords": 10
+              }
+            },
+            "candidateRepeatedSpeech": true
+          }
+        }
+      ]
+    },
+    "absence-beam-diagnostic": {
+      "sha256": "94fc8a5888c05254dbcaec541eae5aa2cca9fbb39dbb474f7df3f9ec41d6c756",
+      "scope": "beam-search decoding comparison at unchanged acceptance gates on consumed public fixture; no production gap decision",
+      "criteria": {
+        "windowSeconds": [
+          8
+        ],
+        "decodingStrategy": "beam search",
+        "beamSize": 5,
+        "shiftSeconds": 2,
+        "minimumTokenScore": 0.7,
+        "maximumTimingDifferenceSeconds": 0.75,
+        "minimumContiguousReliableWords": 6,
+        "minimumUniqueWords": 3,
+        "positiveSpeechSupportRequired": true
+      },
+      "rows": [
+        {
+          "case": "inserted-dialogue",
+          "windowSeconds": 8,
+          "start": 38.164375,
+          "end": 46.164375,
+          "inferenceSeconds": 1.144932542,
+          "match": "noCandidate",
+          "validPrefixOnly": false
+        },
+        {
+          "case": "inserted-dialogue",
+          "windowSeconds": 8,
+          "start": 40.164375,
+          "end": 48.164375,
+          "inferenceSeconds": 1.169359167,
+          "match": "noCandidate",
+          "validPrefixOnly": false,
+          "bothUnmatched": true,
+          "legacyOverlap": {
+            "leftWords": 16,
+            "rightWords": 17,
+            "gates": {
+              "lexicalOnly": {
+                "words": 6,
+                "uniqueWords": 6
+              },
+              "recognitionScore": {
+                "words": 2,
+                "uniqueWords": 2
+              },
+              "positiveSpeechSupport": {
+                "words": 2,
+                "uniqueWords": 2
+              },
+              "validTokenTimes": {
+                "words": 2,
+                "uniqueWords": 2
+              },
+              "insideSharedWindow": {
+                "words": 2,
+                "uniqueWords": 2
+              },
+              "repeatTimingAgreement": {
+                "words": 2,
+                "uniqueWords": 2
+              }
+            },
+            "candidateRepeatedSpeech": false
+          },
+          "lexicalOverlap": {
+            "leftWords": 16,
+            "rightWords": 17,
+            "gates": {
+              "lexicalOnly": {
+                "words": 6,
+                "uniqueWords": 6
+              },
+              "recognitionScore": {
+                "words": 2,
+                "uniqueWords": 2
+              },
+              "positiveSpeechSupport": {
+                "words": 2,
+                "uniqueWords": 2
+              },
+              "validTokenTimes": {
+                "words": 2,
+                "uniqueWords": 2
+              },
+              "insideSharedWindow": {
+                "words": 2,
+                "uniqueWords": 2
+              },
+              "repeatTimingAgreement": {
+                "words": 2,
+                "uniqueWords": 2
+              }
+            },
+            "candidateRepeatedSpeech": false
+          }
+        },
+        {
+          "case": "inserted-dialogue",
+          "windowSeconds": 8,
+          "start": 42.164375,
+          "end": 50.164375,
+          "inferenceSeconds": 1.124431,
+          "match": "noCandidate",
+          "validPrefixOnly": false,
+          "bothUnmatched": true,
+          "legacyOverlap": {
+            "leftWords": 17,
+            "rightWords": 11,
+            "gates": {
+              "lexicalOnly": {
+                "words": 10,
+                "uniqueWords": 9
+              },
+              "recognitionScore": {
+                "words": 3,
+                "uniqueWords": 3
+              },
+              "positiveSpeechSupport": {
+                "words": 3,
+                "uniqueWords": 3
+              },
+              "validTokenTimes": {
+                "words": 3,
+                "uniqueWords": 3
+              },
+              "insideSharedWindow": {
+                "words": 3,
+                "uniqueWords": 3
+              },
+              "repeatTimingAgreement": {
+                "words": 3,
+                "uniqueWords": 3
+              }
+            },
+            "candidateRepeatedSpeech": false
+          },
+          "lexicalOverlap": {
+            "leftWords": 17,
+            "rightWords": 11,
+            "gates": {
+              "lexicalOnly": {
+                "words": 10,
+                "uniqueWords": 9
+              },
+              "recognitionScore": {
+                "words": 3,
+                "uniqueWords": 3
+              },
+              "positiveSpeechSupport": {
+                "words": 3,
+                "uniqueWords": 3
+              },
+              "validTokenTimes": {
+                "words": 3,
+                "uniqueWords": 3
+              },
+              "insideSharedWindow": {
+                "words": 3,
+                "uniqueWords": 3
+              },
+              "repeatTimingAgreement": {
+                "words": 3,
+                "uniqueWords": 3
+              }
+            },
+            "candidateRepeatedSpeech": false
+          }
+        },
+        {
+          "case": "inserted-dialogue",
+          "windowSeconds": 8,
+          "start": 44.164375,
+          "end": 52.164375,
+          "inferenceSeconds": 1.172432167,
+          "match": "noCandidate",
+          "validPrefixOnly": false,
+          "bothUnmatched": true,
+          "legacyOverlap": {
+            "leftWords": 11,
+            "rightWords": 8,
+            "gates": {
+              "lexicalOnly": {
+                "words": 8,
+                "uniqueWords": 6
+              },
+              "recognitionScore": {
+                "words": 2,
+                "uniqueWords": 2
+              },
+              "positiveSpeechSupport": {
+                "words": 2,
+                "uniqueWords": 2
+              },
+              "validTokenTimes": {
+                "words": 2,
+                "uniqueWords": 2
+              },
+              "insideSharedWindow": {
+                "words": 2,
+                "uniqueWords": 2
+              },
+              "repeatTimingAgreement": {
+                "words": 2,
+                "uniqueWords": 2
+              }
+            },
+            "candidateRepeatedSpeech": false
+          },
+          "lexicalOverlap": {
+            "leftWords": 11,
+            "rightWords": 8,
+            "gates": {
+              "lexicalOnly": {
+                "words": 8,
+                "uniqueWords": 6
+              },
+              "recognitionScore": {
+                "words": 3,
+                "uniqueWords": 3
+              },
+              "positiveSpeechSupport": {
+                "words": 3,
+                "uniqueWords": 3
+              },
+              "validTokenTimes": {
+                "words": 3,
+                "uniqueWords": 3
+              },
+              "insideSharedWindow": {
+                "words": 3,
+                "uniqueWords": 3
+              },
+              "repeatTimingAgreement": {
+                "words": 3,
+                "uniqueWords": 3
+              }
+            },
+            "candidateRepeatedSpeech": false
+          }
+        },
+        {
+          "case": "aligned-dialogue",
+          "windowSeconds": 8,
+          "start": 7.196375,
+          "end": 15.196375,
+          "inferenceSeconds": 1.071738541,
+          "nativeStatus": 4,
+          "rejected": true
+        },
+        {
+          "case": "aligned-dialogue",
+          "windowSeconds": 8,
+          "start": 9.196375,
+          "end": 17.196375,
+          "inferenceSeconds": 1.048256375,
+          "match": "matched",
+          "validPrefixOnly": false
+        },
+        {
+          "case": "aligned-dialogue",
+          "windowSeconds": 8,
+          "start": 11.196375,
+          "end": 19.196375,
+          "inferenceSeconds": 1.123051625,
+          "match": "matched",
+          "validPrefixOnly": false,
+          "bothUnmatched": false,
+          "legacyOverlap": {
+            "leftWords": 6,
+            "rightWords": 13,
+            "gates": {
+              "lexicalOnly": {
+                "words": 6,
+                "uniqueWords": 6
+              },
+              "recognitionScore": {
+                "words": 3,
+                "uniqueWords": 3
+              },
+              "positiveSpeechSupport": {
+                "words": 3,
+                "uniqueWords": 3
+              },
+              "validTokenTimes": {
+                "words": 3,
+                "uniqueWords": 3
+              },
+              "insideSharedWindow": {
+                "words": 3,
+                "uniqueWords": 3
+              },
+              "repeatTimingAgreement": {
+                "words": 3,
+                "uniqueWords": 3
+              }
+            },
+            "candidateRepeatedSpeech": false
+          },
+          "lexicalOverlap": {
+            "leftWords": 6,
+            "rightWords": 13,
+            "gates": {
+              "lexicalOnly": {
+                "words": 6,
+                "uniqueWords": 6
+              },
+              "recognitionScore": {
+                "words": 3,
+                "uniqueWords": 3
+              },
+              "positiveSpeechSupport": {
+                "words": 3,
+                "uniqueWords": 3
+              },
+              "validTokenTimes": {
+                "words": 3,
+                "uniqueWords": 3
+              },
+              "insideSharedWindow": {
+                "words": 3,
+                "uniqueWords": 3
+              },
+              "repeatTimingAgreement": {
+                "words": 3,
+                "uniqueWords": 3
+              }
+            },
+            "candidateRepeatedSpeech": false
+          }
+        },
+        {
+          "case": "aligned-dialogue",
+          "windowSeconds": 8,
+          "start": 13.196375,
+          "end": 21.196375,
+          "inferenceSeconds": 1.138285041,
+          "match": "matched",
+          "validPrefixOnly": false,
+          "bothUnmatched": false,
+          "legacyOverlap": {
+            "leftWords": 13,
+            "rightWords": 13,
+            "gates": {
+              "lexicalOnly": {
+                "words": 8,
+                "uniqueWords": 8
+              },
+              "recognitionScore": {
+                "words": 4,
+                "uniqueWords": 4
+              },
+              "positiveSpeechSupport": {
+                "words": 4,
+                "uniqueWords": 4
+              },
+              "validTokenTimes": {
+                "words": 4,
+                "uniqueWords": 4
+              },
+              "insideSharedWindow": {
+                "words": 4,
+                "uniqueWords": 4
+              },
+              "repeatTimingAgreement": {
+                "words": 4,
+                "uniqueWords": 4
+              }
+            },
+            "candidateRepeatedSpeech": false
+          },
+          "lexicalOverlap": {
+            "leftWords": 13,
+            "rightWords": 13,
+            "gates": {
+              "lexicalOnly": {
+                "words": 8,
+                "uniqueWords": 8
+              },
+              "recognitionScore": {
+                "words": 5,
+                "uniqueWords": 5
+              },
+              "positiveSpeechSupport": {
+                "words": 5,
+                "uniqueWords": 5
+              },
+              "validTokenTimes": {
+                "words": 5,
+                "uniqueWords": 5
+              },
+              "insideSharedWindow": {
+                "words": 5,
+                "uniqueWords": 5
+              },
+              "repeatTimingAgreement": {
+                "words": 5,
+                "uniqueWords": 5
+              }
+            },
+            "candidateRepeatedSpeech": false
+          }
+        },
+        {
+          "case": "quiet-added-region",
+          "windowSeconds": 8,
+          "start": 52.0,
+          "end": 60.0,
+          "inferenceSeconds": 1.078820083,
+          "match": "insufficientDialogue",
+          "validPrefixOnly": false
+        },
+        {
+          "case": "quiet-added-region",
+          "windowSeconds": 8,
+          "start": 54.0,
+          "end": 62.0,
+          "inferenceSeconds": 1.038945667,
+          "match": "insufficientDialogue",
+          "validPrefixOnly": false,
+          "bothUnmatched": false,
+          "legacyOverlap": {
+            "leftWords": 0,
+            "rightWords": 0,
+            "gates": {
+              "lexicalOnly": {
+                "words": 0,
+                "uniqueWords": 0
+              },
+              "recognitionScore": {
+                "words": 0,
+                "uniqueWords": 0
+              },
+              "positiveSpeechSupport": {
+                "words": 0,
+                "uniqueWords": 0
+              },
+              "validTokenTimes": {
+                "words": 0,
+                "uniqueWords": 0
+              },
+              "insideSharedWindow": {
+                "words": 0,
+                "uniqueWords": 0
+              },
+              "repeatTimingAgreement": {
+                "words": 0,
+                "uniqueWords": 0
+              }
+            },
+            "candidateRepeatedSpeech": false
+          },
+          "lexicalOverlap": {
+            "leftWords": 0,
+            "rightWords": 0,
+            "gates": {
+              "lexicalOnly": {
+                "words": 0,
+                "uniqueWords": 0
+              },
+              "recognitionScore": {
+                "words": 0,
+                "uniqueWords": 0
+              },
+              "positiveSpeechSupport": {
+                "words": 0,
+                "uniqueWords": 0
+              },
+              "validTokenTimes": {
+                "words": 0,
+                "uniqueWords": 0
+              },
+              "insideSharedWindow": {
+                "words": 0,
+                "uniqueWords": 0
+              },
+              "repeatTimingAgreement": {
+                "words": 0,
+                "uniqueWords": 0
+              }
+            },
+            "candidateRepeatedSpeech": false
+          }
+        },
+        {
+          "case": "quiet-added-region",
+          "windowSeconds": 8,
+          "start": 56.0,
+          "end": 64.0,
+          "inferenceSeconds": 1.029066083,
+          "nativeStatus": 4,
+          "rejected": true
+        }
+      ]
+    },
+    "absence-native-conversion-diagnostic": {
+      "sha256": "ca9cc657a91017beff2c77fc26546968a73023b46abe3f6bc4ba8cd48bae402a",
+      "scope": "production-native PCM conversion comparison on consumed public fixture; no production gap decision",
+      "criteria": {
+        "windowSeconds": [
+          8
+        ],
+        "conversion": "production native equal-channel average and FIR resampling; bounded offline packet input",
+        "shiftSeconds": 2,
+        "minimumTokenScore": 0.7,
+        "maximumTimingDifferenceSeconds": 0.75,
+        "minimumContiguousReliableWords": 6,
+        "minimumUniqueWords": 3,
+        "positiveSpeechSupportRequired": true
+      },
+      "rows": [
+        {
+          "case": "inserted-dialogue",
+          "windowSeconds": 8,
+          "start": 38.164375,
+          "end": 46.164375,
+          "inferenceSeconds": 1.030869791,
+          "match": "noCandidate",
+          "validPrefixOnly": false
+        },
+        {
+          "case": "inserted-dialogue",
+          "windowSeconds": 8,
+          "start": 40.164375,
+          "end": 48.164375,
+          "inferenceSeconds": 1.053673792,
+          "match": "noCandidate",
+          "validPrefixOnly": false,
+          "bothUnmatched": true,
+          "legacyOverlap": {
+            "leftWords": 14,
+            "rightWords": 16,
+            "gates": {
+              "lexicalOnly": {
+                "words": 8,
+                "uniqueWords": 7
+              },
+              "recognitionScore": {
+                "words": 4,
+                "uniqueWords": 4
+              },
+              "positiveSpeechSupport": {
+                "words": 4,
+                "uniqueWords": 4
+              },
+              "validTokenTimes": {
+                "words": 4,
+                "uniqueWords": 4
+              },
+              "insideSharedWindow": {
+                "words": 4,
+                "uniqueWords": 4
+              },
+              "repeatTimingAgreement": {
+                "words": 4,
+                "uniqueWords": 4
+              }
+            },
+            "candidateRepeatedSpeech": false
+          },
+          "lexicalOverlap": {
+            "leftWords": 14,
+            "rightWords": 16,
+            "gates": {
+              "lexicalOnly": {
+                "words": 8,
+                "uniqueWords": 7
+              },
+              "recognitionScore": {
+                "words": 4,
+                "uniqueWords": 4
+              },
+              "positiveSpeechSupport": {
+                "words": 4,
+                "uniqueWords": 4
+              },
+              "validTokenTimes": {
+                "words": 4,
+                "uniqueWords": 4
+              },
+              "insideSharedWindow": {
+                "words": 4,
+                "uniqueWords": 4
+              },
+              "repeatTimingAgreement": {
+                "words": 4,
+                "uniqueWords": 4
+              }
+            },
+            "candidateRepeatedSpeech": false
+          }
+        },
+        {
+          "case": "inserted-dialogue",
+          "windowSeconds": 8,
+          "start": 42.164375,
+          "end": 50.164375,
+          "inferenceSeconds": 1.017852708,
+          "match": "noCandidate",
+          "validPrefixOnly": false,
+          "bothUnmatched": true,
+          "legacyOverlap": {
+            "leftWords": 16,
+            "rightWords": 11,
+            "gates": {
+              "lexicalOnly": {
+                "words": 10,
+                "uniqueWords": 9
+              },
+              "recognitionScore": {
+                "words": 2,
+                "uniqueWords": 2
+              },
+              "positiveSpeechSupport": {
+                "words": 2,
+                "uniqueWords": 2
+              },
+              "validTokenTimes": {
+                "words": 2,
+                "uniqueWords": 2
+              },
+              "insideSharedWindow": {
+                "words": 2,
+                "uniqueWords": 2
+              },
+              "repeatTimingAgreement": {
+                "words": 2,
+                "uniqueWords": 2
+              }
+            },
+            "candidateRepeatedSpeech": false
+          },
+          "lexicalOverlap": {
+            "leftWords": 16,
+            "rightWords": 11,
+            "gates": {
+              "lexicalOnly": {
+                "words": 10,
+                "uniqueWords": 9
+              },
+              "recognitionScore": {
+                "words": 3,
+                "uniqueWords": 3
+              },
+              "positiveSpeechSupport": {
+                "words": 3,
+                "uniqueWords": 3
+              },
+              "validTokenTimes": {
+                "words": 3,
+                "uniqueWords": 3
+              },
+              "insideSharedWindow": {
+                "words": 3,
+                "uniqueWords": 3
+              },
+              "repeatTimingAgreement": {
+                "words": 3,
+                "uniqueWords": 3
+              }
+            },
+            "candidateRepeatedSpeech": false
+          }
+        },
+        {
+          "case": "inserted-dialogue",
+          "windowSeconds": 8,
+          "start": 44.164375,
+          "end": 52.164375,
+          "inferenceSeconds": 1.020063791,
+          "match": "noCandidate",
+          "validPrefixOnly": false,
+          "bothUnmatched": true,
+          "legacyOverlap": {
+            "leftWords": 11,
+            "rightWords": 7,
+            "gates": {
+              "lexicalOnly": {
+                "words": 7,
+                "uniqueWords": 5
+              },
+              "recognitionScore": {
+                "words": 1,
+                "uniqueWords": 1
+              },
+              "positiveSpeechSupport": {
+                "words": 1,
+                "uniqueWords": 1
+              },
+              "validTokenTimes": {
+                "words": 1,
+                "uniqueWords": 1
+              },
+              "insideSharedWindow": {
+                "words": 1,
+                "uniqueWords": 1
+              },
+              "repeatTimingAgreement": {
+                "words": 1,
+                "uniqueWords": 1
+              }
+            },
+            "candidateRepeatedSpeech": false
+          },
+          "lexicalOverlap": {
+            "leftWords": 11,
+            "rightWords": 7,
+            "gates": {
+              "lexicalOnly": {
+                "words": 7,
+                "uniqueWords": 5
+              },
+              "recognitionScore": {
+                "words": 2,
+                "uniqueWords": 2
+              },
+              "positiveSpeechSupport": {
+                "words": 2,
+                "uniqueWords": 2
+              },
+              "validTokenTimes": {
+                "words": 2,
+                "uniqueWords": 2
+              },
+              "insideSharedWindow": {
+                "words": 2,
+                "uniqueWords": 2
+              },
+              "repeatTimingAgreement": {
+                "words": 2,
+                "uniqueWords": 2
+              }
+            },
+            "candidateRepeatedSpeech": false
+          }
+        },
+        {
+          "case": "aligned-dialogue",
+          "windowSeconds": 8,
+          "start": 7.196375,
+          "end": 15.196375,
+          "inferenceSeconds": 1.020460333,
+          "match": "matched",
+          "validPrefixOnly": false
+        },
+        {
+          "case": "aligned-dialogue",
+          "windowSeconds": 8,
+          "start": 9.196375,
+          "end": 17.196375,
+          "inferenceSeconds": 0.994837333,
+          "match": "matched",
+          "validPrefixOnly": false,
+          "bothUnmatched": false,
+          "legacyOverlap": {
+            "leftWords": 12,
+            "rightWords": 6,
+            "gates": {
+              "lexicalOnly": {
+                "words": 6,
+                "uniqueWords": 6
+              },
+              "recognitionScore": {
+                "words": 3,
+                "uniqueWords": 3
+              },
+              "positiveSpeechSupport": {
+                "words": 3,
+                "uniqueWords": 3
+              },
+              "validTokenTimes": {
+                "words": 3,
+                "uniqueWords": 3
+              },
+              "insideSharedWindow": {
+                "words": 3,
+                "uniqueWords": 3
+              },
+              "repeatTimingAgreement": {
+                "words": 3,
+                "uniqueWords": 3
+              }
+            },
+            "candidateRepeatedSpeech": false
+          },
+          "lexicalOverlap": {
+            "leftWords": 12,
+            "rightWords": 6,
+            "gates": {
+              "lexicalOnly": {
+                "words": 6,
+                "uniqueWords": 6
+              },
+              "recognitionScore": {
+                "words": 3,
+                "uniqueWords": 3
+              },
+              "positiveSpeechSupport": {
+                "words": 3,
+                "uniqueWords": 3
+              },
+              "validTokenTimes": {
+                "words": 3,
+                "uniqueWords": 3
+              },
+              "insideSharedWindow": {
+                "words": 3,
+                "uniqueWords": 3
+              },
+              "repeatTimingAgreement": {
+                "words": 3,
+                "uniqueWords": 3
+              }
+            },
+            "candidateRepeatedSpeech": false
+          }
+        },
+        {
+          "case": "aligned-dialogue",
+          "windowSeconds": 8,
+          "start": 11.196375,
+          "end": 19.196375,
+          "inferenceSeconds": 1.02711325,
+          "match": "matched",
+          "validPrefixOnly": false,
+          "bothUnmatched": false,
+          "legacyOverlap": {
+            "leftWords": 6,
+            "rightWords": 13,
+            "gates": {
+              "lexicalOnly": {
+                "words": 6,
+                "uniqueWords": 6
+              },
+              "recognitionScore": {
+                "words": 3,
+                "uniqueWords": 3
+              },
+              "positiveSpeechSupport": {
+                "words": 3,
+                "uniqueWords": 3
+              },
+              "validTokenTimes": {
+                "words": 3,
+                "uniqueWords": 3
+              },
+              "insideSharedWindow": {
+                "words": 3,
+                "uniqueWords": 3
+              },
+              "repeatTimingAgreement": {
+                "words": 3,
+                "uniqueWords": 3
+              }
+            },
+            "candidateRepeatedSpeech": false
+          },
+          "lexicalOverlap": {
+            "leftWords": 6,
+            "rightWords": 13,
+            "gates": {
+              "lexicalOnly": {
+                "words": 6,
+                "uniqueWords": 6
+              },
+              "recognitionScore": {
+                "words": 3,
+                "uniqueWords": 3
+              },
+              "positiveSpeechSupport": {
+                "words": 3,
+                "uniqueWords": 3
+              },
+              "validTokenTimes": {
+                "words": 3,
+                "uniqueWords": 3
+              },
+              "insideSharedWindow": {
+                "words": 3,
+                "uniqueWords": 3
+              },
+              "repeatTimingAgreement": {
+                "words": 3,
+                "uniqueWords": 3
+              }
+            },
+            "candidateRepeatedSpeech": false
+          }
+        },
+        {
+          "case": "aligned-dialogue",
+          "windowSeconds": 8,
+          "start": 13.196375,
+          "end": 21.196375,
+          "inferenceSeconds": 1.027765458,
+          "match": "matched",
+          "validPrefixOnly": false,
+          "bothUnmatched": false,
+          "legacyOverlap": {
+            "leftWords": 13,
+            "rightWords": 13,
+            "gates": {
+              "lexicalOnly": {
+                "words": 8,
+                "uniqueWords": 8
+              },
+              "recognitionScore": {
+                "words": 3,
+                "uniqueWords": 3
+              },
+              "positiveSpeechSupport": {
+                "words": 3,
+                "uniqueWords": 3
+              },
+              "validTokenTimes": {
+                "words": 3,
+                "uniqueWords": 3
+              },
+              "insideSharedWindow": {
+                "words": 3,
+                "uniqueWords": 3
+              },
+              "repeatTimingAgreement": {
+                "words": 3,
+                "uniqueWords": 3
+              }
+            },
+            "candidateRepeatedSpeech": false
+          },
+          "lexicalOverlap": {
+            "leftWords": 13,
+            "rightWords": 13,
+            "gates": {
+              "lexicalOnly": {
+                "words": 8,
+                "uniqueWords": 8
+              },
+              "recognitionScore": {
+                "words": 3,
+                "uniqueWords": 3
+              },
+              "positiveSpeechSupport": {
+                "words": 3,
+                "uniqueWords": 3
+              },
+              "validTokenTimes": {
+                "words": 3,
+                "uniqueWords": 3
+              },
+              "insideSharedWindow": {
+                "words": 3,
+                "uniqueWords": 3
+              },
+              "repeatTimingAgreement": {
+                "words": 3,
+                "uniqueWords": 3
+              }
+            },
+            "candidateRepeatedSpeech": false
+          }
+        },
+        {
+          "case": "quiet-added-region",
+          "windowSeconds": 8,
+          "start": 52.0,
+          "end": 60.0,
+          "inferenceSeconds": 1.029636041,
+          "match": "insufficientDialogue",
+          "validPrefixOnly": false
+        },
+        {
+          "case": "quiet-added-region",
+          "windowSeconds": 8,
+          "start": 54.0,
+          "end": 62.0,
+          "inferenceSeconds": 1.035515958,
+          "match": "insufficientDialogue",
+          "validPrefixOnly": false,
+          "bothUnmatched": false,
+          "legacyOverlap": {
+            "leftWords": 0,
+            "rightWords": 0,
+            "gates": {
+              "lexicalOnly": {
+                "words": 0,
+                "uniqueWords": 0
+              },
+              "recognitionScore": {
+                "words": 0,
+                "uniqueWords": 0
+              },
+              "positiveSpeechSupport": {
+                "words": 0,
+                "uniqueWords": 0
+              },
+              "validTokenTimes": {
+                "words": 0,
+                "uniqueWords": 0
+              },
+              "insideSharedWindow": {
+                "words": 0,
+                "uniqueWords": 0
+              },
+              "repeatTimingAgreement": {
+                "words": 0,
+                "uniqueWords": 0
+              }
+            },
+            "candidateRepeatedSpeech": false
+          },
+          "lexicalOverlap": {
+            "leftWords": 0,
+            "rightWords": 0,
+            "gates": {
+              "lexicalOnly": {
+                "words": 0,
+                "uniqueWords": 0
+              },
+              "recognitionScore": {
+                "words": 0,
+                "uniqueWords": 0
+              },
+              "positiveSpeechSupport": {
+                "words": 0,
+                "uniqueWords": 0
+              },
+              "validTokenTimes": {
+                "words": 0,
+                "uniqueWords": 0
+              },
+              "insideSharedWindow": {
+                "words": 0,
+                "uniqueWords": 0
+              },
+              "repeatTimingAgreement": {
+                "words": 0,
+                "uniqueWords": 0
+              }
+            },
+            "candidateRepeatedSpeech": false
+          }
+        },
+        {
+          "case": "quiet-added-region",
+          "windowSeconds": 8,
+          "start": 56.0,
+          "end": 64.0,
+          "inferenceSeconds": 0.99712975,
+          "nativeStatus": 4,
+          "rejected": true
+        }
+      ]
+    }
+  },
+  "runtimeSha256": "366cb2ac8c34cc38a59ac5ae99ec57f8334af7c74b78aaef507b33badefeb3e6",
+  "nativeConverterSha256": "5a939f6006f62c2085afc722d025076da9ed9abb4c8fff6af0e4558a4f4703c4",
+  "conclusions": [
+    "Ignoring punctuation improves the original inserted-dialogue reliable runs from 4/2/2 to 4/5/4 words, still below six.",
+    "Extending fixed starts forward to 12/15 seconds adds context but does not pass inserted-dialogue gates. End-anchored lookback at 12/15 seconds also fails.",
+    "Five-beam decoding retains only 2/3/3 reliable words in inserted dialogue and rejects two outputs with native status 4. The production greedy decoder is retained.",
+    "Using the production native equal-channel average/FIR converter gives inserted-dialogue reliable runs of 4/3/2; one quiet output is rejected with status 4. This also fails the unchanged six-word criterion.",
+    "Earlier offline FFmpeg mono resampling is not byte-equivalent to the actual native conversion; its results are development observations, not active-player proof."
+  ],
+  "initialIncompleteRuns": [
+    "The first beam diagnostic stopped on an assertion after four completed inserted windows. A complete fixed-matrix rerun records every rejected native output; it is not a successful recognition retry.",
+    "The first native-converter diagnostic stopped after ten windows. The fixed matrix was repeated with rejection recording; clipping counts are unavailable from the native converter and are not inferred as zero."
+  ],
+  "productionAlgorithmChanged": false,
+  "modelChanged": false,
+  "thresholdsChanged": false,
+  "fullProductAcceptance": false,
+  "pcmOrTranscriptPersisted": false
+}
