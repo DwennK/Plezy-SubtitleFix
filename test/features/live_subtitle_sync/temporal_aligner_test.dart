@@ -81,6 +81,43 @@ void main() {
     return const TemporalAligner().anchors(source, index, match.passage!);
   }
 
+  NativeTranscript punctuatedFirst({
+    double wordScore = 0.95,
+    bool wordTimestamp = true,
+    bool punctuationTimed = false,
+  }) => NativeTranscript(1, 2, 90, 105, 0.2, [
+    NativeTranscriptSegment('“Please,” bring the silver lantern', 92, 96, [
+      // Punctuation has no acoustic onset. Its absent/low-confidence DTW
+      // metadata must not replace or invalidate the actual word's point.
+      NativeTranscriptToken('“', 91, 91.02, punctuationTimed ? 0.95 : 0.01, punctuationTimed),
+      NativeTranscriptToken('Please', 92, 92.3, wordScore, wordTimestamp),
+      NativeTranscriptToken(',”', 91, 91.02, punctuationTimed ? 0.95 : 0.01, punctuationTimed),
+      for (var i = 1; i < 5; i++)
+        NativeTranscriptToken(' ${phrases.first.split(' ')[i]}', 92 + i * 0.5, 92.3 + i * 0.5, 0.95, true),
+    ]),
+    transcript(90).segments[1],
+  ]);
+
+  test('punctuation-only tokens do not invalidate or move the spoken cue beginning', () {
+    for (final timed in [false, true]) {
+      final source = punctuatedFirst(punctuationTimed: timed);
+      final anchors = align(source);
+      expect(anchors, hasLength(2));
+      expect(anchors.first.mediaTime, 92);
+      expect(anchors.first.offset, 90);
+      expect(anchors.first.uncertainty, 0.35);
+      expect(source.segments.first.text, '“Please,” bring the silver lantern');
+    }
+  });
+
+  test('ignoring punctuation never rescues an unreliable lexical token', () {
+    for (final source in [punctuatedFirst(wordScore: 0.1), punctuatedFirst(wordTimestamp: false)]) {
+      final anchors = align(source);
+      expect(anchors, hasLength(1));
+      expect(anchors.single.cue, 1);
+    }
+  });
+
   test('one interior substitution has four exact flanks and retains canonical cue identity', () {
     final anchors = align(alteredFirst(['Please', 'bring', 'that', 'silver', 'lantern']));
     expect(anchors, hasLength(2));
