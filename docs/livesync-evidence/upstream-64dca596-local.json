@@ -1,0 +1,17 @@
+{
+  "source": "b2a5dcaf",
+  "upstream": "64dca5962a3dd24feee829235ed811298a74309b",
+  "localValidation": {
+    "targetedTestsPassed": 229,
+    "skipped": 1,
+    "analysisPassed": true
+  },
+  "evidenceSha256": {
+    "tests": "74f692b20da5cef281ef3ff7d58c92aa0379e575aeb5f43fcad9583452ed961c",
+    "analysis": "37e160d9890dbce50d8de6ad9cef7b6057e62a6dda88fc6dacb146454b8f8e81"
+  },
+  "installedSourceUnchanged": "9ef259057bde1453ce35c6a8f321a8609dd08fa7",
+  "installedUpstreamUnchanged": "f88feaa8e34fcb2141e34e619054a1f30590a266",
+  "nativeBuildsForThisSourcePending": true,
+  "productAccepted": false
+}
