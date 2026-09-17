@@ -1,0 +1,14 @@
+{
+  "schema": 1,
+  "sourceSha": "cf7c556d0bbe9e534910389200d28262cc30ee24",
+  "runId": 35167400123,
+  "packagingCompilationPassed": true,
+  "trialPowerShellParsed": true,
+  "installerAndPortableWrittenToRequestedDirectory": true,
+  "bundleContents": "inert placeholder, never launched or installed",
+  "actualApplicationInstallationValidated": false,
+  "coexistenceValidated": false,
+  "uninstallationValidated": false,
+  "installationJob": "skipped on push; explicit successful full application run required",
+  "fullProductAcceptance": false
+}

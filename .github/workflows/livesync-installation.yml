@@ -86,8 +86,12 @@ jobs:
             if ($step.Count -ne 1 -or $step[0].conclusion -ne 'success') { throw "Required full application proof missing: $name" }
           }
           # Packaging commits may differ, but application inputs must not.
-          git diff --exit-code $env:APP_SOURCE_SHA HEAD -- lib pubspec.yaml pubspec.lock windows/runner windows/CMakeLists.txt windows/flutter native versions.json scripts/livesync/prepare_native.py
-          if ($LASTEXITCODE -ne 0) { throw 'Application sources differ from the validated build' }
+          $changed = @(git diff --name-only $env:APP_SOURCE_SHA HEAD)
+          if ($LASTEXITCODE -ne 0) { throw 'Application source comparison failed' }
+          $packagingOnly = @('windows/build-installer.ps1', '.github/workflows/livesync-installation.yml', 'scripts/livesync/verify_windows_installation.ps1')
+          foreach ($path in $changed) {
+            if ($path -notin $packagingOnly -and -not $path.StartsWith('docs/')) { throw "Non-packaging source differs from the validated build: $path" }
+          }
           New-Item -ItemType Directory -Force build/livesync/installation/evidence, build/livesync/installation/packages | Out-Null
           $run | ConvertTo-Json -Depth 20 | Set-Content build/livesync/installation/evidence/application-run.json
           gh run download $env:APP_RUN_ID --repo $env:GITHUB_REPOSITORY --name "livesync-windows-app-$env:APP_SOURCE_SHA-release" --dir build/livesync/installation/bundle
