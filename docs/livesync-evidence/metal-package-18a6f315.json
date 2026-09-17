@@ -1,0 +1,163 @@
+{
+  "schema": 1,
+  "sourceSha": "18a6f31534840f5dd1075606420b0823f4829c0b",
+  "kind": "explicit-macos-inference-profile-packaging",
+  "runtimeProfiles": {
+    "metal": {
+      "inputs": {
+        "schema": 1,
+        "target": "macos-arm64",
+        "profile": "metal-preferred-with-cpu-fallback",
+        "captureAbi": 1,
+        "inferenceAbi": 2,
+        "speechDetectorSha256": "2aa269b785eeb53a82983a20501ddf7c1d9c48e33ab63a41391ac6c9f7fb6987",
+        "whisperRevision": "927cfce34f31707e17f2bff35c349632fb9e2c3a",
+        "mpvRevision": "6855ea3776b437a922c0c7841560842e799fc152",
+        "mpvHeaderSha256": "3c073236a09cb456c6e80587d5523c8771c32fb22ca014e0f99cc3d43905b75c",
+        "sourceSha256": "da44624f5ed084b9afa56e4c591b1a9b43d583f9abd935e89c55e7dfa711eec5"
+      },
+      "files": {
+        "liblivesync_capture_bridge.dylib": "331a34571115074a28bdb41734a424ff977b7b33b984b272ed4ea83e8fe90e07",
+        "liblivesync_inference_bridge.dylib": "e9f92520c27ac9100b84008f90d6fb5aafe4aae24817c62fc527217c8d0d4b21",
+        "whisper-ggml-LICENSE": "94f29bbed6a22c35b992c5c6ebf0e7c92f13b836b90f36f461c9cf2f0f1d010d",
+        "SILERO-LICENSE": "2e63e9a38b6e8fc0c7bc37ce174caca1862870856c6daf5697cfb785e925520b"
+      },
+      "cmakeVersion": "cmake version 3.31.6",
+      "configureArguments": [
+        "-DCMAKE_BUILD_TYPE=Release",
+        "-DLIVESYNC_USE_METAL=ON",
+        "-DGGML_METAL=ON",
+        "-DGGML_METAL_EMBED_LIBRARY=ON",
+        "-DGGML_VULKAN=OFF",
+        "-DGGML_CUDA=OFF",
+        "-DGGML_BLAS=OFF",
+        "-DGGML_OPENMP=OFF",
+        "-DLIVESYNC_CPU_PROFILE=portable",
+        "-DLIVESYNC_WHISPER_SOURCE=/Users/dwenn/.codex/worktrees/plezy-livesync-timeline/build/livesync/whisper-source",
+        "-DLIVESYNC_MPV_INCLUDE=/Users/dwenn/.codex/worktrees/plezy-livesync-metal-runtime/macos/LiveSyncMPV/Artifacts/Libmpv.xcframework/macos-arm64_x86_64/Libmpv.framework/Headers",
+        "-DLIVESYNC_SPEECH_MODEL=/Users/dwenn/.codex/worktrees/plezy-livesync-metal-runtime/build/livesync/models/ggml-silero-v6.2.0.bin",
+        "-DCMAKE_OSX_ARCHITECTURES=arm64",
+        "-DCMAKE_OSX_DEPLOYMENT_TARGET=11.0"
+      ],
+      "acceleratedConfigureArguments": null
+    },
+    "cpuAfterMetalCacheReuse": {
+      "inputs": {
+        "schema": 1,
+        "target": "macos-arm64",
+        "profile": "portable-cpu",
+        "captureAbi": 1,
+        "inferenceAbi": 2,
+        "speechDetectorSha256": "2aa269b785eeb53a82983a20501ddf7c1d9c48e33ab63a41391ac6c9f7fb6987",
+        "whisperRevision": "927cfce34f31707e17f2bff35c349632fb9e2c3a",
+        "mpvRevision": "6855ea3776b437a922c0c7841560842e799fc152",
+        "mpvHeaderSha256": "3c073236a09cb456c6e80587d5523c8771c32fb22ca014e0f99cc3d43905b75c",
+        "sourceSha256": "da44624f5ed084b9afa56e4c591b1a9b43d583f9abd935e89c55e7dfa711eec5"
+      },
+      "files": {
+        "liblivesync_capture_bridge.dylib": "331a34571115074a28bdb41734a424ff977b7b33b984b272ed4ea83e8fe90e07",
+        "liblivesync_inference_bridge.dylib": "bfde51a438ea30058ac4dda91b0d79d331fefe676cb26cb32afc68e7c0963146",
+        "whisper-ggml-LICENSE": "94f29bbed6a22c35b992c5c6ebf0e7c92f13b836b90f36f461c9cf2f0f1d010d",
+        "SILERO-LICENSE": "2e63e9a38b6e8fc0c7bc37ce174caca1862870856c6daf5697cfb785e925520b"
+      },
+      "cmakeVersion": "cmake version 3.31.6",
+      "configureArguments": [
+        "-DCMAKE_BUILD_TYPE=Release",
+        "-DLIVESYNC_USE_METAL=OFF",
+        "-DGGML_METAL=OFF",
+        "-DGGML_METAL_EMBED_LIBRARY=ON",
+        "-DGGML_VULKAN=OFF",
+        "-DGGML_CUDA=OFF",
+        "-DGGML_BLAS=OFF",
+        "-DGGML_OPENMP=OFF",
+        "-DLIVESYNC_CPU_PROFILE=portable",
+        "-DLIVESYNC_WHISPER_SOURCE=/Users/dwenn/.codex/worktrees/plezy-livesync-timeline/build/livesync/whisper-source",
+        "-DLIVESYNC_MPV_INCLUDE=/Users/dwenn/.codex/worktrees/plezy-livesync-metal-runtime/macos/LiveSyncMPV/Artifacts/Libmpv.xcframework/macos-arm64_x86_64/Libmpv.framework/Headers",
+        "-DLIVESYNC_SPEECH_MODEL=/Users/dwenn/.codex/worktrees/plezy-livesync-metal-runtime/build/livesync/models/ggml-silero-v6.2.0.bin",
+        "-DCMAKE_OSX_ARCHITECTURES=arm64",
+        "-DCMAKE_OSX_DEPLOYMENT_TARGET=11.0"
+      ],
+      "acceleratedConfigureArguments": null
+    }
+  },
+  "embedPhase": {
+    "profile": "metal-preferred-with-cpu-fallback",
+    "libraries": [
+      {
+        "name": "liblivesync_capture_bridge.dylib",
+        "signedHashVerified": true,
+        "dependencies": [
+          "/usr/lib/libc++.1.dylib",
+          "/usr/lib/libSystem.B.dylib"
+        ]
+      },
+      {
+        "name": "liblivesync_inference_bridge.dylib",
+        "signedHashVerified": true,
+        "dependencies": [
+          "/System/Library/Frameworks/Accelerate.framework/Versions/A/Accelerate",
+          "/usr/lib/libSystem.B.dylib",
+          "/System/Library/Frameworks/Foundation.framework/Versions/C/Foundation",
+          "/System/Library/Frameworks/Metal.framework/Versions/A/Metal",
+          "/System/Library/Frameworks/MetalKit.framework/Versions/A/MetalKit",
+          "/usr/lib/libc++.1.dylib",
+          "/System/Library/Frameworks/CoreFoundation.framework/Versions/A/CoreFoundation",
+          "/usr/lib/libobjc.A.dylib"
+        ]
+      }
+    ],
+    "fullApplicationBuilt": false
+  },
+  "packagedMetalSmoke": {
+    "kind": "fixture-native-worker-abi",
+    "fixtureSha256": "59dfb9a4acb36fe2a2affc14bacbee2920ff435cb13cc314a08c13f66ba7860e",
+    "modelSha256": "4baf70dd0d7c4247ba2b81fafd9c01005ac77c2f9ef064e00dcf195d0e2fdd2f",
+    "workerSha256": "e9f92520c27ac9100b84008f90d6fb5aafe4aae24817c62fc527217c8d0d4b21",
+    "capture": {
+      "samples": 176000,
+      "mediaStart": 100,
+      "generation": 1,
+      "continuity": 1
+    },
+    "threads": 2,
+    "wordErrorRate": 0.0,
+    "referenceScope": "full fixture",
+    "inferenceSecondsExcludingModelLoad": 0.192855291,
+    "segments": [
+      {
+        "mediaStart": 100.0,
+        "mediaEnd": 111.0
+      }
+    ],
+    "validPrefixOnly": false,
+    "speechSupportCounts": {
+      "0": 0,
+      "1": 25,
+      "2": 0
+    },
+    "timestampAccuracyValidated": false,
+    "srtAlignmentValidated": false,
+    "productionAppValidated": false,
+    "audiblePlaybackValidated": false,
+    "retainedCapturedAudio": false,
+    "retainedTranscript": false
+  },
+  "packageGuardTestsPassed": 6,
+  "explicitWrongProfileRejectedBothWays": true,
+  "cpuFlagsResetInReusedMetalBuild": true,
+  "actualCpuBackendQueryAfterRebuild": 1,
+  "filesSha256": {
+    "packaged-metal-provenance.json": "d1fafddcef28bec0ac4f40ff25b003e7e2d98f149e5c6edc4567d62447119401",
+    "packaged-cpu-reused-cache-provenance.json": "f3c0735de664c62a087ac75abaac95f2ccc1954a13bbbfe388b5567abfbdde5f",
+    "metal-embed-checks.json": "737cd3a90f5f4e52c34894371189221095cb1652b738da062ffed82caa4e63c4",
+    "packaged-metal-smoke.json": "0ca3c693b87f253bfb70e7c2a14f57d8d2acfbcc9d3941f4006ee5e92a22fe4a"
+  },
+  "fullApplicationValidated": false,
+  "fullProductAcceptance": false,
+  "limitations": [
+    "Local compilation used copied headers from the previously staged matching native revision; the CI app job stages the complete native package independently.",
+    "Embed phase verified two signed libraries and system-only linkage in a fixture bundle directory; no full app was built locally.",
+    "Metal profile selection is opt-in; default packaging and installed application remain CPU.",
+    "Full Metal application/controller validation has been dispatched separately."
+  ]
+}

@@ -1,0 +1,311 @@
+{
+  "schema": 1,
+  "sourceSha": "e7ed88e4d485862e4af9897e56a6966c5b75e91c",
+  "runId": 35171446787,
+  "runConclusion": "success",
+  "artifacts": {
+    "macos": 10476902336,
+    "windows": 10476638938
+  },
+  "platforms": {
+    "livesync-inference-macos-arm64-e7ed88e4d485862e4af9897e56a6966c5b75e91c": {
+      "fallback": {
+        "kind": "native-worker-recoverable-backend-fault-contracts",
+        "executableSha256": "fd08d2350ef6c23a7305d5235e7b6120e4ad12a3186b678ad07b9f35b6f508fe",
+        "modelSha256": "4baf70dd0d7c4247ba2b81fafd9c01005ac77c2f9ef064e00dcf195d0e2fdd2f",
+        "fixtureSha256": "59dfb9a4acb36fe2a2affc14bacbee2920ff435cb13cc314a08c13f66ba7860e",
+        "cases": [
+          {
+            "scenario": "load-null",
+            "passed": true,
+            "gpuLoadAttempts": 1,
+            "cpuLoadAttempts": 1,
+            "decodeCalls": 2
+          },
+          {
+            "scenario": "load-throws",
+            "passed": true,
+            "gpuLoadAttempts": 1,
+            "cpuLoadAttempts": 1,
+            "decodeCalls": 2
+          },
+          {
+            "scenario": "decode-fails",
+            "passed": true,
+            "gpuLoadAttempts": 1,
+            "cpuLoadAttempts": 1,
+            "decodeCalls": 3
+          },
+          {
+            "scenario": "decode-throws",
+            "passed": true,
+            "gpuLoadAttempts": 1,
+            "cpuLoadAttempts": 1,
+            "decodeCalls": 3
+          },
+          {
+            "scenario": "cpu-load-fails",
+            "passed": true,
+            "gpuLoadAttempts": 1,
+            "cpuLoadAttempts": 1,
+            "decodeCalls": 0
+          },
+          {
+            "scenario": "cpu-decode-fails",
+            "passed": true,
+            "gpuLoadAttempts": 1,
+            "cpuLoadAttempts": 1,
+            "decodeCalls": 2
+          },
+          {
+            "scenario": "cancel",
+            "passed": true,
+            "gpuLoadAttempts": 1,
+            "cpuLoadAttempts": 0,
+            "decodeCalls": 2
+          },
+          {
+            "scenario": "fallback-cancel",
+            "passed": true,
+            "gpuLoadAttempts": 1,
+            "cpuLoadAttempts": 1,
+            "decodeCalls": 3
+          },
+          {
+            "scenario": "invalid-timestamps",
+            "passed": true,
+            "gpuLoadAttempts": 1,
+            "cpuLoadAttempts": 0,
+            "decodeCalls": 1
+          }
+        ],
+        "realGpuFailureReproduced": false,
+        "cpuDecoderIsReal": true,
+        "productionAppValidated": false,
+        "passed": true
+      },
+      "workerAbi": {
+        "worker-abi-base.en-q5_1.json": {
+          "kind": "fixture-native-worker-abi",
+          "fixtureSha256": "59dfb9a4acb36fe2a2affc14bacbee2920ff435cb13cc314a08c13f66ba7860e",
+          "modelSha256": "4baf70dd0d7c4247ba2b81fafd9c01005ac77c2f9ef064e00dcf195d0e2fdd2f",
+          "workerSha256": "e7e6fa810aa73c2bfa8daf1934a7caf6d27e805878ca2182f38deadee3111481",
+          "capture": {
+            "samples": 176000,
+            "mediaStart": 100,
+            "generation": 1,
+            "continuity": 1
+          },
+          "threads": 4,
+          "wordErrorRate": 0.0,
+          "referenceScope": "full fixture",
+          "inferenceSecondsExcludingModelLoad": 19.185853334,
+          "segments": [
+            {
+              "mediaStart": 100.0,
+              "mediaEnd": 111.0
+            }
+          ],
+          "validPrefixOnly": false,
+          "speechSupportCounts": {
+            "0": 0,
+            "1": 25,
+            "2": 0
+          },
+          "timestampAccuracyValidated": false,
+          "srtAlignmentValidated": false,
+          "productionAppValidated": false,
+          "audiblePlaybackValidated": false,
+          "retainedCapturedAudio": false,
+          "retainedTranscript": false
+        },
+        "worker-abi-base.en.json": {
+          "kind": "fixture-native-worker-abi",
+          "fixtureSha256": "59dfb9a4acb36fe2a2affc14bacbee2920ff435cb13cc314a08c13f66ba7860e",
+          "modelSha256": "a03779c86df3323075f5e796cb2ce5029f00ec8869eee3fdfb897afe36c6d002",
+          "workerSha256": "e7e6fa810aa73c2bfa8daf1934a7caf6d27e805878ca2182f38deadee3111481",
+          "capture": {
+            "samples": 176000,
+            "mediaStart": 100,
+            "generation": 1,
+            "continuity": 1
+          },
+          "threads": 4,
+          "wordErrorRate": 0.0,
+          "referenceScope": "full fixture",
+          "inferenceSecondsExcludingModelLoad": 19.328683541,
+          "segments": [
+            {
+              "mediaStart": 100.0,
+              "mediaEnd": 111.0
+            }
+          ],
+          "validPrefixOnly": false,
+          "speechSupportCounts": {
+            "0": 0,
+            "1": 25,
+            "2": 0
+          },
+          "timestampAccuracyValidated": false,
+          "srtAlignmentValidated": false,
+          "productionAppValidated": false,
+          "audiblePlaybackValidated": false,
+          "retainedCapturedAudio": false,
+          "retainedTranscript": false
+        }
+      },
+      "fallbackReportSha256": "ea068c8766745dadce40356418b7c750657e46692a66693c936cecf08a397cda"
+    },
+    "livesync-inference-windows-x64-e7ed88e4d485862e4af9897e56a6966c5b75e91c": {
+      "fallback": {
+        "kind": "native-worker-recoverable-backend-fault-contracts",
+        "executableSha256": "50a99b50d32eede5128e0c792610532b4c4803f282cf863cb277b0d8e51a6fba",
+        "modelSha256": "4baf70dd0d7c4247ba2b81fafd9c01005ac77c2f9ef064e00dcf195d0e2fdd2f",
+        "fixtureSha256": "59dfb9a4acb36fe2a2affc14bacbee2920ff435cb13cc314a08c13f66ba7860e",
+        "cases": [
+          {
+            "scenario": "load-null",
+            "passed": true,
+            "gpuLoadAttempts": 1,
+            "cpuLoadAttempts": 1,
+            "decodeCalls": 2
+          },
+          {
+            "scenario": "load-throws",
+            "passed": true,
+            "gpuLoadAttempts": 1,
+            "cpuLoadAttempts": 1,
+            "decodeCalls": 2
+          },
+          {
+            "scenario": "decode-fails",
+            "passed": true,
+            "gpuLoadAttempts": 1,
+            "cpuLoadAttempts": 1,
+            "decodeCalls": 3
+          },
+          {
+            "scenario": "decode-throws",
+            "passed": true,
+            "gpuLoadAttempts": 1,
+            "cpuLoadAttempts": 1,
+            "decodeCalls": 3
+          },
+          {
+            "scenario": "cpu-load-fails",
+            "passed": true,
+            "gpuLoadAttempts": 1,
+            "cpuLoadAttempts": 1,
+            "decodeCalls": 0
+          },
+          {
+            "scenario": "cpu-decode-fails",
+            "passed": true,
+            "gpuLoadAttempts": 1,
+            "cpuLoadAttempts": 1,
+            "decodeCalls": 2
+          },
+          {
+            "scenario": "cancel",
+            "passed": true,
+            "gpuLoadAttempts": 1,
+            "cpuLoadAttempts": 0,
+            "decodeCalls": 2
+          },
+          {
+            "scenario": "fallback-cancel",
+            "passed": true,
+            "gpuLoadAttempts": 1,
+            "cpuLoadAttempts": 1,
+            "decodeCalls": 3
+          },
+          {
+            "scenario": "invalid-timestamps",
+            "passed": true,
+            "gpuLoadAttempts": 1,
+            "cpuLoadAttempts": 0,
+            "decodeCalls": 1
+          }
+        ],
+        "realGpuFailureReproduced": false,
+        "cpuDecoderIsReal": true,
+        "productionAppValidated": false,
+        "passed": true
+      },
+      "workerAbi": {
+        "worker-abi-base.en-q5_1.json": {
+          "kind": "fixture-native-worker-abi",
+          "fixtureSha256": "59dfb9a4acb36fe2a2affc14bacbee2920ff435cb13cc314a08c13f66ba7860e",
+          "modelSha256": "4baf70dd0d7c4247ba2b81fafd9c01005ac77c2f9ef064e00dcf195d0e2fdd2f",
+          "workerSha256": "15621abfd925cb392bd7ddecf40953e52da0a3a2fc25cb12f8affe79b276fa47",
+          "capture": {
+            "samples": 176000,
+            "mediaStart": 100,
+            "generation": 1,
+            "continuity": 1
+          },
+          "threads": 4,
+          "wordErrorRate": 0.0,
+          "referenceScope": "full fixture",
+          "inferenceSecondsExcludingModelLoad": 23.0954344,
+          "segments": [
+            {
+              "mediaStart": 100.0,
+              "mediaEnd": 111.0
+            }
+          ],
+          "validPrefixOnly": false,
+          "speechSupportCounts": {
+            "0": 0,
+            "1": 25,
+            "2": 0
+          },
+          "timestampAccuracyValidated": false,
+          "srtAlignmentValidated": false,
+          "productionAppValidated": false,
+          "audiblePlaybackValidated": false,
+          "retainedCapturedAudio": false,
+          "retainedTranscript": false
+        },
+        "worker-abi-base.en.json": {
+          "kind": "fixture-native-worker-abi",
+          "fixtureSha256": "59dfb9a4acb36fe2a2affc14bacbee2920ff435cb13cc314a08c13f66ba7860e",
+          "modelSha256": "a03779c86df3323075f5e796cb2ce5029f00ec8869eee3fdfb897afe36c6d002",
+          "workerSha256": "15621abfd925cb392bd7ddecf40953e52da0a3a2fc25cb12f8affe79b276fa47",
+          "capture": {
+            "samples": 176000,
+            "mediaStart": 100,
+            "generation": 1,
+            "continuity": 1
+          },
+          "threads": 4,
+          "wordErrorRate": 0.0,
+          "referenceScope": "full fixture",
+          "inferenceSecondsExcludingModelLoad": 24.6218782,
+          "segments": [
+            {
+              "mediaStart": 100.0,
+              "mediaEnd": 111.0
+            }
+          ],
+          "validPrefixOnly": false,
+          "speechSupportCounts": {
+            "0": 0,
+            "1": 25,
+            "2": 0
+          },
+          "timestampAccuracyValidated": false,
+          "srtAlignmentValidated": false,
+          "productionAppValidated": false,
+          "audiblePlaybackValidated": false,
+          "retainedCapturedAudio": false,
+          "retainedTranscript": false
+        }
+      },
+      "fallbackReportSha256": "2129638779bc46c34363a931a6af81ba786dfe0d76019768b36f2d0259af2985"
+    }
+  },
+  "scope": "Nine recoverable backend fault contracts and default CPU native regressions",
+  "realGpuFailureReproduced": false,
+  "fullProductAcceptance": false
+}
