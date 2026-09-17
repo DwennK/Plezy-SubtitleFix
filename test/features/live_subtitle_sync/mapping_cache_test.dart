@@ -151,6 +151,73 @@ void main() {
     }
   });
 
+  test('short-caption evidence survives cache restoration without storing dialogue', () async {
+    final shortIndex = SubtitleIndex(
+      ParsedSubtitles(SubtitleEncoding.utf8, [
+        for (final (ordinal, seconds, text) in [
+          (0, 2, 'Hold'),
+          (1, 3, 'on please'),
+          (2, 22, 'Stay'),
+          (3, 23, 'right here'),
+        ])
+          SubtitleCue(
+            ordinal: ordinal,
+            sourceId: null,
+            start: Duration(seconds: seconds),
+            end: Duration(seconds: seconds + 1),
+            text: text,
+            timingSuffix: '',
+          ),
+      ]),
+    );
+    final original = TimelineMap(
+      segments: [
+        const TimelineFitter().fit(const [
+          SubtitleAnchor(0, 2, 5, 0.35, 'hold on please'),
+          SubtitleAnchor(2, 22, 25, 0.35, 'stay right here'),
+        ])!,
+      ],
+    );
+    await cache.write(key(), original, generation: cache.generation);
+    final restored = await cache.read(key(), shortIndex);
+    expect(restored, isNotNull);
+    expect(restored!.segments.single.anchors.map((anchor) => anchor.phrase), ['hold on please', 'stay right here']);
+    expect(restored.atMedia(15).automaticDelay, 3);
+    expect(await (await stored()).readAsString(), isNot(contains('hold')));
+  });
+
+  test('cache rejects short-caption context reserved by a long cue or separated by silence', () async {
+    for (final (neighborText, neighborStart) in [('on please wait', 3), ('on please', 8)]) {
+      final invalidIndex = SubtitleIndex(
+        ParsedSubtitles(SubtitleEncoding.utf8, [
+          for (final (ordinal, seconds, text) in [
+            (0, 2, 'Hold'),
+            (1, neighborStart, neighborText),
+            (2, 22, 'Stay right here'),
+          ])
+            SubtitleCue(
+              ordinal: ordinal,
+              sourceId: null,
+              start: Duration(seconds: seconds),
+              end: Duration(seconds: seconds + 1),
+              text: text,
+              timingSuffix: '',
+            ),
+        ]),
+      );
+      final invalid = TimelineMap(
+        segments: [
+          const TimelineFitter().fit(const [
+            SubtitleAnchor(0, 2, 5, 0.35, 'hold on please'),
+            SubtitleAnchor(2, 22, 25, 0.35, 'stay right here'),
+          ])!,
+        ],
+      );
+      await cache.write(key(), invalid, generation: cache.generation);
+      expect(await cache.read(key(), invalidIndex), isNull);
+    }
+  });
+
   test('identity, schema, evidence and domain checks reject invalid envelopes', () async {
     for (final mutate in <void Function(Map)>[
       (p) => p['key'] = 'different',
@@ -162,6 +229,7 @@ void main() {
       // A well-formed pre-speech-support cache can contain cue starts that
       // the new detector would reject; its valid checksum cannot authorize reuse.
       (p) => p['algorithm'] = 'bounded-affine-titles-v2',
+      (p) => p['algorithm'] = 'bounded-affine-speech-v3',
       (p) => p['segments'][0]['end'] = 900.0,
       (p) => p['segments'][0]['anchors'][0]['cue'] = 999,
       (p) => p['segments'][0]['anchors'][0]['subtitle'] = 3.0,
