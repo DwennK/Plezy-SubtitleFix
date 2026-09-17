@@ -1,0 +1,162 @@
+{
+  "schema": 1,
+  "sourceSha": "e7ed88e4d485862e4af9897e56a6966c5b75e91c",
+  "kind": "recoverable-metal-fallback-local-validation",
+  "nativeFaultContracts": {
+    "kind": "native-worker-recoverable-backend-fault-contracts",
+    "executableSha256": "46ad8b5fc735605fe97532ceb328e6a0f6cb59eee4582406b4e741210229e17f",
+    "modelSha256": "4baf70dd0d7c4247ba2b81fafd9c01005ac77c2f9ef064e00dcf195d0e2fdd2f",
+    "fixtureSha256": "59dfb9a4acb36fe2a2affc14bacbee2920ff435cb13cc314a08c13f66ba7860e",
+    "cases": [
+      {
+        "scenario": "load-null",
+        "passed": true,
+        "gpuLoadAttempts": 1,
+        "cpuLoadAttempts": 1,
+        "decodeCalls": 2
+      },
+      {
+        "scenario": "load-throws",
+        "passed": true,
+        "gpuLoadAttempts": 1,
+        "cpuLoadAttempts": 1,
+        "decodeCalls": 2
+      },
+      {
+        "scenario": "decode-fails",
+        "passed": true,
+        "gpuLoadAttempts": 1,
+        "cpuLoadAttempts": 1,
+        "decodeCalls": 3
+      },
+      {
+        "scenario": "decode-throws",
+        "passed": true,
+        "gpuLoadAttempts": 1,
+        "cpuLoadAttempts": 1,
+        "decodeCalls": 3
+      },
+      {
+        "scenario": "cpu-load-fails",
+        "passed": true,
+        "gpuLoadAttempts": 1,
+        "cpuLoadAttempts": 1,
+        "decodeCalls": 0
+      },
+      {
+        "scenario": "cpu-decode-fails",
+        "passed": true,
+        "gpuLoadAttempts": 1,
+        "cpuLoadAttempts": 1,
+        "decodeCalls": 2
+      },
+      {
+        "scenario": "cancel",
+        "passed": true,
+        "gpuLoadAttempts": 1,
+        "cpuLoadAttempts": 0,
+        "decodeCalls": 2
+      },
+      {
+        "scenario": "fallback-cancel",
+        "passed": true,
+        "gpuLoadAttempts": 1,
+        "cpuLoadAttempts": 1,
+        "decodeCalls": 3
+      },
+      {
+        "scenario": "invalid-timestamps",
+        "passed": true,
+        "gpuLoadAttempts": 1,
+        "cpuLoadAttempts": 0,
+        "decodeCalls": 1
+      }
+    ],
+    "realGpuFailureReproduced": false,
+    "cpuDecoderIsReal": true,
+    "productionAppValidated": false,
+    "passed": true
+  },
+  "backendQueryContracts": [
+    {
+      "profile": "cpu-build",
+      "expectedPreference": 1,
+      "passed": true,
+      "librarySha256": "bfde51a438ea30058ac4dda91b0d79d331fefe676cb26cb32afc68e7c0963146"
+    },
+    {
+      "profile": "build",
+      "expectedPreference": 2,
+      "passed": true,
+      "librarySha256": "e9f92520c27ac9100b84008f90d6fb5aafe4aae24817c62fc527217c8d0d4b21"
+    }
+  ],
+  "nativeSmoke": {
+    "kind": "fixture-native-worker-abi",
+    "fixtureSha256": "59dfb9a4acb36fe2a2affc14bacbee2920ff435cb13cc314a08c13f66ba7860e",
+    "modelSha256": "4baf70dd0d7c4247ba2b81fafd9c01005ac77c2f9ef064e00dcf195d0e2fdd2f",
+    "workerSha256": "e9f92520c27ac9100b84008f90d6fb5aafe4aae24817c62fc527217c8d0d4b21",
+    "capture": {
+      "samples": 176000,
+      "mediaStart": 100,
+      "generation": 1,
+      "continuity": 1
+    },
+    "threads": 2,
+    "wordErrorRate": 0.0,
+    "referenceScope": "full fixture",
+    "inferenceSecondsExcludingModelLoad": 0.199200167,
+    "segments": [
+      {
+        "mediaStart": 100.0,
+        "mediaEnd": 111.0
+      }
+    ],
+    "validPrefixOnly": false,
+    "speechSupportCounts": {
+      "0": 0,
+      "1": 25,
+      "2": 0
+    },
+    "timestampAccuracyValidated": false,
+    "srtAlignmentValidated": false,
+    "productionAppValidated": false,
+    "audiblePlaybackValidated": false,
+    "retainedCapturedAudio": false,
+    "retainedTranscript": false
+  },
+  "activePcm": {
+    "kind": "native-active-pcm-real-asr-and-domain-alignment",
+    "inferenceBackend": "metal-preferred",
+    "acquisitionMs": 22838,
+    "actualOffset": -100.13497916666668,
+    "trackingErrorP95": 0.220977783203125,
+    "completedAnalyses": 6,
+    "rejectedAnalyses": 0,
+    "passed": true,
+    "reference": "fixture SRT timings, not precise acoustic-onset ground truth",
+    "productionPlayerValidated": false,
+    "audiblePlaybackValidated": false
+  },
+  "dartTests": {
+    "passed": 172,
+    "skipped": 1,
+    "scope": "test/features/live_subtitle_sync"
+  },
+  "focusedStaticAnalysisPassed": true,
+  "reportHashes": {
+    "fallback-expanded-contracts.json": "2f5f17112d2877af6257bdb0640429808d342773f1f28a45af10f90ba4ad1ad4",
+    "backend-query-contracts.json": "0684205a89ee09d4c4378dbc184a5776ebd39eb37a18c92b312afb82ee904c82",
+    "metal-fallback-smoke.json": "3ee46c4f57f05cc978c53a90e3af7880cf2897a0d24ec8889ed6f74f851f1c41",
+    "active-fallback-ordinary.json": "d479805eee9feb25c6b01dbf6c7d21eb5ff3385d12cb6067402e90c78d9701f5"
+  },
+  "testExecutableSeparateFromRuntime": true,
+  "shippingCpuProfileUnchanged": true,
+  "fullProductAcceptance": false,
+  "limitations": [
+    "Nine injected faults test the real worker and CPU decoder, not real Metal driver failures.",
+    "Metal preferred records the requested backend; whisper may internally use CPU.",
+    "No app package selection or installed application change; full controller fallback notification and playback impact remain to validate.",
+    "Active constant-offset fixture is authored-SRT truth, not independent acoustic onset truth; crossing-scene failure remains unresolved."
+  ]
+}
