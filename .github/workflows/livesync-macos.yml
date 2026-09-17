@@ -14,6 +14,11 @@ on:
         description: Exact candidate SHA supplied by upstream integration
         type: string
         default: ""
+      inference_profile:
+        description: Explicit native inference profile for this test application
+        type: choice
+        options: [cpu, metal]
+        default: cpu
   push:
     branches: [feature/live-subtitle-sync]
     paths:
@@ -37,6 +42,7 @@ jobs:
     env:
       FLUTTER_BUILD_MODE: ${{ inputs.build_mode || 'debug' }}
       BUILD_CONFIGURATION: ${{ inputs.build_mode == 'release' && 'Release' || 'Debug' }}
+      INFERENCE_PROFILE: ${{ inputs.inference_profile || 'cpu' }}
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
         with:
@@ -50,6 +56,8 @@ jobs:
       - name: Record and validate the selected build configuration
         run: |
           case "$FLUTTER_BUILD_MODE" in debug|release) ;; *) exit 1 ;; esac
+          case "$INFERENCE_PROFILE" in cpu|metal) ;; *) exit 1 ;; esac
+          python3 -m unittest discover -s scripts/livesync -p test_analysis_runtime.py
           mkdir -p build/livesync/evidence
           python3 - <<'PYMODE'
           import json, os
@@ -57,6 +65,7 @@ jobs:
           Path('build/livesync/evidence/build-mode.json').write_text(json.dumps({
               'flutterMode': os.environ['FLUTTER_BUILD_MODE'],
               'nativeConfiguration': os.environ['BUILD_CONFIGURATION'],
+              'inferenceProfile': os.environ['INFERENCE_PROFILE'],
               'contractTestabilityOverride': True,
               'artifactPreservedBeforeContractRebuild': True,
           }, indent=2) + '\n')
@@ -87,7 +96,8 @@ jobs:
           flutter pub get --enforce-lockfile --no-example
       - name: Build the isolated test application
         run: |
-          python3 scripts/livesync/build_analysis_runtime.py --target macos-arm64
+          python3 scripts/livesync/build_analysis_runtime.py --target macos-arm64 --profile "$INFERENCE_PROFILE"
+          cp build/livesync/runtime/macos-arm64/provenance.json build/livesync/evidence/analysis-runtime-source.json
           flutter build macos "--$FLUTTER_BUILD_MODE" --no-pub
       - name: Package the test application before contract instrumentation
         run: |
@@ -97,7 +107,7 @@ jobs:
       - name: Preserve test application
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7
         with:
-          name: livesync-macos-app-${{ github.sha }}${{ inputs.build_mode == 'release' && '-release' || '' }}
+          name: livesync-macos-app-${{ github.sha }}${{ inputs.build_mode == 'release' && '-release' || '' }}${{ inputs.inference_profile == 'metal' && '-metal' || '' }}
           path: build/livesync/PlezyLiveSync-macos-test.zip
           if-no-files-found: error
           retention-days: 14
@@ -136,7 +146,7 @@ jobs:
         if: always()
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7
         with:
-          name: livesync-macos-contracts-${{ github.sha }}${{ inputs.build_mode == 'release' && '-release' || '' }}
+          name: livesync-macos-contracts-${{ github.sha }}${{ inputs.build_mode == 'release' && '-release' || '' }}${{ inputs.inference_profile == 'metal' && '-metal' || '' }}
           path: build/livesync/evidence/
           if-no-files-found: error
           retention-days: 14

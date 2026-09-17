@@ -283,11 +283,18 @@ DTW, alignment heads, the 128 MiB DTW budget, disabled flash attention, model
 context length and two-thread caller configuration stay unchanged. Only Whisper
 ASR requests a GPU; the speech detector remains CPU-only.
 
-This option defaults off. `build_analysis_runtime.py` explicitly forces it off
-for the existing portable/AVX2 packages, including reused CMake caches. Invalid
+This option defaults off. `build_analysis_runtime.py` defaults to CPU and
+explicitly resets the Metal flags for CPU builds, including reused CMake caches.
+Use `--target macos-arm64 --profile metal` to build the self-contained test
+runtime with embedded shaders and CPU fallback. Windows accepts only CPU.
+The macOS application workflow exposes the same explicit `inference_profile`
+choice, defaulting to CPU. The runtime provenance and application evidence
+record the selected profile; the Xcode embed phase verifies its source and file
+hashes. `--verify --profile cpu` rejects a previously built Metal package, while
+plain `--verify` accepts either supported, fully verified macOS profile. Invalid
 platform/architecture, a disabled Metal backend, or external shader lookup are
-rejected at configuration time. The option is an evaluation build path; no
-application dispatch or distribution change is enabled.
+rejected at configuration time. Metal application candidates still require
+full native controller and playback validation before promotion.
 
 Recoverable GPU initialization/inference failures free the old context, retry
 the same owned PCM once on CPU, and keep that worker on CPU. Cancellation never
