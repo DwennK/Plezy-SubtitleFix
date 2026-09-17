@@ -1,0 +1,337 @@
+{
+  "schema": 1,
+  "sourceSha": "968ea895efb5359f16d5eb0c2ed73a8c1445e819",
+  "runId": 35169643115,
+  "runConclusion": "success",
+  "scope": "Default CPU native regression after adding the opt-in Metal profile",
+  "metalEnabledInThisWorkflow": false,
+  "platforms": {
+    "livesync-inference-macos-arm64-968ea895efb5359f16d5eb0c2ed73a8c1445e819": {
+      "reports": {
+        "inference-check.json": [
+          {
+            "resultFile": "base.en-cpu.json",
+            "wordErrorRate": 0.0,
+            "fixtureSeconds": 11,
+            "timestampAccuracyValidated": false
+          },
+          {
+            "resultFile": "base.en-q5_1-cpu.json",
+            "wordErrorRate": 0.0,
+            "fixtureSeconds": 11,
+            "timestampAccuracyValidated": false
+          }
+        ],
+        "worker-abi-base.en-q5_1.json": {
+          "kind": "fixture-native-worker-abi",
+          "fixtureSha256": "59dfb9a4acb36fe2a2affc14bacbee2920ff435cb13cc314a08c13f66ba7860e",
+          "modelSha256": "4baf70dd0d7c4247ba2b81fafd9c01005ac77c2f9ef064e00dcf195d0e2fdd2f",
+          "workerSha256": "13550e2c553c609e50a64ebf0b0279ed6b67acdc091b598bdf53169cac6a5034",
+          "capture": {
+            "samples": 176000,
+            "mediaStart": 100,
+            "generation": 1,
+            "continuity": 1
+          },
+          "threads": 4,
+          "wordErrorRate": 0.0,
+          "referenceScope": "full fixture",
+          "inferenceSecondsExcludingModelLoad": 21.367554417,
+          "segments": [
+            {
+              "mediaStart": 100.0,
+              "mediaEnd": 111.0
+            }
+          ],
+          "validPrefixOnly": false,
+          "speechSupportCounts": {
+            "0": 0,
+            "1": 25,
+            "2": 0
+          },
+          "timestampAccuracyValidated": false,
+          "srtAlignmentValidated": false,
+          "productionAppValidated": false,
+          "audiblePlaybackValidated": false,
+          "retainedCapturedAudio": false,
+          "retainedTranscript": false
+        },
+        "worker-abi-base.en.json": {
+          "kind": "fixture-native-worker-abi",
+          "fixtureSha256": "59dfb9a4acb36fe2a2affc14bacbee2920ff435cb13cc314a08c13f66ba7860e",
+          "modelSha256": "a03779c86df3323075f5e796cb2ce5029f00ec8869eee3fdfb897afe36c6d002",
+          "workerSha256": "13550e2c553c609e50a64ebf0b0279ed6b67acdc091b598bdf53169cac6a5034",
+          "capture": {
+            "samples": 176000,
+            "mediaStart": 100,
+            "generation": 1,
+            "continuity": 1
+          },
+          "threads": 4,
+          "wordErrorRate": 0.0,
+          "referenceScope": "full fixture",
+          "inferenceSecondsExcludingModelLoad": 21.029332958,
+          "segments": [
+            {
+              "mediaStart": 100.0,
+              "mediaEnd": 111.0
+            }
+          ],
+          "validPrefixOnly": false,
+          "speechSupportCounts": {
+            "0": 0,
+            "1": 25,
+            "2": 0
+          },
+          "timestampAccuracyValidated": false,
+          "srtAlignmentValidated": false,
+          "productionAppValidated": false,
+          "audiblePlaybackValidated": false,
+          "retainedCapturedAudio": false,
+          "retainedTranscript": false
+        }
+      },
+      "reportHashes": {
+        "inference-check.json": "a2e7f30b34f67b93386d169733500cecedce6c10b3ab134bdd0e6ad207e6f1d2",
+        "worker-abi-base.en-q5_1.json": "01f7ec287205a0f1aa36c9705b7205c63682ff73ae1e9105a0605f1723c0b37f",
+        "worker-abi-base.en.json": "fc373d345605a59069b30d172f42d0572589c64cf09a086fb55853acb8632816"
+      }
+    },
+    "livesync-inference-windows-x64-968ea895efb5359f16d5eb0c2ed73a8c1445e819": {
+      "reports": {
+        "inference-check.json": [
+          {
+            "resultFile": "base.en-cpu.json",
+            "wordErrorRate": 0.0,
+            "fixtureSeconds": 11,
+            "timestampAccuracyValidated": false
+          },
+          {
+            "resultFile": "base.en-q5_1-cpu.json",
+            "wordErrorRate": 0.0,
+            "fixtureSeconds": 11,
+            "timestampAccuracyValidated": false
+          }
+        ],
+        "worker-abi-base.en-q5_1.json": {
+          "kind": "fixture-native-worker-abi",
+          "fixtureSha256": "59dfb9a4acb36fe2a2affc14bacbee2920ff435cb13cc314a08c13f66ba7860e",
+          "modelSha256": "4baf70dd0d7c4247ba2b81fafd9c01005ac77c2f9ef064e00dcf195d0e2fdd2f",
+          "workerSha256": "bc06524cce6e662f5ff43a94a6f8ce8c64adb60547eb9481cc1a280b6072af9f",
+          "capture": {
+            "samples": 176000,
+            "mediaStart": 100,
+            "generation": 1,
+            "continuity": 1
+          },
+          "threads": 4,
+          "wordErrorRate": 0.0,
+          "referenceScope": "full fixture",
+          "inferenceSecondsExcludingModelLoad": 20.6986726,
+          "segments": [
+            {
+              "mediaStart": 100.0,
+              "mediaEnd": 111.0
+            }
+          ],
+          "validPrefixOnly": false,
+          "speechSupportCounts": {
+            "0": 0,
+            "1": 25,
+            "2": 0
+          },
+          "timestampAccuracyValidated": false,
+          "srtAlignmentValidated": false,
+          "productionAppValidated": false,
+          "audiblePlaybackValidated": false,
+          "retainedCapturedAudio": false,
+          "retainedTranscript": false
+        },
+        "worker-abi-base.en.json": {
+          "kind": "fixture-native-worker-abi",
+          "fixtureSha256": "59dfb9a4acb36fe2a2affc14bacbee2920ff435cb13cc314a08c13f66ba7860e",
+          "modelSha256": "a03779c86df3323075f5e796cb2ce5029f00ec8869eee3fdfb897afe36c6d002",
+          "workerSha256": "bc06524cce6e662f5ff43a94a6f8ce8c64adb60547eb9481cc1a280b6072af9f",
+          "capture": {
+            "samples": 176000,
+            "mediaStart": 100,
+            "generation": 1,
+            "continuity": 1
+          },
+          "threads": 4,
+          "wordErrorRate": 0.0,
+          "referenceScope": "full fixture",
+          "inferenceSecondsExcludingModelLoad": 16.8150913,
+          "segments": [
+            {
+              "mediaStart": 100.0,
+              "mediaEnd": 111.0
+            }
+          ],
+          "validPrefixOnly": false,
+          "speechSupportCounts": {
+            "0": 0,
+            "1": 25,
+            "2": 0
+          },
+          "timestampAccuracyValidated": false,
+          "srtAlignmentValidated": false,
+          "productionAppValidated": false,
+          "audiblePlaybackValidated": false,
+          "retainedCapturedAudio": false,
+          "retainedTranscript": false
+        },
+        "worker-avx2-2threads-base.en-q5_1.json": {
+          "kind": "fixture-native-worker-abi",
+          "fixtureSha256": "59dfb9a4acb36fe2a2affc14bacbee2920ff435cb13cc314a08c13f66ba7860e",
+          "modelSha256": "4baf70dd0d7c4247ba2b81fafd9c01005ac77c2f9ef064e00dcf195d0e2fdd2f",
+          "workerSha256": "31cf8d065eadd71cd7ce27f85a877ee26596faf7e09e5bcbbdf3c55a015ea716",
+          "capture": {
+            "samples": 176000,
+            "mediaStart": 100,
+            "generation": 1,
+            "continuity": 1
+          },
+          "threads": 2,
+          "wordErrorRate": 0.0,
+          "referenceScope": "full fixture",
+          "inferenceSecondsExcludingModelLoad": 2.8439849,
+          "segments": [
+            {
+              "mediaStart": 100.0,
+              "mediaEnd": 111.0
+            }
+          ],
+          "validPrefixOnly": false,
+          "speechSupportCounts": {
+            "0": 0,
+            "1": 25,
+            "2": 0
+          },
+          "timestampAccuracyValidated": false,
+          "srtAlignmentValidated": false,
+          "productionAppValidated": false,
+          "audiblePlaybackValidated": false,
+          "retainedCapturedAudio": false,
+          "retainedTranscript": false
+        },
+        "worker-avx2-2threads-base.en.json": {
+          "kind": "fixture-native-worker-abi",
+          "fixtureSha256": "59dfb9a4acb36fe2a2affc14bacbee2920ff435cb13cc314a08c13f66ba7860e",
+          "modelSha256": "a03779c86df3323075f5e796cb2ce5029f00ec8869eee3fdfb897afe36c6d002",
+          "workerSha256": "31cf8d065eadd71cd7ce27f85a877ee26596faf7e09e5bcbbdf3c55a015ea716",
+          "capture": {
+            "samples": 176000,
+            "mediaStart": 100,
+            "generation": 1,
+            "continuity": 1
+          },
+          "threads": 2,
+          "wordErrorRate": 0.0,
+          "referenceScope": "full fixture",
+          "inferenceSecondsExcludingModelLoad": 2.8312264,
+          "segments": [
+            {
+              "mediaStart": 100.0,
+              "mediaEnd": 111.0
+            }
+          ],
+          "validPrefixOnly": false,
+          "speechSupportCounts": {
+            "0": 0,
+            "1": 25,
+            "2": 0
+          },
+          "timestampAccuracyValidated": false,
+          "srtAlignmentValidated": false,
+          "productionAppValidated": false,
+          "audiblePlaybackValidated": false,
+          "retainedCapturedAudio": false,
+          "retainedTranscript": false
+        },
+        "worker-avx2-base.en-q5_1.json": {
+          "kind": "fixture-native-worker-abi",
+          "fixtureSha256": "59dfb9a4acb36fe2a2affc14bacbee2920ff435cb13cc314a08c13f66ba7860e",
+          "modelSha256": "4baf70dd0d7c4247ba2b81fafd9c01005ac77c2f9ef064e00dcf195d0e2fdd2f",
+          "workerSha256": "31cf8d065eadd71cd7ce27f85a877ee26596faf7e09e5bcbbdf3c55a015ea716",
+          "capture": {
+            "samples": 176000,
+            "mediaStart": 100,
+            "generation": 1,
+            "continuity": 1
+          },
+          "threads": 4,
+          "wordErrorRate": 0.0,
+          "referenceScope": "full fixture",
+          "inferenceSecondsExcludingModelLoad": 2.4406972,
+          "segments": [
+            {
+              "mediaStart": 100.0,
+              "mediaEnd": 111.0
+            }
+          ],
+          "validPrefixOnly": false,
+          "speechSupportCounts": {
+            "0": 0,
+            "1": 25,
+            "2": 0
+          },
+          "timestampAccuracyValidated": false,
+          "srtAlignmentValidated": false,
+          "productionAppValidated": false,
+          "audiblePlaybackValidated": false,
+          "retainedCapturedAudio": false,
+          "retainedTranscript": false
+        },
+        "worker-avx2-base.en.json": {
+          "kind": "fixture-native-worker-abi",
+          "fixtureSha256": "59dfb9a4acb36fe2a2affc14bacbee2920ff435cb13cc314a08c13f66ba7860e",
+          "modelSha256": "a03779c86df3323075f5e796cb2ce5029f00ec8869eee3fdfb897afe36c6d002",
+          "workerSha256": "31cf8d065eadd71cd7ce27f85a877ee26596faf7e09e5bcbbdf3c55a015ea716",
+          "capture": {
+            "samples": 176000,
+            "mediaStart": 100,
+            "generation": 1,
+            "continuity": 1
+          },
+          "threads": 4,
+          "wordErrorRate": 0.0,
+          "referenceScope": "full fixture",
+          "inferenceSecondsExcludingModelLoad": 2.4490546,
+          "segments": [
+            {
+              "mediaStart": 100.0,
+              "mediaEnd": 111.0
+            }
+          ],
+          "validPrefixOnly": false,
+          "speechSupportCounts": {
+            "0": 0,
+            "1": 25,
+            "2": 0
+          },
+          "timestampAccuracyValidated": false,
+          "srtAlignmentValidated": false,
+          "productionAppValidated": false,
+          "audiblePlaybackValidated": false,
+          "retainedCapturedAudio": false,
+          "retainedTranscript": false
+        }
+      },
+      "reportHashes": {
+        "inference-check.json": "0cb41373e7dbd6a6ccf5831204107fcff68cc1a88f93a3ec388e1efdccda0d80",
+        "worker-abi-base.en-q5_1.json": "14e42698b9e2c3e760ae1b7558358267a2328e211f756813d7e9f96c5f7cd727",
+        "worker-abi-base.en.json": "a09f87981882d93af7cd3a65ce6b5e101cf80beacb363730322897bbe2548252",
+        "worker-avx2-2threads-base.en-q5_1.json": "10ca5e709711f9ed63a51866c2d23a44328992ed14914235ff83bacf0dcc7345",
+        "worker-avx2-2threads-base.en.json": "7a6d50005b330299a90d20828dec33dee1ae831e92d4ec1638e6d0971219e1e9",
+        "worker-avx2-base.en-q5_1.json": "5c92e562d32e30817185cc44b98e81e53afdfb03cca69144b3a90fd01db7ca1b",
+        "worker-avx2-base.en.json": "85eda322b9b8e3778dea02c063858dda277375c193953eb6c758781fe2ae4d59"
+      }
+    }
+  },
+  "fullProductAcceptance": false,
+  "limitations": [
+    "Fixture recognition and ABI/speech-support contracts, not app performance or timestamp precision.",
+    "This workflow does not exercise the opt-in Metal profile; local Metal development results are recorded separately."
+  ]
+}
