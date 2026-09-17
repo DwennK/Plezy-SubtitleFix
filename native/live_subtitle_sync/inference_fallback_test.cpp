@@ -2,6 +2,7 @@
 // one output timestamp are intercepted in this executable, never in a DLL.
 #include <atomic>
 #include <chrono>
+#include <cstdio>
 #include <iostream>
 #include <stdexcept>
 #include <string>
