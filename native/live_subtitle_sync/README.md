@@ -225,8 +225,8 @@ library logs are disabled and the worker writes nothing to disk or network.
 
 The model path must come from a held `ModelLease`. The owner must serialize
 control calls and stop/join the worker from a cleanup queue before releasing
-that lease. This native component is not wired to the production player yet.
-Only CPU inference is implemented here; GPU selection/fallback remains pending.
+that lease. The production player uses the packaged CPU runtime; the optional
+Metal profile below remains separate from application package selection.
 
 ```sh
 cmake -S native/live_subtitle_sync -B build/livesync/inference-worker \
@@ -273,3 +273,51 @@ two cores/four logical processors, the same 11-second sample took 25.49/22.67 s
 with portable base/q5, versus 1.69/2.15 s with AVX2. These are single trials,
 excluding model load, not p95 or playback-impact results. The large improvement
 supports implementing runtime CPU dispatch while retaining the portable option.
+
+### Optional Metal evaluation profile
+
+The native worker can be built on macOS arm64 with
+`-DLIVESYNC_USE_METAL=ON -DGGML_METAL=ON -DGGML_METAL_EMBED_LIBRARY=ON`.
+Use the same pinned whisper source and embedded Silero model as the CPU runtime.
+DTW, alignment heads, the 128 MiB DTW budget, disabled flash attention, model
+context length and two-thread caller configuration stay unchanged. Only Whisper
+ASR requests a GPU; the speech detector remains CPU-only.
+
+This option defaults off. `build_analysis_runtime.py` defaults to CPU and
+explicitly resets the Metal flags for CPU builds, including reused CMake caches.
+Use `--target macos-arm64 --profile metal` to build the self-contained test
+runtime with embedded shaders and CPU fallback. Windows accepts only CPU.
+The macOS application workflow exposes the same explicit `inference_profile`
+choice, defaulting to CPU. The runtime provenance and application evidence
+record the selected profile; the Xcode embed phase verifies its source and file
+hashes. `--verify --profile cpu` rejects a previously built Metal package, while
+plain `--verify` accepts either supported, fully verified macOS profile. Invalid
+platform/architecture, a disabled Metal backend, or external shader lookup are
+rejected at configuration time. Metal application candidates still require
+full native controller and playback validation before promotion.
+
+Recoverable GPU initialization/inference failures free the old context, retry
+the same owned PCM once on CPU, and keep that worker on CPU. Cancellation never
+triggers a retry; rejected timestamps/recognition do not trigger fallback either.
+The failed inference and replacement model load count in the retry's elapsed
+time. Fatal native termination cannot be recovered inside the same process.
+
+The additive ABI v2 `ls_inference_backend` query reports CPU, Metal preferred,
+or CPU fallback. "Metal preferred" is deliberately not a claim that Whisper
+actually used a GPU: its own backend selection can fall back internally. The
+Dart analysis isolate refreshes this diagnostic before replying, including on
+failures. Older CPU ABI v2 libraries without the query remain supported.
+
+`livesync_inference_fallback_test` intercepts two backend calls in a separate
+test executable, decodes pinned public PCM on the real CPU decoder, and checks
+null/throwing loads, failed/throwing inference, CPU failure, rejected timestamps,
+and seeks during either the GPU attempt or CPU recovery.
+Run it through `scripts/livesync/test_inference_fallback.py`; PCM stays in memory.
+Fault hooks are absent from shipped libraries. These injected failures do not
+establish recovery from a real Metal driver fault or replace native app testing.
+
+The M4 measurements in `docs/livesync-evidence/metal-dtw-262bf882.json` show a
+substantial inference-time reduction with retained anchors on the selected
+consumed windows. The active ordinary control passes, but the crossing-scene
+assessment still fails. This does not establish production playback impact or
+resolve scene boundaries.

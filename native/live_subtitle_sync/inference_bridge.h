@@ -57,6 +57,9 @@ typedef struct ls_inference_result {
 
 LIVESYNC_INFERENCE_API uint32_t ls_inference_abi_version(void);
 LIVESYNC_INFERENCE_API size_t ls_inference_result_size(void);
+// Optional additive ABI v2 query: 0 invalid handle, 1 CPU, 2 Metal preferred,
+// 3 CPU after a recoverable failure. Value 2 is a request, not device proof.
+LIVESYNC_INFERENCE_API uint32_t ls_inference_backend(void* handle);
 // Own one handle on a serialized background queue, holding a verified model
 // lease. Destroy joins native work: never invoke it on the UI/audio thread.
 LIVESYNC_INFERENCE_API void* ls_inference_create(const char* model_path, int threads);

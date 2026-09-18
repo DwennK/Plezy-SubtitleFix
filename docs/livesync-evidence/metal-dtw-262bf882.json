@@ -1,0 +1,434 @@
+{
+  "schema": 1,
+  "kind": "native Metal DTW evaluation; not application acceptance",
+  "baseSourceSha": "262bf882",
+  "whisperRevision": "927cfce34f31707e17f2bff35c349632fb9e2c3a",
+  "machine": "Apple M4",
+  "physicalMemoryBytes": 17179869184,
+  "os": "macOS-27.0-arm64-arm-64bit-Mach-O",
+  "threads": 2,
+  "settings": {
+    "dtwTokenTimestamps": true,
+    "dtwHeads": "BASE_EN",
+    "dtwMemoryBytes": 134217728,
+    "flashAttention": false,
+    "embeddedSilero": true,
+    "sileroUsesCpu": true,
+    "audioContext": "model default, unchanged"
+  },
+  "order": [
+    "cpu-quant",
+    "metal-quant",
+    "metal-base",
+    "cpu-base"
+  ],
+  "measurements": [
+    {
+      "trial": "cpu-quant",
+      "reportSha256": "829bce725d98b98026973a8bb04928b1a32b17b89f054eacb032bfc7186995ec",
+      "librarySha256": "366cb2ac8c34cc38a59ac5ae99ec57f8334af7c74b78aaef507b33badefeb3e6",
+      "modelSha256": "4baf70dd0d7c4247ba2b81fafd9c01005ac77c2f9ef064e00dcf195d0e2fdd2f",
+      "warmInferences": 9,
+      "warmMedianSeconds": 1.054504834,
+      "warmMaximumSeconds": 1.098346,
+      "medianCpuSeconds": 2.103924000000002,
+      "processPeakRssBytes": 327876608,
+      "cases": [
+        {
+          "case": "jfk",
+          "repetitions": 3,
+          "medianSeconds": 1.054504834,
+          "distinctTextDigests": 1,
+          "wordErrorRate": 0.0,
+          "evidence": null
+        },
+        {
+          "case": "scene-67.3456875",
+          "repetitions": 3,
+          "medianSeconds": 1.051914708,
+          "distinctTextDigests": 1,
+          "wordErrorRate": null,
+          "evidence": {
+            "status": "matched",
+            "windowCount": 1,
+            "segmented": false,
+            "rejections": {
+              "phraseNotMatched": 1,
+              "beginningUnsupportedSpeech": 1
+            },
+            "anchors": [
+              {
+                "cue": 8,
+                "offset": -70.1743125
+              }
+            ]
+          }
+        },
+        {
+          "case": "scene-75.3696875",
+          "repetitions": 3,
+          "medianSeconds": 1.097130791,
+          "distinctTextDigests": 1,
+          "wordErrorRate": null,
+          "evidence": {
+            "status": "matched",
+            "windowCount": 1,
+            "segmented": false,
+            "rejections": {},
+            "anchors": [
+              {
+                "cue": 10,
+                "offset": -69.8803125
+              },
+              {
+                "cue": 11,
+                "offset": -69.80031249999999
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "trial": "metal-quant",
+      "reportSha256": "0a6f0a7e3d43347872c1e48306ab2f396366ccbed9646788ee039a9dd847267b",
+      "librarySha256": "1976c72a05815018c08036335e113afae21f3cfc430dcef5a2316f3a68e5d2dc",
+      "modelSha256": "4baf70dd0d7c4247ba2b81fafd9c01005ac77c2f9ef064e00dcf195d0e2fdd2f",
+      "warmInferences": 9,
+      "warmMedianSeconds": 0.179129667,
+      "warmMaximumSeconds": 0.252861458,
+      "medianCpuSeconds": 0.101529,
+      "processPeakRssBytes": 270336000,
+      "cases": [
+        {
+          "case": "jfk",
+          "repetitions": 3,
+          "medianSeconds": 0.17117075,
+          "distinctTextDigests": 1,
+          "wordErrorRate": 0.0,
+          "evidence": null
+        },
+        {
+          "case": "scene-67.3456875",
+          "repetitions": 3,
+          "medianSeconds": 0.179129667,
+          "distinctTextDigests": 1,
+          "wordErrorRate": null,
+          "evidence": {
+            "status": "matched",
+            "windowCount": 1,
+            "segmented": false,
+            "rejections": {
+              "phraseNotMatched": 1,
+              "beginningUnsupportedSpeech": 1
+            },
+            "anchors": [
+              {
+                "cue": 8,
+                "offset": -70.1543125
+              }
+            ]
+          }
+        },
+        {
+          "case": "scene-75.3696875",
+          "repetitions": 3,
+          "medianSeconds": 0.216086667,
+          "distinctTextDigests": 1,
+          "wordErrorRate": null,
+          "evidence": {
+            "status": "matched",
+            "windowCount": 1,
+            "segmented": false,
+            "rejections": {},
+            "anchors": [
+              {
+                "cue": 10,
+                "offset": -69.8803125
+              },
+              {
+                "cue": 11,
+                "offset": -69.80031249999999
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "trial": "metal-base",
+      "reportSha256": "60ea2f02e347f551b3a7c4de74c1dc0e38d666990a4bc9cac3b3904f11338857",
+      "librarySha256": "1976c72a05815018c08036335e113afae21f3cfc430dcef5a2316f3a68e5d2dc",
+      "modelSha256": "a03779c86df3323075f5e796cb2ce5029f00ec8869eee3fdfb897afe36c6d002",
+      "warmInferences": 9,
+      "warmMedianSeconds": 0.228451375,
+      "warmMaximumSeconds": 0.259770625,
+      "medianCpuSeconds": 0.10118299999999997,
+      "processPeakRssBytes": 393052160,
+      "cases": [
+        {
+          "case": "jfk",
+          "repetitions": 3,
+          "medianSeconds": 0.177129166,
+          "distinctTextDigests": 1,
+          "wordErrorRate": 0.0,
+          "evidence": null
+        },
+        {
+          "case": "scene-67.3456875",
+          "repetitions": 3,
+          "medianSeconds": 0.2376445,
+          "distinctTextDigests": 1,
+          "wordErrorRate": null,
+          "evidence": {
+            "status": "matched",
+            "windowCount": 1,
+            "segmented": false,
+            "rejections": {
+              "phraseNotMatched": 1
+            },
+            "anchors": [
+              {
+                "cue": 8,
+                "offset": -70.1743125
+              },
+              {
+                "cue": 10,
+                "offset": -69.8843125
+              }
+            ]
+          }
+        },
+        {
+          "case": "scene-75.3696875",
+          "repetitions": 3,
+          "medianSeconds": 0.228451375,
+          "distinctTextDigests": 1,
+          "wordErrorRate": null,
+          "evidence": {
+            "status": "matched",
+            "windowCount": 1,
+            "segmented": false,
+            "rejections": {},
+            "anchors": [
+              {
+                "cue": 10,
+                "offset": -69.8803125
+              },
+              {
+                "cue": 11,
+                "offset": -69.80031249999999
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "trial": "cpu-base",
+      "reportSha256": "978cd312984eecf39fc296a178c911d7b2ca64faef2666bd8c34dc819a9b30f2",
+      "librarySha256": "366cb2ac8c34cc38a59ac5ae99ec57f8334af7c74b78aaef507b33badefeb3e6",
+      "modelSha256": "a03779c86df3323075f5e796cb2ce5029f00ec8869eee3fdfb897afe36c6d002",
+      "warmInferences": 9,
+      "warmMedianSeconds": 0.943521792,
+      "warmMaximumSeconds": 0.958273542,
+      "medianCpuSeconds": 1.8781499999999982,
+      "processPeakRssBytes": 415498240,
+      "cases": [
+        {
+          "case": "jfk",
+          "repetitions": 3,
+          "medianSeconds": 0.89724525,
+          "distinctTextDigests": 1,
+          "wordErrorRate": 0.0,
+          "evidence": null
+        },
+        {
+          "case": "scene-67.3456875",
+          "repetitions": 3,
+          "medianSeconds": 0.957983542,
+          "distinctTextDigests": 1,
+          "wordErrorRate": null,
+          "evidence": {
+            "status": "matched",
+            "windowCount": 1,
+            "segmented": false,
+            "rejections": {
+              "phraseNotMatched": 1
+            },
+            "anchors": [
+              {
+                "cue": 8,
+                "offset": -70.1743125
+              },
+              {
+                "cue": 10,
+                "offset": -69.8843125
+              }
+            ]
+          }
+        },
+        {
+          "case": "scene-75.3696875",
+          "repetitions": 3,
+          "medianSeconds": 0.943521792,
+          "distinctTextDigests": 1,
+          "wordErrorRate": null,
+          "evidence": {
+            "status": "matched",
+            "windowCount": 1,
+            "segmented": false,
+            "rejections": {},
+            "anchors": [
+              {
+                "cue": 10,
+                "offset": -69.8803125
+              },
+              {
+                "cue": 11,
+                "offset": -69.80031249999999
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "activePlayback": {
+    "active-ordinary": {
+      "reportSha256": "8d8154ab5e10f8b38ea08ee1d1e814b335b07a738ebda12fbdff8bb5b35a088f",
+      "reportedBackendLabel": "portable-cpu",
+      "backendLabelLimitation": "Existing probe names the portable loading slot; the supplied scratch library uses Metal, confirmed by its filtered initialization log.",
+      "acquisitionMs": 22943,
+      "completedAnalyses": 6,
+      "inferenceSeconds": [
+        0.464352792,
+        0.221242625,
+        0.211851125,
+        0.222913,
+        0.221047042,
+        0.147488667
+      ],
+      "actualOffset": -100.20633333333333,
+      "trackingErrorP95": 0.23564910888671875,
+      "passedConstantOffsetCheck": true,
+      "learnedGapCount": 0
+    },
+    "active-crossing": {
+      "reportSha256": "933a34633d4269ccb6524867663286d700e3d2fd5690521558d0e668d923ce27",
+      "reportedBackendLabel": "portable-cpu",
+      "backendLabelLimitation": "Existing probe names the portable loading slot; the supplied scratch library uses Metal, confirmed by its filtered initialization log.",
+      "acquisitionMs": 20816,
+      "completedAnalyses": 10,
+      "inferenceSeconds": [
+        0.142552167,
+        0.251523958,
+        0.24699025,
+        0.352173083,
+        0.189196583,
+        0.278253125,
+        0.335965833,
+        0.235843042,
+        0.171440792,
+        0.226378083
+      ],
+      "actualOffset": -69.87499999999997,
+      "trackingErrorP95": 30.125,
+      "passedConstantOffsetCheck": false,
+      "learnedGapCount": 0
+    },
+    "sceneAssessment": {
+      "scope": "native PCM/ASR and domain tracking only; no production controller or renderer claim",
+      "initialAcquisitionBeforeEdit": true,
+      "postEditRecoveryMediaSeconds": 27.667,
+      "alignedTrackingMedianErrorSeconds": 15.214309692382812,
+      "alignedTrackingP95ErrorSeconds": 30.214309692382812,
+      "alignedSampleCount": 52,
+      "gapChecks": [
+        {
+          "expected": {
+            "kind": "videoOnly",
+            "start": 36.25,
+            "end": 66.25
+          },
+          "matched": false
+        }
+      ],
+      "unexpectedGapCount": 0,
+      "cueBoundaryRenderingValidated": false,
+      "backwardSeekValidated": false,
+      "satisfiesSceneDomainChecks": false,
+      "probeSha256": "933a34633d4269ccb6524867663286d700e3d2fd5690521558d0e668d923ce27",
+      "expectedTimelineSha256": "c9a8a41feef99bd7d069d10111678a3d210a7d269b1bd0401025333095d9e70f"
+    }
+  },
+  "checkedCmakeProfile": {
+    "reportSha256": "6c9145aca819baa06191760b3b3b2dfa728d96057acbef3cb596f69da31b47f7",
+    "librarySha256": "e28c98763cfa9c663f5eb095c98bc5c56e42e05946103e288540d0ffef3c0e06",
+    "inferences": 10,
+    "warmMaximumSeconds": 0.217381166,
+    "allJfkWerZero": true,
+    "sceneEvidence": [
+      {
+        "status": "matched",
+        "windowCount": 1,
+        "segmented": false,
+        "rejections": {
+          "phraseNotMatched": 1,
+          "beginningUnsupportedSpeech": 1
+        },
+        "anchors": [
+          {
+            "cue": 8,
+            "offset": -70.1543125
+          }
+        ]
+      },
+      {
+        "status": "matched",
+        "windowCount": 1,
+        "segmented": false,
+        "rejections": {},
+        "anchors": [
+          {
+            "cue": 10,
+            "offset": -69.8803125
+          },
+          {
+            "cue": 11,
+            "offset": -69.80031249999999
+          }
+        ]
+      }
+    ]
+  },
+  "configurationContracts": [
+    {
+      "case": "no-metal",
+      "rejected": true
+    },
+    {
+      "case": "external-shader",
+      "rejected": true
+    }
+  ],
+  "fullProductAcceptance": false,
+  "limitations": [
+    "Fixed-order single-machine development observations, not an application p95 or independent acoustic validation.",
+    "GPU utilization and GPU allocation were not measured; process RSS does not establish total GPU memory.",
+    "The first experiments used a scratch source copy changing use_gpu and filtering hardware-initialization logs. The checked CMake profile then repeated the numerical checks with normal silent logging.",
+    "Native active PCM used the existing a072170a domain probe, not the full Flutter controller or renderer.",
+    "Scene recovery was 27.667 seconds, slower than the earlier CPU observation of 18.333 seconds; window origins differ, so this is not an isolated causal backend comparison.",
+    "Whole-scene median/p95 and exact gap learning remain failing. No timing or matching threshold was relaxed.",
+    "Model/device failure recovery, app backend reporting, runtime packaging and playback impact must be validated before enabling Metal in the application.",
+    "No private media, PCM or dialogue was retained."
+  ],
+  "cpuProfileSmoke": {
+    "reportSha256": "6ad4d4feeccb1470cc4ce406010172ff105bab2872fb1672b8a17db0b7972351",
+    "workerSha256": "366cb2ac8c34cc38a59ac5ae99ec57f8334af7c74b78aaef507b33badefeb3e6",
+    "wordErrorRate": 0.0,
+    "inferenceSeconds": 1.052185209,
+    "embeddedSpeechSupportObserved": true,
+    "metalOption": false
+  }
+}

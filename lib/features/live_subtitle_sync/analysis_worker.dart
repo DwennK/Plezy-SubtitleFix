@@ -18,7 +18,8 @@ class LiveSyncAnalysisWorker {
   final _pending = <int, Completer<Object?>>{};
   late final SendPort _commands;
   int _nextId = 0;
-  late final String inferenceBackend;
+  String _inferenceBackend = 'unknown';
+  String get inferenceBackend => _inferenceBackend;
   bool _closing = false;
   Future<void>? _closeFuture;
 
@@ -35,6 +36,8 @@ class LiveSyncAnalysisWorker {
       switch (message) {
         case final SendPort commands:
           worker._ready.complete(commands);
+        case ['backend', final String backend]:
+          worker._inferenceBackend = backend;
         case [final int id, true, final result]:
           worker._pending.remove(id)?.complete(result);
         case [final int id, false, final NativeSyncFailure reason, final int? nativeStatus]:
@@ -47,7 +50,7 @@ class LiveSyncAnalysisWorker {
       worker._commands = await worker._ready.future;
       final addresses = await playerChannel.invokeListMethod<int>('createLiveSyncClient');
       if (addresses == null) throw const NativeSyncException(NativeSyncFailure.captureUnavailable);
-      worker.inferenceBackend =
+      worker._inferenceBackend =
           (await worker._request('open', [
                 addresses,
                 captureLibrary,
@@ -163,10 +166,12 @@ void _runAnalysis(SendPort replies) {
         default:
           throw const NativeSyncException(NativeSyncFailure.incompatibleAbi);
       }
+      if (engine != null) replies.send(['backend', engine!.inferenceBackend]);
       replies.send([id, true, result]);
     } catch (error) {
       // Do not send native paths, dialogue, PCM or arbitrary exception messages
       // back to the UI/error reporter. Explicit typed reasons only.
+      if (engine != null) replies.send(['backend', engine!.inferenceBackend]);
       replies.send([
         id,
         false,

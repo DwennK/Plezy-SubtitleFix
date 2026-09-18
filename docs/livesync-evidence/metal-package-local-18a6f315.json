@@ -1,0 +1,86 @@
+{
+  "schema": 1,
+  "sourceSha": "18a6f31534840f5dd1075606420b0823f4829c0b",
+  "runId": 35172262697,
+  "applicationArtifactId": 10478035219,
+  "reports": {
+    "local-package-checks.json": {
+      "sha256": "9045e29f62e55316988b90c1d8483538912e7936be5be765ef1bf07244c67829",
+      "data": {
+        "archiveSha256": "f3440e78249e705950896b069256b19f357519d1fc35c888fa81fbc3f153cee9",
+        "bundleIdentifier": "com.dwennk.plezy.livesync",
+        "version": "2.20.0",
+        "build": "150",
+        "signedBundleVerified": true,
+        "runtimeProfile": "metal-preferred-with-cpu-fallback",
+        "bundledFiles": {
+          "liblivesync_capture_bridge.dylib": "05e9f053adf7197c191c566f9c63173d05fce282f140e09787d2394fa59f26aa",
+          "liblivesync_inference_bridge.dylib": "758fc3b0149fa84148f66a7328440c4558b0187f08e8f6333f5c9e8583dfbb7b",
+          "whisper-ggml-LICENSE": "94f29bbed6a22c35b992c5c6ebf0e7c92f13b836b90f36f461c9cf2f0f1d010d",
+          "SILERO-LICENSE": "2e63e9a38b6e8fc0c7bc37ce174caca1862870856c6daf5697cfb785e925520b"
+        },
+        "sourceInputs": {
+          "schema": 1,
+          "target": "macos-arm64",
+          "profile": "metal-preferred-with-cpu-fallback",
+          "captureAbi": 1,
+          "inferenceAbi": 2,
+          "speechDetectorSha256": "2aa269b785eeb53a82983a20501ddf7c1d9c48e33ab63a41391ac6c9f7fb6987",
+          "whisperRevision": "927cfce34f31707e17f2bff35c349632fb9e2c3a",
+          "mpvRevision": "6855ea3776b437a922c0c7841560842e799fc152",
+          "mpvHeaderSha256": "3c073236a09cb456c6e80587d5523c8771c32fb22ca014e0f99cc3d43905b75c",
+          "sourceSha256": "da44624f5ed084b9afa56e4c591b1a9b43d583f9abd935e89c55e7dfa711eec5"
+        },
+        "applicationLaunched": false,
+        "installed": false
+      }
+    },
+    "local-packaged-worker.json": {
+      "sha256": "86b5389663b7077498cdbf857692203313b2c9ad8d32038ee795253751f5b21d",
+      "data": {
+        "scope": "CI-packaged native worker loaded locally; not the production Flutter controller",
+        "workerSha256": "758fc3b0149fa84148f66a7328440c4558b0187f08e8f6333f5c9e8583dfbb7b",
+        "fixtureSha256": "59dfb9a4acb36fe2a2affc14bacbee2920ff435cb13cc314a08c13f66ba7860e",
+        "trials": [
+          {
+            "ordinal": 1,
+            "requestToResultSeconds": 0.2907457920082379,
+            "reportedInferenceSeconds": 0.184709541,
+            "unattributedOverheadSeconds": 0.10603625100823791,
+            "backendPreference": 2,
+            "wordErrorRate": 0.0,
+            "validPrefixOnly": false
+          },
+          {
+            "ordinal": 2,
+            "requestToResultSeconds": 0.18815216700022575,
+            "reportedInferenceSeconds": 0.169623125,
+            "unattributedOverheadSeconds": 0.01852904200022573,
+            "backendPreference": 2,
+            "wordErrorRate": 0.0,
+            "validPrefixOnly": false
+          },
+          {
+            "ordinal": 3,
+            "requestToResultSeconds": 0.18557191699801479,
+            "reportedInferenceSeconds": 0.165498584,
+            "unattributedOverheadSeconds": 0.02007333299801478,
+            "backendPreference": 2,
+            "wordErrorRate": 0.0,
+            "validPrefixOnly": false
+          }
+        ],
+        "pcmOrTranscriptPersisted": false,
+        "limitations": [
+          "First request includes initialization, Python sample marshaling and polling. OS/driver caches were not purged; this is not a guaranteed cold-driver benchmark.",
+          "Subsequent requests reuse one model context.",
+          "Backend preference does not prove the actual GPU device.",
+          "The fixture transcript tests recognition, not subtitle timing or audible playback."
+        ]
+      }
+    }
+  },
+  "conclusion": "Exact CI-packaged library loads and recognizes the fixture locally. First request-to-result is 0.291 seconds on this Mac with existing OS/driver caches; this does not reproduce or explain the virtualized runner delay.",
+  "fullApplicationAccepted": false,
+  "fullProductAcceptance": false
+}

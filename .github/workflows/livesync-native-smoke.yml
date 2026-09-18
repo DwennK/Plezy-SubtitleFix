@@ -73,6 +73,12 @@ jobs:
           rows = [json.loads(line) for line in Path('build/livesync/evidence/speech-support.txt').read_text().splitlines() if line.startswith('{')]
           assert len(rows) == 1 and rows[0]['intervals'] and rows[0]['resetAndReusePassed']
           PYVAD
+      - name: Verify bounded CPU recovery after injected backend failures
+        shell: bash
+        run: |
+          exe=build/livesync/pcm-consumer/livesync_inference_fallback_test
+          if [[ "$RUNNER_OS" == Windows ]]; then exe=build/livesync/pcm-consumer/Release/livesync_inference_fallback_test.exe; fi
+          python3 scripts/livesync/test_inference_fallback.py --executable "$exe" --model build/livesync/models/ggml-base.en-q5_1.bin --fixture build/livesync/source/samples/jfk.wav --output build/livesync/evidence/inference-fallback.json
       - name: Check Windows CPU evaluation capabilities
         if: runner.os == 'Windows'
         id: cpu-capabilities

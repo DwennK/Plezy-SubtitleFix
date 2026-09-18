@@ -7,6 +7,9 @@
 
 uint32_t ls_inference_abi_version(void) { return 2; }
 size_t ls_inference_result_size(void) { return sizeof(ls_inference_result); }
+uint32_t ls_inference_backend(void* handle) {
+  return handle ? static_cast<uint32_t>(static_cast<livesync::InferenceWorker*>(handle)->backend()) : 0;
+}
 
 void* ls_inference_create(const char* model_path, int threads) {
   if (!model_path || !model_path[0]) return nullptr;
